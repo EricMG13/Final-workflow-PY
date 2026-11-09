@@ -41,7 +41,8 @@ Method:
 - Cost: the step-up applies to the whole principal payable at maturity; added annual cash
   interest = principal repriced x step-up / 10000; pro forma interest cover = adjusted EBITDA /
   (cash interest paid + added interest). A 0 bp step-up is a known 0; no step-up makes the cost
-  cells gaps.
+  cells gaps. A cover whose interest is zero or negative is not meaningful; so is either cover,
+  as every ratio over adjusted EBITDA, when adjusted EBITDA is zero or negative.
 - Creditor position: secured before unsecured, then seniority; claims at or ahead of a facility
   sum the principal ranking at or ahead of it. T3D.5 Base is the largest of them; the LME and
   Stress columns are gaps (CP-4 and CP-2A are not read).

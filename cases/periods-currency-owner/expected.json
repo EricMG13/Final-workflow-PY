@@ -275,6 +275,7 @@
         "months to 2025-12-31",
         "negative from FY2027",
         "no FY2024",
+        "null to 2025-03-31",
         "q4-2025",
         "quarter of 2025",
         "quarters of 2025",
@@ -472,6 +473,7 @@
         "months to 2025-12-31",
         "negative from FY2027",
         "no FY2024",
+        "null to 2025-03-31",
         "q4-2025",
         "quarter of 2025",
         "quarters of 2025",
@@ -602,6 +604,7 @@
         "months to 2025-12-31",
         "negative from FY2027",
         "no FY2024",
+        "null to 2025-03-31",
         "q4-2025",
         "quarter of 2025",
         "quarters of 2025",
@@ -718,12 +721,12 @@
         },
         "CP-1B": {
           "outcome": "refused",
-          "layer": "build_earnings_delta",
-          "error": "incompatible_periods",
-          "issue_contains": "incompatible_periods",
+          "layer": "supported",
+          "error": "unsupported_pair",
+          "issue_contains": "unsupported_pair",
           "figures_produced": false,
           "is_period_refused": false,
-          "ruling": "controller: freeze today's refusal; earnings.py:316-318 compares period lengths in raw days (prior q2-2026 = 91, current q3-2026 = 92); a pre-existing defect reported to the owner; if the owner fixes it this case is re-cut"
+          "ruling": "re-cut after S11-earnings-financial-A04: earnings.py compares the pair's day-count windows, not raw days (prior q2-2026 = 91, current q3-2026 = 92, both in the quarter window 84-98), so build_earnings_delta accepts the pair; CP-1B accepts only q3-{y+1} -> q4-{y+1} and fy-{y} -> fy-{y+1} (cp1b.supported, ruling B19) with y = 2025 read from the current q3-2026 row, and q2-2026 -> q3-2026 is neither, so the pair is refused unsupported_pair, no figures; assumes the register carries the prior's T4.10 KPI column (without it the core refuses incomplete_register first)"
         },
         "CP-L10": {
           "outcome": "refused",
@@ -950,6 +953,7 @@
         "months to 2025-12-31",
         "negative from FY2027",
         "no FY2024",
+        "null to 2025-03-31",
         "q4-2025",
         "quarter of 2025",
         "quarters of 2025",
@@ -7379,6 +7383,7 @@
           "Minimum cash is an analyst assumption, not a source figure.",
           "Months until cash reaches minimum cash use run-rate cash flow alone and exclude maturities and amortisation; the maturity wall and funding gap tables show their effect."
         ],
+        "analyst_limitations": [],
         "tables": {
           "T2E.1": {
             "title": "Liquidity sources and uses",
@@ -7966,6 +7971,34 @@
           [
             "Funding gap",
             "Analyst Interpretation"
+          ],
+          [
+            "Minimum cash rationale",
+            "A cash cushion of this size is held as an analyst assumption for operating needs and is not a source figure."
+          ],
+          [
+            "Liquidity runway assessment",
+            "Cash is the only liquidity source because there is no revolving credit facility, so the runway rests on operating cash flow covering capital spending and distributions."
+          ],
+          [
+            "Liquidity runway credit implication",
+            "Distributions absorb the free cash flow the business generates, leaving little internal capacity to build a liquidity cushion or reduce debt early."
+          ],
+          [
+            "Maturity wall assessment",
+            "The single term loan is the whole debt stack and falls due on one date after the horizon assessed, so no repayment is scheduled inside it."
+          ],
+          [
+            "Maturity wall credit implication",
+            "Debt service inside the horizon is limited to interest, because no principal falls due before the horizon ends."
+          ],
+          [
+            "Funding gap assessment",
+            "Cash alone covers the assumed minimum cash with room to spare, so no external funding need is identified inside the horizon."
+          ],
+          [
+            "Funding gap credit implication",
+            "The absence of committed undrawn funding means any shortfall beyond the horizon would depend on lender consent, so headroom should be monitored each period."
           ]
         ],
         "T2E.7_rows": [
@@ -9260,7 +9293,7 @@
             "revolver_availability": "the undrawn committed revolver at the balance date is counted at every maturity date, including a date after the revolver's own maturity (not read); an own limitation",
             "run_rate_beyond_horizon": "the CP-2D annual flow is held flat to each maturity date, including dates after the CP-2D horizon (own limitation)",
             "added_annual_cash_interest": "total principal payable at maturity x margin step-up (bp) / 10000; 0 bp is a known 0, an unassessed step-up is missing",
-            "interest_cover": "adjusted EBITDA / cash interest paid; pro forma: / (cash interest paid + added annual cash interest); a zero interest is not_applicable, a zero EBITDA gives a known 0",
+            "interest_cover": "adjusted EBITDA / cash interest paid; pro forma: / (cash interest paid + added annual cash interest); a zero interest is not_applicable, and so is a zero or negative EBITDA (ruling S08-cp3-C08)",
             "leverage_type_ratios": "amount / adjusted EBITDA; a non-positive EBITDA is not_applicable (shown n.m.), a missing operand is missing",
             "ranking": "(secured_status: SECURED 0, UNSECURED 1; seniority: SUPER_SENIOR 0, SENIOR 1, SENIOR_SUBORDINATED 2, SUBORDINATED 3, JUNIOR 4) compared lexicographically; claims at or ahead = principal of facilities with rank <= the facility's rank; any NOT_STATED flag makes every claims cell missing",
             "lme_capacity": "CP-4 is not read: the LME and Stress columns of T3D.5 are gaps in every case; the Base column is the largest claims at or ahead",
@@ -20713,6 +20746,7 @@
           "Minimum cash is an analyst assumption, not a source figure.",
           "Months until cash reaches minimum cash use run-rate cash flow alone and exclude maturities and amortisation; the maturity wall and funding gap tables show their effect."
         ],
+        "analyst_limitations": [],
         "tables": {
           "T2E.1": {
             "title": "Liquidity sources and uses",
@@ -21300,6 +21334,34 @@
           [
             "Funding gap",
             "Analyst Interpretation"
+          ],
+          [
+            "Minimum cash rationale",
+            "A cash cushion of this size is held as an analyst assumption for operating needs and is not a source figure."
+          ],
+          [
+            "Liquidity runway assessment",
+            "Cash is the only liquidity source because there is no revolving credit facility, so the runway rests on operating cash flow covering capital spending and distributions."
+          ],
+          [
+            "Liquidity runway credit implication",
+            "Distributions absorb the free cash flow the business generates, leaving little internal capacity to build a liquidity cushion or reduce debt early."
+          ],
+          [
+            "Maturity wall assessment",
+            "The single term loan is the whole debt stack and falls due on one date after the horizon assessed, so no repayment is scheduled inside it."
+          ],
+          [
+            "Maturity wall credit implication",
+            "Debt service inside the horizon is limited to interest, because no principal falls due before the horizon ends."
+          ],
+          [
+            "Funding gap assessment",
+            "Cash alone covers the assumed minimum cash with room to spare, so no external funding need is identified inside the horizon."
+          ],
+          [
+            "Funding gap credit implication",
+            "The absence of committed undrawn funding means any shortfall beyond the horizon would depend on lender consent, so headroom should be monitored each period."
           ]
         ],
         "T2E.7_rows": [
@@ -22594,7 +22656,7 @@
             "revolver_availability": "the undrawn committed revolver at the balance date is counted at every maturity date, including a date after the revolver's own maturity (not read); an own limitation",
             "run_rate_beyond_horizon": "the CP-2D annual flow is held flat to each maturity date, including dates after the CP-2D horizon (own limitation)",
             "added_annual_cash_interest": "total principal payable at maturity x margin step-up (bp) / 10000; 0 bp is a known 0, an unassessed step-up is missing",
-            "interest_cover": "adjusted EBITDA / cash interest paid; pro forma: / (cash interest paid + added annual cash interest); a zero interest is not_applicable, a zero EBITDA gives a known 0",
+            "interest_cover": "adjusted EBITDA / cash interest paid; pro forma: / (cash interest paid + added annual cash interest); a zero interest is not_applicable, and so is a zero or negative EBITDA (ruling S08-cp3-C08)",
             "leverage_type_ratios": "amount / adjusted EBITDA; a non-positive EBITDA is not_applicable (shown n.m.), a missing operand is missing",
             "ranking": "(secured_status: SECURED 0, UNSECURED 1; seniority: SUPER_SENIOR 0, SENIOR 1, SENIOR_SUBORDINATED 2, SUBORDINATED 3, JUNIOR 4) compared lexicographically; claims at or ahead = principal of facilities with rank <= the facility's rank; any NOT_STATED flag makes every claims cell missing",
             "lme_capacity": "CP-4 is not read: the LME and Stress columns of T3D.5 are gaps in every case; the Base column is the largest claims at or ahead",
@@ -53060,7 +53122,7 @@
             "change_pct_fraction": null,
             "from": {
               "label": "Q1 26 (2026-01-01 to 2026-03-31) · total_leverage_reported",
-              "period": "Q1 26: 2026-01-01 to 2026-03-31",
+              "period": "LTM Q1 26: null to 2026-03-31",
               "status": "missing",
               "amount_exact": null,
               "value_class": "calculated",
@@ -53069,7 +53131,7 @@
             },
             "to": {
               "label": "Q4 26 (2026-10-01 to 2026-12-31) · total_leverage_reported",
-              "period": "Q4 26: 2026-10-01 to 2026-12-31",
+              "period": "LTM Q4 26: 2026-01-01 to 2026-12-31",
               "status": "known",
               "amount_exact": "1.6666666666666666666666666666666666667",
               "value_class": "calculated",
@@ -53089,7 +53151,7 @@
             "change_pct_fraction": null,
             "from": {
               "label": "Q1 26 (2026-01-01 to 2026-03-31) · interest_coverage_reported",
-              "period": "Q1 26: 2026-01-01 to 2026-03-31",
+              "period": "LTM Q1 26: null to 2026-03-31",
               "status": "missing",
               "amount_exact": null,
               "value_class": "calculated",
@@ -53098,7 +53160,7 @@
             },
             "to": {
               "label": "Q4 26 (2026-10-01 to 2026-12-31) · interest_coverage_reported",
-              "period": "Q4 26: 2026-10-01 to 2026-12-31",
+              "period": "LTM Q4 26: 2026-01-01 to 2026-12-31",
               "status": "known",
               "amount_exact": "6",
               "value_class": "calculated",
@@ -54061,7 +54123,7 @@
             "label": "Total leverage · Starting value",
             "status": "missing",
             "unit": "MULTIPLE",
-            "period": "Q1 26: 2026-01-01 to 2026-03-31",
+            "period": "LTM Q1 26: null to 2026-03-31",
             "amount_exact": null,
             "shown": "∅ G#",
             "decimals": null,
@@ -54081,7 +54143,7 @@
             "label": "Total leverage · Closing value",
             "status": "known",
             "unit": "MULTIPLE",
-            "period": "Q4 26: 2026-10-01 to 2026-12-31",
+            "period": "LTM Q4 26: 2026-01-01 to 2026-12-31",
             "amount_exact": "1.6666666666666666666666666666666666667",
             "shown": "1.67x",
             "decimals": null,
@@ -54236,7 +54298,7 @@
             "label": "Interest coverage · Starting value",
             "status": "missing",
             "unit": "MULTIPLE",
-            "period": "Q1 26: 2026-01-01 to 2026-03-31",
+            "period": "LTM Q1 26: null to 2026-03-31",
             "amount_exact": null,
             "shown": "∅ G#",
             "decimals": null,
@@ -54256,7 +54318,7 @@
             "label": "Interest coverage · Closing value",
             "status": "known",
             "unit": "MULTIPLE",
-            "period": "Q4 26: 2026-10-01 to 2026-12-31",
+            "period": "LTM Q4 26: 2026-01-01 to 2026-12-31",
             "amount_exact": "6",
             "shown": "6.00x",
             "decimals": null,

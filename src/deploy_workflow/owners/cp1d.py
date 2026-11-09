@@ -64,7 +64,7 @@ from deploy_vii.execution import (
 )
 from deploy_vii.financial_contracts import Number
 from deploy_vii.live.schema import exact_json, json_object
-from deploy_vii.live.submission import Submitted
+from deploy_vii.live.submission import Submitted, _with_rules
 from deploy_vii.live.tools import Seen, unread_citation_issues
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.prose import Run as ProseRun
@@ -81,6 +81,7 @@ from deploy_workflow.owners.period_basis import (
     PeriodRefused,
     run_basis,
 )
+from deploy_workflow.research.peer_basis import ISO_4217
 
 MODULE_ID = "CP-1D"
 BRIDGE_SOURCE_ID = "bridge"
@@ -414,6 +415,11 @@ _SIGNED_AMOUNT = re.compile(
 _NUMERAL_RUN = re.compile(r"\.?[0-9]+(?:(?:\.|, ?)[0-9]+)*")
 _WHOLE_RUN = re.compile(r"[0-9]+(?:\.[0-9]+)?")
 _TYPES = ("Saving", "Cost")
+# The bridge basis line's unit clause (cp1c `BASIS_UNIT_CLAUSE`): every bridge amount is read as
+# MILLIONS in the run's currency, so page:1 must state exactly that.
+_BASIS_UNIT_CLAUSE = "amounts in millions"
+_CURRENCY_CODE = re.compile(r"[A-Z]{3}")
+_CURRENCY_CLAUSE = re.compile(r"[A-Z]{3}", re.IGNORECASE)  # read only if the code is in ISO_4217
 # Round 4 (k): an amount is the product `financial_contracts.Number` (-1e18 < x < 1e18, 28
 # digits, 10 places). Bridge amounts, quoted basis amounts and CP-1 amount operands hold it, so
 # every sum and product here is exact and every value spells exactly (`display.format_value`).
@@ -486,19 +492,46 @@ def _bridge_amount(token: str) -> Decimal | None:
     return amount
 
 
+def _states_basis(lines: Sequence[str], basis_line: str, currency: str) -> bool:
+    """Whether page:1 states the run's basis: at least one line starts with `basis_line`, and
+    every such line continues `; <currency>; amounts in millions` (cp1c's round 2 C3 clause; the
+    clause is matched without regard to letter case, nothing else relaxed),
+    since that clause is what makes each bridge amount a `currency` MILLIONS amount. Another
+    currency, another scale, a missing clause or a second currency or scale clause later on the
+    line is not the run's basis (fail closed). A later three-letter clause is a currency only if it
+    is an ISO 4217 code (`peer_basis.ISO_4217`, letter case folded): "; net;" is not one."""
+    stated = [line for line in lines if line.startswith(basis_line)]
+    for line in stated:
+        clauses = [part.strip().rstrip(".") for part in line[len(basis_line) :].split(";")]
+        # Only letter case is relaxed ("usd", "Amounts in Millions"); spacing and punctuation
+        # stay exact, so the clause is still compared as a whole after the split on ";".
+        if [c.casefold() for c in clauses[:3]] != ["", currency.casefold(), _BASIS_UNIT_CLAUSE]:
+            return False
+        if any(
+            (_CURRENCY_CLAUSE.fullmatch(c) and c.upper() in ISO_4217)
+            or c.casefold().startswith("amounts in")
+            for c in clauses[3:]
+        ):
+            return False
+    return bool(stated)
+
+
 def parse_bridge(
-    pages: Sequence[str], basis_line: str = DEFAULT_BASIS.bridge_basis_line
+    pages: Sequence[str],
+    basis_line: str = DEFAULT_BASIS.bridge_basis_line,
+    currency: str = DEFAULT_BASIS.currency,
 ) -> Bridge | None:
     """The bridge table on page:1, or None when it cannot be read (`Bridge table not found`).
 
-    Page:1 must have a line starting with the run's basis line (`basis_line`) and the exact header line; every
-    later line splits on two or more spaces into an item (4 fields, type Saving or Cost) or one
-    of the two stated totals (2 fields). An amount is a decimal of at most 38 digits or
-    `Not stated` (missing, never 0). Rulings 1D4, 1D5, 1D9: anything else, a duplicate label or
+    Page:1 must have a line starting with the run's basis line (`basis_line`) followed by the
+    run's `currency` and `amounts in millions` clauses (`_states_basis`) and the exact header
+    line; every later line splits on two or more spaces into an item (4 fields, type Saving or
+    Cost) or one of the two stated totals (2 fields). An amount is a decimal of at most 38 digits
+    or `Not stated` (missing, never 0). Rulings 1D4, 1D5, 1D9: anything else, a duplicate label or
     total, or no item row at all, is not a bridge table.
     """
     lines = pages[0].split("\n") if pages else []
-    if not any(line.startswith(basis_line) for line in lines) or _HEADER not in lines:
+    if not _states_basis(lines, basis_line, currency) or _HEADER not in lines:
         return None
     items: list[BridgeItem] = []
     totals: dict[str, Decimal | None] = {}
@@ -509,16 +542,16 @@ def parse_bridge(
             if len(parts) == 4:
                 label, kind, status, amount = parts
                 if kind not in _TYPES:
-                    return None
+                    raise _Unparseable(kind)
                 row_id = f"a{len(items) + 1:02d}"
                 items.append(BridgeItem(row_id, label, kind, status, _bridge_amount(amount), line))
             elif len(parts) == 2 and parts[0] in (_PROPOSED_TOTAL, _MANAGEMENT_EBITDA):
                 if parts[0] in totals:
-                    return None
+                    raise _Unparseable(parts[0])
                 totals[parts[0]] = _bridge_amount(parts[1])
                 total_lines[parts[0]] = line
             else:
-                return None
+                raise _Unparseable(line)
     except _Unparseable:
         return None
     if not items or len({item.label for item in items}) != len(items):
@@ -781,48 +814,150 @@ def _outcome(item: BridgeItem, assessment: Assessment, sources: Sequence[Source]
     return _Outcome(item, assessment, "judgment", fraction, None, accepted)
 
 
-def _shape_issue(item: BridgeItem, assessment: Assessment, sources: Sequence[Source]) -> str | None:
-    """The first failing basis/fraction shape rule (`refusal_rules.basis_fraction_order`)."""
+# S05-cp0-cp1-A01 (fail closed): the basis amount becomes a source amount in the bridge's
+# currency and MILLIONS, so the figure must read as one. On the page, at every occurrence of the
+# quote, the figure is followed by punctuation, the end of the text or one of `_LINK_WORDS`
+# (`0.20 in each quarter`), optionally after a millions word or the run's currency code (then
+# `of` may follow too: `1.50m of the saving`). Any other word or sign after it refuses: `2%`,
+# `25bps`, `2.5x`, `2.5k`, `2.5bn`, `1.50 EUR`, `2 of the ten categories`, `2 contracts`. A
+# currency code or symbol directly before the figure must be the run's (`EUR 1.50m` in a USD run
+# is refused). A bare figure (`a saving of 1.80.`) reads in the bridge's unit.
+_NOT_MONEY = "Accepted basis quote must state the amount in the bridge's currency and millions: "
+_MILLIONS_WORD = r"(?:m|mm|mn|million|millions)"
+_LINK_WORDS = (
+    "a|an|and|or|but|is|was|be|in|on|at|by|for|from|to|each|as|with|"
+    "under|over|against|after|before|during|since|until|through|across|net|gross|annually"
+)
+_END = r"(?:[.,;:)!?]|\Z)"
+_CURRENCY_SYMBOLS = {"USD": ("$", "US$"), "EUR": ("\u20ac",), "GBP": ("\u00a3",)}
+# Codes and names a page may print in any case before a figure (`eur 1.50m`, `euro 1.50m`); a
+# capitalised three-letter token is a code too, whatever it spells.
+_CURRENCY_TOKENS = frozenset(
+    (
+        *("USD", "EUR", "GBP", "CHF", "JPY", "CNY", "CAD", "AUD", "NZD", "SEK", "NOK", "DKK"),
+        *("PLN", "CZK", "HUF", "RON", "TRY", "ZAR", "BRL", "MXN", "INR", "HKD", "SGD", "KRW"),
+        *("DOLLAR", "DOLLARS", "EURO", "EUROS", "POUND", "POUNDS", "STERLING", "YEN"),
+        *("FRANC", "FRANCS", "KRONA", "KRONOR", "KRONE", "KRONER", "ZLOTY", "YUAN"),
+        *("RUPEE", "RUPEES", "RAND", "PESO", "PESOS"),
+    )
+)
+_AROUND = 64  # characters of page text read either side of the figure (a unit, code or symbol)
+
+
+def _money_tail(tail: str, currency: str) -> bool:
+    """Whether the text after the figure's digits leaves it a `currency` MILLIONS amount."""
+    code = re.escape(currency)
+    unit = rf" ?(?:{_MILLIONS_WORD}(?: ?{code})?|{code})"
+    after = r"(?![^\W\d_])"
+    pattern = rf"{unit}(?:{_END}| (?:of|{_LINK_WORDS}){after})|{_END}| (?:{_LINK_WORDS}){after}"
+    return re.match(pattern, tail[:_AROUND], re.IGNORECASE) is not None
+
+
+def _money_head(head: str, currency: str) -> bool:
+    """Whether the word before the figure is no currency, or the run's `currency`. The word is
+    the last one of `head` with its punctuation dropped (`(EUR`, `EUR:`, `U.S.$`), a currency
+    symbol kept."""
+    last = head[-_AROUND:].split()[-1:]
+    word = "".join(c for c in "".join(last) if c.isalnum() or unicodedata.category(c) == "Sc")
+    if word.upper() == currency or word in _CURRENCY_SYMBOLS.get(currency, ()):
+        return True
+    named = _CURRENCY_CODE.fullmatch(word) is not None or word.upper() in _CURRENCY_TOKENS
+    return not named and not any(unicodedata.category(char) == "Sc" for char in word)
+
+
+def _money_figure(citation: Citation, sources: Sequence[Source], currency: str) -> bool:
+    """A01: the one figure of the basis quote (exactly-one already holds) reads as a `currency`
+    MILLIONS amount in the quote and at every occurrence of the quote on its cited page, so a
+    quote cut just after the figure cannot hide a unit the page prints."""
+    page = _cited_text(citation, sources)
+    texts = _readings(page) if page is not None else ()
+    for needle in _readings(citation.quote):
+        match = _SIGNED_AMOUNT.search(needle)
+        if match is None:
+            return False
+        start, end = match.span("parenthesised" if match["parenthesised"] else "digits")
+        contexts = [(needle[:start], needle[end:])]
+        for text in texts:
+            at = text.find(needle)
+            while at >= 0:
+                before = text[max(0, at + start - _AROUND) : at + start]
+                contexts.append((before, text[at + end : at + end + _AROUND]))
+                at = text.find(needle, at + 1)
+        if not all(_money_head(h, currency) and _money_tail(t, currency) for h, t in contexts):
+            return False
+    return True
+
+
+def _shape_issue(
+    item: BridgeItem, assessment: Assessment, sources: Sequence[Source], currency: str
+) -> str | None:
+    """The first failing basis/fraction shape rule (`refusal_rules.basis_fraction_order`), then
+    S05-cp0-cp1-A01's rule that the basis amount is a `currency` MILLIONS amount (`_money_figure`),
+    checked last so the frozen steps 1 to 6 keep their order."""
     label = item.label
     basis, fraction = assessment.accepted_basis, assessment.accepted_fraction
     if assessment.achievability != "Partly supported":
-        if basis is not None:
-            return _line("Accepted basis only applies to Partly supported: ", label)
-        if fraction is not None:
-            return _line("Accepted fraction only applies to Partly supported: ", label)
-        return None
+        return _misplaced_issue(label, basis is not None, fraction is not None)
     if basis is not None and fraction is not None:
         return _line("Give either an accepted basis or an accepted fraction, not both: ", label)
-    if basis is None and fraction is None:
+    if basis is not None:
+        return _accepted_basis_issue(item, assessment, basis, sources, currency)
+    if fraction is None:
         return _line("Accepted basis or accepted fraction required for Partly supported: ", label)
-    if fraction is not None and not (_FRACTION.fullmatch(fraction) and Decimal(fraction) > 0):
+    if not (_FRACTION.fullmatch(fraction) and Decimal(fraction) > 0):
         return _line(
             "Accepted fraction must be a decimal above 0 and below 1 with at most two places: ",
             label,
         )
-    if basis is not None:
-        amounts = _basis_amounts(basis, sources)
-        if len(amounts) != 1 or not _one_whole_run(basis.quote):
-            return _line("Accepted basis quote must contain exactly one amount: ", label)
-        amount = Decimal(amounts[0])
-        if item.amount is None and _accepts(assessment):
-            return None  # ruling 1D7: the content rule `Cannot accept an unstated amount`
-        # Fix round 2 N1 / round 5b Y4: an amount outside the product bound never composes. At
-        # or above 1e18 against a stated proposed amount the bounds text is true; otherwise
-        # (precision, or no stated proposed amount) the exactness text is. Round 10: "above 0"
-        # applies on its own, so a signed amount at or below 0 gets the bounds text first, also
-        # on an unstated proposed amount (the Recurring path).
-        bounds = _line("Accepted basis must be above 0 and below the proposed amount: ", label)
-        if amount <= 0:
+    return None
+
+
+def _misplaced_issue(label: str, has_basis: bool, has_fraction: bool) -> str | None:
+    """Step 1: a basis (checked first) or a fraction given on another achievability."""
+    if has_basis:
+        return _line("Accepted basis only applies to Partly supported: ", label)
+    if has_fraction:
+        return _line("Accepted fraction only applies to Partly supported: ", label)
+    return None
+
+
+def _accepted_basis_issue(
+    item: BridgeItem,
+    assessment: Assessment,
+    basis: Citation,
+    sources: Sequence[Source],
+    currency: str,
+) -> str | None:
+    """Steps 5 and 6 for a Partly supported assessment's accepted basis, then A01's rule."""
+    label = item.label
+    amounts = _basis_amounts(basis, sources)
+    if len(amounts) != 1 or not _one_whole_run(basis.quote):
+        return _line("Accepted basis quote must contain exactly one amount: ", label)
+    if item.amount is None and _accepts(assessment):
+        return None  # ruling 1D7: the content rule `Cannot accept an unstated amount`
+    issue = _basis_bounds_issue(item, Decimal(amounts[0]))
+    if issue is None and not _money_figure(basis, sources, currency):
+        issue = _line(_NOT_MONEY, label)
+    return issue
+
+
+def _basis_bounds_issue(item: BridgeItem, amount: Decimal) -> str | None:
+    """Step 6 and the exactness rule for the one basis amount."""
+    label = item.label
+    # Fix round 2 N1 / round 5b Y4: an amount outside the product bound never composes. At
+    # or above 1e18 against a stated proposed amount the bounds text is true; otherwise
+    # (precision, or no stated proposed amount) the exactness text is. Round 10: "above 0"
+    # applies on its own, so a signed amount at or below 0 gets the bounds text first, also
+    # on an unstated proposed amount (the Recurring path).
+    bounds = _line("Accepted basis must be above 0 and below the proposed amount: ", label)
+    if amount <= 0:
+        return bounds
+    if not _is_number(amount):
+        if item.amount is not None and amount >= _NUMBER_LIMIT:
             return bounds
-        if not _is_number(amount):
-            if item.amount is not None and amount >= _NUMBER_LIMIT:
-                return bounds
-            return _line(
-                "Accepted basis amount cannot be held exactly as a product amount: ", label
-            )
-        if item.amount is not None and not amount < item.amount:
-            return bounds
+        return _line("Accepted basis amount cannot be held exactly as a product amount: ", label)
+    if item.amount is not None and not amount < item.amount:
+        return bounds
     return None
 
 
@@ -1787,7 +1922,10 @@ def _bridge_issues(inputs: EarningsQualityInputs, source: Source, bridge: Bridge
     citations, prose), then the overall confidence rule."""
     submission, currency = inputs.submission, inputs.cp1.adjusted_ebitda.currency
     label_issues, pairs = _assessments_by_item(bridge, submission.assessments)
-    shapes = {item.label: _shape_issue(item, a, inputs.sources) for item, a in pairs}
+    shapes = {
+        item.label: _shape_issue(item, a, inputs.sources, inputs.basis.currency)
+        for item, a in pairs
+    }
     composed = [
         _outcome(item, a, inputs.sources)
         for item, a in pairs
@@ -1871,7 +2009,7 @@ def validation_issues(inputs: EarningsQualityInputs) -> tuple[str, ...]:
             )
     else:
         bridge = (
-            parse_bridge(_pages(source), inputs.basis.bridge_basis_line)
+            parse_bridge(_pages(source), inputs.basis.bridge_basis_line, inputs.basis.currency)
             if source.status == "ready"
             else None
         )
@@ -1914,7 +2052,9 @@ def compute(inputs: EarningsQualityInputs) -> EarningsQualityResult:
     cp1, submission = inputs.cp1, inputs.submission
     source = _bridge_source(inputs.sources)
     bridge = (
-        parse_bridge(_pages(source), inputs.basis.bridge_basis_line) if source is not None else None
+        parse_bridge(_pages(source), inputs.basis.bridge_basis_line, inputs.basis.currency)
+        if source is not None
+        else None
     )
     by_label = {a.addback: a for a in submission.assessments}
     outcomes = (
@@ -2425,7 +2565,7 @@ def context_block(*, pack: PreparedPack, upstream: Upstream) -> dict[str, object
     source = next((s for s in pack.sources if s.source_id == BRIDGE_SOURCE_ID), None)
     basis, issue = _view_basis(pack, upstream)
     bridge = (
-        parse_bridge(_pages(source), basis.bridge_basis_line)
+        parse_bridge(_pages(source), basis.bridge_basis_line, basis.currency)
         if basis is not None and source is not None and source.status == "ready"
         else None
     )
@@ -2505,25 +2645,6 @@ def _candidate(output: str, attempt: Attempt) -> Module:
     return cp1d_module(report, inputs=attempt.inputs, attempt=attempt.number)
 
 
-def _with_rules(
-    validate: Callable[[PreparedPack, Attempt], StepValidation],
-    rules: Callable[[str], tuple[str, ...]],
-    payload: str,
-) -> Callable[[PreparedPack, Attempt], StepValidation]:
-    """`validate`, then the tool-use rule issues of the retained payload appended."""
-
-    def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
-        outcome = validate(pack, attempt)
-        found = rules(payload)
-        if not found:
-            return outcome
-        return StepValidation(
-            output=outcome.output, issues=tuple(dict.fromkeys((*outcome.issues, *found)))
-        )
-
-    return run
-
-
 def submit(
     store: Execution,
     ticket_id: str,
@@ -2534,6 +2655,7 @@ def submit(
     """Journal the one `earnings_quality` step (null resolution through `SCHEMAS`, the rule
     issues appended) and, when it is valid, settle CP-1D with the Python candidate."""
     from deploy_vii.live.schema import normalise as normalise_payload
+    from deploy_workflow.owners.cp1a import OneStep, submit_one_step
 
     if step_id != STEP_ID:
         raise ValueError(f"CP-1D has one step, {STEP_ID}")
@@ -2543,22 +2665,8 @@ def submit(
     )
     if rules is not None and rules(normal):
         validate = _with_rules(validate, rules, normal)
-    attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, step_id, normal, validate)
-    if (
-        attempt.status == "pending"
-        and len(attempt.steps) == 1
-        and attempt.steps[0].status == "valid"
-    ):
-        outcome = _validate_step(store, store.pack(), attempt)
-        if outcome.issues or not outcome.retained_as(attempt.steps[0]):
-            raise ValueError("Retained CP-1D output differs from trusted validation")
-        candidate = _candidate(outcome.output or "", attempt)
-        attempt = store.finish(
-            ticket_id,
-            candidate.model_dump_json(),
-            lambda supplied: () if supplied == candidate else ("CP-1D candidate differs",),
-            qualification=QUALIFICATION,
-        )
+    one_step = OneStep(MODULE_ID, STEP_ID, _validate_step, _candidate, QUALIFICATION)
+    attempt = submit_one_step(store, ticket_id, one_step, normal, validate)
     return Submitted(attempt, normal, resolved, (), (), None)
 
 

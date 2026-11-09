@@ -109,7 +109,8 @@ def test_2026_bridge_parses_under_the_run_line_not_the_default(period: str) -> N
     basis = _eur_basis(period)
     assert basis.bridge_basis_line == KEY["bridge_basis_line"]
     assert any(line.startswith(basis.bridge_basis_line) for line in EUR_PAGES[0].split("\n"))
-    bridge = cp1d.parse_bridge(EUR_PAGES, basis.bridge_basis_line)
+    bridge = cp1d.parse_bridge(EUR_PAGES, basis.bridge_basis_line, basis.currency)
+    assert cp1d.parse_bridge(EUR_PAGES, basis.bridge_basis_line) is None  # USD default
     assert bridge is not None
     assert [i.row_id for i in bridge.items] == [
         r["row_id"] for r in ORACLE["tables"][0]["rows"][:4]

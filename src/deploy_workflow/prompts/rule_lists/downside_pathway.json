@@ -52,7 +52,7 @@
   },
   {
    "id": "downside_pathway.5",
-   "statement": "Every `rationale`, `limitation` and gap field is nonblank prose with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in `cp1_facts`, closed and non-empty, and you state no peer ranking, instrument recommendation or recovery conclusion (phrases such as `versus peers`, `recommend` or `will recover` are refused).",
+   "statement": "Every `rationale`, `limitation` and gap field is nonblank prose with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in `cp1_facts`, closed and non-empty, and you state no peer ranking, instrument recommendation or recovery conclusion (phrases such as `versus peers`, `recommend` or `will recover` are refused). A fiscal-year label (`FY2025`, `fiscal 2025`) written up to the next `.`, `;` or `:` beside a `{ref|unit}` must be a year of the period of a figure referenced there.",
    "checks": [
     "oracle:cp2a:v08",
     "oracle:cp2a:v09",

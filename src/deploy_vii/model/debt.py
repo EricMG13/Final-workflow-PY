@@ -37,6 +37,7 @@ from decimal import Decimal, localcontext
 from deploy_vii.model._cells import (
     ABSENT,
     CONTEXT,
+    CONVERTED,
     DIFFERS,
     FOREIGN,
     RESIDUAL,
@@ -194,6 +195,17 @@ def _fac_cell(row: FacilityRow, currency: str) -> Cell:
     return Cell(value, basis="REPORTED", sources=sources, note=note)
 
 
+def _printed(total: Cell) -> list[Decimal]:
+    """The figures summed in `total` as printed: every one but a conversion
+    from another currency, whose places are the rate's."""
+    operands = total.arithmetic.operands if total.arithmetic else ()
+    return [
+        cell.value
+        for cell, _ in operands
+        if cell.value is not None and all(ref.source_locator != CONVERTED for ref in cell.sources)
+    ]
+
+
 def _stated_total(total: Cell, leases: list[FacilityRow], stated: Cell, currency: str) -> Cell:
     """`total` with CP-1's `total_debt` as `stated`, noted where it differs
     beyond its rounding from the total less the finance `leases` in it."""
@@ -204,7 +216,7 @@ def _stated_total(total: Cell, leases: list[FacilityRow], stated: Cell, currency
         row.carrying_value for row in leases if "total_debt" in facility_keys(row, currency)
     )
     excluded = sum(value for value in in_total if value is not None)
-    differs = beyond_rounding(figure, total.value - excluded)
+    differs = beyond_rounding(figure, total.value - excluded, _printed(total))
     note = DIFFERS if differs else None
     return replace(total, stated=figure, note=note)
 

@@ -49,12 +49,14 @@ PeerSource = Literal["cp_dr_public", "user_list", "user_comps", "none"]
 Basis = Literal["auto", "public_comps", "precedents", "blend", "issuer_trading", "user_multiple"]
 EbitdaBasis = Literal["LTM", "NTM"]
 LegalDocuments = Literal["executed", "draft", "none"]
+IssueClassification = Literal["", "investment_grade", "high_yield"]
 QuoteKind = Literal["observed", "indicative_talk"]
 RatingScope = Literal["issuer", "facility"]
 
 # Row maxima: ROWS[...].max in the form.
 _MAX_DEAL, _MAX_QUOTE, _MAX_RATING, _MAX_PEER = 20, 40, 20, 30
 _MAX_PREC, _MAX_SCEN, _MAX_Q = 30, 4, 10
+_OPTIONAL_TERMS = ("coupon_pct", "margin_bps", "maturity")
 
 
 class ContextRefused(ValueError):
@@ -92,6 +94,8 @@ class RunSettings(Contract):
 class Identity(Contract):
     issuer_name: str
     issuer_id: str
+    # "" = not stated (a file written before the field existed): omitted on dump, like cutoff.
+    issue_classification: IssueClassification = ""
     borrower_name: str
     parent_name: str
     guarantors: tuple[str, ...]
@@ -101,6 +105,16 @@ class Identity(Contract):
     sector: str
     country: str
     sponsor: str
+
+    @model_serializer(mode="wrap")
+    def _omit_unstated_classification(
+        self, handler: SerializerFunctionWrapHandler
+    ) -> dict[str, Any]:
+        """An older file dumps without ``issue_classification``, so it round-trips unchanged."""
+        dumped: dict[str, Any] = handler(self)
+        if self.issue_classification == "":
+            dumped.pop("issue_classification", None)
+        return dumped
 
 
 class DealTerm(Contract):
@@ -114,10 +128,23 @@ class DealTerm(Contract):
     talk_oid_low: str
     talk_oid_high: str
     floor_pct: str
+    # Optional facility terms, "" = not supplied (omitted on dump, so older files round-trip).
+    coupon_pct: str = ""
+    margin_bps: str = ""
+    maturity: str = ""
     call_protection: str
     use_of_proceeds: str
     as_of: str
     provider: str
+
+    @model_serializer(mode="wrap")
+    def _omit_unsupplied_terms(self, handler: SerializerFunctionWrapHandler) -> dict[str, Any]:
+        """A file written before these fields existed dumps without them."""
+        dumped: dict[str, Any] = handler(self)
+        for name in _OPTIONAL_TERMS:
+            if getattr(self, name) == "":
+                dumped.pop(name, None)
+        return dumped
 
 
 class Quote(Contract):
@@ -564,11 +591,7 @@ class _Rules:
 
     def deal_section(self) -> None:
         deals = self.ctx.deal_terms
-        if self.ctx.run.run_type != "primary":
-            if deals:
-                self.bad("deal_terms", "deal rows belong to a primary run only.")
-            return
-        if not deals:
+        if self.ctx.run.run_type == "primary" and not deals:
             self.bad("deal_terms", "add at least one facility row.")
         self.too_many("deal_terms", len(deals), _MAX_DEAL)
         for i, d in enumerate(deals):
@@ -582,8 +605,11 @@ class _Rules:
                 "talk_oid_low",
                 "talk_oid_high",
                 "floor_pct",
+                "coupon_pct",
+                "margin_bps",
             ):
                 self.number(f"{p}.{name}", getattr(d, name), low="0")
+            self.date(f"{p}.maturity", d.maturity)
             self.date(f"{p}.as_of", d.as_of, after=True)
             self.not_above(
                 f"{p}.talk_spread_bps_low",

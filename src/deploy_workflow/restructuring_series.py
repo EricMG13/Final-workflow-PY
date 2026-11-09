@@ -103,6 +103,14 @@ def _classes(facts: dict[str, Fact], module: ModuleView) -> tuple[tuple[str, ...
     return tuple(class_id for _, class_id in sorted(creditors)), equity
 
 
+def _class_names(facts: dict[str, Fact], creditors: tuple[str, ...]) -> dict[str, str]:
+    """Each creditor class's chart label: its name, and `name (class id)` when two classes print
+    one name. A chart point is its series and category, so equal names must not share one."""
+    names = {c: _known_text(_need(facts, f"T4E.2.{c}.name")) for c in creditors}
+    printed = list(names.values())
+    return {c: f"{n} ({c})" if printed.count(n) > 1 else n for c, n in names.items()}
+
+
 def _reason(facts: dict[str, Fact], ids: list[str]) -> str:
     """The module's own limitation for a chart with no plottable point (never invented)."""
     texts = [facts[i].limitation for i in ids if facts[i].limitation]
@@ -130,8 +138,9 @@ def _recovery(
 ) -> RestructuringFigureSeries:
     creditors, equity = _classes(facts, module)
     points = []
+    names = _class_names(facts, creditors)
     for class_id in creditors:
-        category = _known_text(_need(facts, f"T4E.2.{class_id}.name"))
+        category = names[class_id]
         for s in scenarios:
             fact_id = f"T4E.5.{s.row}{class_id}.recovery"
             _need(facts, fact_id)
@@ -178,12 +187,13 @@ def _waterfall(
 ) -> RestructuringFigureSeries:
     head = (f"T4E.3.{s.row}.scenario", f"T4E.3.{s.row}.multiple")
     steps: list[tuple[str, str, tuple[str, ...], Literal["value", "residual", "total"]]] = []
+    names = _class_names(facts, creditors)
     for class_id in creditors:
         fact_id = f"T4E.4.{s.row}{class_id}.distribution"
         steps.append(
             (
                 fact_id,
-                _known_text(_need(facts, f"T4E.2.{class_id}.name")),
+                names[class_id],
                 (*head, f"T4E.4.{s.row}{class_id}.claim", f"T4E.2.{class_id}.name"),
                 "value",
             )

@@ -1,0 +1,8 @@
+SYNTHETIC FIXTURE - not issuer evidence
+AMENDMENT NO. 3 TO CREDIT AGREEMENT
+
+This AMENDMENT NO. 3 (this "Amendment"), dated as of January 30, 2025, is entered into among HARBOR FREIGHT SYSTEMS, INC. (the "Borrower"), the Lenders party hereto and EXAMPLE BANK, N.A., as Administrative Agent, and amends the Credit Agreement dated as of September 8, 2023 (as amended prior to the date hereof, the "Credit Agreement").
+=== PAGE ===
+Section 1. Amendments to Credit Agreement. Section 6.01(a) of the Credit Agreement is hereby amended by replacing "4.50 to 1.00" with "5.00 to 1.00".
+=== PAGE ===
+Section 2. Conditions to Effectiveness. This Amendment shall become effective on the date on which the Administrative Agent receives counterparts hereof executed by the Borrower and the Required Lenders.

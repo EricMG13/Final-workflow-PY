@@ -493,6 +493,54 @@ def test_an_ambiguous_flow_column_fails_closed() -> None:
     assert fw._mapped_columns(headers, [q2, q2x, h1]) is None
 
 
+def test_a_dated_header_maps_no_flow_column_of_an_income_or_cash_flow_unit() -> None:
+    """S11-A01: a 52/53-week 10-K prints "Fiscal Year Ended" over "December 28, 2024 | December
+    30, 2023". The book declares fy-2024 and q4-2024, both ending 2024-12-28. A bare date is an
+    instant: it cannot tell the full year from Q4, so for an IS/CI/CFS unit it maps no period and
+    the model's map to q4-2024 (or to fy-2024) is not verified. A balance sheet keeps the balance
+    rule: every non-LTM period ending on the date (hand-read from the declared periods below)."""
+    headers = ("Fiscal Year Ended", "December 28, 2024  December 30, 2023")
+
+    def per(period_id: str, kind: str, start: date | None, end: date, quarter: int | None):
+        return SimpleNamespace(
+            period_id=period_id,
+            period_type=kind,
+            start_date=start,
+            end_date=end,
+            fiscal_quarter=quarter,
+            fiscal_year=str(end.year),
+        )
+
+    periods = [
+        per("fy-2024", "FY", date(2023, 12, 31), date(2024, 12, 28), None),
+        per("q4-2024", "QUARTER", date(2024, 9, 29), date(2024, 12, 28), 4),
+        per("fy-2023", "FY", date(2023, 1, 1), date(2023, 12, 30), None),
+    ]
+    for kind in ("IS", "CI", "CFS"):
+        assert fw._mapped_columns(headers, periods, kind) is None
+        book = {"periods": [vars(p) for p in periods]}
+        table = SimpleNamespace(headers=headers, source_id="fin", locator="line:3-6")
+        assert fw._header_columns(table, book, statement=kind) is None
+    assert fw._mapped_columns(headers, periods, "BS") == (
+        frozenset({"fy-2024", "q4-2024"}),
+        frozenset({"fy-2023"}),
+    )
+    # a flow span over the same dates still maps exactly one period per column
+    spanned = ("Years Ended December 28,", "2024")
+    assert fw._mapped_columns(spanned, periods[:2], "IS") == (frozenset({"fy-2024"}),)
+
+    # a PDF page located only by its heading has no located kind: the page's own heading gives it
+    table = SimpleNamespace(headers=headers, source_id="fin", locator="page:3")
+    book = {"periods": [vars(p) for p in periods]}
+    income = "CONSOLIDATED STATEMENTS OF OPERATIONS\nFiscal Year Ended\nNet sales 1,234 1,100"
+    assert fw._header_columns(table, book, page_text=income) is None
+    balance = "CONSOLIDATED BALANCE SHEETS\nFiscal Year Ended\nCash 1,234 1,100"
+    assert fw._header_columns(table, book, page_text=balance) == (
+        frozenset({"fy-2024", "q4-2024"}),
+        frozenset({"fy-2023"}),
+    )
+
+
 # ---- 7. null columns (CP1H-R23.16, R23.19) ----------------------------------------------------
 
 Q10_BS = "line:33-81"

@@ -19,6 +19,15 @@ from merge_strip import MERGE_REV, MERGE_SPANS, PRE_MERGE_REV, SPAN_TOKENS, undo
 from p5_strip import undo_p5
 from p5t6_strip import undo_p5t6_context, undo_p5t6_wording
 from prompt_support import OLD_EVIDENCE_RULE, request_for
+from r_cp4_strip import undo_r_cp4
+from r_narr_strip import undo_r_narr
+from s06_strip import undo_s06
+from s09_a05_strip import undo_s09_a05
+from s09_a07_strip import undo_s09_a07
+from s09_strip import undo_s09
+from s13_strip import undo_s13
+from s14_c04_strip import undo_s14_c04
+from s15_strip import undo_s15
 from turns_strip import undo_turns
 
 from deploy_vii.contracts import PATHWAY_MODULES, PathwayId
@@ -138,12 +147,19 @@ def test_the_tokens_and_the_g8_block_are_the_only_change_to_the_frozen_message(
     pack: PreparedPack, step_id: str
 ) -> None:
     """T5-D: remove the ``[compose.<id>] `` tokens and, for CP-0, the G8 line, and (Phase 3 Task 4)
-    put back CP-3's old evidence rule, and (M-R1) undo the merged restricted-cash change, and the message is the one the old frozen digest pins."""
+    put back CP-3's old evidence rule, and (M-R1) undo the merged restricted-cash change, and the
+    message is the one the old frozen digest pins."""
     messages = compose(request_for(step_id, pack))
     system = undo_turns(step_id, messages[0].text)  # the turn budget; 64 calls back to 32
     system = undo_finish(step_id, system)  # CP1H-R3: the rule-5 finish text
     system = undo_invoke(step_id, system)  # the pack-tools budget (32 back to 16)
     system = undo_p5t6_wording(step_id, system)  # Phase 5 Task 6 (P5T6-R1): CP-4 wording
+    system = undo_s09(step_id, system)  # S09-A02/A03: CP-4 rule d's threshold sentence
+    system = undo_s13(step_id, system)  # S13: the run-text figure sentences
+    system = undo_s06(step_id, system)  # S06-A06: CP-2 rule b's Critical-severity clause
+    system = undo_s15(step_id, system)  # S15-A02: readiness rule c's kind list
+    system = undo_s09_a05(step_id, system)  # S09-A05: CP-4 rule d's strictness sentence
+    system = undo_s09_a07(step_id, system)  # S09-A07: CP-5 rule b's own-reference clause
     system = undo_coverage(step_id, system)  # CP1H-R22: the financials coverage line
     system = undo_absence(step_id, system)  # CP1H-R23: the source_context absence line
     system = undo_unit_maps(step_id, system)  # CP1H-R23.16: the financials unit maps
@@ -158,6 +174,9 @@ def test_the_tokens_and_the_g8_block_are_the_only_change_to_the_frozen_message(
     # B34, then B30, then B29: undo the context-row basis wording in CP-3's method text, rules d
     # and e and the Basis schema text.
     system = undo_b29(step_id, undo_b30(step_id, undo_b34(step_id, system)))
+    system = undo_s14_c04(step_id, system)  # S14-C04: rule 2's REPAIR sentence
+    system = undo_r_narr(step_id, system)  # S13-A07: narrative rule c's per-dimension sentence
+    system = undo_r_cp4(step_id, system)  # S09-cp4-cp5-A08: CP-4 rule e's missing-document clause
     body = json.dumps(
         [
             [messages[0].role, system],

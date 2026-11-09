@@ -271,7 +271,7 @@ def model_report(
     regs = kernel_registers(pack, review, book_id)
     review = FinancialReview.model_validate_json(review.model_dump_json())
     book = next(book for book in review.books if book.book_id == book_id)
-    historical = historical_report(pack, review, book_id)
+    historical = historical_report(pack, review, book_id, regs=regs)
     columns = history.historical_columns(regs)
     rolling_columns = history.ltm_columns(regs, columns)
     frame = statement_frame(history.account_frame(regs, columns), columns, regs, exclude_unrealised)
@@ -322,11 +322,15 @@ def model_report(
         limitations=(
             "Historical Model calculations only; no readiness or analytical acceptance is granted",
             "Model debt includes finance leases; canonical CP-1 debt excludes both lease types",
-            "Residuals explain arithmetic differences, not their economic causes "
-            "or independent reconciliation",
+            (
+                "Residuals explain arithmetic differences, not their economic causes "
+                "or independent reconciliation"
+            ),
             "Evidence quality tiers and analytical KPI trends remain unassessed",
-            "Full canonical CP-1 KPI coverage, Model readiness, "
-            "pro forma and projections remain pending",
+            (
+                "Full canonical CP-1 KPI coverage, Model readiness, "
+                "pro forma and projections remain pending"
+            ),
             "No CLI, journal or Workbench binding yet",
             *book.limitations,
         ),

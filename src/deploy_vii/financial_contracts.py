@@ -5,7 +5,7 @@ preserve industrial/finance and other distinct perimeters without blending them.
 """
 
 from collections.abc import Callable
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 from typing import Annotated, Any, Literal, Self
 
@@ -79,6 +79,14 @@ STATEMENT_UNIT_FACTORS: dict[Unit, Decimal] = {
     "THOUSANDS": Decimal(1000),
     "MILLIONS": Decimal(1_000_000),
 }
+
+
+def opening_day(start: date | None) -> date | None:
+    """The day an opening balance is read on: the day before a period starts, none for a period with
+    no start or one starting on the first representable day."""
+    return start - timedelta(days=1) if start is not None and start.toordinal() > 1 else None
+
+
 Located = Annotated[tuple[Citation, ...], Field(min_length=1)]
 StatementQuantityKind = Literal["monetary", "currency_per_share", "shares"]
 ACCOUNT_IDS = FLOW_METRICS | BALANCE_METRICS | {"effective_tax_rate"}

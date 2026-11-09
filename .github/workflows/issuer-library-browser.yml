@@ -1,0 +1,43 @@
+name: issuer-library-browser
+
+# The issuer library's browser walk (chromium) with fault capture. Weekly with the
+# nightly suite, by hand, and on pull requests that touch the app or the engine it runs
+# (about 10 runner-minutes per matching PR). Scheduled runs use the default branch only.
+on:
+  schedule:
+    - cron: "0 1 * * 0"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "apps/issuer-library/**"
+      - "src/**"
+      - ".github/workflows/issuer-library-browser.yml"
+
+concurrency:
+  group: issuer-library-browser-${{ github.ref }}
+  # Only superseded PR runs are cancelled.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  issuer-library-browser:
+    name: issuer library browser walk (chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.12.5"
+      - run: uv sync --group dev
+      # The project's own Playwright (dev group) drives the browser walk.
+      - run: uv run playwright install --with-deps chromium
+      - env:
+          FW_PYTHON: ${{ github.workspace }}/.venv/bin/python
+          FW_BROWSER_OUT: ${{ runner.temp }}/browser
+        run: python3 apps/issuer-library/validate.py browser
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issuer-library-browser
+          path: ${{ runner.temp }}/browser
+          retention-days: 14

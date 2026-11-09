@@ -2261,8 +2261,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:25",
+                  "quote": "Cost of sales  15  15  15  15  60"
+                }
+              ]
             },
             {
               "line_id": "is-cost-of-sales",
@@ -2285,8 +2292,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:25",
+                  "quote": "Cost of sales  15  15  15  15  60"
+                }
+              ]
             },
             {
               "line_id": "is-cost-of-sales",
@@ -2309,8 +2323,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:25",
+                  "quote": "Cost of sales  15  15  15  15  60"
+                }
+              ]
             },
             {
               "line_id": "is-cost-of-sales",
@@ -2333,8 +2354,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:25",
+                  "quote": "Cost of sales  15  15  15  15  60"
+                }
+              ]
             },
             {
               "line_id": "is-cost-of-sales",
@@ -2357,8 +2385,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:25",
+                  "quote": "Cost of sales  15  15  15  15  60"
+                }
+              ]
             },
             {
               "line_id": "is-gross-profit",
@@ -7801,8 +7836,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:74",
+                  "quote": "Cash interest paid  1.25  1.25  1.25  1.25  5.00"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-interest-paid",
@@ -7825,8 +7867,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:74",
+                  "quote": "Cash interest paid  1.25  1.25  1.25  1.25  5.00"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-interest-paid",
@@ -7849,8 +7898,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:74",
+                  "quote": "Cash interest paid  1.25  1.25  1.25  1.25  5.00"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-interest-paid",
@@ -7873,8 +7929,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:74",
+                  "quote": "Cash interest paid  1.25  1.25  1.25  1.25  5.00"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-interest-paid",
@@ -7897,8 +7960,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:74",
+                  "quote": "Cash interest paid  1.25  1.25  1.25  1.25  5.00"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-tax-paid",
@@ -7921,8 +7991,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:75",
+                  "quote": "Cash tax paid  1  1  1  1  4"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-tax-paid",
@@ -7945,8 +8022,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:75",
+                  "quote": "Cash tax paid  1  1  1  1  4"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-tax-paid",
@@ -7969,8 +8053,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:75",
+                  "quote": "Cash tax paid  1  1  1  1  4"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-tax-paid",
@@ -7993,8 +8084,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:75",
+                  "quote": "Cash tax paid  1  1  1  1  4"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-tax-paid",
@@ -8017,8 +8115,15 @@
                   }
                 ]
               },
-              "sign_convention": "signed",
-              "sign_citations": []
+              "sign_convention": "outflow_magnitude",
+              "sign_citations": [
+                {
+                  "source_id": "financial",
+                  "source_sha256": "7f981c9ed026e33cd7553c929ef8c9f40782c5d2b05ce842e4b0a84c1520d405",
+                  "locator": "line:75",
+                  "quote": "Cash tax paid  1  1  1  1  4"
+                }
+              ]
             },
             {
               "line_id": "cfs-cash-lease-payments",
@@ -13749,7 +13854,7 @@
       ]
     }
   },
-  "citations_recut": 636,
+  "citations_recut": 651,
   "ambiguous_line_matches": [],
   "missing_line_matches": [],
   "matches": [
@@ -13828,7 +13933,7 @@
       "from": "page:2",
       "to": "line:25",
       "quote": "Cost of sales  15  15  15  15  60",
-      "uses": 5
+      "uses": 10
     },
     {
       "source_id": "financial",
@@ -14150,14 +14255,14 @@
       "from": "page:3",
       "to": "line:74",
       "quote": "Cash interest paid  1.25  1.25  1.25  1.25  5.00",
-      "uses": 5
+      "uses": 10
     },
     {
       "source_id": "financial",
       "from": "page:3",
       "to": "line:75",
       "quote": "Cash tax paid  1  1  1  1  4",
-      "uses": 5
+      "uses": 10
     },
     {
       "source_id": "financial",

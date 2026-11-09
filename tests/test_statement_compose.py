@@ -26,6 +26,7 @@ import pytest
 import test_cp1_coverage_gate as gate
 from czr_runs import make_pack
 
+from deploy_vii.contracts import Span
 from deploy_vii.cp1_workflow import FinancialSubmission
 from deploy_vii.financial_contracts import StatementLine
 from deploy_vii.statement_extract import (
@@ -35,6 +36,7 @@ from deploy_vii.statement_extract import (
 )
 from deploy_workflow import financial_workflow as fw
 from deploy_workflow import statement_compose as sc
+from deploy_workflow.statement_lines import line_table
 
 REPO = Path(__file__).resolve().parents[1]
 ROWS = json.loads((REPO / "cases/statement-rows/shc-earnings-update.json").read_text("utf-8"))
@@ -514,6 +516,71 @@ def test_an_outflow_magnitude_row_cites_itself_for_the_sign() -> None:
         assert line.sign_citations == line.value.citations != ()
 
 
+def _magnitude_cfs(lines: Sequence[str], signs: Sequence[str]) -> sc.Composition:
+    """A two-year CFS page whose rows 3-6 are operating, investing, financing and net change,
+    mapped as totals with the given sign conventions (S11 C05)."""
+    page = ["CONSOLIDATED STATEMENTS OF CASH FLOWS", "2024 2023", *lines]
+    spans = {i: Span(locator=f"line:{i}", text=text) for i, text in enumerate(page, 1)}
+    table = line_table(spans, f"line:1-{len(page)}", "s")
+    items = (sc.OPERATING, sc.INVESTING, sc.FINANCING, sc.NET_CHANGE)
+    row_map = {
+        row.line_no: sc.RowJudgment(f"l{row.line_no}", item, "total", sign)
+        for row, item, sign in zip(table.lines, items, signs, strict=True)
+    }
+    return _compose(table, "0" * 64, "CFS", ["fy2024", "fy2023"], row_map)
+
+
+MAGNITUDES = (
+    "Net cash provided by operating activities 400 300",
+    "Net cash used in investing activities 250 200",
+    "Net cash used in financing activities 100 50",
+    "Net increase in cash 50 50",
+)
+
+
+@pytest.mark.parametrize(
+    "lines,signs",
+    [
+        # By hand: 400 - 250 - 100 = 50 and 300 - 200 - 50 = 50, the printed net change.
+        (MAGNITUDES, ("signed", "outflow_magnitude", "outflow_magnitude", "signed")),
+        # A printed (250) under outflow_magnitude is still read as -abs: 400 - 250 - 100 = 50.
+        (
+            (MAGNITUDES[0], "Net cash used in investing activities (250) (200)", *MAGNITUDES[2:]),
+            ("signed", "outflow_magnitude", "outflow_magnitude", "signed"),
+        ),
+        # A net decrease printed as a magnitude: 100 - 250 + 100 = -50 = -abs(50); 300 - 200
+        # - 150 = -50.
+        (
+            (
+                "Net cash provided by operating activities 100 300",
+                MAGNITUDES[1],
+                "Net cash provided by financing activities 100 (150)",
+                "Net decrease in cash 50 50",
+            ),
+            ("signed", "outflow_magnitude", "signed", "outflow_magnitude"),
+        ),
+    ],
+)
+def test_the_cash_flow_check_reads_outflow_magnitudes_as_negative(lines, signs) -> None:
+    result = _magnitude_cfs(lines, signs)
+    assert result.issues == ()
+    assert result.checks_applied == (sc.CFS_NET_CHANGE,)
+    assert len(result.lines) == 8
+    # The lines keep the printed cell; only the check reads it as -abs.
+    investing = [line.value.amount for line in result.lines if line.item_id == sc.INVESTING]
+    assert [abs(a) for a in investing] == [Decimal(250), Decimal(200)]
+
+
+def test_magnitudes_mapped_as_signed_still_fail_the_cash_flow_check() -> None:
+    # By hand: 400 + 250 + 100 = 750 != 50 in fy2024 (300 + 200 + 50 = 550 != 50 in fy2023).
+    result = _magnitude_cfs(MAGNITUDES, ("signed",) * 4)
+    assert [(i.check, i.period_id, i.lhs, i.rhs) for i in result.issues] == [
+        (sc.CFS_NET_CHANGE, "fy2024", Decimal(750), Decimal(50)),
+        (sc.CFS_NET_CHANGE, "fy2023", Decimal(550), Decimal(50)),
+    ]
+    assert result.lines == ()
+
+
 def test_a_balance_sheet_outflow_magnitude_and_a_malformed_entry_are_refused_per_row() -> None:
     table, sha = _page("CZR", 56)
     cash, restricted = table.lines[0], table.lines[1]
@@ -758,3 +825,65 @@ def test_an_ocr_unit_whose_checked_totals_are_all_nil_in_a_column_composes_nothi
     result = _ocr(nil, sha, "BS", columns, row_map, ocr=True)
     assert result.lines == ()
     assert {i.reason for i in result.left_to_model if i.line_no in row_map} >= {sc.OCR_UNCHECKED}
+
+
+def test_a_zero_outflow_magnitude_row_adds_nothing_to_a_failing_check() -> None:
+    # S11-C05 adversarial. By hand: 400 + (-0) - 100 = 300 != 50 and 300 + 0 - 50 = 250 != 50.
+    lines = (MAGNITUDES[0], "Net cash used in investing activities 0 0", *MAGNITUDES[2:])
+    result = _magnitude_cfs(lines, ("signed", "outflow_magnitude", "outflow_magnitude", "signed"))
+    assert [(i.period_id, i.lhs, i.rhs) for i in result.issues] == [
+        ("fy2024", Decimal(300), Decimal(50)),
+        ("fy2023", Decimal(250), Decimal(50)),
+    ]
+    assert result.lines == ()
+
+
+@pytest.mark.parametrize(
+    "book,text,expected",
+    [
+        # By hand: "US$" states USD, "C$"/"CA$" CAD, "A$" AUD; a bare "$" names no currency, so
+        # with nothing else stated it verifies a USD book only (a CAD book's "$" could be US$).
+        ("EUR", "(in millions of us$)", False),
+        ("USD", "(in millions of us$)", True),
+        ("EUR", "(in c$ millions)", False),
+        ("CAD", "(in ca$ millions)", True),
+        ("EUR", "(in a$ thousands)", False),
+        ("AUD", "(in a$ thousands)", True),
+        ("EUR", "cash $ 1,000", False),
+        ("GBP", "(in $ millions)", False),
+        ("USD", "(in $ millions)", True),
+        ("CAD", "(in $ millions)", False),
+        ("AUD", "cash $ 1,000", False),
+        ("HKD", "(in $ millions)", False),
+        ("CAD", "(in millions of canadian dollars) revenue $ 10", True),
+        ("CAD", "(in millions of united states dollars)", False),
+        ("USD", "(in millions of united states dollars) revenue $ 10", True),
+        ("EUR", "(in millions)", True),
+        ("EUR", "(in r$ millions)", True),
+    ],
+)
+def test_currency_symbols_state_a_currency(book, text, expected):
+    # S11-A06.
+    assert sc._currency_matches(book, text) is expected
+
+
+def test_page_units_extracts_each_page_once_across_the_inputs_helpers(monkeypatch):
+    # S11-C09. By hand: one balance-sheet page; the five helpers of inputs() read it, and the
+    # extractor runs once for it, not once per helper, with the same units each time.
+    calls = []
+    real = fw.extract_statement_lines
+    monkeypatch.setattr(fw, "extract_statement_lines", lambda *a: calls.append(a) or real(*a))
+    fw._units_of_pages.cache_clear()
+    spans = (
+        Span(
+            locator="page:1",
+            text="CONSOLIDATED BALANCE SHEETS\n2025  2024\nCash  10  9\nTotal assets  10  9",
+        ),
+    )
+    first = fw._page_units(spans)
+    assert first == {"page:1": "BS"}
+    first["page:1"] = "IS"  # a caller's edit does not reach the cache
+    assert fw._page_units(spans) == {"page:1": "BS"}
+    assert fw._statement_kinds(spans) == {"page:1": "BS"}
+    assert list(fw._statement_units(spans)) == ["page:1"]
+    assert len(calls) == 1

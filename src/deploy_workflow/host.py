@@ -34,7 +34,7 @@ from deploy_vii.execution import (
     settle,
     text_sha256,
 )
-from deploy_vii.live.context import declared_sources, readable_sources
+from deploy_vii.live.context import session_scope
 from deploy_vii.live.prompts import PromptError
 from deploy_vii.live.schema import normalise
 from deploy_vii.live.submission import (
@@ -980,7 +980,7 @@ def _owner_sequence(module_id: str) -> tuple[str, ...]:
     return owner_workflow._sequence(module_id)
 
 
-def _execution_state(
+def _execution_state(  # noqa: C901, PLR0912, PLR0915 - pre-existing (C901 35, 37 branches, 94 statements at base)
     store: Execution,
     ticket_id: str,
     step_id: str,
@@ -1095,12 +1095,8 @@ def _execution_state(
             ):
                 raise SourceError("identity_mismatch")
         if owner_scope is None:
-            ids = tuple(s.source_id for s in pack.sources)
-            declared = set(declared_sources(store, attempt, step_id, ids))
-            readable = set(readable_sources(store, attempt, step_id))
-            if not declared <= set(ids) or not readable <= set(ids):
-                raise SourceError("identity_mismatch")
-            sources = tuple(ident for ident in ids if ident in declared and ident in readable)
+            # declared and readable over this snapshot's pack, the scope walked once (S14-C06)
+            sources = session_scope(store, attempt, step_id, pack)
         else:
             sources = owner_scope(pack)
         if attempt.module_id == "CP-4" and not sources:

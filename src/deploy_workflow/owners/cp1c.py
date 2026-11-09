@@ -58,7 +58,7 @@ from deploy_vii.execution import (
     listed_issues,
 )
 from deploy_vii.live.schema import exact_json, json_object, normalise
-from deploy_vii.live.submission import Submitted
+from deploy_vii.live.submission import Submitted, _with_rules
 from deploy_vii.live.tools import Seen
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.readiness import citation_issues, shape_issues
@@ -66,7 +66,7 @@ from deploy_vii.report_view import fact_spelling
 from deploy_workflow.context import ContextRefused, RunContext, Valuation, context_facts
 from deploy_workflow.context_cites import context_text
 from deploy_workflow.owners.blank import is_blank, one_per_page
-from deploy_workflow.owners.cp1a import probe_one_step
+from deploy_workflow.owners.cp1a import OneStep, probe_one_step, submit_one_step
 from deploy_workflow.owners.cp2g import select_cp1
 from deploy_workflow.owners.period_basis import (
     DEFAULT_BASIS,
@@ -108,6 +108,13 @@ NOT_STATED = "Not stated"
 AMOUNT = re.compile(r"-?[0-9]+(?:\.([0-9]+))?")
 PERIOD_END = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")  # and a real calendar date (1C4)
 TABLE_NOT_FOUND = "Peer table not found"
+# REF_CP-1C non-comparability trigger 7: peer data more than 12 months older than the borrower's
+# (CP-1's LTM end) cannot be Comparable without disclosure.
+STALE_PEER_MONTHS = 12
+STALE_PEER = (
+    "Peer period end more than 12 months before the issuer's LTM end {ltm_end}: assess it "
+    "Partly comparable with a limitation, or Not comparable: "
+)
 NO_PEER_SOURCE = "No peer source is in the pack"
 # Round 4 (b): a peers source that is not ready composes the no-peers design with this reason.
 NO_READY_PEER_SOURCE = "No ready peer source is in the pack"
@@ -128,6 +135,14 @@ ZERO_MEDIAN = "Not meaningful: the peer median is zero"
 NOT_COMPARED = "Not compared: one side is not available"  # ruling 1C2
 # O7-R47 Q6: the limitation of T1C.6's sheet and difference cells over a CP-DR pack sheet.
 NO_ISSUER_LINE = "the CP-DR peer pack carries no issuer line"
+# T1C.6 ties the issuer line to CP-1 only over one period: an issuer line dated other than CP-1's
+# LTM end is compared with nothing, and the module limitation says so.
+PERIOD_MISMATCH = "Not compared: the issuer line on the peer source ends {sheet}, not {cp1}"
+PERIOD_MISMATCH_LIMITATION = (
+    "Peer ratios use the definitions stated in the peer summary; the issuer line on the same "
+    "summary is for the twelve months to {sheet}, not CP-1's LTM period ending {cp1}, so it is "
+    "not tied to CP-1 in the definition alignment table."
+)
 # Round 6 B1: the issuer's own outlier cells when its CP-1 ratio is not known.
 ISSUER_NOT_STATED = "Not calculable: the issuer's CP-1 value is missing"
 ISSUER_NOT_MEANINGFUL = "Not meaningful: the issuer's CP-1 ratio is not meaningful"
@@ -347,15 +362,14 @@ def _span(source: Source, locator: str) -> str | None:
 
 
 def _basis(lines: Sequence[str], currency: str) -> tuple[str, str, Decimal]:
-    """Currency, unit and scale from the supported clause of a page:1 Basis line (C3): the run's
-    `currency` and the millions clause."""
-    for line in lines:
-        if not line.startswith(BASIS_PREFIX):
-            continue
-        parts = [part.strip().rstrip(".") for part in line[len(BASIS_PREFIX) :].split(";")]
-        for pair in pairwise(parts):
-            if pair == (currency, BASIS_UNIT_CLAUSE):
-                return currency, "MILLIONS", Decimal(1_000_000)
+    """Currency, unit and scale from the supported clause of the one page:1 Basis line (C3): the
+    run's `currency` and the millions clause. A second Basis line could state another currency or
+    scale, so more than one is refused (S05-A06)."""
+    found = [line for line in lines if line.startswith(BASIS_PREFIX)]
+    if len(found) == 1:
+        parts = [part.strip().rstrip(".") for part in found[0][len(BASIS_PREFIX) :].split(";")]
+        if (currency, BASIS_UNIT_CLAUSE) in pairwise(parts):
+            return currency, "MILLIONS", Decimal(1_000_000)
     raise PeerTableError(TABLE_NOT_FOUND)
 
 
@@ -386,13 +400,18 @@ def _row(line: str, basis: Mapping[str, BasisLine]) -> PeerRow:
 
 
 def parse_peer_source(
-    source: Source | None, *, issuer_name: str, currency: str = DEFAULT_CURRENCY.currency
+    source: Source | None,
+    *,
+    issuer_name: str,
+    currency: str = DEFAULT_CURRENCY.currency,
+    as_of: date | None = None,
 ) -> PeerSheet | None:
     """The peer table rule: None when the pack holds no peers source or one that is not ready
-    (round 4 (b): the no-peers design). Every breach (no page:1, no header, no supported Basis clause, a line that is not 7 fields, a bad
-    date, a non-decimal amount, an amount with more than one decimal place, a repeated label,
-    an issuer line count other than 1) raises PeerTableError('Peer table not found'), which is
-    returned alone (rulings 1C4, C3, 1C-x)."""
+    (round 4 (b): the no-peers design). Every breach (no page:1, no header, no supported Basis
+    clause, a line that is not 7 fields, a bad date, a non-decimal amount, an amount with more
+    than one decimal place, a repeated label, an issuer line count other than 1, and with
+    `as_of` a period end after the run's as-of date, which no source could yet report) raises
+    PeerTableError('Peer table not found'), which is returned alone (rulings 1C4, C3, 1C-x)."""
     if source is None or source.status != "ready":
         return None
     text = _span(source, "page:1")
@@ -405,6 +424,8 @@ def parse_peer_source(
     rows = [_row(line, basis) for line in lines[start + 1 :]]
     labels = Counter(row.label for row in rows)
     if any(count > 1 for count in labels.values()) or labels[issuer_name] != 1:
+        raise PeerTableError(TABLE_NOT_FOUND)
+    if as_of is not None and any(date.fromisoformat(r.period_end) > as_of for r in rows):
         raise PeerTableError(TABLE_NOT_FOUND)
     issuer = next(row for row in rows if row.label == issuer_name)
     peers = tuple(row for row in rows if row.label != issuer_name)
@@ -509,6 +530,7 @@ class PeerBenchmarkInputs:
     sources: tuple[Source, ...]  # host-scoped pack sources; the peer table is read from "peers"
     cp1_metrics: Mapping[str, Fact]  # CP-1 T4.10 LTM facts by metric key
     submission: PeerBenchmarkSubmission
+    as_of: date  # the run's as-of date: no peer period may end after it (A03)
     # Phase 7: the run's context file, its source (the lines it cites) and CP-1's LTM adjusted
     # EBITDA fact. All three stay None without a context, and then T1C.9-T1C.11 are not composed.
     context: RunContext | None = None
@@ -562,6 +584,7 @@ def _fid(ref: Ref) -> str:
 class _Composer:
     def __init__(self, sheet: PeerSheet | None, absent: str, basis: PeriodBasis) -> None:
         self.mixed = mixed_period(basis)
+        self.ltm_end = basis.ltm_end
         self.items: list[PeerFact] = []
         self.rows: dict[str, list[TableRow]] = {table: [] for table in TABLES}
         self.sheet = sheet
@@ -1177,6 +1200,13 @@ def _issuer_period(sheet: PeerSheet | None) -> str | None:
     return None if sheet is None or sheet.issuer is None else sheet.issuer.period
 
 
+def _period_mismatch(sheet: PeerSheet | None, ltm_end: date) -> tuple[str, str] | None:
+    """The issuer line's period end and CP-1's LTM end when they differ, else None."""
+    if sheet is None or sheet.issuer is None or sheet.issuer.period_end == ltm_end.isoformat():
+        return None
+    return sheet.issuer.period_end, ltm_end.isoformat()
+
+
 def _tie_out_no_issuer(c: _Composer, cp1: Mapping[str, _Cp1Cell]) -> None:
     """O7-R47 Q6: a pack sheet has no issuer line, so nothing is recomputed or compared; the sheet
     and difference cells are `not_applicable` with the limitation and the CP-1 cell stays copied."""
@@ -1235,6 +1265,19 @@ def _tie_out(c: _Composer, sheet: PeerSheet | None, cp1: Mapping[str, _Cp1Cell])
             reason = c.absent if sheet is None else NOT_COMPARED
             unit = m.difference_unit
             c.unsettled(("T1C.6", k, "difference"), "Difference", reason, unit=unit, period=None)
+            c.text(("T1C.6", k, "result"), "Result", "Not compared")
+        elif (ends := _period_mismatch(sheet, c.ltm_end)) is not None:
+            # A02/C04: two periods are never tied out; nothing is compared or reconciled
+            reason = PERIOD_MISMATCH.format(sheet=ends[0], cp1=ends[1])
+            unit = m.difference_unit
+            c.unsettled(
+                ("T1C.6", k, "difference"),
+                "Difference",
+                reason,
+                unit=unit,
+                period=None,
+                status="not_applicable",
+            )
             c.text(("T1C.6", k, "result"), "Result", "Not compared")
         else:
             _tie_out_settled(c, m, line[0], *cell.value)
@@ -1353,7 +1396,7 @@ def _missing_amount_line(row: PeerRow, key: str, label: str) -> str:
     return f"{head}: every figure that needs it is Not calculable."
 
 
-def _limitations(
+def _limitations(  # noqa: PLR0913 - pre-existing signature; this change only uses THIN_LINE
     present: bool,
     pack: bool,
     absent: str,
@@ -1380,7 +1423,7 @@ def _limitations(
         if p.assessment.comparability == "Partly comparable"
     ]
     if present and sum(1 for p in peers if p.included) < THIN_UNIVERSE:
-        out.append("Medians over fewer than five peers move with a single peer.")
+        out.append(THIN_LINE)
     out += [
         _missing_amount_line(p.data, key, label)
         for p in peers
@@ -2423,6 +2466,10 @@ def _compose(inputs: PeerBenchmarkInputs, sheet: PeerSheet | None) -> _Composed:
     ev = _ev_compose(inputs)  # Phase 7: T1C.9-T1C.11 after the eight, only over a context
     pack = sheet is not None and sheet.issuer is None
     limitations = _limitations(present, pack, c.absent, cp1, peers, stats, inputs.submission.gaps)
+    if (ends := _period_mismatch(sheet, c.ltm_end)) is not None:  # A02/C04: not tied to CP-1
+        tied = SOURCE_LIMITATIONS[False][1]
+        line = PERIOD_MISMATCH_LIMITATION.format(sheet=ends[0], cp1=ends[1])
+        limitations = tuple(line if text == tied else text for text in limitations)
     if ev:  # Phase 7: the context's lines follow the frozen list, none repeated
         limitations += tuple(line for line in ev.limitations if line not in limitations)
     facts = _with_lineage(c.items) + (ev.facts if ev else ())
@@ -2503,7 +2550,10 @@ def _sheet_of(inputs: PeerBenchmarkInputs) -> PeerSheet | None:
     if inputs.pack_sheet is not None:
         return inputs.pack_sheet
     return parse_peer_source(
-        _peer_source(inputs.sources), issuer_name=inputs.issuer_name, currency=inputs.basis.currency
+        _peer_source(inputs.sources),
+        issuer_name=inputs.issuer_name,
+        currency=inputs.basis.currency,
+        as_of=inputs.as_of,
     )
 
 
@@ -2528,15 +2578,21 @@ def _assessment_set_issues(
     return issues
 
 
-def _content_issues(submission: PeerBenchmarkSubmission, sheet: PeerSheet | None) -> list[str]:
+def _content_issues(
+    submission: PeerBenchmarkSubmission, sheet: PeerSheet | None, ltm_end: date
+) -> list[str]:
     issues: list[str] = []
     if sheet is not None and submission.overall.confidence == "High":
         issues.append("Confidence cannot be High: the peer figures are desk-supplied and unaudited")
+    ends = {} if sheet is None else {row.label: row.period_end for row in sheet.peers}
+    oldest = _vbasis().window_start(ltm_end, STALE_PEER_MONTHS).isoformat()
     for a in submission.assessments:
         if not a.evidence:
             issues.append(clipped(("Evidence required for a comparability assessment: ", a.peer)))
         if a.comparability == "Partly comparable" and is_blank(a.limitation or ""):
             issues.append(clipped(("Limitation required for Partly comparable: ", a.peer)))
+        if a.comparability == "Comparable" and ends.get(a.peer, oldest) < oldest:
+            issues.append(clipped((STALE_PEER.format(ltm_end=ltm_end.isoformat()), a.peer)))
     return issues
 
 
@@ -2586,42 +2642,54 @@ def _prose_texts(submission: PeerBenchmarkSubmission) -> list[str]:
     return [a.rationale for a in submission.assessments] + [submission.overall.rationale]
 
 
-def calculation_issues(inputs: PeerBenchmarkInputs) -> tuple[str, ...]:
-    """Every content issue of the analyst payload against the peer source and the module's own
-    facts. An unreadable peer table returns alone (1C4). References in the analyst's text are checked
-    against the composed facts only when the assessment set is consistent (before that there
-    are no facts to bind them to, and the set issues already refuse the payload). A line that
-    quotes the payload is cut by `clipped` before it is built whole, and the list is bounded
-    (`_bounded`), so the issue text cannot outgrow the payload (protocol section 6)."""
+def _calculation(inputs: PeerBenchmarkInputs) -> tuple[tuple[str, ...], _Composed | None]:
+    """`calculation_issues` and the composition it built to bind the references (None when it
+    built none: an unreadable table or an inconsistent assessment set). With no issue the
+    composition is always built, so `compute` and `_checked` reuse it (S05-C08)."""
     submission = inputs.submission
     try:
         sheet = _sheet_of(inputs)
     except PeerTableError as error:
-        return (str(error),)
+        return (str(error),), None
     set_issues = _assessment_set_issues(submission, sheet)
-    issues = [*set_issues, *_content_issues(submission, sheet)]
+    issues = [*set_issues, *_content_issues(submission, sheet, inputs.basis.ltm_end)]
     issues += _citation_issues(submission, inputs.sources)
     for path, text in _prohibited_fields(submission):
         if is_blank(text):  # round 11, round 12 B10: blank text is refused (no CP-1C frame)
             issues.append(f"{path}: empty text")
         issues += prohibited_issues(path, text, kinds=PROHIBITED_KINDS)
+    composed = None
     if not set_issues:
-        bound = prose.bind(item.fact for item in _compose(inputs, sheet).facts)
+        composed = _compose(inputs, sheet)
+        bound = prose.bind(item.fact for item in composed.facts)
         names = (inputs.issuer_name,)
         for text in _prose_texts(submission):
             # a prose line can quote a payload word whole (`Bare figure: <token>`)
             issues += [clipped((line,)) for line in prose.issues(text, bound, names=names)]
-    return _bounded(dict.fromkeys(issues))
+    return _bounded(dict.fromkeys(issues)), composed
+
+
+def calculation_issues(inputs: PeerBenchmarkInputs) -> tuple[str, ...]:
+    """Every content issue of the analyst payload against the peer source and the module's own
+    facts. An unreadable peer table returns alone (1C4). References in the analyst's text are
+    checked against the composed facts only when the assessment set is consistent (before that
+    there are no facts to bind them to, and the set issues already refuse the payload). A line
+    that quotes the payload is cut by `clipped` before it is built whole, and the list is bounded
+    (`_bounded`), so the issue text cannot outgrow the payload (protocol section 6)."""
+    return _calculation(inputs)[0]
+
+
+def _result(composed: _Composed, submission: PeerBenchmarkSubmission) -> PeerBenchmarkResult:
+    claims = _claims(composed, submission)
+    return PeerBenchmarkResult(composed.facts, composed.tables, claims, composed.limitations)
 
 
 def compute(inputs: PeerBenchmarkInputs) -> PeerBenchmarkResult:
     """The module's facts, tables, claims and own limitations; ValueError on any issue."""
-    if issues := calculation_issues(inputs):
+    issues, composed = _calculation(inputs)
+    if issues or composed is None:
         raise ValueError("; ".join(issues))
-    sheet = _sheet_of(inputs)
-    composed = _compose(inputs, sheet)
-    claims = _claims(composed, inputs.submission)
-    return PeerBenchmarkResult(composed.facts, composed.tables, claims, composed.limitations)
+    return _result(composed, inputs.submission)
 
 
 # =============================================================================================
@@ -2778,6 +2846,7 @@ def _inputs(
         sources=tuple(s for s in pack.sources if in_scope(s.source_id)),
         cp1_metrics=_cp1_metrics(upstream.cp1, basis),
         submission=submission,
+        as_of=pack.run.as_of,
         basis=basis,
         pack_sheet=_pack_sheet(upstream, _peer_source(pack.sources), basis, pack.run.issuer_name),
     )
@@ -2952,7 +3021,7 @@ def _report(
     )
 
 
-def _checked(
+def _checked(  # noqa: PLR0911 - pre-existing returns; this change reuses one composition
     pack: PreparedPack, submission: PeerBenchmarkSubmission, upstream: Upstream
 ) -> tuple[tuple[str, ...], PeerBenchmarkReport | None]:
     """(issues, None) for a refused submission, else ((), the composed report). Every check runs
@@ -2972,14 +3041,14 @@ def _checked(
         return (str(error),), None
     except ValueError as error:
         return (clipped(("CP-1 facts unavailable: ", str(error))),), None
-    issues = calculation_issues(inputs)
-    if issues:
+    issues, composed = _calculation(inputs)
+    if issues or composed is None:
         return issues, None
     texts = _model_text_issues(submission)
     if texts:
         return _bounded(texts), None
     try:
-        return (), _report(pack, submission, compute(inputs))
+        return (), _report(pack, submission, _result(composed, submission))
     except ValidationError as error:
         return _bounded(
             clipped((".".join(map(str, e["loc"])) or "(root)", ": ", e["msg"]))
@@ -3107,7 +3176,9 @@ def _view_sheet(
     if basis is None:
         return None
     try:
-        return parse_peer_source(source, issuer_name=pack.run.issuer_name, currency=basis.currency)
+        return parse_peer_source(
+            source, issuer_name=pack.run.issuer_name, currency=basis.currency, as_of=pack.run.as_of
+        )
     except PeerTableError:
         return None
 
@@ -3248,25 +3319,6 @@ def _candidate(output: str, attempt: Attempt) -> Module:
     return cp1c_module(report, inputs=attempt.inputs, attempt=attempt.number)
 
 
-def _with_rules(
-    validate: Callable[[PreparedPack, Attempt], StepValidation],
-    rules: Callable[[str], tuple[str, ...]],
-    payload: str,
-) -> Callable[[PreparedPack, Attempt], StepValidation]:
-    """`validate`, then the tool-use rule issues of the retained payload appended."""
-
-    def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
-        outcome = validate(pack, attempt)
-        found = rules(payload)
-        if not found:
-            return outcome
-        return StepValidation(
-            output=outcome.output, issues=tuple(dict.fromkeys((*outcome.issues, *found)))
-        )
-
-    return run
-
-
 def submit(
     store: Execution,
     ticket_id: str,
@@ -3285,22 +3337,8 @@ def submit(
     )
     if rules is not None and rules(normal):
         validate = _with_rules(validate, rules, normal)
-    attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, step_id, normal, validate)
-    if (
-        attempt.status == "pending"
-        and len(attempt.steps) == 1
-        and attempt.steps[0].status == "valid"
-    ):
-        outcome = _validate_step(store, store.pack(), attempt)
-        if outcome.issues or not outcome.retained_as(attempt.steps[0]):
-            raise ValueError("Retained CP-1C output differs from trusted validation")
-        candidate = _candidate(outcome.output or "", attempt)
-        attempt = store.finish(
-            ticket_id,
-            candidate.model_dump_json(),
-            lambda supplied: () if supplied == candidate else ("CP-1C candidate differs",),
-            qualification=QUALIFICATION,
-        )
+    one_step = OneStep(MODULE_ID, STEP_ID, _validate_step, _candidate, QUALIFICATION)
+    attempt = submit_one_step(store, ticket_id, one_step, normal, validate)
     return Submitted(attempt, normal, resolved, (), (), None)
 
 

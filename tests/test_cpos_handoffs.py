@@ -3,6 +3,7 @@
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -15,7 +16,11 @@ ORDER = ["CP-0", "CP-1", "CP-1A", "CP-2"]
 RESPONSES = {
     "CP-0": (ROOT / "runs/tdg-001/CP-0.md").read_bytes(),
     "CP-1": (ROOT / "runs/tdg-002/CP-1-attempt-2.md").read_bytes(),
-    "CP-1A": (ROOT / "runs/tdg-002/CP-1A-attempt-3.md").read_bytes(),
+    # Layout delivery needs each handoff title or Request to name the issuer; the retained CP-1A
+    # does not, so this synthetic infrastructure test uses it with the issuer added to its title.
+    "CP-1A": (ROOT / "runs/tdg-002/CP-1A-attempt-3.md")
+    .read_bytes()
+    .replace(b"# CP-1A \xe2\x80\x94 ", b"# CP-1A TransDigm Group Incorporated \xe2\x80\x94 ", 1),
     "CP-2": (ROOT / "runs/tdg-002/CP-2-attempt-2.md").read_bytes(),
 }
 
@@ -92,6 +97,7 @@ def test_explicit_live_loop_drives_existing_planner_delivery_and_resume(tmp_path
     path = job(tmp_path)
     data = json.loads(path.read_bytes())
     data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    with_live_layout(data)
     path.write_text(json.dumps(data))
     adapter = LiveAdapter(
         ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"),
@@ -152,6 +158,28 @@ def test_live_mode_rejects_unbounded_callback(tmp_path):
     path.write_text(json.dumps(data))
     with pytest.raises(ValueError, match="cpos_execution_mode"):
         run_handoffs(path, tmp_path / "state", execute=replay, check=checked)
+
+
+# A live run needs a delivery layout: one CP-1A table of the retained handoff in one block.
+LIVE_LAYOUT = {
+    "blocks": ["company-profile"],
+    "scope": "synthetic live-wiring regression; one retained CP-1A table",
+    "routes": [
+        {
+            "module_id": "CP-1A",
+            "heading": "Company, business and revenue model",
+            "kind": "table",
+            "table_header": "Area",
+            "block_id": "company-profile",
+        }
+    ],
+}
+
+
+def with_live_layout(data: dict) -> None:
+    """Layout delivery routes selected analytical modules only, so CP-MODEL is not requested."""
+    data["layout"] = LIVE_LAYOUT
+    data["run"]["requested_modules"] = ["CP-1", "CP-1A", "CP-2"]
 
 
 def job(tmp_path: Path) -> Path:
@@ -656,6 +684,49 @@ def test_empty_or_invalid_retained_answer_refuses_without_calling_executor(
     assert len(list((tmp_path / "state").rglob("*.response.md"))) == 1
 
 
+def test_a_retained_pin_the_order_contradicts_is_refused_before_any_call(
+    tmp_path: Path,
+) -> None:
+    path = retained_job(tmp_path, ["CP-0", "CP-2"])
+    data = json.loads(path.read_bytes())
+    del data["retained_handoffs"]["CP-2"]["upstream"]["CP-1"]
+    path.write_text(json.dumps(data))
+
+    def no_execute(task: HandoffTask) -> bytes:
+        pytest.fail(f"{task.module_id} was called before a stale refusal the pins decide")
+
+    with pytest.raises(ValueError, match="cpos_retained_stale: CP-2"):
+        run_handoffs(path, tmp_path / "state", execute=no_execute, check=checked)
+
+
+def test_a_wrong_pin_of_a_replayed_module_is_refused_before_the_module_between_is_called(
+    tmp_path: Path,
+) -> None:
+    path = retained_job(tmp_path, ["CP-0", "CP-1A"])
+    data = json.loads(path.read_bytes())
+    data["retained_handoffs"]["CP-1A"]["upstream"]["CP-0"] = "0" * 64
+    path.write_text(json.dumps(data))
+
+    def no_execute(task: HandoffTask) -> bytes:
+        pytest.fail(f"{task.module_id} was called before the stale refusal the replay decides")
+
+    with pytest.raises(ValueError, match="cpos_retained_stale: CP-1A"):
+        run_handoffs(path, tmp_path / "state", execute=no_execute, check=checked)
+
+
+def test_every_pathway_resumes_in_the_fresh_order_for_every_kept_prefix() -> None:
+    from deploy_vii.contracts import PATHWAY_MODULES
+    from deploy_vii.registry import plan
+    from deploy_workflow.owners.cpos_launch import NOT_ANALYTICAL
+
+    for modules in PATHWAY_MODULES.values():
+        requested = tuple(m for m in modules if m not in NOT_ANALYTICAL)
+        fresh = plan(requested)
+        for kept in range(1, len(fresh) + 1):
+            pins = {m: fresh[:i] for i, m in enumerate(fresh[:kept])}
+            assert plan(requested, retained=pins) == fresh
+
+
 def test_replay_needs_no_duplicate_response_map_when_all_inputs_are_retained(
     tmp_path: Path,
 ) -> None:
@@ -709,6 +780,7 @@ def live_job(tmp_path: Path) -> Path:
     path = job(tmp_path)
     data = json.loads(path.read_bytes())
     data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    with_live_layout(data)
     path.write_text(json.dumps(data))
     return path
 
@@ -734,7 +806,8 @@ def test_copilot_config_selects_the_copilot_adapter(tmp_path, monkeypatch):
         closed.append(self)
         real_close(self)
 
-    def fake_run(manifest, directory, *, execute, check, on_handoff, on_start=None):
+    def fake_run(manifest, directory, **kwargs):
+        execute = kwargs["execute"]
         assert isinstance(execute, HandoffExecutor) and not closed
         built.append(execute.adapter)
         return directory / "report.html"
@@ -884,3 +957,380 @@ def test_release_failure_after_a_successful_run_keeps_the_result_and_warns(tmp_p
             rulings_root=root,
         )
     assert report == tmp_path / "report.html"
+
+
+def test_failed_response_write_leaves_no_torn_answer_and_never_redispatches(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """S01-A02/C02: a response write that fails (EIO/ENOSPC on sync) must leave no final
+    `1.response.md`. Before the fix `_put` wrote in place, so resume read the torn bytes as the
+    retained answer, skipped the executor and delivered them. Expected, by hand: CP-1's final
+    response is absent, no `.pending-*` temp remains, resume refuses with `cpos_interrupted`
+    without a single executor call, and no completion record exists."""
+    path = job(tmp_path)
+    directory = tmp_path / "state"
+    real_open = Path.open
+    armed = []
+
+    class HalfWrite:  # the disk fills after half the bytes of the next created file
+        def __init__(self, stream: Any) -> None:
+            self.stream = stream
+
+        def __enter__(self) -> Any:
+            return self
+
+        def __exit__(self, *exc: object) -> None:
+            self.stream.close()
+
+        def write(self, raw: bytes) -> int:
+            self.stream.write(raw[: len(raw) // 2])
+            self.stream.flush()
+            raise OSError(28, "No space left on device")
+
+    def opening(self: Path, mode: str = "r", *args: Any, **kwargs: Any) -> Any:
+        stream = real_open(self, mode, *args, **kwargs)
+        if mode == "xb" and armed:
+            armed.clear()
+            return HalfWrite(stream)
+        return stream
+
+    def execute(task: HandoffTask) -> bytes:
+        if task.module_id == "CP-1":
+            armed.append(True)  # the next created file is CP-1's response
+        return replay(task)
+
+    monkeypatch.setattr(Path, "open", opening)
+    with pytest.raises(OSError, match="No space left"):
+        run_handoffs(path, directory, execute=execute, check=checked)
+    monkeypatch.setattr(Path, "open", real_open)
+    folder = next(directory.glob("requests/CP-1/*"))
+    assert sorted(p.name for p in folder.iterdir()) == ["1.request.json"]
+    calls: list[str] = []
+    with pytest.raises(ValueError, match="cpos_interrupted: response not retained for CP-1"):
+        run_handoffs(
+            path, directory, execute=lambda t: calls.append(t.module_id) or b"", check=checked
+        )
+    assert calls == []
+    assert not list(directory.glob("completed-*"))
+
+
+def test_put_publishes_whole_bytes_once_beside_a_stale_temp_file(tmp_path: Path) -> None:
+    """A temp file a killed writer left behind is neither read nor reused. Expected, by hand: the
+    target holds exactly b"complete answer\\n", the stale `.pending-` file is untouched (it is not
+    `_put`'s to remove), an identical rewrite is a no-op, a different one is `identity_mismatch`,
+    and no new temp file remains after either."""
+    from deploy_workflow.workflow import WorkflowError, _put
+
+    stale = tmp_path / ".pending-0123456789abcdef0123456789abcdef"
+    stale.write_bytes(b"compl")
+    target = tmp_path / "1.response.md"
+    _put(target, b"complete answer\n")
+    _put(target, b"complete answer\n")
+    with pytest.raises(WorkflowError, match="identity_mismatch"):
+        _put(target, b"complete answer\nplus more\n")
+    assert target.read_bytes() == b"complete answer\n"
+    assert sorted(p.name for p in tmp_path.iterdir()) == [stale.name, target.name]
+
+
+def test_fixed_checker_accepts_a_falsely_rejected_retained_answer_without_execution(
+    tmp_path: Path,
+) -> None:
+    """S01-C05: one attempt (as in live mode); a buggy checker falsely rejects CP-1's correct
+    answer. Before the fix, rerunning the same directory with the fixed checker died with
+    `identity_mismatch` (the new verdict could not be written over `1.review.json`). Expected, by
+    hand: the rerun completes with no executor call for CP-0 or CP-1 (both retained), the false
+    verdict stays in `1.review.json` and the new one, {"issues": [], "response_sha256":
+    sha256(CP-1 answer)}, is kept beside it as `1.review-<its sha256>.json`."""
+    path = job(tmp_path)
+    data = json.loads(path.read_text())
+    data["max_attempts"] = 1
+    path.write_text(json.dumps(data))
+    directory = tmp_path / "state"
+
+    def buggy(task: HandoffTask, response: bytes) -> tuple[str, ...]:
+        return ("false rejection",) if task.module_id == "CP-1" else checked(task, response)
+
+    with pytest.raises(ValueError, match="cpos_module_failed: CP-1: false rejection"):
+        run_handoffs(path, directory, execute=replay, check=buggy)
+    seen: list[str] = []
+
+    def execute(task: HandoffTask) -> bytes:
+        seen.append(task.module_id)
+        return replay(task)
+
+    assert run_handoffs(path, directory, execute=execute, check=checked).exists()
+    assert seen == ["CP-1A", "CP-2"]
+    folder = next(directory.glob("requests/CP-1/*"))
+    first = json.loads((folder / "1.review.json").read_bytes())
+    assert first["issues"] == ["false rejection"]
+    expected = {"issues": [], "response_sha256": hashlib.sha256(RESPONSES["CP-1"]).hexdigest()}
+    raw = json.dumps(expected, sort_keys=True, indent=2).encode()
+    assert (folder / f"1.review-{hashlib.sha256(raw).hexdigest()}.json").read_bytes() == raw
+    # A second rerun with the same checker adds nothing.
+    assert run_handoffs(path, directory, execute=execute, check=checked).exists()
+    assert seen == ["CP-1A", "CP-2"]
+    assert len(list(folder.glob("1.review*.json"))) == 2
+
+
+def test_a_changed_recheck_verdict_cannot_reuse_the_next_attempts_answer(tmp_path: Path) -> None:
+    """Two attempts: CP-1's first answer was rejected with issue A and attempt 2 answered A. A
+    checker that now rejects attempt 1 with issue B would send attempt 2 other feedback, so the
+    retained attempt-2 answer cannot stand for it. Expected, by hand: `cpos_feedback_changed:
+    CP-1`, no executor call, no completion record."""
+    path = job(tmp_path)
+    directory = tmp_path / "state"
+
+    def first_attempt_rejected(issue: str) -> Any:
+        def check(task: HandoffTask, response: bytes) -> tuple[str, ...]:
+            if task.module_id == "CP-1" and task.attempt == 1:
+                return (issue,)
+            return checked(task, response)
+
+        return check
+
+    run_handoffs(path, directory, execute=replay, check=first_attempt_rejected("issue A"))
+    calls: list[str] = []
+    with pytest.raises(ValueError, match="cpos_feedback_changed: CP-1"):
+        run_handoffs(
+            path,
+            directory,
+            execute=lambda t: calls.append(t.module_id) or b"",
+            check=first_attempt_rejected("issue B"),
+        )
+    assert calls == []
+    assert len(list(directory.glob("completed-*.json"))) == 1  # the first run's only
+
+
+def test_put_failures_leave_a_complete_target_or_none_and_no_temp_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Review of S01-A02/C02. Expected, by hand: a filesystem without hard links (`os.link` refused)
+    publishes nothing and leaves no temp file; a directory sync that fails after the link leaves the
+    complete target, no temp file, and an identical retry succeeds."""
+    from deploy_workflow import workflow
+
+    target = tmp_path / "a" / "1.response.md"
+    with monkeypatch.context() as patch:
+        patch.setattr(workflow.os, "link", lambda *_: (_ for _ in ()).throw(OSError(1, "no links")))
+        with pytest.raises(OSError, match="no links"):
+            workflow._put(target, b"whole\n")
+    assert list(target.parent.iterdir()) == []
+    with monkeypatch.context() as patch:
+        patch.setattr(
+            workflow, "fsync_directory", lambda *_: (_ for _ in ()).throw(OSError(5, "EIO"))
+        )
+        with pytest.raises(OSError, match="EIO"):
+            workflow._put(target, b"whole\n")
+    assert [p.name for p in target.parent.iterdir()] == [target.name]
+    assert target.read_bytes() == b"whole\n"
+    workflow._put(target, b"whole\n")
+    assert [p.name for p in target.parent.iterdir()] == [target.name]
+
+
+def test_review_revisions_are_kept_once_per_distinct_verdict(tmp_path: Path) -> None:
+    """Review of S01-C05. Verdicts A, B, A, C, B arrive for one attempt. Expected, by hand: the
+    first stays in `1.review.json`; B and C are each kept once as
+    `1.review-<sha256 of its bytes>.json`; returning to A or B writes nothing: three files, the
+    original unchanged."""
+    from deploy_workflow.owners.cpos import _retain_review
+
+    def verdict(issue: str) -> bytes:
+        return json.dumps({"issues": [issue], "response_sha256": "r"}, sort_keys=True).encode()
+
+    base = tmp_path / "1.review.json"
+    for issue in ("A", "B", "A", "C", "B"):
+        _retain_review(base, verdict(issue))
+    names = sorted(p.name for p in tmp_path.iterdir())
+    expected = sorted(
+        ["1.review.json"]
+        + [f"1.review-{hashlib.sha256(verdict(i)).hexdigest()}.json" for i in ("B", "C")]
+    )
+    assert names == expected
+    assert base.read_bytes() == verdict("A")
+
+
+def test_a_fixed_checker_accepting_the_first_attempt_selects_it_without_execution(
+    tmp_path: Path,
+) -> None:
+    """Review of S01-C05, two attempts. A checker falsely rejects CP-1 attempt 1; attempt 2 is
+    accepted. Rerun with a checker accepting attempt 1. Expected, by hand: no executor call (the
+    request for attempt 2 is never reached), CP-1's selected response is `1.response.md`, and the
+    retained verdict for attempt 2 stays untouched."""
+    path = job(tmp_path)
+    directory = tmp_path / "state"
+
+    def buggy(task: HandoffTask, response: bytes) -> tuple[str, ...]:
+        if task.module_id == "CP-1" and task.attempt == 1:
+            return ("false rejection",)
+        return checked(task, response)
+
+    run_handoffs(path, directory, execute=replay, check=buggy)
+    folder = next(directory.glob("requests/CP-1/*"))
+    second = (folder / "2.review.json").read_bytes()
+    calls: list[str] = []
+    run_handoffs(path, directory, execute=lambda t: calls.append(t.module_id) or b"", check=checked)
+    assert calls == []
+    assert (folder / "2.review.json").read_bytes() == second
+    modules = [json.loads(p.read_bytes())["modules"]["CP-1"] for p in directory.glob("completed-*")]
+    assert sorted(m.rsplit("/", 1)[1] for m in modules) == ["1.response.md", "2.response.md"]
+
+
+def test_live_run_events_cover_modules_and_delivery(tmp_path, monkeypatch):
+    """Fake transport proves the event wiring only; this is not a provider/module proof."""
+    from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
+    from deploy_workflow.model.turn import ToolCall, Turn, Usage
+    from deploy_workflow.owners import cpos
+    from deploy_workflow.run_events import EVENTS, read_events
+
+    def complete(self, request, **kwargs):
+        module = json.loads(request.messages[1].text)["module_id"]
+        answer = Turn(
+            "",
+            (ToolCall(module, "write_handoff", {"markdown": RESPONSES[module].decode()}),),
+            Usage(input_tokens=100, output_tokens=50),
+            "tool_use",
+            "gpt-6.1-sol",
+            "fake",
+            200,
+        )
+        return AdapterReply("ok", answer, None, 200, None, None, 1, 2, answer.usage)
+
+    monkeypatch.setattr(LiveAdapter, "complete", complete)
+    state = tmp_path / "state"
+    cpos.run_live_handoffs(
+        live_job(tmp_path),
+        state,
+        ruling=ROOT / "docs/rulings/2026-11-05-live-loop-tests.md",
+        check=checked,
+        environ={},
+    )
+    events = read_events(state / EVENTS)
+    assert [e["event"] for e in events if e["event"] != "turn"] == [
+        "module_started",
+        "module_accepted",
+        "module_started",
+        "module_accepted",
+        "module_started",
+        "module_accepted",
+        "module_started",
+        "module_accepted",
+        "delivery_started",
+        "delivered",
+    ]
+    assert [e["module"] for e in events if e["event"] == "module_started"] == ORDER
+    assert [e["module"] for e in events if e["event"] == "turn"] == ORDER
+
+
+def test_a_live_run_that_fails_logs_its_stop_reason(tmp_path, monkeypatch):
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.owners import cpos
+    from deploy_workflow.run_events import EVENTS, read_events
+
+    def refuses(*args, **kwargs):
+        raise ValueError("cpos_module_failed: CP-0: bad")
+
+    monkeypatch.setattr(cpos, "run_handoffs", refuses)
+    monkeypatch.setattr(LiveAdapter, "complete", lambda *a, **k: pytest.fail("called"))
+    with pytest.raises(ValueError, match="cpos_module_failed"):
+        cpos.run_live_handoffs(
+            live_job(tmp_path),
+            tmp_path / "state",
+            ruling=ROOT / "docs/rulings/2026-11-05-live-loop-tests.md",
+            check=checked,
+            environ={},
+        )
+    (event,) = read_events(tmp_path / "state" / EVENTS)
+    assert (event["event"], event["reason"]) == ("stopped", "checker")
+
+
+def test_a_second_invocation_refused_as_busy_logs_no_stop(tmp_path, monkeypatch):
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.owners import cpos
+    from deploy_workflow.run_events import EVENTS, append_event, read_events
+
+    monkeypatch.setattr(LiveAdapter, "complete", lambda *a, **k: pytest.fail("called"))
+    state = tmp_path / "state"
+    state.mkdir()
+    with _single_writer(state):  # run A holds the folder and has logged its first module
+        append_event(state, "module_started", module="CP-0")
+        with pytest.raises(RunDirBusy):
+            cpos.run_live_handoffs(
+                live_job(tmp_path),
+                state,
+                ruling=ROOT / "docs/rulings/2026-11-05-live-loop-tests.md",
+                check=checked,
+                environ={},
+            )
+    assert [e["event"] for e in read_events(state / EVENTS)] == ["module_started"]
+
+
+def test_a_run_without_an_events_folder_writes_no_events(tmp_path):
+    path = job(tmp_path)
+    state = tmp_path / "state"
+    run_handoffs(path, state, execute=replay, check=checked)
+    assert not list(state.rglob("events.jsonl"))
+
+
+def test_a_delivered_event_that_cannot_be_written_leaves_the_run_completed(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from deploy_workflow import run_events
+
+    real = run_events.os.fsync
+
+    def fsync_unless_delivered(fd):
+        if (tmp_path / "state" / "events.jsonl").read_bytes().endswith(b'"delivered"}\n'):
+            raise OSError(28, "No space left on device")
+        real(fd)
+
+    monkeypatch.setattr(run_events, "os", SimpleNamespace(fsync=fsync_unless_delivered))
+    path = job(tmp_path)
+    state = tmp_path / "state"
+    with pytest.warns(RuntimeWarning, match="run event not recorded") as caught:
+        report = run_handoffs(path, state, execute=replay, check=checked, events=state)
+    assert any("delivered" in str(w.message) for w in caught)
+    assert verify_delivery(next(state.glob("delivery-*.json")), report.parent) == report
+    assert list(state.glob("completed-*.json"))
+
+
+def test_a_live_run_without_a_layout_is_refused_before_any_call(tmp_path, monkeypatch):
+    from decimal import Decimal
+
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.model.turn import ModelSpec
+
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    assert "layout" not in data
+    path.write_text(json.dumps(data))
+    adapter = LiveAdapter(
+        ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"),
+        ROOT / "docs/rulings/2026-11-05-live-loop-tests.md",
+        environ={},
+    )
+    calls = []
+    monkeypatch.setattr(adapter, "complete", lambda request, **kwargs: calls.append(request))
+    state = tmp_path / "state"
+    executor = HandoffExecutor(state / "live", adapter=adapter, cap_usd=Decimal(10), check=checked)
+    with pytest.raises(
+        ValueError, match="cpos_layout: a live-provider run needs a delivery layout"
+    ):
+        run_handoffs(path, state, execute=executor, check=checked)
+    assert calls == []
+
+
+def test_a_front_route_naming_an_unselected_module_is_refused_before_any_call(tmp_path):
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    with_live_layout(data)
+    front = {**LIVE_LAYOUT["routes"][0], "module_id": "CP-6", "block_id": "front"}
+    data["layout"] = {**LIVE_LAYOUT, "front": [front]}
+    path.write_text(json.dumps(data))
+    calls = []
+    with pytest.raises(ValueError, match="cpos_layout: route selected modules"):
+        run_handoffs(
+            path, tmp_path / "state", execute=lambda task: calls.append(task), check=checked
+        )
+    assert calls == []

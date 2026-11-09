@@ -9,8 +9,8 @@ from types import MappingProxyType
 from typing import Literal
 
 from deploy_vii.contracts import PathwayId
+from deploy_workflow.model.turn import Provider
 
-Provider = Literal["openai", "anthropic", "openrouter", "copilot"]
 Role = Literal["repair", "comparison"]
 
 

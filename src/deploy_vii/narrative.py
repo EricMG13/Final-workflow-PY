@@ -36,6 +36,39 @@ _DIMENSIONS: tuple[Dimension, ...] = (
     "key_gaps",
 )
 _FINANCIAL = {"leverage", "coverage", "cash_flow_quality", "liquidity"}
+# The canonical KPIs, by (operation, key), whose available amount supports each financial
+# dimension. Leverage and coverage need the ratios themselves; a bare `value` row (revenue, ...)
+# supports none. Liquidity and cash-flow quality need the value rows `downstream_readiness`
+# already classes as `liquidity_data` and `cash_flow_metrics`, with `total_debt` for liquidity.
+_SUPPORT: dict[Dimension, tuple[str, frozenset[str]]] = {
+    "leverage": (
+        "ratio",
+        frozenset(
+            {
+                "total_leverage_reported",
+                "total_leverage_adjusted",
+                "net_leverage_reported",
+                "net_leverage_adjusted",
+                "senior_secured_leverage",
+                "senior_secured_leverage_reported",
+            }
+        ),
+    ),
+    "coverage": (
+        "ratio",
+        frozenset(
+            {
+                "interest_coverage_reported",
+                "interest_coverage_adjusted",
+                "capex_adjusted_coverage",
+                "capex_adjusted_coverage_reported",
+                "ffo_interest_coverage",
+            }
+        ),
+    ),
+    "liquidity": ("value", frozenset({"cash_closing", "liquidity", "undrawn_rcf", "total_debt"})),
+    "cash_flow_quality": ("value", frozenset({"fcf", "ffo", "cfo_adjusted"})),
+}
 
 
 def _prose(value: str) -> str:
@@ -219,6 +252,24 @@ def _catalogue(ledger: CanonicalGapReport) -> tuple[EvidenceRecord, ...]:
     return tuple(result)
 
 
+def financial_dimensions(ledger: CanonicalGapReport) -> tuple[Dimension, ...]:
+    """The financial dimensions with an available supporting KPI amount, in dimension order."""
+    available = {
+        (kpi.operation, kpi.key)
+        for kpi in (ledger.kpis.kpis if ledger.kpis else ())
+        if kpi.value.amount is not None
+    }
+    return tuple(
+        d
+        for d in _DIMENSIONS
+        if d in _SUPPORT and any((_SUPPORT[d][0], key) in available for key in _SUPPORT[d][1])
+    )
+
+
+def _scope(ledger: CanonicalGapReport) -> Literal["financial_synthesis", "data_quality_only"]:
+    return "financial_synthesis" if financial_dimensions(ledger) else "data_quality_only"
+
+
 def narrative_inputs(
     pack: PreparedPack,
     context: SourceContextReview,
@@ -230,26 +281,20 @@ def narrative_inputs(
     return NarrativeInputs(
         ledger=ledger,
         catalogue=_catalogue(ledger),
-        scope="financial_synthesis"
-        if ledger.kpis and any(k.value.amount is not None for k in ledger.kpis.kpis)
-        else "data_quality_only",
+        scope=_scope(ledger),
     )
 
 
-def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) -> tuple[str, ...]:
+def validate_narrative_review(  # noqa: C901, PLR0912, PLR0915 - pre-existing (C901 36, 35 branches, 74 statements at base; unchanged)
+    inputs: NarrativeInputs, review: NarrativeReview
+) -> tuple[str, ...]:
     """Validate against supplied inputs; canonical_narrative recomputes those inputs."""
     try:
         inputs = NarrativeInputs.model_validate_json(inputs.model_dump_json())
         review = NarrativeReview.model_validate_json(review.model_dump_json())
         if inputs.catalogue != _catalogue(inputs.ledger):
             return ("Narrative catalogue differs from its prior registers",)
-        scope = (
-            "financial_synthesis"
-            if inputs.ledger.kpis
-            and any(k.value.amount is not None for k in inputs.ledger.kpis.kpis)
-            else "data_quality_only"
-        )
-        if inputs.scope != scope:
+        if inputs.scope != _scope(inputs.ledger):
             return ("Narrative scope differs from available KPI evidence",)
     except ValueError as error:
         return (f"Invalid narrative contract: {error}",)
@@ -267,6 +312,7 @@ def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) 
     for part in records(review, EvidencePart):
         if part.evidence_id not in evidence:
             issues.append(f"Unknown narrative evidence: {part.evidence_id}")
+    supported = financial_dimensions(inputs.ledger)
     dimension_findings: dict[Dimension, set[str]] = {d: set() for d in _DIMENSIONS}
     for finding in review.findings:
         dimension_findings[finding.dimension].add(finding.finding_id)
@@ -283,8 +329,11 @@ def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) 
         ):
             if not any(isinstance(p, ProsePart) for p in passage):
                 issues.append(f"Finding lacks {name} reasoning: {finding.finding_id}")
-        if inputs.scope == "data_quality_only" and finding.dimension in _FINANCIAL:
-            issues.append(f"Financial narrative requires an available KPI: {finding.finding_id}")
+        if finding.dimension in _FINANCIAL and finding.dimension not in supported:
+            issues.append(
+                f"Financial narrative requires an available {finding.dimension} KPI: "
+                f"{finding.finding_id}"
+            )
     for coverage in review.coverage:
         if not any(isinstance(p, ProsePart) for p in coverage.rationale):
             issues.append(f"Dimension lacks rationale: {coverage.dimension}")
@@ -354,7 +403,7 @@ def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) 
     return tuple(issues)
 
 
-def canonical_narrative(
+def canonical_narrative(  # noqa: PLR0913 - pre-existing (6 arguments at base)
     pack: PreparedPack,
     context: SourceContextReview,
     financial: FinancialReview,
@@ -391,12 +440,14 @@ def canonical_narrative(
         )
 
     coverage = {c.dimension: c for c in review.coverage}
+    supported = financial_dimensions(inputs.ledger)
     for dimension in _DIMENSIONS:
-        if inputs.scope == "data_quality_only" and dimension in _FINANCIAL:
-            continue
-        if dimension not in coverage or coverage[dimension].status == "unassessed":
+        if dimension in _FINANCIAL and dimension not in supported:
+            if supported:
+                gap(dimension, f"No available KPI supports the {dimension} dimension")
+        elif dimension not in coverage or coverage[dimension].status == "unassessed":
             gap(dimension, f"Narrative dimension is unassessed: {dimension}")
-    if inputs.scope == "data_quality_only":
+    if not supported:
         gap("financial-synthesis", "No available KPI: narrative is limited to data quality")
     if review.funding.status == "unassessed":
         gap("funding-liabilities", "Material non-debt funding liabilities have not been assessed")
@@ -442,14 +493,22 @@ def canonical_narrative(
         if gaps
         else "candidate",
         limitations=(
-            "Structural evidence binding cannot prove issuer-specific meaning, "
-            "materiality or reasoning quality",
-            "All numeric evidence is supplied by prior registers; "
-            "prose still requires semantic review",
-            "Funding classification is an analyst synthesis over prior balance-sheet rows, "
-            "not new extraction",
-            "No consumer readiness, analytical qualification "
-            "or completed Module acceptance is inferred",
+            (
+                "Structural evidence binding cannot prove issuer-specific meaning, "
+                "materiality or reasoning quality"
+            ),
+            (
+                "All numeric evidence is supplied by prior registers; "
+                "prose still requires semantic review"
+            ),
+            (
+                "Funding classification is an analyst synthesis over prior balance-sheet rows, "
+                "not new extraction"
+            ),
+            (
+                "No consumer readiness, analytical qualification "
+                "or completed Module acceptance is inferred"
+            ),
         ),
     )
 

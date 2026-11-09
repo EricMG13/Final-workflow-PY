@@ -10,16 +10,17 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field, fields
 from decimal import Decimal, InvalidOperation
 from types import MappingProxyType
-from typing import Any, Literal, cast
+from typing import Any, Literal, cast, get_args
 
 Provider = Literal["openai", "anthropic", "openrouter", "copilot"]
+PROVIDERS: tuple[Provider, ...] = get_args(Provider)  # the one provider list
 Role = Literal["system", "user", "assistant", "tool"]
 StopReason = Literal["end", "tool_use", "max_tokens", "other"]
 
 # The four spec §7.1 configurations, plus the two copilot configurations, which CP-OS selects
 # explicitly and which are priced only from the runtime's reported usage. pricing.PRICES asserts
 # its keys and providers against this.
-CONFIG_PROVIDERS: Mapping[str, str] = MappingProxyType(
+CONFIG_PROVIDERS: Mapping[str, Provider] = MappingProxyType(
     {
         "sol-medium": "openai",
         "sol-high": "openai",
@@ -129,8 +130,6 @@ class ModelSpec:
             raise TurnError(
                 f"config {self.config_id!r} belongs to {expected!r}, not {self.provider!r}"
             )
-        if self.provider not in ("openai", "anthropic", "openrouter", "copilot"):
-            raise TurnError(f"unknown provider {self.provider!r}")
         if self.config_id in CONFIG_MODELS and CONFIG_MODELS[self.config_id] != self.model:
             raise TurnError(f"config {self.config_id!r} runs {CONFIG_MODELS[self.config_id]!r}")
         if self.effort not in MODEL_EFFORTS.get(self.model, frozenset()):

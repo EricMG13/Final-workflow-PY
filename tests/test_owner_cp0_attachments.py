@@ -128,6 +128,10 @@ def test_the_fixed_ids_the_bound_and_the_texts_are_the_oracle_s() -> None:
     assert cp0_attachments.LEGAL_DRAFT_MISSING == TEXTS["legal_draft_missing"]
     assert cp0_attachments.CONTEXT_REFUSED == TEXTS["context_refused_prefix"]
     assert cp0_attachments.GAP_MATCH.format(id="<id>") == TEXTS["gap_match_regex"]
+    assert (
+        cp0_attachments.GAP_TOKEN.format(word="<field or legal_documents>")
+        == (TEXTS["gap_token_regex"])
+    )
 
 
 # --- the gate against every frozen case ---------------------------------------------------------
@@ -170,21 +174,57 @@ def test_a_gap_must_be_a_source_gap_naming_the_id_as_a_whole_token() -> None:
         ]
         return json.dumps(review)
 
-    every = ("source", "portfolio, prior_case and bridge are not supplied")
+    # S02-A01: a gap names a declared source by its quoted id, or by the attachment field as a
+    # whole token (hand-derived from the issue text "source '<id>' ... naming it")
+    every = ("source", "Source 'portfolio', 'prior_case' and \"bridge\" are not supplied")
     assert _gate(pack, with_gaps(every)) == ()
-    # a different kind, or the id only inside a longer token, names nothing
+    by_field = ("source", "portfolio_workbook, prior_case and management_bridge are not supplied")
+    assert _gate(pack, with_gaps(by_field)) == ()
+    # a different kind names nothing; neither does the id inside a longer token
     assert len(_gate(pack, with_gaps(("scope", every[1])))) == 3
-    longer = ("source", "xportfolio, prior_case_2 and bridge2 are not supplied")
+    longer = ("source", "xportfolio_workbook, prior_case_2 and 'bridge2' are not supplied")
     assert len(_gate(pack, with_gaps(longer))) == 3
     # the match is case-sensitive: upper or title case does not name the id
-    cased = ("source", "PORTFOLIO, Prior_Case and BRIDGE are not supplied")
+    cased = ("source", "'PORTFOLIO', 'Prior_Case' and 'BRIDGE' are not supplied")
     assert len(_gate(pack, with_gaps(cased))) == 3
-    only_one = ("source", "The bridge is not supplied")
+    only_one = ("source", "The 'bridge' is not supplied")
     issues = _gate(pack, with_gaps(only_one))
     assert [i.split(":")[0] for i in issues] == [
         "attachments.portfolio_workbook",
         "attachments.prior_case",
     ]
+
+
+def test_unrelated_gaps_with_a_bare_word_do_not_satisfy_the_gate() -> None:
+    # S02-A01: "bridge", "portfolio" and "illegal_documents" are ordinary credit words or longer
+    # tokens; none names a declared attachment. Expected: the three declared issues stay.
+    pack = _pack("abs-refused")
+    base = json.loads(_review("abs-gap-ok", _pack("abs-gap-ok")))
+    template = base["gaps"][0]
+    unrelated = [
+        "The annual report has no EBITDA bridge from reported to adjusted figures.",
+        "Segment portfolio mix is not disclosed by geography.",
+        "No illegal_documents_index was supplied.",
+    ]
+    review = dict(base, pack_sha256=pack.content_hash())
+    review["gaps"] = [
+        dict(template, gap_id=f"g-{n}", kind="source", description=text)
+        for n, text in enumerate(unrelated)
+    ]
+    issues = _gate(pack, json.dumps(review))
+    assert [i.split(":")[0] for i in issues] == [
+        "attachments.portfolio_workbook",
+        "attachments.prior_case",
+        "attachments.management_bridge",
+    ]
+    # the longer token illegal_documents_index is not legal_documents (executed rule unmet)
+    pack, text = _edited(
+        "legal-exec-missing",
+        lambda r: r.update(
+            gaps=[dict(template, gap_id="g-ill", kind="source", description=unrelated[2])]
+        ),
+    )
+    assert _gate(pack, text) == (LEGAL_EXECUTED,)
 
 
 def test_a_gap_naming_an_id_the_pack_holds_is_allowed() -> None:

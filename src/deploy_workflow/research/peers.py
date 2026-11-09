@@ -5,12 +5,16 @@ The model submits ``peers`` beside its answers when the locked brief asks for th
 (``ResearchBrief.peer_pack``). A figure carries ``peer_id``, ``operand``, ``unit``, ``currency``,
 ``period_end`` and a citation whose quote is the figure token; it never carries an amount (a typed
 ``amount`` is a shape refusal, as is any field CP-1C owns: inclusion, comparability, statistics).
-Python reads the amount from the quote with CP-1C's table rule and writes the facts.
+Python reads the amount from the quote with CP-1C's table rule and writes the facts. The review
+holds the quote to a whole figure of its span and the unit, currency, period end and (but for
+debt, a balance) twelve-month length to what the span, or its item's ``Basis:`` line, states
+(``peer_basis``).
 
 ``review`` imports this module for ``PeerPack`` and ``tables`` imports ``review``, so the
 functions that need ``review``, ``tables`` or ``owners.cp1c`` import them when called.
 """
 
+import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
@@ -19,7 +23,9 @@ from functools import partial
 from typing import TYPE_CHECKING, Final, Literal, get_args
 
 from deploy_vii.contracts import Citation, Contract, Fact, Identifier, Module, Source, Text
+from deploy_vii.quotes import normalise
 from deploy_vii.readiness import citation_issues
+from deploy_workflow.research import peer_basis
 from deploy_workflow.research.contracts import RESERVED_PREFIX, EvidenceItem, ResearchBrief
 
 if TYPE_CHECKING:
@@ -56,6 +62,19 @@ NOT_AN_OPERAND: Final = "operand is not a CP-1C operand"
 NOT_A_CANDIDATE: Final = "peer_id is not a TDR.4 candidate"
 NOT_A_DATE: Final = "period_end is not a calendar date"
 NOT_EVIDENCE: Final = "citation is not an accepted ev-* item"
+CUT_FIGURE: Final = (
+    "quote is part of a larger number, date, signed figure, percentage or count of time in the "
+    "cited span; quote the whole figure as the span prints it, with its minus sign"
+)
+A_YEAR: Final = "quote is a year of the period, not an amount"
+NOT_A_CODE: Final = "currency is not a three-letter ISO 4217 code"
+_OR_BASIS: Final = "the cited span states (or, when it states none, a Basis: line of the same item)"
+UNSTATED_CURRENCY: Final = f"currency is not the one currency {_OR_BASIS}"
+UNSTATED_SCALE: Final = f"unit is not the one scale (thousands, millions or units) {_OR_BASIS}"
+UNSTATED_LENGTH: Final = f"the figure is not for twelve months, the only period length {_OR_BASIS}"
+UNSTATED_END: Final = f"period_end is not the one date {_OR_BASIS}"
+# A balance is stated at its period end, whatever period length the span reports beside it.
+BALANCE_OPERANDS: Final = frozenset({"debt"})
 # A peer id sits in every fact id of its rows: `TDR.4.<id>.<field>`, `TDR.5.<id>.<dimension>.<field>`
 # and `TDR.6.<id>.<operand>.<field>`. The longest tail decides (TDR.5 with `definition` and
 # `observation`); one id past this makes `Fact` raise after the binding write.
@@ -149,6 +168,106 @@ def _citation_issues(
     return [_issue(where, text) for text in citation_issues((citation,), sources)]
 
 
+def _cited(citation: Citation, sources: Sequence[Source]) -> tuple[str, list[str]] | None:
+    """The cited span's text and the texts of its item's ``Basis:`` spans (CP-1C's
+    ``BASIS_PREFIX``), else None (``citation_issues`` reports a span that is not held)."""
+    from deploy_workflow.owners.cp1c import BASIS_PREFIX
+
+    for source in sources:
+        if source.source_id != citation.source_id:
+            continue
+        text = next((s.text for s in source.spans if s.locator == citation.locator), None)
+        basis = [s.text for s in source.spans if normalise(s.text).startswith(BASIS_PREFIX)]
+        return None if text is None else (text, basis)
+    return None
+
+
+# What cuts a quote out of a larger figure, read from the text before and after it (S16 A01/C01):
+# a letter or digit touching it; a sign, point, comma, slash or bracket before it (``-12`` of a
+# date, ``12.3`` of ``(12.3)``), also across one space (``- 12.3``); a dash, slash, bracket or
+# percent sign after it (also across one space, or as a word), or a point or comma before a
+# letter or digit; and, for an integer, a count of time (``12 months``) or a space-grouped
+# thousands digit group after it (``200 000``), which a decimal figure has not.
+_CUT_BEFORE: Final = re.compile(r"(?:[^\W_]|[-+.,/(]|[-+(] |(?:^| )[0-9]{1,3} )$")
+_CUT_AFTER: Final = re.compile(
+    r"[^\W_]|[-/)%]|[.,][^\W_]| [%)]"
+    r"| (?i:percent|per cent|bps|basis points)\b"
+)
+_INTEGER_AFTER: Final = re.compile(r" [0-9]{3}(?![0-9])| (?i:(?:month|week|quarter|year|day)s?)\b")
+
+
+def _cuts_figure(text: str, start: int, end: int) -> bool:
+    """Whether ``text[start:end]`` is not a whole figure token (``_CUT_BEFORE``, ``_CUT_AFTER``)."""
+    return (
+        _CUT_BEFORE.search(text, 0, start) is not None
+        or _CUT_AFTER.match(text, end) is not None
+        or ("." not in text[start:end] and _INTEGER_AFTER.match(text, end) is not None)
+    )
+
+
+def whole_figure(quote: str, text: str) -> bool:
+    """Whether ``quote`` occurs in ``text`` (both normalised as ``quotes.normalise``) at least once
+    as a whole figure token (``_cuts_figure``)."""
+    needle, hay = normalise(quote), normalise(text)
+    return bool(needle) and any(
+        not _cuts_figure(hay, at, at + len(needle))
+        for at in range(len(hay))
+        if hay.startswith(needle, at)
+    )
+
+
+def _cut_figure_issues(where: str, fig: "LocatedFigure", text: str) -> list["ReviewIssue"]:
+    """A quote the table rule reads as an amount must be a whole figure of its span, not a
+    fragment of a larger number, a date or a signed figure, and not the year of the period."""
+    quote = fig.citation.quote
+    if amount_from_quote(quote) is None:
+        return []
+    if not whole_figure(quote, text):
+        return [_issue(where, CUT_FIGURE)]
+    years = {
+        fig.period_end[:4],
+        *(str(day.year) for day in peer_basis.period_ends(normalise(text))),
+    }
+    return [_issue(where, A_YEAR)] if normalise(quote) in years else []
+
+
+def _basis_issues(
+    where: str, fig: "LocatedFigure", text: str, basis: Sequence[str]
+) -> list["ReviewIssue"]:
+    """The declared currency, scale and period end are the ones the span (else its item's
+    ``Basis:`` lines) states, and a flow figure is stated for twelve months and no other length."""
+    said = partial(peer_basis.stated, span=text, basis=basis)
+    wrong = [
+        (
+            fig.currency in peer_basis.ISO_4217 and said(peer_basis.currencies) != {fig.currency},
+            UNSTATED_CURRENCY,
+        ),
+        (said(peer_basis.scales) != {fig.unit}, UNSTATED_SCALE),
+        (
+            fig.operand not in BALANCE_OPERANDS
+            and said(peer_basis.period_lengths) != {peer_basis.TWELVE_MONTHS},
+            UNSTATED_LENGTH,
+        ),
+        (
+            (end := period_end_date(fig.period_end)) is not None
+            and said(peer_basis.period_ends) != {end},
+            UNSTATED_END,
+        ),
+    ]
+    return [_issue(where, why) for failed, why in wrong if failed]
+
+
+def _located_issues(
+    where: str, fig: "LocatedFigure", sources: Sequence[Source]
+) -> list["ReviewIssue"]:
+    """The checks of a figure against its held span, run once its citation holds."""
+    cited = _cited(fig.citation, sources)
+    if cited is None:
+        return []
+    text, basis = cited
+    return _cut_figure_issues(where, fig, text) + _basis_issues(where, fig, text, basis)
+
+
 def _candidate_issues(
     pack: PeerPack, items: set[str], sources: tuple[Source, ...]
 ) -> list["ReviewIssue"]:
@@ -204,7 +323,10 @@ def _figure_issues(
         seen.add(where)
         if period_end_date(fig.period_end) is None:
             issues.append(_issue(where, NOT_A_DATE))
-        issues += _citation_issues(where, fig.citation, items, sources)
+        if fig.currency not in peer_basis.ISO_4217:
+            issues.append(_issue(where, NOT_A_CODE))
+        cited = _citation_issues(where, fig.citation, items, sources)
+        issues += cited or _located_issues(where, fig, sources)
     return issues
 
 

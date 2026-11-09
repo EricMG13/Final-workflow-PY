@@ -7,12 +7,14 @@ hash-addressed audit records, never accepts caller-built Modules or authority.
 import argparse
 import hashlib
 import json
+import os
 import sys
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
 from threading import Lock
 from typing import Any, Literal, TextIO
+from uuid import uuid4
 
 from pydantic import BaseModel, ValidationError
 
@@ -31,6 +33,7 @@ from deploy_vii.preparation import PreparedPack
 from deploy_vii.readiness import ReadinessReview, build_readiness
 from deploy_vii.source_context import SourceContextReport, SourceContextReview
 from deploy_workflow.host import SourceSession
+from deploy_workflow.platform_io import fsync_directory
 from deploy_workflow.tools.source import SourceError
 
 MAX_CALLS_PER_STEP = 16
@@ -151,13 +154,25 @@ def _digest(raw: bytes) -> str:
 
 
 def _put(path: Path, raw: bytes) -> None:
+    """Create ``path`` once, holding all of ``raw`` or absent: a crash or a failed write never
+    leaves a torn file that a resume would read as retained. The bytes go to a hidden temp file
+    beside it, are synced, and are published with ``os.link``, which refuses an existing target."""
     path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.parent / f".pending-{uuid4().hex}"
     try:
-        with path.open("xb") as stream:
+        with temporary.open("xb") as stream:
             stream.write(raw)
-    except FileExistsError:
-        if path.read_bytes() != raw:
-            raise WorkflowError("identity_mismatch") from None
+            stream.flush()
+            os.fsync(stream.fileno())
+        try:
+            os.link(temporary, path)
+        except FileExistsError:
+            if path.read_bytes() != raw:
+                raise WorkflowError("identity_mismatch") from None
+            return
+        fsync_directory(path.parent)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def _audit(store: Execution, kind: str, digest: str) -> Path:
@@ -626,6 +641,26 @@ class SourceWorkflow:
             return receipt
 
 
+_BAD_LINE_ANSWER = '{"status": "refused", "error_code": "bad_arguments"}\n'
+
+
+def read_line(reader: TextIO, writer: TextIO, limit: int) -> str:
+    """The next line of a bounded JSON-lines transport (at most `limit` + 1 characters, the rest of
+    a longer line read on to its end), or "" at the end of the stream. The text reader decodes in
+    chunks, so its position after a bad byte is unknown: a line any part of which is not UTF-8 is
+    answered `bad_arguments` once and "" is returned, so the stream ends there. Shared by the
+    source, financial and owner servers."""
+    try:
+        line = rest = reader.readline(limit + 1)
+        while len(line) > limit and rest and not rest.endswith("\n"):
+            rest = reader.readline(limit + 1)
+    except UnicodeDecodeError:
+        writer.write(_BAD_LINE_ANSWER)
+        writer.flush()
+        return ""
+    return line
+
+
 def serve_json_lines(
     workflow: SourceWorkflow, reader: TextIO, writer: TextIO, *, destination: Path, participant: str
 ) -> None:
@@ -634,13 +669,11 @@ def serve_json_lines(
     workflow._participant = participant
     workflow._transport = "bounded-json-lines/1"
     for _ in range(MAX_MESSAGES):
-        line = reader.readline(MAX_LINE + 1)
+        line = read_line(reader, writer, MAX_LINE)
         if not line:
             return
         try:
             if len(line) > MAX_LINE:
-                while line and not line.endswith("\n"):
-                    line = reader.readline(MAX_LINE + 1)
                 raise WorkflowError("bad_arguments")
             request = json.loads(line)
             if type(request) is not dict:

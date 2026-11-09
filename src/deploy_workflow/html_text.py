@@ -140,7 +140,8 @@ class _Lines(html.parser.HTMLParser):
             self.parts.append(re.sub(r"\s+", " ", data))
 
 
-def _decode(raw: bytes) -> tuple[str, str]:
+def decode_html(raw: bytes) -> tuple[str, str]:
+    """The strictly decoded text and the encoding name; raises ``UndecodableHtml``."""
     if raw.startswith(codecs.BOM_UTF8):
         try:
             return raw.decode("utf-8-sig"), "utf-8-sig"
@@ -169,7 +170,7 @@ def _decode(raw: bytes) -> tuple[str, str]:
 
 def convert_html(raw: bytes) -> ConvertedHtml:
     """Convert HTML bytes to newline-terminated visible-text lines (empty lines dropped)."""
-    decoded, encoding = _decode(raw)
+    decoded, encoding = decode_html(raw)
     if "\x00" in decoded:
         raise UndecodableHtml("decoded text contains NUL")
     parser = _Lines()

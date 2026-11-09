@@ -331,6 +331,15 @@ class _Validated:
     cause: Exception | None = None  # the workflow failure behind ``stop``, when it was one
 
 
+@dataclass(frozen=True)
+class _Hold:
+    """The reservation of one sent call: its id, when it started, what was held."""
+
+    call_id: str
+    started: float
+    reserved: Decimal
+
+
 @dataclass
 class _Attempt:
     """One provider request, finished: its record is written."""
@@ -571,11 +580,16 @@ class ToolLoop:
         try:
             price = price_of(config)
             bound = self._token_bound(request)
-            reserved = (
-                request_reservation_usd(price, bound, self._max_output)
-                if self._adapter.ruling is not None
-                else reservation_usd(price, bound, self._max_output)
+            # Live holds the configured context ceiling. Offline nothing is paid: a request the
+            # listed context covers holds its own bound, and a longer one what the live loop held,
+            # so a replay never holds more than the live run did nor refuses a call it held.
+            listed = price.max_input_tokens
+            hold = (
+                reservation_usd
+                if self._adapter.ruling is None and (listed is None or bound <= listed)
+                else request_reservation_usd
             )
+            reserved = hold(price, bound, self._max_output)
             self._budget.reserve(call_id, reserved, retry_of=retry_of, config_id=config)
         except (BudgetError, PricingError) as error:
             return self._refused(ctx, index, started, type(error).__name__, str(error))
@@ -596,7 +610,8 @@ class ToolLoop:
                 error=self._redactor.exception(failure or RuntimeError(name)),
             )  # fmt: skip
             return _Attempt(stop=(name, self._redactor.text(str(failure))))
-        return self._after_reply(ctx, index, call_id, started, reserved, reply, retry_of)
+        hold_of = _Hold(call_id, started, reserved)
+        return self._after_reply(ctx, index, hold_of, reply, retry_of)
 
     def _token_bound(self, request: TurnRequest) -> int:
         """Estimate input tokens from outgoing bytes and the configured ratio plus overhead.
@@ -686,12 +701,11 @@ class ToolLoop:
         self,
         ctx: _Ctx,
         index: int,
-        call_id: str,
-        started: float,
-        reserved: Decimal,
+        held: _Hold,
         reply: AdapterReply,
         retry_of: str | None,
     ) -> _Attempt:
+        call_id, started, reserved = held.call_id, held.started, held.reserved
         if reply.kind == "not_sent":
             self._budget.release(call_id)  # nothing reached the provider: the hold is freed
             self._refuse_record(ctx, index, started, reply)
@@ -720,7 +734,7 @@ class ToolLoop:
                     detail = f"{MAX_TURNS} model turns in one step without a final submit"
                     stop = ("TurnLimit", detail)
         usage = reply.usage if reply.usage is not None or reply.turn is None else reply.turn.usage
-        settled, status, retryable, overrun = self._settle(call_id, reply, usage)
+        settled, status, retryable, overrun, priced_failure = self._settle(call_id, reply, usage)
         if failure is not None:  # the raw write or the handling itself failed: settled, recorded
             # After an ok reply this is a loop stop (record.LOOP_STOPS) so the run still exports.
             error_class = (
@@ -728,6 +742,13 @@ class ToolLoop:
             )  # a non-ok reply keeps the provider's class; the failure's type stays in ``message``
             message = self._redactor.exception(failure)
             stop = (error_class, self._named(failure))
+        elif priced_failure is not None:  # the charge could not be priced: unknown, recorded, stop
+            # An ok reply stops as BadTurn (in LOOP_STOPS: it still exports); a non-ok reply
+            # keeps the provider's class.
+            error_class = "BadTurn" if reply.kind == "ok" else reply.error_class or "BadTurn"
+            named, _ = _caught(lambda: self._named(priced_failure))  # a raising __str__ is guarded
+            message = named or f"{type(priced_failure).__name__}: detail withheld"
+            stop = (error_class, message)
         elif stop is not None:
             error_class, message = stop
         self._append(
@@ -765,10 +786,11 @@ class ToolLoop:
 
     def _settle(
         self, call_id: str, reply: AdapterReply, usage: Usage | None
-    ) -> tuple[Decimal | None, CostStatus, bool, bool]:
+    ) -> tuple[Decimal | None, CostStatus, bool, bool, Exception | None]:
         """Settle the hold with the charge of what was sent: (settled, cost status, retryable,
-        overrun). A charge that cannot be known keeps the whole hold."""
+        overrun, pricing failure). A charge that cannot be known or priced keeps the whole hold."""
         retryable = False
+        pricing_failure: Exception | None = None
         settled: Decimal | None
         status: CostStatus
         if reply.kind == "sent_known":
@@ -777,18 +799,26 @@ class ToolLoop:
             settled, status, retryable = None, "unknown", _retryable(reply)
         else:
             assert usage is not None
-            priced = price_usage(
-                self._spec.config_id, usage, reply.billed_usd, offline=self._adapter.ruling is None
+            priced, pricing_failure = _caught(
+                partial(
+                    price_usage,
+                    self._spec.config_id,
+                    usage,
+                    reply.billed_usd,
+                    offline=self._adapter.ruling is None,
+                )
             )
-            settled, status = priced.usd, priced.cost_status
+            settled, status = (
+                (None, "unknown") if priced is None else (priced.usd, priced.cost_status)
+            )
         if settled is None:
             self._budget.settle(call_id, None, retryable=retryable)
-            return None, "unknown", retryable, False
+            return None, "unknown", retryable, False, pricing_failure
         try:
             self._budget.settle(call_id, settled)
         except OverrunStop:
-            return settled, status, False, True  # recorded in full by the budget; the run stops
-        return settled, status, False, False
+            return settled, status, False, True, None  # recorded in full; the run stops
+        return settled, status, False, False, None
 
     def _outcome_of(
         self,

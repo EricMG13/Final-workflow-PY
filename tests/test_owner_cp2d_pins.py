@@ -230,10 +230,13 @@ def test_the_label_is_last_on_every_path_that_composes_the_limitations(base_case
     assert list(pinned.own_limitations) == [*want, PINNED]
     assert pinned.gaps_ledger.rows[-1] == ("Pinned assumptions", "Limitation")
     assert len(pinned.gaps_ledger.rows) == len(want) + 1
+    # The bridge's own limitations leave out the analyst's stated ones (S06-C02), which only a
+    # submission carries; the pinned label is last there too.
     bridge = cp2d.bridge_of(inputs)
+    own = [t for t in want if t not in tm.CASES[base_case].get("analyst_limitations", [])]
     got = cp2d.own_limitations(operands=inputs.operands, bridge=bridge, pinned=True)
-    assert list(got) == [*want, PINNED]
-    assert list(cp2d.own_limitations(operands=inputs.operands, bridge=bridge)) == want
+    assert list(got) == [*own, PINNED]
+    assert list(cp2d.own_limitations(operands=inputs.operands, bridge=bridge)) == own
 
 
 def test_a_pinned_run_labels_the_long_horizon_report_too(

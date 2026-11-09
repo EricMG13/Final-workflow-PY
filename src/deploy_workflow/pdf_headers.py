@@ -19,7 +19,8 @@ _YEARS = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
 _DATE = re.compile(
     rf"(?i)({_MONTH})\s+(\d{{1,2}}),?\s+(\d{{4}})|(?<!\d)(\d{{1,2}})\s+({_MONTH})\s+(\d{{4}})"
 )
-_MONTH_DAY = re.compile(rf"(?i)({_MONTH})\s+(\d{{1,2}})|(?<!\d)(\d{{1,2}})\s+({_MONTH})")
+# The day is not followed by another digit: in "June 2024" the "20" is the start of a year.
+_MONTH_DAY = re.compile(rf"(?i)({_MONTH})\s+(\d{{1,2}})(?!\d)|(?<!\d)(\d{{1,2}})\s+({_MONTH})")
 _DURATION = re.compile(
     r"(?i)(?<![A-Za-z])(?:(three|six|nine|twelve)\s+months?|(?:fiscal\s+)?years?)\s+ended\b"
 )
@@ -97,7 +98,7 @@ def _statement_title_start(lines: list[str]) -> int | None:
     return titles[-1] if titles else None
 
 
-def mapping_headers(
+def mapping_headers(  # noqa: C901, PLR0911, PLR0912, PLR0915 - pre-existing (C901 52 at base, 48 now)
     page_text: str, *, first_data_line: int, statement: Literal["BS", "IS", "CFS"]
 ) -> tuple[str, ...] | None:
     """Recover coherent column headers from this page before its first data row."""
@@ -151,7 +152,6 @@ def mapping_headers(
     if len(years) < 2:
         return None
     year_matches = list(_YEARS.finditer(years_line))
-    residue = years_line[year_matches[0].start() :]
     for left, right in pairwise(year_matches):
         residue = years_line[left.end() : right.start()]
         residue = re.sub(rf"(?i)\b(?:notes?|references?|{_MONTH})\b", " ", residue)
@@ -177,7 +177,6 @@ def mapping_headers(
         if len(full_dates) == 1 and str(full_dates[0].year) != years[0]:
             return None
         if len(full_dates) == len(years):
-            full = [d.isoformat() for d in full_dates]
             return (" | ".join(d.strftime("%B %d, %Y") for d in full_dates),)
         md = []
         for candidate in candidates:
@@ -218,14 +217,11 @@ def mapping_headers(
                 else (fallback[0][3], fallback[0][2])
             ]
     complete_dates = []
-    if years_line:
-        for found in _DATE.findall(years_line):
-            mo, day, yr = (
-                (found[0], found[1], found[2]) if found[0] else (found[4], found[3], found[5])
-            )
-            if _iso(mo, day, yr) is None:
-                return None
-            complete_dates.append((mo, day, yr))
+    for found in _DATE.findall(years_line):
+        mo, day, yr = (found[0], found[1], found[2]) if found[0] else (found[4], found[3], found[5])
+        if _iso(mo, day, yr) is None:
+            return None
+        complete_dates.append((mo, day, yr))
     explicit_span_date = _MONTH_DAY.findall(dline)
     if explicit_span_date and complete_dates:
         span_mds = [(x[0], x[1]) if x[0] else (x[3], x[2]) for x in explicit_span_date]
@@ -284,16 +280,6 @@ def mapping_headers(
         label = "Year Ended " if kind == "Year" else f"{kind} Months Ended "
         spanrow.append(label + month.title() + " " + day)
     span_row_text = " | ".join(spanrow)
-    if is_year and complete_dates:
-        actual_dates = [(m, d, y) for m, d, y in complete_dates]
-        while len(actual_dates) < len(years):
-            i = len(actual_dates)
-            month, day = month_days[i]
-            actual_dates.append((month, day, years[i]))
-        dated = [_iso(month, day, year) for month, day, year in actual_dates]
-        if any(value is None for value in dated):
-            return None
-        return (" | ".join("FY " + value for value in dated if value),)
     # One span per column permits distinct ends under a mixed year/date header.
     return (span_row_text, " | ".join(years))
 

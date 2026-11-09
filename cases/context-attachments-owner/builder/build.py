@@ -82,16 +82,24 @@ EXEC_MISSING_ISSUE = (
     "attachments.legal_documents: 'executed' documents are declared but no source is assessed "
     "executed or filed; add a source gap naming legal_documents"
 )
+# "Context refused: " + the problem text of context.py:763-768 (frozen format)
 MISMATCH_ISSUE = (
     f"Context refused: run.as_of: context has '{MISMATCH_AS_OF}' but the run has '{AS_OF}'"
-)  # "Context refused: " + the problem text of context.py:763-768 (frozen format)
-DRAFT_WRONG_CONTEXT = "Draft authority needs a context that declares draft legal documents: {source_id}"
-# cp4_legal.py:476-478 (frozen wording, plan Q2); the row path is cp4_legal.py:397 `<field>[<index>]`.
-NOT_LEGAL_ISSUE = (
-    "{path}: {source_id} is not an executed or filed source (CP-0 authority "
-    "{authority}, or the source is not ready)"
 )
-SOURCE_ID_RE = r"(?<![A-Za-z0-9_]){}(?![A-Za-z0-9_])"  # plan Task 3 (L5)
+DRAFT_WRONG_CONTEXT = (
+    "Draft authority needs a context that declares draft legal documents: {source_id}"
+)
+# cp4_legal.py `_row_issues`; reworded by ruling S09-cp4-cp5-C04 to state what is accepted
+# (executed, filed or, on a draft-documents run, draft); the row path is `<field>[<index>]`.
+NOT_LEGAL_ISSUE = (
+    "{path}: {source_id} is not an executed, filed or, on a draft-documents run, draft source "
+    "(CP-0 authority {authority}, or the source is not ready)"
+)
+# S02-A01: a gap names a declared source by its quoted id ('bridge', as the issue text writes it)
+# or, as a whole token, by the attachment field or legal_documents; a bare word like "bridge" in
+# unrelated prose names nothing.
+SOURCE_ID_RE = r"""['"`]{}['"`]"""
+TOKEN_RE = r"(?<![A-Za-z0-9_]){}(?![A-Za-z0-9_])"
 
 # --- contexts (the form's layout; run_type research, no deal rows needed) -----------------------
 
@@ -507,14 +515,14 @@ EXEC_GAP = gap(
     "Supply the executed legal documents",
     ["CP-4"],
 )
-assert "legal_documents" in EXEC_GAP["description"]
+assert re.search(TOKEN_RE.format("legal_documents"), EXEC_GAP["description"])
 DRAFT_GAP = gap(
     "legal-documents-draft-missing",
     "The run context declares draft legal_documents but the pack holds no draft source",
     "Supply the draft legal documents",
     ["CP-4"],
 )
-assert "legal_documents" in DRAFT_GAP["description"]
+assert re.search(TOKEN_RE.format("legal_documents"), DRAFT_GAP["description"])
 WRONG_CTX_GAP = gap(
     "legal-documents-unconfirmed",
     "The run context does not declare draft legal_documents, so no executed source is confirmed for the legal source",
@@ -828,7 +836,10 @@ EXPECTED_CASES = {
                 "step_validation_issues_include": [
                     NOT_LEGAL_ISSUE.format(path="capacity[3]", source_id="identity", authority="issuer")
                 ],
-                "wording": "frozen (plan Q2): the text keeps 'executed or filed'; `is not an executed, filed or draft source` is NOT used",
+                "wording": (
+                    "ruling S09-cp4-cp5-C04 (replaces plan Q2): the text names what is accepted, "
+                    "`executed, filed or, on a draft-documents run, draft`"
+                ),
                 "journal": "the CP-4 step is rejected; the legal documents row still cites legal-draft (draft) and is not among the issues",
                 "not_among_issues": "documents[0] / the covenant rows quoting legal-draft",
             }
@@ -877,6 +888,7 @@ EXPECTED = {
         "draft_wrong_context": DRAFT_WRONG_CONTEXT,
         "not_legal_source (frozen, cp4_legal.py:476-478)": NOT_LEGAL_ISSUE,
         "gap_match_regex": SOURCE_ID_RE.format("<id>"),
+        "gap_token_regex": TOKEN_RE.format("<field or legal_documents>"),
     },
     "attachment_ids": {f: i for f, i in ATTACHMENT_IDS},
     "max_issues": 4,
@@ -952,7 +964,10 @@ MANIFEST = {
         "context.py:756-769": "src/deploy_workflow/context.py context_facts pairs and `{path}: context has {theirs!r} but the run has {ours!r}` (verified at 73e254fd: pairs :756-762, problems :763-768, raise :769)",
         "contracts.py:49-51": "src/deploy_vii/contracts.py _PRESETS credit_snapshot (CP-0, CP-1, CP-MODEL, CP-1A, CP-2, CP-4, ...)",
         "owner_workflow _gate": "src/deploy_workflow/owner_workflow.py:837-855; _PRECHECKS :625-627 holds only CP-4 today (the CP-0 row is Task 3)",
-        "cp4_legal.py:476-478": "the frozen 'is not an executed or filed source (CP-0 authority ..., or the source is not ready)' row issue",
+        "cp4_legal.py:476-478": (
+            "the row issue 'is not an executed, filed or, on a draft-documents run, draft source "
+            "(CP-0 authority ..., or the source is not ready)' (reworded by S09-cp4-cp5-C04)"
+        ),
     },
     "builder": {"file": f"{CASE}/builder/build.py", "run": "python3 -I cases/context-attachments-owner/builder/build.py"},
     "files_sha256": {name: sha(data) for name, data in sorted(files.items())},

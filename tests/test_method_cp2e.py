@@ -604,6 +604,409 @@ def test_unbalanced_parentheses_are_not_a_row_value(token: str) -> None:
     assert issues == (f"fx.fx_cash_effect: value_text {token} is not the last value of the row",)
 
 
+@pytest.mark.parametrize(
+    ("key", "page", "line", "short", "want"),
+    [
+        # S06-cp2-ade-A02: the FY 2025 cell of the flow row is dropped, so the last value 2.25 is
+        # the Q4 2025 quarter, not the FY 9.00; header `Period  Q1..Q4 2025  FY 2025` has 5
+        # columns, the row 4 values.
+        (
+            "fcf",
+            "page:3",
+            "Levered free cash flow  2.25  2.25  2.25  2.25  9.00",
+            "Levered free cash flow  2.25  2.25  2.25  2.25",
+            "earnings.fcf: the row has 4 values for the 5 header columns",
+        ),
+        # The balance row: header `Period end  Opening ..  FY 2025-12-31` has 6 columns, and the
+        # row lost its FY cell, so 50.00 is the Q4 balance read as the FY one.
+        (
+            "total_debt",
+            "page:4",
+            "Total debt  45  46.25  47.50  48.75  50.00  50.00",
+            "Total debt  45  46.25  47.50  48.75  50.00",
+            "earnings.total_debt: the row has 5 values for the 6 header columns",
+        ),
+        # One value too many is refused the same way: 6 values under 5 columns.
+        (
+            "fcf",
+            "page:3",
+            "Levered free cash flow  2.25  2.25  2.25  2.25  9.00",
+            "Levered free cash flow  2.25  2.25  2.25  2.25  9.00  9.00",
+            "earnings.fcf: the row has 6 values for the 5 header columns",
+        ),
+    ],
+)
+def test_a02_row_must_fill_every_header_column(
+    key: str, page: str, line: str, short: str, want: str
+) -> None:
+    pages = dict(_pages("positive"))
+    assert line in pages[page]
+    pages[page] = pages[page].replace(line, short)
+    sub = copy.deepcopy(SUBMISSIONS["positive"])
+    sub["earnings"][key].update(quote=short, value_text=short.split()[-1])
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == (want,)
+
+
+def _interest_printed(line: str) -> tuple[dict[str, Any], dict[str, str]]:
+    """The positive submission and pages with page 3's cash interest row printed as ``line``."""
+    old = "Cash interest paid  1.25  1.25  1.25  1.25  5.00"
+    pages = dict(_pages("positive"))
+    assert old in pages["page:3"]
+    pages["page:3"] = pages["page:3"].replace(old, line)
+    sub = copy.deepcopy(SUBMISSIONS["positive"])
+    sub["earnings"]["interest"].update(quote=line, value_text=line.split()[-1])
+    return sub, pages
+
+
+def test_a03_parenthesised_interest_outflow_is_the_amount_paid() -> None:
+    """S06-cp2-ade-A03/C01: the page prints the cash interest outflow in accounting parentheses.
+
+    Hand-derived from the pages: EBITDA 30.0, cash interest paid 5.00, floating balance 50, floor
+    0, shocks 100 and 200 bp. Coverage 30 / 5 = 6; added interest 50 x 1% = 0.5 and 50 x 2% = 1;
+    interest after 5.5 and 6; coverage after 30 / 5.5 and 30 / 6 = 5. Before the fix the operand
+    was -5.00: coverage n.m. "cash interest is negative" and interest after -4.5 and -4."""
+    sub, pages = _interest_printed("Cash interest paid  (1.25)  (1.25)  (1.25)  (1.25)  (5.00)")
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == ()
+    inputs = cp2e.inputs_from_submission(sub, source_names=_names("positive"))
+    assert inputs.interest.value == Decimal("5.00")
+    assert inputs.interest.cite.quote.endswith("(5.00)")  # the cite keeps the printed row
+    result = cp2e.compute(inputs)
+    s = result.sensitivity
+    assert (s.cov_base.state, s.cov_base.amount) == ("known", Decimal(6))
+    assert [r.interest_after.amount for r in s.rate] == [Decimal("5.5"), Decimal(6)]
+    # 30 / 5.5 = 5.454545... at the composer's 38 digits, half-even: the 38th digit rounds up.
+    assert str(s.rate[0].cov_after.amount) == "5.4545454545454545454545454545454545455"
+    assert s.rate[1].cov_after.amount == Decimal(5)
+    cells = {c.fact_id: c for c in _cells(result)}
+    assert cells["T2F.1.r08.value"].amount == Decimal("5.00")
+    # Every figure outside the limitations table T2F.9 is the one the positive case gets from
+    # the unparenthesised row (the printed sign changes no amount, only the recorded limitation).
+    plain = {
+        c.fact_id: (c.status, c.amount)
+        for c in _cells(cp2e.compute(_inputs("positive")))
+        if not c.fact_id.startswith("T2F.9.")
+    }
+    figures = {k: (c.status, c.amount) for k, c in cells.items() if not k.startswith("T2F.9.")}
+    assert figures == plain
+    # The limitations are the positive case's plus the recorded sign, before the macro line.
+    want = list(EXPECTED["cases"]["positive"]["own_limitations"])
+    want.insert(len(want) - 1, cp2e.LIM_INTEREST_SIGN)
+    assert list(result.limitations) == want
+    _assert_prose_clean(result)
+
+
+def test_a03_parenthesised_zero_interest_is_zero_paid() -> None:
+    """(0.00) is a zero payment: the operand is 0.00, never -0.00, no sign is recorded (a zero
+    has none to reverse) and coverage is n.m. "cash interest is zero", as for a plain 0.00."""
+    sub, pages = _interest_printed("Cash interest paid  (0.00)  (0.00)  (0.00)  (0.00)  (0.00)")
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == ()
+    inputs = cp2e.inputs_from_submission(sub, source_names=_names("positive"))
+    assert str(inputs.interest.value) == "0.00"
+    assert not inputs.interest_sign_normalised
+    s = cp2e.compute(inputs).sensitivity
+    assert (s.cov_base.state, s.cov_base.reason) == ("not_applicable", "cash interest is zero")
+
+
+def test_a03_unparenthesised_interest_records_no_sign() -> None:
+    inputs = _inputs("positive")
+    assert inputs.interest.value == Decimal("5.00") and not inputs.interest_sign_normalised
+    assert cp2e.LIM_INTEREST_SIGN not in cp2e.compute(inputs).limitations
+
+
+# --- S06-cp2-ade-A04: every MILLIONS operand's page must state its amounts in millions ------------
+def test_a04_pages_in_thousands_are_refused_for_every_millions_operand() -> None:
+    """The pack says "amounts in thousands" (pages 1-4) and "USD thousands" (page 5): every
+    quoted MILLIONS operand is refused, in validator order, instead of being stamped 1e6."""
+
+    def thousands(text: str) -> str:
+        return text.replace("amounts in millions", "amounts in thousands").replace(
+            "USD millions", "USD thousands"
+        )
+
+    pages = {k: thousands(v) for k, v in _pages("positive").items()}
+    sub = json.loads(thousands(json.dumps(SUBMISSIONS["positive"])))  # the quotes follow the page
+    assert sub["reporting_currency"]["quote"] == "Currency: USD; amounts in thousands."
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == (
+        "rate_exposure.facility_balance: page:5 states amounts in thousands, not millions",
+        "earnings.ebitda: page:2 states amounts in thousands, not millions",
+        "earnings.interest: page:3 states amounts in thousands, not millions",
+        "earnings.fcf: page:3 states amounts in thousands, not millions",
+        "earnings.total_debt: page:4 states amounts in thousands, not millions",
+        "fx.fx_cash_effect: page:3 states amounts in thousands, not millions",
+    )
+
+
+def test_a04_one_statement_page_in_billions_refuses_only_its_rows() -> None:
+    pages = dict(_pages("positive"))
+    pages["page:4"] = pages["page:4"].replace("amounts in millions", "amounts in billions")
+    assert cp2e.validate_macro_fx(submission=SUBMISSIONS["positive"], pages=pages) == (
+        "earnings.total_debt: page:4 states amounts in billions, not millions",
+    )
+
+
+def test_a04_a_page_with_no_unit_statement_is_refused() -> None:
+    pages = dict(_pages("positive"))
+    pages["page:3"] = pages["page:3"].replace("USD; amounts in millions; ", "USD; ")
+    assert "millions" not in pages["page:3"]
+    assert cp2e.validate_macro_fx(submission=SUBMISSIONS["positive"], pages=pages) == (
+        "earnings.interest: page:3 does not state the unit of its amounts",
+        "earnings.fcf: page:3 does not state the unit of its amounts",
+        "fx.fx_cash_effect: page:3 does not state the unit of its amounts",
+    )
+
+
+def test_a04_conflicting_unit_statements_are_refused() -> None:
+    pages = dict(_pages("positive"))
+    pages["page:2"] = pages["page:2"].replace("unaudited;", "unaudited; notes in thousands;")
+    assert cp2e.validate_macro_fx(submission=SUBMISSIONS["positive"], pages=pages) == (
+        "earnings.ebitda: page:2 states amounts in millions, thousands, not millions",
+    )
+
+
+def test_a04_share_count_and_negated_unit_clauses_state_no_unit() -> None:
+    """A share-count clause and a negated clause leave the page's "amounts in millions"."""
+    pages = dict(_pages("positive"))
+    pages["page:2"] = pages["page:2"].replace(
+        "unaudited;", "unaudited; shares in thousands; not in thousands;"
+    )
+    assert cp2e.validate_macro_fx(submission=SUBMISSIONS["positive"], pages=pages) == ()
+
+
+_EUR_ON_USD = (
+    "earnings.ebitda: page:2 states its unit in EUR (EUR), but the reporting currency is USD: "
+    "restate the unit in USD"
+)
+_GBP_ON_USD = _EUR_ON_USD.replace("EUR", "GBP")
+
+
+@pytest.mark.parametrize(
+    ("statement", "want"),
+    [
+        # Spellings of "millions" the page may use: none of them is refused.
+        ("USD millions;", ()),
+        ("$ in millions;", ()),
+        ("in $ millions;", ()),
+        ("millions of US dollars;", ()),
+        # A prose "thousands of" is no unit; a lower-case word before "millions" is no currency.
+        ("amounts in millions; thousands of customers;", ()),
+        ("amounts in millions; some of the millions;", ()),
+        # Ruling S06-A04 (widened): the whole tokens "$m", "US$m", "USDm" and "(in millions)"
+        # state millions, so none of them is refused.
+        ("USDm;", ()),
+        ("$m;", ()),
+        ("US$m;", ()),
+        ("(in $m);", ()),
+        ("(in millions);", ()),
+        # Anything else is no millions statement: the page is refused, not guessed.
+        ("$mm;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("USDmn;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("US$mn;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("$m5;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("$M;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("usdm;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("(000s);", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        # Review of the ruling: only the USD spellings were ruled in. Another code + "m" (and an
+        # acronym such as "NAVm") states no unit, and "USDm" glued to a letter is no whole token.
+        ("EURm;", (_EUR_ON_USD,)),
+        ("GBPm;", (_GBP_ON_USD,)),
+        ("NAVm;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        ("XUSDm;", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        # Second review (units): "A$" names the Australian dollar, so on this USD book the page
+        # is refused for its currency (it was refused before as stating no unit).
+        ("A$m;", (_EUR_ON_USD.replace("EUR (EUR)", "A$ (AUD)"),)),
+        ("(USDm);", ()),
+        (
+            "thousands of customers;",
+            ("earnings.ebitda: page:2 does not state the unit of its amounts",),
+        ),
+        # A symbol spelling beside another unit still conflicts.
+        (
+            "USDm; weighted shares (in thousands);",
+            ("earnings.ebitda: page:2 states amounts in millions, thousands, not millions",),
+        ),
+        (
+            "$m; USD billions;",
+            ("earnings.ebitda: page:2 states amounts in billions, millions, not millions",),
+        ),
+        ("(not in millions);", ("earnings.ebitda: page:2 does not state the unit of its amounts",)),
+        # A second monetary unit on the page conflicts with the first.
+        (
+            "amounts in millions; weighted shares (in thousands);",
+            ("earnings.ebitda: page:2 states amounts in millions, thousands, not millions",),
+        ),
+        (
+            "in USD millions; EUR billions;",
+            ("earnings.ebitda: page:2 states amounts in billions, millions, not millions",),
+        ),
+    ],
+)
+def test_a04_unit_statement_spellings(statement: str, want: tuple[str, ...]) -> None:
+    """Page 2 (the EBITDA row) states its unit as ``statement`` in place of its own clause."""
+    pages = dict(_pages("positive"))
+    assert "amounts in millions;" in pages["page:2"]
+    pages["page:2"] = pages["page:2"].replace("amounts in millions;", statement)
+    assert cp2e.validate_macro_fx(submission=SUBMISSIONS["positive"], pages=pages) == want
+
+
+# Ruling (units): a unit statement naming a currency other than the book's reporting currency is
+# refused. Hand-derived: each form below names exactly one currency; "?" marks a form that
+# names a different one on the other book. USD book: refused iff the form names a non-dollar
+# currency; EUR book: refused iff it names anything but EUR ("$"/"US$"/"USD" are dollars).
+_CCY_FORMS = [
+    ("EUR millions;", "EUR"),
+    ("€ millions;", "EUR"),
+    ("millions of euros;", "EUR"),
+    ("millions of EUR;", "EUR"),
+    ("in EUR millions;", "EUR"),
+    ("EUR in millions;", "EUR"),
+    ("USD millions;", "USD"),
+    ("US$ millions;", "USD"),
+    ("$ millions;", "USD"),
+    ("millions of US dollars;", "USD"),
+    ("USDm;", "USD"),
+    ("$m;", "USD"),
+    ("US$m;", "USD"),
+    ("GBP millions;", "GBP"),
+    ("£ millions;", "GBP"),
+    ("£m;", "GBP"),
+    ("millions of pounds;", "GBP"),
+    ("JPY millions;", "JPY"),
+    ("¥ millions;", "JPY"),
+    ("millions of yen;", "JPY"),
+]
+
+
+def _book(book: str) -> tuple[dict[str, Any], dict[str, str]]:
+    """The positive case restated as a ``book``-currency book: pages and quotes say ``book``."""
+    sub = json.loads(json.dumps(SUBMISSIONS["positive"]).replace("USD", book))
+    return sub, {k: v.replace("USD", book) for k, v in _pages("positive").items()}
+
+
+@pytest.mark.parametrize(("statement", "named"), _CCY_FORMS)
+@pytest.mark.parametrize("book", ["USD", "EUR"])
+def test_unit_statement_currency_against_book(statement: str, named: str, book: str) -> None:
+    sub, pages = _book(book)
+    assert f"{book}; amounts in millions;" in pages["page:2"]
+    pages["page:2"] = pages["page:2"].replace(f"{book}; amounts in millions;", statement)
+    issues = cp2e.validate_macro_fx(submission=sub, pages=pages, currency=book)
+    if named == book:
+        # "€m"-style acceptance is not added: EUR spellings are all scale-word forms here
+        assert issues == ()
+    else:
+        assert len(issues) == 1 and f"but the reporting currency is {book}" in issues[0], issues
+        assert issues[0].startswith("earnings.ebitda: page:2 states its unit in ")
+
+
+def test_unit_statement_ambiguous_code_words_name_no_currency() -> None:
+    # "ALL amounts in millions" is prose (ALL is also the lek's code): no currency is named.
+    sub, pages = _book("USD")
+    pages["page:2"] = pages["page:2"].replace(
+        "USD; amounts in millions;", "ALL amounts in millions;"
+    )
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages, currency="USD") == ()
+
+
+def test_unit_statement_naming_no_currency_keeps_the_scale_reading() -> None:
+    for book in ("USD", "EUR"):
+        sub, pages = _book(book)
+        pages["page:2"] = pages["page:2"].replace(f"{book}; amounts in millions;", "in millions;")
+        assert cp2e.validate_macro_fx(submission=sub, pages=pages, currency=book) == ()
+
+
+def test_unit_statement_euro_symbol_m_is_not_accepted_on_a_euro_book() -> None:
+    sub, pages = _book("EUR")
+    pages["page:2"] = pages["page:2"].replace("EUR; amounts in millions;", "€m;")
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages, currency="EUR") == (
+        "earnings.ebitda: page:2 does not state the unit of its amounts",
+    )
+
+
+# Second review (units), hand-derived: the currency is read in every shape the scale check reads
+# ("<currency> in millions", "<code> (in millions)", "millions of <currency>" in any letter case),
+# a prefixed dollar names its own currency and an unknown one names none recognised. Each
+# statement replaces page 2's "<book>; amounts in millions;"; None means the page is accepted.
+_REVIEW_CASES = [
+    ("€ in millions;", "USD", "€ (EUR)"),
+    ("(£ in millions);", "USD", "£ (GBP)"),
+    ("Euros in millions;", "USD", "Euros (EUR)"),
+    ("EUR (in millions);", "USD", "EUR (EUR)"),
+    ("¥ in millions;", "USD", "¥ (JPY/CNY)"),
+    ("in millions of Japanese yen;", "USD", "Japanese yen (JPY)"),
+    ("in millions of Canadian dollars;", "USD", "Canadian dollars (CAD)"),
+    ("C$ millions;", "USD", "C$ (CAD)"),
+    ("HK$ millions;", "USD", "HK$ (HKD)"),
+    ("J$ millions;", "USD", "J$ (unrecognised)"),
+    ("in millions of U.S. Dollars;", "EUR", "U.S. Dollars (USD)"),
+    ("U.S. dollars in millions;", "EUR", "U.S. dollars (USD)"),
+    ("US$ in millions;", "EUR", "US$ (USD)"),
+    ("$ in millions;", "EUR", "$ (USD/CAD/AUD/NZD/SGD/HKD)"),
+    ("U.S.$ millions;", "CAD", "U.S.$ (USD)"),
+    ("U.S. $ millions;", "CAD", "U.S. $ (USD)"),
+    ("(EUR) in millions;", "USD", "EUR (EUR)"),
+    ("millions of YEN;", "USD", "YEN (JPY)"),
+    # the same statements on their own book are accepted
+    ("€ in millions;", "EUR", None),
+    ("EUR (in millions);", "EUR", None),
+    ("in millions of Canadian dollars;", "CAD", None),
+    ("C$ millions;", "CAD", None),
+    ("$ millions;", "CAD", None),  # the bare "$" is the dollar family (ruling)
+    ("U.S.$ millions;", "USD", None),
+    ("in millions of U.S. Dollars;", "USD", None),
+    ("millions of YEN;", "JPY", None),
+    # The whole page is read: a prose "GBP millions" refuses a USD page (fail closed), while an
+    # amount between the code and a singular "million" is no unit statement.
+    ("USD; amounts in millions; GBP millions of revenue;", "USD", "GBP (GBP)"),
+    ("USD; amounts in millions; a EUR 300 million term loan;", "USD", None),
+]
+
+
+@pytest.mark.parametrize(("statement", "book", "named"), _REVIEW_CASES)
+def test_unit_statement_currency_review_cases(statement: str, book: str, named: str | None) -> None:
+    sub, pages = _book(book)
+    assert f"{book}; amounts in millions;" in pages["page:2"]
+    pages["page:2"] = pages["page:2"].replace(f"{book}; amounts in millions;", statement)
+    issue = (
+        f"earnings.ebitda: page:2 states its unit in {named}, but the reporting currency is "
+        f"{book}: restate the unit in {book}"
+    )
+    want = () if named is None else (issue,)
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages, currency=book) == want
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        "Cash interest paid  -1.25  -1.25  -1.25  -1.25  -5.00",  # a leading minus is no row value
+        "Cash interest paid  (1.25  (1.25  (1.25  (1.25  (5.00",  # unbalanced parenthesis
+    ],
+)
+def test_a03_only_balanced_parentheses_mark_an_outflow(line: str) -> None:
+    sub, pages = _interest_printed(line)
+    token = line.split()[-1]
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == (
+        f"earnings.interest: value_text {token} is not the last value of the row",
+    )
+
+
+def test_a03_a_parenthesised_fy_cell_alone_marks_the_outflow() -> None:
+    """Only the FY cell is the operand: quarter cells in parentheses are not read."""
+    sub, _ = _interest_printed("Cash interest paid  (1.25)  1.25  (1.25)  1.25  5.00")
+    inputs = cp2e.inputs_from_submission(sub, source_names=_names("positive"))
+    assert inputs.interest.value == Decimal("5.00") and not inputs.interest_sign_normalised
+
+
+def test_a02_cells_separated_by_wider_gaps_still_count_once() -> None:
+    """Aligned columns (three or more spaces) are the same cells; a collapsed blank is not one."""
+    wide = "Levered free cash flow   2.25    2.25  2.25   2.25     9.00"
+    pages = dict(_pages("positive"))
+    pages["page:3"] = pages["page:3"].replace(
+        "Levered free cash flow  2.25  2.25  2.25  2.25  9.00", wide
+    )
+    sub = copy.deepcopy(SUBMISSIONS["positive"])
+    sub["earnings"]["fcf"].update(quote=wide, value_text="9.00")
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == ()
+
+
 def test_source_names_are_required() -> None:
     """No empty default: T2F.8 cannot be composed without the pack's source names."""
     (names,) = [f for f in dataclasses.fields(cp2e.MacroFxInputs) if f.name == "source_names"]
@@ -1371,3 +1774,90 @@ def test_round13_b3_exempts_only_rule_w_minus_inside_the_value(
     itself, is no wrap split; index 0, after a letter or digit, or before a non-digit still is."""
     refusal = "rate_exposure.rate_basis: reference_rate does not occur in the quote"
     assert _reference_rate_adapter(page, quote, value) == (() if accepted else (refusal,))
+
+
+# --- S06-A07: the reporting currency is a quoted ISO 4217 currency statement -------------------
+def _reporting(quote: str, code: str, locator: str) -> tuple[str, ...]:
+    sub = copy.deepcopy(SUBMISSIONS["positive"])
+    sub["reporting_currency"] = {
+        "source_id": "financial",
+        "locator": locator,
+        "quote": quote,
+        "code_text": code,
+    }
+    return cp2e.validate_macro_fx(submission=sub, pages=_pages("positive"))
+
+
+def test_a_reporting_code_outside_iso_4217_is_refused() -> None:
+    """The repro quoted a page line naming the revolving credit facility with code_text RCF; every
+    money fact was then stamped RCF and the USD debt read as foreign."""
+    pages = _pages("positive")
+    loc, line = next(
+        (k, ln) for k, v in pages.items() for ln in v.split("\n") if "RCF commitment" in ln
+    )
+    assert _reporting(line[:120], "RCF", loc) == (
+        "reporting_currency: code_text RCF is not an ISO 4217 currency code",
+    )
+
+
+def test_a_reporting_code_must_be_stated_as_the_currency() -> None:
+    """A line that names USD but states no currency of the amounts is refused (here appended to
+    page:1); "Currency: USD; ...", page:2's "USD; amounts in millions" and page:5's "USD
+    millions; ..." state it."""
+    sub = copy.deepcopy(SUBMISSIONS["positive"])
+    pages = _pages("positive")
+    pages["page:1"] += "\nThe term loan is drawn in USD and repaid at maturity."
+    sub["reporting_currency"] = {
+        "source_id": "financial",
+        "locator": "page:1",
+        "quote": "The term loan is drawn in USD and repaid at maturity.",
+        "code_text": "USD",
+    }
+    assert cp2e.validate_macro_fx(submission=sub, pages=pages) == (
+        "reporting_currency: the quote does not state USD as the currency (Currency: USD)",
+    )
+    assert _reporting("Currency: USD; amounts in millions.", "USD", "page:1") == ()
+    header = "IFRS; consolidated group; USD; amounts in millions; unaudited"
+    assert _reporting(header, "USD", "page:2") == ()
+    assert _reporting("USD millions; consolidated group", "USD", "page:5") == ()
+
+
+@pytest.mark.parametrize(
+    ("line", "code", "issues"),
+    [
+        ("Reported in USD in millions; unaudited", "USD", ()),
+        ("(USD in thousands, except per share data)", "USD", ()),
+        ("Reporting currency is EUR", "EUR", ()),
+        ("Our currency exposure is mostly in USD", "USD", ("states_not",)),
+        ("The term loan is drawn in USD and repaid", "USD", ("states_not",)),
+        ("Currency: ABC; amounts in millions", "ABC", ("not_iso",)),
+        ("Currency: USDX", "USD", ("absent",)),
+    ],
+)
+def test_a_reporting_quote_must_state_its_code_as_the_currency_of_the_amounts(
+    line: str, code: str, issues: tuple[str, ...]
+) -> None:
+    """Confidence review of S06-A07: the form of a statement line decides, not the word USD on
+    the page. A unit statement ("USD in millions") or "currency is EUR" states the currency; a
+    code in a sentence about drawing or exposure does not; a three-letter word that is no ISO
+    4217 code is refused first; USDX holds no whole-word USD. Expected issues are hand-written
+    from the rule (the code's own quote, ISO list, then the stated-as-currency form)."""
+    words = {
+        "states_not": f"reporting_currency: the quote does not state {code} as the currency "
+        f"(Currency: {code})",
+        "not_iso": f"reporting_currency: code_text {code} is not an ISO 4217 currency code",
+        "absent": f"reporting_currency: code_text {code} does not occur in the quote",
+    }
+    sub = copy.deepcopy(SUBMISSIONS["positive"])
+    pages = _pages("positive")
+    pages["page:1"] += "\n" + line
+    sub["reporting_currency"] = {
+        "source_id": "financial",
+        "locator": "page:1",
+        "quote": line,
+        "code_text": code,
+    }
+    got = cp2e.validate_macro_fx(submission=sub, pages=pages)
+    # only the reporting_currency lines are asserted: the EUR case leaves other rows unchanged
+    own = tuple(i for i in got if i.startswith("reporting_currency"))
+    assert own == tuple(words[k] for k in issues)

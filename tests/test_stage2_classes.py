@@ -228,14 +228,7 @@ STORE_CASES: Mapping[str, Case] = {
             ("assessments", "*", "credit_implication"): RETAINED,
         },
     ),
-    "CP-L10": Case(
-        _cpl10,
-        {
-            ("gaps", "*", "gap"): "Module.limitations 'Gap (<severity>): <gap>'",
-            ("gaps", "*", "why_it_matters"): RETAINED,
-            ("gaps", "*", "action"): RETAINED,
-        },
-    ),
+    "CP-L10": Case(_cpl10, {}),  # S10-C02: gap texts are checked like the rationale, none verbatim
 }
 
 FINDINGS: Mapping[str, str] = {}

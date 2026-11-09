@@ -34,7 +34,8 @@ Row -> existing nodes (file::node), status:
     cp4c::test_an_unsupported_period_is_one_issue_line_and_an_empty_view (R5 CP-4C)
     cp1c::test_unsupported_period_base_is_a_period_basis_issue (R5 CP-1C)
     misc::test_cp2a_offers_a_q3_base_whatever_the_currency (R5, R5b CP-2A)
-    misc::test_r5b_q3_base_cp1b_keeps_its_raw_day_refusal, fix1::test_r5b_cp1b_through_the_context_with_the_oracle_pair
+    misc::test_r5b_q3_base_cp1b_refuses_the_pair_it_does_not_support,
+    fix1::test_r5b_cp1b_through_the_context_with_the_oracle_pair
     NEW test_r5b_cpl10_refuses_at_the_offering
  5  no-context pack unchanged: fast per-module byte checks (below); the frozen          run (fast
     `cases/*-owner` suites `tests/test_owner_*.py tests/test_connect_*.py` are CI-only    nodes);
@@ -114,7 +115,7 @@ MAPPED = {
         "test_composed_row_labels_equal_the_oracle",
         "test_composed_prose_equals_the_oracle",
         "test_cp2a_offers_a_q3_base_whatever_the_currency",
-        "test_r5b_q3_base_cp1b_keeps_its_raw_day_refusal",
+        "test_r5b_q3_base_cp1b_refuses_the_pair_it_does_not_support",
         "test_eur_evidence_states_the_currency_and_usd_keeps_its_bytes",
         "test_cpl10_usd_upstream_keeps_the_us_dollar_token",
     ],
@@ -213,8 +214,20 @@ PATTERN = re.compile(r'LTM Q4 25|q4-2025|FY2026, FY2027|"USD"')
 OWNERS = ROOT / "src" / "deploy_workflow" / "owners"
 DEFAULT_CURRENCY = "the no-context default currency; the frozen USD default of the run basis"
 PARSER_DOC = "docstring of a CP-1 fact-label parser reading vii's own `LTM Q4 25: a to b` format"
+CURRENCY_VOCABULARY = (
+    "currency vocabulary that detects a figure stated in another currency (S05-A01); "
+    "not a run currency"
+)
 # (file, stripped source line) -> reason. `period_basis.py` is allowed whole (the one basis).
 ALLOWED: dict[tuple[str, str], str] = {
+    (
+        "cp1d.py",
+        '_CURRENCY_SYMBOLS = {"USD": ("$", "US$"), "EUR": ("\\u20ac",), "GBP": ("\\u00a3",)}',
+    ): CURRENCY_VOCABULARY,
+    (
+        "cp1d.py",
+        '*("USD", "EUR", "GBP", "CHF", "JPY", "CNY", "CAD", "AUD", "NZD", "SEK", "NOK", "DKK"),',
+    ): CURRENCY_VOCABULARY,
     (
         "cp1b.py",
         'view: ModuleView, submission: EarningsDeltaOwnerReview, *, currency: str = "USD"',

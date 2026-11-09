@@ -15,8 +15,10 @@ import dataclasses
 import hashlib
 import json
 import re
+from datetime import date
 from decimal import Decimal
 from pathlib import Path
+from types import SimpleNamespace as NS
 from typing import Any
 
 import pytest
@@ -32,7 +34,7 @@ from deploy_vii.contracts import (
     TableColumn,
     TableRow,
 )
-from deploy_vii.cp3_relative_value import RelativeValueSubmission
+from deploy_vii.cp3_relative_value import RelativeValueSubmission, _sentences_of
 from deploy_vii.cp6_committee import cp3_catalogue
 from deploy_vii.preparation import PreparedPack
 from deploy_workflow.owners.cp3 import CP3Inputs, CP3Result, candidate, compute, context
@@ -575,3 +577,367 @@ def test_withheld_ranking_requires_explicit_insufficiency_and_limitation(
     assert issue in result.issues
     assert result.report is None
     assert result.issues
+
+
+# --- ruling S08-cp3-C09: an Insufficient Information preference has an empty ordering ----------
+
+# Hand-written from the ruling: the refusal names both repairs the model can make.
+INSUFFICIENT_ORDERING = (
+    "preference.ordering: an Insufficient Information preference has an empty ordering; empty it, "
+    "or cite observed or indicative market evidence and state a confidence other than "
+    "Insufficient Information"
+)
+MISSING = "preference.ordering: term-loan is missing"
+
+
+def _with_preference(case: str, ordering: tuple[str, ...], confidence: str) -> CP3Result:
+    inputs = make_inputs(case)
+    preference = inputs.submission.preference.model_copy(
+        update={
+            "ordering": ordering,
+            "confidence": confidence,
+            "limitation": "Evidence does not support a ranking.",
+        }
+    )
+    submission = inputs.submission.model_copy(update={"preference": preference})
+    return compute(dataclasses.replace(inputs, submission=submission))
+
+
+@pytest.mark.parametrize("case", ["positive", "gap"])
+@pytest.mark.parametrize(
+    "ordering",
+    [("term-loan",), ("term-loan", "term-loan"), ("other",), (" ",), ("",)],
+    ids=["one-instrument", "repeated", "unknown", "whitespace", "empty-entry"],
+)
+def test_s08_c09_an_insufficient_preference_with_an_ordering_is_refused(
+    case: str, ordering: tuple[str, ...]
+) -> None:
+    """Any non-empty ordering, even the trivial one-instrument one or a blank entry, is refused
+    with the repairable issue; completeness ("is missing") is not asked of it. Before the ruling
+    the one-instrument ordering composed (repro cr_c06: issues ())."""
+    result = _with_preference(case, ordering, "Insufficient Information")
+    assert result.report is None
+    assert INSUFFICIENT_ORDERING in result.issues
+    assert MISSING not in result.issues
+
+
+@pytest.mark.parametrize("case", ["positive", "gap"])
+def test_s08_c09_an_insufficient_preference_with_no_ordering_composes(case: str) -> None:
+    result = _with_preference(case, (), "Insufficient Information")
+    assert result.issues == ()
+    assert result.report is not None
+
+
+@pytest.mark.parametrize("confidence", ["High", "Medium", "Low"])
+def test_s08_c09_other_confidences_keep_the_ordering_rules(confidence: str) -> None:
+    """Positive case (one instrument, observed and talk quotes): the full ordering raises no
+    ordering issue (High is still capped: CP-2 is restricted); an empty one is "term-loan is
+    missing"; neither gets the Insufficient Information refusal."""
+    full = _with_preference("positive", ("term-loan",), confidence)
+    empty = _with_preference("positive", (), confidence)
+    assert not [i for i in full.issues if i.startswith("preference.ordering")]
+    assert MISSING in empty.issues
+    assert INSUFFICIENT_ORDERING not in full.issues + empty.issues
+    assert (full.report is not None) == (confidence != "High")
+
+
+# --- review fixes S08-cp3: a model-cited quote's `as_of` is a stated date, dated before the run ---
+
+
+def _as_of_issues(as_of: str) -> tuple[str, ...]:
+    literal = copy.deepcopy(SUBMISSIONS["positive"]["relative_value"])
+    literal["market_evidence"][0]["as_of"] = as_of
+    return compute(make_inputs("positive", literal)).issues
+
+
+@pytest.mark.parametrize(
+    "as_of",
+    ("January 9, 2031", "the close", "March 1, 2019", "2026-01-09", "January 10, 2026"),
+)
+def test_s08_a06_an_as_of_the_quote_does_not_state_is_refused(as_of: str) -> None:
+    """S08-cp3-A06/C02: the observed row's quote states January 9, 2026 only, so a later, earlier,
+    reworded, ISO or non-date as_of is refused, and so is the page's own Published date
+    (January 10, 2026): a quote that prints a date is dated by it."""
+    assert _as_of_issues(as_of) == (
+        f"market_evidence[0].as_of {as_of!r} is not a date its quote states (January 9, 2026)",
+    )
+
+
+def _talk_as_of_issues(as_of: str) -> tuple[str, ...]:
+    literal = copy.deepcopy(SUBMISSIONS["positive"]["relative_value"])
+    literal["market_evidence"][1]["as_of"] = as_of
+    return compute(make_inputs("positive", literal)).issues
+
+
+@pytest.mark.parametrize(
+    "as_of", ("January 9, 2031", "the close", "2026-01-10", "January 11, 2026")
+)
+def test_s08_a06_an_undated_quote_is_dated_by_a_date_its_page_states(as_of: str) -> None:
+    """The talk row's quote prints no date: its page states January 9 and 10, 2026 and December 31,
+    2029 only, so any other as_of is refused."""
+    assert _talk_as_of_issues(as_of) == (
+        f"market_evidence[1].as_of {as_of!r} is not a date stated on its page",
+    )
+
+
+def test_s08_a06_the_page_date_is_accepted_for_an_undated_quote() -> None:
+    """The positive talk row uses its page's Published date, which is not after the run as-of."""
+    assert _talk_as_of_issues("January 10, 2026") == ()
+
+
+def _shifted_inputs(monkeypatch: pytest.MonkeyPatch, as_of: str, literal: Any) -> CP3Inputs:
+    """The positive inputs with the run as-of moved to `as_of` (every module follows the pack)."""
+    original = make_pack
+
+    def shifted(case: str) -> PreparedPack:
+        pack = original(case)
+        run = pack.run.model_copy(update={"as_of": date.fromisoformat(as_of)})
+        return pack.model_copy(update={"run": run})
+
+    monkeypatch.setitem(globals(), "make_pack", shifted)
+    return make_inputs("positive", literal)
+
+
+def test_s08_a06_a_quote_dated_after_the_run_as_of_is_refused(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Run as-of 2026-01-09: the talk row's January 10, 2026 is one day after it."""
+    literal = SUBMISSIONS["positive"]["relative_value"]
+    issues = compute(_shifted_inputs(monkeypatch, "2026-01-09", literal)).issues
+    assert "market_evidence[1].as_of January 10, 2026 is after the run as-of 2026-01-09" in issues
+
+
+def test_s08_a06_a_stale_quote_gets_the_line_and_caps_the_preference(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Run as-of 2026-03-01: January 9 -> March 1 is 22 + 28 + 1 = 51 days and January 10 is 50,
+    both more than STALE_DAYS (30). Each row gets the stale line; High is capped."""
+    literal = copy.deepcopy(SUBMISSIONS["positive"]["relative_value"])
+    result = compute(_shifted_inputs(monkeypatch, "2026-03-01", literal))
+    assert result.issues == ()
+    assert result.report is not None
+    stale = [x for x in result.report.limitations if x.startswith("Stale quote")]
+    assert stale == [
+        (
+            "Stale quote: market page:1 quote dated January 9, 2026 is 51 days before the run "
+            "as-of 2026-03-01 (limit 30)"
+        ),
+        (
+            "Stale quote: market page:2 quote dated January 10, 2026 is 50 days before the run "
+            "as-of 2026-03-01 (limit 30)"
+        ),
+    ]
+    literal["preference"]["confidence"] = "High"
+    issues = compute(_shifted_inputs(monkeypatch, "2026-03-01", literal)).issues
+    capped = [x for x in issues if x.startswith("preference.confidence: capped below High")]
+    assert len(capped) == 1
+    assert capped[0].endswith("a market_evidence quote is more than 30 days old")
+
+
+def test_review_s08_a06_a_newer_page_date_does_not_stand_for_an_older_quotes() -> None:
+    """The sheet is published January 10, 2026 but the quotation is dated March 1, 2025: the row
+    is dated by its quote, never by the Published date. March 1, 2025 to March 1, 2026 is 365 days
+    and March 1 is 50 days after the run as-of (January 10), so the quote is 315 days old."""
+    old = "Dealer quotation on January 9, 2026: bid 98.50 and offer 99.25"
+    new = "Dealer quotation on March 1, 2025: bid 98.50 and offer 99.25"
+    original = make_pack
+
+    def older(case: str) -> PreparedPack:
+        pack = original(case)
+        sources = tuple(
+            s.model_copy(
+                update={
+                    "spans": tuple(
+                        Span(locator=x.locator, text=x.text.replace(old, new)) for x in s.spans
+                    )
+                }
+            )
+            if s.source_id == "market"
+            else s
+            for s in pack.sources
+        )
+        return pack.model_copy(update={"sources": sources})
+
+    literal = json.loads(json.dumps(SUBMISSIONS["positive"]["relative_value"]).replace(old, new))
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setitem(globals(), "make_pack", older)
+        literal["market_evidence"][0]["as_of"] = "January 10, 2026"
+        issues = compute(make_inputs("positive", literal)).issues
+        assert issues == (
+            (
+                "market_evidence[0].as_of 'January 10, 2026' is not a date its quote states "
+                "(March 1, 2025)"
+            ),
+        )
+        literal["market_evidence"][0]["as_of"] = "March 1, 2025"
+        result = compute(make_inputs("positive", literal))
+    assert result.issues == ()
+    assert result.report is not None
+    assert [x for x in result.report.limitations if x.startswith("Stale quote")] == [
+        (
+            "Stale quote: market page:1 quote dated March 1, 2025 is 315 days before the run "
+            "as-of 2026-01-10 (limit 30)"
+        )
+    ]
+
+
+# --- S08-cp3-A08: an observed row's quote is read with its whole sentence -------------------------
+def _talk_sub_span_as_observed(sub: str) -> CP3Inputs:
+    """The positive literal with only its page:2 row, re-quoted as `sub` and called observed."""
+    lit = copy.deepcopy(SUBMISSIONS["positive"]["relative_value"])
+    row = lit["market_evidence"][1]
+    row.update(kind="observed", limitation=None)
+    row["quote"]["quote"] = sub
+    lit["market_evidence"] = [row]
+    for item in (*lit["instruments"], lit["preference"]):
+        quotes = [q for q in item["basis"]["quotes"] if q["locator"] == "page:2"]
+        for q in quotes:
+            q["quote"] = sub
+        item["basis"]["quotes"] = quotes
+    return make_inputs("positive", lit)
+
+
+def test_an_observed_sub_span_of_a_talk_sentence_is_refused() -> None:
+    """page:2 reads "Dealers describe the indicative fair value of the Northbridge Term Loan as
+    around 99.75. This is talk ...". Quoting only "the Northbridge Term Loan as around 99.75"
+    held no marker, so it published as Observed; its sentence holds "indicative"."""
+    result = compute(_talk_sub_span_as_observed("the Northbridge Term Loan as around 99.75"))
+    assert result.issues == (
+        'market_evidence[0]: an observed row quotes a sentence of indicative talk: "indicative"',
+    )
+
+
+def test_an_observed_quote_with_the_marker_keeps_the_quote_issue_once() -> None:
+    whole = (
+        "Dealers describe the indicative fair value of the Northbridge Term Loan as around 99.75."
+    )
+    result = compute(_talk_sub_span_as_observed(whole))
+    assert result.issues == (
+        'market_evidence[0]: an observed row quotes indicative talk: "indicative"',
+    )
+
+
+# --- S08-cp3-C03: a preference whose basis is talk only is capped and limited -----------------
+def _accepted_cp2(inputs: CP3Inputs) -> CP3Inputs:
+    bound = tuple(
+        i.model_copy(update={"status": "accepted"}) if i.input_id == "CP-2" else i
+        for i in inputs.bound
+    )
+    return dataclasses.replace(inputs, bound=bound, current=bound)
+
+
+def _preference_on(locator: str, confidence: str) -> CP3Inputs:
+    """CP-2 accepted (no upstream cap); the preference cites only the `locator` quote, while
+    market_evidence still lists the page:1 observed and the page:2 indicative_talk rows."""
+    inputs = _accepted_cp2(make_inputs("positive"))
+    pref = inputs.submission.preference
+    quotes = tuple(q for q in pref.basis.quotes if q.locator == locator)
+    basis = pref.basis.model_copy(update={"quotes": quotes})
+    pref = pref.model_copy(update={"basis": basis, "confidence": confidence})
+    submission = inputs.submission.model_copy(update={"preference": pref})
+    return dataclasses.replace(inputs, submission=submission)
+
+
+def test_a_talk_only_preference_basis_is_capped_below_high() -> None:
+    """Before the fix the cap read all market evidence ({observed, indicative_talk}), so this
+    validated at High with no talk-only limitation."""
+    assert compute(_preference_on("page:2", "High")).issues == (
+        (
+            "preference.confidence: capped below High because the preference's market basis is "
+            "indicative talk only"
+        ),
+    )
+    assert compute(_preference_on("page:1", "High")).issues == ()
+
+
+def test_a_talk_only_preference_basis_states_its_limitation() -> None:
+    result = compute(_preference_on("page:2", "Medium"))
+    assert result.report is not None
+    assert (
+        "The preference's market basis is indicative talk only, not an observed market level"
+        in result.report.limitations
+    )
+    observed = compute(_preference_on("page:1", "Medium")).report
+    assert observed is not None
+    assert all("indicative talk only" not in text for text in observed.limitations)
+
+
+# --- confidence review of S08-cp3-A08 and C03 ----------------------------------------------------
+def _sentences(page: str, quote: str) -> str:
+    pack = NS(sources=[NS(source_id="market", spans=[NS(locator="page:1", text=page)])])
+    return _sentences_of(NS(source_id="market", locator="page:1", quote=quote), pack).strip()  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize(
+    ("page", "quote", "expected"),
+    [
+        # a decimal point is not a boundary: the sentence runs to the "." before a space
+        (
+            "Bid 99.50 observed. Dealers see indicative value around 99.75 for the loan. Done.",
+            "around 99.75 for",
+            "Dealers see indicative value around 99.75 for the loan.",
+        ),
+        # the neighbouring sentences are not read
+        (
+            "Indicative IPT is 100. Bid 99.50 observed. Guidance is wide.",
+            "Bid 99.50 observed",
+            "Bid 99.50 observed.",
+        ),
+        # every occurrence of the quote is read with its own sentence
+        (
+            "Bid 99.50 is firm. Bid 99.50 is talk.",
+            "Bid 99.50",
+            "Bid 99.50 is firm.  Bid 99.50 is talk.",
+        ),
+        # a quote the page does not hold falls back to the quote
+        ("Something else entirely.", "Bid 99.50", "Bid 99.50"),
+    ],
+)
+def test_confidence_review_s08_a08_the_sentence_of_a_quote(
+    page: str, quote: str, expected: str
+) -> None:
+    assert _sentences(page, quote) == expected
+
+
+def test_confidence_review_s08_c03_a_basis_of_talk_and_observed_is_not_capped() -> None:
+    """The preference cites both the observed page:1 quote and the talk page:2 quote: not talk
+    only, so High is allowed (before and after the fix) and no talk-only limitation appears."""
+    inputs = _accepted_cp2(make_inputs("positive"))
+    pref = inputs.submission.preference
+    locators = {q.locator for q in pref.basis.quotes}
+    assert locators == {"page:1", "page:2"}  # the literal's own basis holds both
+    pref = pref.model_copy(update={"confidence": "High"})
+    inputs = dataclasses.replace(
+        inputs, submission=inputs.submission.model_copy(update={"preference": pref})
+    )
+    result = compute(inputs)
+    assert result.issues == ()
+    assert result.report is not None
+    assert all("indicative talk only" not in text for text in result.report.limitations)
+
+
+def test_s08_c09_review_repair_paths_in_the_gap_case() -> None:
+    """Gap case (no market evidence), hand-derived from the ruling and the evidence rule. The two
+    repairs the issue offers do not loop: emptying the ordering composes (tested above); keeping
+    the ordering and claiming Medium is refused for the missing market evidence only, never for
+    the ordering. An Insufficient Information preference with an ordering and no limitation gets
+    both issues, the ordering one once."""
+    medium = _with_preference("gap", ("term-loan",), "Medium")
+    assert medium.report is None
+    assert (
+        "preference.confidence: Insufficient Information without observed or indicative "
+        "market evidence"
+    ) in medium.issues
+    assert INSUFFICIENT_ORDERING not in medium.issues
+    assert not [i for i in medium.issues if i.startswith("preference.ordering")]
+    inputs = make_inputs("gap")
+    preference = inputs.submission.preference.model_copy(
+        update={"ordering": ("term-loan",), "limitation": ""}
+    )
+    both = compute(
+        dataclasses.replace(
+            inputs, submission=inputs.submission.model_copy(update={"preference": preference})
+        )
+    )
+    assert both.issues.count(INSUFFICIENT_ORDERING) == 1
+    assert "preference: an Insufficient Information preference states its limitation" in both.issues

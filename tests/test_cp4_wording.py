@@ -15,7 +15,13 @@ from deploy_vii.live.prompts import CP4_METHOD
 SRC = Path(__file__).resolve().parents[1] / "src" / "deploy_vii"
 PHRASE = "executed, filed or, on a draft-documents run, draft"
 OLD_CP4_SHA = "99ec34c7a8257e15325456eb5466388eeb656fa01cf30db91e8474334bb39ff0"
-OLD_CONTEXT_SHA = "71be7583fae72d5b719ba7167026d46576f5a4e7da4f4be1410417d50bd1a7aa"
+# S13 C01 restated the kpi evidence line (period_basis_id); S09 C06 passes the caller's
+# python_checks to integrity_projection (integrity_scope); S14-C06 passes an already-built
+# pack to the source scopes (`session_scope`); S13-vii-canonical-context-A07 adds the
+# narrative `financial_dimensions` context line (narrative_evidence). The pin is the CURRENT file
+# less the phrase, so it follows every later edit of context.py; it no longer pins the imported
+# text.
+CONTEXT_WITHOUT_PHRASE_SHA = "54ffb55c5b1c77255b4ab8d464d9bfb4de14da7303a72c1901d091c1fc8fd78e"
 
 
 def flat(text: str) -> str:
@@ -59,8 +65,10 @@ def test_cp4_md_differs_from_the_imported_text_only_by_the_two_phrases() -> None
     assert sha(old.replace(new_two, old_two)) == OLD_CP4_SHA
 
 
-def test_context_py_differs_from_the_imported_text_only_by_the_phrase() -> None:
+def test_context_py_without_the_phrase_matches_the_pin_of_the_current_file() -> None:
+    """The current context.py, phrase restored to the imported wording, hashes to the pin; the
+    pin was moved by S13-C01, S09-C06, S14-C06 and S13-A07, so this is not the imported text."""
     text = (SRC / "live" / "context.py").read_text(encoding="utf-8")
     new = "classes executed, filed or,\non a draft-documents run, draft, CP-3"
     assert text.count(new) == 1
-    assert sha(text.replace(new, "classes executed or filed, CP-3")) == OLD_CONTEXT_SHA
+    assert sha(text.replace(new, "classes executed or filed, CP-3")) == CONTEXT_WITHOUT_PHRASE_SHA

@@ -108,7 +108,7 @@ def prompt_factory(
         pins = None
         if pin_form is not None and pin_enabled(binding.module_id):
             pins = pin_form(binding.module_id, pack)
-        messages = compose(
+        return compose(
             PromptRequest(
                 step_id=step_id,
                 spec=spec,
@@ -124,8 +124,5 @@ def prompt_factory(
                 untrusted=() if untrusted_for is None else untrusted_for(binding, spec),
             )
         )
-
-        from deploy_workflow.cpos_handoffs import prompt_messages
-        return prompt_messages(store, binding, messages)
 
     return prompt_for

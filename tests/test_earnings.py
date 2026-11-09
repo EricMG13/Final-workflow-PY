@@ -4,6 +4,7 @@ The handwritten coordinates follow the adopted CP1 register shape. Numeric
 fixtures are literal source/oracle values, never financial-engine output.
 """
 
+import hashlib
 import importlib
 import importlib.util
 import inspect
@@ -362,6 +363,30 @@ def test_zero_prior_and_percentage_point_artificial_guards():
     assert p.growth is None and p.growth_status == "not_applicable"
 
 
+@pytest.mark.parametrize(
+    "values,expected",
+    [
+        # S11-C06, by hand: -10 to -5 improves by 5; (current - prior) / prior would read -50%.
+        (("-10", "-5"), ("5", None, "missing", "NEGATIVE_DENOMINATOR")),
+        # -10 to 5: delta 15; a signed base would read -150%, so growth is not meaningful.
+        (("-10", "5"), ("15", None, "missing", "NEGATIVE_DENOMINATOR")),
+        # A positive base turning negative keeps its growth: (-5 - 10) / 10 = -1.5.
+        (("10", "-5"), ("-15", "-1.5", "known", None)),
+    ],
+)
+def test_growth_on_a_negative_prior_is_not_meaningful(values, expected):
+    prior, current = values
+    delta, growth, status, reason = expected
+    module = change(fixture(), "value.ebitda.q3-2025", amount=Decimal(prior))
+    module = change(module, "value.ebitda.q4-2025", amount=Decimal(current))
+    p = point(build(module), "ebitda")
+    assert (p.prior_value, p.current_value) == (Decimal(prior), Decimal(current))
+    assert p.delta == Decimal(delta) and p.delta_status == "known"
+    assert p.growth == (None if growth is None else Decimal(growth))
+    assert p.growth_status == status
+    assert p.reason == reason
+
+
 @pytest.mark.parametrize("prior_status", ["missing", "conflicting", "not_applicable"])
 @pytest.mark.parametrize("current_status", ["missing", "conflicting", "not_applicable"])
 def test_existing_nonknown_precedence_preserves_limits(prior_status, current_status):
@@ -445,10 +470,82 @@ def test_incompatible_periods(prior, current):
 
 @pytest.mark.parametrize(
     "field,value",
-    [("start_date", "2025-10-02"), ("start_date", "2025-09-30"), ("end_date", "2025-07-01")],
+    # 2025-11-01 to 2025-12-31 is 61 days: no quarter length window (84 to 98 days) holds it
+    [("start_date", "2025-11-01"), ("start_date", "2025-09-30"), ("end_date", "2025-07-01")],
 )
 def test_duration_overlap_and_reversed_date_ranges_refuse(field, value):
     refusal(change(fixture(), f"period.q4-2025.{field}", text=value), "incompatible_periods")
+
+
+def _basis_of(pid, kind):
+    # the literal length-prefixed historical identity of BASES above: "Q:<id>" or "FY:<id>"
+    column = f"{'Q' if kind == 'QUARTER' else 'FY'}:{pid}"
+    payload = "".join(f"{len(part)}:{part}" for part in ("historical", column))
+    return "model-basis:" + hashlib.sha256(payload.encode()).hexdigest()
+
+
+# S11-A04: calendar and 52/53-week periods of one type differ in exact days. Inclusive day counts
+# by hand: Q1 2024 91 (leap), Q1 2025 90, Q2 2025 91, FY2024 366, FY2025 365; 53-week FY2020
+# 2019-12-29 to 2021-01-02 is 371, 52-week FY2021 2021-01-03 to 2022-01-01 is 364; 14-week
+# Q4 2020 2020-09-27 to 2021-01-02 is 98, 13-week Q1 2021 2021-01-03 to 2021-04-03 is 91.
+# Revenue (the first measure) is set per period, so each delta is current minus prior by hand.
+LENGTH_DATES = {
+    "fy-2024": ("FY", None, "2024-01-01", "2024-12-31", "FY24", "110"),
+    "fy-2025": ("FY", None, "2025-01-01", "2025-12-31", "FY25", "120"),
+    "q1-2024": ("QUARTER", "1", "2024-01-01", "2024-03-31", "Q1 24", "25"),
+    "q1-2025": ("QUARTER", "1", "2025-01-01", "2025-03-31", "Q1 25", "28"),
+    "q2-2025": ("QUARTER", "2", "2025-04-01", "2025-06-30", "Q2 25", "30"),
+    "fy-2020": ("FY", None, "2019-12-29", "2021-01-02", "FY20", "100"),
+    "fy-2021": ("FY", None, "2021-01-03", "2022-01-01", "FY21", "104"),
+    "q4-2020": ("QUARTER", "4", "2020-09-27", "2021-01-02", "Q4 20", "27"),
+    "q1-2021": ("QUARTER", "1", "2021-01-03", "2021-04-03", "Q1 21", "26"),
+    # a QUARTER-typed six months (181 days) is not in a quarter's length window
+    "q2-2021": ("QUARTER", "2", "2021-01-03", "2021-07-02", "Q2 21", "50"),
+}
+
+
+@pytest.fixture
+def length_fixture(monkeypatch):
+    template = VALUES["q4-2025"]
+    monkeypatch.setattr(__import__(__name__), "DATES", {k: v[:5] for k, v in LENGTH_DATES.items()})
+    monkeypatch.setattr(
+        __import__(__name__), "BASES", {k: _basis_of(k, v[0]) for k, v in LENGTH_DATES.items()}
+    )
+    monkeypatch.setattr(
+        __import__(__name__),
+        "VALUES",
+        {k: (v[5], *template[1:]) for k, v in LENGTH_DATES.items()},
+    )
+    return fixture()
+
+
+@pytest.mark.parametrize(
+    "prior,current,delta",
+    [
+        ("fy-2024", "fy-2025", "10"),
+        ("q1-2025", "q2-2025", "2"),
+        ("q1-2024", "q1-2025", "3"),
+        ("fy-2020", "fy-2021", "4"),
+        ("q4-2020", "q1-2021", "-1"),
+    ],
+)
+def test_pairs_of_one_length_window_compare_across_day_counts(
+    length_fixture, prior, current, delta
+):
+    assert point(build(length_fixture, prior, current), "revenue").delta == Decimal(delta)
+
+
+@pytest.mark.parametrize(
+    "prior,current",
+    [
+        ("q2-2021", "q1-2021"),
+        ("q1-2021", "q2-2021"),
+        ("q2-2025", "q1-2025"),
+        ("q1-2025", "fy-2025"),
+    ],
+)
+def test_pairs_outside_one_length_window_or_out_of_order_refuse(length_fixture, prior, current):
+    refusal(length_fixture, "incompatible_periods", prior, current)
 
 
 @pytest.mark.parametrize(
@@ -671,3 +768,54 @@ def test_canonical_opening_period_end_is_indexed_but_not_a_duration_comparator(
         refusal(with_opening, error, prior, current)
     else:
         assert build(with_opening, prior, current) == build(module, prior, current)
+
+
+# S13 C01: CP-1 states the twelve months ending a quarter on the quarter column's trailing ratio
+# (`LTM Q4 25: 2025-01-01 to 2025-12-31`; a `null` start while the window is incomplete, so the
+# missing Q3 25 ratio reads `LTM Q3 25: null to 2025-09-30`). That period is the ratio's own, so
+# the delta still builds; any other measure, and a trailing period ending elsewhere, stay refused.
+def test_trailing_ratio_period_on_a_quarter_is_the_ratios_own():
+    module = change(
+        change(
+            fixture(),
+            "value.total_leverage_reported.q4-2025",
+            period="LTM Q4 25: 2025-01-01 to 2025-12-31",
+        ),
+        "value.net_leverage_reported.q3-2025",
+        period="LTM Q3 25: null to 2025-09-30",
+    )
+    report = build(module)
+    # Q4 25 total leverage 50 / 30 at 38 significant digits, half even; Q3 25 is missing in the
+    # fixture (no twelve months).
+    assert point(report, "total_leverage_reported").current_value == Decimal(
+        "1.6666666666666666666666666666666666667"
+    )
+    assert point(report, "net_leverage_reported").prior_status == "missing"
+
+
+@pytest.mark.parametrize(
+    "fact_id,period",
+    [
+        ("value.revenue.q4-2025", "LTM Q4 25: 2025-01-01 to 2025-12-31"),  # not a ratio
+        ("value.total_leverage_reported.q4-2025", "LTM Q3 25: 2024-10-01 to 2025-09-30"),
+        ("value.total_leverage_reported.q4-2025", "Q4 25: 2025-01-01 to 2025-12-31"),  # no LTM
+        (
+            "value.total_leverage_reported.q4-2025",
+            "LTM Q4 25: 2024-06-01 to 2025-12-31",
+        ),  # 579 days
+    ],
+)
+def test_trailing_period_elsewhere_still_refuses(fact_id, period):
+    refusal(change(fixture(), fact_id, period=period), "incompatible_dimensions")
+
+
+def test_negative_prior_does_not_change_the_other_growth_rules():
+    # S11-C06 adversarial. A margin never has growth (stays not_applicable, no reason); revenue
+    # shares the rule with ebitda; a zero prior keeps its own reason.
+    module = change(fixture(), "value.ebitda_margin.q3-2025", amount=Decimal("-0.10"))
+    module = change(module, "value.revenue.q3-2025", amount=Decimal(-20))
+    report = build(module)
+    p = point(report, "ebitda_margin")
+    assert p.growth is None and p.growth_status == "not_applicable" and p.reason is None
+    p = point(report, "revenue")
+    assert p.growth is None and p.growth_status == "missing" and p.reason == "NEGATIVE_DENOMINATOR"

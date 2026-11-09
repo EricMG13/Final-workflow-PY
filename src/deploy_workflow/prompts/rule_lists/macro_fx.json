@@ -12,7 +12,7 @@
   },
   {
    "id": "macro_fx.2",
-   "statement": "`reporting_currency.code_text`, and `fx.debt_currency.code_text` when given, is a three-capital-letter currency code occurring as a whole word in its own quote.",
+   "statement": "`reporting_currency.code_text`, and `fx.debt_currency.code_text` when given, is a three-capital-letter ISO 4217 currency code occurring as a whole word in its own quote; the `reporting_currency` quote states it as the currency of the amounts: after the word currency (`Currency: USD`) or joined to the unit (`USD millions`, `USD; amounts in millions`, `millions of USD`).",
    "checks": [
     "oracle:cp2e:reporting_code_not_in_quote",
     "fn:deploy_workflow.owners.cp2e:_Check.code"
@@ -37,12 +37,14 @@
   },
   {
    "id": "macro_fx.4",
-   "statement": "Each of `earnings.ebitda`, `earnings.interest`, `earnings.fcf`, `earnings.total_debt` and `fx.fx_cash_effect` quotes one whole page line that begins with its row label (Reported EBITDA, Cash interest paid, Levered free cash flow, Total debt, FX effect on cash) followed by two spaces, on a page whose header ends in the FY column; its `value_text` is the last value of that line exactly as printed.",
+   "statement": "Each of `earnings.ebitda`, `earnings.interest`, `earnings.fcf`, `earnings.total_debt` and `fx.fx_cash_effect` quotes one whole page line that begins with its row label (Reported EBITDA, Cash interest paid, Levered free cash flow, Total debt, FX effect on cash) followed by two spaces, on a page whose header ends in the FY column and which states its amounts in millions (as does the page of the `rate_exposure.facility_balance` quote), naming no currency other than the run's reporting currency (`EUR millions` on a USD book is refused); the line has one value for each column of that header, and its `value_text` is the last value of that line exactly as printed (a cash interest figure printed in parentheses is the amount paid).",
    "checks": [
     "oracle:cp2e:row_not_whole_line",
     "oracle:cp2e:row_wrong_label",
     "oracle:cp2e:row_value_not_last",
-    "fn:deploy_workflow.owners.cp2e:_Check.row"
+    "fn:deploy_workflow.owners.cp2e:_Check.row",
+    "fn:deploy_workflow.owners.cp2e:_Check.millions",
+    "fn:deploy_workflow.owners.cp2e:_unit_currencies"
    ]
   },
   {
@@ -101,7 +103,7 @@
   },
   {
    "id": "macro_fx.10",
-   "statement": "When the run context states a reporting currency, `reporting_currency.code_text` is that currency. When the run context's current period is not a fiscal-year or fourth-quarter one, or is blank with a currency other than USD, the submission is refused alone, before the rest of it is read; a different submission does not cure that, only a corrected context.",
+   "statement": "When the run context states a reporting currency, `reporting_currency.code_text` is that currency; with no run context it is USD, the default basis. When the run context's current period is not a fiscal-year or fourth-quarter one, or is blank with a currency other than USD, the submission is refused alone, before the rest of it is read; a different submission does not cure that, only a corrected context.",
    "checks": [
     "fn:deploy_workflow.owners.cp2e:_validate_step"
    ]

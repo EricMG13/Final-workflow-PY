@@ -22,10 +22,10 @@ from deploy_vii.cp3_relative_value import (
     RelativeValueReport,
     RelativeValueSubmission,
     Upstream,
+    _composed,
     _validate_step,
     context_block,
     cp3_module,
-    relative_value,
     validate_relative_value,
 )
 from deploy_vii.execution import Attempt, Execution, ExecutionSnapshot
@@ -81,7 +81,9 @@ def compute(inputs: CP3Inputs) -> CP3Result:
     issues = validate_relative_value(inputs.pack, inputs.submission, upstream)
     if issues:
         return CP3Result(issues=issues, report=None)
-    return CP3Result(issues=(), report=relative_value(inputs.pack, inputs.submission, upstream))
+    # One validation per compute (S08-cp3-C10): the engine's guarded `relative_value` would
+    # validate the same submission again.
+    return CP3Result(issues=(), report=_composed(inputs.pack, inputs.submission, upstream))
 
 
 def context(inputs: CP3Inputs) -> dict[str, object]:

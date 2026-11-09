@@ -14,7 +14,7 @@ import xml.etree.ElementTree as ET
 from collections.abc import Callable
 from decimal import Decimal
 
-from deploy_vii.display import format_value
+from deploy_vii.display import format_value, places_to_show
 from deploy_vii.report_view import ChartMark, ChartSpec
 
 _NS = "http://www.w3.org/2000/svg"
@@ -85,8 +85,10 @@ def _is_synthetic(mark: ChartMark) -> bool:
     return mark.hatched or (mark.ref_id is not None and mark.ref_id.startswith("S"))
 
 
-def _tick_text(spec: ChartSpec, value: float) -> str:
-    return format_value(Decimal(repr(value)), spec.unit_class, "known")
+def _tick_text(spec: ChartSpec, value: float, ticks: list[float]) -> str:
+    """A tick label at one precision for the whole axis, wide enough for its tick step."""
+    places = places_to_show((Decimal(repr(t)) for t in ticks), spec.unit_class)
+    return format_value(Decimal(repr(value)), spec.unit_class, "known", decimals=places)
 
 
 _EDGE = 14.0
@@ -224,7 +226,7 @@ def _fill(mark: ChartMark, cls: int, chart_id: str) -> dict[str, str]:
     return {"class_": f"bar s{cls}"}
 
 
-def _axis_y(
+def _axis_y(  # noqa: PLR0913 - pre-existing six arguments at base
     root: ET.Element,
     spec: ChartSpec,
     ticks: list[float],
@@ -245,7 +247,7 @@ def _axis_y(
         _el(
             root,
             "text",
-            _tick_text(spec, tick),
+            _tick_text(spec, tick, ticks),
             x=_n(left - 6),
             y=_n(y_of(tick) + 4),
             text_anchor="end",
@@ -711,7 +713,9 @@ def _range(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
                 last_label_x = x
 
 
-def _bullet(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
+def _bullet(  # noqa: PLR0912 - pre-existing 13 branches at base
+    spec: ChartSpec, root: ET.Element, chart_id: str
+) -> None:
     """Threshold tick, current bar and headroom per category; series order is the contract.
 
     The first series is the threshold, the second the current value, the third (if any) the
@@ -736,7 +740,7 @@ def _bullet(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     def x_of(value: float) -> float:
         return left + (width - left - right) * value / high
 
-    for tick in _ticks(0.0, high, 4):
+    for tick in (ticks := _ticks(0.0, high, 4)):
         _el(
             root,
             "line",
@@ -749,7 +753,7 @@ def _bullet(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
         _el(
             root,
             "text",
-            _tick_text(spec, tick),
+            _tick_text(spec, tick, ticks),
             x=_n(x_of(tick)),
             y=str(height - 6),
             text_anchor="middle",

@@ -32,13 +32,14 @@
   },
   {
    "id": "change_screen.4",
-   "statement": "An assessment's `assessment` and `credit_transmission`, and `overall.rationale`, are nonblank prose with no figure (digits only inside a period or filing label), no braces or square brackets, and none of the words recommend, recovery or covenant anywhere in the text, whatever the case.",
+   "statement": "An assessment's `assessment` and `credit_transmission`, and `overall.rationale`, are nonblank prose with no figure (digits only inside a period or filing label), no braces or square brackets, and none of the words recommend, recovery or covenant anywhere in the text, whatever the case. A stated `overall.limitation` and the `gap`, `why_it_matters` and `action` of a gap follow the same rule on words, figures, braces and square brackets.",
    "checks": [
     "oracle:cpl10:r08",
     "oracle:cpl10:r09",
     "oracle:cpl10:r10",
     "oracle:cpl10:r11",
-    "fn:deploy_workflow.owners.cpl10:_text_issues"
+    "fn:deploy_workflow.owners.cpl10:_text_issues",
+    "fn:deploy_workflow.owners.cpl10:_prose_issues"
    ]
   },
   {

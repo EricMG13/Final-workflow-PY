@@ -11,7 +11,9 @@
   const identity = $('sec2'), grid = identity.querySelector('.grid');
   const extra = disclosure('Additional issuer details');
   [...grid.children].slice(2).forEach(item => extra.append(item));
-  [...identity.children].filter(item => item.tagName === 'FIELDSET' || (item.className === 'grid' && item !== grid)).forEach(item => extra.append(item));
+  // The issue classification is required, so it stays visible beside the issuer name and ID.
+  const classification = $('classf');
+  [...identity.children].filter(item => item !== classification && (item.tagName === 'FIELDSET' || (item.className === 'grid' && item !== grid))).forEach(item => extra.append(item));
   identity.append(extra);
   form.prepend(identity);
   for (let number = 4; number <= 10; number++) {
@@ -66,6 +68,56 @@
     }
     parent.postMessage({type:'cpos:context',context,problems:errs.map(error=>error.msg)}, '*');
   });
+  // Show module names for the CP- codes the form prints. Text nodes only: attributes, input values and
+  // option text (which is the option's value) keep codes, so the emitted context is unchanged.
+  let names = null;
+  // Each host's title is the codes of all its text nodes, set only where the host had no title of its own.
+  const titled = new Map();
+  const shown = new WeakMap(), skipped = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'OPTION']);
+  const codePattern = /\bCP-[A-Z0-9]+\b/g;
+  const observer = new MutationObserver(() => applyNames());
+  const watchBody = () => observer.observe(document.body, {childList:true, characterData:true, subtree:true});
+  function applyNames() {
+    if (!names) return;
+    observer.disconnect();
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), codes = new Map();
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const host = node.parentElement;
+      if (!host || skipped.has(host.tagName) || host.closest('option')) continue;
+      const known = shown.get(node);
+      const original = known && known.text === node.nodeValue ? known.original : node.nodeValue;
+      const found = [];
+      const text = original.replace(codePattern, code => {
+        if (!Object.hasOwn(names, code)) return code;
+        found.push(code); return names[code];
+      });
+      if (!found.length) continue;
+      node.nodeValue = text;
+      shown.set(node, {original, text});
+      codes.set(host, (codes.get(host) || []).concat(found));
+    }
+    for (const [host, title] of titled) {
+      if (codes.has(host)) continue;
+      if (host.title === title) host.removeAttribute('title');
+      titled.delete(host);
+    }
+    for (const [host, list] of codes) {
+      const title = list.join(', ');
+      if (titled.has(host) ? host.title !== titled.get(host) : host.hasAttribute('title')) continue;
+      host.title = title;
+      titled.set(host, title);
+    }
+    watchBody();
+  }
+  window.addEventListener('message', event => {
+    const data = event.data;
+    if (event.source !== parent || data?.type !== 'cpos:names' || !data.names || typeof data.names !== 'object') return;
+    const entries = Object.entries(data.names);
+    if (!entries.every(([, value]) => typeof value === 'string')) return;
+    names = Object.fromEntries(entries);
+    applyNames();
+  });
+
   new ResizeObserver(resize).observe(document.body);
   document.addEventListener('toggle', resize, true);
   update(); resize();

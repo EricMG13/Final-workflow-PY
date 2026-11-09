@@ -961,11 +961,13 @@ def navigator(view: View) -> tuple[NavRow, ...]:
 # --- Front Page production (M3 task 3.8) ------------------------------------------------------
 
 # Amounts in these units are scaled: the scale is stated once in the block head (decision 0004
-# section 4), so the cells show the bare number. ``currency`` (statement lines) is an
-# amount at 0 dp too; a per-unit amount (a share price) declares ``Fact.decimals`` instead.
+# section 4), so the cells show the bare number. ``currency`` (an amount with an
+# explicit ``Fact.scale``) is an amount at 0 dp too; a per-unit amount (a share price)
+# declares ``Fact.decimals`` instead.
 _AMOUNT_UNITS = frozenset({"MILLIONS", "THOUSANDS", "UNITS"})
 _PERCENT_UNITS = frozenset({"PERCENT", "decimal_fraction"})
-# Units that must not be mixed within one table: scaled amounts and unscaled statement lines.
+# Units compared for one table scale: ``currency`` (scaled by its explicit ``Fact.scale``) and the
+# amount units; facts with the same resolved label (``US$ m``) agree, any other label is a mix.
 _MIXABLE_UNITS = _AMOUNT_UNITS | {"currency"}
 _TABLE_KINDS: tuple[BlockKind, ...] = ("dense", "keyvalue", "period_grid")
 # Beyond this the exact decimal is shown as text: fixed-point expansion would be unbounded.
@@ -1505,33 +1507,40 @@ class _Slot:
 def _scale_of(table: str, columns: tuple[str, ...], grid: list[list[Fact | None]]) -> str | None:
     """The one scale a table's amounts share; a table that mixes amount units cannot state it.
 
-    ``grid[row][column]`` holds each cell's fact. The dominant (unit, currency) pair sets the
-    scale; a column holding any other pair fails closed, naming the column.
+    ``grid[row][column]`` holds each cell's fact. Each fact is keyed on its resolved scale label
+    (``US$ m``), so a ``currency`` fact with an explicit factor and an amount-unit fact that mean
+    the same scale agree. The dominant label sets the scale; a column holding any other label
+    fails closed, naming the column. A ``currency`` fact counts at any status; an amount unit
+    only when known.
     """
-    pairs: list[tuple[str, str | None, str | None, int]] = []
+    pairs: list[tuple[str | None, str, int]] = []
     for row in grid:
         for column, fact in enumerate(row):
             if fact is None or fact.unit not in _MIXABLE_UNITS:
                 continue
             if fact.unit == "currency":
-                scale = scale_label(_currency_scale_unit(fact), fact.currency)
-                pairs.append((fact.unit, fact.currency, scale, column))
+                label = scale_label(_currency_scale_unit(fact), fact.currency)
+                described = f"currency x{fact.scale} {fact.currency}"
             elif fact.status == "known":
-                pairs.append((fact.unit, fact.currency, None, column))
+                label = scale_label(fact.unit, fact.currency)
+                described = f"{fact.unit} {fact.currency}"
+            else:
+                continue
+            pairs.append((label, described, column))
     if not pairs:
         return None
-    counts = Counter((unit, currency, scale) for unit, currency, scale, _ in pairs)
-    unit, currency, scale = counts.most_common(1)[0][0]
-    for other_unit, other_currency, other_scale, column in pairs:
-        if (other_unit, other_currency, other_scale) != (unit, currency, scale):
+    labels = Counter(label for label, _, _ in pairs)
+    scale = labels.most_common(1)[0][0]
+    dominant = next(described for label, described, _ in pairs if label == scale)
+    for label, described, column in pairs:
+        if label != scale:
             raise ValueError(
                 f"{table} column {columns[column]!r} mixes amount units "
-                f"({other_unit} {other_currency} {other_scale or ''} against "
-                f"{unit} {currency} {scale or ''}); "
+                f"({described} = {label or 'unscaled'} against "
+                f"{dominant} = {scale or 'unscaled'}); "
                 "a block states its scale once"
             )
-    assert unit is not None
-    return scale if unit == "currency" else scale_label(unit, currency)
+    return scale
 
 
 def _slot(

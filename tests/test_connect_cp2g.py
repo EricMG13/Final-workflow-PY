@@ -59,19 +59,11 @@ MANIFEST = stage1.MANIFEST
 LTM = cp2g.LTM_PERIOD
 Q3 = "Q3 25: 2025-07-01 to 2025-09-30"
 CaseKind = Literal["public", "private", "synthetic"]
-# Stage 2 round 5 item 10: the free-text paths of the positive payload whose value is stored as
-# plain text and never built as `RunText`: each driver, downside and assessment `limitation`
-# is `Claim.limitation` of its T2H.3 claim (sink: `forward_model` claims). Every other
-# free-text path (rationales, gap texts) must be refused.
-CP2G_VERBATIM: frozenset[tuple[str | int, ...]] = frozenset(
-    {
-        ("base_drivers", "revenue_growth", "limitation"),
-        ("base_drivers", "ebitda_margin", "limitation"),
-        ("base_drivers", "dividends", "limitation"),
-        ("downside", "limitation"),
-        ("assessment", "limitation"),
-    }
-)
+# Stage 2 round 5 item 10 listed the driver, downside and assessment `limitation` paths here: each
+# is `Claim.limitation` of its T2H.3 claim and was stored as plain text without a content check.
+# S07-cp2-gh-A02: a limitation now gets the figure/reference and conclusion checks of a rationale
+# (as CP-2H's, `CP2H_VERBATIM` is empty), so no free-text path of the schema is stored verbatim.
+CP2G_VERBATIM: frozenset[tuple[str | int, ...]] = frozenset()
 
 
 def _payload(case: str = "positive") -> dict[str, Any]:

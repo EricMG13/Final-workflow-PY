@@ -30,7 +30,7 @@ partial charge.
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date
 from decimal import Decimal
 from types import MappingProxyType
@@ -170,23 +170,11 @@ PRICES: Mapping[str, ModelPrice] = MappingProxyType(
             cache_write=Decimal("0.45"),  # none listed: reserved at input
             output=Decimal("1.80"),
         ),
-        # GitHub "Models and pricing", fetched 2026-11-06 (COPILOT_PRICES_AS_OF); USD per 1M tokens
-        "copilot-sol-medium": ModelPrice(
-            input=Decimal("2.00"),
-            cached_read=Decimal("0.10"),
-            cache_write=Decimal("2.50"),
-            output=Decimal("10.00"),
-            max_input_tokens=272_000,
-            long_context_after=272_000,
-            long_input=Decimal(4),
-            long_cached_read=Decimal("0.20"),
-            long_cache_write=Decimal(5),
-            long_output=Decimal(15),
-            max_context_tokens=1_050_000,
-            reservation_context_tokens=1_050_000,
-            # the model maximum, cases/pilot-fixes/limits.json documented_max_output_tokens
-            reservation_output_tokens=128_000,
-        ),
+        # GitHub "Models and pricing", fetched 2026-11-06 (COPILOT_PRICES_AS_OF), lists _SOL's
+        # rates, long-context threshold and context ceiling (USD per 1M tokens); the hold adds the
+        # model maximum, cases/pilot-fixes/limits.json documented_max_output_tokens.
+        # test_copilot_table_rates pins every field, so a change to _SOL is checked against it.
+        "copilot-sol-medium": replace(_SOL, reservation_output_tokens=128_000),
         # same source; Copilot lists one write rate (5), no 5 m / 1 h split; the hold uses
         # Anthropic's 1 h rate (8) because the runtime's cache TTL is unverified
         "copilot-opus-medium": ModelPrice(

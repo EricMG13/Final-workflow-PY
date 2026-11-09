@@ -8,6 +8,7 @@ import pytest
 from deploy_workflow.model.turn import (
     CONFIG_MODELS,
     CONFIG_PROVIDERS,
+    PROVIDERS,
     Message,
     ModelSpec,
     Provider,
@@ -44,6 +45,17 @@ def test_config_providers_are_the_section_7_1_ids_and_the_copilot_pair() -> None
         "copilot-sol-medium": "copilot",
         "copilot-opus-medium": "copilot",
     }
+
+
+def test_one_provider_list() -> None:
+    # S03-C05: the list is written once (turn.Provider); record's KeyReflected check asks every
+    # provider in it, and model_testing's Provider is the same type. Expected by hand.
+    from deploy_workflow.model import record
+    from deploy_workflow.model_testing import configs
+
+    assert PROVIDERS == ("openai", "anthropic", "openrouter", "copilot")
+    assert set(CONFIG_PROVIDERS.values()) == set(PROVIDERS)
+    assert record.PROVIDERS is PROVIDERS and configs.Provider is Provider
 
 
 def test_spec_refuses_provider_that_disagrees_with_config() -> None:

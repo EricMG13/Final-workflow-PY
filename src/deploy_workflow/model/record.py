@@ -45,6 +45,7 @@ from deploy_workflow.model.reply_classes import (
     USAGE_TIMEOUTS,
 )
 from deploy_workflow.model.turn import (
+    PROVIDERS,
     Provider,
     Turn,
     TurnError,
@@ -68,7 +69,6 @@ _MAPPER_SHAPE_ERRORS = (
     ValueError,
     ArithmeticError,
 )
-_PROVIDERS: tuple[Any, ...] = ("openai", "anthropic", "openrouter", "copilot")
 _PREIMAGE_KEYS = frozenset(
     {
         "run_id",
@@ -359,7 +359,7 @@ class CallLog:
         # A key that is whole only after decoding (JSON escapes, SSE deltas joined) survives the
         # byte redaction; ask the provider mappers, as the live adapter did, whether one remains.
         redacted = self._redactor.bytes_(body)
-        for provider in _PROVIDERS:
+        for provider in PROVIDERS:
             try:
                 outcome = parse(provider, 200, redacted, {}, self._redactor)
             except _MAPPER_SHAPE_ERRORS:

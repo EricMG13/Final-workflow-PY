@@ -56,9 +56,9 @@ outside the step's declared sources, a locator the source does not hold, more th
 B22 (user ruling, 31 Oct 2026): a prepared text or HTML pack locates its spans as `line:N`, one per
 converted line. A source with no `page:N` span and only `line:N` spans is a *line source*; every
 other source keeps the page behaviour above unchanged. On a line source `read_pages` takes line
-numbers as `first_page`/`last_page` (at most `MAX_PAGES_PER_READ` lines, or at most
-`MAX_LINES_PER_READ` lines whose text totals at most `MAX_LINE_READ_BYTES` bytes, the line count
-checked before any measure; PF-R7, PF-R9, B31a) and returns one SOURCE
+numbers as `first_page`/`last_page` (at most `MAX_LINES_PER_READ` lines whose text totals at most
+`MAX_LINE_READ_BYTES` bytes, the line count checked before any measure; PF-R7, PF-R9, B31a; since
+S14-A02 a read of `MAX_PAGES_PER_READ` lines or fewer is measured too) and returns one SOURCE
 block per `line:N`; `extract_statements` takes ranges `line:N-M` (at most `MAX_PAGES_PER_EXTRACT`
 ranges and `MAX_LINES_PER_EXTRACT` lines per call), extracts each range as one text and rebases each
 row's `line_no` and locator to its own `line:K`. A range counts as extracted, with each of its data
@@ -106,14 +106,15 @@ from deploy_vii.statement_extract import ExtractedLine, ExtractedTable, extract_
 
 MAX_PAGES_PER_READ = 5
 # PF-R7 (B31a): on a line source a `read_pages` call may also span more than MAX_PAGES_PER_READ
-# lines while their text totals at most this many bytes (CP1H-R10: raised from 8192).
+# lines while their text totals at most this many bytes (CP1H-R10: raised from 8192). S14-A02:
+# every line read is held to it, so five long lines are no unbounded read.
 MAX_LINE_READ_BYTES = 32768
 # PF-R9: ... but never more than this many lines, checked before any measure so a model-chosen
 # `last_page` cannot make the call iterate an unbounded range.
 MAX_LINES_PER_READ = 200
 _LINE_READ_REFUSAL = (
-    f"bad arguments: on a line source, at most {MAX_PAGES_PER_READ} lines, or at most "
-    f"{MAX_LINES_PER_READ} lines totalling {MAX_LINE_READ_BYTES} bytes, per call"
+    f"bad arguments: on a line source, at most {MAX_LINES_PER_READ} lines totalling "
+    f"{MAX_LINE_READ_BYTES} bytes, per call"
 )
 # Task 8.10b: an extracted page is compact (one row per printed data line), so a call may name
 # more pages than `read_pages` returns.
@@ -122,6 +123,10 @@ MAX_PAGES_PER_EXTRACT = 8
 MAX_LINES_PER_EXTRACT = 200
 MAX_HITS = 15
 DEFAULT_HITS = 10
+# A search runs every distinct term over every span, so its cost grows with terms x pack text and
+# its header echoes the query. Beyond these bounds the call is refused, never truncated.
+MAX_QUERY_CHARS = 512
+MAX_QUERY_TERMS = 32
 SNIPPET_CHARS = 300
 TOOL_CHOICE = "required"
 SEARCH, READ, EXTRACT = "search_pack", "read_pages", "extract_statements"
@@ -294,9 +299,9 @@ def tool_specs(step_id: str, kind: ToolSet | None = None) -> tuple[dict[str, Any
         _function(
             READ,
             "Verbatim text of pages first_page..last_page of one source (at most "
-            f"{MAX_PAGES_PER_READ} pages; on a line source, at most {MAX_PAGES_PER_READ} lines, "
-            f"or at most {MAX_LINES_PER_READ} lines totalling {MAX_LINE_READ_BYTES} bytes), "
-            "each page or line as a SOURCE block with its locator.",
+            f"{MAX_PAGES_PER_READ} pages; on a line source, at most {MAX_LINES_PER_READ} lines "
+            f"totalling {MAX_LINE_READ_BYTES} bytes), each page or line as a SOURCE block with "
+            "its locator.",
             {
                 "type": "object",
                 "properties": {
@@ -393,9 +398,13 @@ class PackTools:
     def search_pack(self, raw: Mapping[str, Any]) -> str:
         _arguments(raw, ("query",), ("source_id", "max_hits"))
         query = raw["query"]
+        if isinstance(query, str) and len(query) > MAX_QUERY_CHARS:
+            raise ToolError(f"bad arguments: query is over {MAX_QUERY_CHARS} characters")
         terms = list(dict.fromkeys(query.split())) if isinstance(query, str) else []
         if not terms:
             raise ToolError("bad arguments: query must be non-empty text")
+        if len(terms) > MAX_QUERY_TERMS:
+            raise ToolError(f"bad arguments: query is over {MAX_QUERY_TERMS} distinct terms")
         scope = raw.get("source_id")
         sources = self.ready if scope is None else {self._source(scope): None}
         limit = _integer(raw, "max_hits") if "max_hits" in raw else DEFAULT_HITS
@@ -444,9 +453,9 @@ class PackTools:
         unit, located = "page", pages
         if not pages and source_id in self.lines:
             unit, located = "line", self.lines[source_id]
-        if last - first + 1 > MAX_PAGES_PER_READ:
-            if unit == "page":
-                raise ToolError(f"bad arguments: at most {MAX_PAGES_PER_READ} pages per call")
+        if unit == "page" and last - first + 1 > MAX_PAGES_PER_READ:
+            raise ToolError(f"bad arguments: at most {MAX_PAGES_PER_READ} pages per call")
+        if unit == "line":  # S14-A02: every line read is measured, however few its lines
             if last - first + 1 > MAX_LINES_PER_READ:
                 raise ToolError(_LINE_READ_REFUSAL)  # before any iteration over the range
             measured = sum(
@@ -564,7 +573,8 @@ def _range_of(item: str) -> tuple[int, int]:
 def _line_table(spans: Mapping[int, Span], item: str, source_id: str) -> ExtractedTable:
     """The table of the range `item` (`line:N-M`) of a line source (B22): spans N..M joined by
     newlines and extracted as one text, each row then rebased to its own line (`line_no` N + rel
-    - 1, locator `line:K`). A missing line or a span holding a newline is a refused call."""
+    - 1, locator `line:K`), and so are its label candidates, the omitted lines and the source
+    lines. A missing line or a span holding a newline is a refused call."""
     first, last = _range_of(item)
     texts = []
     for number in range(first, last + 1):
@@ -576,13 +586,21 @@ def _line_table(spans: Mapping[int, Span], item: str, source_id: str) -> Extract
         texts.append(span.text)
     table = extract_statement_lines("\n".join(texts), item, source_id=source_id)
     rows = tuple(
-        replace(line, line_no=first + line.line_no - 1, locator=f"line:{first + line.line_no - 1}")
+        replace(
+            line,
+            line_no=first + line.line_no - 1,
+            locator=f"line:{first + line.line_no - 1}",
+            label_candidates=tuple(
+                replace(part, line_no=first + part.line_no - 1) for part in line.label_candidates
+            ),
+        )
         for line in table.lines
     )
+    omitted = tuple(replace(line, line_no=first + line.line_no - 1) for line in table.omitted)
     source_lines = tuple(
         replace(line, line_no=first + line.line_no - 1) for line in table.source_lines
     )
-    return replace(table, lines=rows, source_lines=source_lines)
+    return replace(table, lines=rows, omitted=omitted, source_lines=source_lines)
 
 
 def extracted_body(table: ExtractedTable) -> str:

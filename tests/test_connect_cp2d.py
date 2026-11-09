@@ -780,6 +780,62 @@ def test_validate_refuses_a_cp1_that_is_not_the_bound_input(tmp_path: Path) -> N
     assert "Upstream CP-1: the supplied module is not the bound input" in issues
 
 
+def _wall_without_uncitable_refs(case: str, offered: set[str]) -> str:
+    """The oracle literal with the maturity_wall row reduced to the refs the view offers and set
+    to Insufficient Information with a stated limitation, as an analyst with no schedule would."""
+    payload = json.loads(_literal(case))
+    for a in payload["assessments"]:
+        if a["section"] == "maturity_wall":
+            a["basis_refs"] = [r for r in a["basis_refs"] if r in offered]
+            a["category"] = "Insufficient Information"
+            a["limitation"] = "No facility schedule is disclosed."
+    return json.dumps(payload)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        # CP-1 extracted no T4.18 schedule at all: facilities None.
+        {"facilities": None},
+        # A debt-free issuer: an empty schedule and zero debt, so no T4.18 row exists.
+        {"facilities": (), "total_debt_bs": Decimal(0), "total_debt": Decimal(0)},
+    ],
+)
+def test_validate_accepts_a_wall_without_a_citable_maturity_date(
+    tmp_path: Path, changes: dict[str, Any]
+) -> None:
+    # S06-cp2-ade-A01: with no T4.18 row the view offers no maturity_date ref, so ruling D-5's
+    # citation cannot be met; the validator used to refuse every submission with
+    # "the maturity_wall assessment must cite T4.18 maturity_date".
+    cp1 = cp1_module(tm._ro(tm._base_operands(), **changes))
+    store = make_store(tmp_path, cp1)
+    attempt = store.begin("CP-2D")
+    up = _upstream_of(store, attempt)
+    selection = cp2d.select_cp1(up.cp1)
+    assert selection.maturity_date_refs == frozenset()
+    offered = {o.fact.fact_id for o in selection.offered}
+    submission = cp2d.LiquidityBridgeSubmission.model_validate_json(
+        _wall_without_uncitable_refs("positive", offered)
+    )
+    issues = cp2d.validate_liquidity_bridge(pack=store.pack(), submission=submission, upstream=up)
+    assert issues == ()
+
+
+def test_validate_still_requires_the_maturity_date_when_one_is_offered(tmp_path: Path) -> None:
+    # The relaxation of A01 applies only to an empty offer: with the term loan's T4.18 row the
+    # maturity_wall row must still cite its maturity_date, Insufficient Information or not.
+    store, attempt = make_upstream(tmp_path)
+    up = _upstream_of(store, attempt)
+    selection = cp2d.select_cp1(up.cp1)
+    assert selection.maturity_date_refs
+    offered = {o.fact.fact_id for o in selection.offered} - set(selection.maturity_date_refs)
+    submission = cp2d.LiquidityBridgeSubmission.model_validate_json(
+        _wall_without_uncitable_refs("positive", offered)
+    )
+    issues = cp2d.validate_liquidity_bridge(pack=store.pack(), submission=submission, upstream=up)
+    assert issues == ("the maturity_wall assessment must cite T4.18 maturity_date",)
+
+
 # --- the composed module ----------------------------------------------------------------------
 
 

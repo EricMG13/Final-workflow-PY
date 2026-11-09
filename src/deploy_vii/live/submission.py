@@ -1010,23 +1010,26 @@ def _with_rules(
     validate: Callable[[PreparedPack, Attempt], StepValidation],
     rules: Callable[[str], tuple[str, ...]],
     payload: str,
+    found: tuple[str, ...] | None = None,
 ) -> Callable[[PreparedPack, Attempt], StepValidation]:
     """`validate`, then the tool-loop rule issues of the retained payload appended (task 8.0d).
     They only add issues: a payload the stage rejects stays rejected, one it accepts is rejected
-    when a rule fails, and the stage's output is kept as `_validate_prefilled` keeps it."""
+    when a rule fails, and the stage's output is kept as `_validate_prefilled` keeps it. `found`
+    is what `rules(payload)` already returned, so the walk is not run a second time."""
 
     def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
         outcome = validate(pack, attempt)
-        found = rules(payload)
-        if not found:
+        issues = rules(payload) if found is None else found
+        if not issues:
             return outcome
-        issues = tuple(dict.fromkeys((*outcome.issues, *found)))
-        return StepValidation(output=outcome.output, issues=issues)
+        return StepValidation(
+            output=outcome.output, issues=tuple(dict.fromkeys((*outcome.issues, *issues)))
+        )
 
     return run
 
 
-def submit_model_payload(
+def submit_model_payload(  # noqa: PLR0911, PLR0913 - pre-existing (7 returns, 6 arguments at base)
     store: Execution,
     ticket_id: str,
     step_id: str,
@@ -1059,7 +1062,7 @@ def submit_model_payload(
         on_normalised(resolved)
     entry = MODULE_STEP_ENTRIES.get(step.module_id)
     if entry is not None:
-        if rules is not None and rules(normalised):
+        if rules is not None and (found := rules(normalised)):
             validator = partial(RULED_ENTRIES[step.module_id], store)
             journal = store.submit_step(
                 ticket_id,
@@ -1067,7 +1070,7 @@ def submit_model_payload(
                 step_chain(step.module_id).steps,
                 step_id,
                 normalised,
-                _with_rules(validator, rules, normalised),
+                _with_rules(validator, rules, normalised, found),
             )
         else:
             journal = entry(store, ticket_id, step_id, normalised)
@@ -1098,7 +1101,7 @@ def submit_model_payload(
     composition = compose_payload(store.pack(), normalised)
     if composition.review is not None and not composition.issues:
         retained = composition.review.model_dump_json()
-        if rules is None or not rules(normalised):
+        if rules is None or not (found := rules(normalised)):
             journal = submit_cp0_review(store, ticket_id, retained)
             return Submitted(journal, retained, resolved, (), (), composition)
         # Task 8.9: `submit_cp0_review`'s own validator, with the rule issues the model's
@@ -1109,7 +1112,7 @@ def submit_model_payload(
             ("source_readiness",),
             "source_readiness",
             retained,
-            _with_rules(partial(_validate_review, store), rules, normalised),
+            _with_rules(partial(_validate_review, store), rules, normalised, found),
         )
         return Submitted(journal, retained, resolved, (), (), composition)
     uncomposable: Callable[[PreparedPack, Attempt], StepValidation] = partial(

@@ -26,7 +26,7 @@
   },
   {
    "id": "business_context.d",
-   "statement": "d. Every text field is run text: digits only in period labels (`FY2025`, `Q3 2025`), filing and section labels (`10-K`, `Item 7A`, `page:12`) and the issuer's name. A figure is written only as `{ref|unit}` with a `ref` and `unit` listed under `cp1_facts` in the CONTEXT block; with no `cp1_facts`, write no figure at all. Never a bare number, never a `[ref]` chip; a figure belongs in a citation's quote, not in the text. A range or list of items uses a joiner the validator admits: `Items 10-14`, `Items 7, 7A`, `Items 7/7A` or `Items 7 and 8`; a range written with the word `to` is read as a bare figure and rejected.",
+   "statement": "d. Every text field is run text: digits only in period labels (`FY2025`, `Q3 2025`), filing and section labels (`10-K`, `Item 7A`, `page:12`) and the issuer's name. A figure is written only as `{ref|unit}` with a `ref` and `unit` listed under `cp1_facts` in the CONTEXT block; with no `cp1_facts`, write no figure at all. Never a bare number, never a `[ref]` chip; a figure belongs in a citation's quote, not in the text. A range or list of items uses a joiner the validator admits: `Items 10-14`, `Items 7, 7A`, `Items 7/7A` or `Items 7 and 8`; a range written with the word `to` is read as a bare figure and rejected. A fiscal-year label (`FY2025`, `fiscal 2025`) written up to the next `.`, `;` or `:` beside a `{ref|unit}` must be a year of the period of a figure referenced there.",
    "checks": [
     "fn:deploy_vii.business_context:validate_business_context",
     "fn:deploy_vii.prose:issues"

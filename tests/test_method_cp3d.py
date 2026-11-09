@@ -264,8 +264,12 @@ def test_blocked_case_attempt_issues(attempt: str) -> None:
 
 
 def test_bid_exceeding_offer_is_refused_on_a_synthetic_page() -> None:
-    """The retired `crossed_quote` rule (lease open question 14): a synthetic page, no oracle literal."""
-    page = "Dealer quotation on January 9, 2026: bid 99.50 and offer 99.25."
+    """The retired `crossed_quote` rule (lease open question 14): a synthetic page, no oracle
+    literal. The sentence names the instrument, so the quote is bound to it (S08-cp3-A02)."""
+    page = (
+        "Dealer quotation on January 9, 2026 for the Northbridge Term Loan: bid 99.50 and "
+        "offer 99.25."
+    )
     raw = copy.deepcopy(SUBMISSIONS["positive"])
     for obs, level in ((raw["observations"][0], "99.50"), (raw["observations"][1], "99.25")):
         obs.update(locator="page:9", quote=page, level_text=level)
@@ -541,8 +545,8 @@ def test_d2_lvl_date_is_the_bid_as_of_text_verbatim() -> None:
 
 def test_x1_iv_mid_above_par() -> None:
     page = (
-        "Published January 10, 2026.\nDealer quotation on January 9, 2026: bid 100.50 and "
-        "offer 101.00, expressed as a percentage of par."
+        "Published January 10, 2026.\nDealer quotation on January 9, 2026 for the Northbridge "
+        "Term Loan: bid 100.50 and offer 101.00, expressed as a percentage of par."
     )
     ctx = _with_page(_context("positive"), "market", "page:9", page)
     raw = copy.deepcopy(SUBMISSIONS["positive"])
@@ -1576,6 +1580,14 @@ def test_r11_class_text_cases(
     assert dc.quote_failure(c, adapter, refusal) is None
 
 
+def _unbound(name: str) -> tuple[str, ...]:
+    return tuple(
+        f"observations[{i}]: the {kind} quote is not bound to the instrument {name}: its sentence "
+        "does not name it and it is not the only bid or offer quotation on the instrument's page"
+        for i, kind in ((0, "bid"), (1, "offer"))
+    )
+
+
 @pytest.mark.parametrize(
     ("reader", "adapter", "refusal"), _CLASS_TEXTS, ids=[r[0] for r in _CLASS_TEXTS]
 )
@@ -1586,11 +1598,14 @@ def test_r11_b3_names_the_wrap_refusal_accepts(
     prints `- ` keeps the name, and a wrapped quote keeps a name with a plain hyphen (whose
     digit takes its own refusal)."""
     page = "The Acme first- priority Term Loan is quoted."
-    assert adapter(page, page, "Acme first- priority Term Loan") == ()
+    # S08-cp3-A02: renaming the instrument leaves the case's Northbridge bid and offer unbound.
+    unbound = _unbound("Acme first- priority Term Loan") if reader == "instrument.name" else ()
+    assert adapter(page, page, "Acme first- priority Term Loan") == unbound
     wrapped = "The Acme Term Loan B-2 first-\npriority tranche is quoted."
     issues = tuple(adapter(wrapped, wrapped, "Acme Term Loan B-2"))
     assert refusal not in issues
-    assert issues == (f"{reader}: digits are not allowed",)
+    unbound = _unbound("Acme Term Loan B-2") if reader == "instrument.name" else ()
+    assert issues == (*unbound, f"{reader}: digits are not allowed")
 
 
 def test_r11_b1_an_overlapping_occurrence_is_read() -> None:
@@ -1747,10 +1762,11 @@ def test_r11_b1_a_full_stop_after_the_figure_is_still_its_end_edge(
 @pytest.mark.parametrize(
     ("line", "accepted"),
     (
-        ("Dealers quote the loan at bid - 1.25.", False),
-        ("Dealers quote the loan at bid -\n1.25.", False),
-        ("Dealers quote the loan at bid 1.25.", True),
-        ("Dealers quote the loan at bid\n1.25.", True),
+        # S08-cp3-A02: each line names the instrument, so an accepted bid is bound to it.
+        ("Dealers quote the Northbridge Term Loan at bid - 1.25.", False),
+        ("Dealers quote the Northbridge Term Loan at bid -\n1.25.", False),
+        ("Dealers quote the Northbridge Term Loan at bid 1.25.", True),
+        ("Dealers quote the Northbridge Term Loan at bid\n1.25.", True),
     ),
     ids=("bid-minus-space", "bid-minus-wrap", "bid-genuine", "bid-break"),
 )
@@ -1951,3 +1967,439 @@ def test_r13_w_minus_is_no_b3_wrap_split(page: str, quote: str, name: str, occur
     """`_name_occurs`: a `- ` matching W's minus, with something before it in the value, occurs;
     `A-\\n25`, `2024-\\n2025`, `a - b`, a `- ` at index 0 and any other `- ` stay B3 refusals."""
     assert cp3d._name_occurs(name, quote) is occurs
+
+
+# --- review fixes S08-cp3: a sheet bid or offer is bound, firm, priced and dated ---------------
+
+_SHEET_QUOTE = (
+    "Dealer quotation on January 9, 2026: bid 98.50 and offer 99.25, expressed as a percentage "
+    "of par."
+)
+
+
+def _sheet_case(sentence: str) -> tuple[dict[str, Any], cp3d.MarketContext]:
+    """The positive submission with the sheet's quotation sentence replaced by `sentence` on the
+    page and in the bid and offer quotes (both keep their positive level_text and as_of_text)."""
+    base = _context("positive")
+    page = base.pages["market"]["page:1"]
+    assert _SHEET_QUOTE in page
+    ctx = _with_page(base, "market", "page:1", page.replace(_SHEET_QUOTE, sentence))
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    for o in raw["observations"][:2]:
+        o["quote"] = sentence
+    return raw, ctx
+
+
+def _issues_of(raw: dict[str, Any], ctx: cp3d.MarketContext) -> tuple[str, ...]:
+    return cp3d.submission_issues(submission=_submission(raw), context=ctx)
+
+
+def test_s08_a01_an_indicative_conditional_bid_offer_is_refused() -> None:
+    """S08-cp3-A01/C07: a quotation that calls itself indicative, subject to confirmation and not
+    firm is no executable bid or offer; each side gets one issue per marker, in marker order."""
+    sentence = (
+        "Indicative dealer quotation on January 9, 2026, subject to confirmation and not firm: "
+        "bid 98.50 and offer 99.25, expressed as a percentage of par."
+    )
+    raw, ctx = _sheet_case(sentence)
+    assert _issues_of(raw, ctx) == tuple(
+        f'observations[{i}]: {kind} is quoted with indicative or conditional wording: "{m}"'
+        for i, kind in ((0, "bid"), (1, "offer"))
+        for m in ("indicative", "subject to", "not firm")
+    )
+
+
+def test_s08_a01_the_marker_in_the_unquoted_part_of_the_sentence_still_refuses() -> None:
+    """The model quotes only the dated part after the marker: the page sentence holding the quote
+    still says `Indicative`, so the bid and the offer are refused."""
+    sentence = (
+        "Indicative dealer quotation on January 9, 2026: bid 98.50 and offer 99.25, expressed as "
+        "a percentage of par."
+    )
+    raw, ctx = _sheet_case(sentence)
+    for o in raw["observations"][:2]:
+        o["quote"] = "quotation on January 9, 2026: bid 98.50 and offer 99.25"
+    assert _issues_of(raw, ctx) == (
+        'observations[0]: bid is quoted with indicative or conditional wording: "indicative"',
+        'observations[1]: offer is quoted with indicative or conditional wording: "indicative"',
+    )
+
+
+def test_s08_a01_talk_in_another_sentence_of_the_page_does_not_refuse_a_firm_quote() -> None:
+    """A following sentence that calls the commentary talk is not the quotation's sentence."""
+    sentence = _SHEET_QUOTE + " Separate dealer talk is around 99.75."
+    raw, ctx = _sheet_case(sentence)
+    for o in raw["observations"][:2]:
+        o["quote"] = _SHEET_QUOTE
+    assert _issues_of(raw, ctx) == ()
+
+
+def _dated_case(when: str) -> tuple[dict[str, Any], cp3d.MarketContext]:
+    raw, ctx = _sheet_case(_SHEET_QUOTE.replace("January 9, 2026", when))
+    for o in raw["observations"][:2]:
+        o["as_of_text"] = when
+    return raw, ctx
+
+
+@pytest.mark.parametrize("when", ("January 11, 2026", "January 9, 2027"))
+def test_s08_a05_a_sheet_quote_dated_after_the_run_as_of_is_refused(when: str) -> None:
+    """S08-cp3-A05/C06: the positive run is as of 2026-01-10; a later quote is look-ahead."""
+    raw, ctx = _dated_case(when)
+    assert _issues_of(raw, ctx) == tuple(
+        f"observations[{i}]: as_of_text {when} is after the run as-of 2026-01-10" for i in (0, 1)
+    )
+
+
+@pytest.mark.parametrize(
+    ("when", "line"),
+    (
+        # 2026-01-10 - 2026-01-10 = 0 days; - 2025-12-11 = 21 + 9 = 30 days: not more than 30.
+        ("January 10, 2026", None),
+        ("December 11, 2025", None),
+        # 2025-12-10 -> 2026-01-10 = 31 days.
+        (
+            "December 10, 2025",
+            (
+                "Stale quote: Northbridge Term Loan quote dated 2025-12-10 is 31 days before the "
+                "run as-of 2026-01-10 (limit 30)"
+            ),
+        ),
+        # 2019-01-09 -> 2026-01-09 = 7 x 365 + 2 leap days (2020, 2024) = 2557; + 1 = 2558.
+        (
+            "January 9, 2019",
+            (
+                "Stale quote: Northbridge Term Loan quote dated 2019-01-09 is 2558 days before the "
+                "run as-of 2026-01-10 (limit 30)"
+            ),
+        ),
+    ),
+)
+def test_s08_a05_a_stale_sheet_quote_gets_the_stale_line(when: str, line: str | None) -> None:
+    """A sheet bid/offer more than STALE_DAYS (30) days old gets the context rows' stale line,
+    once for the pair; a quote within the limit gets none."""
+    raw, ctx = _dated_case(when)
+    sub = _submission(raw)
+    assert cp3d.submission_issues(submission=sub, context=ctx) == ()
+    stale = [x for x in cp3d.own_limitations(sub, ctx) if x.startswith("Stale quote")]
+    assert stale == ([] if line is None else [line])
+
+
+def _one_side_case(
+    sentence: str, level_text: str, quote: str | None = None
+) -> tuple[dict[str, Any], cp3d.MarketContext]:
+    """A bid-only submission (no offer, so no bid-exceeds-offer check) on `sentence`."""
+    raw, ctx = _sheet_case(sentence)
+    bid = dict(raw["observations"][0], quote=quote or sentence, level_text=level_text)
+    raw["observations"] = [bid, raw["observations"][2]]
+    return raw, ctx
+
+
+@pytest.mark.parametrize(
+    ("sentence", "level", "unit"),
+    (
+        ("Dealer quotation on January 9, 2026: bid 6.25% yield to maturity.", "6.25", "%"),
+        ("Dealer quotation on January 9, 2026: bid 6.25 percent.", "6.25", "percent"),
+        ("Dealer quotation on January 9, 2026: bid 175 bps discount margin.", "175", "bps"),
+        ("Dealer quotation on January 9, 2026: bid 175 basis points.", "175", "basis points"),
+        ("Dealer quotation on January 9, 2026: bid 6.25 yield.", "6.25", "yield"),
+    ),
+)
+def test_s08_a03_a_bid_quoted_as_a_yield_or_spread_is_refused(
+    sentence: str, level: str, unit: str
+) -> None:
+    """S08-cp3-A03: a level printed with a percent, basis-point, yield or spread unit is not a
+    price in points of par (6.25% would be stored as 0.0625 of par, DM 2356.7 bp)."""
+    raw, ctx = _one_side_case(sentence, level)
+    assert _issues_of(raw, ctx) == (
+        (
+            f'observations[0]: bid level_text {level} is quoted in "{unit}", not as a price in '
+            "points of par"
+        ),
+    )
+
+
+def test_s08_a03_the_unit_on_the_page_after_a_truncated_quote_still_refuses() -> None:
+    """The quote stops at the figure; the page sentence holding it prints `%` after it."""
+    sentence = "Dealer quotation on January 9, 2026: bid 6.25% yield to maturity."
+    raw, ctx = _one_side_case(sentence, "6.25", "Dealer quotation on January 9, 2026: bid 6.25")
+    assert _issues_of(raw, ctx) == (
+        'observations[0]: bid level_text 6.25 is quoted in "%", not as a price in points of par',
+    )
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    (
+        "Dealer quotation on January 9, 2026: bid 98.50% of par.",
+        "Dealer quotation on January 9, 2026: bid 98.50 (DM 350 bps).",
+        "Dealer quotation on January 9, 2026: bid 98.50, yielding 7.10%.",
+    ),
+)
+def test_s08_a03_a_price_with_other_units_elsewhere_is_accepted(sentence: str) -> None:
+    """`98.50% of par` is a price; a spread or yield apart from the level is not its unit."""
+    raw, ctx = _one_side_case(sentence, "98.50")
+    assert _issues_of(raw, ctx) == ()
+
+
+_UNIT_PAGE = (
+    "Published January 10, 2026.\n"
+    "The term loan bears interest at SOFR plus a margin of 3.25% per annum.\n"
+    "The SOFR fixing was 430 bps.\n"
+    "The term loan bears interest at SOFR plus a margin of 325 basis points.\n"
+    "The SOFR fixing was 4.30 percent.\n"
+    "The margin is 325 over SOFR.\n"
+    "The SOFR fixing was 4.30, the margin 325 bps."
+)
+
+
+def _unit_edits(margin_line: int | None, margin: str, level_line: int | None, level: str) -> Any:
+    ctx = _with_page(_context("positive"), "financial", "page:9", _UNIT_PAGE)
+    lines = _UNIT_PAGE.split("\n")
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    if margin_line is not None:
+        ref = {"source_id": "financial", "locator": "page:9", "quote": lines[margin_line]}
+        raw["terms"]["margin"] = {"quote": ref, "bps_text": margin, "absence": None}
+    if level_line is not None:
+        ref = {"source_id": "financial", "locator": "page:9", "quote": lines[level_line]}
+        raw["terms"]["reference_rate"]["absence"] = None
+        raw["terms"]["reference_rate"]["level"] = {"quote": ref, "percent_text": level}
+    return _issues_of(raw, ctx)
+
+
+def test_s08_a04_a_margin_in_percent_and_a_fixing_in_bps_are_refused() -> None:
+    """S08-cp3-A04: 3.25% would be read as 3.25 bp (not 325) and 430 bps as 430% (not 4.30%)."""
+    assert _unit_edits(1, "3.25", 2, "430") == (
+        "margin: bps_text 3.25 is not quoted in basis points",
+        "reference_rate: level percent_text 430 is not quoted in percent",
+    )
+
+
+def test_s08_a04_a_figure_without_its_unit_is_refused() -> None:
+    """`325 over SOFR` states no unit; `4.30,` is followed by another figure before any unit."""
+    assert _unit_edits(5, "325", 6, "4.30") == (
+        "margin: bps_text 325 is not quoted in basis points",
+        "reference_rate: level percent_text 4.30 is not quoted in percent",
+    )
+
+
+def test_s08_a04_figures_in_their_own_units_validate() -> None:
+    assert _unit_edits(3, "325", 4, "4.30") == ()
+
+
+def test_s08_a04_the_unit_on_the_page_after_a_truncated_quote_counts() -> None:
+    """A quote that stops at the figure is read with the page text that follows it."""
+    ctx = _with_page(_context("positive"), "financial", "page:9", _UNIT_PAGE)
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    ref = {"source_id": "financial", "locator": "page:9", "quote": "a margin of 3.25"}
+    raw["terms"]["margin"] = {"quote": ref, "bps_text": "3.25", "absence": None}
+    assert _issues_of(raw, ctx) == ("margin: bps_text 3.25 is not quoted in basis points",)
+
+
+_SOUTHGATE = (
+    "Dealer quotation on January 9, 2026 for the Southgate Notes due 2027: bid 88.50 and offer "
+    "89.25, expressed as a percentage of par."
+)
+
+
+def test_s08_a02_another_instruments_quotation_is_not_bound_to_the_instrument() -> None:
+    """S08-cp3-A02: the instrument's sheet page also prints the Southgate Notes' quotation; its
+    levels (mid 88.875, DM 279.7 bp) must not be read as the Northbridge Term Loan's."""
+    base = _context("positive")
+    ctx = _with_page(base, "market", "page:1", base.pages["market"]["page:1"] + "\n" + _SOUTHGATE)
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    raw["observations"][0].update(quote=_SOUTHGATE, level_text="88.50")
+    raw["observations"][1].update(quote=_SOUTHGATE, level_text="89.25")
+    assert _issues_of(raw, ctx) == _unbound("Northbridge Term Loan")
+
+
+def test_s08_a02_an_unnamed_quotation_on_another_page_is_not_bound() -> None:
+    """A page other than the instrument's whose sentence names no instrument binds to none."""
+    page = (
+        "Published January 10, 2026.\nDealer quotation on January 9, 2026: bid 98.50 and "
+        "offer 99.25."
+    )
+    ctx = _with_page(_context("positive"), "market", "page:9", page)
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    for o in raw["observations"][:2]:
+        o.update(locator="page:9", quote=page.split("\n")[1])
+    assert _issues_of(raw, ctx) == _unbound("Northbridge Term Loan")
+    named = page.replace("2026: bid", "2026 for the Northbridge Term Loan: bid")
+    ctx = _with_page(_context("positive"), "market", "page:9", named)
+    for o in raw["observations"][:2]:
+        o["quote"] = named.split("\n")[1]
+    assert _issues_of(raw, ctx) == ()
+
+
+def test_s08_a02_two_instruments_quoted_in_one_sentence_bind_neither() -> None:
+    """Follow-up: the single-instrument fallback needs one bid and one offer label in the page's
+    only quoting sentence; a sentence quoting the loan and the Southgate Notes has two of each."""
+    sentence = (
+        "Dealer quotation on January 9, 2026: bid 98.50 and offer 99.25 for the loan, and bid "
+        "88.50 and offer 89.25 for the Southgate Notes due 2027."
+    )
+    raw, ctx = _sheet_case(sentence)
+    raw["observations"][0]["level_text"] = "88.50"
+    raw["observations"][1]["level_text"] = "89.25"
+    assert _issues_of(raw, ctx) == _unbound("Northbridge Term Loan")
+
+
+def test_s08_a02_a_quote_spanning_the_instrument_sentence_binds_by_the_level_sentence() -> None:
+    """Follow-up: the quote runs from the instrument sentence (naming the loan) into the
+    Southgate sentence that labels 88.50 and 89.25; binding is judged on the labelling sentence,
+    which names the notes, and the page has two quoting sentences."""
+    base = _context("positive")
+    page = base.pages["market"]["page:1"].replace(_SHEET_QUOTE, _SHEET_QUOTE + "\n" + _SOUTHGATE)
+    ctx = _with_page(base, "market", "page:1", page)
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    instrument_sentence = raw["instrument"]["quote"]["quote"]
+    quote = f"{instrument_sentence} {_SHEET_QUOTE} {_SOUTHGATE}"
+    raw["observations"][0].update(quote=quote, level_text="88.50")
+    raw["observations"][1].update(quote=quote, level_text="89.25")
+    assert _issues_of(raw, ctx) == _unbound("Northbridge Term Loan")
+
+
+# --- review of the S08-cp3 fixes: sentence windows, instrument binding and units ---------------
+
+
+@pytest.mark.parametrize(
+    ("text", "parts"),
+    (
+        # An abbreviation or an initial before a capital (a month name, a name) ends no sentence.
+        ("as of approx. January 9, 2026. Next", ["as of approx. January 9, 2026", " Next"]),
+        ("on Dec. 31 and Jan. 9. Next", ["on Dec. 31 and Jan. 9", " Next"]),
+        ("U.S. Dollar loan. Next", ["U.S. Dollar loan", " Next"]),
+        ("bid 98.50. Dealer talk! Yes? No", ["bid 98.50", " Dealer talk", " Yes", " No"]),
+        # A full stop before a digit or a lowercase word is not a break either.
+        ("offer 99.25. 5mm size. then", ["offer 99.25. 5mm size. then"]),
+    ),
+)
+def test_review_s08_the_sentence_break_skips_abbreviations_and_initials(
+    text: str, parts: list[str]
+) -> None:
+    assert cp3d._SENTENCE_BREAK.split(text) == parts
+
+
+@pytest.mark.parametrize(
+    ("sentence", "quote", "marker"),
+    (
+        # The marker lies before the abbreviation, the quote after it.
+        (
+            (
+                "Indicative levels as of approx. January 9, 2026 on the Northbridge Term Loan: "
+                "bid 98.50 and offer 99.25."
+            ),
+            "January 9, 2026 on the Northbridge Term Loan: bid 98.50 and offer 99.25",
+            "indicative",
+        ),
+        # The marker lies after an abbreviation that follows the quote.
+        (
+            (
+                "Dealer quotation on January 9, 2026 for the Northbridge Term Loan: bid 98.50 "
+                "and offer 99.25 (approx. size 5mm), subject to confirmation."
+            ),
+            "January 9, 2026 for the Northbridge Term Loan: bid 98.50 and offer 99.25",
+            "subject to",
+        ),
+        (
+            (
+                "Dealer quotation on January 9, 2026 for the Northbridge Term Loan: bid 98.50 "
+                "and offer 99.25, approx. 5mm, not firm."
+            ),
+            "January 9, 2026 for the Northbridge Term Loan: bid 98.50 and offer 99.25",
+            "not firm",
+        ),
+    ),
+)
+def test_review_s08_a01_a_marker_past_an_abbreviation_still_refuses(
+    sentence: str, quote: str, marker: str
+) -> None:
+    raw, ctx = _sheet_case(sentence)
+    for o in raw["observations"][:2]:
+        o["quote"] = quote
+    assert _issues_of(raw, ctx) == tuple(
+        f'observations[{i}]: {kind} is quoted with indicative or conditional wording: "{marker}"'
+        for i, kind in ((0, "bid"), (1, "offer"))
+    )
+
+
+_TABLE = (
+    "Northbridge Term Loan: dealer quotation on January 9, 2026: bid 98.50 and offer 99.25\n"
+    "Southgate Notes due 2027: dealer quotation on January 9, 2026: bid 88.50 and offer 89.25"
+)
+
+
+@pytest.mark.parametrize(
+    ("quote", "levels", "bound"),
+    (
+        (_TABLE.split("\n")[0], ("98.50", "99.25"), True),
+        (_TABLE.split("\n")[1], ("88.50", "89.25"), False),
+        # One quote that holds both rows labels two bids and two offers: neither row's.
+        (_TABLE.replace("\n", " "), ("98.50", "99.25"), False),
+        (_TABLE.replace("\n", " "), ("88.50", "89.25"), False),
+    ),
+    ids=("own-row", "other-row", "both-rows-own-levels", "both-rows-other-levels"),
+)
+def test_review_s08_a02_a_sheet_that_rows_two_instruments_binds_only_the_named_row(
+    quote: str, levels: tuple[str, str], bound: bool
+) -> None:
+    """The page rows the loan and the notes with no full stop between them, so the page 'sentence'
+    holding either row names the loan: the loan's name binds only a quote of its own row."""
+    raw, ctx = _sheet_case(_TABLE)
+    for o, level in zip(raw["observations"][:2], levels, strict=True):
+        o.update(quote=quote, level_text=level)
+    assert _issues_of(raw, ctx) == (() if bound else _unbound("Northbridge Term Loan"))
+
+
+@pytest.mark.parametrize(
+    ("sentence", "level", "accepted"),
+    (
+        ("bid 98.50 per cent of par.", "98.50", True),
+        ("bid 98.50 percent of the par value.", "98.50", True),
+        ("bid 98.50 percentage of par.", "98.50", True),
+        ("bid 98.50 (DM 350 bps).", "98.50", True),
+        ("bid 98.50 BPS.", "98.50", False),
+        ("BID 98.50 Basis\nPoints.", "98.50", False),
+        ("bid 98.50 Spread over SOFR.", "98.50", False),
+        ("bid 98.50 DM.", "98.50", False),
+        ("bid 98.5 yield to worst.", "98.5", False),
+    ),
+)
+def test_review_s08_a03_the_unit_after_the_level_decides_price_or_not(
+    sentence: str, level: str, accepted: bool
+) -> None:
+    quote = f"Dealer quotation on January 9, 2026 for the Northbridge Term Loan: {sentence}"
+    raw, ctx = _one_side_case(quote, level)
+    issues = _issues_of(raw, ctx)
+    if accepted:
+        assert issues == ()
+    else:
+        assert len(issues) == 1
+        assert "not as a price in points of par" in issues[0]
+
+
+@pytest.mark.parametrize(
+    ("line", "accepted"),
+    (
+        ("The term loan margin is 325 bp.", True),
+        ("The term loan margin is 325 BPS per annum.", True),
+        ("The term loan margin is 325 Basis\nPoints over the reference rate.", True),
+        ("The term loan margin is 325 basis-points.", True),
+        ("The term loan margin is 325bps.", True),
+        ("The term loan margin is 325 pct.", False),
+        ("The term loan margin is 325. The fixing is 4.30 percent.", False),
+        ("The term loan margin is 325 and the floor 1 percent.", False),
+        ("The term loan margin is 325 (3.25%).", False),
+    ),
+)
+def test_review_s08_a04_the_margin_unit_is_the_first_one_printed_after_the_figure(
+    line: str, accepted: bool
+) -> None:
+    ctx = _with_page(
+        _context("positive"), "financial", "page:9", "Published January 10, 2026.\n" + line
+    )
+    raw = copy.deepcopy(SUBMISSIONS["positive"])
+    ref = {"source_id": "financial", "locator": "page:9", "quote": line}
+    raw["terms"]["margin"] = {"quote": ref, "bps_text": "325", "absence": None}
+    assert _issues_of(raw, ctx) == (
+        () if accepted else ("margin: bps_text 325 is not quoted in basis points",)
+    )

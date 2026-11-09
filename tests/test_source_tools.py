@@ -20,7 +20,7 @@ import pytest
 from deploy_vii.contracts import Fact, Module, Run, Source, Span
 from deploy_vii.execution import Execution, ExecutionSnapshot, StepValidation
 from deploy_vii.live.prompts import PromptError
-from deploy_vii.live.tools import PackTools, unread_citation_issues
+from deploy_vii.live.tools import PackTools, ToolError, unread_citation_issues
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.statement_extract import extract_statement_lines
 
@@ -114,6 +114,39 @@ def test_failed_render_preserves_only_successful_evidence(pack, method, args, pr
     assert evidence(tools) == before
     cited = json.dumps({"citations": [{"source_id": "fin", "locator": "page:2"}]})
     assert bool(unread_citation_issues(cited, tools.seen())) == (prior != "page2")
+
+
+def test_search_query_is_bounded_and_refused_without_state(pack):
+    tools = PackTools(pack, sources=("fin",))
+    many_terms = " ".join(f"w{i}" for i in range(33))  # 33 distinct terms, 123 characters
+    too_long = "Zq " + "x" * 510  # 3 + 510 = 513 characters, 2 terms
+    for query in (many_terms, too_long):
+        with pytest.raises(ToolError, match="bad arguments: query is over"):
+            tools.search_pack({"query": query})
+    assert evidence(tools) == EMPTY
+    # at the bounds: 32 distinct terms (repeats count once) and exactly 512 characters pass
+    ok_terms = " ".join(f"w{i}" for i in range(32)) + " w0 w1"
+    assert tools.search_pack({"query": ok_terms}).startswith("0 spans match")
+    exact_chars = "Zq " + "x" * 509  # 3 + 509 = 512 characters
+    assert tools.search_pack({"query": exact_chars}).startswith("0 spans match")
+    assert tools.search_pack({"query": "Operating expense"}).startswith("1 spans match")
+
+
+def test_search_query_bounds_count_code_points_and_distinct_terms(pack):
+    # review S03S14m. 512 characters of one repeated word and spaces is one distinct term:
+    # allowed. 33 distinct terms split on ideographic spaces (U+3000, whitespace to str.split)
+    # are refused like ASCII-separated ones. 512 two-byte characters is 512 characters, not
+    # 1024 bytes: allowed. A list is not text.
+    tools = PackTools(pack, sources=("fin",))
+    assert tools.search_pack({"query": "ab " * 170 + "ab"}).startswith("0 spans match")  # 512
+    with pytest.raises(ToolError, match="over 32 distinct terms"):
+        tools.search_pack({"query": "\u3000".join(f"w{i}" for i in range(33))})
+    assert tools.search_pack({"query": "\u00e9" * 512}).startswith("0 spans match")
+    with pytest.raises(ToolError, match="over 512 characters"):
+        tools.search_pack({"query": "\u00e9" * 513})
+    with pytest.raises(ToolError, match="non-empty text"):
+        tools.search_pack({"query": ["Operating", "expense"]})
+    assert tools.searched == [None, None]  # only the two allowed calls were recorded
 
 
 def test_extraction_preserves_literal_zero_negative_and_missing(pack):

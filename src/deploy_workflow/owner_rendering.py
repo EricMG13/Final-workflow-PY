@@ -1147,8 +1147,11 @@ def _verify_directory(
     execution_directory: Path,
     receipt_path: Path,
     publication_directory: Path | None,
+    captured: _Capture | None = None,
 ) -> None:
-    expected = _capture(execution_directory, receipt_path, publication_directory)
+    """Compare `delivery` with a fresh capture; `captured` (a capture the caller already made)
+    stands for the first one, so one further capture proves the store has not changed since."""
+    expected = captured or _capture(execution_directory, receipt_path, publication_directory)
     tree = _read_tree(delivery)
     if tree != expected.tree:
         raise _refusal("owner_render_delivery")
@@ -1196,11 +1199,8 @@ def render_owner_slice(
             path = stage / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(body)
-        if _read_tree(stage) != first.tree:
-            raise _refusal("owner_render_delivery")
-        _verify_directory(stage, store, receipt, publication)
-        if _capture(store, receipt, publication) != first:
-            raise _refusal("owner_render_stale")
+        # `_verify_directory` compares the stage with `first` before its stale capture.
+        _verify_directory(stage, store, receipt, publication, first)
         if os.path.lexists(target):
             raise _refusal("owner_render_destination_exists")
         os.rename(stage, target)
@@ -1212,5 +1212,5 @@ def render_owner_slice(
             except OSError:
                 _LOG.warning("owner render: could not remove stage %s", stage, exc_info=True)
         raise
-    _verify_directory(target, store, receipt, publication)
+    _verify_directory(target, store, receipt, publication, first)
     return destination / "report.html"

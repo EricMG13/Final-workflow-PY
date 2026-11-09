@@ -21,7 +21,7 @@ from deploy_vii.financial_contracts import (
 )
 from deploy_vii.financial_validation import records
 from deploy_vii.model import history
-from deploy_vii.model._cells import CONTEXT
+from deploy_vii.model._cells import CONTEXT, CONVERTED
 from deploy_vii.model.frame import Cell, SourceRef
 from deploy_vii.model.periods import _plan, _Spec
 from deploy_vii.model.registers import Cp1Registers
@@ -204,9 +204,7 @@ def _value(
 ) -> PeriodValue:
     sources: tuple[SourceRef, ...] = cell.sources or cell.input_sources
     normalized = tuple(
-        dict.fromkeys(
-            ref.source_id for ref in sources if ref.source_locator == "facility-normalization"
-        )
+        dict.fromkeys(ref.source_id for ref in sources if ref.source_locator == CONVERTED)
     )
     ids = tuple(
         dict.fromkeys(
@@ -278,7 +276,7 @@ def _evidence(
             key = f"facility-issuance:{book.book_id}", facility.facility_id
             result[key] = (*result.get(key, ()), *facility.issuance_citations)
     for value in normalizations.values():
-        result["facility-normalization", value.normalization_id] = value.citations
+        result[CONVERTED, value.normalization_id] = value.citations
     return result
 
 
@@ -304,9 +302,7 @@ def _inputs(regs: Cp1Registers) -> tuple[HistoricalInput, ...]:
             issuance_facility_id=ref.source_id
             if ref and ref.source_locator.startswith("facility-issuance:")
             else None,
-            normalization_id=ref.source_id
-            if ref and ref.source_locator == "facility-normalization"
-            else None,
+            normalization_id=ref.source_id if ref and ref.source_locator == CONVERTED else None,
         )
         for key, period, amount, ref in rows
     )
@@ -322,9 +318,15 @@ def _unit(book: FinancialBook, key: str) -> tuple[str, str | None]:
 
 
 def historical_report(
-    pack: PreparedPack, review: FinancialReview, book_id: str
+    pack: PreparedPack,
+    review: FinancialReview,
+    book_id: str,
+    *,
+    regs: Cp1Registers | None = None,
 ) -> HistoricalReport:
-    regs = kernel_registers(pack, review, book_id)
+    """The constructed periods of one book. `regs` are the book's `kernel_registers`, when the
+    caller already built them from this pack and review."""
+    regs = regs or kernel_registers(pack, review, book_id)
     review = FinancialReview.model_validate_json(review.model_dump_json())
     book = next(book for book in review.books if book.book_id == book_id)
     observations = {value.observation_id: value for value in records(book, Observation)}
@@ -397,12 +399,18 @@ def historical_report(
         constructions=_constructions(specs),
         values=tuple(values),
         limitations=(
-            "Historical input series and period constructions only; statement/ratio calculations "
-            "and Model readiness are separate",
-            "Verified denotes a retained located source observation, "
-            "not independent analytical qualification",
-            "Source interpretation, normalization and reporting precision "
-            "require analytical review",
+            (
+                "Historical input series and period constructions only; statement/ratio "
+                "calculations and Model readiness are separate"
+            ),
+            (
+                "Verified denotes a retained located source observation, "
+                "not independent analytical qualification"
+            ),
+            (
+                "Source interpretation, normalization and reporting precision "
+                "require analytical review"
+            ),
             *book.limitations,
         ),
     )

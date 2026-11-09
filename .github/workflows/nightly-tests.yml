@@ -1,0 +1,109 @@
+name: nightly-tests
+
+# The full suite, slow tests included, every Sunday at 01:00 UTC (weekly by user ruling,
+# 2026-11-07: a full run takes about 17 runner-hours of the account's minutes). Work in progress
+# runs fast targeted tests only (AGENTS.md); this run covers what those skip. GitHub runs scheduled
+# workflows from the default branch only; workflow_dispatch runs it on demand, and with `tests`
+# set it reruns only those test ids, with short tracebacks in the job log, to triage a failure.
+on:
+  schedule:
+    - cron: "0 1 * * 0"
+  workflow_dispatch:
+    inputs:
+      tests:
+        description: "Rerun only these test ids (space-separated) instead of the full suite"
+        required: false
+        default: ""
+      ref:
+        description: "Commit, branch or tag to test (default: the branch run from)"
+        required: false
+        default: ""
+
+concurrency:
+  group: ${{ inputs.tests && format('nightly-rerun-{0}', github.run_id) || 'nightly-tests' }}
+  cancel-in-progress: false
+
+jobs:
+  pytest:
+    name: pytest shard ${{ matrix.shard }} of 16
+    if: ${{ !inputs.tests }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      # Each workflow store holds about 120 MB of issuer sources; the first run filled two
+      # runners' disks. Drop toolchains this job never uses.
+      - run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.12.5"
+      - run: uv sync --group dev
+      - run: >-
+          uv run python tools/nightly_tests.py run
+          --shard ${{ matrix.shard }} --shards 16 --out results --minutes 300
+      - if: always()
+        run: df -h /
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shard-${{ matrix.shard }}
+          path: results/
+          retention-days: 14
+
+  report:
+    name: compare with known failures
+    needs: pytest
+    if: ${{ always() && !inputs.tests }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: results
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      - run: >-
+          python tools/nightly_tests.py report
+          --shards 16 --known tests/nightly-known-failures.txt results
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failures
+          path: results/failures.txt
+          retention-days: 30
+
+  rerun:
+    name: rerun selected tests
+    if: ${{ inputs.tests }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.12.5"
+      - run: uv sync --group dev
+      # The ids come through the environment, never into the script text. Plain pytest, not the
+      # tool, so an older `ref` without this tool's options still runs.
+      - env:
+          TESTS: ${{ inputs.tests }}
+        run: |
+          read -ra ids -d "" <<< "$TESTS" || true
+          [ "${#ids[@]}" -gt 0 ] || { echo "no test ids given"; exit 1; }
+          env -u ANTHROPIC_API_KEY -u OPENAI_API_KEY -u OPENROUTER_API_KEY \
+            -u COPILOT_GITHUB_TOKEN -u GH_TOKEN -u GITHUB_TOKEN \
+            uv run python -m pytest -q -p no:cacheprovider -m "not live and not browser" \
+            --tb=short -rfE -o faulthandler_timeout=900 -o "pythonpath=src . tests" \
+            -o tmp_path_retention_policy=failed -- "${ids[@]}"

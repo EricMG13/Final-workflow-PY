@@ -369,7 +369,9 @@ def test_a_live_shaped_run_archives_raw_and_replays_to_the_same_records(
         Response(200, _body(("submit_source_readiness", payload)), {}),
     ]
     live, requests = live_over(tmp_path, monkeypatch, responses, environ)
-    first = make_rig(tmp_path / "live", [], cap="10", adapter=live, redactor=Redactor.from_environ(environ))
+    first = make_rig(
+        tmp_path / "live", [], cap="10", adapter=live, redactor=Redactor.from_environ(environ)
+    )
     assert first.loop.run()[-1]["status"] == "valid"
     assert len(requests) == 2
     records = first.records()
@@ -393,7 +395,10 @@ def test_a_live_shaped_run_archives_raw_and_replays_to_the_same_records(
     assert not (replay.run_dir / "raw").exists()
 
     def without_timing(rig: Rig) -> list[dict[str, Any]]:
-        return [{k: v for k, v in r.items() if k not in (*TIMING, "reserved_usd")} for r in rig.records()]
+        return [
+            {k: v for k, v in r.items() if k not in (*TIMING, "reserved_usd")}
+            for r in rig.records()
+        ]
 
     assert all(Decimal(r["reserved_usd"]) == Decimal("5.31") for r in first.records())
     assert all(Decimal(r["reserved_usd"]) < Decimal("5.31") for r in replay.records())
@@ -475,7 +480,10 @@ def test_a_key_reflected_by_a_live_shaped_reply_reaches_no_file(
     environ = {"OPENAI_API_KEY": LIVE_KEY}
     body = json.dumps({"error": {"message": f"invalid key {LIVE_KEY}"}}).encode()
     live, _ = live_over(tmp_path, monkeypatch, [Response(400, body, {})], environ)
-    rig = make_rig(tmp_path / "run", [], adapter=live, redactor=Redactor.from_environ(environ))
+    # a live loop holds the 1,050,000-token ceiling (5.31 here): the cap must clear that hold
+    rig = make_rig(
+        tmp_path / "run", [], cap="10", adapter=live, redactor=Redactor.from_environ(environ)
+    )
     with pytest.raises(StepStopped) as stopped:
         rig.loop.run()
     assert stopped.value.reason == "KeyReflected"

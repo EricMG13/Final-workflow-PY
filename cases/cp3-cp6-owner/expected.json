@@ -6988,7 +6988,7 @@
                 {
                   "fact_id": "T3.4.preference.ordering",
                   "column": "Ordering",
-                  "text": "Northbridge Term Loan",
+                  "text": "No ordering",
                   "status": "known",
                   "cites": [],
                   "value_class": "analyst_judgment",
@@ -7225,7 +7225,7 @@
                 {
                   "fact_id": "cp3.relative_value.preference.value",
                   "column": "Preference",
-                  "text": "Preference: Northbridge Term Loan. With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is unchanged. [Insufficient Information]",
+                  "text": "Preference: No ordering. With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is unchanged. [Insufficient Information]",
                   "status": "known",
                   "cites": [],
                   "value_class": "analyst_judgment",
@@ -7334,10 +7334,10 @@
           "owner": "CP-3",
           "kind": "prose",
           "state": "collapsed",
-          "summary": "Preference: Northbridge Term Loan. With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is …",
+          "summary": "Preference: No ordering. With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is unchanged.…",
           "lines": [
             {
-              "text": "Preference: Northbridge Term Loan. With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is unchanged. [Insufficient Information]",
+              "text": "Preference: No ordering. With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is unchanged. [Insufficient Information]",
               "kind": "pen"
             },
             {

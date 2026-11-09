@@ -15,6 +15,7 @@ from collections import Counter
 from collections.abc import Collection, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from datetime import date
+from functools import lru_cache
 from pathlib import Path
 from threading import Lock
 from typing import Any, Literal, TextIO, cast
@@ -66,19 +67,21 @@ from deploy_vii.live.submission import (
     submit_model_payload,
 )
 from deploy_vii.live.tools import ToolRules, cited_locators
+from deploy_vii.model.history import OUTFLOW_METRICS
 from deploy_vii.narrative import NarrativeReview
 from deploy_vii.preparation import OCR_MARK, PreparedPack
 from deploy_vii.quality import QualityReview, assess_quality
 from deploy_vii.readiness import ReadinessReview
 from deploy_vii.source_context import SourceContextReview
 from deploy_vii.statement_extract import FOOTNOTE_MARKER, extract_statement_lines
+from deploy_vii.statement_validation import ACCOUNT_LINKS
 from deploy_workflow import pdf_headers
 from deploy_workflow import statement_compose as sc
 from deploy_workflow.host import SourceSession
 from deploy_workflow.statement_lines import LineTools, respace, seen_tables
 from deploy_workflow.tools.source import SourceError
 from deploy_workflow.unit_maps import Expansion, UnitInputs, expand
-from deploy_workflow.workflow import SourceEvidence, WorkflowError
+from deploy_workflow.workflow import SourceEvidence, WorkflowError, _put, read_line
 
 _LINE_LOCATOR = re.compile(r"line:([0-9]+)")
 _PAGE_LOCATOR = re.compile(r"page:[0-9]+")
@@ -223,16 +226,6 @@ def _parse[T: BaseModel](model: type[T], value: Any) -> T:
 
 def _hash(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
-
-
-def _put(path: Path, raw: bytes) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        with path.open("xb") as stream:
-            stream.write(raw)
-    except FileExistsError:
-        if path.read_bytes() != raw:
-            raise WorkflowError("identity_mismatch") from None
 
 
 def _audit(store: Execution, kind: str, digest: str) -> Path:
@@ -608,29 +601,36 @@ def _page_units(spans: Sequence[Span]) -> dict[str, str | None]:
     A page with no statement title continues the previous page's unit (its kind) when no equity or
     notes title stands before its first data row and no caption opens it (`_opens_table`).
 
-    ponytail: `_statement_units` and `_statement_kinds` each call this, so the extractor runs twice
-    per page (about 220 ms on the 107-page CZR 10-K)."""
+    The result is cached by the page spans' (locator, text): `_statement_units`,
+    `_statement_kinds` and the helpers of every `inputs()` and gate call read the same pages, and
+    the extractor is the cost (about 220 ms per two passes over the 107-page CZR 10-K)."""
     pages = {
-        int(span.locator.split(":")[1]): span
+        int(span.locator.split(":")[1]): (span.locator, span.text)
         for span in spans
         if _PAGE_LOCATOR.fullmatch(span.locator)
     }
+    return dict(_units_of_pages(tuple(pages[number] for number in sorted(pages))))
+
+
+@lru_cache(maxsize=8)
+def _units_of_pages(pages: tuple[tuple[str, str], ...]) -> dict[str, str | None]:
+    """`_page_units` of the numbered `(locator, text)` pages in page order."""
     units: dict[str, str | None] = {}
-    for number in sorted(pages):
-        span = pages[number]
-        rows = extract_statement_lines(span.text, span.locator).lines
+    for locator, text in pages:
+        number = int(locator.split(":")[1])
+        rows = extract_statement_lines(text, locator).lines
         if not rows:
             continue
         first_row = rows[0].line_no - 1
-        titles = _page_title_kinds(span.text)
+        titles = _page_title_kinds(text)
         primary = {"BS", "IS", "CI", "CFS"}
         if titles and titles[0][1] <= primary:
             mapped = {"IS" if k == "CI" else k for _, found in titles for k in found & primary}
-            units[span.locator] = mapped.pop() if len(mapped) == 1 else None
-        elif any(index < first_row for index, _ in titles) or _opens_table(span.text, first_row):
+            units[locator] = mapped.pop() if len(mapped) == 1 else None
+        elif any(index < first_row for index, _ in titles) or _opens_table(text, first_row):
             continue  # an equity or notes title, or a caption (`_opens_table`), opens the page
         elif f"page:{number - 1}" in units:
-            units[span.locator] = units[f"page:{number - 1}"]
+            units[locator] = units[f"page:{number - 1}"]
     return units
 
 
@@ -710,6 +710,21 @@ def _amount_matches(amount: Any, value: Any) -> bool:
     return amount in (None, 0) if value is None else bool(amount == value)
 
 
+def _amount_holds(line: StatementLine, value: Any) -> bool:
+    """`_amount_matches`, or a withheld refund (S12-A02, user ruling B): a positive printed cell (a
+    net inflow) on a line of an outflow account recorded as `missing` with a null amount and a
+    reason, never as a flipped figure. Any other missing line still fails the amount check."""
+    observation = line.value
+    return _amount_matches(observation.amount, value) or (
+        value is not None
+        and value > 0
+        and observation.amount is None
+        and observation.status == "missing"
+        and bool(observation.reason)
+        and ACCOUNT_LINKS.get((line.statement, line.item_id)) in OUTFLOW_METRICS
+    )
+
+
 def _ids_text(ids: frozenset[str]) -> str:
     return f"one of {', '.join(sorted(ids))}" if len(ids) > 1 else next(iter(ids))
 
@@ -734,7 +749,7 @@ def _cites_row(line: StatementLine, table: Any, extracted: Any, *, quoting: bool
     )
 
 
-def _column_failure(
+def _column_failure(  # noqa: PLR0911, PLR0913 - pre-existing (9 returns, 7 arguments at base, unchanged)
     book: Any,
     table: Any,
     extracted: Any,
@@ -770,7 +785,10 @@ def _column_failure(
     typed = [line for line in pool if line.quantity is not None or line.label_parts is not None]
     typed_unit = any(
         (line.quantity is not None or line.label_parts is not None)
-        and any(c.source_id == table.source_id and c.locator == extracted.locator for c in line.value.citations)
+        and any(
+            c.source_id == table.source_id and c.locator == extracted.locator
+            for c in line.value.citations
+        )
         for line in book.statement_lines
     )
     family = sc.source_quantity_family(table, extracted)
@@ -789,7 +807,7 @@ def _column_failure(
     labelled = [line for line in pool if line in typed or " ".join(line.label.split()) == label]
     if not labelled:
         return 2, f'label: {where} cites this row with label "{_short(pool[0].label)}"'
-    pool = [line for line in labelled if _amount_matches(line.value.amount, value)]
+    pool = [line for line in labelled if _amount_holds(line, value)]
     if not pool:
         return 3, f"amount: {where} expects {value}"
     if not typed and not any(_cites_row(line, table, extracted, quoting=True) for line in pool):
@@ -843,7 +861,7 @@ def _null_column(
     given = [
         (rows, frozenset().union(*mapped))
         for rows, headers in peers
-        if (mapped := _mapped_columns(headers, book.periods)) is not None
+        if (mapped := _mapped_columns(headers, book.periods, statement)) is not None
     ]
     return all(
         any(
@@ -856,7 +874,7 @@ def _null_column(
     )
 
 
-def _uncovered_reason(
+def _uncovered_reason(  # noqa: PLR0913 - existing coverage-gate signature, unchanged here
     table: Any,
     extracted: Any,
     statement: str | None,
@@ -875,7 +893,7 @@ def _uncovered_reason(
     reason = None
     for book in books:
         mapped = (
-            _mapped_columns(table.headers, book.periods)
+            _mapped_columns(table.headers, book.periods, statement)
             if page_text is None
             else _header_columns(table, book, page_text=page_text, statement=statement)
         )
@@ -1242,10 +1260,13 @@ class _HeaderPeriod(BaseModel):
     end_date: date | None
 
 
-def _ocr_header(table: Any, book: dict[str, Any]) -> tuple[frozenset[str], ...] | None:
+def _ocr_header(
+    table: Any, book: dict[str, Any], statement: str | None = None
+) -> tuple[frozenset[str], ...] | None:
     """The period ids each column of the table's own printed header maps to in the payload's book
-    (`_mapped_columns`), or None when the book's periods lack the header fields or no column maps
-    (CP1H-R23.23.2): an OCR unit composes only when this verifies the model's column map."""
+    (`_mapped_columns`, for the unit's located `statement` kind), or None when the book's periods
+    lack the header fields or no column maps (CP1H-R23.23.2): an OCR unit composes only when this
+    verifies the model's column map."""
     raw = book.get("periods")
     if not isinstance(raw, list):
         return None
@@ -1253,7 +1274,7 @@ def _ocr_header(table: Any, book: dict[str, Any]) -> tuple[frozenset[str], ...] 
         periods = [_HeaderPeriod.model_validate(period) for period in raw]
     except ValidationError:
         return None
-    return _mapped_columns(table.headers, periods)
+    return _mapped_columns(table.headers, periods, statement)
 
 
 def _context_headers(table: Any, statement: str | None, pdf_text: str | None) -> tuple[str, ...]:
@@ -1283,9 +1304,9 @@ def _header_columns(
     """Map either extracted headers or PDF-only recovered printed context."""
     if page_text is None:
         return (
-            _ocr_header(table, book)
+            _ocr_header(table, book, statement)
             if isinstance(book, dict)
-            else _mapped_columns(table.headers, getattr(book, "periods", ()))
+            else _mapped_columns(table.headers, getattr(book, "periods", ()), statement)
         )
     periods = book.get("periods") if isinstance(book, dict) else getattr(book, "periods", None)
     if periods is None:
@@ -1296,7 +1317,9 @@ def _header_columns(
             periods = [_HeaderPeriod.model_validate(p) for p in periods]
         except ValidationError:
             return None
-    return _mapped_columns(headers, periods) if headers else None
+    # A page unit located only by its heading has no located kind: read it as `_statement` does.
+    flow = statement or _statement(None, page_text)
+    return _mapped_columns(headers, periods, flow) if headers else None
 
 
 def _ocr_pages(pack: Any, financial_ids: Collection[str]) -> frozenset[tuple[str, str]]:
@@ -1694,12 +1717,20 @@ def _column_periods(headers: tuple[str, ...], periods: Any) -> tuple[frozenset[s
     return None
 
 
-def _mapped_columns(headers: tuple[str, ...], periods: Any) -> tuple[frozenset[str], ...] | None:
-    """`_column_periods` for coverage (CP1H-R20): per header column, the period ids it maps to, or an
-    empty set where it maps to none. None where no column maps, or where two columns that map share
-    a period, or on a flow-span row that fails to map: the fail-closed cases of `_column_periods`.
-    One column may map to several periods (a balance date); a line in any of them covers it. A
-    column that several declared periods match, and that is not a balance, is ambiguous: None."""
+_FLOW_STATEMENTS = frozenset(("IS", "CI", "CFS"))
+
+
+def _mapped_columns(
+    headers: tuple[str, ...], periods: Any, statement: str | None = None
+) -> tuple[frozenset[str], ...] | None:
+    """`_column_periods` for coverage (CP1H-R20): per header column, the period ids it maps to, or
+    an empty set where it maps to none. None where no column maps, or where two columns that map
+    share a period, or on a flow-span row that fails to map: the fail-closed cases of
+    `_column_periods`. One column may map to several periods (a balance date); a line in any of
+    them covers it. A column that several declared periods match, and that is not a balance, is
+    ambiguous: None. A balance date names an instant, not a flow's duration: under an income or
+    cash-flow `statement` it maps to no period, so a dated header never verifies a full-year
+    column as Q4."""
     for index in range(len(headers)):
         specs = _spec_row(headers, index)
         if specs is None:
@@ -1708,7 +1739,10 @@ def _mapped_columns(headers: tuple[str, ...], periods: Any) -> tuple[frozenset[s
             continue
         found = []
         for spec in specs:
-            hits = frozenset(period.period_id for period in periods if _hit(spec, period))
+            flow_date = spec[0] == "balance" and statement in _FLOW_STATEMENTS
+            hits = frozenset(
+                period.period_id for period in periods if not flow_date and _hit(spec, period)
+            )
             if spec[0] != "balance" and len(hits) > 1:
                 return None
             found.append(hits)
@@ -2631,6 +2665,17 @@ def verify_financial_slice_receipt(
         raise WorkflowError("identity_mismatch") from None
 
 
+def _request_of(line: str) -> dict[str, Any]:
+    """The request object on one whole line (`read_line` has read an over-length one to its end);
+    an over-length or unterminated line, or anything but a JSON object, is `bad_arguments`."""
+    if len(line) > MAX_LINE or not line.endswith("\n"):
+        raise WorkflowError("bad_arguments")
+    request = json.loads(line, parse_constant=_nonfinite_json)
+    if type(request) is not dict:
+        raise WorkflowError("bad_arguments")
+    return request
+
+
 def serve_json_lines(
     workflow: FinancialWorkflow,
     reader: TextIO,
@@ -2643,17 +2688,11 @@ def serve_json_lines(
         raise WorkflowError("not_permitted")
     workflow._participant, workflow._transport = participant, "bounded-json-lines/1"
     for _ in range(MAX_MESSAGES):
-        line = reader.readline(MAX_LINE + 1)
+        line = read_line(reader, writer, MAX_LINE)
         if not line:
             return
         try:
-            if len(line) > MAX_LINE or not line.endswith("\n"):
-                while line and not line.endswith("\n"):
-                    line = reader.readline(MAX_LINE + 1)
-                raise WorkflowError("bad_arguments")
-            request = json.loads(line, parse_constant=_nonfinite_json)
-            if type(request) is not dict:
-                raise WorkflowError("bad_arguments")
+            request = _request_of(line)
             operation = request.get("operation")
             if operation == "invoke" and set(request) == {"operation", "tool", "arguments"}:
                 result = workflow.invoke(request["tool"], request["arguments"])

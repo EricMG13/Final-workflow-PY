@@ -11,9 +11,10 @@
   },
   {
    "id": "integrity_review.b",
-   "statement": "b. `claim_reviews`: exactly one for each pair listed under `claims_to_review`, `producer_module` and `claim_ref` as listed. Name upstream evidence by `ref` only, in `upstream_refs`: a fact ref or a citation ref of that module. A supported or partly_supported verdict names at least one; supported is refused where a Python finding touches the claim or a ref it names.",
+   "statement": "b. `claim_reviews`: exactly one for each pair listed under `claims_to_review`, `producer_module` and `claim_ref` as listed. Name upstream evidence by `ref` only, in `upstream_refs`: a fact ref or a citation ref of that module. A supported or partly_supported verdict names at least one that belongs to that claim (one of its own citation refs, a fact its text names or a fact filed under its id); supported is refused where a Python finding touches the claim or a ref it names.",
    "checks": [
     "fn:deploy_vii.cp5_integrity:_review_issues",
+    "fn:deploy_vii.cp5_integrity:_ref_issues",
     "fn:deploy_vii.cp5_integrity:_review_findings",
     "oracle:cp5:cp5-unreviewed-claim",
     "oracle:cp5:cp5-doubly-reviewed",
@@ -28,6 +29,7 @@
    "statement": "c. A `contradictions` entry names, in `claim_refs`, claims of at least two modules, each claim once; a `gaps` entry's `affected_modules` are bound modules.",
    "checks": [
     "fn:deploy_vii.cp5_integrity:_review_issues",
+    "fn:deploy_vii.cp5_integrity:_contradiction_issues",
     "oracle:cp5:cp5-contradiction-one-module",
     "oracle:cp5:cp5-gap-unbound-module"
    ]

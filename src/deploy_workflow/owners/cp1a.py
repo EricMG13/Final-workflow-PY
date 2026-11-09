@@ -1,6 +1,8 @@
-"""CP-1A owner extras: the verifier probe, and the one-step probe CP-2 shares."""
+"""CP-1A owner extras: the verifier probe, the one-step probe CP-2 shares and the one-step
+submit CP-1B, CP-1C and CP-1D share."""
 
 from collections.abc import Callable
+from dataclasses import dataclass
 
 from deploy_vii.business_context import (
     BusinessContextReport,
@@ -8,7 +10,15 @@ from deploy_vii.business_context import (
     cp1a_module,
 )
 from deploy_vii.contracts import Module
-from deploy_vii.execution import Attempt, Execution, ExecutionSnapshot, StepValidation, settle
+from deploy_vii.execution import (
+    Attempt,
+    Execution,
+    ExecutionSnapshot,
+    Qualification,
+    StepValidation,
+    settle,
+    text_sha256,
+)
 from deploy_vii.preparation import PreparedPack
 from deploy_workflow.financial_workflow import _FrozenExecution
 from deploy_workflow.workflow import WorkflowError
@@ -51,6 +61,65 @@ def probe_one_step(
     head = next(h for h in snapshot.heads if h.module_id == attempt.module_id)
     if finished != attempt or result != store.head_module(head):
         raise WorkflowError("identity_mismatch")
+
+
+@dataclass(frozen=True)
+class OneStep:
+    """A one-step module as its `submit` settles it: the module's own `_validate_step` (the
+    trusted recomputation), its candidate builder and the qualification its head records."""
+
+    module_id: str
+    step_id: str
+    validate: Callable[[Execution, PreparedPack, Attempt], StepValidation]
+    build: Callable[[str, Attempt], Module]
+    qualification: Qualification | None
+
+
+def _retained_valid(attempt: Attempt, module_id: str) -> bool:
+    return (
+        attempt.module_id == module_id
+        and attempt.status == "pending"
+        and len(attempt.steps) == 1
+        and attempt.steps[0].status == "valid"
+    )
+
+
+def submit_one_step(
+    store: Execution,
+    ticket_id: str,
+    module: OneStep,
+    payload: str,
+    validate: Callable[[PreparedPack, Attempt], StepValidation],
+) -> Attempt:
+    """Journal the one step (`validate`, the submit-time validator) and, when it is valid,
+    settle the attempt with the Python candidate.
+
+    A crash between the valid step and `finish` resumes, as `submit_cp0_review` does: the same
+    payload again finds the retained valid step, skips `submit_step` and settles it, the output
+    recomputed by `module.validate` rather than trusted. A different payload is refused."""
+    found = next((a for a in store.read().attempts if a.ticket_id == ticket_id), None)
+    if found is not None and _retained_valid(found, module.module_id):
+        if found.steps[0].payload_sha256 != text_sha256(payload):
+            raise ValueError("Ticket already retains a different response; resume or interrupt")
+        attempt = found
+    else:
+        sequence = (module.step_id,)
+        attempt = store.submit_step(
+            ticket_id, module.module_id, sequence, module.step_id, payload, validate
+        )
+        if not _retained_valid(attempt, module.module_id):
+            return attempt
+    outcome = module.validate(store, store.pack(), attempt)
+    if outcome.issues or not outcome.retained_as(attempt.steps[0]):
+        raise ValueError(f"Retained {module.module_id} output differs from trusted validation")
+    candidate = module.build(outcome.output or "", attempt)
+    differs = (f"{module.module_id} candidate differs",)
+    return store.finish(
+        ticket_id,
+        candidate.model_dump_json(),
+        lambda supplied: () if supplied == candidate else differs,
+        qualification=module.qualification,
+    )
 
 
 def _candidate(output: str, attempt: Attempt) -> Module:

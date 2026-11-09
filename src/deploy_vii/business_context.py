@@ -847,9 +847,11 @@ def governance_sponsor_score(rows: Sequence[GovernanceItem]) -> GovernanceScore:
     Each dimension is scored by `dimension_score` over its `scorable` rows. With at least
     `MIN_SCORED_DIMENSIONS` dimensions scored, the composite is the most adverse dimension score
     and the risk level follows it (1 Low, 3 Medium, 5 High). With fewer, the composite is Not
-    Scorable and the level Insufficient Information, unless one Extraction-Oriented or
-    Creditor-Adverse row rests on High-quality evidence (r14: "unless one clearly High-risk
-    documented action"), which sets High. Counts and severities only: no weight, no average."""
+    Scorable and the level Insufficient Information. In both cases one Extraction-Oriented or
+    Creditor-Adverse row on High-quality evidence (r14: "unless one clearly High-risk documented
+    action"), with or without a dimension label, sets High (composite 5 when scored), so adding
+    favourable rows never lowers that level. Counts and severities only: no weight, no
+    average."""
     dimensions = tuple(
         dimension_score(dimension, [r for r in rows if scorable(r) and r.dimension == dimension])
         for dimension in DIMENSIONS
@@ -862,7 +864,8 @@ def governance_sponsor_score(rows: Sequence[GovernanceItem]) -> GovernanceScore:
     if len(scores) < MIN_SCORED_DIMENSIONS:
         level = RISK_LEVEL["5"] if high_action else INSUFFICIENT_LEVEL
         return GovernanceScore(dimensions, NOT_SCORABLE, level, high_action)
-    composite = max(scores, key=int)  # the most adverse
+    # The documented action is a floor at any count: more favourable rows never lower it.
+    composite = "5" if high_action else max(scores, key=int)  # else the most adverse
     return GovernanceScore(dimensions, composite, RISK_LEVEL[composite], high_action)
 
 
@@ -1499,7 +1502,13 @@ def _score_registers(submission: BusinessContextSubmission, out: _Composer) -> N
             )
         )
     supported = f"{score.scored} of {len(DIMENSIONS)} scoring dimensions supported"
-    if score.composite != NOT_SCORABLE:
+    if score.composite != NOT_SCORABLE and score.high_risk_action:
+        rule = (
+            "At least four dimensions are scored; one Extraction-Oriented or Creditor-Adverse "
+            "row on High-quality evidence sets the composite 5 (High) whatever the dimension "
+            "scores"
+        )
+    elif score.composite != NOT_SCORABLE:
         rule = "The most adverse dimension score; at least four dimensions are scored"
     elif score.high_risk_action:
         rule = (

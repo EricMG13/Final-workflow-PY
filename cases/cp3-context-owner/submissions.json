@@ -3,7 +3,7 @@
   "note": "Literal CP-3 relative_value submissions for the context cases. Each is a deep copy of the R3 positive relative_value (cases/cp3-cp6-owner/submissions.json#positive.relative_value) with market_evidence [] and basis.context_rows citing Python's rows by id, except no-quotes/bad-bytes (the R3 positive verbatim) and with-market-row (the R3 market rows kept, context rows added). {{FIG:name}} marks a CP-1 figure reference bound mechanically after the CP-1 head exists, as in the R3 file. Texts differ from R3 only where the evidence differs (talk-only, stale, unmatched, deal-talk).",
   "base": {
     "path": "cases/cp3-cp6-owner/submissions.json",
-    "sha256": "9f8c10e9e31e88f15f797c89102c6cf2d938b25a1878d2b5aafe5354786dde38",
+    "sha256": "be519ae2414ebfb49ad921224c313108d01d1e78c7082f14ac5f7d55921119e2",
     "selector": "positive.relative_value"
   },
   "cases": {

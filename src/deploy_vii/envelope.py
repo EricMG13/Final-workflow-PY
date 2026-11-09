@@ -34,6 +34,7 @@ from deploy_vii.contracts import (
     Text,
     View,
 )
+from deploy_vii.execution import bounded_issues
 from deploy_vii.quality import QualityReport, Ratio
 from deploy_vii.render import display
 from deploy_vii.report_view import (
@@ -105,7 +106,6 @@ _NONE_RECORDED = "Not applicable: none recorded."
 _NO_JOURNAL = "Not applicable: not bound to an execution journal"
 _GAP_CELL = re.compile(r"∅ (G\d+)(?: n\.m\.)?")
 _PROSE_MARKER = re.compile(r"\[([CKSG]\d+)\]")
-_MAX_ISSUES = 20
 
 
 class Envelope(Contract):
@@ -627,10 +627,8 @@ def envelope_issues(markdown: str, sidecar: str) -> tuple[str, ...]:
         )
     if not issues and markdown != _markdown(expected):
         issues.append("Envelope differs from the canonical rendering of its sidecar")
-    issues = list(dict.fromkeys(issues))
-    if len(issues) > _MAX_ISSUES:
-        issues = [*issues[:_MAX_ISSUES], f"{len(issues) - _MAX_ISSUES} further issues not listed"]
-    return tuple(issues)
+    # at most 20 lines of at most 600 characters: a line can quote a whole tampered cell
+    return bounded_issues(list(dict.fromkeys(issues)))
 
 
 def read_envelope(markdown: str, sidecar: str) -> Envelope:

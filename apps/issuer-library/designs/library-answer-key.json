@@ -1,0 +1,273 @@
+{
+ "_about": "Frozen answer key for the issuer-identity and report-acceptance fixes (2026-11-07). The controller derived it from the retained workspace at a313b50 (runs/*/workflow.json, hash-verified deliverables/*/view.json, the unchanged Go discovery catalogue and the hand-written CURATED_RUNS names), independently of engine/store.py and web/views.js. Implementers and fixers must not edit it; a test that disagrees with it is fixed in the code, not here. Ruling 2026-11-08: the report qualification unrun now reads \"Analytical qualification: not run\".",
+ "library": {
+  "count": "9 issuers · 44 runs · 19 reports",
+  "unrecordedHeading": "Issuer not recorded",
+  "groups": [
+   [
+    "Ares Capital Corporation",
+    [
+     "arcc-lite-2024-001",
+     "arcc-selection-2024-001",
+     "cpos-arcc-rv-001",
+     "lqd-debate-001",
+     "lqd-portfolio-001"
+    ]
+   ],
+   [
+    "California Resources Corporation — historical 2020 budget",
+    [
+     "crc-liquidity-2020-001"
+    ]
+   ],
+   [
+    "Enel Finance International N.V.",
+    [
+     "enel-final-terms-research-001",
+     "enel-sdg-2021-001"
+    ]
+   ],
+   [
+    "Ford Otomotiv Sanayi A.S.",
+    [
+     "cpos-ford-funding-2024-001",
+     "cpos-ford-ratings-2024-001"
+    ]
+   ],
+   [
+    "Ford Otosan",
+    [
+     "ford-otosan-2024"
+    ]
+   ],
+   [
+    "Frontier",
+    [
+     "frontier-2020"
+    ]
+   ],
+   [
+    "iShares iBoxx $ Investment Grade Corporate Bond ETF",
+    [
+     "cpos-lqd-portfolio-001"
+    ]
+   ],
+   [
+    "LMI Aerospace",
+    [
+     "lmi-2014-001"
+    ]
+   ],
+   [
+    "TransDigm Group Incorporated",
+    [
+     "cpos-launch-cp2-reader-001",
+     "cpos-launch-live-001",
+     "cpos-launch-live-002",
+     "cpos-sol-medium-20261105",
+     "cpos-tdg-assurance-001",
+     "cpos-tdg-comparison-001",
+     "cpos-tdg-earnings-001",
+     "cpos-tdg-forecast-001",
+     "cpos-tdg-fresh-001",
+     "cpos-tdg-host-001",
+     "cpos-tdg-macro-esg-001",
+     "cpos-tdg-model-001",
+     "cpos-tdg-quality-001",
+     "cpos-tdg-snapshot-001",
+     "tdg-001",
+     "tdg-002",
+     "tdg-003",
+     "tdg-004",
+     "tdg-guidance",
+     "tdg-model-001",
+     "tdg-peers-2024",
+     "tdg-run-comparison",
+     "tdg-valuation-2025-001",
+     "web-04cd5a5d02ea7d1dea714a8a6632cd21"
+    ]
+   ],
+   [
+    "Issuer not recorded",
+    [
+     "arcc-2024-001",
+     "arcc-market-2024-001",
+     "berkshire-capital-2008-2017-001",
+     "cpos-sol-remaining-20261105",
+     "cpos-tdg-reader-comparison-001",
+     "erste-parse-2024-001"
+    ]
+   ]
+  ],
+  "recordedAs": {
+   "lqd-debate-001": "Recorded as Ares Capital Corporation — held in LQD",
+   "lqd-portfolio-001": "Recorded as Ares Capital Corporation — held in LQD",
+   "tdg-001": "Recorded as TransDigm Group",
+   "tdg-002": "Recorded as TransDigm Group",
+   "tdg-003": "Recorded as TransDigm Group",
+   "tdg-004": "Recorded as TransDigm Group",
+   "tdg-guidance": "Recorded as TransDigm Group",
+   "tdg-peers-2024": "Recorded as TransDigm Group",
+   "tdg-run-comparison": "Recorded as TransDigm Group",
+   "tdg-valuation-2025-001": "Recorded as TransDigm Group Incorporated — historical Moog valuation context"
+  },
+  "search": {
+   "Ares Capital": [
+    "arcc-lite-2024-001",
+    "arcc-selection-2024-001",
+    "cpos-arcc-rv-001",
+    "lqd-debate-001",
+    "lqd-portfolio-001"
+   ],
+   "arcc": [
+    "arcc-2024-001",
+    "arcc-lite-2024-001",
+    "arcc-market-2024-001",
+    "arcc-selection-2024-001",
+    "cpos-arcc-rv-001",
+    "lqd-debate-001",
+    "lqd-portfolio-001"
+   ],
+   "TransDigm Group Incorporated": [
+    "cpos-launch-cp2-reader-001",
+    "cpos-launch-live-001",
+    "cpos-launch-live-002",
+    "cpos-sol-medium-20261105",
+    "cpos-tdg-assurance-001",
+    "cpos-tdg-comparison-001",
+    "cpos-tdg-earnings-001",
+    "cpos-tdg-forecast-001",
+    "cpos-tdg-fresh-001",
+    "cpos-tdg-host-001",
+    "cpos-tdg-macro-esg-001",
+    "cpos-tdg-model-001",
+    "cpos-tdg-quality-001",
+    "cpos-tdg-snapshot-001",
+    "tdg-001",
+    "tdg-002",
+    "tdg-003",
+    "tdg-004",
+    "tdg-guidance",
+    "tdg-model-001",
+    "tdg-peers-2024",
+    "tdg-run-comparison",
+    "tdg-valuation-2025-001",
+    "web-04cd5a5d02ea7d1dea714a8a6632cd21"
+   ],
+   "FROTO": [
+    "ford-otosan-2024"
+   ]
+  }
+ },
+ "reports": {
+  "byId": {
+   "arcc-fy2024-lite-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "arcc-fy2024-rv-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "lqd-arcc-debate-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "lqd-arcc-debate-2": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "lqd-arcc-portfolio-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "crc-2020-liquidity-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "erste-source-intake-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "tdg-fy2024-snapshot-2": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2024-snapshot": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2024-snapshot-3": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2024-snapshot-4": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2024-snapshot-5": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2024-snapshot-6": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2024-snapshot-7": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "tdg-fy2025-valuation-1": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "ce11d9e8935764e843a605d47cde34a903c34888c3364b29df87574c3a370954": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   },
+   "ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: not run"
+   },
+   "278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb": {
+    "state": "Candidate · not accepted",
+    "qualification": "Analytical qualification: partial"
+   }
+  },
+  "status": {
+   "tdg-fy2024-snapshot-7": "Latest build",
+   "tdg-fy2024-snapshot": "Superseded"
+  },
+  "tdg-002": {
+   "built": [
+    "tdg-fy2024-snapshot",
+    "tdg-fy2024-snapshot-2",
+    "tdg-fy2024-snapshot-3",
+    "tdg-fy2024-snapshot-4",
+    "tdg-fy2024-snapshot-5",
+    "tdg-fy2024-snapshot-6",
+    "tdg-fy2024-snapshot-7"
+   ],
+   "sameIssuer": [
+    "278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb",
+    "aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c",
+    "ce11d9e8935764e843a605d47cde34a903c34888c3364b29df87574c3a370954",
+    "ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa",
+    "tdg-fy2025-valuation-1"
+   ],
+   "otherIssuers": [
+    "arcc-fy2024-lite-1",
+    "arcc-fy2024-rv-1",
+    "crc-2020-liquidity-1",
+    "erste-source-intake-1",
+    "lqd-arcc-debate-1",
+    "lqd-arcc-debate-2",
+    "lqd-arcc-portfolio-1"
+   ]
+  }
+ }
+}

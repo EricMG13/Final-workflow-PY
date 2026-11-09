@@ -25,6 +25,14 @@ Normalisation only widens matching: any exact substring with visible text still 
 every quote accepted before task 7.11 still is. A quote with no visible text (only whitespace or
 soft hyphens) matches nothing.
 
+`quoted_whole` is the boundary-aware variant for a value token quoted out of a larger quote (a
+covenant threshold text, S13 A03/C05): the same readings, but an occurrence that starts or ends
+inside a word or number of the text (between two letters, between two digits, or beside a `.` or
+`,` standing between digits) does not count, so `2.50:1.00` is not quoted by `12.50:1.00` and
+`1.2 billion` is not quoted by `$11.2 billion`. A letter beside a digit is a boundary (`5.00x`,
+`FY2025`). `quoted` itself keeps the plain substring rule: the owners' figure readers refuse a cut
+figure at a quote edge themselves (round 11 B1) after the citation check has placed the quote.
+
 Task 7.0: `explain` says why a quote that does not match failed, for the issue text only; it
 never changes acceptance (`quoted` decides that; `explain` does not alter its verdict, while task
 7.11 widened `quoted` itself with the quote-side join above). In the order tried, over both span
@@ -102,6 +110,14 @@ def _needles(quote: str) -> tuple[str, ...]:
     return (plain,) if joined == plain else (plain, joined)
 
 
+def _text_readings(text: str) -> Iterator[str]:
+    """The normalised span, then (the joined span only once the plain one misses) the span with
+    its hyphenated line wraps joined."""
+    yield normalise(text)
+    if hyphen_wrapped(text):
+        yield _joined(text)
+
+
 def quoted(quote: str, text: str) -> bool:
     """Whether `quote` is a contiguous substring of `text`, both normalised, or of `text` with
     its hyphenated line wraps joined; the quote is tried as written and with its own wraps
@@ -109,13 +125,47 @@ def quoted(quote: str, text: str) -> bool:
     needles = _needles(quote)
     if not needles[0]:
         return False
+    return any(needle in reading for reading in _text_readings(text) for needle in needles)
 
-    def readings() -> Iterator[str]:  # the joined span only once the plain one misses
-        yield normalise(text)
-        if hyphen_wrapped(text):
-            yield _joined(text)
 
-    return any(needle in reading for reading in readings() for needle in needles)
+def quoted_whole(quote: str, text: str) -> bool:
+    """`quoted`, but the occurrence must not start or end inside a word or number of `text`
+    (`_cuts_token`): a fragment cut out of a larger figure or word is not a quote of it."""
+    needles = _needles(quote)
+    if not needles[0]:
+        return False
+    return any(_bounded(needle, reading) for reading in _text_readings(text) for needle in needles)
+
+
+# A decimal point or thousands separator: a match edge beside one between digits cuts a number.
+_DIGIT_SEPARATORS = ".,"
+
+
+def _cuts_token(text: str, at: int) -> bool:
+    """Whether a match edge at index `at` of `text` falls inside a word or a number: between two
+    letters, between two digits (fractions such as `⅔` included), or beside a `.` or `,` that
+    stands between two digits (`12.50`, `1,000`). A letter beside a digit is a boundary, so a
+    figure with a unit suffix or prefix (`5.00x`, `1.2bn`, `FY2025`) still holds its number."""
+    if at <= 0 or at >= len(text):
+        return False
+    left, right = text[at - 1], text[at]
+    return (
+        (left.isalpha() and right.isalpha())
+        or (left.isnumeric() and right.isnumeric())
+        or (left in _DIGIT_SEPARATORS and right.isnumeric() and text[at - 2 : at - 1].isnumeric())
+        or (right in _DIGIT_SEPARATORS and left.isnumeric() and text[at + 1 : at + 2].isnumeric())
+    )
+
+
+def _bounded(needle: str, text: str) -> bool:
+    """Whether `needle` occurs in `text` at least once without cutting a word or number at
+    either edge (`_cuts_token`); a later whole occurrence counts when an earlier one is cut."""
+    at = text.find(needle)
+    while at >= 0:
+        if not (_cuts_token(text, at) or _cuts_token(text, at + len(needle))):
+            return True
+        at = text.find(needle, at + 1)
+    return False
 
 
 def prefix(quote: str) -> str:

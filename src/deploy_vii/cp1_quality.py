@@ -13,6 +13,7 @@ from deploy_vii.envelope import handoff_issues, register_envelope
 from deploy_vii.financial_contracts import FinancialReview
 from deploy_vii.financial_model import ModelValue
 from deploy_vii.financial_periods import HistoricalValue, _id
+from deploy_vii.financial_reconciliation import Reconciliation
 from deploy_vii.narrative import (
     _DIMENSIONS,
     EvidencePart,
@@ -20,6 +21,7 @@ from deploy_vii.narrative import (
     NarrativeReport,
     NarrativeReview,
 )
+from deploy_vii.period_reconciliation import PeriodCheck
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.quality import (
     ClaimCandidate,
@@ -42,7 +44,11 @@ _CITED = frozenset(
     {"source", "entity", "subsequent_event", "source_period", "definition", "multi_figure_event"}
 )
 _LOCATED = frozenset({"observation", "statement_IS", "statement_CFS", "statement_BS"})
-_CALCULATED = frozenset({"normalization", "source_check", "period_check", "construction", "basis"})
+_CALCULATED = frozenset({"normalization", "construction", "basis"})
+_CHECKED: dict[str, type[Reconciliation | PeriodCheck]] = {
+    "source_check": Reconciliation,
+    "period_check": PeriodCheck,
+}
 _VALUED: dict[str, type[HistoricalValue | ModelValue | CanonicalKpi | Computation]] = {
     "historical_value": HistoricalValue,
     "canonical_value": ModelValue,
@@ -63,10 +69,15 @@ class CP1QualityReport(Contract):
 
 
 def _module_status(narrative: NarrativeReport) -> ModuleStatus:
-    """Own findings only (decision 0007): limitations inherited from inputs never restrict."""
+    """Own findings only (decision 0007): limitations inherited from inputs never restrict.
+
+    The narrative's gaps (its own and the review's stated limitations) are the findings; its
+    `limitations` are the fixed scope disclaimers `canonical_narrative` writes on every report,
+    not findings, so they do not restrict.
+    """
     if narrative.status == "blocked":
         return "blocked"
-    return "restricted" if narrative.limitations or narrative.status != "candidate" else "complete"
+    return "complete" if narrative.status == "candidate" and not narrative.gaps else "restricted"
 
 
 def _lineage_basis(record: EvidenceRecord) -> LineageBasis:
@@ -74,8 +85,9 @@ def _lineage_basis(record: EvidenceRecord) -> LineageBasis:
 
     Citation registers cap at Directly Sourced only while they carry a citation and, for
     located values, a settled status; an unavailable source, a missing or conflicting value
-    (even one citing where it was sought) or an absent calculated amount is missing evidence,
-    and an Estimated or Proxy calculated amount caps at Assumption-Based.
+    (even one citing where it was sought), an absent calculated amount or a check that could
+    not be computed or blocks is missing evidence, and an Estimated or Proxy calculated amount
+    caps at Assumption-Based.
     """
     kind, row = record.kind, record.record_json
     if kind == "gap":
@@ -93,12 +105,21 @@ def _lineage_basis(record: EvidenceRecord) -> LineageBasis:
         return "citation" if record.citations and status in _SETTLED else "missing"
     if kind in _CALCULATED:
         return "calculation"
-    if kind in _VALUED:
-        value = _VALUED[kind].model_validate_json(row).value
-        if value.amount is None:
-            return "missing"
-        return "estimate" if value.calculation_status in _ESTIMATED else "calculation"
+    if kind in _CHECKED or kind in _VALUED:
+        return _amount_basis(kind, row)
     raise ValueError(f"No QA lineage ceiling for register kind: {kind}")
+
+
+def _amount_basis(kind: str, row: str) -> LineageBasis:
+    """A check or value row's basis from its own calculated amount and status."""
+    if kind in _CHECKED:
+        check = _CHECKED[kind].model_validate_json(row)
+        missing = check.calculated_value is None or check.status == "BLOCK"
+        return "missing" if missing else "calculation"
+    value = _VALUED[kind].model_validate_json(row).value
+    if value.amount is None:
+        return "missing"
+    return "estimate" if value.calculation_status in _ESTIMATED else "calculation"
 
 
 def _ceilings(

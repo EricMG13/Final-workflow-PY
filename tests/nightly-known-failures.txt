@@ -1,0 +1,210 @@
+# Failures the nightly full-suite run tolerates (tools/nightly_tests.py report --known).
+# One pytest node id (or a test file, for a collection error) per line; text after '#' is ignored.
+# Seeded 2026-11-06 from the base failures documented in the review handoff (docs/review-handoff/
+# FINAL-REPORT.md). The first nightly run lists any other existing failure as "new": confirm each is
+# pre-existing, then add it here with a reason. Remove a line once its test passes again.
+
+# Collection errors at base
+tests/product/test_inputs_portfolio.py  # no module named 'scripts'
+tests/product/test_inputs_portfolio_library_half.py  # no module named 'scripts'
+tests/test_owner_rendering.py  # docs/OWNER-RENDERING-LEASE.md missing
+
+# Failing at base
+tests/test_method_cp5.py::test_upstream_oracles_are_the_manifest_pins  # methodology.json pin drift
+tests/test_method_cp3c.py::test_oracle_files_match_the_lease_pins  # methodology.json pin drift
+tests/test_connect_cp2d.py::test_module_trace_lists_every_offered_cp1_fact  # "19 US$" vs "19 US$ m"
+tests/test_connect_cp2d.py::test_view_offers_a_missing_fact_with_its_status_and_a_gap_word  # same
+tests/research/test_contracts.py::test_decision_amendment_states_two_anchors  # docs/decisions/0007 missing
+tests/test_connect_cpl10.py::test_navigator_with_cp1_unrun_equals_the_oracle_state
+tests/test_connect_cp1d.py::test_no_reader_is_named_by_the_lease  # docs/CP1D-OWNER-LEASE.md missing
+tests/test_connect_cp3d.py::test_relative_value_composition_holds_the_one_block_and_can_take_more
+tests/test_cp1_absent_input.py::test_public_disagreeing_cash_check_still_blocks
+tests/test_czr_cash_scope.py::test_czr_cash_movement_agrees_with_the_declared_scope
+tests/test_financial_workflow.py::test_partial_publication_quarantined_repair_and_history
+tests/test_financial_workflow.py::test_finish_and_interrupt_failure_still_quarantines
+tests/test_financial_workflow.py::test_invalid_repair_cannot_disappear_from_sealed_audit
+tests/prompts/test_rules.py::test_every_content_refusal_is_covered[source_context]
+tests/prompts/test_rules.py::test_an_existing_step_carries_its_contract_rules_whole[financials]
+tests/prompts/test_rules.py::test_an_existing_step_carries_its_contract_rules_whole[relative_value]
+tests/prompts/test_rules.py::test_prompt_names_every_rule[financials]
+tests/prompts/test_rules.py::test_prompt_names_every_rule[relative_value]
+tests/prompts/test_rules.py::test_deleting_one_rules_text_from_the_contract_fails_the_prompt_check[financials]
+tests/prompts/test_rules.py::test_the_golden_file_pins_every_rule_id_check_and_statement
+tests/prompts/test_prompt_set.py::test_the_prompt_set_digest_is_the_golden  # PROMPT_SET_SHA256 drift at base (confirmed 2026-11-07)
+
+# Found failing at base during the fix waves (2026-11-07), confirmed on the base tree
+tests/test_connect_cpl10.py::test_navigator_with_cp1_settled_equals_the_oracle_state
+tests/test_ocr_units.py::test_the_submit_entry_hands_the_ocr_pages_to_the_expansion  # SimpleNamespace lacks media_type
+tests/test_note_reference_guard_wiring.py::test_the_submit_entry_hands_the_note_pages_and_note_rows_to_the_expansion  # same
+tests/test_line_locators.py::test_extract_statements_rebases_rows_to_their_own_line
+tests/test_line_locators.py::test_a_page_pack_is_byte_identical_to_base
+tests/test_connect_cp1c.py::test_spec_row_is_appended_to_the_relative_value_composition  # fails at base (S05 medium fixer)
+
+# tests/test_model_testing_run.py: 14 fail at base (VERIFICATION.md 2026-11-05 notes them)
+tests/test_model_testing_run.py::test_offline_pilot_scores
+tests/test_model_testing_run.py::test_score_and_report_commands_rebuild_the_outputs
+tests/test_model_testing_run.py::test_report_counts_settlements
+tests/test_model_testing_run.py::test_report_command_accounts_row_applies_settlements
+tests/test_model_testing_run.py::test_distressed_is_skipped_when_the_cap_is_short
+tests/test_model_testing_run.py::test_a_stage_rerun_into_the_same_out_gets_new_run_ids
+tests/test_model_testing_run.py::test_a_rerun_that_would_run_a_frozen_module_live_is_refused_before_the_first_run
+tests/test_model_testing_run.py::test_key_shaped_settlement_text_never_reaches_the_report
+tests/test_model_testing_run.py::test_the_lock_is_released_when_the_command_ends_and_score_report_take_none
+tests/test_model_testing_run.py::test_the_report_states_the_resolved_runs_root
+tests/test_model_testing_run.py::test_score_out_lets_a_defect_in_the_scorer_propagate
+tests/test_model_testing_run.py::test_scores_that_no_longer_match_the_runs_are_a_named_refusal
+tests/test_model_testing_run.py::test_report_ignores_a_sibling_folders_settlement
+tests/test_model_testing_run.py::test_report_refuses_a_settlement_naming_an_out_run_but_no_record
+
+# tests/test_method_cpdr.py: fail at base (shallow history and pinned hashes; confirmed on the base tree 2026-11-07)
+tests/test_method_cpdr.py::test_shipped_maps_carry_cpdr_with_unchanged_slots
+tests/test_method_cpdr.py::test_d12_record_carries_the_file_sha256[src/deploy_vii/methods/cpdr.md-path0]
+tests/test_method_cpdr.py::test_d12_record_carries_the_file_sha256[src/deploy_vii/bindings/cpdr.py-path1]
+tests/test_method_cpdr.py::test_d12_record_for_execution_py
+tests/test_method_cpdr.py::test_methodology_chain_runs_7d164d11_to_the_current_file
+tests/test_method_cpdr.py::test_d12_records_for_the_vii_files_are_chained_after_d1b_and_cite_the_end_batch
+
+# tests/model: the live-pause ruling files are not in docs/rulings at base (confirmed on the base tree 2026-11-07)
+tests/model/test_o5_done_when.py::test_the_live_pause_refuses_and_touches_no_environment  # docs/rulings/2026-10-31-context-plan.md missing
+tests/model/test_gate.py::test_only_the_model_testing_ruling_lifts_the_pause  # same
+tests/model/test_gate.py::test_good_ruling_construction_touches_nothing_and_complete_reads_the_three_key_variables_once  # same
+
+# tests/prompts: fail at base (confirmed on the base tree 2026-11-07)
+tests/prompts/test_compose.py::test_an_existing_contract_appears_verbatim[financials]  # financials contract drift, as financials.k above
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[carriage-return-header]  # the form refuses it earlier with ContextRefused, not FenceError
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[end]  # same
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[end-prefix]  # same
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[forged-context]  # same
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[forged-evidence]  # same
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[forged-repair]  # same
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[forged-source]  # same
+tests/prompts/test_fence.py::test_a_research_question_with_a_marker_is_refused[indented-header]  # same
+
+# tests/prompts frozen-message digests: fail at base (confirmed on claude/quality-gate 2026-11-07; found by the branch review)
+tests/prompts/test_g8.py::test_every_stripped_span_comes_from_the_merge  # the frozen message drifted from the imported text at base
+tests/prompts/test_g8.py::test_the_tokens_and_the_g8_block_are_the_only_change_to_the_frozen_message[committee_challenge]
+tests/prompts/test_g8.py::test_the_tokens_and_the_g8_block_are_the_only_change_to_the_frozen_message[financials]
+tests/prompts/test_g8.py::test_the_tokens_and_the_g8_block_are_the_only_change_to_the_frozen_message[relative_value]
+tests/prompts/test_g8.py::test_the_tokens_and_the_g8_block_are_the_only_change_to_the_frozen_message[source_readiness]
+tests/prompts/test_texts_loader.py::test_the_absence_line_is_the_only_change_to_the_frozen_message[source_context]
+tests/prompts/test_texts_loader.py::test_the_b29_wording_is_the_only_change_to_the_frozen_message[relative_value]
+tests/prompts/test_texts_loader.py::test_the_b30_wording_is_the_only_change_to_the_frozen_message[relative_value]
+tests/prompts/test_texts_loader.py::test_the_b34_wording_is_the_only_change_to_the_frozen_message[relative_value]
+tests/prompts/test_texts_loader.py::test_the_coverage_line_is_the_only_change_to_the_frozen_message[financials]
+tests/prompts/test_texts_loader.py::test_the_finish_and_turns_wording_is_the_only_change_to_the_frozen_message[committee_challenge]
+tests/prompts/test_texts_loader.py::test_the_finish_and_turns_wording_is_the_only_change_to_the_frozen_message[financials]
+tests/prompts/test_texts_loader.py::test_the_finish_and_turns_wording_is_the_only_change_to_the_frozen_message[relative_value]
+tests/prompts/test_texts_loader.py::test_the_finish_and_turns_wording_is_the_only_change_to_the_frozen_message[source_context]
+tests/prompts/test_texts_loader.py::test_the_finish_and_turns_wording_is_the_only_change_to_the_frozen_message[source_readiness]
+tests/prompts/test_texts_loader.py::test_the_invoke_budget_is_the_only_change_to_the_frozen_message[committee_challenge]
+tests/prompts/test_texts_loader.py::test_the_invoke_budget_is_the_only_change_to_the_frozen_message[financials]
+tests/prompts/test_texts_loader.py::test_the_invoke_budget_is_the_only_change_to_the_frozen_message[relative_value]
+tests/prompts/test_texts_loader.py::test_the_invoke_budget_is_the_only_change_to_the_frozen_message[source_context]
+tests/prompts/test_texts_loader.py::test_the_invoke_budget_is_the_only_change_to_the_frozen_message[source_readiness]
+tests/prompts/test_texts_loader.py::test_the_map_coverage_rule_is_the_only_change_to_the_frozen_message[financials]
+tests/prompts/test_texts_loader.py::test_the_merged_restricted_cash_change_is_the_only_change_to_the_frozen_message[financials]
+tests/prompts/test_texts_loader.py::test_the_p5_line_is_the_only_change_to_the_frozen_message[source_readiness]
+tests/prompts/test_texts_loader.py::test_the_p5t6_changes_are_the_only_change_to_the_frozen_message[source_readiness]
+tests/prompts/test_texts_loader.py::test_the_twelve_existing_steps_compose_byte_identically
+tests/prompts/test_texts_loader.py::test_the_unit_maps_schema_is_the_only_change_to_the_frozen_message[financials]
+
+# Found by the S12-A02 fixer, confirmed on claude/quality-gate (2026-11-07)
+tests/prompts/test_coverage_rule.py::test_the_rule_list_holds_the_coverage_rule  # coverage rule text drifted from the frozen statement at base
+tests/prompts/test_coverage_rule.py::test_the_statement_is_the_frozen_text  # same
+tests/test_o2_done_when.py::test_a_line_citation_naming_the_range_key_is_not_coverage
+tests/test_financial_workflow.py::test_full_component_promotes_and_publishes_actual_model  # fixture errors with publication_refused at base (found by the S12-A02 review)
+tests/research/test_consumer_block.py::test_attachments_supersedes_is_the_replayed_run  # stub has no delivery_scope (run_pathway) at base; found by the CP-8 review
+tests/research/test_consumer_block.py::test_a_stop_after_cp_dr_records_the_heads_state  # same
+
+# Found by the first nightly run (2026-11-07), failing at 5dd01ec (before the review fixes) with
+# the same message (rerun 42369487867 against 42369485755).
+tests/test_prove_affected.py::test_checkpoint_lists_equal_heavy  # .github/workflows/checkpoint.yml never existed here
+tests/test_owner_cpdr.py::test_the_closed_run_renders_and_verifies  # AssertionError: assert {'evidence': ...verage', ...]} == {'evidence': 
+tests/test_owner_cpdr_replace.py::test_replacement_rerun  # ReplayRecord validation error
+tests/test_owner_cpos.py::test_a2_gap_run_is_the_gap_run  # fixture: publication refused (publication_refused)
+tests/test_owner_cpos.py::test_a3_a4_derived_cp2_states_as_observed  # same
+tests/test_owner_cpos.py::test_a5_foreign_store_refuses_stale_binding  # same
+tests/test_owner_cpos.py::test_a5_head_status_forged_refuses_identity_mismatch  # same
+tests/test_owner_cpos.py::test_a5_refusal_comes_from_the_verifier_before_any_render  # same
+tests/test_owner_cpos.py::test_a5_seal_edit_refuses_identity_mismatch  # same
+tests/test_owner_cpos.py::test_a6_calculation_json_linked_but_not_in_the_receipt_files  # same
+tests/test_owner_cpos.py::test_a6_dangling_target  # same
+tests/test_owner_cpos.py::test_a6_forged_external_link_is_refused_only_by_full_equality[links0]  # same
+tests/test_owner_cpos.py::test_a6_forged_external_link_is_refused_only_by_full_equality[links1]  # same
+tests/test_owner_cpos.py::test_a6_forged_proof_destination  # same
+tests/test_owner_cpos.py::test_a6_forged_proof_row  # same
+tests/test_owner_cpos.py::test_a6_forged_row  # same
+tests/test_owner_cpos.py::test_a6_page_bytes_edited  # same
+tests/test_owner_cpos.py::test_a6_proof_of_other_receipt  # same
+tests/test_owner_cpos.py::test_a6_receipt_hash_only  # same
+tests/test_owner_cpos.py::test_a6_report_data_that_cannot_be_extracted[bad_json]  # same
+tests/test_owner_cpos.py::test_a6_report_data_that_cannot_be_extracted[no_close]  # same
+tests/test_owner_cpos.py::test_a6_report_data_that_cannot_be_extracted[no_tag]  # same
+tests/test_owner_cpos.py::test_a6_unverifiable_page_hash  # same
+tests/test_owner_cpos.py::test_a8_navigation_and_a_refused_verify_leave_everything_unchanged  # same
+tests/test_owner_cpos.py::test_a8_other_hash_seed_gives_identical_page_and_proof  # same
+tests/test_owner_cpos.py::test_hash_links_are_in_the_oracle_superset_and_all_resolve[s1a_blocked_cp1a]  # same
+tests/test_owner_cpos.py::test_hash_links_are_in_the_oracle_superset_and_all_resolve[s1a_gap]  # same
+tests/test_owner_cpos.py::test_hash_links_are_in_the_oracle_superset_and_all_resolve[s1a_positive]  # same
+tests/test_owner_cpos.py::test_hash_links_are_in_the_oracle_superset_and_all_resolve[s1a_refused_cp1a]  # fixture: publication refused (cp1a_not_authorized)
+tests/test_owner_cpos.py::test_row_link_facts_agree_with_the_real_head_views[s1a_blocked_cp1a]  # fixture: publication refused (publication_refused)
+tests/test_owner_cpos.py::test_row_link_facts_agree_with_the_real_head_views[s1a_gap]  # same
+tests/test_owner_cpos.py::test_row_link_facts_agree_with_the_real_head_views[s1a_positive]  # same
+tests/test_owner_cpos.py::test_row_link_facts_agree_with_the_real_head_views[s1a_refused_cp1a]  # fixture: publication refused (cp1a_not_authorized)
+tests/test_owner_cpos.py::test_rows_destinations_and_tally_match_oracle[s1a_blocked_cp1a]  # fixture: publication refused (publication_refused)
+tests/test_owner_cpos.py::test_rows_destinations_and_tally_match_oracle[s1a_gap]  # same
+tests/test_owner_cpos.py::test_rows_destinations_and_tally_match_oracle[s1a_positive]  # same
+tests/test_owner_cpos.py::test_rows_destinations_and_tally_match_oracle[s1a_refused_cp1a]  # fixture: publication refused (cp1a_not_authorized)
+tests/test_owner_cpos.py::test_search_probes_match_oracle[s1a_blocked_cp1a]  # fixture: publication refused (publication_refused)
+tests/test_owner_cpos.py::test_search_probes_match_oracle[s1a_gap]  # same
+tests/test_owner_cpos.py::test_search_probes_match_oracle[s1a_positive]  # same
+tests/test_owner_cpos.py::test_search_probes_match_oracle[s1a_refused_cp1a]  # fixture: publication refused (cp1a_not_authorized)
+tests/test_owner_cpos.py::test_verify_navigation_accepts_the_genuine_page_and_proof[s1a_blocked_cp1a]  # fixture: publication refused (publication_refused)
+tests/test_owner_cpos.py::test_verify_navigation_accepts_the_genuine_page_and_proof[s1a_gap]  # same
+tests/test_owner_cpos.py::test_verify_navigation_accepts_the_genuine_page_and_proof[s1a_positive]  # same
+tests/test_owner_cpos.py::test_verify_navigation_accepts_the_genuine_page_and_proof[s1a_refused_cp1a]  # fixture: publication refused (cp1a_not_authorized)
+tests/test_owner_s1a.py::test_blocked_cp1a_still_begins_cp2_and_publishes  # fixture: publication refused (publication_refused)
+tests/test_owner_s1a.py::test_cp1a_claims_and_limitations[gap]  # same
+tests/test_owner_s1a.py::test_cp1a_claims_and_limitations[positive]  # same
+tests/test_owner_s1a.py::test_cp1a_gap_case_keeps_ownership_and_transaction_unsettled[gap]  # same
+tests/test_owner_s1a.py::test_cp1a_gap_case_keeps_ownership_and_transaction_unsettled[positive]  # same
+tests/test_owner_s1a.py::test_cp1a_invented_validator_issue_refuses  # same
+tests/test_owner_s1a.py::test_cp1a_tables_match_oracle[gap]  # same
+tests/test_owner_s1a.py::test_cp1a_tables_match_oracle[positive]  # same
+tests/test_owner_s1a.py::test_cp1a_truncated_issue_list_still_verifies  # same
+tests/test_owner_s1a.py::test_cp1a_without_business_page3_read_is_invalid_and_repairs  # same
+tests/test_owner_s1a.py::test_cp1a_without_search_is_invalid_on_the_absence_rule  # same
+tests/test_owner_s1a.py::test_cp2_claims_signals_figures_and_limitations[gap]  # same
+tests/test_owner_s1a.py::test_cp2_claims_signals_figures_and_limitations[positive]  # same
+tests/test_owner_s1a.py::test_cp2_confidence_is_never_high[gap]  # same
+tests/test_owner_s1a.py::test_cp2_confidence_is_never_high[positive]  # same
+tests/test_owner_s1a.py::test_cp2_read_body_is_the_frozen_core_view[gap]  # same
+tests/test_owner_s1a.py::test_cp2_read_body_is_the_frozen_core_view[positive]  # same
+tests/test_owner_s1a.py::test_cp2_tables_match_oracle[gap]  # same
+tests/test_owner_s1a.py::test_cp2_tables_match_oracle[positive]  # same
+tests/test_owner_s1a.py::test_cp2_unreplaced_figure_is_invalid_then_repaired  # same
+tests/test_owner_s1a.py::test_downstream_consumption_inputs[gap]  # same
+tests/test_owner_s1a.py::test_downstream_consumption_inputs[positive]  # same
+tests/test_owner_s1a.py::test_forgery_cp_model_attempt_bound_to_another_cp1_refuses  # publication_refused
+tests/test_owner_s1a.py::test_forgery_cp_model_attempt_with_cp1_dropped_from_inputs_refuses  # same
+tests/test_owner_s1a.py::test_forgery_cp_model_failed_first_publication_on_forged_inputs_refuses  # same
+tests/test_owner_s1a.py::test_forgery_cp_model_failed_publication_rewritten_interruption_refuses  # same
+tests/test_owner_s1a.py::test_forgery_cp_model_failed_publication_rewritten_issues_refuses  # same
+tests/test_owner_s1a.py::test_inherited_limitations_follow_the_rule[gap]  # fixture: publication refused (publication_refused)
+tests/test_owner_s1a.py::test_inherited_limitations_follow_the_rule[positive]  # same
+tests/test_owner_s1a.py::test_model_publication_and_receipt_verify_read_only[gap]  # same
+tests/test_owner_s1a.py::test_model_publication_and_receipt_verify_read_only[positive]  # same
+tests/test_owner_s1a.py::test_plan_attempts_heads_and_cp0[gap]  # same
+tests/test_owner_s1a.py::test_plan_attempts_heads_and_cp0[positive]  # same
+tests/test_owner_s1a.py::test_tampering_refuses_with_identity_mismatch[gap]  # same
+tests/test_owner_s1a.py::test_tampering_refuses_with_identity_mismatch[positive]  # same
+tests/test_owner_s1a.py::test_tool_use_per_oracle[gap]  # same
+tests/test_owner_s1a.py::test_tool_use_per_oracle[positive]  # same
+tests/test_owner_s1a.py::test_unauthorized_cp1a_is_refused_and_cp_model_publishes  # fixture: publication refused (cp1a_not_authorized)
+tests/test_owner_workflow.py::test_equivalence_positive  # publication_refused
+tests/test_owner_workflow.py::test_publish_failure_outside_value_error_still_quarantines  # same
+tests/test_owner_workflow.py::test_tamper_and_foreign_store_refuse  # same
+tests/test_owner_workflow.py::test_verifier_is_read_only  # same
+tests/test_run_pathway_cpdr.py::test_a_resumed_run_records_the_bare_anchor_fault  # stub has no delivery_scope
+tests/test_run_pathway_cpdr.py::test_a_stop_whose_head_state_recurses_deeply_is_named_not_a_crash  # same
+tests/test_run_pathway_cpdr.py::test_anchor_fault_stops_the_run  # same

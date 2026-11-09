@@ -723,8 +723,15 @@ SOURCE_REFUSALS = (
         "context-duplicate-agency.json",
         "positive",
         "agency twice",
-        "Rating register not found",
-        "S&P twice (issuer BB, facility BB-): the duplicate-agency rule of cp2h.py:346-348 reads REGISTER_NOT_FOUND",
+        (
+            "Context ratings name S&P in more than one row (issuer, facility); the register "
+            "takes one row per agency, ratings not used"
+        ),
+        (
+            "S&P twice (issuer BB, facility BB-): the register holds one row per agency, so the "
+            "refusal names the agency and its rows' scopes in context order (S07-cp2-gh-A06; it "
+            "read REGISTER_NOT_FOUND, which a present register does not mean)"
+        ),
     ),
     (
         "terms_agency_unrated",

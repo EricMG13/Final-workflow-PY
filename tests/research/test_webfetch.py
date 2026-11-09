@@ -15,6 +15,7 @@ import socket
 import ssl
 from collections.abc import Mapping
 from dataclasses import dataclass, field
+from datetime import date
 from pathlib import Path
 from typing import Any, cast
 
@@ -505,6 +506,32 @@ def test_an_unparsable_last_modified_is_not_located() -> None:
         neither["published_located"],
         neither["published_source"],
     )
+
+
+@pytest.mark.parametrize(
+    ("last_modified", "body", "expected"),
+    [
+        # S16 C05 (a): a stale header must not hide a body line after the cutoff
+        ("Wed, 01 Jan 2025 00:00:00 GMT", b"Published: 2025-09-01\nText", "2025-09-01"),
+        # S16 C05 (b): a dynamic page served with today's header keeps its body publication date
+        ("Fri, 06 Nov 2026 00:00:00 GMT", b"Published: 2025-03-01\nText", "2025-03-01"),
+    ],
+)
+def test_the_body_publication_line_is_preferred_to_last_modified(
+    last_modified: str, body: bytes, expected: str
+) -> None:
+    found = webfetch.locate_published({"Last-Modified": last_modified}, body)
+    assert found == (date.fromisoformat(expected), webfetch.SOURCE_BODY)
+
+
+def test_last_modified_is_used_when_the_body_states_no_valid_date() -> None:
+    header = {"last-modified": "Mon, 15 Dec 2025 08:00:00 GMT"}  # header names are case-blind
+    for body in (b"No date line.", b"Published: 2025-02-30\nnot a calendar date"):
+        assert webfetch.locate_published(header, body) == (
+            date(2025, 12, 15),
+            webfetch.SOURCE_HEADER,
+        )
+    assert webfetch.locate_published({}, b"Published: 2025-02-30") == (None, None)
 
 
 def test_constants_equal_the_key() -> None:

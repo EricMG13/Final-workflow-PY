@@ -22,8 +22,8 @@ CASE_DIR = "cases/cp3-context-owner"
 # --- 0. frozen inputs, pinned by hash --------------------------------------------------------------
 PINS = {
     "cases/cp3-cp6-owner/manifest.json": "d76b0d9349005b3c55299fbf64e4f3e0310bf5ed28fc88d68464132d08e46ece",
-    "cases/cp3-cp6-owner/submissions.json": "9f8c10e9e31e88f15f797c89102c6cf2d938b25a1878d2b5aafe5354786dde38",
-    "cases/cp3-cp6-owner/expected.json": "8d9cd9522eefe8d6918a551613cd475d9231cd3b0269448dcdef40fdb464118f",
+    "cases/cp3-cp6-owner/submissions.json": "be519ae2414ebfb49ad921224c313108d01d1e78c7082f14ac5f7d55921119e2",  # noqa: E501 - a pin line (path and sha256)
+    "cases/cp3-cp6-owner/expected.json": "c3141df7edb40ad3711526f90857c8c7db43db7978a73fe4b4df0fed1c3812f0",  # noqa: E501 - a pin line (path and sha256)
     "cases/financial/manifest.json": "6b3eeffe0871923f9f3ed9b6fd6739c86be2ee4dd8a7d35e8a6a516581b93432",
     "cases/snapshot/manifest.json": "68d591f672d1fb799e630d1359f5cb135d8ee9439209b23dcae38ca6a0eca3f4",
     "cases/cp3d-owner/expected.json": None,  # hash recorded, not asserted here (read for line cites only)

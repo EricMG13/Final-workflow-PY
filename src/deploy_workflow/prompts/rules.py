@@ -355,9 +355,7 @@ NON_CONTENT: Mapping[str, str] = {
     "fn:deploy_workflow.owners.cp2d:_provenance_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp2d:_stale_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp2g:stale_issues": UPSTREAM,
-    "fn:deploy_workflow.owners.cp2h:stale_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp3c:_provenance_issues": UPSTREAM,
-    "fn:deploy_workflow.owners.cp4c:stale_issues": UPSTREAM,
     # oracle ids (O6-P18a): a stale input, and a source the validator cannot read
     **{f"oracle:cp2a:{i}": UPSTREAM for i in ("v17",)},
     **{f"oracle:cp2g:{i}": UPSTREAM for i in ("v18", "v19", "v20")},

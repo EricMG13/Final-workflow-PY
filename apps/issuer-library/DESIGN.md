@@ -119,8 +119,14 @@ lightness and chroma checks, so every series stays labelled in text.
 New run and Settings use the same 40px fields (16px text, a chevron on
 selects, a styled file button) and the secondary button for every action
 but the primary one. Run stages are a progress bar: blue up to the current
-stage, grey after it. Run progress lists the modules as numbered steps (Untitled UI Progress, icons with text, number type): a green tick once accepted, a blue marker for the module in progress, amber where a run stopped, grey ahead, with a connector between steps. Recent runs use the content table, with workflow and state as labels. The context form keeps its own contents inside a
-framed 12px card.
+stage, grey after it. Run progress lists the modules as numbered steps (Untitled UI Progress, icons with text, number type): a green tick once accepted, a blue marker for the module in progress, amber where a run stopped, grey ahead, with a connector between steps. The last step is Report delivery: grey until the modules are accepted, Delivering while the reports are built, a green tick once Delivered, and amber Stopped where the run stopped there. Recent runs use the content table, with workflow and state as labels. The context form keeps its own contents inside a
+framed 12px card. Its literals in context-embed.css (the default tag is the grey badge's colours) mirror the tokens of screen.css, because that sandboxed document cannot read the app's variables.
+
+- The run-state strip (`#run-strip`, the Untitled UI full-width alert anatomy: icon, title, supporting text, actions, Dismiss) sits above the working surface and shows one run: the active one, otherwise the newest run that is not running. Dismiss hides the strip for that run until its state changes; it does not fall back to an older run, and the rail mark and title prefix are not affected by Dismiss. States are running (blue, a count of accepted modules), complete (grey), and stopped, failed or interrupted (amber, the stop sentence and spend). In the strip, amber is used only for those three. Actions are View activity, View reports on a complete run, and Resume where the run can be resumed. Dismiss is kept per viewer, as the state the run was dismissed in, so the strip returns when that run's state changes.
+- The Run activity link in the rail carries a small mark: a blue ● while running, a grey ✓ when complete, an amber ! when stopped, failed or interrupted. The glyph is decorative; the link's accessible name states the run's state.
+- The Forecast tab's cash flow model never prints “—”. Every gap is n.a., with its reason where the record gives one: “printed as — in the source” or “the model's source table has no value for this period”; n.a. and n.m. cells carry that reason as an aria-label. A “Why cells show n.a.” disclosure lists one line per row and reason, naming the periods. Total rows are semibold with a top rule. Ratio cells (percent, multiple) show their value in a tooltip at four decimals, with ≈ when rounding changed it. The grid sits in a labelled, keyboard-focusable scroll region, and the published model stays behind a closed “Published model (original HTML)” disclosure.
+- Built from lists Role · Run · Source · SHA-256 prefix · Status, with plain role words (such as Annual handoff). A source that still matches shows the grey “Matches publication”; a changed or invalid one is amber. When the sources come from different attempts, a note names the files and their attempt numbers; it states the fact and does not judge it.
+- A report's acceptance label “Candidate · not accepted” uses the grey badge. Amber is for attention only.
 
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.
@@ -150,7 +156,7 @@ unknown provenance labelled “Not classified” in the evidence inspector; list
 source footers show a class only when the handoff declares one. Do use subdued depth and clear
 reading hierarchy. Do keep all assets offline. Do not mix fiscal periods, invent
 missing figures, treat workflow progress as credit quality, or promote an attempt
-because its filename sorts first.
+because its filename sorts first. Do not use amber for a state that needs no action, and do not print “—” for a missing figure: say n.a. and why.
 
 ## Interface terminology
 
@@ -160,6 +166,7 @@ because its filename sorts first.
   primary designation. Neither label verifies analytical acceptance.
 - **View source** opens the exact module row; **Open source file** opens the
   original file. **Back to analysis** restores the chart, fact or event that opened it.
+- **Resume** starts a new run with its own spending cap; the stopped run's accepted modules are kept without a model call. It is offered for a stopped, failed or interrupted run, never after a provider ruling.
 - **Evidence & audit** holds production records and technical detail.
   **Not classified** retains the user's chosen unknown-provenance label there.
 
@@ -233,7 +240,8 @@ sandboxed reader with report switching, its files, original download and Return 
 The embedded view uses symbol-only branding; original downloads remain byte-identical.
 
 New run sits inside the shell and keeps its state across navigation. Its steps follow the
-launcher: context, issuer folder and budget, review, then an explicit Start.
+launcher: context, issuer folder and budget, review, then an explicit Start. A stopped run
+can be resumed from the run-state strip, Run activity or New run.
 
 Browser checks cover laptop widths of 1366px and 1280px. Hash routes support deep
 links and browser history; evidence closing restores focus and content scroll.

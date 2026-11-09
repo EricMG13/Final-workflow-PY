@@ -1,6 +1,7 @@
 """Check a handoff's reader section: plain language that restates only what the handoff already says."""
 
 import re
+from typing import NamedTuple
 
 BOTTOM_LINE_WORDS, LIMITATION_WORDS, FINDING_WORDS, MAX_FINDINGS = 40, 30, 30, 5
 CONFIDENCE = ("High", "Medium", "Low", "Not assessable")
@@ -12,7 +13,33 @@ TABLES = (
     ("Finding", "Creditor impact", "Confidence"),
 )
 CODE = re.compile(r"\bCP-[A-Z0-9]+\b|\bT\d+[A-Z]?\.\d+\b|\b[0-9A-Fa-f]{16,}\b")
-NUMBER = re.compile(r"\d+(?:,\d{3}(?!\d))*(?:\.\d+)?")
+# A number as the reader sees it: the longest run of digits at that place (3.14 is read whole,
+# never as 3.1; a malformed 1.2.3 or 12,5 is still read, as 1.2 and 3, or 12 and 5), with the
+# sign it was written with (a leading minus, or parentheses) and the unit or scale beside it.
+_UNIT = (
+    r"%|x\b|pp\b|bps\b|\s?per ?cent\b"
+    r"|(?:\s?(?:US\$|USD|\$|EUR|€|GBP|£))?\s?(?:thousands?|millions?|billions?|trillions?|bn|mm|k|m)\b"
+)
+NUMBER = re.compile(
+    r"(?<!\d)(?P<open>\()?(?P<minus>(?<![\w)])[-\u2212])?"
+    r"(?P<n>\d+(?:,\d{3}(?!\d))*(?:\.\d+)?)"
+    rf"(?P<u1>{_UNIT})?(?P<close>\))?(?P<u2>{_UNIT})?",
+    re.IGNORECASE,
+)
+SCALES = {
+    "thousand": "k",
+    "thousands": "k",
+    "k": "k",
+    "million": "m",
+    "millions": "m",
+    "mm": "m",
+    "m": "m",
+    "billion": "b",
+    "billions": "b",
+    "bn": "b",
+    "trillion": "t",
+    "trillions": "t",
+}
 
 
 def _cells(line: str) -> list[str]:
@@ -81,15 +108,60 @@ def _table_issues(tables: list[list[list[str]]]) -> tuple[str, ...]:
     )
 
 
+class _Figure(NamedTuple):
+    number: str
+    negative: bool
+    unit: str | None
+    shown: str
+
+
+def _unit(written: str | None) -> str | None:
+    """The unit or scale of a figure, spelled one way: `%`, `x`, `k`, `m`, `b`, ..."""
+    if not written:
+        return None
+    word = re.sub(r"^(?:us\$|usd|\$|eur|€|gbp|£)?\s*", "", written.strip().casefold())
+    return "%" if "cent" in word else SCALES.get(word, word)
+
+
+def _figures(text: str) -> list[_Figure]:
+    return [
+        _Figure(
+            found["n"],
+            bool(found["minus"] or (found["open"] and found["close"])),
+            _unit(found["u1"] or found["u2"]),
+            found[0].strip(),
+        )
+        for found in NUMBER.finditer(CODE.sub(" ", text))
+    ]
+
+
 def _unmatched_numbers(section: str, rest: str) -> tuple[str, ...]:
-    """A number matches only as a whole number: 3.1 is not in 3.14, and 3.14 is not in 13.14."""
-    issues = []
-    for number in dict.fromkeys(NUMBER.findall(CODE.sub(" ", section))):
-        if not re.search(
-            rf"(?<!\d)(?<!\d[.,]){re.escape(number)}(?!\d)(?![.,]\d)", CODE.sub(" ", rest)
+    """Each summary figure must appear in the handoff with its sign and, where both state one,
+    its unit or scale: 12.3% is not (12.3)%, 4.1x is not 4.1%, 250 thousand is not 250 million.
+
+    A number matches only as a whole number: 3.1 is not in 3.14, and 3.14 is not in 13.14.
+    """
+    held = _figures(rest)
+    issues: dict[str, str] = {}
+    for figure in dict.fromkeys(_figures(section)):
+        same = [h for h in held if h.number == figure.number]
+        if not same:
+            issues.setdefault(
+                figure.number,
+                f"Reader summary number {figure.number} does not appear in the handoff",
+            )
+        elif not any(
+            h.negative == figure.negative
+            and (h.unit == figure.unit or None in (h.unit, figure.unit))
+            for h in same
         ):
-            issues.append(f"Reader summary number {number} does not appear in the handoff")
-    return tuple(issues)
+            written = ", ".join(dict.fromkeys(h.shown for h in same[:3]))
+            issues.setdefault(
+                figure.shown,
+                f"Reader summary number {figure.shown} does not match the handoff, which writes "
+                f"it as {written}: keep the sign and unit as written",
+            )
+    return tuple(issues.values())
 
 
 def reader_issues(text: str) -> tuple[str, ...]:

@@ -1174,7 +1174,7 @@ Active role override: orchestrates analytical modules, handoffs, bounded executi
 | Eligibility / gap / interpretation guard | Do not merge unrelated delivery records into one revision chain without evidence. Maintain issuer/run/as-of context when moving between visuals and files. |
 | Delivery priority | First |
 
-Source anchors: src/deploy_vii/methodology.json; apps/issuer-library/jobs.go; src/deploy_workflow/cpos_status.py; src/deploy_workflow/cpos_handoffs.py.
+Source anchors: src/deploy_vii/methodology.json; apps/issuer-library/jobs.go; src/deploy_workflow/cpos_status.py.
 
 ### CP-2D — Liquidity cash flow bridge
 
@@ -1370,7 +1370,7 @@ Source anchors: src/deploy_vii/methodology.json; src/deploy_vii/bindings/cp3c.py
 | Eligibility / gap / interpretation guard | Standalone HTML embeds charts/fonts/symbol offline. Preserve archived originals and verify each new chart against its handoff; do not claim unsupported exports. |
 | Delivery priority | First |
 
-Source anchors: src/deploy_workflow/handoff_delivery.py; src/deploy_workflow/cpos_handoffs.py; src/deploy_vii/render.py; src/deploy_vii/report_view.py.
+Source anchors: src/deploy_workflow/handoff_delivery.py; src/deploy_vii/render.py; src/deploy_vii/report_view.py.
 
 ## Alias coverage and separate duties
 
@@ -1503,7 +1503,6 @@ Not re-audited since this catalogue date: merging the launcher (PR #1) and joini
 | src/deploy_vii/render.py | 58f1b503f0a40efc5895c1612eaa707b74a056af2c41f5a82cebd5aae7dc9730 |
 | src/deploy_vii/inputs/portfolio.py | ed239e92269fb550601e76ccaf84aaf05b739428a265781cb07dacc7ffbbe048 |
 | src/deploy_workflow/handoff_delivery.py | c5aef342cfaf2e14c0431157ef814fe6ba19621fab1fea47e80b0e19e43bf227 |
-| src/deploy_workflow/cpos_handoffs.py | a3505c2e9486b1dff2057ab2b742666506cce586c1fcf923c8109be3f4b09a21 |
 | src/deploy_workflow/restructuring_series.py | 40ff6cdea8083c8880f1dc8b2418c27884fa7e1548e987055938331e1a1a9c6c |
 | src/deploy_vii/methods/cp0.md | 68b7bf93b09625ff5ce7f7e4d0930ed27f09959da587509eba96b06ce9ef2a6f |
 | src/deploy_vii/methods/cp1a.md | 075ade1573851dba48e763edacdbe76d3d0ff240302c5e58d7cb5671ae2e3929 |
