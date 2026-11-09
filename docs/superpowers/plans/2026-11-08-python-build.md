@@ -257,7 +257,7 @@ Not ported: upstream changes to `packaging/runtime.py` and `smoke_test.py`, beca
   - `GET /api/runs/events?id=<job>` returns `{"events": [...], "complete": bool}`;
   - `POST /api/runs/resume` takes `{"id": str, "cap_usd": str, "max_turns": int}` and returns 200 with the new job's review payload;
   - `events.progress(folder: Path) -> dict | None`;
-  - `notify.finish_notice(job: dict) -> tuple[str, str]` (title, body);
+  - `notify.finish_notice(folder: Path) -> tuple[str, str] | None` (title, body), reading the job folder's `status.json` and `review.json` as Go's `finishNotice(folder)` does; None when the status cannot be decoded;
   - `notify.toast(title: str, body: str) -> None` (a no-op off Windows, logged).
 - The resume cap and turn limit come from the request's `cap_usd` and `max_turns`, as in the Go key (`resumeRun`); the stopped run's recorded `cap_usd` is not reused.
 
