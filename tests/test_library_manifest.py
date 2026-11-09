@@ -3,7 +3,9 @@
 import copy
 import importlib.util
 import json
+import os
 import shutil
+import threading
 from pathlib import Path
 
 import pytest
@@ -164,4 +166,110 @@ def test_malformed_optional_inputs_raise(tmp_path):
     broken.mkdir()
     (broken / "delivery.json").write_text("{not json")
     with pytest.raises(lm.ManifestError, match="delivery.json"):
+        lm.build(root, run_id)
+
+
+def run_dir(root, run_id):
+    return root / "runs" / run_id
+
+
+def refused(root, run_id, match):
+    with pytest.raises(lm.ManifestError, match=match) as err:
+        lm.build(root, run_id)
+    assert "missing" not in str(err.value)
+
+
+def test_linked_context_is_refused(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    real = tmp_path / "real-context.json"
+    path = run_dir(root, run_id) / "context.json"
+    path.rename(real)
+    path.symlink_to(real)
+    refused(root, run_id, "context.json is a link")
+
+
+def test_dangling_link_is_a_link_not_missing(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    path = run_dir(root, run_id) / "expectations.json"
+    path.unlink()
+    path.symlink_to(tmp_path / "nowhere.json")
+    refused(root, run_id, "expectations.json is a link")
+
+
+def test_linked_optional_handoff_is_refused(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    outside = tmp_path / "CP-1.md"
+    outside.write_text("# outside\n", encoding="utf-8")
+    (run_dir(root, run_id) / "CP-1.md").unlink()
+    (run_dir(root, run_id) / "CP-1.md").symlink_to(outside)
+    refused(root, run_id, "CP-1.md is a link")
+
+
+@pytest.mark.skipif(not hasattr(os, "mkfifo"), reason="no FIFOs")
+def test_fifo_is_refused_without_blocking(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    path = run_dir(root, run_id) / "expectations.json"
+    path.unlink()
+    os.mkfifo(path)
+    outcome = []
+
+    def attempt():
+        try:
+            lm.build(root, run_id)
+        except lm.ManifestError as err:
+            outcome.append(str(err))
+
+    worker = threading.Thread(target=attempt, daemon=True)
+    worker.start()
+    worker.join(10)
+    assert not worker.is_alive(), "build blocked on a FIFO"
+    assert outcome and "not a regular file" in outcome[0] and "missing" not in outcome[0]
+
+
+def test_linked_run_folder_is_refused_and_nothing_is_written(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    elsewhere = tmp_path / "elsewhere"
+    shutil.move(str(run_dir(root, run_id)), elsewhere)
+    run_dir(root, run_id).symlink_to(elsewhere, target_is_directory=True)
+    with pytest.raises(lm.ManifestError, match="link"):
+        lm.write(root, run_id)
+    assert not (elsewhere / "library.json").exists()
+    assert [p.name for p in elsewhere.glob(".library-*")] == []
+
+
+def test_linked_delivery_folder_is_refused(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    deliveries = run_dir(root, run_id) / "deliveries"
+    (first,) = [p for p in deliveries.iterdir() if p.is_dir()]
+    moved = tmp_path / "moved"
+    shutil.move(str(first), moved)
+    first.symlink_to(moved, target_is_directory=True)
+    refused(root, run_id, "link")
+
+
+@pytest.mark.parametrize("name", ["../../../outside", "..", ".", "", "a/b", "a\\b", "x..y", "a\0b"])
+def test_module_name_that_is_not_plain_is_refused(tmp_path, name):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    (tmp_path / "outside.md").write_text("OUTSIDE SECRET LINE\n", encoding="utf-8")
+
+    def add(text):
+        data = json.loads(text)
+        data["run"]["requested_modules"].append(name)
+        return json.dumps(data, indent=2) + "\n"
+
+    edit(root, run_id, "workflow.json", add)
+    with pytest.raises(lm.ManifestError, match="not a plain name"):
+        lm.build(root, run_id)
+
+
+def test_non_string_module_name_is_refused(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+
+    def add(text):
+        data = json.loads(text)
+        data["run"]["requested_modules"].append(7)
+        return json.dumps(data, indent=2) + "\n"
+
+    edit(root, run_id, "workflow.json", add)
+    with pytest.raises(lm.ManifestError, match="not a plain name"):
         lm.build(root, run_id)

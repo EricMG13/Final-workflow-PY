@@ -2,6 +2,9 @@
 
 Values are copied as written; nothing is calculated or converted, and a value that cannot be
 pinned to exactly one source line is omitted with its field. Missing is never zero.
+
+Standard library plus this repo's `issuer_library.events.open_regular`, which reads a workspace
+file without following a link or blocking on a FIFO.
 """
 
 from __future__ import annotations
@@ -10,9 +13,16 @@ import hashlib
 import json
 import os
 import re
+import sys
 import tempfile
 from pathlib import Path
 from typing import Any, NamedTuple
+
+HERE = Path(__file__).resolve().parent
+ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
+sys.path.insert(0, str(ENGINE_SRC))
+
+from issuer_library.events import open_regular
 
 SCHEMA = "issuer-library-run/1"
 Json = dict[str, Any]
@@ -77,20 +87,38 @@ class _Delivery(NamedTuple):
     report: _Doc | None
 
 
-def _doc(root: Path, rel: str) -> _Doc:
+def _read(root: Path, rel: str) -> bytes | None:
+    """The file's bytes, or None when it is absent; a link or non-regular file is refused."""
     path = root / rel
-    if not path.is_file():
+    for parent in reversed(Path(rel).parents):
+        if parent.parts and (root / parent).is_symlink():
+            raise ManifestError(f"{rel} is under a link ({parent.as_posix()})")
+    try:
+        with open_regular(path) as stream:
+            return stream.read()
+    except FileNotFoundError:
+        return None
+    except OSError as err:
+        what = "a link" if path.is_symlink() else "not a regular file"
+        raise ManifestError(f"{rel} is {what}") from err
+
+
+def _doc(root: Path, rel: str) -> _Doc:
+    doc = _doc_if(root, rel)
+    if doc is None:
         raise ManifestError(f"{rel} is missing")
-    raw = path.read_bytes()
+    return doc
+
+
+def _doc_if(root: Path, rel: str) -> _Doc | None:
+    raw = _read(root, rel)
+    if raw is None:
+        return None
     try:
         text = raw.decode("utf-8")
     except UnicodeDecodeError as err:
         raise ManifestError(f"{rel} is not UTF-8") from err
     return _Doc(rel, hashlib.sha256(raw).hexdigest(), text.replace("\r\n", "\n").split("\n"))
-
-
-def _doc_if(root: Path, rel: str) -> _Doc | None:
-    return _doc(root, rel) if (root / rel).is_file() else None
 
 
 def _pin(doc: _Doc, line: int) -> Json:
@@ -386,6 +414,12 @@ def _identity(ctx: Json, sink: _Sink, run: Json) -> Json:
     return out
 
 
+def _check_module(name: object) -> None:
+    ok = isinstance(name, str) and name not in ("", ".", "..") and ".." not in name
+    if not ok or Path(str(name)).name != name or "\\" in name or "\0" in name:
+        raise ManifestError(f"workflow: requested module {name!r} is not a plain name")
+
+
 def build(workspace: Path, run_id: str) -> Json:
     """Return the `issuer-library-run/1` manifest of `runs/<run_id>/`; raise `ManifestError`."""
     if not run_id or run_id in (".", "..") or Path(run_id).name != run_id:
@@ -398,6 +432,8 @@ def build(workspace: Path, run_id: str) -> Json:
     for key in ("pathway", "as_of", "current_period", "reporting_currency", "case_kind"):
         _need(ctx_run, key, str, "context run")
     modules = _need(_need(wf, "run", dict, "workflow"), "requested_modules", list, "workflow")
+    for module in modules:
+        _check_module(module)
     first = next(iter(_need(wf, "sources", dict, "workflow")), None)
     receipt = _receipt(workspace, base)
     chosen = _chosen(_deliveries(workspace, base), receipt[1]["report_sha256"] if receipt else None)
