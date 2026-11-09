@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import base64
 import json
+import os
+import stat
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -417,18 +419,96 @@ def test_refresh_does_not_wait_for_a_running_store_and_its_body_is_not_cached(
     app.engine = engine
     client = client_of(app)
     with ThreadPoolExecutor(max_workers=2) as pool:
-        first = pool.submit(call, client, "GET", "/api/workspace")
-        deadline = time.monotonic() + 5
-        while not (starts.exists() and starts.stat().st_size == 1):
-            assert time.monotonic() < deadline, "the store run never started"
-            time.sleep(0.01)
-        refreshed = pool.submit(call, client_of(app), "POST", "/api/refresh", "{}")
-        response = refreshed.result(timeout=3)  # a TimeoutError means refresh waited for the store
-        assert response.status_code == 200, response.text
-        release.write_bytes(b"")
+        try:
+            first = pool.submit(call, client, "GET", "/api/workspace")
+            deadline = time.monotonic() + 5
+            while not (starts.exists() and starts.stat().st_size == 1):
+                assert time.monotonic() < deadline, "the store run never started"
+                time.sleep(0.01)
+            refreshed = pool.submit(call, client_of(app), "POST", "/api/refresh", "{}")
+            response = refreshed.result(timeout=3)  # TimeoutError: refresh waited for the store
+            assert response.status_code == 200, response.text
+        finally:
+            release.write_bytes(b"")  # a failure must end the held store run, not hang the pool
         body = first.result(timeout=10)
     assert body.status_code == 200 and body.text.strip() == '{"run": 1}'
     follow = call(client, "GET", "/api/workspace")
     assert follow.status_code == 200 and follow.text.strip() == '{"run": 2}', (
         "the pre-refresh body was cached: " + follow.text
     )
+
+
+class Entry:
+    """A DirEntry stand-in for the stat, link and junction answers a platform can give."""
+
+    def __init__(self, entry: os.DirEntry[str], *, junction: bool = False, gone: bool = False):
+        self.name, self.path = entry.name, entry.path
+        self.junction, self.gone = junction, gone
+
+    def stat(self, *, follow_symlinks: bool = True) -> os.stat_result:
+        if self.gone:
+            raise FileNotFoundError(2, "No such file or directory", self.path)
+        return os.stat(self.path)
+
+    def is_symlink(self) -> bool:
+        return False
+
+    def is_junction(self) -> bool:
+        return self.junction
+
+
+def listing_with(monkeypatch: pytest.MonkeyPatch, **kinds: bool) -> list[str]:
+    """Wrap os.scandir so entries named in kinds (name -> junction?) or ending .tmp (gone) are
+    presented as stand-ins; returns the directories listed."""
+    real, listed = os.scandir, []
+
+    class Listing:
+        def __init__(self, path: str | os.PathLike[str]) -> None:
+            listed.append(str(path))
+            self.inner = real(path)
+
+        def __enter__(self) -> list[Entry | os.DirEntry[str]]:
+            entries = self.inner.__enter__()
+            return [
+                Entry(e, junction=True)
+                if e.name in kinds
+                else Entry(e, gone=True)
+                if e.name.endswith(".tmp")
+                else e
+                for e in entries
+            ]
+
+        def __exit__(self, *exc: object) -> None:
+            self.inner.__exit__(*exc)
+
+    monkeypatch.setattr(os, "scandir", Listing)
+    return listed
+
+
+def test_the_fingerprint_walk_does_not_descend_a_directory_junction(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    put(tmp_path, "runs/case-a/CP-0.md", b"x")
+    (tmp_path / "runs/case-a/junction").symlink_to("..", target_is_directory=True)
+    assert stat.S_ISDIR(os.stat(tmp_path / "runs/case-a/junction").st_mode)
+    listed = listing_with(monkeypatch, junction=True)
+    lines = server_module.tree_files(tmp_path, "runs")
+    assert len(listed) == 2, listed  # runs and runs/case-a only
+    assert [line.split("\t")[0] for line in lines] == ["runs/case-a/CP-0.md"]
+
+
+def test_a_regular_file_named_like_a_tree_is_described(tmp_path: Path) -> None:
+    put(tmp_path, "deliverables", b"1234")
+    [line] = server_module.tree_files(tmp_path, "deliverables")
+    assert line.startswith("deliverables\t4\t")
+
+
+def test_an_entry_that_vanishes_during_the_walk_is_recorded_missing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    put(tmp_path, "runs/case-a/CP-0.md", b"x")
+    put(tmp_path, "runs/case-a/status.json.tmp", b"{}")
+    listing_with(monkeypatch)
+    lines = server_module.tree_files(tmp_path, "runs")
+    assert "runs/case-a/status.json.tmp\tmissing" in lines
+    assert any(line.startswith("runs/case-a/CP-0.md\t1\t") for line in lines)

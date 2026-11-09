@@ -117,24 +117,34 @@ def describe(label: str, name: Path) -> str:
 
 
 def tree_files(workspace: Path, tree: str) -> list[str]:
-    """One line per regular file under workspace/tree; links are never followed and a missing
-    tree is empty. Any other error raises."""
+    """One line per regular file under workspace/tree; links and junctions are never followed, a
+    missing tree is empty, a file that vanishes mid-walk is recorded missing and a regular file in
+    place of the tree is described itself (as Go's WalkDir does). Any other error raises."""
     top = workspace / tree
     try:
-        if not stat.S_ISDIR(top.lstat().st_mode):
-            return []
+        mode = top.lstat().st_mode
     except FileNotFoundError:
+        return []
+    if stat.S_ISREG(mode):
+        return [describe(tree, top)]
+    if not stat.S_ISDIR(mode) or top.is_junction():
         return []
     lines: list[str] = []
     pending = [top]
     while pending:
         with os.scandir(pending.pop()) as entries:
             for entry in entries:
-                info = entry.stat(follow_symlinks=False)
+                relative = Path(entry.path).relative_to(workspace).as_posix()
+                try:
+                    info = entry.stat(follow_symlinks=False)
+                except FileNotFoundError:
+                    lines.append(f"{relative}\tmissing")
+                    continue
+                if entry.is_symlink() or entry.is_junction():
+                    continue
                 if stat.S_ISDIR(info.st_mode):
                     pending.append(Path(entry.path))
                 elif stat.S_ISREG(info.st_mode):
-                    relative = Path(entry.path).relative_to(workspace).as_posix()
                     lines.append(f"{relative}\t{info.st_size}\t{info.st_mtime_ns}")
     return lines
 
