@@ -1,0 +1,27 @@
+{
+  "schema": "live-case/1",
+  "check": "A-ab",
+  "label": "TransDigm Group FY2024 (as of 2024-09-30), older source, run type secondary; classification investment_grade (A of A/B)",
+  "pathway": "credit_snapshot",
+  "run_type": "secondary",
+  "requested_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+  ],
+  "config": "sol-medium",
+  "cap_usd": "25",
+  "sources": [
+    "data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+    "data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+    "data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+    "data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+    "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf"
+  ],
+  "accept_limitations": true
+}
