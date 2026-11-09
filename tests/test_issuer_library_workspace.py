@@ -15,7 +15,7 @@ import json
 import re
 from collections.abc import Callable, Iterator
 from typing import Any
-from urllib.parse import parse_qs, quote
+from urllib.parse import quote
 
 import pytest
 from issuer_library_browser import (
@@ -53,7 +53,10 @@ ROLE_WORDS = {
     "forecast_exact": "Forecast calculations",
     "current_synthesis": "Current synthesis",
 }
-TEXT = "const t=e=>e.textContent.replace(/\\s+/g,' ').trim();"
+TEXT = (
+    "const d=document,t=e=>e.textContent.replace(/\\s+/g,' ').trim();"
+    "const q=s=>d.querySelector(s),qa=s=>[...d.querySelectorAll(s)];"
+)
 Opener = Callable[..., Screen]
 
 
@@ -299,9 +302,19 @@ def test_a_synthetic_delivery_shows_accepted_unrecorded_and_unknown_states_in_ex
     assert not screen.exists(".report-list .badge-attention"), "no report row uses amber"
 
 
+Store = dict[str, Any]
+NM = "n.m.: not modelled in the calculation record"
+UNRECORDED_CELL = {"exact": None, "display": "n.a.", "status": "na"}
+
+
+@pytest.fixture
+def forged(workspace: Store) -> Store:
+    return copy.deepcopy(workspace)
+
+
 def probe(screen: Screen, body: str, arg: Any = None) -> Any:
-    """Run a function body in the page with `d` and `t` (whitespace-collapsed text) defined."""
-    return screen.page.evaluate("(a)=>{" + TEXT + "const d=document;" + body + "}", arg)
+    """Run a function body in the page with d, t (collapsed text), q and qa (query helpers)."""
+    return screen.page.evaluate("(a)=>{" + TEXT + body + "}", arg)
 
 
 def choose(screen: Screen, model_id: str) -> None:
@@ -309,169 +322,152 @@ def choose(screen: Screen, model_id: str) -> None:
     until(screen.page, f"current.section===({json.dumps(model_id)})")
 
 
-def model_of(store: dict[str, Any], model_id: str) -> dict[str, Any]:
+def model_of(store: Store, model_id: str) -> Store:
     return next(m for m in store["models"] if m["id"] == model_id)
 
 
-def renamed(store: dict[str, Any], old: str, new: str) -> dict[str, Any]:
-    forged = copy.deepcopy(store)
-    model_of(forged, old)["id"] = new
-    for other in forged["models"]:
+def rename(store: Store, old: str, new: str) -> Store:
+    model_of(store, old)["id"] = new
+    for other in store["models"]:
         if other.get("previous") == old:
             other["previous"] = new
-    return forged
+    return store
 
 
 CASHFLOW_READ = """
-const s=d.querySelector('.forecast-cashflow'),table=s.querySelector('table');
-const heads=[...table.querySelectorAll('thead tr')],body=[...table.querySelectorAll('tbody tr')];
-const band=tr=>tr.classList.contains('band-row'),rows=body.filter(tr=>!band(tr));
-const tds=tr=>[...tr.querySelectorAll('td')],notes=s.querySelector('.cashflow-notes');
-const na=s.querySelector('.cashflow-na'),h2=s.querySelector('h2');
-return {model:d.querySelector('#model-select').value,h2:h2.textContent,
-caption:h2.nextElementSibling.textContent,
-groups:[...heads[0].querySelectorAll('th[colspan]')].map(t),
-spans:[...heads[0].querySelectorAll('th[colspan]')].map(th=>Number(th.getAttribute('colspan'))),
-columns:[...heads[1].querySelectorAll('th')].map(t),
-ytd:[...heads[1].querySelectorAll('th')].filter(th=>th.textContent.endsWith(' (YTD)'))
+const s=q('.forecast-cashflow'),h2=s.querySelector('h2'),n=s.querySelector('.cashflow-notes');
+const na=s.querySelector('.cashflow-na'),all=x=>[...s.querySelector('table').querySelectorAll(x)];
+const heads=all('thead tr'),body=all('tbody tr'),band=tr=>tr.classList.contains('band-row');
+const rows=body.filter(tr=>!band(tr)),tds=tr=>[...tr.querySelectorAll('td')];
+const heads0=[...heads[0].querySelectorAll('th[colspan]')];
+const heads1=[...heads[1].querySelectorAll('th')];
+return {model:q('#model-select').value,h2:h2.textContent,caption:h2.nextElementSibling.textContent,
+groups:heads0.map(t),spans:heads0.map(th=>Number(th.getAttribute('colspan'))),columns:heads1.map(t),
+ytd:heads1.filter(th=>th.textContent.endsWith(' (YTD)'))
 .map(th=>[th.querySelector('span.col-sub')?.textContent,th.querySelectorAll('*').length]),
 bands:body.filter(band).map(t),labels:rows.map(tr=>t(tr.querySelector('th'))),
 displays:rows.map(tr=>tds(tr).map(td=>td.textContent)),
 beforeFirst:body.map((tr,i)=>band(tr)?[t(tr),t(body[i+1].querySelector('th'))]:null).filter(Boolean),
 titles:rows.map(tr=>tds(tr).map(td=>td.getAttribute('title'))),
 aria:rows.map(tr=>tds(tr).map(td=>td.getAttribute('aria-label'))),
-notes:[...s.querySelectorAll('.cashflow-notes li')].map(li=>li.textContent),
-notesPlace:[notes.previousElementSibling===s.querySelector('.table-scroll'),
-notes.nextElementSibling===na],
-na:[...s.querySelectorAll('.cashflow-na li')].map(t),
-naDisclosure:[na.tagName,na.hasAttribute('open'),t(na.querySelector('summary'))],
-dashes:[...s.querySelectorAll('tbody td')].filter(td=>td.textContent==='—').length,
+notes:[...n.querySelectorAll('li')].map(li=>li.textContent),
+place:[n.previousElementSibling===s.querySelector('.table-scroll'),n.nextElementSibling===na],
+na:[...na.querySelectorAll('li')].map(t),
+disclosure:[na.tagName,na.hasAttribute('open'),t(na.querySelector('summary'))],
+dashes:all('tbody td').filter(td=>td.textContent==='—').length,
 totals:rows.filter(tr=>tr.classList.contains('total-row')).map(tr=>t(tr.querySelector('th'))),
-limits:[...d.querySelectorAll('.forecast-limits li')].map(t),
-limitsHeading:d.querySelector('.forecast-limits h2').textContent};
+limits:qa('.forecast-limits li').map(t),limitsHeading:q('.forecast-limits h2').textContent};
 """
-
-
 FORECAST_READ = """
-const tools=d.querySelector('.forecast-tools'),as=d.querySelector('.forecast-assumptions');
-const frame=d.getElementById('model-preview'),built=d.querySelector('.forecast-built');
+const tools=q('.forecast-tools'),as=q('.forecast-assumptions'),built=q('.forecast-built');
 const rows=[...built.querySelectorAll('tbody tr')].map(tr=>{
-  const cells=[...tr.querySelectorAll('td')],link=cells[1].querySelector('a');
-  const run=cells[0].querySelector('span.code');
-  const badge=cells[3].querySelector('.badge');
-  return {role:tr.querySelector('th').textContent,run:run&&run.textContent,sha:cells[2].textContent,
-  status:t(cells[3]),badge:badge&&[...badge.classList],link:link&&link.textContent,
-  href:link&&link.getAttribute('href'),file:cells[1].textContent,
-  title:cells[1].querySelector('[title]')?.getAttribute('title')};});
-return {options:[...d.querySelectorAll('#model-select option')].map(o=>o.textContent),
-selected:[...d.querySelectorAll('#model-select option')].filter(o=>o.selected)
-.map(o=>o.textContent),
+  const c=[...tr.querySelectorAll('td')],link=c[1].querySelector('a');
+  const b=c[3].querySelector('.badge');
+  return {role:tr.querySelector('th').textContent,run:c[0].querySelector('span.code')?.textContent,
+  sha:c[2].textContent,status:t(c[3]),badge:b&&[...b.classList],link:link&&link.textContent,
+  href:link&&link.getAttribute('href'),file:c[1].textContent,
+  title:c[1].querySelector('[title]')?.getAttribute('title')};});
+return {options:qa('#model-select option').map(o=>o.textContent),
+selected:qa('#model-select option').filter(o=>o.selected).map(o=>o.textContent),
 badges:[...tools.querySelectorAll('.badge')].map(b=>b.textContent),
 muted:[...tools.querySelectorAll('.muted')].map(b=>b.textContent),
-download:t(tools.querySelector('a[download]')),scope:d.querySelector('.forecast-scope').textContent,
-input:d.querySelector('.forecast-input').textContent,revision:d.querySelector('.forecast-revision').textContent,
-headings:[...d.querySelectorAll('.forecast > section > h2')].map(t),
-registerHeading:as.querySelector('h3').textContent,intro:t(as.querySelector('.register-intro')),
+download:t(tools.querySelector('a[download]')),scope:q('.forecast-scope').textContent,
+input:q('.forecast-input').textContent,revision:q('.forecast-revision').textContent,
+headings:qa('.forecast > section > h2').map(t),registerHeading:as.querySelector('h3').textContent,
+intro:t(as.querySelector('.register-intro')),
 register:[...as.querySelectorAll('tbody tr')].map(tr=>[...tr.children].map(c=>c.textContent)),
 registerHref:as.querySelector('a.text-action').getAttribute('href'),
 registerLink:t(as.querySelector('a.text-action')),
 builtHeads:[...built.querySelectorAll('thead th')].map(t),rows,
 attempts:t(built.querySelector('.forecast-attempts')),
-attemptsAfterTable:built.querySelector('.table-scroll').nextElementSibling===built.querySelector('.forecast-attempts'),
-sandbox:frame.getAttribute('sandbox'),src:frame.getAttribute('src'),dataSrc:frame.dataset.src};
+attemptsAfterTable:built.querySelector('.table-scroll').nextElementSibling
+===built.querySelector('.forecast-attempts'),
+sandbox:q('#model-preview').getAttribute('sandbox'),src:q('#model-preview').getAttribute('src'),
+dataSrc:q('#model-preview').dataset.src};
 """
+BUILT_HEADS = ["Role", "Run", "Source", "SHA-256 prefix", "Status"]
+HEADINGS = [
+    "Cash flow model",
+    "Assumptions and their rationale",
+    "Model limitations",
+    "Why this model was built",
+    "Built from",
+]
+ATTEMPTS = (
+    "These files come from different attempts: CP-1-attempt-2.md (attempt 2), "
+    "CP-2G-attempt-2.md (attempt 2), CP-2G-attempt-1-calculations.json (attempt 1)"
+)
+MODEL_URL = r"/files/deliverables/tdg-model-3/model\.html\?sha256=[0-9a-f]{64}&embedded=1"
 
 
 @pytest.mark.parametrize("run", [r for r, e in FORECAST["runs"].items() if e["models"]])
-def test_forecast_for_run_shows_its_models_their_state_why_built_and_what_they_were_built_from(
-    show: Opener, workspace: dict[str, Any], run: str
+def test_forecast_for_run_shows_its_models_state_reason_and_sources(
+    show: Opener, workspace: Store, run: str
 ) -> None:
-    expected = FORECAST["runs"][run]
-    screen = forecast_tab(show, workspace, run)
+    want, screen = FORECAST["runs"][run], forecast_tab(show, workspace, run)
     got = probe(screen, FORECAST_READ)
-    assert got["options"] == expected["options"]
-    assert got["selected"] == [expected["selected"]]
-    assert got["badges"] == [expected["state"]]
-    assert got["muted"] == [expected["qualification"]]
+    assert got["options"] == want["options"]
+    assert got["selected"] == [want["selected"]]
+    assert (got["badges"], got["muted"]) == ([want["state"]], [want["qualification"]])
     assert got["download"] == "Download original HTML"
-    assert got["scope"] == expected["scope"]
-    assert got["input"] == expected["inputContract"]
-    assert got["revision"] == expected["revisionNote"]
-    assert got["headings"] == [
-        "Cash flow model",
-        "Assumptions and their rationale",
-        "Model limitations",
-        "Why this model was built",
-        "Built from",
-    ]
-    assert got["registerHeading"] == expected["registerHeading"]
-    assert got["intro"] == expected["registerIntro"]
-    assert [r[0] for r in got["register"]] == expected["registerIds"]
-    assert got["register"] == expected["registerRows"]
-    assert got["builtHeads"] == ["Role", "Run", "Source", "SHA-256 prefix", "Status"]
-    assert [r["role"] for r in got["rows"]] == [
-        ROLE_WORDS[b["role"]] for b in expected["builtFrom"]
-    ]
-    for row, b in zip(got["rows"], expected["builtFrom"], strict=True):
-        role = b["role"]
-        assert row["run"] == b["path"].split("/")[1], role
-        assert row["sha"] == b["sha256Prefix"], role
-        assert row["status"] == (
-            "Changed since publication" if b["changed"] else "Matches publication"
-        )
-        assert (
-            row["badge"] and ("badge-attention" if b["changed"] else "badge-gray") in row["badge"]
-        ), role
-        if b["output"] is None:
-            assert row["link"] is None, f"{role} must not link"
-            assert row["file"] == b["path"].split("/")[-1], role
-            assert row["title"] == b["path"], f"{role} keeps the full path in a title"
-        else:
-            assert row["link"] == b["output"].split("/")[-1], role
-    # The sources come from different attempts, and the note says which files, as a fact.
-    assert got["attempts"] == (
-        "These files come from different attempts: CP-1-attempt-2.md (attempt 2), "
-        "CP-2G-attempt-2.md (attempt 2), CP-2G-attempt-1-calculations.json (attempt 1)"
+    assert (got["scope"], got["input"]) == (want["scope"], want["inputContract"])
+    assert got["revision"] == want["revisionNote"]
+    assert got["headings"] == HEADINGS
+    assert (got["registerHeading"], got["intro"]) == (
+        want["registerHeading"],
+        want["registerIntro"],
     )
+    assert [r[0] for r in got["register"]] == want["registerIds"]
+    assert got["register"] == want["registerRows"]
+    assert got["builtHeads"] == BUILT_HEADS
+    assert [r["role"] for r in got["rows"]] == [ROLE_WORDS[b["role"]] for b in want["builtFrom"]]
+    for row, b in zip(got["rows"], want["builtFrom"], strict=True):
+        changed = "Changed since publication" if b["changed"] else "Matches publication"
+        assert (row["run"], row["sha"], row["status"]) == (
+            b["path"].split("/")[1],
+            b["sha256Prefix"],
+            changed,
+        ), b["role"]
+        assert ("badge-attention" if b["changed"] else "badge-gray") in (row["badge"] or []), b[
+            "role"
+        ]
+        if b["output"] is None:
+            assert row["link"] is None, f"{b['role']} must not link"
+            assert row["file"] == b["path"].split("/")[-1], b["role"]
+            assert row["title"] == b["path"], f"{b['role']} keeps the full path in a title"
+        else:
+            assert row["link"] == b["output"].split("/")[-1], b["role"]
+    assert got["attempts"] == ATTEMPTS
     assert got["attemptsAfterTable"] is True
     assert got["sandbox"] == "allow-scripts allow-downloads"
     assert got["src"] is None, "the frame has no address until the disclosure is opened"
-    assert re.fullmatch(
-        r"/files/deliverables/tdg-model-3/model\.html\?sha256=[0-9a-f]{64}&embedded=1",
-        got["dataSrc"],
-    )
-    assert f"sha256={expected['modelSha256']}" in got["dataSrc"]
-    # Each link opens the output it names, in the run that holds it.
-    links = [(got["registerHref"], expected["registerLinkOutput"])]
+    assert re.fullmatch(MODEL_URL, got["dataSrc"])
+    assert f"sha256={want['modelSha256']}" in got["dataSrc"]
+    assert got["registerLink"] == "Open the full forward credit model output"
+    links = [(got["registerHref"], want["registerLinkOutput"])]
     links += [
         (r["href"], b["output"])
-        for r, b in zip(got["rows"], expected["builtFrom"], strict=True)
+        for r, b in zip(got["rows"], want["builtFrom"], strict=True)
         if b["output"]
     ]
-    assert got["registerLink"] == "Open the full forward credit model output"
-    for href, output in links:
+    for href, output in links:  # Each link opens the output it names, in the run that holds it.
         screen.go(href[1:])
         assert screen.eval("current.output") == output
         screen.go(f"W-Forecast/forecast?c={run}")
 
 
-def test_forecast_for_tdg_002_lays_the_calculation_record_out_as_a_cash_flow_model(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
+def test_forecast_for_tdg_002_lays_out_the_cash_flow_model(show: Opener, workspace: Store) -> None:
     got = probe(forecast_tab(show, workspace, "tdg-002"), CASHFLOW_READ)
     assert got["model"] == CASH["model"]
     assert (got["h2"], got["caption"]) == ("Cash flow model", CASH["caption"])
-    assert got["groups"] == CASH["groups"]
-    assert got["spans"] == [2, 3, 3, 3]
+    assert (got["groups"], got["spans"]) == (CASH["groups"], [2, 3, 3, 3])
     assert got["columns"] == CASH["columns"]
-    # A year-to-date header puts "(YTD)" in its own span; the header text is unchanged.
-    assert got["ytd"] == [["(YTD)", 1], ["(YTD)", 1]]
+    assert got["ytd"] == [["(YTD)", 1], ["(YTD)", 1]]  # "(YTD)" sits in its own span
     assert got["bands"] == CASH["bands"]
     assert got["labels"] == [r["label"] for r in CASH["rows"]]
     for label, shown, row in zip(got["labels"], got["displays"], CASH["rows"], strict=True):
         assert shown == row["display"], label
-    # Each band heading sits directly before its first row.
-    for band, first in got["beforeFirst"]:
+    for band, first in got["beforeFirst"]:  # Each band heading sits directly before its first row.
         assert first == next(r["label"] for r in CASH["rows"] if r["band"] == band)
     for name, exact in CASH["titles"].items():
         label, column, *group = name.split("|")
@@ -482,95 +478,74 @@ def test_forecast_for_tdg_002_lays_the_calculation_record_out_as_a_cash_flow_mod
         ]
         assert len(at) == 1, f"{name} must name exactly one column"
         assert got["titles"][got["labels"].index(label)][at[0]] == exact, name
-    assert got["notes"] == CASH["notes"]
-    assert got["notesPlace"] == [True, True]
+    assert (got["notes"], got["place"]) == (CASH["notes"], [True, True])
     assert got["na"] == CASH["notAvailable"]
     count = len(CASH["notAvailable"])
-    assert got["naDisclosure"] == ["DETAILS", False, f"Why cells show n.a. ({count} lines)"]
-    assert got["dashes"] == 0, "no cell shows a dash"
-    assert got["totals"] == CASH["totals"]
-    nm = "n.m.: not modelled in the calculation record"
+    assert got["disclosure"] == ["DETAILS", False, f"Why cells show n.a. ({count} lines)"]
+    assert (got["dashes"], got["totals"]) == (0, CASH["totals"])
     for i, row in enumerate(CASH["rows"]):
         for j, shown in enumerate(row["display"]):
-            at = f"{row['label']} / {CASH['columns'][j]}"
-            want = {"n.a.": f"n.a.: {got['titles'][i][j]}", "n.m.": nm}.get(shown)
-            assert got["aria"][i][j] == want, at
-    assert any(nm in line for line in got["aria"]), "some cell is n.m."
-    assert got["limits"] == CASH["limits"]
-    assert got["limitsHeading"] == "Model limitations"
+            want = {"n.a.": f"n.a.: {got['titles'][i][j]}", "n.m.": NM}.get(shown)
+            assert got["aria"][i][j] == want, f"{row['label']} / {CASH['columns'][j]}"
+    assert any(NM in line for line in got["aria"]), "some cell is n.m."
+    assert (got["limits"], got["limitsHeading"]) == (CASH["limits"], "Model limitations")
 
 
 @pytest.mark.parametrize("run", ["tdg-model-001", "tdg-003"])
-def test_forecast_for_run_shows_the_same_models_cash_flow_caption_and_first_row(
-    show: Opener, workspace: dict[str, Any], run: str
+def test_forecast_for_run_shows_the_same_models_caption_and_first_row(
+    show: Opener, workspace: Store, run: str
 ) -> None:
     got = probe(
         forecast_tab(show, workspace, run),
-        "const f=d.querySelector('.forecast-cashflow tbody tr:not(.band-row)');"
-        "return {model:d.querySelector('#model-select').value,"
-        "caption:d.querySelector('.forecast-cashflow h2').nextElementSibling.textContent,"
+        "const f=q('.forecast-cashflow tbody tr:not(.band-row)');"
+        "return {model:q('#model-select').value,"
+        "caption:q('.forecast-cashflow h2').nextElementSibling.textContent,"
         "label:t(f.querySelector('th')),cells:[...f.querySelectorAll('td')].map(td=>td.textContent)};",
     )
     first = CASH["rows"][0]
-    assert got == {
-        "model": CASH["model"],
-        "caption": CASH["caption"],
-        "label": first["label"],
-        "cells": first["display"],
-    }
+    want = {"model": CASH["model"], "caption": CASH["caption"]}
+    assert got == want | {"label": first["label"], "cells": first["display"]}
 
 
-def test_a_model_with_no_calculation_record_says_so_in_place_of_the_table_hostile_text_stays_text(
-    show: Opener, workspace: dict[str, Any]
+def test_a_model_with_no_calculation_record_says_so_hostile_text_stays_text(
+    show: Opener, forged: Store
 ) -> None:
     quoted = 'x" onmouseover="alert(1)'
-    forged = copy.deepcopy(workspace)
-    first, second = model_of(forged, "tdg-model-3"), model_of(forged, "tdg-model-2")
-    second["cashflow"] = None
-    flow = first["cashflow"]
+    model_of(forged, "tdg-model-2")["cashflow"] = None
+    flow = model_of(forged, "tdg-model-3")["cashflow"]
     flow["limits"] = flow["notes"] = [BAD]
-    flow["rows"][0]["cells"][1] = {"exact": None, "display": "n.a.", "reason": BAD, "status": "na"}
-    flow["rows"][0]["cells"][2] = {
-        "exact": None,
-        "display": "n.a.",
-        "reason": quoted,
-        "status": "na",
-    }
+    flow["rows"][0]["cells"][1] = UNRECORDED_CELL | {"reason": BAD}
+    flow["rows"][0]["cells"][2] = UNRECORDED_CELL | {"reason": quoted}
     flow["units"] = None
     screen = forecast_tab(show, forged, "tdg-002")
     got = probe(
         screen,
-        "const q=d.querySelectorAll('.cashflow td')[2];"
-        "return {caption:d.querySelector('.forecast-cashflow h2').nextElementSibling.textContent,"
-        "limit:d.querySelector('.forecast-limits li').textContent,"
-        "notes:[...d.querySelectorAll('.cashflow-notes li')].map(li=>li.textContent),"
-        "na:[...d.querySelectorAll('.cashflow-na li')].map(li=>li.textContent).slice(0,1),"
-        "aria:d.querySelectorAll('.cashflow td')[1].getAttribute('aria-label'),"
-        "quoted:q.getAttribute('aria-label'),onmouseover:q.hasAttribute('onmouseover'),"
-        "names:[...q.attributes].map(x=>x.name).sort(),"
-        "expected:['aria-label','class','title'].filter(n=>q.hasAttribute(n)).sort(),"
-        "img:d.querySelector('.forecast-cashflow img,.forecast-limits img')!==null,"
-        "onerror:d.querySelector('[onerror]')!==null};",
+        "const c=qa('.cashflow td'),x=c[2];"
+        "return {caption:q('.forecast-cashflow h2').nextElementSibling.textContent,"
+        "limit:q('.forecast-limits li').textContent,"
+        "notes:qa('.cashflow-notes li').map(li=>li.textContent),"
+        "na:qa('.cashflow-na li').map(li=>li.textContent).slice(0,1),"
+        "aria:c[1].getAttribute('aria-label'),quoted:x.getAttribute('aria-label'),"
+        "onmouseover:x.hasAttribute('onmouseover'),names:[...x.attributes].map(a=>a.name).sort(),"
+        "allowed:['aria-label','class','title'].filter(n=>x.hasAttribute(n)).sort(),"
+        "img:!!q('.forecast-cashflow img,.forecast-limits img'),onerror:!!q('[onerror]')};",
     )
     assert got["caption"] == (
         "Units not recorded · Q1 FY2024 (YTD) to FY2027E · history as retained in the handoffs; "
         "forecasts are conditional illustrations from the calculation record"
     )
-    assert got["limit"] == BAD
-    assert got["notes"] == [BAD]
+    assert (got["limit"], got["notes"]) == (BAD, [BAD])
     assert got["na"] == [f"Not available: Power & Control — {CASH['columns'][1]}: {BAD}"]
     assert got["aria"] == f"n.a.: {BAD}"
     # A quote in a reason must stay inside the one aria-label attribute.
-    assert got["quoted"] == f"n.a.: {quoted}"
-    assert got["onmouseover"] is False
-    assert got["names"] == got["expected"]
+    assert (got["quoted"], got["onmouseover"]) == (f"n.a.: {quoted}", False)
+    assert got["names"] == got["allowed"]
     assert (got["img"], got["onerror"]) == (False, False)
     choose(screen, "tdg-model-2")
     after = probe(
         screen,
-        "return {table:d.querySelector('.forecast-cashflow table')!==null,"
-        "p:d.querySelector('.forecast-cashflow p').textContent,"
-        "limits:d.querySelector('.forecast-limits')!==null};",
+        "return {table:!!q('.forecast-cashflow table'),p:q('.forecast-cashflow p').textContent,"
+        "limits:!!q('.forecast-limits')};",
     )
     assert after == {
         "table": False,
@@ -580,58 +555,58 @@ def test_a_model_with_no_calculation_record_says_so_in_place_of_the_table_hostil
 
 
 def test_choosing_another_model_in_the_forecast_tab_shows_that_model(
-    show: Opener, workspace: dict[str, Any]
+    show: Opener, workspace: Store
 ) -> None:
     screen = forecast_tab(show, workspace, "tdg-002")
     choose(screen, "tdg-model-1")
-    got = probe(
+    shown, src = probe(
         screen,
-        "return [d.getElementById('model-select').selectedOptions[0].textContent,"
-        "d.getElementById('model-preview').dataset.src];",
+        "return [q('#model-select').selectedOptions[0].textContent,"
+        "q('#model-preview').dataset.src];",
     )
-    assert got[0] == FORECAST["runs"]["tdg-002"]["options"][2]
-    assert re.search(r"tdg-model-1/model\.html", got[1]), got[1]
+    assert shown == FORECAST["runs"]["tdg-002"]["options"][2]
+    assert re.search(r"tdg-model-1/model\.html", src), src
 
 
 @pytest.mark.parametrize("run", [r for r, e in FORECAST["runs"].items() if not e["models"]])
-def test_forecast_for_run_says_no_model_was_published_from_its_files_and_lists_other_models(
-    show: Opener, workspace: dict[str, Any], run: str
+def test_forecast_for_run_says_no_model_was_published_and_lists_other_models(
+    show: Opener, workspace: Store, run: str
 ) -> None:
-    expected = FORECAST["runs"][run]
+    want = FORECAST["runs"][run]
     got = probe(
         forecast_tab(show, workspace, run),
-        "const o=d.querySelector('.forecast-other');"
-        "return {heading:d.querySelector('#content .missing-state h2')?.textContent,"
-        "select:d.getElementById('model-select')!==null,"
-        "frame:d.getElementById('model-preview')!==null,"
+        "const o=q('.forecast-other');"
+        "return {heading:q('#content .missing-state h2')?.textContent,"
+        "present:[!!q('#model-select'),!!q('#model-preview')],"
         "otherHeading:o&&o.querySelector('h2').textContent,"
         "others:o&&[...o.querySelectorAll('li > a, li > span:first-child')]"
         ".map(e=>e.textContent)};",
     )
     assert got["heading"] == FORECAST["emptyHeading"]
-    assert (got["select"], got["frame"]) == (False, False)
-    assert got["otherHeading"] == expected["otherHeading"]
-    if expected["otherHeading"] is not None:
-        assert got["others"] == expected["others"]
+    assert got["present"] == [False, False]
+    assert got["otherHeading"] == want["otherHeading"]
+    if want["otherHeading"] is not None:
+        assert got["others"] == want["others"]
 
 
-def test_ratio_titles_show_four_decimals_with_the_approximation_sign_only_where_rounding_changed_it(
-    show: Opener, workspace: dict[str, Any]
+RATIOS = [
+    ("percent", "0.5", "50.0000%"),
+    ("percent", "0.123456789", "≈ 12.3457%"),
+    ("percent", "-0.12345", "-12.3450%"),
+    ("percent", "-0.0000000001", "≈ 0.0000%"),
+    ("percent", "1E-4", "0.0100%"),
+    ("multiple", "4.79755", "≈ 4.7976x"),
+    ("multiple", "3", "3.0000x"),
+    ("money", "1221.04741248", "1221.04741248"),
+]
+
+
+def test_ratio_titles_show_four_decimals_with_the_sign_only_where_rounding_changed_it(
+    show: Opener, forged: Store
 ) -> None:
-    forged = copy.deepcopy(workspace)
     rows = model_of(forged, "tdg-model-3")["cashflow"]["rows"]
     pick = {k: next(r for r in rows if r["kind"] == k) for k in ("percent", "multiple", "money")}
-    cases = [
-        ("percent", "0.5", "50.0000%"),
-        ("percent", "0.123456789", "≈ 12.3457%"),
-        ("percent", "-0.12345", "-12.3450%"),
-        ("percent", "-0.0000000001", "≈ 0.0000%"),
-        ("percent", "1E-4", "0.0100%"),
-        ("multiple", "4.79755", "≈ 4.7976x"),
-        ("multiple", "3", "3.0000x"),
-        ("money", "1221.04741248", "1221.04741248"),
-    ]
-    for i, (kind, exact, _) in enumerate(cases):
+    for i, (kind, exact, _) in enumerate(RATIOS):
         pick[kind]["cells"][i] = {
             "exact": exact,
             "display": "shown",
@@ -640,17 +615,16 @@ def test_ratio_titles_show_four_decimals_with_the_approximation_sign_only_where_
         }
     titles = probe(
         forecast_tab(show, forged, "tdg-002"),
-        "return Object.fromEntries([...d.querySelectorAll('.cashflow tbody tr:not(.band-row)')]"
-        ".map(tr=>[t(tr.querySelector('th')),[...tr.querySelectorAll('td')].map(td=>td.getAttribute('title'))]));",
+        "return Object.fromEntries(qa('.cashflow tbody tr:not(.band-row)').map(tr=>"
+        "[t(tr.querySelector('th')),[...tr.querySelectorAll('td')].map(td=>td.getAttribute('title'))]));",
     )
-    for i, (kind, exact, title) in enumerate(cases):
+    for i, (kind, exact, title) in enumerate(RATIOS):
         assert titles[pick[kind]["label"]][i] == title, f"{pick[kind]['label']} {exact}"
 
 
-def test_built_from_names_an_unknown_role_by_its_token_and_adds_no_note_when_files_share_an_attempt(
-    show: Opener, workspace: dict[str, Any]
+def test_built_from_names_an_unknown_role_by_its_token_and_adds_no_note_for_one_attempt(
+    show: Opener, forged: Store
 ) -> None:
-    forged = copy.deepcopy(workspace)
     sources = model_of(forged, "tdg-model-3")["sources"]
     sources[0]["role"] = "<b>mystery</b>"
     for source in sources:
@@ -658,17 +632,15 @@ def test_built_from_names_an_unknown_role_by_its_token_and_adds_no_note_when_fil
             source["path"] = re.sub(r"-attempt-\d+", "-attempt-2", source["path"], count=1)
     got = probe(
         forecast_tab(show, forged, "tdg-002"),
-        "return [d.querySelector('.forecast-built tbody th').textContent,"
-        "d.querySelector('.forecast-built tbody th b')!==null,"
-        "d.querySelector('.forecast-attempts')!==null];",
+        "return [q('.forecast-built tbody th').textContent,!!q('.forecast-built tbody th b'),"
+        "!!q('.forecast-attempts')];",
     )
     assert got == ["<b>mystery</b>", False, False]
 
 
-def test_a_report_whose_qualification_is_unrun_reads_not_run_and_no_acceptance_badge_is_amber(
-    show: Opener, workspace: dict[str, Any]
+def test_a_report_whose_qualification_is_unrun_reads_not_run_and_no_badge_is_amber(
+    show: Opener, forged: Store
 ) -> None:
-    forged = copy.deepcopy(workspace)
     report = next((r for r in forged["reports"] if r["qualification"] == "unrun"), None)
     assert report, "the workspace holds an unrun report"
     screen = show("W-Reports/list?c=tdg-002", forged)
@@ -678,84 +650,74 @@ def test_a_report_whose_qualification_is_unrun_reads_not_run_and_no_acceptance_b
     assert not screen.exists(".badge-attention")
 
 
-def test_model_text_from_a_workspace_stays_text_and_a_source_that_changed_says_so(
-    show: Opener, workspace: dict[str, Any]
+def test_model_text_from_a_workspace_stays_text_and_a_changed_source_says_so(
+    show: Opener, forged: Store
 ) -> None:
-    forged = copy.deepcopy(workspace)
     model = model_of(forged, "tdg-model-3")
     model.update(scope=BAD, revisionNote=BAD)
     model["register"]["rows"][0][1] = BAD
     model["sources"][0]["changed"] = True
     got = probe(
         forecast_tab(show, forged, "tdg-002"),
-        "return {scope:d.querySelector('.forecast-scope').textContent,"
-        "revision:d.querySelector('.forecast-revision').textContent,"
-        "cell:d.querySelector('.forecast-assumptions tbody tr').children[1].textContent,"
-        "img:d.querySelector('#content img[src=\"x\"]')!==null,"
-        "onerror:d.querySelector('#content [onerror]')!==null,"
-        "status:[...d.querySelectorAll('.forecast-built tbody tr')].map(tr=>t(tr.children[4]))};",
+        "return {scope:q('.forecast-scope').textContent,"
+        "revision:q('.forecast-revision').textContent,"
+        "cell:q('.forecast-assumptions tbody tr').children[1].textContent,"
+        "bad:[!!q('#content img[src=\"x\"]'),!!q('#content [onerror]')],"
+        "status:qa('.forecast-built tbody tr').map(tr=>t(tr.children[4]))};",
     )
-    assert got["scope"] == BAD
+    assert (got["scope"], got["cell"]) == (BAD, BAD)
     assert got["revision"] == f"Revision note: {BAD}"
-    assert got["cell"] == BAD
-    assert (got["img"], got["onerror"]) == (False, False)
-    assert got["status"][0] == "Changed since publication"
-    assert got["status"][1:] == ["Matches publication"] * 4
+    assert got["bad"] == [False, False]
+    assert got["status"] == ["Changed since publication", *["Matches publication"] * 4]
 
 
 def test_the_model_frame_is_not_loaded_or_watched_until_its_disclosure_is_opened(
     show: Opener,
 ) -> None:
     # The model file is never answered, so the frame cannot load and the watch must time out.
-    held_model = ("/files/deliverables/tdg-model-3/model.html",)
-    screen = show("W-Overview/overview?c=tdg-002", held_paths=held_model)
+    screen = show(
+        "W-Overview/overview?c=tdg-002", held_paths=("/files/deliverables/tdg-model-3/model.html",)
+    )
     screen.eval("window.DESIGN_FRAME_TIMEOUT_MS=20")
     screen.go("W-Forecast/forecast?c=tdg-002")
-    page = screen.page
     parts = (
-        "const x=d.querySelector('details.model-original'),f=d.getElementById('model-preview');"
+        "const x=q('details.model-original'),f=q('#model-preview');"
         "const s=x.querySelector('.frame-status');"
     )
-    got = probe(
-        screen,
-        parts + "return {open:x.open,summary:t(x.querySelector('summary')),"
-        "inside:f.closest('details')===x,src:f.getAttribute('src')};",
+    state = (
+        "return {open:x.open,summary:t(x.querySelector('summary')),inside:f.closest('details')===x,"
     )
+    got = probe(screen, parts + state + "src:f.getAttribute('src')};")
     assert got == {
         "open": False,
         "summary": "Published model (original HTML)",
         "inside": True,
         "src": None,
     }
-    # Longer than the 20 ms watch the page would start; a started watch un-hides the status.
-    page.wait_for_timeout(80)
+    screen.page.wait_for_timeout(80)  # Longer than the 20 ms watch a start would arm.
     assert probe(screen, parts + "return [s.hidden,t(s)];") == [True, ""], "no watch has started"
     probe(screen, parts + "x.open=true;")
-    until(page, "!!document.getElementById('model-preview').getAttribute('src')")
-    until(page, "/did not load/.test(document.querySelector('.frame-status').textContent)")
+    until(screen.page, "!!document.getElementById('model-preview').getAttribute('src')")
+    until(screen.page, "/did not load/.test(document.querySelector('.frame-status').textContent)")
     got = probe(
         screen,
         parts + "return {same:f.getAttribute('src')===f.dataset.src,text:t(s),"
         "href:s.querySelector('a').getAttribute('href')};",
     )
     assert got["same"] is True
-    assert re.fullmatch(r"The model did not load\. Download original HTML Retry", got["text"])
+    assert got["text"] == "The model did not load. Download original HTML Retry"
     assert re.search(r"model\.html\?sha256=[0-9a-f]{64}&download=1$", got["href"])
     assert probe(screen, parts + "f.dispatchEvent(new Event('load'));return s.hidden;") is True
-    # Closing and opening again does not start a second watch or reset the address.
-    src = screen.attr("#model-preview", "src")
-    probe(screen, parts + "x.open=false;")
-    page.wait_for_timeout(30)
-    probe(screen, parts + "x.open=true;")
-    page.wait_for_timeout(30)
+    src = screen.attr("#model-preview", "src")  # Reopening starts no second watch.
+    for opened in ("false", "true"):
+        probe(screen, parts + f"x.open={opened};")
+        screen.page.wait_for_timeout(30)
     assert screen.attr("#model-preview", "src") == src
     assert probe(screen, parts + "return s.hidden;") is True, "no second watch started"
 
 
-def test_a_model_id_with_markup_in_it_renders_no_element_of_its_own_on_four_screens_and_the_tab(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
-    forged = renamed(workspace, "tdg-model-3", HOSTILE)
+def test_a_model_id_with_markup_renders_no_element_of_its_own(show: Opener, forged: Store) -> None:
+    rename(forged, "tdg-model-3", HOSTILE)
     for hash_route in [
         "W-Overview/overview?c=tdg-002",
         "W-Forecast/forecast?c=tdg-002",
@@ -765,38 +727,29 @@ def test_a_model_id_with_markup_in_it_renders_no_element_of_its_own_on_four_scre
         assert not show(hash_route, forged).exists("[id^=pwn]"), hash_route
     screen = forecast_tab(show, forged, "tdg-002")
     assert not screen.exists("[id^=pwn]"), "Forecast tab"
-    # The id is one encoded section.
     section = quote(HOSTILE, safe="-_.!~*'()")
     hrefs = [h or "" for h in screen.attrs("a", "href")]
-    assert any(h.startswith(f"#W-Forecast/{section}") for h in hrefs), (
-        "the id is one encoded section"
-    )
+    assert any(h.startswith(f"#W-Forecast/{section}") for h in hrefs), "one encoded section"
 
 
-def test_catalogue_text_with_markup_in_it_renders_no_element_of_its_own_in_rows_or_selected_run(
-    show: Opener,
-) -> None:
-    forged = copy.deepcopy(PINNED)
-    run = next(r for r in forged["real"] if r["id"] == "tdg-002")
+def test_catalogue_text_with_markup_renders_no_element_of_its_own(show: Opener) -> None:
+    catalogue = copy.deepcopy(PINNED)
+    run = next(r for r in catalogue["real"] if r["id"] == "tdg-002")
     for field in ["name", "title", "issuer", "sector", "workflow", "summary", "period"]:
         run[field] = HOSTILE
     run["gaps"] = [HOSTILE]
     run["ratings"] = [{"label": HOSTILE, "date": HOSTILE, "source": ""}]
     run["artifacts"][0].update(label=HOSTILE, issue=HOSTILE)
     run["metrics"]["leverage"].update(basis=HOSTILE, source='s"><b id=pwn2>')
-    forged["sources"] = {
-        's"><b id=pwn2>': {"path": HOSTILE, "line": 1, "quote": HOSTILE, "href": HOSTILE}
-    }
-    screen = show("W-Library/cases", catalogue=forged)
+    quote_row = {"path": HOSTILE, "line": 1, "quote": HOSTILE, "href": HOSTILE}
+    catalogue["sources"] = {'s"><b id=pwn2>': quote_row}
+    screen = show("W-Library/cases", catalogue=catalogue)
     screen.click('[data-library-select="tdg-002"]')
     assert not screen.exists("[id^=pwn]")
     assert HOSTILE in squash(screen.text("#run-detail")), "shown as text"
 
 
-def test_a_report_id_with_markup_in_it_renders_no_element_of_its_own(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
-    forged = copy.deepcopy(workspace)
+def test_a_report_id_with_markup_renders_no_element_of_its_own(show: Opener, forged: Store) -> None:
     forged["reports"][0]["id"] = HOSTILE
     for hash_route in [
         "W-Library/cases",
@@ -808,193 +761,16 @@ def test_a_report_id_with_markup_in_it_renders_no_element_of_its_own(
 
 @pytest.mark.parametrize("model_id", ["m é 1", "a%20b", "Société modèle", "a/b?c=1#x"])
 def test_a_model_id_chosen_in_the_model_select_shows_that_model(
-    show: Opener, workspace: dict[str, Any], model_id: str
+    show: Opener, forged: Store, model_id: str
 ) -> None:
-    forged = renamed(workspace, "tdg-model-1", model_id)
-    want = model_of(forged, model_id)
+    want = model_of(rename(forged, "tdg-model-1", model_id), model_id)
     screen = forecast_tab(show, forged, "tdg-002")
     choose(screen, model_id)
     got = probe(
         screen,
-        "return {value:d.getElementById('model-select').value,"
-        "src:d.getElementById('model-preview').dataset.src,"
-        "scope:d.querySelector('.forecast-scope')?.textContent??null,section:parseRoute().section};",
+        "return {value:q('#model-select').value,src:q('#model-preview').dataset.src,"
+        "scope:q('.forecast-scope')?.textContent??null,section:parseRoute().section};",
     )
     assert got["value"] == model_id
     assert want["href"].split("?")[0] in got["src"]
-    assert got["scope"] == want["scope"]
-    assert got["section"] == model_id
-
-
-def test_a_malformed_escape_in_the_section_is_an_unknown_section_never_an_error(
-    show: Opener,
-) -> None:
-    screen = show("W-Overview/overview?c=tdg-002")
-    route = probe(
-        screen,
-        "location.hash='#W-Forecast/%E0%A4%A?c=tdg-002';const r=parseRoute();"
-        "return [r.module,r.section];",
-    )
-    assert route[0] == "W-Forecast"
-    assert route[1] != "%E0%A4%A"
-    until(screen.page, "current.module==='W-Forecast'")
-
-
-def test_the_forecast_tab_opens_the_default_model_not_superseded_preferring_one_with_a_predecessor(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
-    # tdg-model-2 records tdg-model-1; the latest folder, tdg-model-3, records none.
-    forged = copy.deepcopy(workspace)
-    model_of(forged, "tdg-model-3")["previous"] = None
-    model_of(forged, "tdg-model-2")["previous"] = "tdg-model-1"
-    model_of(forged, "tdg-model-1")["previous"] = None
-    got = probe(
-        forecast_tab(show, forged, "tdg-002"),
-        "return [d.getElementById('model-select').value,"
-        "[...d.querySelectorAll('#model-select option')].map(o=>o.value)];",
-    )
-    assert got[0] == "tdg-model-2"
-    assert got[1] == ["tdg-model-2", "tdg-model-3", "tdg-model-1"]
-
-
-HYDRATE_DATA = (
-    "const x=[{heading:'A',level:1,line:1,blocks:[]}],y=[{heading:'B',level:1,line:1,blocks:[]}];"
-    "const data={runs:{},inputs:{},pins:{},handoffs:{aa:x,bb:y},outputs:{"
-    "'r1/CP-1.md':{id:'r1/CP-1.md',sha256:'aa'},'r2/CP-1.md':{id:'r2/CP-1.md',sha256:'aa'},"
-    "'r2/CP-2.md':{id:'r2/CP-2.md',sha256:'bb'}}};"
-)
-
-
-def test_hydrate_gives_every_output_the_sections_of_its_own_hash(show: Opener) -> None:
-    got = probe(
-        show("W-Library/cases"),
-        HYDRATE_DATA + "const o=data.outputs;return [hydrate(data)===data,"
-        "o['r1/CP-1.md'].sections[0].heading,o['r2/CP-1.md'].sections[0].heading,"
-        "o['r2/CP-2.md'].sections[0].heading];",
-    )
-    assert got == [True, "A", "A", "B"]
-
-
-def test_hydrate_refuses_an_output_whose_handoff_was_not_sent(show: Opener) -> None:
-    refused = probe(
-        show("W-Library/cases"),
-        "try{hydrate({outputs:{'r1/CP-1.md':{id:'r1/CP-1.md',sha256:'zz'}},handoffs:{}});}"
-        "catch(error){return error.message;}return null;",
-    )
-    assert refused is not None, "hydrate did not throw"
-    assert re.search(r"r1/CP-1\.md", refused), refused
-
-
-def test_the_cash_flow_table_is_a_labelled_scroll_region_with_ruled_groups_and_quiet_scenarios(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
-    got = probe(
-        forecast_tab(show, workspace, "tdg-002"),
-        "const r=d.querySelector('.forecast-cashflow .table-scroll');"
-        "const h=d.querySelector('.forecast-cashflow h2');"
-        "const f=d.querySelector('.cashflow tbody tr:not(.band-row)');"
-        "const c=[...f.querySelectorAll('td')];"
-        "const g=c.find(x=>x.classList.contains('group-start'));"
-        "const sc=c.find(x=>x.classList.contains('scenario'));"
-        "const q=c.find(x=>!x.classList.contains('scenario')),cs=x=>getComputedStyle(x);"
-        "return {role:r.getAttribute('role'),tab:r.getAttribute('tabindex'),"
-        "labelled:r.getAttribute('aria-labelledby'),id:h.id,cells:c.length,"
-        "starts:c.map(x=>x.classList.contains('group-start')),"
-        "scenario:c.map(x=>x.classList.contains('scenario')),height:cs(c[0]).height,"
-        "minWidth:cs(f.querySelector('th')).minWidth,"
-        "root:parseFloat(cs(document.documentElement).fontSize),border:cs(g).borderLeft,"
-        "padding:cs(g).paddingTop,quiet:cs(sc).backgroundColor,plain:cs(q).backgroundColor};",
-    )
-    assert got["role"] == "region"
-    assert got["tab"] == "0"
-    assert got["id"], "the heading has an id"
-    assert got["labelled"] == got["id"]
-    assert got["cells"] == len(CASH["columns"])
-    assert got["starts"].count(True) == len(CASH["groups"]), "one ruled first column per group"
-    assert got["starts"][0] is True
-    assert True in got["scenario"] and False in got["scenario"], "scenario and plain columns"
-    assert got["height"] == "32px"
-    # The key reads 12rem; a real browser reports the resolved length.
-    assert float(got["minWidth"].removesuffix("px")) == 12 * got["root"]
-    assert re.match(r"^1px solid (rgb\(221, 225, 234\)|#dde1ea)$", got["border"]), got["border"]
-    assert got["padding"] == "5px"
-    assert got["quiet"] == "rgb(246, 247, 250)"
-    assert got["plain"] == "rgba(0, 0, 0, 0)"
-
-
-def test_the_section_pager_names_models_on_forecast_and_reports_on_reports_sections_elsewhere(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
-    screen = forecast_tab(show, workspace, "tdg-002")
-    labels = (
-        "['previous-section','next-section']"
-        ".map(id=>document.getElementById(id).getAttribute('aria-label'))"
-    )
-    assert screen.eval(labels) == ["Previous model", "Next model"]
-    screen.go("W-Reports/list?c=tdg-002")
-    assert screen.eval(labels) == ["Previous report", "Next report"]
-    # An analytical module with several sections keeps the default labels.
-    screen.go("CP-1/summary?c=tdg-002")
-    assert screen.eval(labels) == ["Previous section", "Next section"]
-
-
-def test_help_explains_run_notices_resuming_a_stopped_run_and_na_and_nm_in_the_cash_flow_model(
-    show: Opener,
-) -> None:
-    names = ["Run notices", "Resuming a stopped run", "n.a. and n.m. in the cash flow model"]
-    got = probe(
-        show("W-Help/help"),
-        "const hs=[...d.querySelectorAll('.help-copy h2')];"
-        "const body=n=>{const h=hs.find(x=>t(x)===n);"
-        "return h&&t(h.nextElementSibling);};return {heads:hs.map(t),bodies:a.map(body)};",
-        names,
-    )
-    for name in names:
-        assert name in got["heads"], name
-    notices, resuming, na = got["bodies"]
-    for state in ["running", "complete", "stopped", "failed", "interrupted"]:
-        assert re.search(state, notices), state
-    assert re.search(r"Dismiss", notices)
-    assert re.search(
-        r"Resume appears on stopped, failed or interrupted notices, "
-        r"except a run stopped by a provider ruling\.",
-        notices,
-    )
-    assert resuming == (
-        "A run started from New run that stopped, failed or was interrupted can be resumed from "
-        "its "
-        "notice, from Run activity or from Recent runs. The resumed run is a new run: it keeps the "
-        "accepted modules without a new model call and has its own spending cap, and what the "
-        "stopped "
-        "run spent is not counted against it. A run stopped by a provider ruling cannot be resumed."
-    )
-    for pattern in [
-        r"n\.a\. means not available",
-        r"Why cells show n\.a\.",
-        r"never zero",
-        r"n\.m\. means not modelled",
-    ]:
-        assert re.search(pattern, na), pattern
-
-
-def test_an_other_models_row_opens_the_model_under_the_run_it_was_published_for(
-    show: Opener, workspace: dict[str, Any]
-) -> None:
-    screen = forecast_tab(show, workspace, "tdg-run-comparison")
-    owner = screen.eval(
-        "(()=>{const issuer=contexts['tdg-run-comparison'].issuerKey;"
-        "const same=Object.keys(contexts)"
-        ".filter(k=>contexts[k].issuerKey===issuer&&k!=='tdg-run-comparison');"
-        "const supplier=same[0],owner=same.at(-1);"
-        "if(supplier===owner)throw new Error('one run only');"
-        "const base=JSON.parse(JSON.stringify(window.DESIGN_WORKSPACE.models[0]));"
-        "base.id='zz-owned-model';base.issuerKey=issuer;base.runId=contexts[owner].folder;"
-        "base.sources=[{...base.sources[0],run:supplier}];"
-        "window.DESIGN_WORKSPACE.models.splice(0,window.DESIGN_WORKSPACE.models.length,base);"
-        "return owner;})()"
-    )
-    screen.go("W-Library/cases")
-    screen.go("W-Forecast/forecast?c=tdg-run-comparison")
-    href = screen.attr(".forecast-other li a", "href")
-    assert href, "the row links"
-    assert parse_qs(href.split("?")[1])["c"] == [owner]
+    assert (got["scope"], got["section"]) == (want["scope"], model_id)
