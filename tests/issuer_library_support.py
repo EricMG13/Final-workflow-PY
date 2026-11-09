@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 from pydantic import BaseModel
 
 from issuer_library.jobs import Engine
+from issuer_library.launch import cookie_name
 from issuer_library.model import DeliveryView, Manifest, Metric, Source, blank_run, digest
 from issuer_library.server import Application
 from issuer_library.settings import Locations
@@ -103,7 +104,8 @@ def make_app(tmp_path: Path) -> tuple[Application, Path]:
 
 
 def client_of(app: Application) -> TestClient:
-    return TestClient(app.asgi, base_url=ORIGIN)
+    cookie = f"{cookie_name(HOST)}={app.session.cookie}"
+    return TestClient(app.asgi, base_url=ORIGIN, headers={"Cookie": cookie})
 
 
 def call(client: TestClient, method: str, endpoint: str, body: str = "") -> Any:

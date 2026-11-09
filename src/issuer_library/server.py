@@ -10,7 +10,7 @@ import re
 import threading
 from collections.abc import Callable
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import parse_qsl, quote
 
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import PlainTextResponse
@@ -34,6 +34,7 @@ from .jobs import (
     review_run,
     start_run,
 )
+from .launch import LAUNCHER_ONLY, Session, cookie_name
 from .model import Catalogue, digest, local_path, read_file
 from .settings import Config, Locations, load_config, save_json
 
@@ -141,16 +142,21 @@ class Boundary:
                 headers["Cross-Origin-Resource-Policy"] = "same-origin"
             await send(message)
 
-        headers = Headers(scope=scope)
-        origin = headers.get("origin", "")
-        host = self.lib.host
-        if (
-            headers.get("host") != host
-            or (origin and origin != f"http://{host}")
-            or headers.get("sec-fetch-site") == "cross-site"
-        ):
-            await PlainTextResponse("Local app requests only\n", 403)(scope, receive, send_marked)
+        refusal = self.refusal(scope)
+        if refusal is not None:
+            await refusal(scope, receive, send_marked)
             return
+        await self.app(scope, receive, send_marked)
+
+    def refusal(self, scope: Scope) -> Response | None:
+        """The answer that stops the request here, or None when it may reach the routes."""
+        headers = Headers(scope=scope)
+        if self.foreign(headers):
+            return PlainTextResponse("Local app requests only\n", 403)
+        if scope["path"] == "/launch":
+            return self.launch(scope)
+        if scope["path"] != "/health" and not self.authorised(headers):
+            return PlainTextResponse(LAUNCHER_ONLY + "\n", 403)
         if scope["method"] == "POST" and (
             headers.get("x-issuer-library") != "1"
             or (
@@ -158,11 +164,51 @@ class Boundary:
                 and headers.get("content-type") != "application/json"
             )
         ):
-            await PlainTextResponse("Invalid application request\n", 403)(
-                scope, receive, send_marked
-            )
-            return
-        await self.app(scope, receive, send_marked)
+            return PlainTextResponse("Invalid application request\n", 403)
+        return None
+
+    def foreign(self, headers: Headers) -> bool:
+        """A request that is not this app's own: another host, Origin or site."""
+        origin = headers.get("origin", "")
+        host = self.lib.host
+        return (
+            headers.get("host") != host
+            or bool(origin and origin != f"http://{host}")
+            or headers.get("sec-fetch-site") == "cross-site"
+        )
+
+    def launch(self, scope: Scope) -> Response:
+        """Exchange the one-time ticket for the session cookie; only a GET spends it."""
+        if scope["method"] != "GET":
+            return PlainTextResponse("Method not allowed\n", 405)
+        query = parse_qsl(scope["query_string"].decode("latin-1"), keep_blank_values=True)
+        ticket = next((value for key, value in query if key == "ticket"), "")
+        cookie = self.lib.session.exchange(ticket)
+        if cookie is None:
+            return PlainTextResponse(LAUNCHER_ONLY + "\n", 403)
+        # Plain loopback HTTP has no TLS, so no Secure; no expiry, so it lasts the browser session.
+        name = cookie_name(self.lib.host)
+        return Response(
+            b"",
+            303,
+            headers={
+                "Location": "/",
+                "Set-Cookie": f"{name}={cookie}; Path=/; HttpOnly; SameSite=Strict",
+            },
+        )
+
+    def authorised(self, headers: Headers) -> bool:
+        """Whether any cookie of this launch's name holds its session secret; every one is
+        checked, so a planted cookie of the same name cannot shadow the valid one."""
+        name = cookie_name(self.lib.host)
+        for line in headers.getlist("cookie"):
+            for pair in line.split(";"):
+                key, _, value = pair.strip().partition("=")
+                if len(value) > 1 and value[0] == value[-1] == '"':
+                    value = value[1:-1]
+                if key == name and self.lib.session.valid(value):
+                    return True
+        return False
 
 
 class Application:
@@ -187,6 +233,10 @@ class Application:
         self.stop: Callable[[], None] = lambda: None
         self.catalogue = Catalogue()
         self.refresh_locked()
+        # The ticket's lifetime counts from when the library is ready, after its first discovery.
+        self.session = Session()
+        self.reviews = 0
+        self.quitting = False
         self.asgi = build(self)
 
     def refresh_locked(self) -> None:
