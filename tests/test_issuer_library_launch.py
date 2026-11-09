@@ -20,12 +20,13 @@ import stat
 import subprocess
 import sys
 import threading
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Any, NamedTuple
 from urllib.parse import unquote
 
 import pytest
+import uvicorn
 from issuer_library_support import ORIGIN, POST_HEADERS, make_app
 from starlette.types import Message, Scope
 
@@ -219,6 +220,7 @@ def test_every_app_request_needs_the_session_cookie(tmp_path: Path) -> None:
         ("GET", "/context-form.html", "", 200),
         ("GET", "/fonts/RedHatText-Regular.woff2", "", 200),
         ("GET", "/api/catalogue", "", 200),
+        ("HEAD", "/api/catalogue", "", 200),
         ("GET", "/api/workspace", "", 503),
         ("GET", "/api/runs/list", "", 200),
         ("GET", "/api/runs/status?id=web-" + "a" * 32, "", 404),
@@ -280,7 +282,7 @@ def test_secret_comparisons_are_constant_time() -> None:
 
 def test_requests_without_this_launchs_session_are_refused(tmp_path: Path) -> None:
     """Cookies of another port or instance, a wrong or truncated value, the ticket in a Referer,
-    cookie or header, a cross-site request carrying the valid cookie, path tricks on
+    cookie or header, a cross-site or same-site request carrying the valid cookie, path tricks on
     /files and on the two exempt paths, and a shadowing cookie. Expected by hand: 403 for each,
     except the last (the valid cookie is among those sent), and the ticket is still unspent at
     the end."""
@@ -315,6 +317,7 @@ def test_requests_without_this_launchs_session_are_refused(tmp_path: Path) -> No
     valid = cookie(name, session)
     foreign: dict[str, list[tuple[str, str]]] = {
         "cross-site fetch": valid + [("Sec-Fetch-Site", "cross-site")],
+        "same-site fetch": valid + [("Sec-Fetch-Site", "same-site")],
         "foreign Origin": valid + [("Origin", "http://attacker.invalid")],
         "another port's Origin": valid + [("Origin", "http://127.0.0.1:54322")],
         "sandboxed Origin": valid + [("Origin", "null")],
@@ -345,10 +348,62 @@ def test_requests_without_this_launchs_session_are_refused(tmp_path: Path) -> No
         ("Cookie", f"{name}=planted; {other_name}={other.session.cookie}; {name}={session}")
     ]
     assert drive(app, "GET", "/api/catalogue", headers=shadowed).status == 200
-    for site in ["cross-site"]:
+    for site in ["cross-site", "same-site"]:
         w = drive(app, "GET", "/launch?ticket=" + ticket, headers=[("Sec-Fetch-Site", site)])
         assert w.status == 403 and w.header("Set-Cookie") == "", f"{site} launch"
     assert launch_request(app, "GET", "?ticket=" + ticket).status == 303
+
+
+def serve_over_loopback(app: Application) -> tuple[int, Callable[[], None]]:
+    """Serve the app with uvicorn on 127.0.0.1:0; returns the port and a stop function."""
+    listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    listener.bind(("127.0.0.1", 0))
+    listener.listen(16)
+    port = listener.getsockname()[1]
+    app.host = f"127.0.0.1:{port}"
+    server = uvicorn.Server(
+        uvicorn.Config(app.asgi, log_config=None, access_log=False, lifespan="off")
+    )
+    thread = threading.Thread(target=server.run, kwargs={"sockets": [listener]}, daemon=True)
+    thread.start()
+
+    def stop() -> None:
+        server.should_exit = True
+        thread.join(10)
+        listener.close()
+
+    return port, stop
+
+
+def test_head_requests_over_loopback(tmp_path: Path) -> None:
+    """A HEAD is refused without the cookie and answers with no body with it; a HEAD to the launch
+    path neither sets the cookie nor spends the ticket."""
+    app = build_app(tmp_path)
+    port, stop = serve_over_loopback(app)
+    try:
+
+        def request(
+            method: str, path: str, signed: bool = False
+        ) -> tuple[http.client.HTTPResponse, bytes]:
+            connection = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
+            headers = dict([cookie_of(app)]) if signed else {}
+            connection.request(method, path, headers=headers)
+            response = connection.getresponse()
+            raw = response.read()
+            connection.close()
+            return response, raw
+
+        assert request("HEAD", "/api/catalogue")[0].status == 403
+        response, body = request("HEAD", "/api/catalogue", True)
+        assert response.status == 200 and body == b""
+        assert request("HEAD", "/files/runs/case-a/CP-0.md")[0].status == 403
+        ticket = app.session.ticket()
+        response, _ = request("HEAD", "/launch?ticket=" + ticket)
+        assert response.status == 405 and response.getheader("Set-Cookie") is None
+        response, _ = request("GET", "/launch?ticket=" + ticket)
+        assert response.status == 303 and len(response.headers.get_all("Set-Cookie") or []) == 1
+    finally:
+        stop()
 
 
 def test_the_secrets_appear_only_in_the_cookie(
@@ -467,6 +522,50 @@ def test_no_browser_launch_prints_the_link_on_standard_output_only(tmp_path: Pat
     assert not opened.exists(), "a browser was started"
 
 
+def test_only_same_origin_or_user_initiated_requests_are_served(tmp_path: Path) -> None:
+    """Sec-Fetch-Site is accepted only as same-origin (the app's own page), none (an address the
+    user or the launcher opened) or absent. same-site is refused: a page on another 127.0.0.1
+    port is the same site, and the Strict cookie goes with its requests. Expected by hand, with
+    the valid cookie on each: absent, same-origin and none get the endpoint's own answer (200;
+    the launch 303); same-site, cross-site, an empty value, another letter case, an unknown
+    value, and same-origin followed by same-site get 403 "Local app requests only", and the
+    launch ticket stays unspent until the accepted "none" launch spends it."""
+    app = build_app(tmp_path)
+    ticket = app.session.ticket()
+
+    def send(method: str, path: str, sites: list[str]) -> Reply:
+        headers = [cookie_of(app), *(("Sec-Fetch-Site", site) for site in sites)]
+        if method == "POST":
+            headers += list(POST_HEADERS.items())
+        return drive(app, method, path, headers=headers, body=b"{}")
+
+    endpoints = [
+        ("GET", "/"),
+        ("GET", "/api/catalogue"),
+        ("GET", "/files/deliverables/report/report.html?embedded=1"),
+        ("GET", "/files/runs/case-a/CP-0.md?download=1"),
+        ("GET", "/context-form.html"),
+        ("POST", "/api/refresh"),
+    ]
+    for sites in [[], ["same-origin"], ["none"]]:
+        for method, path in endpoints:
+            assert send(method, path, sites).status == 200, (sites, method, path)
+    refused = [
+        ["same-site"],
+        ["cross-site"],
+        [""],
+        ["Same-Origin"],
+        ["same-origin-ish"],
+        ["same-origin", "same-site"],
+    ]
+    for sites in refused:
+        for method, path in [*endpoints, ("GET", "/launch?ticket=" + ticket)]:
+            w = send(method, path, sites)
+            assert w.status == 403 and w.text == LOCAL_ONLY, (sites, method, path)
+            assert w.header("Set-Cookie") == "", (sites, method, path)
+    assert send("GET", "/launch?ticket=" + ticket, ["none"]).status == 303
+
+
 def test_the_launch_ticket_expires_120_seconds_after_start(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -504,6 +603,90 @@ def test_the_launch_ticket_expires_120_seconds_after_start(
         assert w.status == 403 and w.header("Set-Cookie") == "", f"{after}: the ticket was revived"
 
 
+def test_review_concurrent_launch_spends_once(tmp_path: Path) -> None:
+    """Hand-derived: 64 concurrent valid-ticket GETs: exactly one 303 with a cookie, 63 are 403
+    without."""
+    app = build_app(tmp_path)
+    ticket = app.session.ticket()
+    barrier = threading.Barrier(64)
+    replies: list[Reply] = []
+    guard = threading.Lock()
+
+    def one() -> None:
+        barrier.wait(10)
+        reply = launch_request(app, "GET", "?ticket=" + ticket)
+        with guard:
+            replies.append(reply)
+
+    threads = [threading.Thread(target=one) for _ in range(64)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(30)
+    assert len(replies) == 64  # a thread that raised never answered
+    ok = sum(1 for r in replies if r.status == 303)
+    refused = sum(1 for r in replies if r.status == 403)
+    cookies = sum(1 for r in replies if r.header("Set-Cookie") != "")
+    assert (ok, refused, cookies) == (1, 63, 1)
+
+
+def test_review_gate_covers_methods_and_paths(tmp_path: Path) -> None:
+    """Every method on every path shape without the cookie: 403 (or 405 only for /launch
+    non-GET), never a 404/200/405 from behind the gate; with the cookie the gate lets it through
+    (anything but the launcher text)."""
+    app = build_app(tmp_path)
+    ticket = app.session.ticket()
+    session = app.session.cookie
+    paths = [
+        "/",
+        "/nope",
+        "/launch/",
+        "//launch",
+        "/LAUNCH",
+        "/health/",
+        "/health/x",
+        "/files/",
+        "/files/../x",
+        "/api/",
+        "/api/runs",
+        "/api/runs/",
+        "/api/runs/status",
+        "/api/catalogue/",
+        "/%2e%2e/etc",
+        "/launch%2f",
+        "/api/quit",
+        "/api/settings",
+        "/favicon.ico",
+        "/web/index.html",
+    ]  # fmt: skip  (the path table is packed, as in Go's launch_review_test.go)
+    methods = ["GET", "HEAD", "OPTIONS", "POST", "PUT", "DELETE", "PATCH", "TRACE", "FOO"]
+    for path in paths:
+        for method in methods:
+            w = drive(app, method, path)
+            marked = "Open Issuer Library from its launcher" in w.text
+            assert w.status == 403 and (marked or method == "HEAD"), (method, path, w.status)
+            assert session not in w.text and ticket not in w.text, (method, path)
+    # /launch with other methods: never spends, never sets a cookie.
+    for method in ["HEAD", "POST", "OPTIONS", "PUT"]:
+        w = launch_request(app, method, "?ticket=" + ticket)
+        assert w.status == 405 and w.header("Set-Cookie") == "", method
+        assert app.session.ticket() != "", method
+    # Host/Origin checks come first: a wrong host with a valid ticket is refused, not spent.
+    w = drive(app, "GET", "/launch?ticket=" + ticket, headers=[("Host", "evil.example")])
+    assert w.status == 403 and app.session.ticket() != "" and "Local app requests only" in w.text
+    w = drive(app, "GET", "/launch?ticket=" + ticket, headers=[("Sec-Fetch-Site", "cross-site")])
+    assert w.status == 403 and app.session.ticket() != ""
+    # Responses never carry a secret in any header except the one Set-Cookie of a launch.
+    w = launch_request(app, "GET", "?ticket=" + ticket)
+    for key, value in w.headers:
+        assert key == "set-cookie" or session not in value, key
+    # /health: only the two fields, no secret, with and without the cookie.
+    for with_cookie in [False, True]:
+        w = drive(app, "GET", "/health", headers=[cookie_of(app)] if with_cookie else [])
+        assert w.status == 200 and session not in w.text
+        assert str(app.loc.state) not in w.text and w.text.count(":") == 2
+
+
 def test_non_ascii_secrets_are_refused_not_errors(tmp_path: Path) -> None:
     """Python-only: secrets.compare_digest raises on non-ASCII str, so a non-ASCII query or
     cookie must be refused with 403, never a 500."""
@@ -532,6 +715,17 @@ def test_mkdir_all_in_creates_nested_and_accepts_existing() -> None:
 @pytest.mark.skip(reason=_GO124)
 def test_mkdir_all_in_refuses_files_and_escapes() -> None:
     """Go go124_test.go TestMkdirAllInRefusesFilesAndEscapes."""
+
+
+def test_an_authorised_head_answers_as_get_without_a_body(tmp_path: Path) -> None:
+    """Go's net/http answers an authorised HEAD from the GET route: same status and headers
+    (Content-Length included), no body."""
+    app = build_app(tmp_path)
+    got = drive(app, "GET", "/api/catalogue", headers=[cookie_of(app)])
+    head = drive(app, "HEAD", "/api/catalogue", headers=[cookie_of(app)])
+    assert got.status == 200 and len(got.body) > 0
+    assert head.status == 200 and head.body == b""
+    assert head.header("content-length") == str(len(got.body))
 
 
 def test_browser_launch_opens_the_link_and_reports_a_failure_without_the_ticket(
