@@ -412,8 +412,8 @@ class Application:
     def refresh(self) -> bool:
         """Rediscover without the catalogue lock; requests see the previous catalogue meanwhile
         and only the swap is locked. False when the library is quitting and nothing was
-        discovered. Like Go's refresh it leaves the store cache to its caller (a catalogue
-        rebuild alone must not rerun the store); every caller clears it after."""
+        discovered. Like Go's refresh it never touches the store cache (a catalogue rebuild alone
+        must not rerun the store); only the /api/refresh route and settings clear it."""
         if not hold_refreshing(self):
             return False
         try:
@@ -426,17 +426,9 @@ class Application:
             self.refreshing.release()
         return True
 
-    def refresh_for_caller(self) -> bool:
-        """refresh(), then clear the store cache (also when discovery failed), after the locks
-        are released. The one entry for the route, the periodic rediscovery and run finish."""
-        try:
-            return self.refresh()
-        finally:
-            self.store_cache.clear()
-
-    def refresh_response(self) -> Response:
-        """Answer /api/refresh: the new catalogue, serialised under the lock; 503 when quitting."""
-        if not self.refresh_for_caller():
+    def refreshed_catalogue(self) -> Response:
+        """Rediscover, then answer the catalogue under the lock; 503 once the library quits."""
+        if not self.refresh():
             raise HTTPException(503, LIBRARY_QUITTING)
         with self.lock:
             return self.catalogue_locked()
@@ -685,7 +677,10 @@ def build(lib: Application) -> FastAPI:
 
     @app.post("/api/refresh")
     def refresh() -> Response:
-        return lib.refresh_response()
+        try:
+            return lib.refreshed_catalogue()
+        finally:
+            lib.store_cache.clear()  # after the locks are released
 
     @app.post("/api/settings")
     async def settings(request: Request) -> Response:

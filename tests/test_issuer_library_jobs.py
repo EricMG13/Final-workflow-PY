@@ -2358,33 +2358,6 @@ def test_discoveries_never_overlap(tmp_path: Path, monkeypatch: pytest.MonkeyPat
     assert seen["max"] == 1, f"{seen['max']} discoveries ran at once"
 
 
-def prime_store_cache(app: Application) -> None:
-    app.engine = fake_engine(app.loc.state.parent)
-    assert client_of(app).get("/api/workspace").status_code == 200
-    assert app.store_cache.body is not None, "the workspace body was not cached"
-
-
-def test_a_finishing_run_clears_the_store_cache(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.setattr(notify, "tab_watching", lambda lib: True)
-    job_id = "web-" + "f2" * 16
-    app, root, _, _ = clocked_app(tmp_path)
-    folder = finished_folder(root, job_id)
-    prime_store_cache(app)
-    app.active_jobs.add(job_id)
-    jobs_module.finish_job(app, folder, job_id)
-    assert app.store_cache.body is None and app.store_cache.key == ""
-
-
-def test_a_rediscovery_tick_clears_the_store_cache(tmp_path: Path) -> None:
-    app, _ = make_app(tmp_path)
-    prime_store_cache(app)
-    ticks = iter([False, False, True])  # loop test, post-sleep test, loop test
-    main_module.rediscover(app, lambda: next(ticks), 0)
-    assert app.store_cache.body is None and app.store_cache.key == ""
-
-
 def test_a_quitting_library_discovers_nothing_but_still_notices_a_finish(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

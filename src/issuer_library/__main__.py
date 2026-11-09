@@ -78,7 +78,7 @@ def rediscover(app: Application, stopped: Callable[[], bool], every: float) -> N
     """Rediscover every interval until stopped() or the library quits."""
     while not stopped():
         time.sleep(every)
-        if not stopped() and not app.refresh_for_caller():
+        if not stopped() and not app.refresh():
             return  # The library is quitting; no discovery starts again.
 
 

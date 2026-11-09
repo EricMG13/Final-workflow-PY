@@ -1023,7 +1023,7 @@ def finish_job(lib: Application, folder: Path, job_id: str) -> None:
             saw_finish = job_id in lib.saw_finish
             lib.saw_finish.discard(job_id)
             lib.active_jobs.discard(job_id)
-        lib.refresh_for_caller()  # False once quitting: no discovery; the notice is still decided.
+        lib.refresh()  # False once quitting: no discovery; the notice is still decided.
         if not saw_finish and not notify.tab_watching(lib):
             notice_finish(lib, folder, job_id)
     finally:

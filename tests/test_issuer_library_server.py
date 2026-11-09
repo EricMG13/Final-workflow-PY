@@ -27,6 +27,7 @@ from issuer_library_support import (
     put_json,
 )
 
+import issuer_library.__main__ as main_module
 import issuer_library.server as server_module
 from issuer_library.jobs import Engine
 from issuer_library.launch import cookie_name
@@ -397,6 +398,17 @@ def test_catalogue_rebuild_alone_does_not_rerun_the_store(tmp_path: Path) -> Non
     app.refresh()
     call(client, "GET", "/api/workspace")
     assert store_runs(counter) == 1, "a rebuild that changed only built_at ran the store again"
+
+
+def test_a_rediscovery_tick_alone_does_not_rerun_the_store(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine, counter, _ = counting_engine(tmp_path)
+    client = client_of(app)
+    call(client, "GET", "/api/workspace")
+    ticks = iter([False, False, True])  # loop test, post-sleep test, loop test
+    main_module.rediscover(app, lambda: next(ticks), 0)
+    call(client, "GET", "/api/workspace")
+    assert store_runs(counter) == 1, "a rediscovery tick reran the store"
 
 
 def test_concurrent_workspace_reads_share_one_store(tmp_path: Path) -> None:
