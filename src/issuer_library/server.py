@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 import logging
 import mimetypes
@@ -9,7 +10,7 @@ import os
 import re
 import threading
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from pathlib import Path
 from urllib.parse import parse_qsl, quote
 
@@ -41,6 +42,7 @@ from .jobs import (
 from .launch import LAUNCHER_ONLY, Session, cookie_name
 from .model import Catalogue, digest, local_path, read_file
 from .notify import toast
+from .quit import LIBRARY_QUITTING, claim_quit, hold_refreshing
 from .settings import Config, Locations, load_config, save_json
 
 APPLICATION = "finalworkflow-issuer-library/1"
@@ -272,6 +274,8 @@ class Application:
         self.finished = 0
         self.watched = 0
         self.saw_finish: set[str] = set()
+        # Held for a discovery or workspace change; taken before lock, never while holding it.
+        self.refreshing = threading.Lock()
         adopt_jobs_locked(self, self.config.workspace)
         self.asgi = build(self)
 
@@ -298,8 +302,18 @@ class Application:
                 "A run review is in progress; wait for it to finish before changing the workspace",
             )
 
+    @contextlib.contextmanager
+    def refresh_slot(self) -> Iterator[None]:
+        """Hold refreshing for a discovery; refused with 503 once the library is quitting."""
+        if not hold_refreshing(self):
+            raise HTTPException(503, LIBRARY_QUITTING)
+        try:
+            yield
+        finally:
+            self.refreshing.release()
+
     def apply_settings(self, raw: bytes) -> Response:
-        with self.lock:
+        with self.refresh_slot(), self.lock:
             if self.active_jobs:
                 raise HTTPException(409, "Wait for the active run before changing its workspace")
             if self.locked:
@@ -332,13 +346,14 @@ class Application:
             return self.catalogue_locked()
 
     def quit(self) -> Response:
-        with self.lock:
-            if self.active_jobs:
-                raise HTTPException(
-                    409, "A run is active. Keep the application open until it finishes or stops."
-                )
-            threading.Thread(target=self.stop, daemon=True).start()
-            return json_response({"stopped": True})
+        runs, reviews = claim_quit(self)
+        if runs or reviews:
+            raise HTTPException(
+                409,
+                "A run or review is active. Keep the application open until it finishes or stops.",
+            )
+        threading.Thread(target=self.stop, daemon=True).start()
+        return json_response({"stopped": True})
 
     def workspace_store(self) -> Response:
         with self.lock:
@@ -485,7 +500,7 @@ def build(lib: Application) -> FastAPI:
 
     @app.post("/api/refresh")
     def refresh() -> Response:
-        with lib.lock:
+        with lib.refresh_slot(), lib.lock:
             lib.refresh_locked()
             return lib.catalogue_locked()
 
