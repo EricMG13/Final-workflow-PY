@@ -188,17 +188,17 @@ def parse_events(raw: bytes) -> EventLog:
     return record
 
 
-def open_regular(path: Path) -> BinaryIO:
+def open_regular(path: Path, *, dir_fd: int | None = None) -> BinaryIO:
     """Open a regular file for reading without following a link and without blocking on a FIFO.
 
     Deliberately stricter than Go's os.Open. FileNotFoundError when it is missing; any other
     OSError when it is a link or not a regular file. Without O_NOFOLLOW (Windows) an lstat check
-    stands in for it.
+    stands in for it. With `dir_fd`, `path` is one name relative to that open folder.
     """
     nofollow = getattr(os, "O_NOFOLLOW", 0)
-    if not nofollow and not stat.S_ISREG(path.lstat().st_mode):
+    if not nofollow and not stat.S_ISREG(os.lstat(path, dir_fd=dir_fd).st_mode):
         raise OSError(f"not a regular file: {path.name}")
-    fd = os.open(path, os.O_RDONLY | nofollow | getattr(os, "O_NONBLOCK", 0))
+    fd = os.open(path, os.O_RDONLY | nofollow | getattr(os, "O_NONBLOCK", 0), dir_fd=dir_fd)
     try:
         if not stat.S_ISREG(os.fstat(fd).st_mode):
             raise OSError(f"not a regular file: {path.name}")
