@@ -31,6 +31,7 @@ from .jobs import (
     json_response,
     local_engine,
     recent_jobs,
+    resume_run,
     review_run,
     run_events,
     start_run,
@@ -353,6 +354,12 @@ def events_route(app: FastAPI, lib: Application) -> None:
         return run_events(workspace, request.query_params.get("id", ""))
 
 
+def resume_route(app: FastAPI, lib: Application) -> None:
+    @app.post("/api/runs/resume")
+    async def runs_resume(request: Request) -> Response:
+        return await run_in_threadpool(resume_run, lib, await request.body())
+
+
 def build(lib: Application) -> FastAPI:
     """Routes over the application; every handler keeps the Go server's status codes and texts."""
     app = FastAPI(openapi_url=None, docs_url=None, redoc_url=None)
@@ -418,6 +425,8 @@ def build(lib: Application) -> FastAPI:
     @app.post("/api/runs/start")
     async def runs_start(request: Request) -> Response:
         return await run_in_threadpool(start_run, lib, await request.body())
+
+    resume_route(app, lib)
 
     @app.api_route("/files/{name:path}", methods=["GET", "HEAD"])
     def files(request: Request, name: str) -> Response:

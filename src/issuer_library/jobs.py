@@ -9,6 +9,7 @@ import os
 import re
 import secrets
 import shutil
+import stat
 import subprocess
 import sys
 import threading
@@ -164,7 +165,15 @@ def job_view(workspace: str, job_id: str) -> dict[str, Any] | None:
         return None
     review = read_object(Path(workspace) / "intake" / job_id / "review.json")
     if review is not None:
-        for key in ("issuer", "pathway", "as_of", "modules", "module_details"):
+        for key in (
+            "issuer",
+            "pathway",
+            "as_of",
+            "modules",
+            "module_details",
+            "resume_of",
+            "retained_modules",
+        ):
             if key in review:
                 status[key] = review[key]
     folder = Path(workspace) / "runs" / job_id
@@ -374,6 +383,175 @@ def review_run(lib: Application, form: FormData) -> Response:
         except OSError as error:
             raise HTTPException(500, "Could not retain context") from error
         job["sources"] = stage_sources(folder, paths, files)
+        result, valid = review_staged(lib, folder, job)
+    finally:
+        if not valid:
+            shutil.rmtree(folder, ignore_errors=True)
+    return Response(result, media_type="application/json")
+
+
+RESUMABLE = ("stopped", "failed", "interrupted")
+INPUTS_GONE = "The stopped run's inputs are no longer in the workspace"
+COPY_FAILED = "Could not copy the stopped run's inputs"
+
+
+def resume_request(raw: bytes) -> dict[str, Any]:
+    """The resume body: id, cap_usd and max_turns (a JSON integer 1-64) and nothing else."""
+    refusal = "Choose a stopped run, a maximum spend and 1–64 turns"
+    try:
+        request = json.loads(raw) if len(raw) <= REQUEST_LIMIT else None
+    except ValueError:
+        request = None
+    if not isinstance(request, dict) or set(request) - {"id", "cap_usd", "max_turns"}:
+        raise HTTPException(400, refusal)
+    job_id, cap, turns = request.get("id"), request.get("cap_usd"), request.get("max_turns")
+    if (
+        not isinstance(job_id, str)
+        or not JOB_ID.fullmatch(job_id)
+        or not isinstance(cap, str)
+        or not cap
+        or type(turns) is not int
+        or not 1 <= turns <= MAX_TURNS
+    ):
+        raise HTTPException(400, refusal)
+    return request
+
+
+def recorded_job(raw: bytes) -> dict[str, Any] | None:
+    """A stopped run's job.json as Go decodes it into NewJob: a wrong field type is a failure."""
+    try:
+        job = json.loads(raw)
+    except ValueError:
+        return None
+    if not isinstance(job, dict):
+        return None
+    text_keys = ("id", "workspace", "config", "cap_usd")
+    modules, sources = job.get("modules") or [], job.get("sources") or []
+    turns = job.get("max_turns")
+    if (
+        any(not isinstance(job.get(key, ""), str | None) for key in text_keys)
+        or not isinstance(modules, list)
+        or not all(isinstance(module, str) for module in modules)
+        or (turns is not None and type(turns) is not int)
+        or not isinstance(sources, list)
+    ):
+        return None
+    kept: list[dict[str, str]] = []
+    for source in sources:
+        source = source or {}
+        pair = (
+            (source.get("path") or "", source.get("sha256") or "")
+            if isinstance(source, dict)
+            else None
+        )
+        if pair is None or not all(isinstance(part, str) for part in pair):
+            return None
+        kept.append({"path": pair[0], "sha256": pair[1]})
+    return {"config": job.get("config") or "", "modules": modules, "sources": kept}
+
+
+def mkdir_all_in(root: Path, name: str, mode: int = 0o700) -> None:
+    """Create name and its missing parents inside root, never through a link or outside it.
+
+    ValueError stands for fs.ErrInvalid; an existing non-directory or link raises OSError.
+    """
+    parts = name.split("/")
+    if name != "." and (
+        not name or name.startswith("/") or any(p in ("", ".", "..") for p in parts)
+    ):
+        raise ValueError(f"invalid path: {name!r}")
+    for position in range(len(parts) if name != "." else 0):
+        directory = root.joinpath(*parts[: position + 1])
+        try:
+            directory.mkdir(mode=mode)
+        except FileExistsError:
+            if not stat.S_ISDIR(directory.lstat().st_mode):
+                raise NotADirectoryError(str(directory)) from None
+
+
+def is_plain_file(base: Path, name: str) -> bool:
+    """name under base is a regular file reached through no symbolic link."""
+    current = base
+    try:
+        for part in name.split("/"):
+            current = current / part
+            if stat.S_ISLNK(current.lstat().st_mode):
+                return False
+        return stat.S_ISREG(current.lstat().st_mode)
+    except OSError:
+        return False
+
+
+def copy_input(old: Path, name: str, root: Path, target: str) -> None:
+    """Stream one stopped-run file into the new job: a new 0600 file, the source never followed."""
+    source = os.open(old / name, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    with os.fdopen(source, "rb") as reader:
+        handle = os.open(root / target, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(handle, "wb") as writer:
+            shutil.copyfileobj(reader, writer)
+
+
+def copy_resume_inputs(root: Path, old_id: str, job: dict[str, Any]) -> None:
+    """Copy the stopped run's context and exactly the sources its job lists; only read the old."""
+    old = root / "intake" / old_id
+    if not old.is_dir():
+        raise HTTPException(409, INPUTS_GONE)
+    relative = f"intake/{job['id']}"
+    try:
+        (root / relative).mkdir(mode=0o700)
+    except OSError as error:
+        raise HTTPException(400, "The workspace is not writable") from error
+    names = ["context.json"]
+    for source in job["sources"]:
+        if not valid_source_path(source["path"]):
+            raise HTTPException(409, INPUTS_GONE)
+        names.append(f"sources/{source['path']}")
+    for name in names:
+        if not is_plain_file(old, name):
+            raise HTTPException(409, INPUTS_GONE)
+        try:
+            mkdir_all_in(root, str(Path(f"{relative}/{name}").parent.as_posix()))
+            copy_input(old, name, root, f"{relative}/{name}")
+        except OSError as error:
+            raise HTTPException(500, COPY_FAILED) from error
+
+
+def resume_run(lib: Application, raw: bytes) -> Response:
+    """Review a copy of a stopped run's inputs as a new job; never starts a worker."""
+    request = resume_request(raw)
+    with lib.lock:
+        workspace = lib.config.workspace
+    root = Path(workspace)
+    old = root / "intake" / request["id"]
+    status = read_object(old / "status.json")
+    if (
+        status is None
+        or status.get("state") not in RESUMABLE
+        or not all(isinstance(status.get(key, ""), str | None) for key in ("message", "id"))
+    ):
+        raise HTTPException(409, "Only a stopped, failed or interrupted run can be resumed")
+    try:
+        recorded = recorded_job((old / "job.json").read_bytes())
+    except OSError:
+        recorded = None
+    if recorded is None:
+        raise HTTPException(409, INPUTS_GONE)
+    if not root.is_dir():
+        raise HTTPException(400, "Choose an available workspace folder first")
+    job: dict[str, Any] = {
+        "id": f"web-{secrets.token_hex(16)}",
+        "workspace": workspace,
+        "config": recorded["config"],
+        "cap_usd": request["cap_usd"],
+        "modules": recorded["modules"],
+        "max_turns": request["max_turns"],
+        "sources": recorded["sources"],
+        "resume_of": request["id"],
+    }
+    folder = root / "intake" / job["id"]
+    valid = False
+    try:
+        copy_resume_inputs(root, request["id"], job)
         result, valid = review_staged(lib, folder, job)
     finally:
         if not valid:
