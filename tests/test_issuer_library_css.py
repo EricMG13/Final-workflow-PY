@@ -164,3 +164,9 @@ def test_layout_controls_reach_32px() -> None:
         "#section-nav button",
     ):
         assert any(re.search(r"(^|;)(min-)?height:32px", b) for b in rule(selector)), selector
+
+
+def test_a_run_detail_with_a_64_character_deliverable_name_wraps_instead_of_widening_the_page() -> (
+    None
+):
+    assert re.search(r"\.artifact-list li\{[^}]*overflow-wrap:anywhere", SCREEN)

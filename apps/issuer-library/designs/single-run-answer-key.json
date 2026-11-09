@@ -1,0 +1,406 @@
+{
+ "_about": {
+  "written_by": "key writer",
+  "source_run": "runs/cpos-launch-cp2-reader-001",
+  "note": "Frozen answer key for the single-run walk (Plan 2 Task 5b), read from the retained run files with shasum/python, independently of engine/store.py and web/views.js. Values are the file values; the UI may format differently (dates, 'USD' prefixes, hash shortening, 'candidate' wording, spend rounding) and the walk must compare after undoing that formatting, not edit this file. IMPORTANT: the folder id is cpos-launch-cp2-reader-001 but every file records run_id 'tdg-2024-09-30-credit_snapshot-sol-medium'; the key lists both and the walk must use the folder id to address the run (store key) and the recorded run_id only where the UI shows it. The run folder holds no events.jsonl and no intake status.json, so the Run activity event assertions cannot be exercised by this fixture (see activity). Paths are relative to the repo root; <D> = runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/."
+ },
+ "run": {
+  "folder_id": {
+   "value": "cpos-launch-cp2-reader-001",
+   "source": "directory name under runs/"
+  },
+  "run_id": {
+   "value": "tdg-2024-09-30-credit_snapshot-sol-medium",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.run_id; identity.json run.run_id; runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json run.run_id"
+  },
+  "issuer_name": {
+   "value": "TransDigm Group Incorporated",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.issuer_name"
+  },
+  "issuer_id": {
+   "value": "tdg",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.issuer_id"
+  },
+  "as_of": {
+   "value": "2024-09-30",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.as_of"
+  },
+  "pathway": {
+   "value": "credit_snapshot",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.pathway"
+  },
+  "pathway_title": {
+   "value": "TransDigm Group Incorporated — Credit Snapshot",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json layout.title; runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/report-view.json pathway.title"
+  },
+  "case_kind": {
+   "value": "public",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.case_kind"
+  },
+  "method_version": {
+   "value": "deploy-v-r14",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.method_version"
+  },
+  "execution": {
+   "value": "live-provider",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json execution"
+  },
+  "provider_cap_usd": {
+   "value": "8",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json provider_cap_usd"
+  },
+  "requested_modules": {
+   "value": [
+    "CP-2"
+   ],
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.requested_modules"
+  },
+  "run_modules_in_order": {
+   "value": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2"
+   ],
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json modules key order; runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[].module_id"
+  },
+  "report_block_order": {
+   "value": [
+    "key-findings",
+    "company-operating-model",
+    "financials-credit-metrics",
+    "strengths-weaknesses",
+    "company-profile",
+    "transaction-summary"
+   ],
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json layout.blocks"
+  },
+  "report_block_modules": {
+   "value": {
+    "key-findings": "CP-2",
+    "company-operating-model": "CP-1A",
+    "financials-credit-metrics": "CP-1",
+    "strengths-weaknesses": "CP-2",
+    "company-profile": "CP-1A",
+    "transaction-summary": "CP-1A"
+   },
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json layout.routes[].block_id/module_id"
+  },
+  "scope_text": {
+   "value": "User-launched Credit Snapshot run for TransDigm Group Incorporated as of 2024-09-30, using sol-medium on the selected issuer folder. Automated checks cover handoff structure, issuer and date anchors, source and upstream references and report selectors; analytical accuracy has not been independently reviewed. The HTML Model, charts and calculation JSON are not published by this launcher. Sections not produced: model-chart-strip, capital-structure, relative-value, portfolio-fit, committee-challenge, what-changed.",
+   "source": "runs/cpos-launch-cp2-reader-001/workflow.json layout.scope; runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json scope"
+  },
+  "analytical_qualification": {
+   "value": "unrun",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json analytical_qualification (library-answer-key ruling: UI reads 'Analytical qualification: not run')"
+  },
+  "native_host_qualification": {
+   "value": "partial",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json native_host_qualification"
+  }
+ },
+ "modules": [
+  {
+   "order": 1,
+   "module_id": "CP-0",
+   "title": {
+    "value": "Source readiness",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[0].title"
+   },
+   "requested": {
+    "value": false,
+    "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.requested_modules = [CP-2]; CP-0, CP-1, CP-1A are upstream handoffs the run ran or replayed, not requested"
+   },
+   "status": {
+    "value": "candidate",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[0].status (view mode is 'candidate'); the run folder has no status.json"
+   },
+   "execution": {
+    "value": "retained-response-replay",
+    "source": "runs/cpos-launch-cp2-reader-001/completed-7af5ce9a...json module_execution.CP-0"
+   },
+   "handoff_path": {
+    "value": "runs/cpos-launch-cp2-reader-001/requests/CP-0/343f26a81b4400265ba743652e12193170ef065f92cc847a114120e37aea8a23/1.response.md",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json modules.CP-0"
+   },
+   "handoff_sha256": {
+    "value": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5",
+    "source": "runs/cpos-launch-cp2-reader-001/delivery-593bc681...json handoffs.CP-0.sha256; equals shasum of the file and of deliveries/*/CP-0.md"
+   },
+   "fact_count_in_view": {
+    "value": 92,
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[0].facts length"
+   },
+   "check_review": {
+    "value": {
+     "issues": []
+    },
+    "source": "runs/cpos-launch-cp2-reader-001/requests/CP-0/343f26a81b4400265ba743652e12193170ef065f92cc847a114120e37aea8a23/1.review.json"
+   }
+  },
+  {
+   "order": 2,
+   "module_id": "CP-1",
+   "title": {
+    "value": "Canonical data foundation",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[1].title"
+   },
+   "requested": {
+    "value": false,
+    "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.requested_modules = [CP-2]; CP-0, CP-1, CP-1A are upstream handoffs the run ran or replayed, not requested"
+   },
+   "status": {
+    "value": "candidate",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[1].status (view mode is 'candidate'); the run folder has no status.json"
+   },
+   "execution": {
+    "value": "retained-response-replay",
+    "source": "runs/cpos-launch-cp2-reader-001/completed-7af5ce9a...json module_execution.CP-1"
+   },
+   "handoff_path": {
+    "value": "runs/cpos-launch-cp2-reader-001/requests/CP-1/9b60fa710799d30e2266e1745917cd2e55acb8f99862d1bf12311aaed729b846/1.response.md",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json modules.CP-1"
+   },
+   "handoff_sha256": {
+    "value": "89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d",
+    "source": "runs/cpos-launch-cp2-reader-001/delivery-593bc681...json handoffs.CP-1.sha256; equals shasum of the file and of deliveries/*/CP-1.md"
+   },
+   "fact_count_in_view": {
+    "value": 584,
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[1].facts length"
+   },
+   "check_review": {
+    "value": {
+     "issues": []
+    },
+    "source": "runs/cpos-launch-cp2-reader-001/requests/CP-1/9b60fa710799d30e2266e1745917cd2e55acb8f99862d1bf12311aaed729b846/1.review.json"
+   }
+  },
+  {
+   "order": 3,
+   "module_id": "CP-1A",
+   "title": {
+    "value": "Business transaction fact pack",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[2].title"
+   },
+   "requested": {
+    "value": false,
+    "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.requested_modules = [CP-2]; CP-0, CP-1, CP-1A are upstream handoffs the run ran or replayed, not requested"
+   },
+   "status": {
+    "value": "candidate",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[2].status (view mode is 'candidate'); the run folder has no status.json"
+   },
+   "execution": {
+    "value": "retained-response-replay",
+    "source": "runs/cpos-launch-cp2-reader-001/completed-7af5ce9a...json module_execution.CP-1A"
+   },
+   "handoff_path": {
+    "value": "runs/cpos-launch-cp2-reader-001/requests/CP-1A/b3b7b0270311d049b6e6d0de0db3bc0cef321db3dbe7f066689571ada0da1040/1.response.md",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json modules.CP-1A"
+   },
+   "handoff_sha256": {
+    "value": "bc532f0ebb526608d9adad5b0c02dfcad68006015221085a4139260be2a96545",
+    "source": "runs/cpos-launch-cp2-reader-001/delivery-593bc681...json handoffs.CP-1A.sha256; equals shasum of the file and of deliveries/*/CP-1A.md"
+   },
+   "fact_count_in_view": {
+    "value": 177,
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[2].facts length"
+   },
+   "check_review": {
+    "value": {
+     "issues": []
+    },
+    "source": "runs/cpos-launch-cp2-reader-001/requests/CP-1A/b3b7b0270311d049b6e6d0de0db3bc0cef321db3dbe7f066689571ada0da1040/1.review.json"
+   }
+  },
+  {
+   "order": 4,
+   "module_id": "CP-2",
+   "title": {
+    "value": "Fundamental credit synthesizer",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[3].title"
+   },
+   "requested": {
+    "value": true,
+    "source": "runs/cpos-launch-cp2-reader-001/workflow.json run.requested_modules = [CP-2]; CP-0, CP-1, CP-1A are upstream handoffs the run ran or replayed, not requested"
+   },
+   "status": {
+    "value": "candidate",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[3].status (view mode is 'candidate'); the run folder has no status.json"
+   },
+   "execution": {
+    "value": "live-provider",
+    "source": "runs/cpos-launch-cp2-reader-001/completed-7af5ce9a...json module_execution.CP-2"
+   },
+   "handoff_path": {
+    "value": "runs/cpos-launch-cp2-reader-001/requests/CP-2/757f4c709a527eec5c50f1e04ed2e6c7b7e3ced2b01c299ca39c2933b1538d69/1.response.md",
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json modules.CP-2"
+   },
+   "handoff_sha256": {
+    "value": "0ba56f29fdeedb2085fc0d8fdaf74d9939fd25ddb7ad807aa97395b5d46e6453",
+    "source": "runs/cpos-launch-cp2-reader-001/delivery-593bc681...json handoffs.CP-2.sha256; equals shasum of the file and of deliveries/*/CP-2.md"
+   },
+   "fact_count_in_view": {
+    "value": 132,
+    "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[3].facts length"
+   },
+   "check_review": {
+    "value": {
+     "issues": []
+    },
+    "source": "runs/cpos-launch-cp2-reader-001/requests/CP-2/757f4c709a527eec5c50f1e04ed2e6c7b7e3ced2b01c299ca39c2933b1538d69/1.review.json"
+   }
+  }
+ ],
+ "delivery": {
+  "delivery_id": {
+   "value": "aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c",
+   "source": "directory name under runs/cpos-launch-cp2-reader-001/deliveries/ (only one)"
+  },
+  "manifest_sha256": {
+   "value": "593bc6819bec6be2624a19fef19f4702fe424c88c2a5fb916b0ac8375f461fca",
+   "source": "runs/cpos-launch-cp2-reader-001/delivery-593bc681....json file name = shasum of that file; runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/../completed-*.json delivery_manifest_sha256"
+  },
+  "kind": {
+   "value": "literal_handoff_delivery",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json kind"
+  },
+  "analytical_runtime_executed": {
+   "value": false,
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json"
+  },
+  "excel_output": {
+   "value": false,
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json"
+  },
+  "built_from_files": {
+   "value": {
+    "CP-0.md": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5",
+    "CP-1.md": "89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d",
+    "CP-1A.md": "bc532f0ebb526608d9adad5b0c02dfcad68006015221085a4139260be2a96545",
+    "CP-2.md": "0ba56f29fdeedb2085fc0d8fdaf74d9939fd25ddb7ad807aa97395b5d46e6453",
+    "view.json": "c61bbd0b46c85add624ba0ce6bc57541ddeaefc342f4cbb2837c428c54724a39",
+    "report-view.json": "b43cb18e2a1ead8658b0cf990e0bfee62982a564e4f7ae365e21af481e0c6e39",
+    "report.html": "bc31e4e464767a024df309ebd880b981c11e2fac9d4fc67666cf5e2a5927a2a7"
+   },
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json files; every value re-verified with shasum -a 256 on the delivered file"
+  },
+  "delivery_json_sha256": {
+   "value": "78ee19b4f323ecaf87c771096bfd6a2a9129aac13a3fbe28c49a33319d984d7f",
+   "source": "shasum of runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json; it is not listed in its own files map, so 'Built from' must not be expected to list it"
+  },
+  "report_html_sha256": {
+   "value": "bc31e4e464767a024df309ebd880b981c11e2fac9d4fc67666cf5e2a5927a2a7",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json files.report.html; completed-*.json report_sha256"
+  },
+  "handoff_sha256_match_retained_and_requests": {
+   "value": true,
+   "source": "CP-0/CP-1/CP-1A: retained/*.md, deliveries/*/*.md and requests/*/*/1.response.md share one sha; CP-2 has no retained copy (live)"
+  },
+  "module_execution": {
+   "value": {
+    "CP-0": "retained-response-replay",
+    "CP-1": "retained-response-replay",
+    "CP-1A": "retained-response-replay",
+    "CP-2": "live-provider"
+   },
+   "source": "runs/cpos-launch-cp2-reader-001/completed-*.json module_execution"
+  }
+ },
+ "evidence": {
+  "handoff": {
+   "value": "CP-2",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json modules[CP-2].facts[raw-CP-2-0.r0.c0].citations[0].source_id"
+  },
+  "fact_id": {
+   "value": "raw-CP-2-0.r0.c1",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json CP-2 facts; field c1 of the Sources table row 'Issuer source K'"
+  },
+  "cited_source_name": {
+   "value": "CP-2.md",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json sources[source_id=CP-2].name"
+  },
+  "cited_source_sha256": {
+   "value": "0ba56f29fdeedb2085fc0d8fdaf74d9939fd25ddb7ad807aa97395b5d46e6453",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json CP-2 facts[...].citations[0].source_sha256 and sources[CP-2].sha256"
+  },
+  "locator": {
+   "value": "line 9",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/citations[0].locator; equals line 9 of runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/CP-2.md"
+  },
+  "line_text": {
+   "value": "| Issuer source K | TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl | d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6 | Underlying issuer evidence cited by the settled upstream handoffs; not independently reread or quoted for this synthesis. Relevant page locators appear in the basis register below. |",
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/citations[0].quote; sources[CP-2].spans[locator='line 9'].text"
+  },
+  "issuer_source_named_on_that_line": {
+   "value": {
+    "name": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl",
+    "sha256": "d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6"
+   },
+   "source": "line 9 of CP-2.md; sha equals runs/cpos-launch-cp2-reader-001/workflow.json sources[...].sha256 and shasum of runs/cpos-launch-cp2-reader-001/source-text/TDG_2024-09-30_10-K_...jsonl"
+  },
+  "note": "All 132 CP-2 fact citations in view.json cite a handoff line (source_id CP-2); none cites issuer source text directly. The inspector therefore opens a handoff line, and the issuer source and sha appear inside the cited line's text. A second candidate: line 10, '| Settings | context | f7b95e1f... | Page 1 read after targeted search; dated settings only, not issuer evidence. |'."
+ },
+ "activity": {
+  "events_jsonl_present": {
+   "value": false,
+   "source": "ls runs/cpos-launch-cp2-reader-001/ shows no events.jsonl; no intake/<id>/status.json either"
+  },
+  "event_count": {
+   "value": 0,
+   "source": "no events.jsonl, so GET /api/runs/events returns [] (jobs.go readRunEvents) and the UI shows 'No events were recorded for this run.' (web/actions.js)"
+  },
+  "event_kinds": {
+   "value": [],
+   "source": "none recorded"
+  },
+  "model_calls_recorded": {
+   "value": 3,
+   "source": "runs/cpos-launch-cp2-reader-001/live/calls.jsonl line count; all module_id CP-2, config_id sol-medium, provider openai, requested_model gpt-6.1-sol"
+  },
+  "model_call_kinds": {
+   "value": [
+    "search_source",
+    "read_pages",
+    "write_handoff"
+   ],
+   "source": "runs/cpos-launch-cp2-reader-001/live/calls.jsonl tool_calls[0].name for call_index 0,1,2"
+  },
+  "per_call_settled_usd": {
+   "value": [
+    "0.07399200",
+    "0.00364900",
+    "0.05863970"
+   ],
+   "source": "runs/cpos-launch-cp2-reader-001/live/calls.jsonl settled_usd, call_index 0,1,2 (exact strings; same in live/owner-run-audit/reservations/*.settled usd)"
+  },
+  "total_settled_usd_derived": {
+   "value": "0.1362807",
+   "source": "sum of the three settled_usd strings; derived, not stored anywhere in the run folder"
+  },
+  "spend_exact_string_as_stored": {
+   "value": null,
+   "source": "The run folder stores no single spend string and no events.jsonl spent_usd; the UI's 'Recorded spend'/'Last recorded spend' needs events.jsonl or status, absent here. Do not assert a spend figure in the UI for this fixture."
+  },
+  "note": "Because the fixture has no event log, the walk's 'Run activity lists events and spend' check must report 'not exercisable on this fixture: no events.jsonl' for it, not pass. It is exercised only by a real live run, whose key must be written from that run's events.jsonl."
+ },
+ "model": {
+  "cp_model_published": {
+   "value": false,
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/delivery.json cp_model_published; completed-*.json cp_model_published"
+  },
+  "model_in_view": {
+   "value": null,
+   "source": "runs/cpos-launch-cp2-reader-001/deliveries/aed8a979aefbfe1816136219283054ed39121dfcd3c9d0db85e6098f1e676a1c/view.json / identity: workflow.json model = null; delivery-*.json model = null"
+  },
+  "expected_ui": {
+   "value": "not published by app runs",
+   "source": "scope text: 'The HTML Model, charts and calculation JSON are not published by this launcher.'"
+  }
+ },
+ "not_applicable": {
+  "value": "Repo-store count asserts (9 issuers · 44 runs · 19 reports etc.) are not applicable: repo-store key",
+  "source": "coordinator binding; a one-run workspace has 1 issuer, 1 run, 1 report"
+ }
+}
