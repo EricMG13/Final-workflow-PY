@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, cast
@@ -288,3 +289,9 @@ def test_a_failed_toast_logs_its_output_and_raises_the_exit_status(
         notify.toast("T", "B")
     assert str(raised.value) == "exit status 1"
     assert "PowerShell toast output: boom\n" in [r.getMessage() for r in caplog.records]
+
+
+def test_toast_script_is_gos_byte_for_byte() -> None:
+    assert len(notify.TOAST_SCRIPT) == 863
+    digest = hashlib.sha256(notify.TOAST_SCRIPT.encode()).hexdigest()
+    assert digest == "392cd731f1f4bb72ae64b7ec96f5438448849cbddd930dc712c428262df2d6e6"
