@@ -27,6 +27,7 @@ BROWSER_TESTS = (
     "tests/test_issuer_library_draft_guard.py",
     "tests/test_issuer_library_escape_sinks.py",
     "tests/test_issuer_library_example.py",
+    "tests/test_issuer_library_new_run.py",
     "tests/test_issuer_library_reader.py",
     "tests/test_issuer_library_run_activity.py",
     "tests/test_issuer_library_run_spend.py",
