@@ -3,9 +3,9 @@
 import importlib.util
 import json
 import os
-import re
 import sys
 from pathlib import Path
+from typing import Any
 
 REAL = Path(os.environ["CHECK_ROOT"]) / "apps/issuer-library/engine/bridge.py"
 FIXTURE = Path(os.environ["CHECK_ROOT"]) / "apps/issuer-library/designs/reader-fixture/CP-1.md"
@@ -20,7 +20,7 @@ from deploy_workflow.owners.cpos_launch import OPENING
 calls = []
 
 
-def complete(self, request, **kwargs):
+def complete(self: LiveAdapter, request: Any, **kwargs: Any) -> AdapterReply:
     context = json.loads(request.messages[1].text)
     job = json.loads((Path(sys.argv[2]) / "job.json").read_text())
     plan = json.loads((Path(job["workspace"]) / "runs" / job["id"] / "workflow.json").read_text())
@@ -37,15 +37,23 @@ def complete(self, request, **kwargs):
     lines += [f"- {n} {h}" for n, h in context["sources"].items()]
     lines += [f"- {n} {h['sha256']}" for n, h in context["handoffs"].items()]
     lines += ["", "## Findings", ""]
+    opening = (
+        [f"### {OPENING[context['module_id']]}", "", "A fake engine view only.", ""]
+        if context["module_id"] in OPENING
+        else []
+    )
     if context["module_id"] == "CP-1":
-        # The synthetic fixture holds this module's reader section and all four chart tables.
+        # The synthetic fixture holds this module's reader section and all four chart tables; the
+        # opening view goes directly after its reader summary, before the first chart table.
         fixture = FIXTURE.read_text(encoding="utf-8")
-        lines += [fixture[fixture.index("### Reader summary") : fixture.index("## Calculations")]]
+        start, charts = fixture.index("### Reader summary"), fixture.index("### Chart data:")
+        lines += [fixture[start:charts].rstrip(), ""] + opening
+        lines += [fixture[charts : fixture.index("## Calculations")]]
     else:
         lines += ["### Reader summary", "", "| Bottom line | Confidence | Main limitation |"]
         lines += ["| --- | --- | --- |", "| A fake engine finding only. | Low | Fake data. |", ""]
         lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
-        lines += ["| One item was observed. | None. | Low |", ""]
+        lines += ["| One item was observed. | None. | Low |", ""] + opening
     for route in plan["layout"]["routes"]:
         if route["module_id"] == context["module_id"]:
             lines += [f"### {route['heading']}", ""]
@@ -58,16 +66,6 @@ def complete(self, request, **kwargs):
             )
     for heading in ("Calculations", "Gaps", "Next module"):
         lines += [f"## {heading}", "", "None.", ""]
-    text = "\n".join(lines)
-    opening = OPENING.get(context["module_id"])
-    if opening:
-        # The launcher wants the module's opening view straight after the whole Reader summary.
-        after = re.compile(r"^#{2,3} ", re.MULTILINE).search(
-            text, text.index("### Reader summary") + 1
-        )
-        view = f"### {opening}\n\nA fake engine view only.\n\n"
-        text = text[: after.start()] + view + text[after.start() :] if after else text + view
-    lines = text.split("\n")
     calls.append(context["module_id"])
     if len(calls) > int(os.environ.get("FAKE_REJECT_AFTER", "1000000")):
         lines = ["# Not a handoff"]
