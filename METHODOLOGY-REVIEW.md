@@ -670,3 +670,21 @@ definitions and conditions. Standalone heading/question and explicitly supported
 legal/brand names are presentation metadata; original handoffs stay unchanged.
 See runs/cpos-ford-ratings-2024-001/verification.json. No new orchestration layer,
 model run, Excel output or inferred exact headroom was introduced.
+
+**CP-4 Provisional review on app runs (2026-11-08):** source: the Deploy VII owner
+path's draft admission (`src/deploy_vii/cp4_legal.py`: `DRAFT_LIMITATION`,
+`LEGAL_AUTHORITIES`) and REF_CP-4_STEPS.md line 373, "Provisional (partial evidence
+or draft documents)" (docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/).
+Reason: owner decision 1, 2026-11-08, that draft and marketing documents on a
+Primary run, or where the context declares draft legal documents, are reviewed as
+Provisional instead of stopping at the method's executed-document gate. CP-4 then
+writes a fixed `### Legal document register`, `DRAFT_LIMITATION` verbatim and the word
+Provisional in its routed sections and main limitation; with no legal document the
+Blocked message stands. Outside that scope instructions and checks are unchanged.
+This repository's revision: the change sits on commit 93c3478b (Plan 3 Task 10).
+Widening: the plan tells CP-3, CP-5 and CP-6 to label Provisional terms "on Primary
+runs". The consumer sentence is written in the whole Provisional scope (Primary, or
+legal documents "draft"), with or without CP-4 in the run, because instructions must match
+what the checker enforces: it requires "Provisional" from any consumer whose upstream
+CP-4 handoff holds `DRAFT_LIMITATION` or the final-offering-memorandum reason
+(coordinator ruling, 2026-11-08).

@@ -19,6 +19,29 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
 - **Reviews:** per-task `mx-precise`; lead's whole-branch review (`mx-architect`) APPROVE; its Low finding (a server-thread crash lost its cause under `pythonw`) was fixed test-first before the owner's run.
 - **Not recorded:** the import and first-response times and the Python patch version from the result file (the owner reported the verdict only); the result file itself is not in the repository.
 
+## 2026-11-08 — Plan 3 Task 9: Mattress Firm 2014 public proxy case and frozen key (branch `claude/plan-3-primary-transactions-ee0e14`)
+
+Scope: `cases/primary-proxy-mattress-firm-2014/`, labelled "public proxy for a private primary deal; older source (2014)",
+Mattress Firm Holding Corp. (CIK 1419852) only. No code changed; no module or provider run.
+- Sources: 11 EDGAR documents from 6 accessions, fetched 2026-11-08 at ≤1 request/s under the owner-approved identity
+  (not stored), byte-identical, sha256 in `manifest.json`. All 11 pass the launcher's `_issuer_files` reader. The CIM and
+  Marketing Term Sheet are not public, and the case says so.
+- Finding: accession 0001104659-14-064027 is the Back to Bed asset purchase 8-K, not a Sleep Train merger 8-K. It is kept
+  under that label; the Sleep Train merger 8-K is not in the case.
+- Contexts: pre-closing (Primary, draft, ABL and TLB rows as the presentation states them) and after-closing
+  (Secondary, executed). Both pass `load_context`. The manifest gives each check's documents, modules and cap (C1, C1n,
+  C2, C1r, C3).
+- Frozen key `expected.json`: hand-written from the documents by a key-writer subagent that writes no Tasks 10-11 code;
+  207 cites, each snippet found on its cited line. It holds 24 covenant terms, 19 add-backs, 27 executed terms, the
+  expected base EBITDA (194.5 on stated Adjusted EBITDA; 164.2-166.0 on stated EBITDA), and C1n Blocked. Executed terms
+  that differ from the presentation are recorded, not reconciled: soft call 12 months, not 6; ECF steps fixed at
+  3.00x/2.75x; no MFN sunset clause found.
+- Review: mx-precise found 1 High and 3 Medium (an "executed" rule that contradicted the APA, the free EDGAR lane in C1n,
+  no expected base, C1r status). One fix round; the scoped re-review passed. Probes are scratch-only.
+- Gates exit 0: `tools/quality_gate.py` (0 lines in scope); `validate.py quick` (node 354, python 610 passed).
+Not verified: no module has consumed the case or key; whether a run can reach EDGAR (the free lane would change C1n);
+the EBITDA-path base is a range, because the documents leave the acquired "EBITDA" definitions unstated.
+
 ## 2026-11-08 — Issuer Library: Library screening screen, offline: retained workspace; no provider called (branch `claude/library-screening-tests`)
 
 Scope: the Library screening screen (L2, L3 tests, L4 docs and Help), macOS only, the 59 retained records; no provider call.

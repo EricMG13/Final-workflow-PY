@@ -1,0 +1,1721 @@
+{
+  "case_id": "primary-proxy-mattress-firm-2014",
+  "frozen": "2026-11-08",
+  "authored_by": "key-writer subagent; not the author of Plan 3 Tasks 10-11 code",
+  "basis": "hand-written from the case documents before any code or run",
+  "scope": "public proxy for a private primary deal; older source (2014); Mattress Firm Holding Corp. only",
+  "conventions": [
+    "Amounts are as the documents state them: same number, same unit (USD m unless noted), same period.",
+    "Missing is 'not stated'; a '--' cell is 'not stated (--)'; neither is 0. A stated 0.0 stays 0.0.",
+    "Every value has a cite: '<source_id> line <N>' (line in the plain-text conversion of the file; the presentation has one slide per line) plus a short verbatim snippet.",
+    "No computed value stands in for a stated one. A derived figure sits in a separate 'derived' field with its arithmetic, and only where every input is stated.",
+    "No stub, placeholder or guessed value; what could not be established is listed under gaps.",
+    "The presentation is marketing (authority rank 6) and its terms are pre-execution; the executed Exhibits 10.1 and 10.2 are rank 1. The 8-K summary is not a governing document."
+  ],
+  "documents": [
+    {
+      "source_id": "2014-09-11-8k-item-7-01.htm",
+      "kind": "current_report",
+      "status": "furnished (Item 7.01; not filed)",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "2014-09-11-8k-item-7-01.htm line 35: \"proposed debt terms, which have not been negotiated and remain subject to change\""
+    },
+    {
+      "source_id": "2014-09-11-ex99-1-public-lender-presentation.htm",
+      "kind": "lender_presentation",
+      "status": "marketing (pre-execution)",
+      "authority_rank": 6,
+      "governing_credit_document": false,
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Indicative Margin: TBD\""
+    },
+    {
+      "source_id": "10-k-year-ended-2014-01-28.htm",
+      "kind": "annual_report",
+      "status": "filed periodic report",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "10-k-year-ended-2014-01-28.htm line 13: \"For the fiscal year ended January 28, 2014\""
+    },
+    {
+      "source_id": "10-q-quarter-ended-2014-04-29.htm",
+      "kind": "quarterly_report",
+      "status": "filed periodic report",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "10-q-quarter-ended-2014-04-29.htm line 9: \"For the quarterly period ended April 29, 2014\""
+    },
+    {
+      "source_id": "10-q-quarter-ended-2014-07-29.htm",
+      "kind": "quarterly_report",
+      "status": "filed periodic report",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "10-q-quarter-ended-2014-07-29.htm line 10: \"For the quarterly period ended July 29, 2014\""
+    },
+    {
+      "source_id": "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+      "kind": "current_report",
+      "status": "filed (Item 1.01; Back to Bed bolt-on, not a financing document)",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "2014-08-29-8k-back-to-bed-asset-purchase.htm line 34: \"entered into an Asset Purchase Agreement\""
+    },
+    {
+      "source_id": "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+      "kind": "asset_purchase_agreement",
+      "status": "executed (acquisition contract, not a credit document)",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "2014-08-29-ex2-1-asset-purchase-agreement.htm line 533: \"THIS ASSET PURCHASE AGREEMENT\""
+    },
+    {
+      "source_id": "2014-08-29-ex99-1-press-release.htm",
+      "kind": "press_release",
+      "status": "furnished",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "2014-08-29-ex99-1-press-release.htm line 7: \"aggregate purchase price of approximately $60 million\""
+    },
+    {
+      "source_id": "2014-10-21-8k-credit-agreements.htm",
+      "kind": "current_report",
+      "status": "filed (summary of the executed agreements; not the governing document)",
+      "authority_rank": null,
+      "governing_credit_document": false,
+      "cite": "2014-10-21-8k-credit-agreements.htm line 41: \"$720 million term loan credit agreement dated October 20, 2014\""
+    },
+    {
+      "source_id": "2014-10-21-ex10-1-abl-credit-agreement.htm",
+      "kind": "credit_agreement",
+      "status": "executed (ABL Credit Agreement dated 20 October 2014, Execution Version)",
+      "authority_rank": 1,
+      "governing_credit_document": true,
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 587: \"This ABL CREDIT AGREEMENT\""
+    },
+    {
+      "source_id": "2014-10-21-ex10-2-term-loan-credit-agreement.htm",
+      "kind": "credit_agreement",
+      "status": "executed (Term Loan Credit Agreement dated 20 October 2014, Execution Version)",
+      "authority_rank": 1,
+      "governing_credit_document": true,
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 496: \"This TERM LOAN CREDIT AGREEMENT\""
+    }
+  ],
+  "outcomes": {
+    "C1": {
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-4"
+      ],
+      "documents": [
+        "2014-09-11-8k-item-7-01.htm",
+        "2014-09-11-ex99-1-public-lender-presentation.htm",
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cp4_status": "Completed with Limitations, labelled Provisional (not Blocked, not plain Completed)",
+      "reason": "No executed governing credit document is in the set (the 2012 Credit Agreement was executed and in force on 2014-09-11 but is being refinanced by the new facilities and does not govern them; it is not attached to the 10-K or 10-Qs), so the method's BLOCKING gate would stop CP-4. The plan's Provisional scope applies because the run is Primary with legal documents declared draft: CP-4 must continue, list every document with status and authority rank, say DRAFT_LIMITATION verbatim and label every routed section and the main limitation Provisional.",
+      "refinanced_2012_agreement_note": {
+        "text": "the 2012 Credit Agreement is being refinanced and terminated at closing; it does not govern the new ABL or Term Loan B",
+        "cite_10k": "10-k-year-ended-2014-01-28.htm line 895: \"2012 Senior Credit Facility\"",
+        "cite_8k_termination": "2014-10-21-8k-credit-agreements.htm line 49: \"terminated its then-existing Credit Agreement dated November 5, 2012\""
+      },
+      "gate_cite": "REF_CP-4_STEPS.md step 01 gate: 'At least one executed governing legal document (credit agreement or indenture) must be available. If none: Module Status = Blocked'",
+      "register_expectations": [
+        "the lender presentation is rank 6, status marketing (pre-execution), and is the only source of the keyed terms",
+        "the 8-K Item 7.01 is the furnishing wrapper; it says the proposed debt terms 'have not been negotiated and remain subject to change'",
+        "none of the eight documents is called an executed credit document; the Asset Purchase Agreement is executed but is not a credit agreement",
+        "10-K and 10-Qs mention the 2012 Credit Agreement but do not attach it, so they supply no covenant authority"
+      ],
+      "keyed_terms_min": 8,
+      "keyed_terms_ids": [
+        "tlb.size",
+        "tlb.margin",
+        "tlb.oid",
+        "tlb.libor_floor",
+        "tlb.maturity",
+        "tlb.soft_call",
+        "tlb.amortization",
+        "tlb.ecf_sweep",
+        "tlb.asset_sale_sweep",
+        "tlb.financial_covenants",
+        "tlb.incremental",
+        "tlb.mfn",
+        "tlb.incremental_equivalent_debt",
+        "tlb.ranking",
+        "tlb.marketing_term_sheet",
+        "abl.size",
+        "abl.tenor",
+        "abl.margin",
+        "abl.commitment_fee",
+        "abl.incremental",
+        "abl.springing_fccr",
+        "abl.cash_dominion",
+        "abl.borrowing_base",
+        "abl.payment_conditions"
+      ],
+      "each_term_label": "Provisional",
+      "apa_note": "The Back to Bed Asset Purchase Agreement (Ex 2.1) may be called executed, as an acquisition contract; it must not be called a credit document or a governing credit document.",
+      "must_not": [
+        "call any listed document an executed credit agreement, indenture or governing credit document",
+        "treat 'TBD' margin or OID as a value",
+        "use CP-1D figures as covenant capacity"
+      ]
+    },
+    "C1n": {
+      "cp4_status": "Blocked",
+      "reason": "See the c1n section. Blocked holds only because no executed credit agreement is in the case or fetched by the run. The method's free EDGAR lane (REF_CP-4_STEPS.md lines 35-41) could change this: a run that fetched and ingested the 2012 Credit Agreement (executed, in force on 2014-09-11) would change the outcome; that run is outside the scope of this case. Provisional scope does not rescue C1n: the Asset Purchase Agreement is not one of the six ranked legal or offering document kinds, and no draft (presentation, term sheet) remains in the set."
+    },
+    "C2": {
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-1A",
+        "CP-1D",
+        "CP-2"
+      ],
+      "documents": [
+        "2014-09-11-8k-item-7-01.htm",
+        "2014-09-11-ex99-1-public-lender-presentation.htm",
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cp2_status": "Completed (Reported basis from filings; pro forma from the presentation, labelled as marketing/management figures)",
+      "expects": [
+        "CP-1A Sources and uses equal the sources_and_uses section: total 821 on each side as stated",
+        "CP-2 Pro forma capitalisation: one balance-sheet date (end of fiscal Q2 2014) and one LTM period (LTM Q2 2014); cash row with Mattress Firm 18, Adj. (18), pro forma 'not stated (--)'; total debt 302 -> 767; secured 297 -> 763",
+        "CP-2 pro forma debt cites CP-1A's total (new ABL 42 + new term loan 720, Adj. 466)",
+        "EBITDA ladder base = (a) + (b) per ebitda_ladder_inputs.expected_base (194.5 from Adjusted EBITDA 151.7; a range from EBITDA 128.1) with no double count of the 10.8 completed-acquisition adjustment already inside 162.6 / 163",
+        "As marketed equals management's quoted figure as stated (200, 216 and 233 identified by what each includes); any difference from the base is explained, never plugged; no haircut is invented",
+        "the 16 vs 17 rounding and the 217 vs 216 footing difference are reported as document rounding, not resolved",
+        "the user's entered facility sizes (ABL 125, TLB 720) equal the documents; no difference to log"
+      ]
+    },
+    "C1r": {
+      "modules": "covenant_refinancing preset (app runs drop CP-MODEL)",
+      "documents": [
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-10-21-8k-credit-agreements.htm",
+        "2014-10-21-ex10-1-abl-credit-agreement.htm",
+        "2014-10-21-ex10-2-term-loan-credit-agreement.htm"
+      ],
+      "cp4_status": "Completed or Completed with Limitations, with no DRAFT_LIMITATION and nothing labelled Provisional (plan wording: 'CP-4 Completed with no draft limitation'). A limitation for the missing ABL Intercreditor Agreement is legitimate.",
+      "limitation_note": {
+        "text": "the ABL Intercreditor Agreement is defined in Ex 10.2 but is not in the case",
+        "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 511: \"ABL Intercreditor Agreement\""
+      },
+      "reason": "Exhibits 10.1 and 10.2 are executed (Execution Version) credit agreements, authority rank 1; the 8-K is a summary of them. The presentation is deliberately out of scope so no draft is present.",
+      "expects": [
+        "each term in c1r_executed_terms that matches a covenant_terms id is compared with its pre-closing status: margin TBD becomes LIBOR + 4.00-4.25% by total net leverage (4.25% for the first six months); OID stays not stated",
+        "differences that move against the presentation are surfaced: soft call 12 months not 6; ECF steps at fixed 3.00x / 2.75x; MFN 50 bps with no sunset in the clause; amortization 0.25% per quarter (1% per annum, consistent); ABL payment-condition second prong 15% / USD 12.5m versus the presentation's 12.5% / USD 15m",
+        "financial covenants: none for the Term Loan; ABL springing FCCR 1.0x (consistent)",
+        "the 8-K summary is not called the governing document"
+      ]
+    },
+    "C3": {
+      "modules": "credit_snapshot preset plus CP-1D (app runs drop CP-MODEL)",
+      "documents": [
+        "2014-09-11-8k-item-7-01.htm",
+        "2014-09-11-ex99-1-public-lender-presentation.htm",
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cp4_status": "Completed with Limitations, labelled Provisional (same as C1)",
+      "expects": [
+        "report shows both pro forma tables (capitalisation and EBITDA ladder) with the values in this key, or an explicit gap",
+        "every report section drawing on CP-4 says Provisional; CP-6 never treats a draft term as executed; CP-5 flags claims that depend on drafts",
+        "the pro forma and CP-4 figures agree with this key"
+      ]
+    }
+  },
+  "sources_and_uses": {
+    "basis": "as the presentation states them (page 8); illustrative; the slide notes the Company expects a lower outstanding balance at closing",
+    "sources": [
+      {
+        "row": "Cash from Balance Sheet",
+        "amount": 18,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Cash from Balance Sheet $18\""
+      },
+      {
+        "row": "$125mm New ABL",
+        "amount": 42,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"$125mm New ABL 42\""
+      },
+      {
+        "row": "$720mm New Term Loan",
+        "amount": 720,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"$720mm New Term Loan 720\""
+      },
+      {
+        "row": "Mattress Firm Equity Issued",
+        "amount": 40,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Mattress Firm Equity Issued 40\""
+      }
+    ],
+    "total_sources": {
+      "amount": 821,
+      "unit": "USD m",
+      "as_stated": true,
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Sources $821\""
+    },
+    "uses": [
+      {
+        "row": "Purchase of Sleep Train",
+        "amount": 440,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Purchase of Sleep Train $440\""
+      },
+      {
+        "row": "Purchase of Bolt-ons",
+        "amount": 66,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Purchase of Bolt-ons 66\""
+      },
+      {
+        "row": "Mattress Firm Existing Debt",
+        "amount": 297,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Mattress Firm Existing Debt 297\""
+      },
+      {
+        "row": "Illustrative Fees and Expenses",
+        "amount": 18,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Illustrative Fees and Expenses 18\""
+      }
+    ],
+    "total_uses": {
+      "amount": 821,
+      "unit": "USD m",
+      "as_stated": true,
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Uses $821\""
+    },
+    "not_stated": [
+      "OID or upfront fee amount (Term Loan 'Upfront / OID: TBD'); the fee row is 'Illustrative Fees and Expenses' only"
+    ],
+    "note": "Bolt-ons USD 66m in the presentation; the 29 August 2014 press release gives approximately USD 60m for the Back to Bed / Bedding Experts / Mattress Barn purchase only (one of the bolt-ons).",
+    "note_cite": "2014-08-29-ex99-1-press-release.htm line 7: \"aggregate purchase price of approximately $60 million\""
+  },
+  "pro_forma_capitalisation": {
+    "ltm_period": "LTM Q2 2014 (stated column header)",
+    "ltm_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"LTM Q2 2014: Mattress Sleep Pro\"",
+    "balance_sheet_date": "end of the Company's second fiscal quarter, i.e. 29 July 2014 (the slide says 'end of fiscal Q2'; the date 29 July 2014 is the manifest's reading and the Q2 10-Q's period end)",
+    "balance_sheet_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 10: \"as of the end of the Company’s second fiscal quarter\"",
+    "columns": [
+      "Mattress Firm LTM Q2 2014",
+      "Sleep Train",
+      "Bolt-ons",
+      "Adj.",
+      "Pro Forma"
+    ],
+    "rows": [
+      {
+        "row": "Cash",
+        "mattress_firm_ltm_q2_2014": 18,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": -18,
+        "pro_forma": "not stated (--)",
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Cash $18 -- -- ($18) --\""
+      },
+      {
+        "row": "Existing Mattress Firm RCF",
+        "mattress_firm_ltm_q2_2014": "not stated (--)",
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": "not stated (--)",
+        "pro_forma": "not stated (--)",
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Existing Mattress Firm RCF -- -- -- -- --\""
+      },
+      {
+        "row": "$125mm New ABL",
+        "mattress_firm_ltm_q2_2014": "not stated (--)",
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 42,
+        "pro_forma": 42,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"$125mm New ABL -- -- -- 42 42\""
+      },
+      {
+        "row": "Existing Mattress Firm Term Loan B",
+        "mattress_firm_ltm_q2_2014": 297,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": -297,
+        "pro_forma": "not stated (--)",
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Existing Mattress Firm Term Loan B 297 -- -- (297) --\""
+      },
+      {
+        "row": "$720mm New Term Loan",
+        "mattress_firm_ltm_q2_2014": "not stated (--)",
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 720,
+        "pro_forma": 720,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"$720mm New Term Loan -- -- -- 720 720\""
+      },
+      {
+        "row": "Equipment Financing",
+        "mattress_firm_ltm_q2_2014": 1,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": "not stated (--)",
+        "pro_forma": 1,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Equipment Financing 1 -- -- -- 1\""
+      },
+      {
+        "row": "Total Secured Debt",
+        "mattress_firm_ltm_q2_2014": 297,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 466,
+        "pro_forma": 763,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Secured Debt $297 -- -- $466 $763\""
+      },
+      {
+        "row": "Other Notes Payable",
+        "mattress_firm_ltm_q2_2014": 4,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": "not stated (--)",
+        "pro_forma": 4,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Other Notes Payable $4 -- -- -- $4\""
+      },
+      {
+        "row": "Total Debt",
+        "mattress_firm_ltm_q2_2014": 302,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 466,
+        "pro_forma": 767,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Debt $302 -- -- $466 $767\""
+      },
+      {
+        "row": "Market Capitalization",
+        "mattress_firm_ltm_q2_2014": 2210,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 40,
+        "pro_forma": 2250,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Market Capitalization $2,210 -- -- 40 $2,250\""
+      },
+      {
+        "row": "Total Capitalization",
+        "mattress_firm_ltm_q2_2014": 2512,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": "not stated (--)",
+        "pro_forma": 3017,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Capitalization $2,512 -- -- -- $3,017\""
+      }
+    ],
+    "total_secured_debt": {
+      "mattress_firm": 297,
+      "adj": 466,
+      "pro_forma": 763,
+      "unit": "USD m"
+    },
+    "total_debt": {
+      "mattress_firm": 302,
+      "adj": 466,
+      "pro_forma": 767,
+      "unit": "USD m"
+    },
+    "market_capitalisation": {
+      "mattress_firm": 2210,
+      "adj": 40,
+      "pro_forma": 2250,
+      "unit": "USD m",
+      "basis": "34.2mm shares at $64.66 from market close of 9/9/14 (slide footnote)",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"total outstanding share count of 34.2mm and share price of $64.66\""
+    },
+    "cash_row": {
+      "mattress_firm": 18,
+      "adj": -18,
+      "pro_forma": "not stated (--)",
+      "unit": "USD m",
+      "note": "the slide's pro forma cash cell is '--'; it is not zero",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Cash $18 -- -- ($18) --\""
+    },
+    "operating_rows": [
+      {
+        "row": "Adj. EBITDA",
+        "mattress_firm_ltm_q2_2014": 163,
+        "sleep_train": 32,
+        "bolt_ons": 5,
+        "adj": "not stated (--)",
+        "pro_forma": 200,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA $163 $32 $5 -- $200\""
+      },
+      {
+        "row": "Rent",
+        "mattress_firm_ltm_q2_2014": 199,
+        "sleep_train": 45,
+        "bolt_ons": 15,
+        "adj": "not stated (--)",
+        "pro_forma": 259,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Rent 199 45 15 -- 259\""
+      },
+      {
+        "row": "Adj. EBITDAR",
+        "mattress_firm_ltm_q2_2014": 361,
+        "sleep_train": 77,
+        "bolt_ons": 20,
+        "adj": "not stated (--)",
+        "pro_forma": 458,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDAR $361 $77 $20 -- $458\""
+      },
+      {
+        "row": "Synergies",
+        "mattress_firm_ltm_q2_2014": "not stated (--)",
+        "sleep_train": 13,
+        "bolt_ons": 4,
+        "adj": "not stated (--)",
+        "pro_forma": 17,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies -- $13 $4 -- $17\""
+      },
+      {
+        "row": "Adj. EBITDA w/ Synergies",
+        "mattress_firm_ltm_q2_2014": 163,
+        "sleep_train": 45,
+        "bolt_ons": 9,
+        "adj": "not stated (--)",
+        "pro_forma": 216,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA w/ Synergies 163 45 9 -- 216\""
+      },
+      {
+        "row": "New Stores Opened EBITDA Adjustment",
+        "mattress_firm_ltm_q2_2014": "not stated (--)",
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 17,
+        "pro_forma": 17,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"New Stores Opened EBITDA Adjustment -- -- -- $17 $17\""
+      },
+      {
+        "row": "Adj. EBITDA w/ Synergies and New Stores Adj.",
+        "mattress_firm_ltm_q2_2014": 163,
+        "sleep_train": 45,
+        "bolt_ons": 9,
+        "adj": 17,
+        "pro_forma": 233,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies and New Stores Adj. 163 45 9 17 233\""
+      },
+      {
+        "row": "Capex",
+        "mattress_firm_ltm_q2_2014": 62,
+        "sleep_train": 7,
+        "bolt_ons": 1,
+        "adj": "not stated (--)",
+        "pro_forma": 70,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Capex $62 $7 $1 -- $70\""
+      },
+      {
+        "row": "Net Interest",
+        "mattress_firm_ltm_q2_2014": 12,
+        "sleep_train": "not stated (--)",
+        "bolt_ons": "not stated (--)",
+        "adj": 25,
+        "pro_forma": 37,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Net Interest 12 -- -- 25 37\""
+      }
+    ],
+    "leverage_statistics_as_stated": [
+      {
+        "statistic": "Total Debt / Adj. EBITDA (with synergies)",
+        "mattress_firm_ltm_q2_2014": "1.9x",
+        "pro_forma": "3.5x",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Debt / Adj. EBITDA 1.9x -- -- -- 3.5x\""
+      },
+      {
+        "statistic": "Adj. Total Debt / Adj. EBITDAR (8x rent)",
+        "mattress_firm_ltm_q2_2014": "5.2x",
+        "pro_forma": "6.0x",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDAR (8x rent) 5.2x -- -- -- 6.0x\""
+      },
+      {
+        "statistic": "Total Debt / Adj. EBITDA with New Stores Adj.",
+        "mattress_firm_ltm_q2_2014": "1.9x",
+        "pro_forma": "3.3x",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"New Stores Adj. 1.9x -- -- -- 3.3x\""
+      },
+      {
+        "statistic": "Adj. Total Debt / Adj. EBITDAR with New Stores Adj. (8x rent)",
+        "mattress_firm_ltm_q2_2014": "5.2x",
+        "pro_forma": "6.0x",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"New Stores Adj. (8x rent) 5.2x -- -- -- 6.0x\""
+      },
+      {
+        "statistic": "Total Debt / Total Capitalization",
+        "mattress_firm_ltm_q2_2014": "12.0%",
+        "pro_forma": "25.4%",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Debt / Total Capitalization 12.0% 25.4%\""
+      },
+      {
+        "statistic": "Adj. EBITDA / Net Interest",
+        "mattress_firm_ltm_q2_2014": "13.3x",
+        "pro_forma": "5.8x",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA / Net Interest 13.3x -- -- -- 5.8x\""
+      }
+    ],
+    "overview_statement": {
+      "text": "total leverage 3.3x and lease-adjusted leverage (8x rent) 6.0x pro forma as of the end of the second fiscal quarter, including USD 12.5m Sleep Train synergies, USD 4m Bolt-On synergies and USD 17m LTM new store EBITDA adjustments",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 10: \"total leverage will be 3.3x and lease-adjusted leverage (8x rent) will be 6.0x\""
+    },
+    "stated_inconsistencies": [
+      "The Adj. EBITDA w/ Synergies row does not foot from its own cells: 163 + 45 + 9 = 217 but 216 is stated; 200 + 17 = 217 but 216 is stated. The page 50 reconciliation gives 216.3. Rounding; record as stated, never plug.",
+      "The Total Debt / Total Capitalization cell shows two values (12.0% 25.4%); the key assigns 12.0% to Mattress Firm and 25.4% to Pro Forma by position (the other columns are --)."
+    ],
+    "slide_footnote": {
+      "text": "Mattress Firm column includes $10.8mm of pro forma results and synergies from acquisitions completed as of end of Q2",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"includes $10.8mm of pro forma results and synergies\""
+    }
+  },
+  "ebitda_ladder_inputs": {
+    "a_starting_ebitda": {
+      "definitions_named_in_documents": [
+        "EBITDA (the presentation's first reconciliation line; before adjustments)",
+        "Adjusted EBITDA (EBITDA plus listed adjustments)",
+        "Pro Forma Adjusted EBITDA (Adjusted EBITDA plus pro forma adjustments for acquisitions, including purchasing synergies)"
+      ],
+      "definition_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Mattress Firm prepares Pro Forma Adjusted EBITDA by further adjusting Adjusted EBITDA\"",
+      "rows": [
+        {
+          "item": "EBITDA, LTM Q2 2014",
+          "amount": 128.1,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"EBITDA $128.9 $128.1\"",
+          "fy2013": 128.9
+        },
+        {
+          "item": "Adjusted EBITDA, LTM Q2 2014",
+          "amount": 151.7,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Adjusted EBITDA $140.0 $151.7\"",
+          "fy2013": 140.0
+        },
+        {
+          "item": "Pro Forma Adjusted EBITDA (standalone: Adjusted EBITDA plus Completed Acquisitions incl. purchasing synergies), LTM Q2 2014",
+          "amount": 162.6,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Pro Forma Adjusted EBITDA (standalone) $162.6\"",
+          "note": "the capitalisation table's Mattress Firm Adj. EBITDA of 163 is this figure rounded; it includes the 10.8 of completed-acquisition adjustments"
+        }
+      ],
+      "fy2013_label": "column header reads 'FYE January of the following year 2013' (fiscal 2013, year ended 28 January 2014)",
+      "ebitda_to_adjusted_footing": {
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Stock-Based Compensation 4.8 5.5\"",
+        "note": "Adjusted EBITDA LTM Q2 2014 is quoted as stated (151.7), not re-derived: the Intangible Asset Impairment Charge cell is 'not stated (--)', so no footing sum is made."
+      },
+      "financial_base_filing_figures": "not transcribed: CP-1's own EBIT-plus-D&A figure from the 10-K / 10-Qs is a separate input; the key does not state it (see gaps)"
+    },
+    "b_acquired_ebitda": {
+      "sleep_train": [
+        {
+          "item": "Sleep Train EBITDA (before adjustments), LTM Q2 2014",
+          "amount": 25.4,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"EBITDA $26.3 $25.4\"",
+          "fy2013": 26.3,
+          "derived": "25.4 + 3.9 + 0.6 + 0.4 = 30.3 (LIFO, severance and litigation cells are '--', 0.0 and '--'; the stated Adjusted EBITDA is 30.3)"
+        },
+        {
+          "item": "Sleep Train Adjusted EBITDA, LTM Q2 2014 (before America's Mattress and synergies)",
+          "amount": 30.3,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Adjusted EBITDA $33.0 $30.3\"",
+          "fy2013": 33.0
+        },
+        {
+          "item": "Adjusted EBITDA from America's Mattress acquisition (Sleep Train)",
+          "amount": 1.8,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Adjusted EBITDA from America's Mattress acquisition 1.8\"",
+          "column_note": "single value shown in the extracted text; assumed LTM Q2 2014 column, the only column the note describes"
+        },
+        {
+          "item": "Sleep Train Adj. EBITDA in the capitalisation table (rounded)",
+          "amount": 32,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA $163 $32 $5 -- $200\""
+        },
+        {
+          "item": "Sleep Train Pro Forma Adjusted EBITDA including purchasing synergies",
+          "amount": 44.6,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Pro Forma Adjusted EBITDA $44.6\""
+        },
+        {
+          "item": "Sleep Train Adj. EBITDA w/ Synergies in the capitalisation table (rounded)",
+          "amount": 45,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA w/ Synergies 163 45 9 -- 216\""
+        }
+      ],
+      "bolt_ons": [
+        {
+          "item": "Back to Bed EBITDA",
+          "amount": 4.8,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\""
+        },
+        {
+          "item": "Best Mattress EBITDA",
+          "amount": 0.2,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\""
+        },
+        {
+          "item": "Bolt-ons Adj. EBITDA in the capitalisation table",
+          "amount": 5,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA $163 $32 $5 -- $200\""
+        },
+        {
+          "item": "Back to Bed Pro Forma Adjusted EBITDA (incl. remaining Year 1 purchasing synergies)",
+          "amount": 8.3,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Pro Forma Adjusted EBITDA $0.7 $5.4 $4.7 $8.3 $0.8\""
+        },
+        {
+          "item": "Best Mattress Pro Forma Adjusted EBITDA (incl. remaining Year 1 purchasing synergies)",
+          "amount": 0.8,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Pro Forma Adjusted EBITDA $0.7 $5.4 $4.7 $8.3 $0.8\""
+        },
+        {
+          "item": "Bolt-Ons combined Pro Forma Adjusted EBITDA (Back to Bed, Best Mattress)",
+          "amount": 9.1,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Combined Pro Forma Adjusted EBITDA for Completed Acquisitions & Bolt-Ons $10.8 $9.1\""
+        },
+        {
+          "item": "Bolt-ons Adj. EBITDA w/ Synergies in the capitalisation table",
+          "amount": 9,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA w/ Synergies 163 45 9 -- 216\""
+        }
+      ],
+      "completed_acquisitions": [
+        {
+          "item": "Yotes EBITDA",
+          "amount": 0.1,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\""
+        },
+        {
+          "item": "Sleep Experts EBITDA",
+          "amount": 3.4,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\""
+        },
+        {
+          "item": "Mattress Liquidators EBITDA",
+          "amount": 2.2,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\""
+        },
+        {
+          "item": "Yotes Pro Forma Adjusted EBITDA (incl. remaining Year 1 purchasing synergies)",
+          "amount": 0.7,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Pro Forma Adjusted EBITDA $0.7 $5.4 $4.7 $8.3 $0.8\""
+        },
+        {
+          "item": "Sleep Experts Pro Forma Adjusted EBITDA",
+          "amount": 5.4,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Pro Forma Adjusted EBITDA $0.7 $5.4 $4.7 $8.3 $0.8\""
+        },
+        {
+          "item": "Mattress Liquidators Pro Forma Adjusted EBITDA",
+          "amount": 4.7,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Pro Forma Adjusted EBITDA $0.7 $5.4 $4.7 $8.3 $0.8\""
+        },
+        {
+          "item": "Completed Acquisitions combined pro forma adjustment (incl. purchasing synergies)",
+          "amount": 10.8,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Pro Forma Adjustments for Completed Acquistions, including purchasing synergies 10.8\""
+        }
+      ],
+      "sleep_train_bolt_on_pro_forma_adjustments_page_50": [
+        {
+          "item": "Pro Forma Adjustments for Sleep Train, including purchasing synergies",
+          "amount": 44.6,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Pro Forma Adjustments for Sleep Train, including purchasing synergies 44.6\""
+        },
+        {
+          "item": "Pro Forma Adjustments for Bolt-Ons, including purchasing synergies",
+          "amount": 9.1,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Pro Forma Adjustments for Bolt-Ons, including purchasing synergies 9.1\""
+        }
+      ],
+      "double_count_note": "The Mattress Firm column (163 / 162.6) already contains the 10.8 completed-acquisition adjustment, including its purchasing synergies. The Synergies row of the table shows '--' for Mattress Firm, so those synergies are not added again. Page-50 Sleep Train 44.6 and Bolt-Ons 9.1 each include their own synergies; the table splits them into EBITDA (32, 5) and Synergies (13, 4)."
+    },
+    "c_synergies": {
+      "run_rate_claimed": {
+        "amount": 20,
+        "unit": "USD m",
+        "description": "expected synergies to be achieved by Fiscal 2017 (annual purchasing synergies; page 54 note says 'run-rate annual purchasing synergies that Mattress Firm reasonably expects to reach within three years')",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 10: \"Of the $20 million of expected synergies to be achieved by Fiscal 2017\""
+      },
+      "expected_within_18_months": {
+        "amount": 12.5,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 10: \"expects to achieve $12.5 million of synergies within the first 18 months\""
+      },
+      "included_in_pro_forma_figure": [
+        {
+          "item": "Sleep Train: 50% of Estimated Run-Rate Synergies",
+          "amount": 10.0,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"50% of Estimated Run-Rate Synergies 10.0\""
+        },
+        {
+          "item": "Sleep Train: Additional Purchasing Synergies Realizable in 18 Months",
+          "amount": 2.5,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Additional Purchasing Synergies Realizable in 18 Months 2.5\""
+        },
+        {
+          "item": "Sleep Train synergies, capitalisation table (rounded)",
+          "amount": 13,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies -- $13 $4 -- $17\""
+        },
+        {
+          "item": "Bolt-Ons synergies, capitalisation table",
+          "amount": 4,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies -- $13 $4 -- $17\""
+        },
+        {
+          "item": "Total synergies in the capitalisation table",
+          "amount": 17,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies -- $13 $4 -- $17\""
+        },
+        {
+          "item": "Back to Bed remaining Year 1 purchasing synergies",
+          "amount": 3.5,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Remaining Year 1 Purchasing Synergies 0.6 2.0 2.5 3.5 0.6\""
+        },
+        {
+          "item": "Best Mattress remaining Year 1 purchasing synergies",
+          "amount": 0.6,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Remaining Year 1 Purchasing Synergies 0.6 2.0 2.5 3.5 0.6\""
+        }
+      ],
+      "derived": [
+        {
+          "item": "Sleep Train synergies in pro forma",
+          "arithmetic": "10.0 + 2.5 = 12.5; equals the USD 12.5m the overview names for Sleep Train",
+          "inputs_stated": true
+        },
+        {
+          "item": "Run-rate not expected within 18 months",
+          "arithmetic": "20 - 12.5 = 7.5 (run-rate claimed less amount expected within 18 months); this is not an 'unrealised' amount, because the amount already in the LTM is not stated",
+          "inputs_stated": true
+        }
+      ],
+      "expectation_for_c": "The in-LTM amount is not stated, so a (c) figure that subtracts an in-LTM amount needs a cited source or Insufficient Information. The claimed synergies stay out of the base either way.",
+      "already_in_ltm": "not stated: no document states a realised or in-LTM amount of the USD 20m. Page 54 says the America's Mattress EBITDA 'does not give effect to any purchasing synergies Sleep Train realized', which is not a quantity.",
+      "already_in_ltm_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"does not give effect to any purchasing synergies Sleep Train realized\""
+    },
+    "d_other_management_addbacks": {
+      "mattress_firm_page_50": [
+        {
+          "item": "Stock-Based Compensation",
+          "amount": 5.5,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Stock-Based Compensation 4.8 5.5\"",
+          "fy2013": 4.8
+        },
+        {
+          "item": "Vendor New Store Funds",
+          "amount": -0.6,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Vendor New Store Funds 0.8 (0.6)\"",
+          "fy2013": 0.8
+        },
+        {
+          "item": "Acquisition-Related Expenses",
+          "amount": 11.1,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Acquisition-Related Expenses 1.7 11.1\"",
+          "fy2013": 1.7
+        },
+        {
+          "item": "Loss on Store Closings and Impairment of Store Assets",
+          "amount": 1.7,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Loss on Store Closings and Impairment of Store Assets 1.5 1.7\"",
+          "fy2013": 1.5
+        },
+        {
+          "item": "Intangible Asset Impairment Charge",
+          "amount": "not stated (--)",
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Intangible Asset Impairment Charge -- --\"",
+          "fy2013": "not stated (--)"
+        },
+        {
+          "item": "Financial Sponsor Fees and Expenses",
+          "amount": 0.0,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Financial Sponsor Fees and Expenses 0.0 0.0\"",
+          "fy2013": 0.0,
+          "note": "stated as 0.0, not '--'"
+        },
+        {
+          "item": "Other Adjustments",
+          "amount": 5.9,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Other Adjustments 2.1 5.9\"",
+          "fy2013": 2.1
+        }
+      ],
+      "sleep_train_page_51": [
+        {
+          "item": "Wages Related to ESOP Share-Allocations & SARS",
+          "amount": 3.9,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Wages Related to ESOP Share-Allocations & SARS 6.5 3.9\"",
+          "fy2013": 6.5
+        },
+        {
+          "item": "Forgiveness of Restricted Stock Notes Receivable",
+          "amount": 0.6,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Forgiveness of Restricted Stock Notes Receivable 0.6 0.6\"",
+          "fy2013": 0.6
+        },
+        {
+          "item": "Loss on Disposal of Property & Equipment",
+          "amount": 0.4,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Loss on Disposal of Property & Equipment 0.1 0.4\"",
+          "fy2013": 0.1
+        },
+        {
+          "item": "LIFO Adjustment Expense",
+          "amount": "not stated (--)",
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"LIFO Adjustment Expense 0.2 --\"",
+          "fy2013": 0.2
+        },
+        {
+          "item": "Severage [sic] Costs and Related Payroll Taxes",
+          "amount": 0.0,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Severage Costs and Related Payroll Taxes 0.0 0.0\"",
+          "fy2013": 0.0
+        },
+        {
+          "item": "Litigation Settlement Agreement",
+          "amount": "not stated (--)",
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Litigation Settlement Agreement (0.8) --\"",
+          "fy2013": -0.8
+        }
+      ],
+      "new_store_adjustment_page_53": [
+        {
+          "item": "Total Number of LTM New Stores Opened (count, not USD m)",
+          "amount": 186,
+          "unit": "stores",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 56: \"Total Number of LTM New Stores Opened 186\""
+        },
+        {
+          "item": "Average Annualized Corporate EBITDA per Store from LTM New Stores Opened",
+          "amount": 0.175,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 56: \"Average Annualized Corporate EBITDA per Store from LTM New Stores Opened (1) $0.175\""
+        },
+        {
+          "item": "Pro Forma EBITDA from LTM New Stores Opened",
+          "amount": 32.5,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 56: \"Pro Forma EBITDA from LTM New Stores Opened $32.5\""
+        },
+        {
+          "item": "Less: Actual EBITDA for LTM New Stores Opened",
+          "amount": -15.7,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 56: \"Less: Actual EBITDA for LTM New Stores Opened (15.7)\""
+        },
+        {
+          "item": "Pro Forma LTM New Stores Opened EBITDA Adjustment",
+          "amount": 16.8,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 56: \"Pro Forma LTM New Stores Opened EBITDA Adjustment $16.8\"",
+          "table_value_rounded": 17
+        }
+      ],
+      "cp1d_verdicts": "not stated by the documents; verdicts are the module's output, not the key's"
+    },
+    "e_management_quoted_figures": [
+      {
+        "item": "USD 200m: Adj. EBITDA, Mattress Firm 163 + Sleep Train 32 + Bolt-ons 5; excludes the 17 of synergies and the 17 new-store adjustment",
+        "amount": 200,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA $163 $32 $5 -- $200\""
+      },
+      {
+        "item": "USD 216m: Adj. EBITDA w/ Synergies (includes Sleep Train 12.5/13 and Bolt-on 4 synergies); excludes the new-store adjustment",
+        "amount": 216,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA w/ Synergies 163 45 9 -- 216\"",
+        "reconciliation_figure": 216.3,
+        "reconciliation_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Pro Forma Adjusted EBITDA $216.3\""
+      },
+      {
+        "item": "USD 233m: Adj. EBITDA w/ Synergies and New Stores Adj. (adds the 17 new-store adjustment); basis of the 3.3x leverage",
+        "amount": 233,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies and New Stores Adj. 163 45 9 17 233\""
+      },
+      {
+        "item": "USD 17m LTM new-store EBITDA adjustment named in the overview",
+        "amount": 17,
+        "unit": "USD m",
+        "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 10: \"$17mm in LTM new store EBITDA adjustments\""
+      }
+    ],
+    "e_difference_notes": {
+      "stated_bridge": "200 (no synergies) -> 216 (synergies) -> 233 (new stores): the 200 to 216 step is stated as 17 of synergies in the table row but 216 - 200 = 16 (rounding); the 216 to 233 step is 17 (stated) = 233 - 216.",
+      "derived": [
+        {
+          "item": "233 - 216",
+          "arithmetic": "233 - 216 = 17, equals the stated new-store adjustment",
+          "inputs_stated": true
+        },
+        {
+          "item": "216 - 200",
+          "arithmetic": "216 - 200 = 16, versus 17 stated for the Synergies row (163 + 45 + 9 = 217 does not equal 216): a rounding difference in the document; explain, do not plug",
+          "inputs_stated": true
+        }
+      ]
+    },
+    "expected_base": {
+      "rule": "base = (a) + (b); (b) = documented pro forma acquisition EBITDA excluding every synergy component; unrealised add-backs, and (d) management add-backs beyond the starting definition, stay out of the base.",
+      "double_count_trap": "The Mattress Firm column (162.6, shown as 163) already includes the 10.8 completed-acquisition adjustment. Using (a) = 162.6 or 163 and adding the completed acquisitions' 10.8 again double counts it. The Adjusted EBITDA start (151.7) does not include it.",
+      "b_items_excluding_synergies": [
+        {
+          "item": "Completed Acquisitions EBITDA (Yotes 0.1 + Sleep Experts 3.4 + Mattress Liquidators 2.2)",
+          "amount": 5.7,
+          "unit": "USD m",
+          "derived": "0.1 + 3.4 + 2.2 = 5.7; the 5.1 of Remaining Year 1 Purchasing Synergies (0.6 + 2.0 + 2.5) is excluded; 5.7 + 5.1 = 10.8 equals the stated adjustment",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\"",
+          "synergies_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Remaining Year 1 Purchasing Synergies 0.6 2.0 2.5 3.5 0.6\""
+        },
+        {
+          "item": "Sleep Train Adjusted EBITDA + America's Mattress",
+          "amount": 32.1,
+          "unit": "USD m",
+          "derived": "30.3 + 1.8 = 32.1 (table: 32); the 12.5 of synergies (10.0 + 2.5) is excluded",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Adjusted EBITDA $33.0 $30.3\""
+        },
+        {
+          "item": "Sleep Train EBITDA before adjustments (unadjusted)",
+          "amount": 25.4,
+          "unit": "USD m",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"EBITDA $26.3 $25.4\"",
+          "note": "America's Mattress 1.8 is stated only as Adjusted EBITDA, so it cannot be placed on an unadjusted basis"
+        },
+        {
+          "item": "Bolt-Ons EBITDA (Back to Bed 4.8 + Best Mattress 0.2)",
+          "amount": 5.0,
+          "unit": "USD m",
+          "derived": "4.8 + 0.2 = 5.0 (table: 5); the 4.1 of synergies (3.5 + 0.6) is excluded",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\""
+        }
+      ],
+      "bases": [
+        {
+          "starting_definition": "Adjusted EBITDA (stated), LTM Q2 2014",
+          "a": 151.7,
+          "a_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Adjusted EBITDA $140.0 $151.7\"",
+          "base": 194.5,
+          "unit": "USD m",
+          "derived": "151.7 + 5.7 + 32.1 + 5.0 = 194.5 (all inputs stated)",
+          "cross_check": "Management's 200 = 163 + 32 + 5 includes 5.1 of completed-acquisition synergies inside the 163; 200 - 5.1 = 194.9 against the 194.5 above: the 0.4 gap is rounding in the document (163 for 162.6, 32 for 32.1). Not plugged."
+        },
+        {
+          "starting_definition": "EBITDA (stated, before adjustments), LTM Q2 2014",
+          "a": 128.1,
+          "a_cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"EBITDA $128.9 $128.1\"",
+          "base": "range 164.2 to 166.0, USD m: Insufficient Information for a single figure",
+          "derived": "low: 128.1 + 5.7 + 25.4 + 5.0 = 164.2 (America's Mattress 1.8 omitted); high: 164.2 + 1.8 = 166.0 (mixes in an Adjusted figure)",
+          "reason": "America's Mattress 1.8 is stated only as Adjusted EBITDA, and the completed-acquisition and Bolt-On 'EBITDA' cells carry no stated definition, so a single unadjusted base cannot be isolated from the stated figures."
+        }
+      ],
+      "as_marketed": [
+        {
+          "figure": 200,
+          "includes": "Adj. EBITDA 163 + 32 + 5; the 163 contains the completed acquisitions' 10.8 including 5.1 of synergies; excludes the Sleep Train and Bolt-On synergies (17) and the new-store adjustment",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA $163 $32 $5 -- $200\""
+        },
+        {
+          "figure": 216,
+          "includes": "200 plus synergies row (Sleep Train 13, Bolt-Ons 4) as the table prints them; page 50 gives 216.3",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Adj. EBITDA w/ Synergies 163 45 9 -- 216\""
+        },
+        {
+          "figure": 233,
+          "includes": "216 plus the 17 new-store adjustment (16.8 on page 53); the leverage 3.3x is on this figure",
+          "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Synergies and New Stores Adj. 163 45 9 17 233\""
+        }
+      ]
+    }
+  },
+  "covenant_terms": [
+    {
+      "id": "tlb.size",
+      "facility": "Term Loan B",
+      "term": "Facility amount",
+      "as_documented": "$720 million Term Loan B",
+      "status": "stated (pre-execution)",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"$720 million Term Loan B (“Term Loan B”)\""
+    },
+    {
+      "id": "tlb.margin",
+      "facility": "Term Loan B",
+      "term": "Margin",
+      "as_documented": "Indicative Margin: TBD",
+      "status": "TBD",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Indicative Margin: TBD\""
+    },
+    {
+      "id": "tlb.oid",
+      "facility": "Term Loan B",
+      "term": "Upfront / OID",
+      "as_documented": "Upfront / OID: TBD",
+      "status": "TBD",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Upfront / OID: TBD\""
+    },
+    {
+      "id": "tlb.libor_floor",
+      "facility": "Term Loan B",
+      "term": "LIBOR floor",
+      "as_documented": "LIBOR Floor: 1.00%",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"LIBOR Floor: 1.00%\""
+    },
+    {
+      "id": "tlb.maturity",
+      "facility": "Term Loan B",
+      "term": "Maturity",
+      "as_documented": "Maturity: 7 years",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Maturity: 7 years\""
+    },
+    {
+      "id": "tlb.soft_call",
+      "facility": "Term Loan B",
+      "term": "Optional prepayments / soft call",
+      "as_documented": "101 soft call for 6 months, pre-payable at par thereafter",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"101 soft call for 6 months, pre-payable at par thereafter\""
+    },
+    {
+      "id": "tlb.amortization",
+      "facility": "Term Loan B",
+      "term": "Amortization",
+      "as_documented": "1% per annum with bullet at maturity",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Amortization: 1% per annum with bullet at maturity\""
+    },
+    {
+      "id": "tlb.ecf_sweep",
+      "facility": "Term Loan B",
+      "term": "Excess cash flow sweep and step-downs",
+      "as_documented": "50% of excess cash flow with step-downs to 25% and 0% upon achievement of Secured Net Leverage Ratio levels of 0.50x and 0.75x lower, respectively, than those on the Closing Date",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"50% of excess cash flow with step-downs to 25% and 0%\""
+    },
+    {
+      "id": "tlb.asset_sale_sweep",
+      "facility": "Term Loan B",
+      "term": "Other mandatory prepayments",
+      "as_documented": "100% of asset sales, insurance proceeds, and debt issuances, subject to certain exceptions",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"100% of asset sales, insurance proceeds, and debt issuances\""
+    },
+    {
+      "id": "tlb.financial_covenants",
+      "facility": "Term Loan B",
+      "term": "Financial covenants",
+      "as_documented": "Financial Covenants: None",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Financial Covenants: None\""
+    },
+    {
+      "id": "tlb.incremental",
+      "facility": "Term Loan B",
+      "term": "Incremental term facility",
+      "as_documented": "$250 million, plus voluntary prepayments and commitment reductions, plus unlimited additional amounts subject to maximum closing Secured Net Leverage Ratio of 4.0x",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Incremental Term Facility: $250 million, plus voluntary prepayments\""
+    },
+    {
+      "id": "tlb.mfn",
+      "facility": "Term Loan B",
+      "term": "MFN",
+      "as_documented": "50 bps MFN with a 18-month sunset provision",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"subject to 50 bps MFN with a 18-month sunset provision\""
+    },
+    {
+      "id": "tlb.incremental_equivalent_debt",
+      "facility": "Term Loan B",
+      "term": "Incremental Equivalent Debt option",
+      "as_documented": "Incremental Term Facility definition to include Incremental Equivalent Debt option, subject to certain conditions",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Incremental Equivalent Debt option, subject to certain conditions\""
+    },
+    {
+      "id": "tlb.ranking",
+      "facility": "Term Loan B",
+      "term": "Ranking",
+      "as_documented": "Pari passu with all existing and future senior indebtedness",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"Ranking: Pari passu with all existing and future senior indebtedness\""
+    },
+    {
+      "id": "tlb.marketing_term_sheet",
+      "facility": "Term Loan B",
+      "term": "Negative covenants",
+      "as_documented": "usual and customary ... for more information, please consult the Marketing Term Sheet",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"please consult the Marketing Term Sheet\""
+    },
+    {
+      "id": "abl.size",
+      "facility": "ABL",
+      "term": "Facility size",
+      "as_documented": "$125 million Asset Based Revolver with availability subject to the Borrowing Base",
+      "status": "stated (pre-execution)",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"$125 million Asset Based Revolver\""
+    },
+    {
+      "id": "abl.tenor",
+      "facility": "ABL",
+      "term": "Tenor",
+      "as_documented": "5 years, prepayable at par",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Tenor: 5 years, prepayable at par\""
+    },
+    {
+      "id": "abl.margin",
+      "facility": "ABL",
+      "term": "Margin grid",
+      "as_documented": "L+150 bps for the first full quarter after closing; thereafter L+125-175 bps subject to an availability based grid",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Indicative Margin: L+150 bps for the first full quarter\""
+    },
+    {
+      "id": "abl.commitment_fee",
+      "facility": "ABL",
+      "term": "Commitment fee",
+      "as_documented": "37.5 bps on the unused portion for the first full quarter; thereafter 25-37.5 bps subject to a utilization based grid",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Commitment Fee: 37.5 bps on the unused portion\""
+    },
+    {
+      "id": "abl.incremental",
+      "facility": "ABL",
+      "term": "Incremental facility",
+      "as_documented": "$75 million; incremental to be on the same terms as the existing ABL Facility",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Incremental Facility: $75 million\""
+    },
+    {
+      "id": "abl.springing_fccr",
+      "facility": "ABL",
+      "term": "Springing fixed charge coverage ratio",
+      "as_documented": "1.0x if at any time Specified Excess Availability is less than the greater of (i) $10 million and (ii) 10% of the lesser of the Borrowing Base and the ABL Facility size",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Springing fixed charge coverage ratio of 1.0x if at any time\""
+    },
+    {
+      "id": "abl.cash_dominion",
+      "facility": "ABL",
+      "term": "Springing cash dominion",
+      "as_documented": "Specified Excess Availability below the greater of (i) $12.5 million and (ii) 12.5% of the Maximum Borrowing Amount for 5 consecutive business days, or during a Specified Default",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Springing cash dominion in the event that Specified Excess Availability\""
+    },
+    {
+      "id": "abl.borrowing_base",
+      "facility": "ABL",
+      "term": "Borrowing base",
+      "as_documented": "100% of Qualified Cash, 85% of eligible accounts receivable, 90% of eligible credit card receivables, 90% of net orderly liquidation value of eligible inventory, less customary reserves",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"85% of eligible accounts receivable, (iii) 90% of eligible credit card\""
+    },
+    {
+      "id": "abl.payment_conditions",
+      "facility": "ABL",
+      "term": "Payment Conditions",
+      "as_documented": "(i)(a) Pro Forma Specified Excess Availability (30-day average) above greater of $20 million and 20% of Maximum Borrowing Amount ($20 million and $22.5 million for Restricted Payments), or (b) FCCR of 1.0x and Specified Excess Availability above greater of $15 million and 12.5% ($15 million and 17.5% for Restricted Payments)",
+      "status": "indicative",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"Payment Conditions shall be satisfied so long as\""
+    }
+  ],
+  "add_backs": [
+    {
+      "name": "Sleep Train purchasing synergies",
+      "claimed": "USD 20m run-rate annual purchasing synergies (page 54 ties them to the Sleep Train acquisition, reached within three years; the overview calls them expected synergies to be achieved by Fiscal 2017)",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"half of the $20 million in run-rate annual purchasing synergies\"",
+      "note": "USD 12.5m expected within 18 months (10.0 = 50% of run-rate + 2.5 additional); USD 12.5m (13 in the table) included in Sleep Train's 44.6 / 45; no amount stated as already realised or in the LTM"
+    },
+    {
+      "name": "Bolt-Ons purchasing synergies (Back to Bed, Best Mattress)",
+      "claimed": "USD 4m in the capitalisation table (3.5 + 0.6 on page 52)",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Remaining Year 1 Purchasing Synergies 0.6 2.0 2.5 3.5 0.6\"",
+      "note": "'Remaining Year 1 purchasing synergies', realisable in one year; included in Bolt-Ons pro forma 9.1; realised and in-LTM amounts not stated"
+    },
+    {
+      "name": "Completed Acquisitions purchasing synergies (Yotes 0.6, Sleep Experts 2.0, Mattress Liquidators 2.5)",
+      "claimed": "USD 0.6m, 2.0m, 2.5m 'Remaining Year 1 Purchasing Synergies' per business",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"Remaining Year 1 Purchasing Synergies 0.6 2.0 2.5 3.5 0.6\"",
+      "note": "included in the 10.8 Completed Acquisitions adjustment, inside the Mattress Firm 163 / 162.6 column; no realised or in-LTM amount stated"
+    },
+    {
+      "name": "Completed Acquisitions pro forma EBITDA (Yotes 0.1, Sleep Experts 3.4, Mattress Liquidators 2.2)",
+      "claimed": "USD 0.1m (Yotes), USD 3.4m (Sleep Experts), USD 2.2m (Mattress Liquidators), per business as stated",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 55: \"EBITDA $0.1 $3.4 $2.2 $4.8 $0.2\"",
+      "note": "period 7/31/2013 to each closing date; unaudited seller figures"
+    },
+    {
+      "name": "America's Mattress EBITDA (Sleep Train)",
+      "claimed": "USD 1.8m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Adjusted EBITDA from America's Mattress acquisition 1.8\"",
+      "note": "management estimate; unaudited; 'does not give effect to any purchasing synergies Sleep Train realized'"
+    },
+    {
+      "name": "New stores opened EBITDA adjustment",
+      "claimed": "USD 16.8m (17 in tables)",
+      "realised": "USD 15.7m actual EBITDA of LTM new stores (the 'less' line)",
+      "in_ltm": "USD 15.7m is the actual LTM EBITDA of those stores, which is already in reported results",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 56: \"Pro Forma LTM New Stores Opened EBITDA Adjustment $16.8\"",
+      "note": "186 stores x USD 0.175m = 32.5 pro forma; less actual 15.7 = 16.8; corporate EBITDA assumes 50% of market-level expenses"
+    },
+    {
+      "name": "Stock-based compensation",
+      "claimed": "USD 5.5m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Stock-Based Compensation 4.8 5.5\"",
+      "note": "LTM Q2 2014 add-back in Adjusted EBITDA, so the amount is added to EBITDA 128.1; FY2013 4.8"
+    },
+    {
+      "name": "Vendor new store funds",
+      "claimed": "USD (0.6)m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Vendor New Store Funds 0.8 (0.6)\"",
+      "note": "negative adjustment in LTM Q2 2014; FY2013 0.8"
+    },
+    {
+      "name": "Acquisition-related expenses",
+      "claimed": "USD 11.1m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Acquisition-Related Expenses 1.7 11.1\"",
+      "note": "LTM Q2 2014 add-back; FY2013 1.7"
+    },
+    {
+      "name": "Loss on store closings and impairment of store assets",
+      "claimed": "USD 1.7m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Loss on Store Closings and Impairment of Store Assets 1.5 1.7\"",
+      "note": "FY2013 1.5"
+    },
+    {
+      "name": "Intangible asset impairment charge",
+      "claimed": "not stated (--)",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Intangible Asset Impairment Charge -- --\"",
+      "note": "shown as '--' in both periods"
+    },
+    {
+      "name": "Financial sponsor fees and expenses",
+      "claimed": "USD 0.0m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Financial Sponsor Fees and Expenses 0.0 0.0\"",
+      "note": "stated as 0.0 in both periods"
+    },
+    {
+      "name": "Other adjustments",
+      "claimed": "USD 5.9m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 53: \"Other Adjustments 2.1 5.9\"",
+      "note": "no description in the presentation; FY2013 2.1"
+    },
+    {
+      "name": "Sleep Train: wages related to ESOP share-allocations and SARS",
+      "claimed": "USD 3.9m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Wages Related to ESOP Share-Allocations & SARS 6.5 3.9\"",
+      "note": "Sleep Train LTM Q2 2014 add-back; FY2013 6.5"
+    },
+    {
+      "name": "Sleep Train: forgiveness of restricted stock notes receivable",
+      "claimed": "USD 0.6m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Forgiveness of Restricted Stock Notes Receivable 0.6 0.6\"",
+      "note": "FY2013 0.6"
+    },
+    {
+      "name": "Sleep Train: loss on disposal of property and equipment",
+      "claimed": "USD 0.4m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Loss on Disposal of Property & Equipment 0.1 0.4\"",
+      "note": "FY2013 0.1"
+    },
+    {
+      "name": "Sleep Train: LIFO adjustment expense",
+      "claimed": "not stated (--)",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"LIFO Adjustment Expense 0.2 --\"",
+      "note": "'--' in LTM Q2 2014; FY2013 0.2"
+    },
+    {
+      "name": "Sleep Train: severance costs and related payroll taxes",
+      "claimed": "USD 0.0m",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Severage Costs and Related Payroll Taxes 0.0 0.0\"",
+      "note": "stated as 0.0 in both periods"
+    },
+    {
+      "name": "Sleep Train: litigation settlement agreement",
+      "claimed": "not stated (--)",
+      "realised": "not stated",
+      "in_ltm": "not stated",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 54: \"Litigation Settlement Agreement (0.8) --\"",
+      "note": "'--' in LTM Q2 2014; FY2013 (0.8)"
+    }
+  ],
+  "c1r_executed_terms": [
+    {
+      "id": "tlb.size",
+      "term": "Term Loan B amount",
+      "executed_value": "USD 720,000,000 term loans issued 20 October 2014",
+      "cite": "2014-10-21-8k-credit-agreements.htm line 42: \"Term loans in the aggregate principal amount of $720 million were issued\"",
+      "c1_status": "stated (pre-execution)"
+    },
+    {
+      "id": "tlb.margin",
+      "term": "Applicable Rate (LIBOR margin)",
+      "executed_value": "LIBOR + 4.25% (base rate 3.25%) until the six-month anniversary of the Closing Date; thereafter Pricing Level 1 (Total Net Leverage <= 3.00:1.00; underlined '<' in the HTML) 4.00% / 3.00%, Pricing Level 2 (> 3.00:1.00) 4.25% / 3.25%. The 8-K summarises: LIBOR margin 4.00% to 4.25% by total net leverage ratio",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 554: \"“Applicable Rate” means (x) until the six (6) month anniversary of the Closing Date\"",
+      "c1_status": "TBD"
+    },
+    {
+      "id": "tlb.margin_summary_8k",
+      "term": "Margin as summarised in the 8-K",
+      "executed_value": "applicable margin on LIBOR rate loans varies from 4.00% to 4.25%; base rate 3.00% to 3.25%, by total net leverage ratio",
+      "cite": "2014-10-21-8k-credit-agreements.htm line 44: \"applicable margin on LIBOR rate loans varies from 4.00% to 4.25%\"",
+      "c1_status": "TBD"
+    },
+    {
+      "id": "tlb.oid",
+      "term": "Upfront fee / OID",
+      "executed_value": "not stated in the agreement (fees are in a separate Agent Fee Letter; 'OID' is defined only as original issue discount)",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 966: \"“OID” means original issue discount.\"",
+      "c1_status": "TBD"
+    },
+    {
+      "id": "tlb.libor_floor",
+      "term": "LIBOR floor",
+      "executed_value": "Adjusted Eurocurrency Rate shall not be less than 1.00% per annum at any time (Section 1.01 'Adjusted Eurocurrency Rate'); Base Rate floor of 2.00% inside 'Base Rate' definition",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 533: \"shall not be less than 1.00% per annum at any time\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.maturity",
+      "term": "Maturity Date",
+      "executed_value": "2021-10-20 (seven years after the Closing Date; the 8-K gives October 20, 2021)",
+      "cite": "2014-10-21-8k-credit-agreements.htm line 42: \"The maturity date under the Term Loan Credit Agreement is October 20, 2021\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.maturity_definition",
+      "term": "Maturity Date definition",
+      "executed_value": "the date that is seven years after the Closing Date (Original Loan Maturity Date)",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 941: \"the date that is seven years after the Closing Date\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.soft_call",
+      "term": "Soft call / repricing premium",
+      "executed_value": "Section 2.15 Loan Repricing Protection: 1.00% premium on a Repricing Transaction on or prior to the date that is TWELVE (12) months after the Closing Date. The presentation said 6 months. Not triggered by a Permitted Acquisition or Change of Control refinancing",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 1323: \"on or prior to the date that is twelve (12) months after the Closing Date\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.amortization",
+      "term": "Amortization (Section 2.05)",
+      "executed_value": "0.25% of the aggregate principal amount of Initial Loans outstanding on the Closing Date, on the last Business Day of each January, April, July and October from January 2015 (1.00% per annum); bullet at Maturity Date",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 1228: \"an aggregate principal amount equal to 0.25% of the aggregate principal amount of all Initial Loans\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.ecf_sweep",
+      "term": "Applicable ECF Percentage",
+      "executed_value": "50% if Senior Secured Net Leverage Ratio > 3.00:1.00; 25% if <= 3.00 and > 2.75; 0% if <= 2.75 (fixed levels, not 'lower than Closing Date' levels); first Excess Cash Flow Period is the fiscal year beginning 4 February 2015",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 551: \"50% if the Senior Secured Net Leverage Ratio as of the last day of such Fiscal Year is greater than 3.00\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.ecf_first_period",
+      "term": "Excess Cash Flow Period",
+      "executed_value": "each Fiscal Year commencing with the fiscal year beginning on February 4, 2015",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 823: \"commencing with and including the Fiscal Year beginning on February 4, 2015\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.financial_covenants",
+      "term": "Financial maintenance covenants",
+      "executed_value": "none found: Article VII (Section 7.01 to 7.13) holds negative covenants only; the 8-K names no financial covenant for the Term Loan (it names one for the ABL)",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 1542: \"ARTICLE VII\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.incremental",
+      "term": "Incremental Loans (Section 2.12(d)(iii))",
+      "executed_value": "either (A) Senior Secured Net Leverage Ratio not above 4.00:1.00 pro forma, or (B) up to USD 250,000,000 plus voluntary prepayments (Incremental Equivalent Debt counted); minimum USD 10,000,000 in USD 1,000,000 increments",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 1261: \"the Senior Secured Net Leverage Ratio does not exceed 4.00 to 1.00\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.mfn",
+      "term": "MFN (Section 2.12(e)(B))",
+      "executed_value": "pari passu Incremental Loans' All-In Yield not greater than the Initial Loans' All-In Yield plus 50 basis points unless the Initial Loans' yield is raised; no sunset period appears in this clause (presentation said 18-month sunset)",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 1273: \"plus 50 basis points per annum unless the interest rate\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.incremental_equivalent_debt",
+      "term": "Incremental Equivalent Debt (Section 2.12(g))",
+      "executed_value": "permitted in lieu of Incremental Commitments (notes or loans, secured pari passu or junior, or unsecured), subject to the conditions in the clause",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 1277: \"(g) Incremental Equivalent Debt. The Borrower may, upon notice\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "tlb.synergy_addback_cap",
+      "term": "Consolidated EBITDA clause (vi) synergies",
+      "executed_value": "cost savings and synergies projected within 18 months of the Closing Date or of an acquisition, net of actual benefits, capped at 25% of Consolidated EBITDA (together with Section 1.09(c) add-backs)",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 685: \"within 18 months after the Closing Date\"",
+      "c1_status": "not in the presentation"
+    },
+    {
+      "id": "tlb.new_store_addback_cap",
+      "term": "Adjusted EBITDA new-store adjustment",
+      "executed_value": "Adjusted EBITDA = Consolidated EBITDA + Annualized EBITDA for New Stores - Actual Fiscal Month EBITDA for New Stores; the difference not to exceed 15% of Adjusted EBITDA",
+      "cite": "2014-10-21-ex10-2-term-loan-credit-agreement.htm line 522: \"shall not exceed 15% of Adjusted EBITDA for such period\"",
+      "c1_status": "not in the presentation"
+    },
+    {
+      "id": "abl.size",
+      "term": "ABL commitment",
+      "executed_value": "USD 125,000,000; letter of credit sublimit USD 50 million; swing line USD 20 million",
+      "cite": "2014-10-21-8k-credit-agreements.htm line 35: \"permits aggregate borrowings of up to $125 million\"",
+      "c1_status": "stated (pre-execution)"
+    },
+    {
+      "id": "abl.tenor",
+      "term": "ABL scheduled termination",
+      "executed_value": "2019-10-20 (five years after the Effective Date; 8-K: October 20, 2019)",
+      "cite": "2014-10-21-8k-credit-agreements.htm line 35: \"scheduled termination date of October 20, 2019\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.margin",
+      "term": "ABL Applicable Rate",
+      "executed_value": "LIBOR 1.50% (base rate 0.50%) until the end of the first full fiscal quarter after the Effective Date; thereafter 1.25% / 1.50% / 1.75% (base 0.25% / 0.50% / 0.75%) by Average Historical Excess Availability as a percentage of Maximum Credit (> 66%, 33% to 66%, < 33%)",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 635: \"(i) for Eurocurrency Rate Loans, 1.50%\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.commitment_fee",
+      "term": "ABL Applicable Unused Commitment Fee Rate",
+      "executed_value": "0.375% initially; thereafter 0.375% when Average Revolving Loan Utilization < 50% and 0.25% when > 50%",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 662: \"initially, 0.375% per annum\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.incremental",
+      "term": "ABL Revolving Commitment Increase (Section 2.15)",
+      "executed_value": "increases of at least USD 25,000,000 each; 8-K: up to USD 75 million",
+      "cite": "2014-10-21-8k-credit-agreements.htm line 35: \"increased by up to $75 million\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.springing_fccr",
+      "term": "ABL Financial Covenant (Article 6) and Covenant Trigger Event",
+      "executed_value": "Fixed Charge Coverage Ratio not less than 1.0 to 1.0 while a Covenant Trigger Event continues; trigger = Specified Excess Availability < greater of USD 10,000,000 and 10.0% of Maximum Credit (cured after 30 consecutive days at or above)",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 847: \"less than the greater of (i) $10,000,000 and (ii) 10.0% of the Maximum Credit\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.fccr_definition",
+      "term": "Fixed Charge Coverage Ratio",
+      "executed_value": "(Adjusted EBITDA - Capital Expenditures - Cash Taxes) / Fixed Charges",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 1031: \"Adjusted EBITDA of such Person for such period minus (ii) Capital Expenditures\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.cash_dominion",
+      "term": "Cash Dominion Period",
+      "executed_value": "Specified Excess Availability below the greater of 12.5% of Maximum Credit and USD 12,500,000 for five consecutive Business Days, or a Specified Event of Default",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 723: \"12.5% of the Maximum Credit and (y) $12,500,000\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.borrowing_base",
+      "term": "Borrowing Base advance rates",
+      "executed_value": "Credit Card Advance Rate 90%; Eligible Accounts Advance Rate 85%; Inventory Advance Rate 90% (of Net Recovery Percentage); plus 100% of Qualified Cash; less Availability Reserves",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 850: \"“Credit Card Advance Rate” means 90%.\"",
+      "c1_status": "indicative"
+    },
+    {
+      "id": "abl.payment_conditions",
+      "term": "Payment Conditions",
+      "executed_value": "(1) Specified Excess Availability (pro forma and 30-day average) above greater of 20% of Maximum Credit and USD 20,000,000, or (2)(A) above greater of 15% and USD 12,500,000 and (B) FCCR >= 1.0 pro forma. The presentation's second prong read 12.5% / USD 15 million (15% / 12.5m swapped)",
+      "cite": "2014-10-21-ex10-1-abl-credit-agreement.htm line 1183: \"in excess of the greater of (i) 20% of the Maximum Credit and (ii) $20,000,000\"",
+      "c1_status": "indicative"
+    }
+  ],
+  "c1n": {
+    "document_set": [
+      "10-k-year-ended-2014-01-28.htm",
+      "10-q-quarter-ended-2014-04-29.htm",
+      "10-q-quarter-ended-2014-07-29.htm",
+      "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+      "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+      "2014-08-29-ex99-1-press-release.htm"
+    ],
+    "expected_outcome": "Blocked",
+    "free_edgar_lane_caveat": "Blocked holds only because no executed credit agreement is in the case or fetched by the run. The 2012 Credit Agreement was executed and in force on 2014-09-11 (10-K: 2012 Senior Credit Facility; the 21 October 8-K terminates it). A run that fetched and ingested it through the free EDGAR lane (REF_CP-4_STEPS.md lines 35-41) would change the outcome; that run is out of the case scope.",
+    "free_edgar_lane_cites": [
+      "10-k-year-ended-2014-01-28.htm line 895: \"2012 Senior Credit Facility\"",
+      "2014-10-21-8k-credit-agreements.htm line 49: \"terminated its then-existing Credit Agreement dated November 5, 2012\""
+    ],
+    "reason": "The set holds the 10-K and two 10-Qs (which describe the 2012 Credit Agreement but do not attach it), the Back to Bed 8-K, the Asset Purchase Agreement and a press release. None is an executed credit agreement or indenture, and the lender presentation and 8-K Item 7.01 are removed, so there is not even a draft or term sheet to rank. Provisional scope does not apply: the Asset Purchase Agreement is not one of the six ranked legal or offering document kinds and no draft remains in the set; the method's Blocked message stands.",
+    "reason_cite": "2014-08-29-8k-back-to-bed-asset-purchase.htm line 34: \"entered into an Asset Purchase Agreement\"",
+    "documents_a_reviewer_might_wrongly_take_as_governing": [
+      {
+        "source_id": "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "why": "an executed, signed 'Agreement' with a funding and closing mechanism, but it is an acquisition contract between Mattress Firm, Inc. and the Back to Bed sellers, not a credit agreement or indenture",
+        "cite": "2014-08-29-ex2-1-asset-purchase-agreement.htm line 533: \"THIS ASSET PURCHASE AGREEMENT\""
+      },
+      {
+        "source_id": "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "why": "'Item 1.01 Entry into a Material Definitive Agreement' reads like a financing agreement; it is the purchase agreement, funded 'from cash on hand and revolver borrowings'",
+        "cite": "2014-08-29-8k-back-to-bed-asset-purchase.htm line 35: \"fund the purchase price from cash on hand and revolver borrowings\""
+      },
+      {
+        "source_id": "10-k-year-ended-2014-01-28.htm",
+        "why": "describes the 2012 Credit Agreement's covenants in detail; a description in a periodic report, with the agreement not attached",
+        "cite": "10-k-year-ended-2014-01-28.htm line 326: \"outstanding under the credit agreement with UBS Securities LLC\""
+      },
+      {
+        "source_id": "10-q-quarter-ended-2014-07-29.htm",
+        "why": "same 2012 Senior Credit Facility description in a 10-Q; no executed agreement is attached",
+        "cite": "10-q-quarter-ended-2014-07-29.htm line 1629: \"financial covenants, including a maximum total leverage ratio\""
+      }
+    ]
+  },
+  "document_footing": [
+    {
+      "note": "Secured debt does not foot in the Mattress Firm column: 297 term loan + 1 equipment financing = 298, stated as 297 (Total Secured Debt).",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Secured Debt $297 -- -- $466 $763\""
+    },
+    {
+      "note": "Adjustment column does not foot: 42 + 720 - 297 = 465, stated as 466. Stated values kept.",
+      "cite": "2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Secured Debt $297 -- -- $466 $763\""
+    }
+  ],
+  "gaps": [
+    "The Confidential Information Memorandum is referenced by the presentation but not public, not filed, not in the case (manifest not_public).",
+    "The Marketing Term Sheet is referenced by the Term Loan summary terms ('please consult the Marketing Term Sheet'), is not public, and is not in the case; negative covenant detail pre-closing is therefore not available.",
+    "Final Term Loan margin and OID: the margin is TBD and OID is TBD in the presentation. The executed agreement states the margin but gives no OID or upfront-fee amount (fees sit in a separate Agent Fee Letter that is not filed in the case).",
+    "The Sleep Train merger agreement (4 September 2014 announcement) is not in the case; the 29 August 2014 8-K is the Back to Bed asset purchase.",
+    "Equity consideration: the presentation shows USD 40m of Mattress Firm equity issued to Sleep Train; the executed-closing 8-K reports 745,147 shares (ten percent of the adjusted purchase price) without a USD amount, so the two are not reconciled by the key.",
+    "Realised and already-in-LTM amounts for every synergy and add-back: not stated in any document. The key records 'not stated' and does not infer them.",
+    "CP-1's own starting EBITDA (EBIT plus D&A from the 10-K and 10-Qs) is not transcribed here; the ladder starts from the presentation's EBITDA 128.1 and Adjusted EBITDA 151.7 (management's reconciliation), which a module may differ from by definition.",
+    "Pro forma cash: the presentation's pro forma cell for Cash is '--'; the balance after the transaction is not stated.",
+    "Page numbers: the key cites TXT line numbers (one slide per line); the printed slide numbers are 7 (overview), 8 (capitalisation), 44-45 (summary terms), 50-54 (EBITDA and borrowing base).",
+    "The ABL LIBOR floor is not found in Exhibit 10.1 by the key; the presentation's ABL summary does not state one either.",
+    "Sleep Train page-51 amounts shown without a column label (1.8, 10.0, 2.5, 44.6) are read as LTM Q2 2014 on the strength of the page note; the extracted text does not label the column.",
+    "Intercreditor agreements, compliance certificates and any amendments are not in the case; the 8-K and exhibits do not attach them."
+  ]
+}
