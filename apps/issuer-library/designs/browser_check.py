@@ -674,40 +674,41 @@ CHART_STYLE_ALL = (
 CHART_STYLE_ALL = throttled(CHART_STYLE_ALL)
 
 
-def chart_style(
-    page: Any, name: str, port: int, run: str = "?c=tdg-002", single: bool = False
-) -> None:
-    """Charts follow the Untitled UI look: rounded data-ends, no tracks, pill grades, 12px cards.
+CHART_STYLE_WANT = {
+    "bar": "4px",
+    "card": "12px",
+    "track": "rgba(0, 0, 0, 0)",
+    "barEnd": "4px",
+    "rect": "4px",
+    "grade": "999px",
+}
 
-    A run other than the key's (single-run walk) may draw only some of them: each one it draws must
-    match, and one that draws none is reported as not exercisable, never as a pass."""
+
+def chart_style(page: Any, name: str, port: int) -> None:
+    """Charts follow the Untitled UI look: rounded data-ends, no tracks, pill grades, 12px cards."""
+    run = "?c=tdg-002"
     seen: dict[str, str] = {}
-    if single:  # this run's own sections, not the key's three routes
-        seen = page.evaluate(CHART_STYLE_ALL, run.removeprefix("?c="))
-    for route in (
-        () if single else ("#CP-1/performance", "#W-Overview/overview", "#CP-2/assessment")
-    ):
+    for route in ("#CP-1/performance", "#W-Overview/overview", "#CP-2/assessment"):
         page.goto(f"http://127.0.0.1:{port}/{route}{run}")
         page.wait_for_selector("#content .section-heading")
         seen.update({k: v for k, v in page.evaluate(CHART_STYLE).items() if v != "missing"})
-    want = {
-        "bar": "4px",
-        "card": "12px",
-        "track": "rgba(0, 0, 0, 0)",
-        "barEnd": "4px",
-        "rect": "4px",
-        "grade": "999px",
-    }
-    if single:
-        if not seen:
-            not_exercisable(name, "chart style", "this run draws no chart")
-        else:
-            wrong = {k: v for k, v in seen.items() if want[k] != v}
-            note(not wrong, f"{name}: the charts it draws use the shared style ({seen})")
-        return
-    note(seen == want, f"{name}: charts use rounded data-ends, no tracks and pill grades ({seen})")
+    note(
+        seen == CHART_STYLE_WANT,
+        f"{name}: charts use rounded data-ends, no tracks and pill grades ({seen})",
+    )
     page.goto(f"http://127.0.0.1:{port}/#CP-1/performance{run}")
     page.wait_for_selector(".bars")
+
+
+def chart_style_single(page: Any, name: str, folder: str) -> None:
+    """A single run may draw only some charts: each one it draws must match the shared style, and
+    one that draws none is reported as not exercisable, never as a pass."""
+    seen: dict[str, str] = page.evaluate(CHART_STYLE_ALL, folder)
+    if not seen:
+        not_exercisable(name, "chart style", "this run draws no chart")
+        return
+    wrong = {k: v for k, v in seen.items() if CHART_STYLE_WANT[k] != v}
+    note(not wrong, f"{name}: the charts it draws use the shared style ({seen})")
 
 
 FORM_STYLE = """() => {
@@ -1154,7 +1155,7 @@ def single_run_walk(browser: Any, name: str, port: int, workspace: Path) -> None
     evidence_row(page, name, port, want)
     activity_row(page, name, port, want)
     fitted_screens(page, name, port, want["folder_id"])
-    chart_style(page, name, port, f"?c={want['folder_id']}", single=True)
+    chart_style_single(page, name, want["folder_id"])
     note(not errors, f"{name}: no console errors {errors[:4]}")
     page.close()
 
@@ -1231,12 +1232,14 @@ def single_main(workspace: Path, fixture: bool = False) -> int:
             with sync_playwright() as driver:
                 for name, options in engine_options().items():
                     browser = SignedBrowser(getattr(driver, name).launch(**options))
-                    attempt(
-                        f"{name}-single-run",
-                        browser,
-                        lambda: single_run_walk(browser, name, port, workspace),  # noqa: B023
-                    )
-                    browser.close()
+                    try:
+                        attempt(
+                            f"{name}-single-run",
+                            browser,
+                            lambda: single_run_walk(browser, name, port, workspace),  # noqa: B023
+                        )
+                    finally:
+                        browser.close()
         except (Exception, SystemExit) as error:  # noqa: BLE001 - recorded below, never silent
             note(False, f"setup: stopped: {type(error).__name__}: {str(error)[:600]}", fault=False)
             FAULTS.add("setup", "exception", f"{type(error).__name__}: {str(error)[:600]}")

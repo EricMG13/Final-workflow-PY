@@ -96,3 +96,25 @@ def test_events_and_spend_come_from_the_runs_own_log_and_status(tmp_path: Path) 
     found = single_run.activity_of(tmp_path, run)
     assert [e["event"] for e in found["events"]] == ["module_started", "delivered"]
     assert found["spent_usd"] == "0.0005"
+
+
+def test_not_exercisable_fails_outside_the_fixture_and_skips_inside_it(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import browser_check as bc
+
+    monkeypatch.setattr(bc, "results", [])
+    monkeypatch.setattr(bc, "FAULTS", bc.Faults())
+    monkeypatch.setattr(bc, "NOT_EXERCISABLE", [])
+    monkeypatch.setattr(bc, "WALK", "chromium-single-run")
+    monkeypatch.setattr(bc, "RETAINED_FIXTURE", False)
+    bc.not_exercisable("chromium", "Run activity events", "no events.jsonl")
+    assert [ok for ok, _ in bc.results] == [False]
+    assert len(bc.FAULTS.items) == 1
+    assert bc.NOT_EXERCISABLE == []
+    monkeypatch.setattr(bc, "RETAINED_FIXTURE", True)
+    bc.not_exercisable("chromium", "Run activity events", "no events.jsonl")
+    assert len(bc.results) == 1
+    assert len(bc.FAULTS.items) == 1
+    assert len(bc.NOT_EXERCISABLE) == 1
+    assert bc.NOT_EXERCISABLE[0].startswith("chromium: Run activity events: not exercisable")
