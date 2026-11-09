@@ -26,7 +26,6 @@ from issuer_library_browser import (
     json_reply,
     norm,
     open_app,
-    until,
 )
 from test_issuer_library_app import NewRun
 
@@ -644,7 +643,7 @@ COARSE = "matchMedia('(hover: none), (pointer: coarse)').matches"
 
 def move(screen: Screen, offset: int, pointer: str = "mouse") -> None:
     screen.page.evaluate(
-        "([o,p])=>{window.__moved=performance.now();"
+        "([o,p])=>{"
         "const r=document.querySelector('.rail').getBoundingClientRect();"
         "document.dispatchEvent(new PointerEvent('pointermove',"
         "{clientX:r.right+o,clientY:100,pointerType:p,bubbles:true}));}",
@@ -654,13 +653,6 @@ def move(screen: Screen, offset: int, pointer: str = "mouse") -> None:
 
 def rail_open(screen: Screen) -> bool:
     return bool(screen.eval(RAIL_OPEN))
-
-
-def rail_turns(screen: Screen, state: bool) -> float:
-    """Wait for a rail state; return the ms since the last move (timers never fire early)."""
-    until(screen.page, f"{RAIL_OPEN}===" + str(state).lower(), 2.0)
-    elapsed: float = screen.eval("performance.now()-window.__moved")
-    return elapsed
 
 
 def test_rail_items_carry_their_names_as_visually_hidden_labels_found_by_data_place(
@@ -698,10 +690,13 @@ def test_rail_opens_within_16_px_of_its_edge_after_100_ms_and_closes_300_ms_afte
     screen = screens("W-Library/cases")
     move(screen, NEAR)
     assert not rail_open(screen)
-    assert rail_turns(screen, True) >= 95
-    move(screen, FAR)
+    after_timers(screen, 160)
     assert rail_open(screen)
-    assert rail_turns(screen, False) >= 295
+    move(screen, FAR)
+    after_timers(screen, 150)
+    assert rail_open(screen)
+    after_timers(screen, 300)
+    assert not rail_open(screen)
 
 
 def test_rail_stays_closed_40_px_away_and_re_entering_cancels_a_pending_close(
@@ -712,7 +707,8 @@ def test_rail_stays_closed_40_px_away_and_re_entering_cancels_a_pending_close(
     after_timers(screen, 160)
     assert not rail_open(screen)
     move(screen, EDGE)
-    rail_turns(screen, True)
+    after_timers(screen, 160)
+    assert rail_open(screen)
     move(screen, FAR)
     after_timers(screen, 150)
     move(screen, INSIDE)
@@ -861,13 +857,13 @@ def test_the_rail_closes_300_ms_after_the_pointer_leaves_it_for_an_embedded_fram
 ) -> None:
     screen = screens("W-Library/cases")
     move(screen, NEAR)
-    rail_turns(screen, True)
-    screen.eval(
-        "window.__moved=performance.now(),document.querySelector('.rail')"
-        ".dispatchEvent(new Event('pointerleave'))"
-    )
+    after_timers(screen, 160)
     assert rail_open(screen)
-    assert rail_turns(screen, False) >= 295
+    screen.eval("document.querySelector('.rail').dispatchEvent(new Event('pointerleave'))")
+    after_timers(screen, 150)
+    assert rail_open(screen)
+    after_timers(screen, 300)
+    assert not rail_open(screen)
 
 
 def test_the_cash_flow_grid_reads_cell_status_and_column_ytd_never_the_display_or_label_text(
