@@ -5,6 +5,7 @@ With a package folder it starts that package's pinned runtime, as the Windows la
 """
 import json
 import os
+import runpy
 import socket
 import subprocess
 import sys
@@ -16,9 +17,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 workspace = ROOT
-environment = os.environ.copy()
-for key in ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENROUTER_API_KEY']:
-    environment.pop(key, None)
+# Every provider key the Redactor knows, from its one list.
+redact = runpy.run_path(str(workspace / "src/deploy_workflow/model/redact.py"))
+environment = {k: v for k, v in os.environ.items() if k not in redact["KEY_ENV_NAMES"]}
 if len(sys.argv) > 1:
     package = Path(sys.argv[1]).resolve()
     launcher = [str(package / 'engine/runtime/python.exe'), '-I', '-B', '-X', 'utf8', '-m', 'issuer_library']

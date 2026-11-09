@@ -78,7 +78,7 @@ Phase 2 may run alongside Phase B because their files are separate. Nothing reac
 
 ### Shared names
 
-- `tools/copied-from.txt`: first line `source <40-hex final-workflow sha>`, then one repo-relative path per line, for files copied byte-identical.
+- `tools/copied-from.txt`: first line `source <40-hex final-workflow sha>`, then one repo-relative path per line for a file copied byte-identical, or deleted upstream (a listed path absent at the sha must be absent here). A line `edited <path>` marks a file copied from the sha and then edited by hand: it is not a mismatch, and its counted lines are its `git diff --numstat` against `<sha>:<path>`, replacing its `<base>...HEAD` count. The listing file itself is not counted. (Amended 2026-11-09, lead ruling for Task 1.3.)
 - `src/issuer_library/version.py`: `def app_version() -> str`. It returns the text of the `VERSION` file beside the package root when present (written by the build as `<YYYY.MM.DD>-<12-hex sha>`), otherwise `"dev"`.
 - `Application` run state (`src/issuer_library/server.py`, Tasks 1.4 and 1.5): `reviews: int` counts reviews in flight and changes only under `Application.lock` (S3's review path increments and decrements it; S2's quit reads it for "busy"; S3's workspace switch refuses while it is above 0). `quitting: bool` is set by S2's quit once the shutdown guard is claimed; S3's review and start paths refuse with 503 while it is true. (Added 2026-11-09, lead.)
 - `Application.refreshing: threading.Lock` (Task 1.4): held for the whole of a discovery, in the periodic refresh and in the settings switch's discovery; quit acquires it to wait for a discovery in progress. S4 keeps it when it restructures discovery. (Added 2026-11-09, lead.)

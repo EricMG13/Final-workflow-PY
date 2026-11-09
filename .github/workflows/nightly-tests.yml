@@ -23,6 +23,9 @@ concurrency:
   group: ${{ inputs.tests && format('nightly-rerun-{0}', github.run_id) || 'nightly-tests' }}
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   pytest:
     name: pytest shard ${{ matrix.shard }} of 16
