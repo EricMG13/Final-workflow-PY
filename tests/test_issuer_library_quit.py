@@ -624,8 +624,10 @@ def test_a_state_folder_other_users_can_write_is_refused(tmp_path: Path) -> None
             with pytest.raises(ValueError) as relaunch:
                 quit_module.ask_to_quit(state, 1)
             assert (
-                "this launch does not ask it to quit: other users can write to the state folder "
-                f"{state}. Quit the running library" in str(relaunch.value)
+                str(relaunch.value)
+                == "Credit OS is already running, and this launch does not ask it to quit: "
+                f"other users can write to the state folder {state}. Quit the running library "
+                "(Settings > Quit library, or end Credit OS in Task Manager), then start it again."
             ) and absent(request), f"{mode:o}: relaunch {relaunch.value}, request placed"
         for mode in (0o700, 0o750, 0o755):
             os.chmod(state, mode)

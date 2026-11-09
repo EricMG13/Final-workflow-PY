@@ -129,8 +129,8 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
     except OSError as error:
         raise ValueError(
             f"Credit OS is already running, and this launch does not ask it to quit: "
-            f"{error}. Quit the running library (Settings > Quit library, or end Issuer "
-            "Library in Task Manager), then start it again."
+            f"{error}. Quit the running library (Settings > Quit library, or end Credit OS "
+            "in Task Manager), then start it again."
         ) from error
     request, answer = state / QUIT_REQUEST, state / QUIT_ANSWER
     discard(answer)  # An answer to an earlier launch is not this launch's.
