@@ -167,7 +167,7 @@ async function loadRunActivity(section){
 // saw running finishes.
 let runMark='',titleBase='';
 const runWatch={timer:null,busy:false,states:new Map(),last:null,jobs:[],shown:null,memory:{}};
-function applyTitle(){if(titleBase)document.title=`${runMark}${titleBase} · Issuer Library`;}
+function applyTitle(){if(titleBase)document.title=`${runMark}${titleBase} · Credit OS`;}
 function runTarget(job){return `${job.state==='complete'?'W-Reports/list':'W-Overview/overview'}?c=${encodeURIComponent(job.id)}`;}
 function reloadApp(){location.reload();}
 function describeMark(job){
@@ -295,7 +295,7 @@ function noticeBody(job){
 }
 function notifyFinished(job){
   if(!canNotify())return;
-  const note=new Notification('Issuer Library',{body:noticeBody(job),tag:job.id});
+  const note=new Notification('Credit OS',{body:noticeBody(job),tag:job.id});
   note.onclick=()=>{window.focus();if(mayDiscardDraft()){location.hash=runTarget(job);reloadApp();}};
 }
 async function watchRuns(){

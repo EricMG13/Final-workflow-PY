@@ -1999,7 +1999,7 @@ def test_a_finished_run_notifies_natively_only_when_no_tab_watches(
     assert done.wait(10), "finish_job did not return"
     assert len(calls) == want, calls
     if want == 1:
-        assert calls[0] == ("Issuer Library", "Run stopped")
+        assert calls[0] == ("Credit OS", "Run stopped")
 
 
 @pytest.mark.parametrize(

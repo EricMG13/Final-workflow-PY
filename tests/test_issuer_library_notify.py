@@ -31,14 +31,14 @@ def test_finish_notice_text_uses_issuer_and_state(tmp_path: Path) -> None:
         '{"state":"complete","message":"secret provider text"}',
         '{"issuer":"Northbridge Group"}',
     )
-    assert notify.finish_notice(folder) == ("Issuer Library", "Northbridge Group run complete")
+    assert notify.finish_notice(folder) == ("Credit OS", "Northbridge Group run complete")
     for name, status, review in (
         ("running", '{"state":"running"}', '{"issuer":"Northbridge Group"}'),
         ("unreadable", "", ""),
     ):
         assert notify.finish_notice(notice_folder(tmp_path / name, status, review)) is None
     interrupted = notice_folder(tmp_path / "interrupted", '{"state":"interrupted"}', "")
-    assert notify.finish_notice(interrupted) == ("Issuer Library", "Run interrupted")
+    assert notify.finish_notice(interrupted) == ("Credit OS", "Run interrupted")
 
 
 NORTHBRIDGE = '{"issuer":"Northbridge Group"}'
@@ -92,7 +92,7 @@ def test_finish_notice_names_the_stop_reason(
     tmp_path: Path, status: str, review: str, want: str
 ) -> None:
     assert notify.finish_notice(notice_folder(tmp_path, status, review)) == (
-        "Issuer Library",
+        "Credit OS",
         want,
     )
 
@@ -229,9 +229,9 @@ def test_finish_notice_decodes_as_go_does(
     if want is False:
         assert got is None
     elif want is None:  # Only the issuer key's case is probed.
-        assert got == ("Issuer Library", "Northbridge Group run stopped")
+        assert got == ("Credit OS", "Northbridge Group run stopped")
     else:
-        assert got == ("Issuer Library", want)
+        assert got == ("Credit OS", want)
 
 
 def test_toast_env_matches_names_by_go_equal_fold() -> None:
@@ -265,7 +265,7 @@ def test_a_review_or_status_fifo_does_not_block(tmp_path: Path) -> None:
     worker.start()
     worker.join(3)
     assert not worker.is_alive(), "finish_notice blocked on a FIFO review.json"
-    assert out == [("Issuer Library", "Run stopped")]
+    assert out == [("Credit OS", "Run stopped")]
     os.unlink(tmp_path / "status.json")
     os.mkfifo(tmp_path / "status.json")
     out.clear()

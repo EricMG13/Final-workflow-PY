@@ -10,6 +10,8 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterator
+from html.parser import HTMLParser
+from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlsplit
 
@@ -142,9 +144,55 @@ def test_tab_and_rail_vocabulary_follows_the_approved_destinations(screens: Any)
         "icons/activity.svg"
     )
     nav(screen, "W-Reports/list?c=tdg-002")
-    assert screen.eval("document.title") == "Reports · Issuer Library"
+    assert screen.eval("document.title") == "Reports · Credit OS"
     assert screen.text("#section-title") == "Reports"
     assert screen.text("h1") == screen.eval('contexts["tdg-002"].title')
+
+
+class _ShellTitle(HTMLParser):
+    """The text of the served shell's own <title>, read from the file on disk."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.inside = False
+        self.text = ""
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.inside = self.inside or tag == "title"
+
+    def handle_endtag(self, tag: str) -> None:
+        self.inside = self.inside and tag != "title"
+
+    def handle_data(self, data: str) -> None:
+        if self.inside:
+            self.text += data
+
+
+_NAME_TEXT_AND_ATTRIBUTES = """()=>{
+  const found=[];
+  const walker=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_TEXT);
+  while(walker.nextNode())found.push(walker.currentNode.nodeValue);
+  for(const el of document.documentElement.querySelectorAll('*'))
+    for(const name of ['aria-label','title','alt']){
+      const value=el.getAttribute(name);
+      if(value!==null)found.push(value);
+    }
+  return found;
+}"""
+
+
+def test_visible_name_is_credit_os(screens: Any) -> None:
+    shell = _ShellTitle()
+    shell.feed(Path("apps/issuer-library/web/index.html").read_text(encoding="utf-8"))
+    assert shell.text == "Credit OS"
+    for route in ("W-Library/cases", "W-Help/help"):
+        screen = screens(route)
+        assert screen.exists('.rail a[data-place="Issuer library"]')
+        if route == "W-Library/cases":
+            assert screen.eval("document.title") == "Issuer library · Credit OS"
+        strings = screen.page.evaluate(_NAME_TEXT_AND_ATTRIBUTES)
+        assert strings, route
+        assert [t for t in strings if "Issuer Library" in t] == [], route
 
 
 def test_search_is_cleared_when_leaving_the_modules_and_can_be_cleared_in_place(

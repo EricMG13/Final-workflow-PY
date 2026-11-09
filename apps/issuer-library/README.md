@@ -1,4 +1,4 @@
-# Offline Issuer Library
+# Offline Credit OS
 
 A local application for preparing issuer runs, launching the existing CP-OS
 workflow, screening dated results and reading deliverables in one interface.
