@@ -756,3 +756,84 @@ def test_stalled_client_does_not_hold_the_catalogue_lock(tmp_path: Path) -> None
             release.set()
             thread.join(10)
         assert not thread.is_alive(), f"{method} {endpoint}: the request is still running"
+
+
+def block_discovery(
+    monkeypatch: pytest.MonkeyPatch, workspace: Path
+) -> tuple[threading.Event, threading.Event]:
+    """Make discovery of workspace wait until release is set; entered is set when it starts.
+    Other folders are discovered as usual, and an earlier block stays active."""
+    entered, release = threading.Event(), threading.Event()
+    saved = server_module.discover
+    wanted = os.path.normpath(str(workspace))
+
+    def hold(folder: str, seeds: Catalogue) -> Catalogue:
+        if os.path.normpath(folder) == wanted:
+            entered.set()
+            assert release.wait(10), "the blocked discovery was never released"
+        return saved(folder, seeds)
+
+    monkeypatch.setattr(server_module, "discover", hold)
+    return entered, release
+
+
+def lock_within(app: Application, what: str) -> None:
+    got = app.lock.acquire(timeout=2)
+    assert got, f"{what} holds the catalogue lock"
+    app.lock.release()
+
+
+def test_refresh_discovers_without_holding_the_catalogue_lock(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    app, root = make_app(tmp_path)
+    put(root, "runs/added/CP-0.md", b"added")
+    entered, release = block_discovery(monkeypatch, root)
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        try:
+            done = pool.submit(call, client_of(app), "POST", "/api/refresh", "{}")
+            assert entered.wait(10), "the refresh never started discovering"
+            lock_within(app, "a refresh in discovery")
+            client = client_of(app)
+            during = call(client, "GET", "/api/catalogue")
+            assert during.status_code == 200, during.text
+            assert len(Catalogue.model_validate_json(during.content).real) == 1, during.text
+            served = call(client, "GET", "/files/runs/case-a/CP-0.md")
+            assert served.status_code == 200, served.status_code
+        finally:
+            release.set()
+        response = done.result(timeout=10)
+    assert response.status_code == 200, response.text
+    assert len(Catalogue.model_validate_json(response.content).real) == 2, response.text
+
+
+def test_workspace_switch_during_a_refresh_keeps_the_new_workspace(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    app, root = make_app(tmp_path)
+    other = tmp_path / "other"
+    put(other, "runs/other/CP-0.md", b"other")
+    new_entered, new_release = block_discovery(monkeypatch, other)
+    old_entered, old_release = block_discovery(monkeypatch, root)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        try:
+            refreshed = pool.submit(call, client_of(app), "POST", "/api/refresh", "{}")
+            assert old_entered.wait(10), "the refresh never started discovering"
+            body = json.dumps({"workspace": str(other)})
+            switched = pool.submit(call, client_of(app), "POST", "/api/settings", body)
+            old_release.set()
+            refreshed.result(timeout=10)
+            assert new_entered.wait(10), "the switch never started discovering"
+            lock_within(app, "a workspace switch in discovery")
+        finally:
+            old_release.set()
+            new_release.set()
+        response = switched.result(timeout=10)
+    assert response.status_code == 200, response.text
+    with app.lock:
+        workspace, catalogue_workspace = app.config.workspace, app.catalogue.workspace
+    assert workspace == str(other) and catalogue_workspace == str(other), (
+        f"config {workspace}, catalogue {catalogue_workspace}; want {other}"
+    )
+    gone = call(client_of(app), "GET", "/files/runs/case-a/CP-0.md")
+    assert gone.status_code == 404, f"old workspace file still admitted: {gone.status_code}"

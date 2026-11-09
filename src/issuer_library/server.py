@@ -367,7 +367,7 @@ class Application:
         self.stop: Callable[[], None] = lambda: None
         self.catalogue = Catalogue()
         self.store_cache = StoreCache()
-        self.refresh_locked()
+        self.catalogue = self.build_catalogue(self.config.workspace)
         # The ticket's lifetime counts from when the library is ready, after its first discovery.
         self.session = Session()
         self.reviews = 0
@@ -376,21 +376,37 @@ class Application:
         self.refreshing = threading.Lock()
         self.asgi = build(self)
 
-    def refresh_locked(self) -> None:
-        self.catalogue = discover(self.config.workspace, self.seed)
-        self.catalogue.policy_locked = self.locked
+    def build_catalogue(self, workspace: str) -> Catalogue:
+        """Discover workspace and save the disposable index. Takes no lock and reads only fields
+        fixed at start, so callers run it without the catalogue lock."""
+        catalogue = discover(workspace, self.seed)
+        catalogue.policy_locked = self.locked
         # The persisted index is a disposable snapshot, never an authority on restart.
         try:
-            save_json(self.loc.state / "index.json", self.catalogue)
+            save_json(self.loc.state / "index.json", catalogue)
         except OSError as error:
             log.warning("Index cache: %s", error)
-            self.catalogue.issues.append(
+            catalogue.issues.append(
                 "Search index could not be saved; live browsing is still available."
             )
+        return catalogue
 
-    def refresh(self) -> None:
-        with self.refresh_slot(), self.lock:
-            self.refresh_locked()
+    def refresh_locked(self) -> None:
+        """Discover under the caller's hold of lock. Kept only for the periodic rediscovery in
+        __main__.py and jobs.py finish_job, which another session owns and a later task moves to
+        refresh()."""
+        self.catalogue = self.build_catalogue(self.config.workspace)
+
+    def refresh(self) -> Response:
+        """Rediscover without the catalogue lock; requests see the previous catalogue meanwhile
+        and only the swap is locked. Returns the new catalogue, serialised under the lock."""
+        with self.refresh_slot():
+            with self.lock:
+                workspace = self.config.workspace
+            catalogue = self.build_catalogue(workspace)
+            with self.lock:
+                self.catalogue = catalogue
+                return self.catalogue_locked()
 
     def catalogue_locked(self) -> Response:
         return Response(self.catalogue.model_dump_json(), media_type=JSON)
@@ -406,9 +422,15 @@ class Application:
             self.refreshing.release()
 
     def apply_settings(self, raw: bytes) -> Response:
-        with self.refresh_slot(), self.lock:
-            if self.active_jobs:
-                raise HTTPException(409, "Wait for the active run before changing its workspace")
+        # refreshing is held for the whole call, so no refresh discovers the old workspace while
+        # the switch discovers the new one; lock is taken only to read and to commit.
+        with self.refresh_slot():
+            with self.lock:
+                if self.active_jobs:
+                    raise HTTPException(
+                        409, "Wait for the active run before changing its workspace"
+                    )
+                # Review-in-flight refusal belongs here (S3), before the folder check.
             if self.locked:
                 raise HTTPException(403, "Workspace is managed by IT")
             try:
@@ -426,13 +448,18 @@ class Application:
             config.workspace = os.path.normpath(config.workspace)
             if not os.path.isdir(config.workspace):
                 raise HTTPException(400, "The workspace folder is unavailable")
-            try:
-                save_json(self.loc.state / "settings.json", config)
-            except OSError as error:
-                raise HTTPException(500, "Could not save settings") from error
-            self.config = config
-            self.refresh_locked()
-            return self.catalogue_locked()
+            catalogue = self.build_catalogue(config.workspace)
+            with self.lock:
+                if self.active_jobs:
+                    raise HTTPException(409, "A run started while the new workspace was being read")
+                # Review-in-flight refusal and adopt_jobs_locked (S3) belong here, at the commit.
+                try:
+                    save_json(self.loc.state / "settings.json", config)
+                except OSError as error:
+                    raise HTTPException(500, "Could not save settings") from error
+                self.config = config
+                self.catalogue = catalogue
+                return self.catalogue_locked()
 
     def quit(self) -> Response:
         runs, reviews = claim_quit(self)
@@ -611,9 +638,7 @@ def build(lib: Application) -> FastAPI:
     @app.post("/api/refresh")
     def refresh() -> Response:
         try:
-            with lib.refresh_slot(), lib.lock:
-                lib.refresh_locked()
-                return lib.catalogue_locked()
+            return lib.refresh()
         finally:
             lib.store_cache.clear()  # after the locks are released
 
