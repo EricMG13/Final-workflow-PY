@@ -1139,10 +1139,12 @@ def test_review_concurrent_starts_around_a_failed_spawn(tmp_path: Path) -> None:
 
     def codes() -> dict[int, int]:
         seen: dict[int, int] = {}
+        guard = threading.Lock()
 
         def one() -> None:
             code = start_job(client, job_id).status_code
-            seen[code] = seen.get(code, 0) + 1
+            with guard:
+                seen[code] = seen.get(code, 0) + 1
 
         threads = [threading.Thread(target=one) for _ in range(8)]
         for thread in threads:
@@ -1290,3 +1292,55 @@ def test_run_records_its_error_in_the_log_before_closing_it(
 )
 def test_log_output_no_longer_points_at_the_closed_library_log() -> None:
     raise AssertionError
+
+
+GO_STATUS = [  # (status.json bytes, whether Go's JobStatus decode reads state "running")
+    (b'{"state":"running"}', True),
+    (b'{"State":"running"}', True),
+    (b'{"state":"running","STATE":"stopped"}', False),
+    (b'{"state":"running","message":5}', False),
+    (b'{"state":"running","id":5}', False),
+    (b'\xef\xbb\xbf{"state":"running"}', False),
+    (b'{"state":"running","message":"\xff"}', True),
+    (b"[" * 10000 + b"]" * 10000, False),
+]
+
+
+@pytest.mark.parametrize(("raw", "running"), GO_STATUS, ids=range(len(GO_STATUS)))
+def test_settle_and_adopt_read_the_status_as_go_decodes_it(
+    tmp_path: Path, raw: bytes, running: bool
+) -> None:
+    app, root = make_app(tmp_path)
+    folder = root / "intake" / f"web-{3:032x}"
+    put(root, f"intake/{folder.name}/status.json", raw)
+    with app.lock:
+        jobs_module.adopt_jobs_locked(app, str(root))
+    assert (
+        (folder / "status.json").read_bytes() != raw
+        if running
+        else ((folder / "status.json").read_bytes() == raw)
+    )
+    assert app.active_jobs == set()
+    put(root, f"intake/{folder.name}/status.json", raw)
+    jobs_module.settle_job(folder)
+    assert ((folder / "status.json").read_bytes() != raw) is running
+    assert restarted(tmp_path, root).active_jobs == set()
+
+
+def test_watch_worker_logs_an_uncheckable_lock_once(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    calls = {"n": 0}
+
+    def alive(path: Path) -> bool:
+        calls["n"] += 1
+        if calls["n"] < 50:
+            raise PermissionError(13, "denied")
+        return False
+
+    monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.0)
+    monkeypatch.setattr(jobs_module, "worker_alive", alive)
+    monkeypatch.setattr(jobs_module, "finish_job", lambda lib, folder, job_id: None)
+    with caplog.at_level(logging.WARNING, logger="issuer_library"):
+        jobs_module.watch_worker(None, "web-" + "a" * 32, tmp_path)  # type: ignore[arg-type]
+    assert calls["n"] == 50 and len(caplog.records) <= 2

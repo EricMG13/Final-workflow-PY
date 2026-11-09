@@ -138,7 +138,11 @@ if sys.platform == "win32":
     def hold_worker_lock(path: Path) -> int:
         """Open the lock file shared for reading only, so a second open for writing is refused."""
         handle: int = _winapi.CreateFile(str(path), 0x80000000, 1, 0, 4, 0x80, 0)
-        os.set_handle_inheritable(handle, True)
+        try:
+            os.set_handle_inheritable(handle, True)
+        except OSError:
+            _winapi.CloseHandle(handle)
+            raise
         return handle
 
     def release_lock(lock: int) -> None:
@@ -868,10 +872,17 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
         release_lock(lock)
 
 
+def job_state(folder: Path) -> str | None:
+    """The state in the job's status.json as Go's JobStatus decode reads it; None if unreadable."""
+    try:
+        return stopped_run_state((folder / "status.json").read_bytes())
+    except OSError:
+        return None
+
+
 def settle_job(folder: Path) -> None:
     """Mark a job interrupted when its worker has ended while its status still says running."""
-    status = read_object(folder / "status.json")
-    if status is not None and status.get("state") == "running":
+    if job_state(folder) == "running":
         interrupted = {
             "state": "interrupted",
             "message": "The worker exited without a final result. Retained evidence remains "
@@ -911,8 +922,7 @@ def adopt_jobs_locked(lib: Application, workspace: str) -> None:
         folder = Path(workspace) / "intake" / name
         if not JOB_ID.fullmatch(name) or name in lib.active_jobs:
             continue
-        status = read_object(folder / "status.json")
-        if status is None or status.get("state") != "running":
+        if job_state(folder) != "running":
             continue
         try:
             alive = worker_alive(folder / "worker.lock")
@@ -932,12 +942,16 @@ def adopt_jobs_locked(lib: Application, workspace: str) -> None:
 
 def watch_worker(lib: Application, job_id: str, folder: Path) -> None:
     """Wait for a worker this instance did not start to release its lock, then finish its job."""
+    reported = None
     while True:
         time.sleep(WORKER_POLL)
         try:
             if not worker_alive(folder / "worker.lock"):
                 break
+            reported = None
         except OSError as error:
-            # An unreadable lock keeps the job active; it is checked again.
-            log.warning("Run %s: its worker lock cannot be checked yet: %s", job_id, error)
+            # An unreadable lock keeps the job active and is checked again; say so once per error.
+            if str(error) != reported:
+                log.warning("Run %s: its worker lock cannot be checked yet: %s", job_id, error)
+                reported = str(error)
     finish_job(lib, folder, job_id)
