@@ -48,6 +48,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       # Read-only: the pinned upstream commit's objects, over anonymous HTTPS. No token is used.
       - name: fetch the copy source commit
         run: |
