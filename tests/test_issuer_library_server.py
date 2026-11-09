@@ -22,7 +22,7 @@ from issuer_library_support import (
 )
 
 import issuer_library.server as server_module
-from issuer_library.model import Catalogue, digest
+from issuer_library.model import Catalogue, DeliveryView, digest
 from issuer_library.server import Application
 from issuer_library.settings import Config, Locations, load_config, save_json
 
@@ -38,11 +38,17 @@ def test_launcher_delivery_is_verified_and_presented_like_any_deliverable(
     files = {
         "report.html": b"<html><body>Report</body></html>",
         "view.json": (
-            b'{"run":{"run_id":"r","issuer_id":"nbg","issuer_name":"Northbridge",'
-            b'"as_of":"2025-03-31"}}'
+            b'{"run":{"run_id":"nbg-2025-03-31-full-x","issuer_id":"nbg",'
+            b'"issuer_name":"Northbridge","as_of":"2025-03-31"}}'
         ),
         "CP-1.md": b"# CP-1\n",
     }
+    # The launcher stamps deliveries with the run identity recorded in the run's workflow.json.
+    put(
+        root,
+        "runs/launched/workflow.json",
+        b'{"run":{"run_id":"nbg-2025-03-31-full-x","issuer_id":"nbg"}}',
+    )
     for name, raw in files.items():
         put(root, f"runs/launched/deliveries/abc/{name}", raw)
     save_json(folder / "delivery.json", {"files": {n: digest(r) for n, r in files.items()}})
@@ -62,6 +68,36 @@ def test_launcher_delivery_is_verified_and_presented_like_any_deliverable(
     put(root, "runs/launched/deliveries/abc/report.html", b"changed")
     client.post("/api/refresh", content="{}", headers=POST_HEADERS)
     assert any("deliveries/abc" in issue for issue in app.catalogue.issues)
+
+
+def test_embedded_model_keeps_its_bytes_and_sandbox(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    view = DeliveryView()
+    view.run.run_id, view.run.issuer_id = "model-run", "TDG"
+    view.run.issuer_name, view.run.as_of = "Example Industries", "2024-12-31"
+    raw = view.model_dump_json().encode()
+    model = b"<!doctype html><title>Model</title><p>Published model</p>"
+    put(root, "deliverables/m-1/view.json", raw)
+    put(root, "deliverables/m-1/model.html", model)
+    put_json(
+        root,
+        "deliverables/m-1/delivery.json",
+        {"files": {"view.json": digest(raw), "model.html": digest(model)}},
+    )
+    assert client.post("/api/refresh", content="{}", headers=POST_HEADERS).status_code == 200
+    artifact = next(
+        a for run in app.catalogue.real for a in run.artifacts if a.folder == "deliverables/m-1"
+    )
+    assert artifact.available, artifact
+    shown = client.get(artifact.href + "&embedded=1")
+    assert shown.status_code == 200 and shown.content == model
+    assert b"data-library-presentation" not in shown.content
+    policy = shown.headers["content-security-policy"]
+    assert policy.startswith("sandbox allow-scripts allow-downloads;")
+    assert f"frame-ancestors http://{app.host}" in policy
+    saved = client.get(artifact.href + "&download=1")
+    assert "m-1.html" in saved.headers["content-disposition"] and saved.content == model
 
 
 def test_http_boundary_and_changed_file(tmp_path: Path) -> None:

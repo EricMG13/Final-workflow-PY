@@ -378,7 +378,7 @@ class Application:
         download = request.query_params.get("download") == "1"
         if download:
             filename = os.path.basename(name)
-            if sha256 and filename == "report.html":
+            if sha256 and filename in ("report.html", "model.html"):
                 filename = os.path.basename(os.path.dirname(name)) + ".html"
             headers["Content-Disposition"] = attachment(filename)
         ancestors = "'none'"
@@ -388,7 +388,8 @@ class Application:
             and request.query_params.get("embedded") == "1"
         ):
             ancestors = f"http://{self.host}"
-            if not download:
+            # A published model is served as verified, embedded or not; only a report is adapted.
+            if not download and os.path.basename(name) == "report.html":
                 raw = self.report_presentation(raw)
         headers["Content-Security-Policy"] = REPORT_POLICY.format(ancestors=ancestors)
         return serve_bytes(request, raw, headers)
