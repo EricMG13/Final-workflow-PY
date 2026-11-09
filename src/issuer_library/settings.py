@@ -37,7 +37,8 @@ def load_config(loc: Locations) -> tuple[Config, bool]:
         except FileNotFoundError:
             continue
         try:
-            config = Config.model_validate_json(raw)
+            # Windows PowerShell 5.1 writes "UTF8" with a byte order mark; only that one is skipped.
+            config = Config.model_validate_json(raw.removeprefix(b"\xef\xbb\xbf"))
         except ValueError as error:
             raise ValueError(f"invalid configuration {name}: {error}") from error
         if not os.path.isabs(config.workspace):
