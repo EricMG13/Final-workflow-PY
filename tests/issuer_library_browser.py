@@ -356,3 +356,53 @@ def release(opened: list[Screen]) -> None:
     finally:
         for screen in opened:
             screen.close()
+
+
+class ContextForm:
+    def __init__(self, browser: Any) -> None:
+        self.page = browser.new_context().new_page()
+        self.errors = pageerrors(self.page)
+        self.page.add_init_script(
+            "window.__messages=[];window.postMessage=v=>{window.__messages.push(v)};"
+        )
+        serve(self.page, {})
+        self.page.goto(f"{ORIGIN}/context-form.html")
+        self.page.wait_for_function("typeof update==='function'")
+
+    def set(self, element_id: str, value: str) -> None:
+        self.page.evaluate(
+            "([i,v])=>{const f=document.getElementById(i);f.value=v;"
+            "f.dispatchEvent(new Event('input',{bubbles:true}));}",
+            [element_id, value],
+        )
+
+    def pick(self, element_id: str) -> None:
+        self.page.evaluate(
+            "i=>{const c=document.getElementById(i);c.checked=true;"
+            "c.dispatchEvent(new Event('change',{bubbles:true}));}",
+            element_id,
+        )
+
+    def declare(self) -> None:
+        self.pick("issue_classification-high_yield")
+        self.pick("legal_documents-executed")
+
+    def submit(self) -> dict[str, Any]:
+        value: dict[str, Any] = self.page.evaluate(
+            "()=>{window.dispatchEvent(new MessageEvent('message',{source:window,data:{type:'cpos:get-context'}}));"
+            "return window.__messages.filter(m=>m.type==='cpos:context').at(-1);}"
+        )
+        return value
+
+    def load(self, folder: Path, text: str) -> None:
+        """Choose a saved context file and wait until the form reports it loaded."""
+        saved = folder / "context.json"
+        saved.write_text(text, encoding="utf-8")
+        self.page.set_input_files("#load", saved)
+        self.page.wait_for_function(
+            "document.getElementById('loadmsg').textContent.startsWith('Loaded')"
+        )
+
+    def close(self) -> None:
+        assert self.errors == []
+        self.page.context.close()

@@ -1,7 +1,7 @@
 """Context form, the cases P added to context-embed.test.cjs (final-workflow dd3dfa18).
 
 The Node suite loaded context-form.html in jsdom with stub layout and talked to it with `message`
-events. Here the real page opens in Chromium (ContextForm in test_issuer_library_app.py, which also
+events. Here the real page opens in Chromium (ContextForm in issuer_library_browser.py; test_issuer_library_app.py
 holds the cases the earlier port covered), styles are read with getComputedStyle, and the date
 input is the browser's own. Synthetic data only; nothing reaches a server or a provider.
 """
@@ -15,8 +15,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from issuer_library_browser import ROOT, WEB, until
-from test_issuer_library_app import ContextForm
+from issuer_library_browser import ROOT, WEB, ContextForm, until
 
 pytestmark = pytest.mark.browser
 
