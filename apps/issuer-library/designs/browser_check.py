@@ -68,6 +68,7 @@ def serve(
     env = {k: v for k, v in os.environ.items() if k not in KEYS}
     env |= {
         "PYTHONPATH": str(R / "src"),
+        "PYTHONUNBUFFERED": "1",  # the launch line must reach the pipe at once
         "ISSUER_LIBRARY_ENGINE_ROOT": str(engine),
         "PYTHONDONTWRITEBYTECODE": "1",
         "CHECK_ROOT": str(R),

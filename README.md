@@ -20,7 +20,7 @@ Excel files are analytical inputs only; no deliverable is an Excel workbook.
 
 | What | Where |
 |---|---|
-| The app: Windows launch, New run, workspace, local session, discovery contract, packaging | [`apps/issuer-library/README.md`](apps/issuer-library/README.md) |
+| The app: Windows launch, New run, workspace, discovery contract, packaging | [`apps/issuer-library/README.md`](apps/issuer-library/README.md) |
 | What the product is for, and its approved direction | [`apps/issuer-library/PRODUCT.md`](apps/issuer-library/PRODUCT.md) |
 | Design system: colours, type, components | [`apps/issuer-library/DESIGN.md`](apps/issuer-library/DESIGN.md), [`DESIGN-SOURCES.md`](apps/issuer-library/DESIGN-SOURCES.md) |
 | Screens and navigation | [`apps/issuer-library/INFORMATION-ARCHITECTURE.md`](apps/issuer-library/INFORMATION-ARCHITECTURE.md) |
@@ -40,9 +40,9 @@ From the repository root, after `uv sync --locked`:
 PYTHONPATH=src uv run python -m issuer_library --workspace "$PWD"
 ```
 
-It opens the browser on the signed-in Library over this repository's `runs/` and `deliverables/`.
+It opens the browser on the Library over this repository's `runs/` and `deliverables/`.
 The server finds the engine beside itself, so no other variable is needed. The Windows
-package needs neither: see the app README.
+package is described in the app README.
 
 ## Repository map
 
