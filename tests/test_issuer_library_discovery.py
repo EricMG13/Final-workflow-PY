@@ -158,7 +158,7 @@ def test_paths_and_symlinks_cannot_escape(tmp_path: Path) -> None:
 
 def test_current_retained_workspace() -> None:
     if not (ROOT / "runs/tdg-002").is_dir():
-        pytest.skip("retained workspace not present")
+        pytest.skip("not applicable: retained workspace not present")
     seeds = Catalogue.model_validate_json(
         (ROOT / "apps/issuer-library/web/legacy-catalog.json").read_bytes()
     )
@@ -680,7 +680,7 @@ def fixture_workspace(tmp_path: Path, name: str) -> tuple[Path, str]:
     if name == "retained-cp1":
         repo = ROOT / RETAINED_RUN
         if not (repo / "CP-1.md").exists():
-            pytest.skip("retained CP-1.md not present")
+            pytest.skip("not applicable: retained CP-1.md not present")
         raw = copy_file(repo / "CP-1.md", tmp_path, f"{RETAINED_RUN}/CP-1.md")
         assert hashlib.sha256(raw).hexdigest() == RETAINED_CP1_SHA, "retained CP-1.md changed"
         copy_file(repo / RETAINED_INPUT, tmp_path, f"{RETAINED_RUN}/{RETAINED_INPUT}")
@@ -889,7 +889,7 @@ def test_writer_key_is_admitted_with_its_checklist(tmp_path: Path, key_file: Pat
     for item in plan:
         source = ROOT / item["from"]
         if not source.exists():
-            pytest.skip(f"{item['from']} not present")
+            pytest.skip(f"not applicable: {item['from']} not present")
         copy_file(source, tmp_path, item["to"])
     raw = key_file.read_bytes()
     key = json.loads(raw)
