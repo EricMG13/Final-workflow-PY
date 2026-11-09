@@ -259,7 +259,13 @@ GO_ESCAPES = {
 
 
 def go_quote(text: str) -> str:
-    """Go's strconv.Quote (the %q verb): printable runes as they are, the rest escaped."""
+    """Go's strconv.Quote (the %q verb): printable runes as they are, the rest escaped.
+
+    Printability follows Python's Unicode tables (15.1 on Python 3.13), while Go 1.26's
+    strconv.Quote uses Unicode 15.0, so the 627 code points added in 15.1 (U+2FFC-U+2FFF, U+31EF,
+    U+2EBF0-U+2EE5D) print raw here and are escaped in Go. Only the error text differs; such a key
+    is rejected either way.
+    """
     parts = []
     for char in text:
         code = ord(char)
