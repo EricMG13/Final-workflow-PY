@@ -76,7 +76,10 @@ def report(name: str, passed: bool, output: str = "") -> bool:
     if not passed:
         lines = output.splitlines()
         print(
-            "\n".join([line for line in lines if line.startswith("FAIL ")] + lines[-40:]),
+            "\n".join(
+                [line for line in lines if re.match(r"(?:FAIL|FAILED|ERROR) \S", line)]
+                + lines[-40:]
+            ),
             flush=True,
         )
     return passed
