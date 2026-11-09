@@ -24,7 +24,7 @@ WEB = APP / "web"
 FIXTURE = ROOT / "artifacts/issuer-library/design-fixture"
 ORIGIN = "http://127.0.0.1:54321"
 EMPTY_STORE: dict[str, Any] = {"runs": {}, "outputs": {}, "inputs": {}, "pins": {}}
-EMPTY_WORKSPACE: dict[str, Any] = {"reports": [], "visuals": []}
+EMPTY_WORKSPACE: dict[str, Any] = {"reports": [], "models": [], "visuals": []}
 DEFAULT_APP: dict[str, Any] = {
     "workspace": "/research",
     "policy_locked": False,
@@ -298,3 +298,13 @@ def until(page: Any, expression: str, timeout: float = 5.0) -> None:
         if time.monotonic() > deadline:
             raise AssertionError(f"timed out waiting for {expression}")
         page.wait_for_timeout(20)
+
+
+def release(opened: list[Screen]) -> None:
+    """Fixture teardown: every opened page ended without errors; all are closed even if one failed."""
+    try:
+        for screen in opened:
+            assert screen.errors == []
+    finally:
+        for screen in opened:
+            screen.close()
