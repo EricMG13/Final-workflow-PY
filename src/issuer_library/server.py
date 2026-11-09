@@ -30,6 +30,7 @@ from .jobs import (
     UPLOAD_LIMIT,
     UPLOAD_MESSAGE,
     Engine,
+    adopt_jobs_locked,
     engine_root,
     job_status,
     json_response,
@@ -265,12 +266,12 @@ class Boundary:
         if refusal is not None:
             await refusal(scope, receive, send_marked)
             return
-        if scope["method"] == "HEAD":
-            # net/http answers an authorised HEAD from the GET route with no body; so does this.
+        # net/http answers an authorised HEAD from the GET route with no body; so does this.
+        head = scope["method"] == "HEAD"
+        if head:
             scope = {**scope, "method": "GET"}
-            await self.app(scope, receive, self.without_body(send_marked))
-            return
-        await self.app(scope, receive, send_marked)
+        sender = self.without_body(send_marked) if head else send_marked
+        await self.app(scope, receive, sender)
 
     @staticmethod
     def without_body(send: Send) -> Send:
@@ -374,6 +375,7 @@ class Application:
         self.quitting = False
         # Held for a discovery or workspace change; taken before lock, never while holding it.
         self.refreshing = threading.Lock()
+        adopt_jobs_locked(self, self.config.workspace)
         self.asgi = build(self)
 
     def refresh_locked(self) -> None:
@@ -432,6 +434,7 @@ class Application:
                 raise HTTPException(500, "Could not save settings") from error
             self.config = config
             self.refresh_locked()
+            adopt_jobs_locked(self, config.workspace)
             return self.catalogue_locked()
 
     def quit(self) -> Response:

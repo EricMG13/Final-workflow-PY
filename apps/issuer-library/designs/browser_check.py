@@ -16,11 +16,13 @@ import tempfile
 import threading
 import time
 import urllib.request
+from datetime import date
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
 import flow_check
+import single_run as expected
 from faults import Faults, crashes, http_fault, redact, request_fault
 from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import expect, sync_playwright
@@ -42,6 +44,12 @@ KEYS = tuple(runpy.run_path(str(R / "src/deploy_workflow/model/redact.py"))["KEY
 EXPECTED_HTTP: frozenset[tuple[int, str]] = frozenset()
 SCOPE = "offline: retained workspace and fake-provider runs; no provider called"
 results: list[tuple[bool, str]] = []
+# Checks a walk could not exercise: printed, kept here for the live record, never counted as a pass.
+NOT_EXERCISABLE: list[str] = []
+NOT_APPLICABLE = "not applicable: repo-store key"
+RETAINED_FIXTURE = (
+    False  # set only by `--single-run WS --retained-fixture`; live_check never sets it
+)
 FAULTS = Faults()
 WALK = ""  # the walk now running, for the fault record
 # Each server's log file and the thread copying its stdout into it, by port.
@@ -56,6 +64,17 @@ def note(ok: bool, what: str, fault: bool = True, kind: str = "check") -> None:
     if not ok and fault:
         FAULTS.add(WALK, kind, what)
     print(redact(("PASS " if ok else "FAIL ") + what, secrets()), flush=True)
+
+
+def not_exercisable(name: str, what: str, why: str) -> None:
+    """Only the retained fixture (--retained-fixture) may lack a record (R18); anywhere else a
+    missing events.jsonl, spend, citation or chart is a failed check, never a skip."""
+    if not RETAINED_FIXTURE:
+        note(False, f"{name}: {what}: not recorded by this run: {why}", kind="missing")
+        return
+    line = f"{name}: {what}: not exercisable on this fixture: {why}"
+    NOT_EXERCISABLE.append(line)
+    print(redact("SKIP " + line, secrets()), flush=True)
 
 
 def serve(
@@ -298,19 +317,52 @@ def library_screening(page: Any, name: str, port: int) -> None:
         and "5.96\u00d7" in detail.inner_text(),
         f"{name}: a row's detail opens with its metric and basis",
     )
+    library_detail_links(page, name, port, "tdg-002")
+
+
+def library_detail_links(page: Any, name: str, port: int, run: str) -> None:
+    """From an open detail, Open report and Open run stay in the app and are followed."""
+    detail = page.locator("#run-detail")
     detail.locator("a:has-text('Open report')").click()
     page.wait_for_selector("#report-preview")
     note("W-Reports" in page.url, f"{name}: Open report opens the report inside the app")
     page.goto(f"http://127.0.0.1:{port}/#W-Library/cases")
     page.reload()
     page.wait_for_selector("#library-results tbody tr")
-    page.click("[data-library-select='tdg-002']")
+    page.click(f"[data-library-select='{run}']")
     page.locator("#run-detail a:has-text('Open run')").click()
     page.wait_for_selector(".summary-lead")
     note("W-Overview" in page.url, f"{name}: Open run reaches the Overview")
     page.goto(f"http://127.0.0.1:{port}/#W-Library/cases")
     page.reload()
     page.wait_for_selector("#library-results tbody tr")
+
+
+def used_in(page: Any, name: str) -> None:
+    used = page.locator("#module-head a", has_text="Used in")
+    note(used.count() == 1, f"{name}: module output names the deliverables that used it")
+
+
+def reader_names(page: Any, frame: Any, name: str) -> None:
+    """The report's reader text and the navigation show names, and the rail marks Reports."""
+    note(
+        not MODULE_CODE.search(frame.locator("#view-root").inner_text()),
+        f"{name}: the report's reader text shows names, not module codes",
+    )
+    note(
+        not MODULE_CODE.search(page.locator("#module-list").text_content()),
+        f"{name}: navigation shows names, not module codes",
+    )
+    note(
+        page.locator(".rail a[data-place='Reports'][aria-current]").count() == 1,
+        f"{name}: rail stays beside the report and marks Reports",
+    )
+
+
+def follow_built_from(page: Any, name: str) -> None:
+    page.locator(".built-from tbody a").first.click()
+    page.wait_for_selector("#module-head h2")
+    note("W-Reports" not in page.url, f"{name}: Built from opens the module output")
 
 
 def library_and_report(page: Any, name: str, port: int) -> None:
@@ -338,8 +390,7 @@ def library_and_report(page: Any, name: str, port: int) -> None:
         f"{name}: curated CP-1 chart renders from the live store",
     )
     page.screenshot(path=str(S / f"{name}-module.png"))
-    used = page.locator("#module-head a", has_text="Used in")
-    note(used.count() == 1, f"{name}: module output names the deliverables that used it")
+    used_in(page, name)
     chart_style(page, name, port)
     page.click(".workspace-tabs a:has-text('Reports')")
     page.wait_for_selector(".report-row a")
@@ -351,25 +402,12 @@ def library_and_report(page: Any, name: str, port: int) -> None:
         frame.locator("#view-root").count() == 1,
         f"{name}: report renders inside the app, with the adapter",
     )
-    note(
-        not MODULE_CODE.search(frame.locator("#view-root").inner_text()),
-        f"{name}: the report's reader text shows names, not module codes",
-    )
-    note(
-        not MODULE_CODE.search(page.locator("#module-list").text_content()),
-        f"{name}: navigation shows names, not module codes",
-    )
-    note(
-        page.locator(".rail a[data-place='Reports'][aria-current]").count() == 1,
-        f"{name}: rail stays beside the report and marks Reports",
-    )
+    reader_names(page, frame, name)
     page.screenshot(path=str(S / f"{name}-report.png"))
     href = page.locator(".report-tools a[download]").get_attribute("href")
     note("download=1" in href and "sha256=" in href, f"{name}: original download link is pinned")
     page.locator(".built-from summary").first.click()
-    page.locator(".built-from tbody a").first.click()
-    page.wait_for_selector("#module-head h2")
-    note("W-Reports" not in page.url, f"{name}: Built from opens the module output")
+    follow_built_from(page, name)
 
 
 EVERY_SECTION_JS = """async()=>{
@@ -392,8 +430,14 @@ EVERY_SECTION_JS = """async()=>{
   return bad;}"""
 
 
-def every_section_renders(page: Any, name: str) -> None:
-    problems = page.evaluate(EVERY_SECTION_JS)
+def throttled(js: str) -> str:
+    """A route-walking script that pauses after each route change: Firefox refuses history
+    changes beyond about 200 in ten seconds, and the single-run walk visits many sections."""
+    return js.replace("renderRoute();", "renderRoute(); await new Promise(r => setTimeout(r, 80));")
+
+
+def every_section_renders(page: Any, name: str, script: str = EVERY_SECTION_JS) -> None:
+    problems = page.evaluate(script)
     note(
         not problems,
         f"{name}: every section of every module of every run renders ({problems[:6]})",
@@ -434,10 +478,10 @@ def deliveries_and_settings(page: Any, name: str, port: int) -> None:
     )
 
 
-def fitted_screens(page: Any, name: str, port: int) -> None:
+def fitted_screens(page: Any, name: str, port: int, key: str = "tdg-002") -> None:
     for width, height in ((1280, 600), (1536, 730)):
         page.set_viewport_size({"width": width, "height": height})
-        page.goto(f"http://127.0.0.1:{port}/#W-Overview/overview?c=tdg-002")
+        page.goto(f"http://127.0.0.1:{port}/#W-Overview/overview?c={key}")
         page.reload()
         page.wait_for_selector(".summary-lead")
         lead = page.locator(".summary-lead")
@@ -487,11 +531,34 @@ CHART_STYLE = """() => {
 }"""
 
 
-def chart_style(page: Any, name: str, port: int) -> None:
-    """Charts follow the Untitled UI look: rounded data-ends, no tracks, pill grades, 12px cards."""
-    run = "?c=tdg-002"
+# CHART_STYLE over every section of every module of one run, keeping each style a chart shows.
+CHART_STYLE_ALL = (
+    "async(key) => { const style = "
+    + CHART_STYLE
+    + "; const seen = {}; const modules = [...Object.keys(contexts[key].modules), 'W-Overview'];"
+    " for (const module of modules) {"
+    "  location.hash = `${module}?c=${encodeURIComponent(key)}`; renderRoute();"
+    "  for (const [section] of navigationSections(module, key, current.output)) {"
+    "   location.hash = routeHref(module, section, null, key).slice(1); renderRoute();"
+    "   for (const [k, v] of Object.entries(style())) if (v !== 'missing') seen[k] = v;"
+    "  } } return seen; }"
+)
+CHART_STYLE_ALL = throttled(CHART_STYLE_ALL)
+
+
+def chart_style(
+    page: Any, name: str, port: int, run: str = "?c=tdg-002", single: bool = False
+) -> None:
+    """Charts follow the Untitled UI look: rounded data-ends, no tracks, pill grades, 12px cards.
+
+    A run other than the key's (single-run walk) may draw only some of them: each one it draws must
+    match, and one that draws none is reported as not exercisable, never as a pass."""
     seen: dict[str, str] = {}
-    for route in ("#CP-1/performance", "#W-Overview/overview", "#CP-2/assessment"):
+    if single:  # this run's own sections, not the key's three routes
+        seen = page.evaluate(CHART_STYLE_ALL, run.removeprefix("?c="))
+    for route in (
+        () if single else ("#CP-1/performance", "#W-Overview/overview", "#CP-2/assessment")
+    ):
         page.goto(f"http://127.0.0.1:{port}/{route}{run}")
         page.wait_for_selector("#content .section-heading")
         seen.update({k: v for k, v in page.evaluate(CHART_STYLE).items() if v != "missing"})
@@ -503,6 +570,13 @@ def chart_style(page: Any, name: str, port: int) -> None:
         "rect": "4px",
         "grade": "999px",
     }
+    if single:
+        if not seen:
+            not_exercisable(name, "chart style", "this run draws no chart")
+        else:
+            wrong = {k: v for k, v in seen.items() if want[k] != v}
+            note(not wrong, f"{name}: the charts it draws use the shared style ({seen})")
+        return
     note(seen == want, f"{name}: charts use rounded data-ends, no tracks and pill grades ({seen})")
     page.goto(f"http://127.0.0.1:{port}/#CP-1/performance{run}")
     page.wait_for_selector(".bars")
@@ -746,6 +820,216 @@ def new_run(  # noqa: PLR0915, RUF100
     page.close()
 
 
+def run_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
+    """The run's one Library row, its Open run and Open report links, and the count line."""
+    folder, delivery = want["folder_id"], want["delivery_id"]
+    page.goto(f"http://127.0.0.1:{port}/")
+    page.wait_for_selector("#library-results tbody tr", timeout=30000)
+    note(folder in row_ids(page), f"{name}: the Library lists the run row {folder}")
+    links = page.locator("#library-results a.run-link")
+    note(
+        links.count() == 1
+        and links.first.get_attribute("href", timeout=5000) == f"#W-Overview/overview?c={folder}",
+        f"{name}: the row has one Open run link to this run's Overview",
+    )
+    report = page.locator(f"#library-results a[href^='#W-Reports/{delivery}']")
+    note(
+        report.count() == 1, f"{name}: the row has one Open report link to delivery {delivery[:12]}"
+    )
+    note(
+        page.locator("#library-count").inner_text() == "1 of 1 run \u00b7 1 issuer",
+        f"{name}: the count line says 1 run and 1 issuer (this workspace holds one run)",
+    )
+    note(
+        page.evaluate("document.documentElement.scrollWidth<=innerWidth"),
+        f"{name}: the library fits 1366x768 with no horizontal overflow",
+    )
+    page.click(f"[data-library-select='{folder}']")
+    library_detail_links(page, name, port, folder)
+    line = f"N/A {name}: library counts and screening cases of the repo store: {NOT_APPLICABLE}"
+    print(redact(line, secrets()), flush=True)
+
+
+def overview_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
+    folder = want["folder_id"]
+    page.goto(f"http://127.0.0.1:{port}/#W-Overview/overview?c={folder}")
+    page.reload()
+    page.wait_for_selector(".summary-lead")
+    shown = page.evaluate("(k) => Object.keys(contexts[k].modules)", folder)
+    ids = want["modules"]
+    note(
+        sorted(shown) == sorted(ids),
+        f"{name}: the run's modules in the app are the delivery's ({shown} vs {ids})",
+    )
+    note(
+        want["issuer_name"] in page.inner_text("body"),
+        f"{name}: the Overview names the issuer {want['issuer_name']}",
+    )
+
+
+def reports_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
+    """Reports opens the report; Built from lists the delivered handoffs and their hashes."""
+    folder = want["folder_id"]
+    page.goto(f"http://127.0.0.1:{port}/#W-Reports/list?c={folder}")
+    page.reload()
+    page.wait_for_selector(".report-row a")
+    day = date.fromisoformat(want["as_of"])
+    row = page.locator(".report-built .report-row").first.inner_text()
+    note(
+        f"{want['issuer_name']} \u00b7 as of {day.day} {day:%B} {day.year}" in row
+        and want["delivery_id"] in row,
+        f"{name}: the Reports row names the issuer, the as-of date and the delivery",
+    )
+    page.click(".report-built .report-row a >> nth=0")
+    frame = page.frame_locator("#report-preview")
+    frame.locator("body.library-report").wait_for(state="attached", timeout=15000)
+    note(
+        want["issuer_name"] in frame.locator("#view-root").inner_text(),
+        f"{name}: the report opens inside the app and names {want['issuer_name']}",
+    )
+    shown_text = " ".join(frame.locator("body").inner_text().split())
+    titles = [want["title"], *want["module_titles"]]
+    note(
+        all(t in shown_text for t in titles),
+        f"{name}: the report shows its title and the module titles {titles[:2]}",
+    )
+    reader_names(page, frame, name)
+    href = page.locator(".report-tools a[download]").get_attribute("href")
+    note("download=1" in href and "sha256=" in href, f"{name}: original download link is pinned")
+    page.locator(".built-from summary").first.click()
+    handoffs = want["handoffs"]
+    note(
+        page.locator(".built-from summary").first.inner_text()
+        == f"Built from {len(handoffs)} handoffs \u00b7 byte-identical by SHA-256",
+        f"{name}: Built from says {len(handoffs)} handoffs, byte-identical by SHA-256",
+    )
+    shown = {
+        tuple(cell.strip() for cell in (r[0], r[2], r[3]))
+        for r in page.eval_on_selector_all(
+            ".built-from >> nth=0 >> tbody tr",
+            "rows => rows.map(r => [...r.children].map(c => c.textContent))",
+        )
+    }
+    prefixes = {(n.removesuffix(".md"), n, h[:12]) for n, h in handoffs.items()}
+    note(
+        shown == prefixes, f"{name}: Built from file names and SHA-256 prefixes match delivery.json"
+    )
+    note(
+        all(want["handoff_bytes_match"].values()),
+        f"{name}: the delivered handoff bytes hash to delivery.json's SHA-256 values",
+    )
+    follow_built_from(page, name)
+    used_in(page, name)
+
+
+FIND_EVIDENCE = throttled(
+    """async([key, candidates]) => {
+  for (const module of new Set(candidates.map(c => c[0]))) {
+    location.hash = `${module}?c=${encodeURIComponent(key)}`; renderRoute();
+    for (const [section] of navigationSections(module, key, current.output)) {
+      location.hash = routeHref(module, section, null, key).slice(1); renderRoute();
+      const marks = document.querySelectorAll('[data-evidence]');
+      const shown = new Set([...marks].map(e => e.dataset.evidence));
+      const hit = candidates.findIndex(c => c[0] === module && shown.has(c[1]));
+      if (hit >= 0) return hit;
+    }
+  }
+  return null;}"""
+)
+
+
+def evidence_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
+    """The evidence inspector opens a cited handoff line and shows that line's cells."""
+    if not want["evidence"]:
+        not_exercisable(name, "evidence inspector", "no handoff-line citation in view.json")
+        return
+    page.goto(f"http://127.0.0.1:{port}/#W-Overview/overview?c={want['folder_id']}")
+    # The app marks only the lines it renders as records: open the first cited line it marks.
+    pairs = [(e, k) for e in want["evidence"] for k in e["keys"]]
+    marks = [[e["module"], k] for e, k in pairs]
+    index = page.evaluate(FIND_EVIDENCE, [want["folder_id"], marks])
+    note(
+        index is not None,
+        f"{name}: the app marks one of the {len(want['evidence'])} handoff lines cited",
+    )
+    if index is None:
+        return
+    cited, wanted = pairs[index]
+    escaped = wanted.replace("\\", "\\\\").replace('"', '\\"')
+    page.locator(f'[data-evidence="{escaped}"]').first.click()
+    page.wait_for_selector("#inspector:not([hidden]) .evidence-fields")
+    shown = " ".join(page.inner_text("#inspector").split())
+    cells = [c for c in cited["cells"] if not expected.SYNTAX.search(c)]
+    note(
+        f"Line {cited['line']}" in shown and cited["file"] in shown,
+        f"{name}: the inspector opens {cited['file']} line {cited['line']}",
+    )
+    missing = [c for c in cells if " ".join(c.split()) not in shown]
+    note(
+        bool(cells) and not missing,
+        f"{name}: the inspector shows the cited line's cells {missing[:3]}",
+    )
+    page.keyboard.press("Escape")
+    return
+
+
+def activity_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
+    """Run activity lists the run's own events and spend; absent records are not exercisable."""
+    page.goto(f"http://127.0.0.1:{port}/#CP-OS/activity?c={want['folder_id']}")
+    page.reload()
+    events, spent = want["activity"]["events"], want["activity"]["spent_usd"]
+    if events is None and spent is None:
+        page.wait_for_selector("#content .section-heading, #content p")
+        note(
+            # views.js's retained page; actions.js's "No events were recorded" is for a live run.
+            "No live progress is recorded for this run" in page.inner_text("#content"),
+            f"{name}: Run activity says no live progress is recorded for this run",
+        )
+    if events is None:
+        not_exercisable(name, "Run activity events", "no events.jsonl")
+    else:
+        page.wait_for_selector(".activity-log tbody tr")
+        rows = page.eval_on_selector_all(
+            ".activity-log tbody tr", "rows => rows.map(r => r.children[1].textContent)"
+        )
+        accepted = [e for e in events if e["event"] == "module_accepted"]
+        note(
+            len(rows) == len(events)
+            and sum(r.startswith("Accepted ") for r in rows) == len(accepted),
+            f"{name}: Run activity lists the run's {len(events)} events, {len(accepted)} accepted",
+        )
+    if spent is None:
+        not_exercisable(name, "Run activity spend", "no intake status.json with spent_usd")
+    else:
+        page.wait_for_selector("text=Recorded spend: USD")
+        note(
+            f"Recorded spend: USD {spent}" in page.inner_text("#content"),
+            f"{name}: Run activity shows the recorded spend USD {spent}",
+        )
+
+
+def single_run_walk(browser: Any, name: str, port: int, workspace: Path) -> None:
+    """Every per-run check of the real-workspace walk over a workspace holding one run.
+
+    The expected values are read from the run's own files (single_run.py), not from the repo-store
+    answer key; only that key's count asserts are skipped, and they say so."""
+    folders = sorted(p.name for p in (workspace / "runs").iterdir() if p.is_dir())
+    note(len(folders) == 1, f"{name}: the workspace holds only this run {folders[:3]}")
+    want = expected.expectations(workspace, folders[0])
+    page = browser.new_page(viewport={"width": 1366, "height": 768})
+    errors = errors_of(page)
+    run_row(page, name, port, want)
+    overview_row(page, name, port, want)
+    every_section_renders(page, name, throttled(EVERY_SECTION_JS))
+    reports_row(page, name, port, want)
+    evidence_row(page, name, port, want)
+    activity_row(page, name, port, want)
+    fitted_screens(page, name, port, want["folder_id"])
+    chart_style(page, name, port, f"?c={want['folder_id']}", single=True)
+    note(not errors, f"{name}: no console errors {errors[:4]}")
+    page.close()
+
+
 def attempt(walk: str, browser: SignedBrowser, action: Any) -> None:
     """Run one walk. A failure is recorded with the page it left open, and the next walk still runs.
 
@@ -792,8 +1076,60 @@ def scan_server_logs() -> None:
             FAULTS.add(f"server-{port}", "server-log", crash, artifacts=[str(log)])
 
 
+def engine_options() -> dict[str, dict[str, str]]:
+    """The walk's two engines and their launch options."""
+    home = Path.home() / "Library/Caches/ms-playwright"
+    firefox = next((p for p in home.glob("firefox-*/**/firefox") if p.is_file()), None)
+    chromium = os.environ.get("ISSUER_LIBRARY_CHROMIUM")
+    return {
+        "chromium": {"executable_path": chromium} if chromium else {},
+        "firefox": {"executable_path": str(firefox)} if firefox else {},
+    }
+
+
+def single_main(workspace: Path, fixture: bool = False) -> int:
+    """--single-run WORKSPACE: the per-run walk over a workspace holding one run, both engines."""
+    global S, PY, SCOPE, RETAINED_FIXTURE
+    RETAINED_FIXTURE = fixture
+    S = Path(os.environ.get("FW_BROWSER_OUT") or tempfile.mkdtemp(prefix="issuer-library-single-"))
+    S.mkdir(parents=True, exist_ok=True)
+    PY = os.environ["FW_PYTHON"]
+    SCOPE = f"offline: single-run walk over {workspace}; no provider called"
+    server = None
+    try:
+        try:
+            server = serve(workspace, 53901, R / "apps/issuer-library/engine")
+            with sync_playwright() as driver:
+                for name, options in engine_options().items():
+                    browser = SignedBrowser(getattr(driver, name).launch(**options))
+                    attempt(
+                        f"{name}-single-run",
+                        browser,
+                        lambda: single_run_walk(browser, name, 53901, workspace),  # noqa: B023
+                    )
+                    browser.close()
+        except (Exception, SystemExit) as error:  # noqa: BLE001 - recorded below, never silent
+            note(False, f"setup: stopped: {type(error).__name__}: {str(error)[:600]}", fault=False)
+            FAULTS.add("setup", "exception", f"{type(error).__name__}: {str(error)[:600]}")
+    finally:
+        if server is not None:
+            server.terminate()
+            server.wait()
+        scan_server_logs()
+        passed = sum(ok for ok, _ in results)
+        FAULTS.write(S / "faults.json", SCOPE, passed, secrets())
+        print(
+            f"{passed} passed, {len(results) - passed} failed,"
+            f" {len(NOT_EXERCISABLE)} not exercisable"
+        )
+        print(f"faults: {S / 'faults.json'}")
+    return int(bool(FAULTS.items) or passed != len(results))
+
+
 def main(argv: list[str]) -> int:
     global S, PY
+    if argv[:1] == ["--single-run"]:
+        return single_main(Path(argv[1]).resolve(), argv[2:] == ["--retained-fixture"])
     S = Path(os.environ.get("FW_BROWSER_OUT") or tempfile.mkdtemp(prefix="issuer-library-browser-"))
     S.mkdir(parents=True, exist_ok=True)
     PY = os.environ["FW_PYTHON"]
@@ -809,13 +1145,7 @@ def main(argv: list[str]) -> int:
     shutil.copy(HERE / "reader-fixture/CP-1.md", issuer / "figures.md")
     (issuer / "chart.png").write_bytes(b"\x89PNG")
     (issuer / ".DS_Store").write_bytes(b"\0")
-    home = Path.home() / "Library/Caches/ms-playwright"
-    firefox = next((p for p in home.glob("firefox-*/**/firefox") if p.is_file()), None)
-    chromium = os.environ.get("ISSUER_LIBRARY_CHROMIUM")
-    engines = {
-        "chromium": {"executable_path": chromium} if chromium else {},
-        "firefox": {"executable_path": str(firefox)} if firefox else {},
-    }
+    engines = engine_options()
     only = argv or list(engines)
     servers: list[subprocess.Popen[bytes]] = []
     try:

@@ -28,6 +28,7 @@ BROWSER_TESTS = (
     "tests/test_issuer_library_escape_sinks.py",
     "tests/test_issuer_library_example.py",
     "tests/test_issuer_library_reader.py",
+    "tests/test_issuer_library_run_activity.py",
     "tests/test_issuer_library_run_spend.py",
     "tests/test_issuer_library_screening.py",
     "tests/test_issuer_library_screens.py",
@@ -36,6 +37,8 @@ PYTHON_TESTS = (
     "tests/test_issuer_library_css.py",
     "tests/test_issuer_library_discovery.py",
     "tests/test_issuer_library_server.py",
+    "tests/test_issuer_library_launch.py",
+    "tests/test_issuer_library_quit.py",
     "tests/test_issuer_library_jobs.py",
     "tests/test_issuer_library_store.py",
     "tests/test_issuer_library_gates.py",
@@ -49,6 +52,7 @@ PYTHON_TESTS = (
     "tests/product/test_context.py",
     "tests/test_run_expectations.py",
     "tests/test_expectations_backtest.py",
+    "tests/test_issuer_library_single_run.py",
 )
 PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "not live and not browser")
 BROWSER_PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "browser")
@@ -72,7 +76,10 @@ def report(name: str, passed: bool, output: str = "") -> bool:
     if not passed:
         lines = output.splitlines()
         print(
-            "\n".join([line for line in lines if line.startswith("FAIL ")] + lines[-40:]),
+            "\n".join(
+                [line for line in lines if re.match(r"(?:FAIL|FAILED|ERROR) \S", line)]
+                + lines[-40:]
+            ),
             flush=True,
         )
     return passed
