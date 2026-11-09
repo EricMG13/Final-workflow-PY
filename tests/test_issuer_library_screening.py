@@ -127,12 +127,8 @@ class Library:
         self.screen = screen
 
     def ids(self) -> list[str]:
-        return [
-            i or ""
-            for i in self.screen.attrs(
-                "#library-results button[data-library-select]", "data-library-select"
-            )
-        ]
+        selector = "#library-results button[data-library-select]"
+        return [i or "" for i in self.screen.attrs(selector, "data-library-select")]
 
     def set(self, element_id: str, value: str) -> None:
         self.screen.page.evaluate(
