@@ -16,7 +16,7 @@ from collections.abc import Callable, Iterator
 from typing import Any
 
 import pytest
-from issuer_library_browser import WEB, Screen, js, json_reply, open_app
+from issuer_library_browser import WEB, Screen, js, json_reply, open_app, release
 
 pytestmark = pytest.mark.browser
 
@@ -114,7 +114,6 @@ PINNED = json.loads((WEB / "testdata/catalogue-2026-11-08.json").read_text(encod
 KEY = json.loads((WEB / "testdata/library-screening-expected.json").read_text(encoding="utf-8"))
 ALL = [*KEY["run_folder_rows"]["ids"], *KEY["delivery_rows"]["ids"]]
 METRIC_IDS = [r["id"] for r in KEY["with_metrics"]["rows"]]
-SORT = "document.querySelector('[data-library-sort=\"{}\"]')"
 
 
 def squash(text: str) -> str:
@@ -182,22 +181,14 @@ def library(browser: Any) -> Iterator[LibraryOpener]:
         screen = open_app(
             browser,
             "W-Library/cases",
-            workspace={"reports": [], "models": [], "visuals": []},
             app=app,
             api={"/api/catalogue": json_reply(reply)},
         )
         opened.append(screen)
         return Library(screen)
 
-    try:
-        yield open_library
-    finally:
-        try:
-            for screen in opened:
-                assert screen.errors == []
-        finally:
-            for screen in opened:
-                screen.close()
+    yield open_library
+    release(opened)
 
 
 def test_the_screen_lists_the_59_served_rows_in_served_order_under_7_issuers(
@@ -305,9 +296,8 @@ def test_sorting_missing_last_descending_after_ascending_the_key_order_the_heade
     assert len(p.ids()) == 59
     p.sort_click("coverage")
     assert p.ids()[:2] == ["tdg-002", "ford-otosan-2024-001"], "3.60 before 8.2"
-    assert p.screen.eval(f"document.activeElement==={SORT.format('coverage')}"), (
-        "the sort button keeps focus"
-    )
+    focused = "document.activeElement===document.querySelector('[data-library-sort=\"coverage\"]')"
+    assert p.screen.eval(focused), "the sort button keeps focus"
 
 
 def test_sort_buttons_and_issuer_choices_are_native_buttons_tabbable_named_and_keep_focus(
