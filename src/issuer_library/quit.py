@@ -128,7 +128,7 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
         private_folder(state)
     except OSError as error:
         raise ValueError(
-            f"Issuer Library is already running, and this launch does not ask it to quit: "
+            f"Credit OS is already running, and this launch does not ask it to quit: "
             f"{error}. Quit the running library (Settings > Quit library, or end Issuer "
             "Library in Task Manager), then start it again."
         ) from error
@@ -148,7 +148,7 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
             if status is not None:
                 discard(answer)
                 raise ValueError(
-                    f"Issuer Library is busy ({status.removeprefix('busy: ')}); "
+                    f"Credit OS is busy ({status.removeprefix('busy: ')}); "
                     "wait for it to finish, then start it again."
                 )
             if time.monotonic() > deadline:

@@ -19,8 +19,10 @@ PINS = {'pydantic':'2.14.1','pydantic-core':'2.50.1','annotated-types':'0.8.0',
 PYTHON = {'amd64':'d1f04d990aee1253d8569e8e5104e30fa9f5fa830899f14843448872d936a2cf',
           'arm64':'cd992cbfb33be433ff20f150691595efb2862e56f4f1bec684c6077d4775af8e'}
 # Double-click start: the windowless interpreter serves the library; errors show a message box.
-LAUNCHER = ('@echo off\r\n'
-            'start "Issuer Library" "%~dp0engine\\runtime\\pythonw.exe" -I -B -X utf8 -m issuer_library %*\r\n')
+LAUNCHER = (
+    "@echo off\r\n"
+    'start "Credit OS" "%~dp0engine\\runtime\\pythonw.exe" -I -B -X utf8 -m issuer_library %*\r\n'
+)
 
 def download(url, sha, name):
     CACHE.mkdir(parents=True, exist_ok=True)

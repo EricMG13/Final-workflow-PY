@@ -39,7 +39,7 @@ from issuer_library.server import Application
 from issuer_library.settings import Config
 
 LAUNCHER_ONLY = (
-    "Open Issuer Library from its launcher. This page is not part of the library's current "
+    "Open Credit OS from its launcher. This page is not part of the library's current "
     "session. If the library is already running, start it again: a library with no run or "
     "review in progress quits and the new launch opens a fresh window."
 )
@@ -663,7 +663,7 @@ def test_review_gate_covers_methods_and_paths(tmp_path: Path) -> None:
     for path in paths:
         for method in methods:
             w = drive(app, method, path)
-            marked = "Open Issuer Library from its launcher" in w.text
+            marked = "Open Credit OS from its launcher" in w.text
             assert w.status == 403 and (marked or method == "HEAD"), (method, path, w.status)
             assert session not in w.text and ticket not in w.text, (method, path)
     # /launch with other methods: never spends, never sets a cookie.

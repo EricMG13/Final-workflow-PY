@@ -22,7 +22,7 @@ clock: Callable[[], float] = time.monotonic
 
 # The whole answer to a request without the session cookie.
 LAUNCHER_ONLY = (
-    "Open Issuer Library from its launcher. This page is not part of the library's current "
+    "Open Credit OS from its launcher. This page is not part of the library's current "
     "session. If the library is already running, start it again: a library with no run or "
     "review in progress quits and the new launch opens a fresh window."
 )
@@ -30,8 +30,8 @@ LAUNCHER_ONLY = (
 # What a second launch reports when the running instance neither quits nor answers its quit
 # request: its secret is in its memory only, so this launch cannot sign a browser in to it.
 ALREADY_RUNNING = (
-    "Issuer Library is already running and did not quit for this launch. Quit the running "
-    "library (Settings > Quit library, or end Issuer Library in Task Manager), then start it "
+    "Credit OS is already running and did not quit for this launch. Quit the running "
+    "library (Settings > Quit library, or end Credit OS in Task Manager), then start it "
     "again."
 )
 
