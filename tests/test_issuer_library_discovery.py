@@ -9,8 +9,8 @@ from pathlib import Path
 import pytest
 from issuer_library_support import EVIDENCE, add_delivery, fixture, put, put_json
 
-from issuer_library.discovery import assess_checklist, discover
-from issuer_library.model import Artifact, Catalogue, Checklist, Run, read_file
+from issuer_library.discovery import assess_checklist, discover, stated_numbers
+from issuer_library.model import Artifact, Catalogue, Checklist, Run, digest, read_file
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKLIST = {
@@ -271,3 +271,137 @@ def test_run_inputs_can_be_committed_and_the_cp8_rule_is_current() -> None:
     digest = hashlib.sha256(method).hexdigest()
     mapping = (ROOT / "docs/visualisations/MAP.md").read_text(encoding="utf-8")
     assert f"| src/deploy_vii/methods/cp8.md | {digest} |" in mapping
+
+
+def admits_metric(tmp_path: Path, quote: str, value: str) -> bool:
+    """Whether discovery admits value as the revenue metric quoted by quote."""
+    manifest = fixture(tmp_path)
+    revenue = manifest.run.metrics["revenue"]
+    assert revenue is not None
+    revenue.value = value
+    raw = f"Issuer: Example Industries\nSector: Industrials\n{quote}\nVerified scope\n".encode()
+    put(tmp_path, "runs/case-a/CP-0.md", raw)
+    for key, source in manifest.sources.items():
+        source.sha256 = digest(raw)
+        if key == "revenue":
+            source.quote = quote
+    put_json(tmp_path, "runs/case-a/library.json", manifest)
+    for run in discover(str(tmp_path), Catalogue()).real:
+        if run.id == "case-a":
+            return run.metrics.get("revenue") is not None
+    return False
+
+
+# A03: a metric must equal a whole number the quote states, sign and scale included; a
+# fragment of a date, range, list or other-convention figure is not evidence of it.
+METRIC_CASES = [
+    # The reported fragments (all admitted before the fix).
+    ("Net loss: (12.3)", "12.3", False),
+    ("As of 2024-12-31 net debt was 450", "-12", False),
+    ("Guidance: margin 3-5%", "-5", False),
+    ("Yield: .5%", "5", False),
+    ("Covenant tests 1,2,3 passed", "123", False),
+    ("Revenue 1.234,5 (EUR format)", "1.234", False),
+    # Whole numbers keep their sign, thousands grouping and decimals.
+    ("Net loss: (12.3)", "-12.3", True),
+    ("Net sales | 7,940 | 6,585", "7940", True),
+    ("Closing cash | -1,676 | x", "-1676", True),
+    ("Leverage 5.96x", "5.96", True),
+    ("As Defined 4,685.", "4685", True),
+    ("Revenue USD 1,234.5m, up 4%", "1234.5", True),
+    ("Revenue 450, 500 and 600.", "500", True),
+    ("As of 2024-12-31 net debt was 450", "450", True),
+    # Dates, ranges and lists state none of their parts.
+    ("As of 2024-12-31 net debt was 450", "2024", False),
+    ("As of 2024-12-31 net debt was 450", "12", False),
+    ("Guidance: margin 3-5%", "3", False),
+    ("Guidance: margin 3\u20135%", "5", False),
+    ("Covenant tests 1,2,3 passed", "1", False),
+    ("COVID-19 costs", "-19", False),
+    ("COVID-19 costs", "19", False),
+    # A typographic minus or a sign inside parentheses is not dropped.
+    ("Net loss \u221212.3", "12.3", False),
+    ("Net loss: (-12.3)", "-12.3", False),
+    ("Net loss: (-12.3)", "12.3", False),
+    ("Net loss (USD 12.3m)", "12.3", False),
+    ("Net loss (USD 12.3m)", "-12.3", False),
+    ("Net loss (12.3m)", "12.3", False),
+    ("Net change -(12.3)", "-12.3", False),
+    ("Net change -(12.3)", "12.3", False),
+    ("Net loss (12.3).", "-12.3", True),
+    ("| Net loss | (1,676) |", "-1676", True),
+    ("Net loss (12.3)5", "-12.3", False),
+    ("Net loss \u2013(12.3)", "-12.3", False),
+    # Other separator conventions and malformed groups are refused, never truncated.
+    ("Revenue 1.234,5", "1234.5", False),
+    ("Revenue 1.234.567", "1.234", False),
+    ("Revenue 1,2345", "1", False),
+    ("Revenue 12,34", "12", False),
+    ("Revenue 1 234,5", "1", False),
+    ("Revenue 1 234 567", "234", False),
+    ("Revenue 1 234 567", "1", False),
+    ("Umsatz 1 234,5", "1", False),
+    ("Revenue 1'234.5", "234.5", False),
+    ("Yield: .5%", ".5", False),
+    # Exponents and a parenthesis opened before the quote also hide scale or sign.
+    ("Notional 1.2e3", "1.2", False),
+    ("Notional 1.2E+3", "3", False),
+    ("Notional 1.2e-3", "-3", False),
+    ("USD 12.3)", "12.3", False),
+    ("Revenue 450 (2023: 400)", "450", True),
+    ("Revenue 450 (2023: 400)", "400", False),
+]
+
+
+@pytest.mark.parametrize(("quote", "value", "admitted"), METRIC_CASES)
+def test_metric_must_be_a_whole_number_of_the_quote_with_its_sign_and_scale(
+    tmp_path: Path, quote: str, value: str, admitted: bool
+) -> None:
+    assert admits_metric(tmp_path, quote, value) == admitted
+
+
+STATED_CASES: list[tuple[str, list[str]]] = [
+    ("Revenue $1,234.50 million", ["1234.50"]),
+    ("Loss of $(1,234)", ["-1234"]),
+    ("(1,234) and (567)", ["-1234", "-567"]),
+    ("up 12.5% from 11.9%", ["12.5", "11.9"]),
+    ("FY2023 revenue of 5,000 vs 4,500 in FY2022", ["2023", "5000", "4500", "2022"]),
+    ("EUR 1.234,56", []),
+    ("CHF 1'234.50", []),
+    ("INR 1,23,456", []),
+    ("EUR -45.2m", ["-45.2"]),
+    ("Loss -$5", []),
+    ("Loss \u2212$5", []),
+    ("Loss $-5", ["-5"]),
+    ("Loss -\u20ac1,200.", []),
+    ("Gain $5", ["5"]),
+    ("1,000.5.", ["1000.5"]),
+    ("10,000,000", ["10000000"]),
+    ("1,000,00", []),
+    ("1,0000", []),
+    ("(12.5%)", []),
+    ("rose 3.5 points (from 2.1)", ["3.5"]),
+    ("5 - 3", ["5", "3"]),
+    ("Q2 2024 EBITDA 1,200", ["2", "2024", "1200"]),
+    ("2023/24 sales 9", ["9"]),
+    ("As of 12/31/2024 cash 450", ["450"]),
+]
+
+
+@pytest.mark.parametrize(("quote", "want"), STATED_CASES)
+def test_stated_numbers_adversarial(quote: str, want: list[str]) -> None:
+    assert stated_numbers(quote) == want
+
+
+def test_seed_metrics_all_stated() -> None:
+    seeds = Catalogue.model_validate_json(
+        (ROOT / "apps/issuer-library/web/legacy-catalog.json").read_bytes()
+    )
+    for run in seeds.real:
+        for key, metric in run.metrics.items():
+            if metric is None:
+                continue
+            quote = seeds.sources[metric.source].quote
+            assert metric.value in stated_numbers(quote), (
+                f"{run.id}/{key} {metric.value!r} {quote!r}"
+            )
