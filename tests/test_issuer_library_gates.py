@@ -62,3 +62,26 @@ def test_the_nightly_runner_strips_the_same_keys() -> None:
 def test_report_prints_every_fail_line(capsys: pytest.CaptureFixture[str]) -> None:
     validate.report("x", False, "FAIL early\n" + "ok\n" * 60)
     assert "FAIL early" in capsys.readouterr().out
+
+
+def test_report_names_every_failed_and_errored_pytest_id(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    # pytest's -ra summary lines before the 40-line tail must survive, after the FAIL lines and in
+    # order; captured-log lines ("ERROR" then padding spaces) are not summary lines and stay out.
+    output = (
+        "FAIL walk\n"
+        "FAILED tests/a.py::test_one - AssertionError: x\n"
+        "ERROR tests/b.py::test_two - RuntimeError: y\n"
+        "ERROR    asyncio:base_events.py:1890 Task was destroyed but it is pending!\n" + "ok\n" * 60
+    )
+    assert validate.report("x", False, output) is False
+    out = capsys.readouterr().out
+    assert out.splitlines()[:4] == [
+        "FAIL x",
+        "FAIL walk",
+        "FAILED tests/a.py::test_one - AssertionError: x",
+        "ERROR tests/b.py::test_two - RuntimeError: y",
+    ]
+    assert "asyncio" not in out
+    assert out.count("ok") == 40

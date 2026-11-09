@@ -54,6 +54,7 @@ PYTHON_TESTS = (
     "tests/product/test_context.py",
     "tests/test_run_expectations.py",
     "tests/test_expectations_backtest.py",
+    "tests/test_issuer_library_single_run.py",
 )
 PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "not live and not browser")
 BROWSER_PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "browser")
@@ -77,7 +78,10 @@ def report(name: str, passed: bool, output: str = "") -> bool:
     if not passed:
         lines = output.splitlines()
         print(
-            "\n".join([line for line in lines if line.startswith("FAIL ")] + lines[-40:]),
+            "\n".join(
+                [line for line in lines if re.match(r"(?:FAIL|FAILED|ERROR) \S", line)]
+                + lines[-40:]
+            ),
             flush=True,
         )
     return passed
