@@ -29,7 +29,6 @@ from starlette.datastructures import FormData, UploadFile
 
 from . import events
 from .desktop import WORKER_FLAGS
-from .model import digest
 from .quit import LIBRARY_QUITTING
 from .settings import save_json
 
