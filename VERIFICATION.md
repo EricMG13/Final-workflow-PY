@@ -543,3 +543,20 @@ Checks: CSS test red on the old rule, green after; probe `p390_library_overflow.
 (`live_check --case a-live --rehearse`, fake engine, no provider): both 390-px checks pass in both
 engines; its remaining failures are the fake engine's handoffs stating no status ("unconfirmed",
 lead ruling: leave). Not verified: the `finally` path with a raising `attempt`; any paid run.
+
+## 2026-11-09 — Plan 2: live-check status reader, lead rulings R-SB2-1/1a/1b (SB2, branch `claude/sb2-5b-status`)
+
+Scope: `src/deploy_workflow/handoff_outcome.py`, `designs/live_check.py` (CP-0 reporting only),
+answer-key tests and C1 fixtures. Cause: SB3's paid C1 run (`web-8a674922…`, sol-medium) read CP-4
+as "unconfirmed": the reader knew only CP-0's READY/READY_WITH_LIMITATIONS/BLOCKED, while CP-4's
+method has it write YAML `qa_status`/`committee_status` and a `Module Status:` line, and CP-0's
+method a CONDITIONAL status. Lead rulings (answer keys, written by agents other than the
+implementer): own YAML fields and the `Module Status:` line first, most severe wins; CP-0's table
+only when the module states nothing; CONDITIONAL → will_refuse with no own handoff; CP-0 itself
+"not testable", left out of the live check's faults and count.
+Checks: answer-key tests red then green (80 targeted pass); C1 re-read offline on a copy (no
+provider): CP-4 unconfirmed → limited (`qa_status: Restricted`), CP-1 limited, CP-0 not testable;
+back-test changes only CP-0 rows (cpos-launch-live-001 not_reached → unconfirmed; web-04cd…
+limited → unconfirmed, disagreed → not testable); `validate.py browser` 86/0; quick exit 0;
+quality gate 0; two mx-precise reviews APPROVE. Not verified: a live run's handoffs beyond the C1
+fixtures; combined markups on one `Module Status:` line (read unconfirmed; question with the lead).
