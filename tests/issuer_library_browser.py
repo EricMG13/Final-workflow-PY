@@ -241,7 +241,7 @@ def open_app(  # noqa: PLR0913 - every keyword is optional; only route and store
         "issues": app["issues"],
         "real": [],
     }
-    full_store = {**store, **workspace, "issues": app["issues"]}
+    full_store = {"handoffs": handoffs_of(store), **store, **workspace, "issues": app["issues"]}
     replies: dict[str, Reply] = {
         "/api/catalogue": json_reply(catalogue),
         "/api/workspace": (
@@ -255,6 +255,51 @@ def open_app(  # noqa: PLR0913 - every keyword is optional; only route and store
     page.goto(f"{ORIGIN}/index.html#{hash_route}", wait_until="domcontentloaded")
     page.wait_for_function("typeof current!=='undefined'&&current!==null")
     return screen
+
+
+def handoffs_of(store: dict[str, Any]) -> dict[str, Any]:
+    """The sections /api/workspace sends once per digest; hydrate puts them back on each output."""
+    handoffs: dict[str, Any] = {}
+    for output in store.get("outputs", {}).values():
+        if "sections" not in output:
+            continue
+        if handoffs.setdefault(output["sha256"], output["sections"]) != output["sections"]:
+            raise ValueError(f"{output['id']} shares a digest with a handoff of other content")
+    return handoffs
+
+
+def catalogue_reply(store: dict[str, Any], app: dict[str, Any] = DEFAULT_APP) -> Reply:
+    """/api/catalogue with one metric-free record per store run, as the server sends for most runs."""
+    real = [
+        {
+            "id": run["folder"],
+            "issuer": run.get("issuerKey", "none"),
+            "name": run["issuer"],
+            "title": run["run"],
+            "sector": run["sector"],
+            "workflow": "Annual review",
+            "date": "2024-12-31",
+            "period": run["period"],
+            "period_kind": "Annual actual",
+            "metrics": {},
+            "completion": None,
+            "checkpoints": None,
+            "ratings": [],
+            "gaps": [],
+            "summary": "Synthetic record.",
+            "artifacts": [],
+        }
+        for run in store["runs"].values()
+    ]
+    return json_reply(
+        {
+            "sources": {},
+            "real": real,
+            "workspace": app["workspace"],
+            "policy_locked": app["policy_locked"],
+            "issues": app["issues"],
+        }
+    )
 
 
 def design_store() -> tuple[dict[str, Any], dict[str, Any]]:
