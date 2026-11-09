@@ -1,0 +1,53 @@
+{
+  "literals": [
+    {
+      "text": "7,940",
+      "what": "Net sales FY2024, USD millions (FY2023 6,585)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "6,585",
+      "what": "Net sales FY2023, USD millions",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "1,286",
+      "what": "Interest expense-net FY2024, USD millions (FY2023 1,164)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "1,714",
+      "what": "Net income attributable to TD Group FY2024, USD millions (FY2023 1,298)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "4,173",
+      "what": "EBITDA As Defined FY2024, USD millions (FY2023 3,395)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 EBITDA reconciliation, p. 41"
+    },
+    {
+      "text": "6,261",
+      "what": "Cash and cash equivalents at 2024-09-30, USD millions (2023-09-30 3,472)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Selected Balance Sheet Data, p. 31"
+    },
+    {
+      "text": "24,880",
+      "what": "Total debt at 2024-09-30, USD millions (2023-09-30 19,750)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Selected Balance Sheet Data, p. 31"
+    },
+    {
+      "text": "2,045",
+      "what": "Net cash provided by operating activities FY2024, USD millions (FY2023 1,375)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 cash-flow EBITDA reconciliation, p. 42"
+    }
+  ],
+  "criteria": [
+    "Conclusions unchanged between the investment_grade run and the high_yield run, or the 'information only' decision is revised",
+    "Forecast equals outcome for every module in both runs (CP-4 Will refuse, CP-3 Gap, inherited Limited on CP-3, CP-5, CP-6; the investment-grade run adds one run-level information item)"
+  ],
+  "observe": [
+    "Whether CP-4 stops the run (it did or did not in A-live) since both A-ab runs declare legal documents none; if it stops, the pair cannot be compared past CP-4",
+    "Differences in CP-1, CP-2, CP-3, CP-5 and CP-6 conclusions, ratings language and figures between the two runs",
+    "Cost of each run against the 25 cap"
+  ]
+}

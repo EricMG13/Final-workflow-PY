@@ -12,6 +12,7 @@ import socket
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -95,7 +96,14 @@ with tempfile.TemporaryDirectory(prefix="issuer-library-smoke-") as temporary:
         else:
             raise AssertionError("Launcher did not become ready")
         assert process.stdout is not None
-        line = process.stdout.readline().decode().strip()
+        stdout = process.stdout
+        lines: list[bytes] = []
+        reader = threading.Thread(target=lambda: lines.append(stdout.readline()), daemon=True)
+        reader.start()
+        reader.join(10)
+        if not lines:
+            raise AssertionError("Launcher printed no launch link")
+        line = lines[0].decode().strip()
         if not line.startswith(f"Issuer Library: {address}/launch?ticket="):
             raise AssertionError("Launcher printed no launch link")
         path = line.removeprefix(f"Issuer Library: {address}")
@@ -109,6 +117,7 @@ with tempfile.TemporaryDirectory(prefix="issuer-library-smoke-") as temporary:
     process = subprocess.Popen(
         arguments + ["--workspace", str(workspace)], env=environment, stdout=subprocess.PIPE
     )
+    launched = [process]
     try:
         ready(process)
         catalogue = request("/api/catalogue")
@@ -128,18 +137,28 @@ with tempfile.TemporaryDirectory(prefix="issuer-library-smoke-") as temporary:
             assert b"<html" in request(report).lower()
         store = request("/api/workspace")
         assert "tdg-002" in store["runs"] and len(store["reports"]) == len(reports)
-        # Interim: a second launch cannot sign a browser in to the running instance (its secret is
-        # in memory only) and the relaunch quit request is a later change, so it exits 1 with the
-        # reason (text from Go's errAlreadyRunning); the first instance still serves.
-        repeat = subprocess.run(
-            arguments, timeout=5, env=environment, capture_output=True, check=False
+        # A repeat launch cannot learn the running instance's secret. It asks the idle instance to
+        # quit through the state folder, then starts with a fresh one-time link: the old session
+        # no longer opens the library and the new one does.
+        earlier = opener.addheaders[-1]
+        first = process
+        process = subprocess.Popen(
+            arguments + ["--workspace", str(workspace)], env=environment, stdout=subprocess.PIPE
         )
-        assert repeat.returncode == 1, repeat.returncode
-        assert (
-            "Issuer Library is already running and did not quit for this launch. Quit the "
-            "running library (Settings > Quit library, or end Issuer Library in Task "
-            "Manager), then start it again."
-        ) in repeat.stderr.decode(), repeat.stderr
+        launched.append(process)
+        assert first.wait(timeout=15) == 0, "Idle library did not quit for the relaunch"
+        ready(process)
+        assert opener.addheaders[-1] != earlier, "Repeat launch kept the previous session secret"
+        assert not list(state.glob("quit.*")), "Repeat launch left a quit file"
+        current = opener.addheaders.pop()
+        opener.addheaders.append(earlier)
+        try:
+            request("/api/catalogue")
+        except urllib.error.HTTPError as error:
+            assert error.code == 403, error.code
+        else:
+            raise AssertionError("The previous session still opened the library")
+        opener.addheaders[-1] = current
         assert request("/api/catalogue")["workspace"] == str(workspace)
         request("/api/settings", {"workspace": str(other)})
         boundary = "IssuerLibraryOfflineSmoke"
@@ -193,6 +212,7 @@ with tempfile.TemporaryDirectory(prefix="issuer-library-smoke-") as temporary:
         request("/api/quit", {})
         assert process.wait(timeout=5) == 0
         process = subprocess.Popen(arguments, env=environment, stdout=subprocess.PIPE)
+        launched.append(process)
         ready(process)
         assert request("/api/catalogue")["workspace"] == str(other)
         request("/api/quit", {})
@@ -204,6 +224,9 @@ with tempfile.TemporaryDirectory(prefix="issuer-library-smoke-") as temporary:
             "no browser acceptance implied."
         )
     finally:
-        if process.poll() is None:
-            process.terminate()
-            process.wait(timeout=5)
+        for each in launched:
+            if each.poll() is None:
+                each.terminate()
+                each.wait(timeout=5)
+            if each.stdout is not None:
+                each.stdout.close()

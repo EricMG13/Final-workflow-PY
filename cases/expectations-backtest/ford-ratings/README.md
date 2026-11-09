@@ -1,0 +1,1 @@
+Reconstructed context (not a context the user entered): declarations inferred from the retained campaign case. Fitch and S&P captures, retained in runs/cpos-ford-ratings-2024-001: CP-0, CP-1, CP-2G, CP-2H. Used only by tools/expectations_backtest.py.

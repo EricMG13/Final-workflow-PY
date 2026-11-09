@@ -23,7 +23,6 @@ apps/issuer-library/web/hydrate.js
 apps/issuer-library/web/icons/circle-check.svg
 apps/issuer-library/web/icons/triangle-alert.svg
 apps/issuer-library/web/index.html
-apps/issuer-library/web/screen.css
 apps/issuer-library/web/screen.js
 apps/issuer-library/web/screening.js
 apps/issuer-library/web/testdata/catalogue-2026-11-08.json
@@ -275,7 +274,6 @@ tests/model/test_providers.py
 tests/model/test_redact.py
 tests/model/test_turn.py
 tests/nightly-known-failures.txt
-tests/product/test_context.py
 tests/prompts/probes/injection_cases.py
 tests/prompts/r_cp4_strip.py
 tests/prompts/r_narr_strip.py
@@ -353,7 +351,6 @@ tests/test_handoff_loop.py
 tests/test_inline_xbrl_staging.py
 tests/test_issuer_library_faults.py
 tests/test_issuer_library_flow_check.py
-tests/test_issuer_library_gates.py
 tests/test_issuer_library_store.py
 tests/test_issuer_name_in_claim_text.py
 tests/test_line_locators.py
@@ -443,6 +440,11 @@ edited apps/issuer-library/README.md
 edited apps/issuer-library/designs/browser_check.py
 edited apps/issuer-library/designs/build.py
 edited apps/issuer-library/designs/fake_engine/bridge.py
+edited apps/issuer-library/designs/live_check.py
 edited apps/issuer-library/engine/store.py
+edited apps/issuer-library/web/screen.css
 edited docs/VERIFICATION-ARCHIVE.md
 edited examples/issuer-library/README.md
+edited tests/product/test_context.py
+edited tests/test_issuer_library_gates.py
+edited tests/test_issuer_library_live_check.py

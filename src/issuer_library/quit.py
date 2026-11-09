@@ -17,11 +17,16 @@ import socket
 import stat
 import sys
 import time
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from ctypes import wintypes
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from .launch import ALREADY_RUNNING
+from .settings import save_json
+
+if TYPE_CHECKING:
+    from .server import Application
 
 log = logging.getLogger("issuer_library")
 
@@ -115,7 +120,10 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
     """Ask this user's running instance to quit and wait, quit_wait at most, for its port.
 
     Returns the port's listener once the instance has gone. Otherwise raises ValueError with the
-    instance's busy answer, or AlreadyRunning when the instance neither quits nor answers."""
+    instance's busy answer, or AlreadyRunning when the instance neither quits nor answers.
+
+    The caller must first confirm that this user's library answers on the port
+    (`__main__.running_instance`, the state-folder digest guard); this function does not check."""
     try:
         private_folder(state)
     except OSError as error:
@@ -207,6 +215,74 @@ def read_quit_answer(answer: Path) -> str | None:
     if isinstance(status, str) and BUSY_ANSWER.fullmatch(status):
         return status
     return None
+
+
+def claim_quit(lib: Application) -> tuple[int, int]:
+    """Set the library quitting when no run or review is in flight, in the same critical section
+    as the check, so no Start or review can begin between the check and the stop. Returns the
+    runs and reviews in flight; quitting is left unset when there is any."""
+    with lib.lock:
+        runs, reviews = len(lib.active_jobs), lib.reviews
+        lib.quitting = runs == 0 and reviews == 0  # From here no review or Start begins.
+        return runs, reviews
+
+
+def answer_quit_request(lib: Application) -> bool:
+    """Act on a quit request in the state folder, if there is one, and report whether the library
+    is stopping for it. Nothing is done while other users can write to the folder. A request that
+    is stale, or not a plain file private to this user, is removed unread (a link is removed,
+    never followed). With a run or review in flight the library keeps running and answers
+    "busy: ..."; otherwise it stops. A discovery or workspace change in progress defers the
+    request to the next poll, so the index and settings are never cut off mid-write."""
+    state = lib.loc.state
+    request = state / QUIT_REQUEST
+    try:
+        info = os.lstat(request)
+        private_folder(state)
+    except OSError:
+        return False  # No request, or a folder that is not private: leave everything as it is.
+    if not owner_only(info) or stale(info.st_mtime):
+        try:
+            remove(request)
+        except OSError:
+            return False  # Retried every poll, so not logged each time (Go: only on success).
+        log.info("Removed a stale or invalid quit request unread")
+        return False
+    if not lib.refreshing.acquire(blocking=False):
+        return False
+    runs, reviews = claim_quit(lib)
+    if runs > 0 or reviews > 0:
+        lib.refreshing.release()
+        status = f"busy: {count(runs, 'run')}, {count(reviews, 'review')}"
+        try:
+            save_json(state / QUIT_ANSWER, status)
+        except OSError as error:
+            log.warning("Quit request answer: %s", error)
+        discard(request)
+        log.info("A new launch asked the library to quit; it keeps running (%s)", status)
+        return False
+    discard(request)
+    log.info("A new launch asked the idle library to quit; stopping")
+    lib.stop()
+    return True  # lib.refreshing stays held: no discovery starts while the library stops.
+
+
+def hold_refreshing(lib: Application) -> bool:
+    """Take lib.refreshing for a discovery or workspace change. After an idle quit it stays held
+    for good, so a waiter gives up (False) once the library is quitting."""
+    while not lib.refreshing.acquire(timeout=0.05):
+        if lib.quitting:
+            return False
+    return True
+
+
+def watch_quit_requests(lib: Application, stopped: Callable[[], bool], every: float) -> None:
+    """Answer quit requests, looking every interval, until stopped() or the library stops for
+    one."""
+    while not stopped():
+        time.sleep(every)
+        if not stopped() and answer_quit_request(lib):
+            return
 
 
 def private_folder(state: Path) -> None:
