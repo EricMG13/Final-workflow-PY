@@ -9,6 +9,7 @@ import signal
 import subprocess
 import sys
 import time
+from contextlib import nullcontext
 from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
@@ -466,6 +467,7 @@ def _bc(calls: list) -> SimpleNamespace:
         SignedBrowser=lambda raw: SimpleNamespace(close=lambda: calls.append("closed")),
         attempt=attempt,
         single_run_walk=lambda browser, name, port, ws: calls.append(f"walk {name} {port}"),
+        note=lambda ok, what, fault=True, kind="check": calls.append(f"note {ok} {what}"),
     )
 
 
@@ -477,13 +479,13 @@ def test_a_case_run_is_followed_by_the_single_run_walk_in_each_engine(tmp_path: 
         firefox=SimpleNamespace(launch=lambda **o: launched.append(("firefox", o))),
     )
     summary: dict = {"run_id": "web-1"}
-    live_check.single_run_walks(_bc(calls), driver, tmp_path, summary)
+    live_check.single_run_walks(_bc(calls), driver, tmp_path, summary, 41234)
     assert calls == [
         "chromium-single-run",
-        f"walk chromium {live_check.PORT}",
+        "walk chromium 41234",
         "closed",
         "firefox-single-run",
-        f"walk firefox {live_check.PORT}",
+        "walk firefox 41234",
         "closed",
     ]
     assert launched == [("chromium", {}), ("firefox", {"executable_path": "f"})]
@@ -495,7 +497,7 @@ def test_a_case_run_is_followed_by_the_single_run_walk_in_each_engine(tmp_path: 
 def test_an_incomplete_run_records_the_walk_as_not_run(tmp_path: Path) -> None:
     calls: list = []
     summary: dict = {"run_id": None}
-    live_check.single_run_walks(_bc(calls), SimpleNamespace(), tmp_path, summary)
+    live_check.single_run_walks(_bc(calls), SimpleNamespace(), tmp_path, summary, 41234)
     assert calls == [] and summary["real_workspace_walk"] == "not run: the run did not complete"
 
 
@@ -512,5 +514,65 @@ def test_a_walk_that_could_not_exercise_a_check_is_a_fault_outside_the_fixture(t
         ),
         tmp_path,
         {"run_id": "web-1"},
+        41234,
     )
     assert faults and faults[0][1] == "missing" and "not exercisable" in faults[0][2]
+
+
+def test_a_launch_failure_is_recorded_and_the_other_engine_still_walks(tmp_path: Path) -> None:
+    calls: list = []
+    bc, faults = _bc(calls), []
+    bc.FAULTS = SimpleNamespace(add=lambda *a, **k: faults.append(a), items=faults)
+
+    def missing(**options) -> None:
+        raise RuntimeError("Executable doesn't exist at /nowhere")
+
+    driver = SimpleNamespace(
+        chromium=SimpleNamespace(launch=missing),
+        firefox=SimpleNamespace(launch=lambda **o: None),
+    )
+    summary: dict = {"run_id": "web-1"}
+    live_check.single_run_walks(bc, driver, tmp_path, summary, 41234)
+    failed = [f for f in faults if f[0] == "chromium-single-run"]
+    assert len(failed) == 1 and failed[0][1] == "exception"
+    assert "RuntimeError" in failed[0][2] and "Executable doesn't exist" in failed[0][2]
+    assert any(c.startswith("note False chromium-single-run") for c in calls)
+    assert "walk firefox 41234" in calls and "walk chromium 41234" not in calls
+    assert summary["real_workspace_walk"]["engines"] == ["chromium", "firefox"]
+
+
+def test_the_server_is_started_on_a_free_port_not_a_fixed_one(monkeypatch, tmp_path) -> None:
+    import socket
+
+    held = socket.socket()
+    held.bind(("127.0.0.1", 53920))  # the old fixed port is taken by someone else
+    held.listen()
+    walked = []
+    process = SimpleNamespace(pid=0)
+    bc = SimpleNamespace(
+        serve=lambda *a, **k: pytest.fail("a fixed port was passed to bc.serve"),
+        serve_free=lambda ws, engine, key=None, extra=None: (process, 41234),
+        engine_options=lambda: {"chromium": {}},
+        SignedBrowser=lambda raw: SimpleNamespace(close=lambda: None),
+        attempt=lambda name, browser, action: action(),
+        FAULTS=SimpleNamespace(add=lambda *a, **k: None),
+    )
+
+    driver = SimpleNamespace(chromium=SimpleNamespace(launch=lambda **o: None))
+    playwright = SimpleNamespace(sync_playwright=lambda: nullcontext(driver))
+    monkeypatch.setattr(live_check.importlib, "import_module", lambda name: playwright)
+    monkeypatch.setattr(
+        live_check, "arm_watchdog", lambda server: SimpleNamespace(kill=bool, wait=bool)
+    )
+    monkeypatch.setattr(live_check, "stop_group", lambda server: None)
+    monkeypatch.setattr(live_check, "report_spend", lambda *a: None)
+    monkeypatch.setattr(live_check, "ignore_signals", lambda: None)
+    monkeypatch.setattr(
+        live_check, "walk", lambda bc, browser, args, ws, summary: walked.append(args.port)
+    )
+    args = SimpleNamespace(rehearse=True, case_data=None)
+    try:
+        live_check.run_walk(bc, args, tmp_path, {}, {})
+    finally:
+        held.close()
+    assert walked == [41234] and not hasattr(live_check, "PORT")
