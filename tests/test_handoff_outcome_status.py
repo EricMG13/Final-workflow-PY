@@ -150,3 +150,36 @@ def test_explanation_quotes_the_status_value_as_written(body: str) -> None:
     got = handoff_outcome.actual_of("CP-4", handoff(body=body), "")
     assert got[0] == "will_refuse"
     assert "Blocked" in got[1]
+
+
+def _hand(body: str = "", fm: str = "") -> str:
+    return "---\nmodule_id: CP-4\n" + fm + "---\n" + body
+
+
+@pytest.mark.parametrize(
+    ("own", "wanted"),
+    [
+        (_hand("```\nModule Status: Blocked\n```\n"), "unconfirmed"),
+        (_hand("", "Module Status: Blocked\n"), "will_refuse"),
+        (_hand("", 'qa_status: "Blocked"\n'), "will_refuse"),
+        (_hand("", "qa_status: 'Restricted'\n"), "limited"),
+        (_hand("", "qa_status: blocked\n"), "will_refuse"),
+        (_hand("", "committee_status: committee ready\n"), "ready"),
+        (_hand("", "qa_status: Blocked # was\n"), "will_refuse"),
+        ("﻿" + _hand("", "qa_status: Blocked\n"), "will_refuse"),
+        (_hand("| Module Status: Blocked |\n"), "unconfirmed"),
+    ],
+    ids=[
+        "fence",
+        "fm-label",
+        "dq",
+        "sq",
+        "lower",
+        "committee-lower",
+        "comment",
+        "bom",
+        "table-row",
+    ],
+)
+def test_r_sb2_1d_fences_front_matter_value_forms_bom(own: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of("CP-4", own, "")[0] == wanted
