@@ -442,7 +442,7 @@ def test_a_stop_with_module_codes_in_its_engine_message_never_puts_them_in_the_b
     assert body == f"Northbridge Group: {CHECKER}"
     assert "CP-" not in body
     q = page([job()])
-    q.poll(stopped(issuer=None))
+    q.poll(job(state="stopped", reason="budget", issuer=None))
     assert q.built()[0]["options"]["body"] == BUDGET
     r = page([job(issuer=None)])
     r.poll(job(state="complete", issuer=None))
