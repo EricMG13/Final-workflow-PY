@@ -55,7 +55,7 @@ def front_matter(text: str) -> list[tuple[str, str]]:
     lines = text.split("\n")
     if lines[0].strip() != "---":
         return []
-    pairs = []
+    pairs: list[tuple[str, str]] = []
     for line in lines[1:]:
         if line.strip() == "---":
             return pairs
