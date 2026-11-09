@@ -27,6 +27,7 @@ from .jobs import (
     UPLOAD_LIMIT,
     UPLOAD_MESSAGE,
     Engine,
+    adopt_jobs_locked,
     engine_root,
     job_status,
     json_response,
@@ -259,6 +260,7 @@ class Application:
         self.quitting = False
         # Held for a discovery or workspace change; taken before lock, never while holding it.
         self.refreshing = threading.Lock()
+        adopt_jobs_locked(self, self.config.workspace)
         self.asgi = build(self)
 
     def refresh_locked(self) -> None:
@@ -313,6 +315,7 @@ class Application:
                 raise HTTPException(500, "Could not save settings") from error
             self.config = config
             self.refresh_locked()
+            adopt_jobs_locked(self, config.workspace)
             return self.catalogue_locked()
 
     def quit(self) -> Response:
