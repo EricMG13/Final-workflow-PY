@@ -386,10 +386,16 @@ sandbox:q('#model-preview').getAttribute('sandbox'),src:q('#model-preview').getA
 dataSrc:q('#model-preview').dataset.src};
 """
 # Sets the disclosure's open state and resolves on the toggle event the browser fires for it.
+GIVE_UP = "new Promise((_,j)=>setTimeout(()=>j(new Error(%r)),2000))"
 TOGGLE = (
     "async o=>{const x=document.querySelector('details.model-original');"
     "const seen=new Promise(r=>x.addEventListener('toggle',()=>r(x.open),{once:true}));"
-    "x.open=o;return await seen;}"
+    f"x.open=o;return await Promise.race([seen,{GIVE_UP % 'toggle never fired'}]);}}"
+)
+# Fires after any watch timer armed at render (4x the watch timeout); bounded like `until`.
+SENTINEL = (
+    "()=>Promise.race([new Promise(r=>setTimeout(r,4*window.DESIGN_FRAME_TIMEOUT_MS)),"
+    f"{GIVE_UP % 'sentinel timer never fired'}])"
 )
 BUILT_HEADS = ["Role", "Run", "Source", "SHA-256 prefix", "Status"]
 HEADINGS = [
@@ -700,8 +706,7 @@ def test_the_model_frame_is_not_loaded_or_watched_until_its_disclosure_is_opened
         "inside": True,
         "src": None,
     }
-    # A timer armed now, at 4x the watch timeout, fires after any watch timer armed at render.
-    screen.page.evaluate("()=>new Promise(r=>setTimeout(r,4*window.DESIGN_FRAME_TIMEOUT_MS))")
+    screen.page.evaluate(SENTINEL)
     assert probe(screen, parts + "return [s.hidden,t(s)];") == [True, ""], "no watch has started"
     assert screen.page.evaluate(TOGGLE, True) is True
     until(screen.page, "!!document.getElementById('model-preview').getAttribute('src')")
