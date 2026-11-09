@@ -80,6 +80,9 @@ Phase 2 may run alongside Phase B because their files are separate. Nothing reac
 
 - `tools/copied-from.txt`: first line `source <40-hex final-workflow sha>`, then one repo-relative path per line, for files copied byte-identical.
 - `src/issuer_library/version.py`: `def app_version() -> str`. It returns the text of the `VERSION` file beside the package root when present (written by the build as `<YYYY.MM.DD>-<12-hex sha>`), otherwise `"dev"`.
+- `Application` run state (`src/issuer_library/server.py`, Tasks 1.4 and 1.5): `reviews: int` counts reviews in flight and changes only under `Application.lock` (S3's review path increments and decrements it; S2's quit reads it for "busy"; S3's workspace switch refuses while it is above 0). `quitting: bool` is set by S2's quit once the shutdown guard is claimed; S3's review and start paths refuse with 503 while it is true. (Added 2026-11-09, lead.)
+- `Application.refreshing: threading.Lock` (Task 1.4): held for the whole of a discovery, in the periodic refresh and in the settings switch's discovery; quit acquires it to wait for a discovery in progress. S4 keeps it when it restructures discovery. (Added 2026-11-09, lead.)
+- Launch session (Task 1.4): the session cookie is named `issuer-library-<port>`, as the Go answer key pins it; a port-free name such as `fw_session` would let one instance's cookie name serve another port's. (Ruling accepted by the lead, 2026-11-09.)
 - **Shared-workspace files** (§7.2):
   - `shared.json` is `{"unc": "\\\\server\\share\\CreditOS\\workspace"}`.
   - `runner.json` holds the `Beat` fields below.
@@ -212,7 +215,7 @@ Not ported: upstream changes to `packaging/runtime.py` and `smoke_test.py`, beca
 
 **Files:**
 - Create: `src/issuer_library/launch.py`, `src/issuer_library/quit.py`
-- Modify: `src/issuer_library/__main__.py`, `desktop.py`, the middleware in `server.py`
+- Modify: `src/issuer_library/__main__.py`, `desktop.py`, the middleware in `server.py`; in `server.py` also the `Application.__init__` lines declaring `session`, `reviews`, `quitting` and `refreshing`, `refreshing` taken around the existing discovery calls, and `Application.quit` answering 409 while `reviews > 0`; `client_of` in `tests/issuer_library_support.py` (sends the session cookie)
 - Test: `tests/test_issuer_library_launch.py`, `tests/test_issuer_library_quit.py`
 
 **Answer key:** these Go tests at `<P>`, each ported case for case with every expected value kept:
@@ -224,9 +227,13 @@ Not ported: upstream changes to `packaging/runtime.py` and `smoke_test.py`, beca
 
 **Interfaces:**
 - Produces:
-  - `launch.Session(ticket_ttl: float = 120.0)` with `ticket() -> str`, `exchange(ticket: str) -> str | None` (returns the cookie value once), `valid(cookie: str) -> bool` (constant-time);
-  - the cookie name `fw_session`;
-  - `quit.request_quit(state: Path, timeout: float) -> Literal["quit", "busy", "no-answer"]`.
+  - `launch.Session(ticket_ttl: float = 120.0)` with `ticket() -> str`, `exchange(ticket: str) -> str | None` (returns the cookie value once), `valid(cookie: str) -> bool` (constant-time); created in `Application.__init__` after the first discovery, so the 120 s count from when the library is ready;
+  - the cookie name `issuer-library-<port>` (Shared names);
+  - `quit.ask_to_quit(state: Path, port: int) -> socket.socket`: the port's socket once the running instance has quit, otherwise an error carrying the Go key's busy or already-running text (the plan's earlier `request_quit(...) -> Literal[...]` could carry neither the busy counts nor the port; ruling accepted by the lead, 2026-11-09);
+  - `Application.reviews`, `Application.quitting`, `Application.refreshing` (Shared names).
+- Not applicable to S2: `go124_test.go`'s `mkdirAllIn` cases (a Go 1.24 stand-in for `os.Root.MkdirAll`, used by intake staging in `jobs.py`; S3 ports them if its staging needs the helper).
+- Deferred to Task 1.5: ported cases that need S3's 503 guards in `review_run`/`start_run` or its A07 job adoption are marked `pytest.mark.skip(reason="deferred: needs Task 1.5 <guard|A07>; the later of 1-D2 and S3's PR un-skips")`; whichever of 1-D2 and S3's PR merges second un-skips them, and they pass there.
+- `designs/browser_check.py` and `packaging/smoke_test.py` fetch a launch ticket (S2, after S1's PR 1-B brings its versions of both files).
 
 - [ ] **Step 1:** Port the listed cases into the two test files. A case that cannot apply to the Python design (for example Go-only lock ordering) becomes `pytest.mark.skip(reason="not applicable: <why>")`, and the reason is copied into the PR body.
 - [ ] **Step 2: Run** `uv run pytest tests/test_issuer_library_launch.py tests/test_issuer_library_quit.py -q`. Expected: the failures are the not-yet-built behaviour.
