@@ -273,7 +273,7 @@ def catalogue_reply(store: dict[str, Any], app: dict[str, Any] = DEFAULT_APP) ->
     real = [
         {
             "id": run["folder"],
-            "issuer": run.get("issuerKey", "none"),
+            "issuer": "none" if run.get("issuerKey") is None else run["issuerKey"],
             "name": run["issuer"],
             "title": run["run"],
             "sector": run["sector"],

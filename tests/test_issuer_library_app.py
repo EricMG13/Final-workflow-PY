@@ -979,9 +979,8 @@ def test_names_from_a_workspace_stay_text_on_every_destination(browser: Any) -> 
             report[key] = bad + key
         report["files"] = [{"name": bad, "href": "/files/x"}]
         for row in report["builtFrom"]:
-            if not row[
-                "output"
-            ]:  # a matched row names a real output; only an unmatched one is free text
+            # a matched row names a real output; only an unmatched one is free text
+            if not row["output"]:
                 row["source"] = bad
     app = {"workspace": bad, "policy_locked": False, "issues": [bad], "problem": bad}
     screen = open_store(browser, "W-Library/cases", store, workspace, app)

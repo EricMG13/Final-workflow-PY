@@ -1452,14 +1452,14 @@ def test_calendar_dates_read_d_month_yyyy_every_other_shape_and_the_retained_cel
         "return Object.fromEntries([...d.querySelectorAll('.timeline li')]"
         ".map(e=>{const t=e.querySelector('.event-date');"
         "return [e.querySelector('strong').textContent,"
-        "{shown:t.textContent,title:t.title}];}));",
+        "{shown:t.textContent,title:t.title,li:e.textContent}];}));",
     )
     for label, title in [
         ("8 May 2023", "May 8, 2023"),
         ("19 September 2024", "September 19, 2024"),
     ]:
         assert "Exact day" in rows[label]["shown"] and rows[label]["title"] == title
-    assert "Month only" in rows["October 2024"]["shown"]
+    assert "Month only" in rows["October 2024"]["li"]
     assert "May 8, 2023" not in rows
     cases = [
         ("2024-12-31", "31 December 2024"),
@@ -1522,7 +1522,7 @@ def test_evidence_rows_and_the_inspector_lead_with_the_module_name(fixture: Any)
     )
     assert "Financial foundation · CP-1" in heads, heads
     assert all(re.match(r"^.+ · CP-[\w-]+$", head) for head in heads), heads
-    screen.go("CP-1/performance")
+    screen = fixture("CP-1/performance")
     key = "tdg-002/CP-1-attempt-2.md:246"
     context = "return norm(d.querySelector('.evidence-context').textContent);"
     screen.eval(f"showInspector({json.dumps(key)})")
