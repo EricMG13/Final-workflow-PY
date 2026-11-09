@@ -2,15 +2,18 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
+from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 
 import pytest
 from issuer_library_support import EVIDENCE, add_delivery, fixture, put, put_json
 
-from issuer_library.discovery import assess_checklist, discover, stated_numbers
+from issuer_library.discovery import assess_checklist, discover, go_quote, stated_numbers
 from issuer_library.model import (
     Artifact,
     Catalogue,
@@ -642,3 +645,277 @@ def test_the_delivery_checkpoint_counts_only_a_current_direct_report(
     artifact = find_artifact(cat, "deliverables/r")
     assert artifact is not None and artifact.available and artifact.kind == kind
     assert run_named(cat, "case-a").completion == completion
+
+
+# Admission of classification, private side, facilities and user provenance, checked against the
+# hand-written answer key in tests/fixtures/library-manifest (ported from Go d877d8ce, not edited).
+MANIFEST_FIXTURES = ROOT / "tests" / "fixtures" / "library-manifest"
+RETAINED_RUN = "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21"
+RETAINED_INPUT = "inputs/ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984"
+RETAINED_CP1_SHA = "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a"
+ANSWER_KEYS = ("synthetic", "retained-cp1")
+
+
+def read_fixture_json(name: str) -> Any:
+    return json.loads((MANIFEST_FIXTURES / name).read_text())
+
+
+def copy_file(source: Path, root: Path, name: str) -> bytes:
+    raw = source.read_bytes()
+    put(root, name, raw)
+    return raw
+
+
+def copy_tree(base: Path, root: Path) -> None:
+    for path in sorted(base.rglob("*")):
+        if path.is_file():
+            copy_file(path, root, path.relative_to(base).as_posix())
+
+
+def fixture_workspace(tmp_path: Path, name: str) -> tuple[Path, str]:
+    """A temp workspace for the named fixture, with the run id."""
+    if name == "synthetic":
+        copy_tree(MANIFEST_FIXTURES / "synthetic" / "workspace", tmp_path)
+        return tmp_path, "synthetic-hy-001"
+    if name == "retained-cp1":
+        repo = ROOT / RETAINED_RUN
+        if not (repo / "CP-1.md").exists():
+            pytest.skip("retained CP-1.md not present")
+        raw = copy_file(repo / "CP-1.md", tmp_path, f"{RETAINED_RUN}/CP-1.md")
+        assert hashlib.sha256(raw).hexdigest() == RETAINED_CP1_SHA, "retained CP-1.md changed"
+        copy_file(repo / RETAINED_INPUT, tmp_path, f"{RETAINED_RUN}/{RETAINED_INPUT}")
+        return tmp_path, "web-04cd5a5d02ea7d1dea714a8a6632cd21"
+    raise AssertionError(f"unknown fixture {name}")
+
+
+def set_pointer(doc: Any, pointer: str, value: Any) -> Any:
+    """Set an RFC 6901 location, replacing the member or adding it when the parent object lacks it.
+
+    Array elements are replaced in place; only what the case files use is supported.
+    """
+    parts = [
+        part.replace("~1", "/").replace("~0", "~") for part in pointer.removeprefix("/").split("/")
+    ]
+    node = doc
+    for part in parts[:-1]:
+        if isinstance(node, dict):
+            node = node[part]
+        elif isinstance(node, list):
+            assert part.isdigit() and int(part) < len(node), f"bad array index {part!r}"
+            node = node[int(part)]
+        else:
+            raise TypeError(f"pointer {pointer} leaves the document at {part!r}")
+    last = parts[-1]
+    if isinstance(node, dict):
+        node[last] = value
+    elif isinstance(node, list):
+        assert last.isdigit() and int(last) < len(node), f"bad array index {last!r}"
+        node[int(last)] = value
+    else:
+        raise TypeError(f"pointer {pointer} has no container")
+    return doc
+
+
+def discover_fixture(
+    tmp_path: Path, name: str, change: Callable[[Any], Any] | None = None
+) -> tuple[Catalogue, Run]:
+    root, run_id = fixture_workspace(tmp_path, name)
+    doc = read_fixture_json(f"{name}/library.json")
+    if change is not None:
+        doc = change(doc)
+    put_json(root, f"runs/{run_id}/library.json", doc)
+    cat = discover(str(root), Catalogue())
+    for run in cat.real:
+        if run.id == run_id:
+            return cat, run
+    raise AssertionError(f"run {run_id} not served")
+
+
+def is_number(value: Any) -> bool:
+    return isinstance(value, int | float) and not isinstance(value, bool)
+
+
+def subset_leaf_diff(want: Any, got: Any, where: str) -> str:
+    """Leaves: a JSON number is one kind (int and float alike); a bool, string or null equals only
+    its own kind (Python would otherwise equate True with 1).
+    """
+    same_kind = (is_number(want) and is_number(got)) or type(want) is type(got)
+    return "" if same_kind and want == got else f"{where}: want {want} got {got}"
+
+
+MISSING = object()
+
+
+def subset_children(want: Any, got: Any, where: str) -> list[tuple[Any, Any, str]] | str:
+    """The (wanted, served, place) pairs under a container, in order, or why it cannot match."""
+    if isinstance(want, dict):
+        if not isinstance(got, dict):
+            return f"{where}: not an object"
+        return [(value, got.get(key, MISSING), f"{where}/{key}") for key, value in want.items()]
+    if not isinstance(got, list) or len(got) != len(want):
+        return f"{where}: array length differs ({got})"
+    return [(item, got[i], f"{where}/{i}") for i, item in enumerate(want)]
+
+
+def subset_diff(want: Any, got: Any, where: str) -> str:
+    """The first place served differs from want: every key and element the answer key holds must be
+    present and equal; arrays must have the same length.
+    """
+    if not isinstance(want, dict | list):
+        return subset_leaf_diff(want, got, where)
+    children = subset_children(want, got, where)
+    if isinstance(children, str):
+        return children
+    for value, have, place in children:
+        if have is MISSING:
+            return f"{place}: missing"
+        if diff := subset_diff(value, have, place):
+            return diff
+    return ""
+
+
+def served_json(run: Run) -> dict[str, Any]:
+    served = json.loads(run.model_dump_json())
+    assert isinstance(served, dict)
+    return served
+
+
+@pytest.mark.parametrize("name", ANSWER_KEYS)
+def test_manifest_admits_answer_key(tmp_path: Path, name: str) -> None:
+    cat, run = discover_fixture(tmp_path, name)
+    assert cat.issues == [], "answer-key manifest rejected"
+    served = served_json(run)
+    want = read_fixture_json(f"{name}/expected-served.json")
+    assert subset_diff(want, served, "") == ""
+    # A key the answer key does not hold must be absent or empty when served.
+    for key in (
+        "classification",
+        "classification_source",
+        "private_side",
+        "private_side_source",
+        "facilities",
+    ):
+        if key in want:
+            continue
+        value = served.get(key)
+        if isinstance(value, list):
+            assert value == [], f"{key} served but not in the answer key: {value}"
+        else:
+            assert value is None or value is False or value == "", (
+                f"{key} served but not in the answer key: {value}"
+            )
+    facilities = served["facilities"]
+    want_facilities = want.get("facilities")
+    assert isinstance(facilities, list) and isinstance(want_facilities, list), (
+        f"facilities must be served as an array: {facilities} (answer key {want_facilities})"
+    )
+    assert want_facilities or facilities == []
+
+
+def case_change(case: dict[str, Any]) -> Callable[[Any], Any]:
+    return lambda doc: set_pointer(doc, case["pointer"], case["value"])
+
+
+REJECT_CASES = read_fixture_json("reject-cases.json")
+ACCEPT_CASES = read_fixture_json("accept-cases.json")
+
+
+@pytest.mark.parametrize("case", REJECT_CASES, ids=[case["name"] for case in REJECT_CASES])
+def test_manifest_reject_cases(tmp_path: Path, case: dict[str, Any]) -> None:
+    cat, run = discover_fixture(tmp_path, case["fixture"], case_change(case))
+    assert run.gaps and run.gaps[-1].startswith("Run metadata rejected:") and cat.issues, (
+        f"not rejected ({case['why']}): gaps {run.gaps} issues {cat.issues}"
+    )
+    assert (run.classification, run.classification_source) == ("", "")
+    assert (run.private_side, run.private_side_source) == (False, "")
+    assert run.facilities == [] and len(run.metrics) == 0, f"rejected run still serves: {run}"
+    for key in cat.sources:
+        assert not key.startswith(f"{run.id}."), f"rejected manifest published source {key}"
+
+
+@pytest.mark.parametrize("case", ACCEPT_CASES, ids=[case["name"] for case in ACCEPT_CASES])
+def test_manifest_accept_cases(tmp_path: Path, case: dict[str, Any]) -> None:
+    cat, run = discover_fixture(tmp_path, case["fixture"], case_change(case))
+    assert cat.issues == [], f"rejected ({case['why']})"
+    assert len(run.metrics) != 0, "admitted run lost metrics"
+    assert run.facilities is not None
+
+
+def test_manifest_omitted_facility_collections_served_empty(tmp_path: Path) -> None:
+    """A facility written without quotes or terms is still served with [] and {}, never null."""
+
+    def change(doc: Any) -> Any:
+        facilities = doc["run"]["facilities"]
+        del facilities[0]["quotes"]
+        del facilities[1]["terms"]
+        return doc
+
+    _, run = discover_fixture(tmp_path, "synthetic", change)
+    assert len(run.facilities) == 2, f"facilities not admitted: {run.gaps}"
+    raw = json.dumps(served_json(run)["facilities"])
+    assert "null" not in raw, f"facility served with null collection: {raw}"
+    assert run.facilities[0].quotes == [] and run.facilities[1].terms == {}
+
+
+@pytest.mark.parametrize("attempt", range(20))
+def test_manifest_term_error_names_sorted_first_key(tmp_path: Path, attempt: int) -> None:
+    """Two bad terms must always be reported by the same key (the sorted-first one)."""
+
+    def change(doc: Any) -> Any:
+        terms = doc["run"]["facilities"][0]["terms"]
+        for key in ("zz_bad", "aa_bad", "mm_bad"):
+            terms[key] = terms["size_m"]
+        return doc
+
+    _, run = discover_fixture(tmp_path, "synthetic", change)
+    assert run.gaps and '"aa_bad"' in run.gaps[-1], (
+        f"run {attempt}: error does not name the sorted-first bad key: {run.gaps}"
+    )
+
+
+WRITER_KEYS = sorted((MANIFEST_FIXTURES / "writer").glob("*/expected-library.json"))
+
+
+def test_writer_answer_keys_exist() -> None:
+    assert WRITER_KEYS, "no writer answer keys found"
+
+
+@pytest.mark.parametrize("key_file", WRITER_KEYS, ids=[path.parent.name for path in WRITER_KEYS])
+def test_writer_key_is_admitted_with_its_checklist(tmp_path: Path, key_file: Path) -> None:
+    directory = key_file.parent
+    copy_tree(directory / "workspace", tmp_path)
+    plan_file = directory / "copy.json"
+    plan = json.loads(plan_file.read_text()) if plan_file.exists() else []
+    for item in plan:
+        source = ROOT / item["from"]
+        if not source.exists():
+            pytest.skip(f"{item['from']} not present")
+        copy_file(source, tmp_path, item["to"])
+    raw = key_file.read_bytes()
+    key = json.loads(raw)
+    run_id = key["run"]["id"]
+    put(tmp_path, f"runs/{run_id}/library.json", raw)
+    cat = discover(str(tmp_path), Catalogue())
+    assert not [issue for issue in cat.issues if run_id in issue], "issue names the run"
+    run = run_named(cat, run_id)
+    requirements = key["checklist"]["requirements"]
+    done = sum(1 for item in requirements if item.get("done"))
+    total = len(requirements)
+    assert not [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+    assert run.checkpoints is not None
+    assert (run.checkpoints.done, run.checkpoints.total) == (done, total)
+    assert run.completion == done * 100 // total
+
+
+@pytest.mark.parametrize(
+    ("text", "want"),
+    [
+        ("size_m", '"size_m"'),
+        ('a"b\\c', '"a\\"b\\\\c"'),
+        ("a\nb\x01\x7f", '"a\\nb\\x01\\x7f"'),
+        ("\u00e9\u00a0\u200b", '"\u00e9\\u00a0\\u200b"'),
+        ("\U0001f600\U000e0001", '"\U0001f600\\U000e0001"'),
+    ],
+)
+def test_go_quote_matches_strconv_quote(text: str, want: str) -> None:
+    assert go_quote(text) == want

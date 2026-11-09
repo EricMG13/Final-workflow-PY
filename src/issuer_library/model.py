@@ -49,8 +49,21 @@ class Metric(Record):
     provenance: str = ""
 
 
+class FacilityQuote(Record):
+    kind: str = ""
+    terms: dict[str, Metric | None] = {}
+
+
+class Facility(Record):
+    facility_id: str = ""
+    terms: dict[str, Metric | None] = {}
+    quotes: list[FacilityQuote] = []
+
+
 class Rating(Record):
     label: str = ""
+    agency: str = ""
+    scope: str = ""
     date: str = ""
     source: str = ""
 
@@ -93,6 +106,11 @@ class Run(Record):
     completion: int | None = None
     checkpoints: Counts | None = None
     ratings: list[Rating] = []
+    classification: str = ""
+    classification_source: str = ""
+    private_side: bool = False
+    private_side_source: str = ""
+    facilities: list[Facility] = []
     identity_source: str = ""
     sector_source: str = ""
     handoff: str = ""
