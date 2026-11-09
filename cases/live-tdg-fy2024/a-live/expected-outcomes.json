@@ -1,0 +1,51 @@
+{
+  "scope": "A-live: covenant_refinancing, secondary, high_yield, legal documents none, 5 TDG FY2024 filings (all financial reports, none an agreement)",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+  ],
+  "run": [],
+  "modules": {
+    "CP-4": [
+      {
+        "rule": "cp4-declared-none",
+        "outcome": "will_refuse",
+        "counted": true,
+        "inherited_from": []
+      }
+    ],
+    "CP-3C": [
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-4"
+        ]
+      }
+    ],
+    "CP-5": [
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-4",
+          "CP-3C"
+        ]
+      }
+    ]
+  },
+  "counted_total": 1,
+  "without": {
+    "CP-4": [
+      "CP-4"
+    ]
+  }
+}

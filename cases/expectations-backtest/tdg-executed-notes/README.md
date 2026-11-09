@@ -1,0 +1,1 @@
+Reconstructed context (not a context the user entered): declarations inferred from the retained campaign case. Indenture of September 19, 2024 for the 6.000% Senior Secured Notes due 2033 (EX-4.1), retained in runs/tdg-004: CP-0, CP-4, CP-3C. Used only by tools/expectations_backtest.py.
