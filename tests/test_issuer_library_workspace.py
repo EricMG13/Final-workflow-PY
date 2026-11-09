@@ -29,7 +29,9 @@ from issuer_library_browser import (
     release,
     until,
 )
-from issuer_library_support import HOST, Application, client_of, locations
+from issuer_library_support import HOST, client_of, locations
+
+from issuer_library.server import Application
 
 pytestmark = pytest.mark.browser
 

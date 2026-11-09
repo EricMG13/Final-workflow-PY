@@ -105,11 +105,14 @@ def opened(new_run: Any, row: dict[str, Any], reply: dict[str, Any] | None = Non
 
 
 def resume(run: NewRun, cap: str) -> None:
-    """Enter a cap, ask to resume, and wait until the reply is shown as a review or a refusal."""
+    """Enter a cap, ask to resume, and wait until the reply is a review or a refusal message."""
     run.screen.set_value("#resume-budget", cap)
     run.click("resume-run")
     until(run.page, "window.__calls.some(c=>c.url==='/api/runs/resume')")
-    until(run.page, f"!document.getElementById('review-step').hidden||{NOTE}!==''")
+    until(
+        run.page,
+        f"!document.getElementById('review-step').hidden||({NOTE}!==''&&!{NOTE}.startsWith('Checking'))",
+    )
 
 
 def notes(run: NewRun) -> list[str]:
@@ -191,7 +194,7 @@ def test_the_context_form_is_sent_the_module_names_when_it_reports_ready(
         page.evaluate(
             "from=>{const f=document.getElementById('context-editor').contentWindow;"
             "window.dispatchEvent(new MessageEvent('message',{source:from?f:window,"
-            "data:{type:'cpos:ready',ready:false}}));f.postMessage({type:'echo:flush'},'*');}",
+            "data:{type:'cpos:ready',ready:!from}}));f.postMessage({type:'echo:flush'},'*');}",
             from_form,
         )
         flushed += 1
@@ -330,6 +333,8 @@ def test_a_stopped_run_offers_a_resume_that_goes_through_review(new_run: Any) ->
     run = opened(new_run, ROW_STOPPED)
     assert run.hidden("resume-run") is False
     assert run.screen.eval(CAP) == "10.00"
+    run.screen.set_value("#resume-budget", "12.50")
+    assert run.disabled("resume-run") is False
     resume(run, "12.50")
     assert run.posted("/api/runs/resume") == [{"id": ID, "cap_usd": "12.50", "max_turns": 32}]
     assert run.hidden("review-step") is False
