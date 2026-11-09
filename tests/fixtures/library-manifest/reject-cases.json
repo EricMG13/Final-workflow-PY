@@ -1,0 +1,245 @@
+[
+  {
+    "name": "chart value one digit changed",
+    "fixture": "synthetic",
+    "pointer": "/run/metrics/leverage/value",
+    "value": "4.11",
+    "why": "4.11 is not a number the quote states"
+  },
+  {
+    "name": "chart value respelled",
+    "fixture": "synthetic",
+    "pointer": "/run/metrics/leverage/value",
+    "value": "4.1",
+    "why": "4.1 is not the spelling 4.10 the quote states"
+  },
+  {
+    "name": "chart source line moved by one",
+    "fixture": "synthetic",
+    "pointer": "/sources/cp1_leverage/line",
+    "value": 10,
+    "why": "line N+1 is not the pinned quote"
+  },
+  {
+    "name": "chart source quote edited",
+    "fixture": "synthetic",
+    "pointer": "/sources/cp1_leverage/quote",
+    "value": "| FY2025 / 2025-06-30 | 9.10 | 3.45 | x | Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage. |",
+    "why": "quote differs from the file line by one character"
+  },
+  {
+    "name": "classification investment_grade",
+    "fixture": "synthetic",
+    "pointer": "/run/classification",
+    "value": "investment_grade",
+    "why": "source quote states high_yield"
+  },
+  {
+    "name": "classification HY",
+    "fixture": "synthetic",
+    "pointer": "/run/classification",
+    "value": "HY",
+    "why": "not an allowed classification"
+  },
+  {
+    "name": "classification_source missing key",
+    "fixture": "synthetic",
+    "pointer": "/run/classification_source",
+    "value": "no_such_key",
+    "why": "source key is not pinned"
+  },
+  {
+    "name": "private_side_source is the run_type line",
+    "fixture": "synthetic",
+    "pointer": "/sources/ctx_private",
+    "value": {
+      "path": "runs/synthetic-hy-001/context.json",
+      "sha256": "468e32649d57e0d9e51f50e330bfd8be9caf3361f8947eb11c5bbbbf665b3cb1",
+      "line": 4,
+      "quote": "    \"run_type\": \"primary\","
+    },
+    "why": "pinned line is valid but its quote does not contain \"private\""
+  },
+  {
+    "name": "private_side_source is the identity line",
+    "fixture": "synthetic",
+    "pointer": "/run/private_side_source",
+    "value": "ctx_identity",
+    "why": "identity line quote lacks \"private\""
+  },
+  {
+    "name": "facility term value changed",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/0/terms/talk_spread_bps_low/value",
+    "value": "330",
+    "why": "330 is not stated by the quote (325)"
+  },
+  {
+    "name": "quote term respelled",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/1/quotes/0/terms/bid/value",
+    "value": "98.5",
+    "why": "98.5 is not the spelling 98.50"
+  },
+  {
+    "name": "facility term provenance calculated",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/0/terms/size_m/provenance",
+    "value": "calculated",
+    "why": "terms must be provenance user"
+  },
+  {
+    "name": "facility term provenance entered",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/0/terms/size_m/provenance",
+    "value": "entered",
+    "why": "provenance entered is not allowed"
+  },
+  {
+    "name": "facility term key maturity",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/0/terms/maturity",
+    "value": {
+      "value": "450",
+      "unit": "USD m",
+      "period": "2025-06-30",
+      "basis": "Not a numeric term field",
+      "source": "ctx_tlb_size_m",
+      "provenance": "user"
+    },
+    "why": "maturity is not an allowed term field (pointer adds the member)"
+  },
+  {
+    "name": "facility term key instrument",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/0/terms/instrument",
+    "value": {
+      "value": "450",
+      "unit": "USD m",
+      "period": "2025-06-30",
+      "basis": "Not a numeric term field",
+      "source": "ctx_tlb_size_m",
+      "provenance": "user"
+    },
+    "why": "instrument is not an allowed numeric term field (pointer adds the member)"
+  },
+  {
+    "name": "quote term key size_m",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/1/quotes/0/terms/size_m",
+    "value": {
+      "value": "450",
+      "unit": "USD m",
+      "period": "2025-06-30",
+      "basis": "Not a numeric term field",
+      "source": "ctx_tlb_size_m",
+      "provenance": "user"
+    },
+    "why": "size_m is a facility term, not a quote term"
+  },
+  {
+    "name": "facility term key bid",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/0/terms/bid",
+    "value": {
+      "value": "450",
+      "unit": "USD m",
+      "period": "2025-06-30",
+      "basis": "Not a numeric term field",
+      "source": "ctx_tlb_size_m",
+      "provenance": "user"
+    },
+    "why": "bid is a quote term, not a facility term"
+  },
+  {
+    "name": "quote kind firm",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/1/quotes/0/kind",
+    "value": "firm",
+    "why": "kind must be observed or indicative_talk"
+  },
+  {
+    "name": "duplicate facility_id",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/1/facility_id",
+    "value": "TLB",
+    "why": "facility_id must be unique in the run"
+  },
+  {
+    "name": "empty facility_id",
+    "fixture": "synthetic",
+    "pointer": "/run/facilities/1/facility_id",
+    "value": "",
+    "why": "facility_id must be non-empty"
+  },
+  {
+    "name": "run metric provenance entered",
+    "fixture": "synthetic",
+    "pointer": "/run/metrics/cash/provenance",
+    "value": "entered",
+    "why": "provenance entered is not allowed"
+  },
+  {
+    "name": "chart value one digit changed",
+    "fixture": "retained-cp1",
+    "pointer": "/run/metrics/leverage/value",
+    "value": "6.5745",
+    "why": "6.5745 is not stated by the quote"
+  },
+  {
+    "name": "chart value respelled",
+    "fixture": "retained-cp1",
+    "pointer": "/run/metrics/leverage/value",
+    "value": "6.574",
+    "why": "6.574 is not the spelling 6.5744"
+  },
+  {
+    "name": "chart source line moved by one",
+    "fixture": "retained-cp1",
+    "pointer": "/sources/cp1_leverage/line",
+    "value": 147,
+    "why": "line N+1 is not the pinned quote"
+  },
+  {
+    "name": "chart source quote edited",
+    "fixture": "retained-cp1",
+    "pointer": "/sources/cp1_leverage/quote",
+    "value": "| FY2024 / 2024-09-30 | 9.5744 | 4.9323 | x | Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145. |",
+    "why": "quote differs from the file line by one character"
+  },
+  {
+    "name": "run metric provenance entered",
+    "fixture": "retained-cp1",
+    "pointer": "/run/metrics/cash/provenance",
+    "value": "entered",
+    "why": "provenance entered is not allowed"
+  },
+  {
+    "name": "classification stated without source",
+    "fixture": "retained-cp1",
+    "pointer": "/run/classification",
+    "value": "high_yield",
+    "why": "the context predates the field; no classification_source (pointer adds the member)"
+  },
+  {
+    "name": "private_side true without source",
+    "fixture": "retained-cp1",
+    "pointer": "/run/private_side",
+    "value": true,
+    "why": "case_kind is public; no private_side_source (pointer adds the member)"
+  },
+  {
+    "name": "rating scope bogus",
+    "fixture": "synthetic",
+    "pointer": "/run/ratings/0/scope",
+    "value": "bogus",
+    "why": "scope must be issuer or facility"
+  },
+  {
+    "name": "rating scope wrong case",
+    "fixture": "synthetic",
+    "pointer": "/run/ratings/0/scope",
+    "value": "Issuer",
+    "why": "scope is case sensitive: Issuer is not issuer"
+  }
+]

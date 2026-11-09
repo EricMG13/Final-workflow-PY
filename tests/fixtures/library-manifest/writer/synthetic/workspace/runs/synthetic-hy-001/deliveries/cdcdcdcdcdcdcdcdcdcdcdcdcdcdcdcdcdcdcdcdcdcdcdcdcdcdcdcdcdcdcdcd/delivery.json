@@ -1,0 +1,11 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fictional delivery bundle for the manifest-writer fixture.",
+  "cp_model_published": false,
+  "files": {
+    "CP-0.md": "f0fe371487444cad60c21414e6a30a9908752582678a539b8d2fd276ae65c311",
+    "CP-1.md": "07b4ff0c67bcadb8fc109aad2b14b41ec8f93f5aa743cd6c8f0a929e4e2db9bc",
+    "view.json": "10117d1f1148d805c756317d8484c20f9aee3b6cdeb53fff14d14054ad7a749a",
+    "report.html": "49e861754e717bb17dbb5d7adfe14478fc2553e25ee89c30c61261ad452fd638"
+  }
+}

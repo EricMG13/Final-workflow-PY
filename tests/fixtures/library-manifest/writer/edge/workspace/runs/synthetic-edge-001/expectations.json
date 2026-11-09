@@ -1,0 +1,22 @@
+{
+  "review_id": "synthetic-review-edge-001",
+  "issue_classification": null,
+  "documents": [],
+  "expectations": [
+    {
+      "id": "CP-1:interim-ltm",
+      "scope": "CP-1",
+      "outcome": "information",
+      "reason": "Interim run: leverage and cover are shown on a last-twelve-months basis.",
+      "fix": "",
+      "basis": "Fictional fixture rule.",
+      "evidence": "per method",
+      "counted": false,
+      "inherited_from": null
+    }
+  ],
+  "counted": [
+    "run:orphan-id-with-no-expectation"
+  ],
+  "without": {}
+}

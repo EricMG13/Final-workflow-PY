@@ -1,0 +1,20 @@
+{
+  "review_id": "retained-web-04cd-review",
+  "issue_classification": null,
+  "documents": [],
+  "expectations": [
+    {
+      "id": "run:retained-scope",
+      "scope": "run",
+      "outcome": "information",
+      "reason": "Retained model output for TDG FY2024; the expectations file is hand-written for this fixture.",
+      "fix": "",
+      "basis": "Hand-written fixture entry.",
+      "evidence": "observed live",
+      "counted": false,
+      "inherited_from": null
+    }
+  ],
+  "counted": [],
+  "without": {}
+}
