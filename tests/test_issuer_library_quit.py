@@ -24,8 +24,16 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 from issuer_library_support import POST_HEADERS, call, client_of, fake_engine, make_app
-from test_issuer_library_jobs import review_request, wait_idle
+from test_issuer_library_jobs import (
+    held_review_engine,
+    release_reviews,
+    review_in_thread,
+    review_request,
+    wait_idle,
+    wait_reviews,
+)
 
+import issuer_library.jobs as jobs_module
 import issuer_library.quit as quit_module
 import issuer_library.server as server_module
 from issuer_library.launch import ALREADY_RUNNING
@@ -34,8 +42,6 @@ from issuer_library.server import Application
 
 WINDOWS = sys.platform == "win32"
 SRC = Path(quit_module.__file__).resolve().parents[1]
-GUARD = "deferred: needs Task 1.5 guard; the later of 1-D4 and S3's PR un-skips"
-A07 = "deferred: needs Task 1.5 A07; the later of 1-D4 and S3's PR un-skips"
 BUSY = "Issuer Library is busy ({}); wait for it to finish, then start it again."
 
 
@@ -432,15 +438,12 @@ def test_relaunch_asks_an_idle_library_to_quit_and_opens_a_fresh_link(tmp_path: 
     assert "A new launch asked the idle library to quit; stopping" in logged, logged
 
 
-@pytest.mark.skip(reason=A07)
 def test_relaunch_is_told_a_run_keeps_the_library_busy(tmp_path: Path) -> None:
     """S18 ruling 1 with a run in flight (a job an earlier instance left running, whose worker
     still holds its lock). Expected by hand: the relaunch returns exactly "Issuer Library is busy
     (1 run, 0 reviews); wait for it to finish, then start it again.", the instance keeps running
     with its session, and no quit file is left. Once the worker ends, a relaunch quits the idle
     instance and opens a fresh link."""
-    import fcntl  # a worker's lock is a flock; Windows has its own
-
     opener, opened = opener_script(tmp_path)
     state, port = tmp_path / "state", free_port()
     workspace = tmp_path / "workspace"
@@ -450,9 +453,8 @@ def test_relaunch_is_told_a_run_keeps_the_library_busy(tmp_path: Path) -> None:
     job.mkdir(parents=True, mode=0o700)
     (job / "status.json").write_text('{"state":"running"}')
     (job / "status.json").chmod(0o600)  # written just now, as Go's Chtimes(now) leaves it
-    # S3's worker lock replaces this when A07 lands.
-    lock = open(job / "worker.lock", "w")  # noqa: SIM115  (held until the worker "ends")
-    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    lock = jobs_module.hold_worker_lock(job / "worker.lock")  # held until the worker "ends"
+    lock_held = True
     first = launcher(tmp_path, opener, port, state, "first")
     relaunched: list[subprocess.Popen[str]] = []
     try:
@@ -466,7 +468,8 @@ def test_relaunch_is_told_a_run_keeps_the_library_busy(tmp_path: Path) -> None:
         assert send("GET", port, "/api/catalogue", cookie)[0] == 200, "the busy library's session"
         assert absent(state / quit_module.QUIT_REQUEST)
         assert absent(state / quit_module.QUIT_ANSWER), "a quit file was left behind"
-        lock.close()
+        jobs_module.release_lock(lock)
+        lock_held = False
         # The instance notices the worker has ended within a few polls; until then a relaunch is
         # told it is busy, then one quits it.
         attempt = 0
@@ -488,7 +491,8 @@ def test_relaunch_is_told_a_run_keeps_the_library_busy(tmp_path: Path) -> None:
         assert send("POST", port, "/api/quit", fresh)[0] == 200
         assert relaunched[-1].wait(timeout=10) == 0
     finally:
-        lock.close()
+        if lock_held:
+            jobs_module.release_lock(lock)
         for process in [first, *relaunched]:
             if process.poll() is None:
                 process.kill()
@@ -500,32 +504,39 @@ def test_quit_request_is_answered_busy_while_a_review_or_run_is_in_flight(tmp_pa
     review"; with two runs as well "busy: 2 runs, 1 review"; with one "busy: 1 run, 1 review".
     Each time the library keeps running (no stop) and the request is removed. Once nothing is in
     flight the next request stops it (one stop, request removed, no answer)."""
-    lib, _ = make_app(tmp_path)
+    lib, root = make_app(tmp_path)
+    lib.engine = held_review_engine(tmp_path)
     stops = counted_stop(lib)
     state = lib.loc.state
     request = state / quit_module.QUIT_REQUEST
-    with lib.lock:
-        lib.reviews = 1  # a review in flight; S3 owns the code that changes it
-    for jobs, want in [
-        ([], "busy: 0 runs, 1 review"),
-        (["web-a", "web-b"], "busy: 2 runs, 1 review"),
-        (["web-a"], "busy: 1 run, 1 review"),
-    ]:
+    reviewed = review_in_thread(lib)
+    try:
+        wait_reviews(lib, 1)
+        for jobs, want in [
+            ([], "busy: 0 runs, 1 review"),
+            (["web-a", "web-b"], "busy: 2 runs, 1 review"),
+            (["web-a"], "busy: 1 run, 1 review"),
+        ]:
+            with lib.lock:
+                lib.active_jobs = set(jobs)
+            plant_request(state)
+            assert not quit_module.answer_quit_request(lib) and not stops, f"{jobs}: it stopped"
+            got = answer_of(state)
+            assert got == want and absent(request), f"{jobs}: answer {got!r}"
         with lib.lock:
-            lib.active_jobs = set(jobs)
-        plant_request(state)
-        assert not quit_module.answer_quit_request(lib) and not stops, f"{jobs}: it stopped"
-        assert answer_of(state) == want and absent(request), f"{jobs}: answer {answer_of(state)!r}"
-    with lib.lock:
-        lib.active_jobs = set()
-        lib.reviews = 0
+            lib.active_jobs = set()
+        release_reviews(root, 1)
+        assert reviewed.result(30).status_code == 200
+        wait_reviews(lib, 0)
+    finally:
+        release_reviews(root, 0)  # Go's t.Cleanup: the review ends before the test returns
+        reviewed.result(30)
     (state / quit_module.QUIT_ANSWER).unlink()
     plant_request(state)
     assert quit_module.answer_quit_request(lib) and len(stops) == 1
     assert absent(request) and answer_of(state) == "", f"idle: answer {answer_of(state)!r}"
 
 
-@pytest.mark.skip(reason=GUARD)
 def test_quit_request_is_answered_busy_while_a_review_or_run_is_in_flight_tail(
     tmp_path: Path,
 ) -> None:
@@ -773,7 +784,6 @@ def race_round(
         lib.quitting = False
 
 
-@pytest.mark.skip(reason=GUARD)
 def test_start_racing_a_quit_request_never_orphans_a_worker(tmp_path: Path) -> None:
     """Start racing the quit watcher. Expected by hand, whichever runs first: either Start gets
     202 and the watcher then sees one run (it keeps running, answers "busy: 1 run, 0 reviews",
@@ -815,7 +825,6 @@ def test_quit_claims_the_shutdown_guard_before_a_start_can_begin(tmp_path: Path)
         stopped.set()
 
 
-@pytest.mark.skip(reason=GUARD)
 def test_quit_claims_the_shutdown_guard_before_a_start_can_begin_tail(tmp_path: Path) -> None:
     """From an idle Quit's 200 on, a Start is refused with 503 and the quitting message, before
     the asynchronous stop runs."""
