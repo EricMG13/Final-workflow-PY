@@ -558,7 +558,7 @@ BODY_CLOSE_CASES = [
     ("</body></body>", 7),
     ("\xff\xff\xff</body>\xff", 3),
     ("</bödy></html>", -1),
-    ("</Kody></html>", -1),
+    ("</Kody></html>", -1),
     ("<body>x</bodyx></html>", -1),
     ("<body>x</bod></html>", -1),
 ]
@@ -585,7 +585,7 @@ def test_review_last_body_close_matches_an_ascii_lowered_oracle() -> None:
         return found if found >= 0 else len(html)
 
     alphabet = ["<", "/", "b", "B", "o", "O", "d", "D", "y", "Y", ">", " ", "</body>", "</BODY>"]
-    alphabet += ["</bOdY", "İ", "K", "Ⱥ", "\xff", "\xc4"]
+    alphabet += ["</bOdY", "İ", "K", "Ⱥ", "\xff", "\xc4"]
     pieces = [
         piece.encode() if piece not in ("\xff", "\xc4") else piece.encode("latin-1")
         for piece in alphabet
@@ -707,7 +707,8 @@ def stalled_request(app: Application, method: str, endpoint: str):
     sent = [False]
 
     async def receive() -> dict[str, object]:
-        if sent[0]:
+        if sent[0]:  # a client that stopped reading stays connected: wait for the release
+            await asyncio.get_running_loop().run_in_executor(None, release.wait)
             return {"type": "http.disconnect"}
         sent[0] = True
         return {"type": "http.request", "body": b"{}", "more_body": False}
@@ -719,11 +720,11 @@ def stalled_request(app: Application, method: str, endpoint: str):
 
     def run() -> None:
         try:
-            asyncio.run(app.asgi(scope, receive, send))  # type: ignore[arg-type]
+            asyncio.run(app.asgi(scope, receive, send))  # type: ignore[arg-type]  # ASGI send is MutableMapping[str, Any] in the stub
         finally:
             served.set()
 
-    thread = threading.Thread(target=run)
+    thread = threading.Thread(target=run, daemon=True)
     thread.start()
     return writing, release, served, thread
 
@@ -754,3 +755,4 @@ def test_stalled_client_does_not_hold_the_catalogue_lock(tmp_path: Path) -> None
         finally:
             release.set()
             thread.join(10)
+        assert not thread.is_alive(), f"{method} {endpoint}: the request is still running"
