@@ -88,7 +88,8 @@ class _Row(NamedTuple):
 
 
 class _Delivery(NamedTuple):
-    folder: Path
+    root: Path
+    folder: str
     doc: _Doc
     files: dict[str, str]
     report: _Doc | None
@@ -120,7 +121,7 @@ def _read(root: Path, rel: str) -> bytes | None:
 
 def _read_pinned(root: Path, rel: Path) -> bytes:
     """Read `rel` through folder fds opened one name at a time, so no link is followed."""
-    fds = _walk(root, rel.parts[:-1])
+    fds = _walk(root, rel.parts[:-1], rel.as_posix())
     try:
         with events.open_regular(Path(rel.name), dir_fd=fds[-1]) as stream:
             return stream.read()
@@ -357,15 +358,9 @@ def _deliveries(root: Path, base: str) -> list[_Delivery]:
     out = []
     for path in sorted((root / base / "deliveries").glob("*/delivery.json")):
         doc, data = _load(root, path.relative_to(root).as_posix())
+        folder = path.parent.relative_to(root).as_posix()
         files = _need(data, "files", dict, doc.rel)
-        out.append(
-            _Delivery(
-                path.parent,
-                doc,
-                files,
-                _doc_if(root, f"{path.parent.relative_to(root).as_posix()}/report.html"),
-            )
-        )
+        out.append(_Delivery(root, folder, doc, files, _doc_if(root, f"{folder}/report.html")))
     return out
 
 
@@ -384,7 +379,7 @@ def _downstream(chosen: _Delivery | None, handoffs: dict[str, _Doc | None]) -> l
     for module, handoff in handoffs.items():
         if chosen is None:
             break
-        copy = _doc_if(chosen.folder, f"{module}.md")
+        copy = _doc_if(chosen.root, f"{chosen.folder}/{module}.md")
         ok = handoff and copy and chosen.files.get(f"{module}.md") == handoff.sha == copy.sha
         line = _line_of(chosen.doc, "files", f"{module}.md") if ok else None
         items.append((f"delivery_{module}", chosen.doc, line))
@@ -504,29 +499,53 @@ def _is_link(part: str, parent: int | None) -> bool:
         return False
 
 
+class _Fault(Exception):
+    """Why one folder could not be opened: `kind` is link, folder, missing or `detail` text."""
+
+    def __init__(self, kind: str, detail: str = "") -> None:
+        super().__init__(kind)
+        self.kind, self.detail = kind, detail
+
+
 def _open_dir(part: str, parent: int | None) -> int:
-    """Open one folder name under `parent` without following a link; typed errors."""
+    """Open one folder name under `parent` without following a link; raise `_Fault`."""
     try:
         return os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent)
     except OSError as err:
         if err.errno in (errno.ELOOP, errno.EMLINK) or (
             err.errno in (errno.ENOTDIR, errno.ENOENT) and _is_link(part, parent)
         ):
-            raise ManifestError(f"{part} is a link") from err
+            raise _Fault("link") from err
         if err.errno == errno.ENOTDIR:
-            raise ManifestError(f"{part} is not a folder") from err
+            raise _Fault("folder") from err
         if err.errno == errno.ENOENT:
-            raise _Absent(f"{part} is missing") from err
-        raise ManifestError(f"{part} cannot be opened: {err.strerror}") from err
+            raise _Fault("missing") from err
+        raise _Fault("other", err.strerror or "") from err
 
 
-def _walk(workspace: Path, parts: tuple[str, ...]) -> list[int]:
+def _refusal(fault: _Fault, shown: str, file: str | None) -> ManifestError:
+    """The typed error for a folder fault, naming the folder and the file being read."""
+    if fault.kind == "link":
+        return ManifestError(f"{file} is under a link ({shown})" if file else f"{shown} is a link")
+    if fault.kind == "folder":
+        return ManifestError(f"{shown} is not a folder")
+    if fault.kind == "missing":
+        return _Absent(f"{shown} is missing")
+    return ManifestError(f"{shown} cannot be opened: {fault.detail}")
+
+
+def _walk(workspace: Path, parts: tuple[str, ...], file: str | None = None) -> list[int]:
     """Open the workspace root, then each folder name under it; every fd is closed on failure."""
     fds: list[int] = []
+    shown = str(workspace)
     try:
-        fds.append(_open_dir(str(workspace), None))
+        fds.append(_open_dir(shown, None))
         for part in parts:
+            shown = f"{shown}/{part}" if len(fds) > 1 else part
             fds.append(_open_dir(part, fds[-1]))
+    except _Fault as fault:
+        _close(fds)
+        raise _refusal(fault, shown, file) from fault.__cause__
     except BaseException:
         _close(fds)
         raise
@@ -546,9 +565,14 @@ def _publish(workspace: Path, run_id: str, text: str) -> None:
     try:
         run_fd = fds[-1]
         flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
-        handle = os.open(temp, flags, 0o644, dir_fd=run_fd)
+        handle = os.open(temp, flags, 0o600, dir_fd=run_fd)
         made = True
-        with os.fdopen(handle, "w", encoding="utf-8", newline="") as out:
+        try:
+            out = os.fdopen(handle, "w", encoding="utf-8", newline="")
+        except BaseException:
+            os.close(handle)
+            raise
+        with out:
             out.write(text)
         os.replace(temp, "library.json", src_dir_fd=run_fd, dst_dir_fd=run_fd)
         made = False

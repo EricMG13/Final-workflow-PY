@@ -7,6 +7,8 @@ import os
 import re
 import shutil
 import signal
+import socket
+import stat
 import subprocess
 import sys
 import threading
@@ -364,8 +366,10 @@ def test_read_does_not_follow_a_run_folder_swapped_for_a_link_during_build(tmp_p
     try:
         manifest = lm.build(root, run_id)
     except lm.ManifestError:
-        return
-    assert manifest["run"]["currency"] != "OUTSIDE"
+        manifest = None
+    assert first, "the swap hook never ran, so this test checked nothing"
+    if manifest is not None:
+        assert manifest["run"]["currency"] != "OUTSIDE"
 
 
 def test_absent_deliveries_folder_still_reads_as_missing_not_an_error(tmp_path):
@@ -393,10 +397,8 @@ def test_write_error_paths_name_a_file_run_folder_and_a_missing_one(tmp_path, mo
         lm.write(root, run_id)
 
 
-@pytest.mark.skipif(not hasattr(os, "mkfifo"), reason="no sockets/FIFOs")
+@pytest.mark.skipif(not hasattr(socket, "AF_UNIX"), reason="no AF_UNIX sockets")
 def test_socket_is_not_a_regular_file(tmp_path, monkeypatch):
-    import socket
-
     root, run_id = workspace("synthetic", tmp_path)
     path = run_dir(root, run_id) / "expectations.json"
     path.unlink()
@@ -488,3 +490,77 @@ def test_linked_report_names_its_full_workspace_path(tmp_path):
     (first / "report.html").symlink_to(tmp_path / "real-report.html")
     expected = f"runs/{run_id}/deliveries/{first.name}/report.html is a link"
     refused(root, run_id, re.escape(expected))
+
+
+def test_delivery_copy_is_not_read_through_a_link_swapped_in_after_the_deliveries_listing(
+    tmp_path, monkeypatch
+):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    outside = tmp_path / "outside"
+    shutil.copytree(run_dir(root, run_id), outside)
+    (outside / "deliveries").mkdir(exist_ok=True)
+    (first,) = [p for p in (run_dir(root, run_id) / "deliveries").iterdir() if p.is_dir()]
+    (first / "CP-0.md").unlink()
+    real_down = lm._downstream
+    fired = []
+
+    def swapped(*args):
+        fired.append(True)
+        home = run_dir(root, run_id)
+        shutil.move(str(home), tmp_path / "moved")
+        home.symlink_to(outside, target_is_directory=True)
+        try:
+            return real_down(*args)
+        finally:
+            home.unlink()
+            shutil.move(str(tmp_path / "moved"), str(home))
+
+    monkeypatch.setattr(lm, "_downstream", swapped)
+    try:
+        manifest = lm.build(root, run_id)
+    except lm.ManifestError as err:
+        assert "link" in str(err)
+        manifest = None
+    assert fired, "the swap hook never ran, so this test checked nothing"
+    if manifest is not None:
+        done = {r["id"]: r["done"] for r in manifest["checklist"]["requirements"]}
+        assert done["downstream"] is False
+
+
+def test_linked_folder_refusal_names_the_file_and_the_folder(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    elsewhere = tmp_path / "elsewhere"
+    shutil.move(str(run_dir(root, run_id)), elsewhere)
+    run_dir(root, run_id).symlink_to(elsewhere, target_is_directory=True)
+    refused(
+        root,
+        run_id,
+        re.escape(f"runs/{run_id}/context.json is under a link (runs/{run_id})"),
+    )
+
+
+@pytest.mark.skipif(not os.path.isdir("/dev/fd"), reason="needs /dev/fd to count descriptors")
+def test_write_closes_the_temp_descriptor_when_fdopen_fails(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path)
+    before = len(os.listdir("/dev/fd"))
+
+    real_fdopen = os.fdopen
+
+    def boom(fd, mode="r", *args, **kwargs):
+        if "w" in mode:
+            raise RuntimeError("fdopen")
+        return real_fdopen(fd, mode, *args, **kwargs)
+
+    monkeypatch.setattr(lm.os, "fdopen", boom)
+    for _ in range(5):
+        with pytest.raises(RuntimeError, match="fdopen"):
+            lm.write(root, run_id)
+    assert len(os.listdir("/dev/fd")) == before
+    assert [p.name for p in run_dir(root, run_id).glob(".library-*")] == []
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX file modes")
+def test_published_library_json_is_owner_only(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    target = lm.write(root, run_id)
+    assert stat.S_IMODE(os.stat(target).st_mode) == 0o600
