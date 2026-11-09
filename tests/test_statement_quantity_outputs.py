@@ -24,7 +24,7 @@ from deploy_vii.financial_contracts import (
     StatementLine,
     StatementQuantity,
 )
-from deploy_vii.financial_periods import _id
+from deploy_vii.financial_periods import PeriodValue, _id
 from deploy_vii.financial_validation import records, validate_financial_review
 from deploy_vii.model_interface import SCHEMAS, _Cell, _Tables
 from deploy_vii.preparation import PreparedPack
@@ -51,9 +51,7 @@ def _citation(locator: str, quote: str) -> Citation:
 
 def _periods() -> tuple[FinancialPeriod, ...]:
     policy = EXPECTED["fiscal_policy"]
-    policy_citation = _citation(
-        policy["citation"]["locator"], policy["source_lines"][0]
-    )
+    policy_citation = _citation(policy["citation"]["locator"], policy["source_lines"][0])
     periods = []
     for row in policy["periods"]["duration"]:
         start = date.fromisoformat(row["start_date"])
@@ -109,7 +107,9 @@ def _book() -> FinancialBook:
         priority[statement] += 1
         for cell in row["cells"]:
             amount_position = row["amount_position"]
-            value_citation = _citation(amount_position["locator"], amount_position["raw_source_line"])
+            value_citation = _citation(
+                amount_position["locator"], amount_position["raw_source_line"]
+            )
             quantity_citations = tuple(
                 _citation(item["locator"], item["quote"])
                 for item in cell["quantity"]["unit_context_citations"]
@@ -167,7 +167,10 @@ def _pack_and_review(book: FinancialBook) -> tuple[PreparedPack, FinancialReview
         run_id="cp1-quantity-output-test",
         issuer_id="transdigm",
         issuer_name="TransDigm Group Incorporated",
-        as_of=max((period.end_date for period in book.periods if period.end_date), default=date(2024, 9, 30)),
+        as_of=max(
+            (period.end_date for period in book.periods if period.end_date),
+            default=date(2024, 9, 30),
+        ),
         case_kind="public",
     )
     pack = PreparedPack(run=run, sources=())
@@ -201,9 +204,7 @@ def _report(book: FinancialBook, pack: PreparedPack, review: FinancialReview) ->
 
 def _bound_pack_review(book: FinancialBook) -> tuple[PreparedPack, FinancialReview]:
     pack, review = _pack_and_review(book)
-    by_source: dict[tuple[str, str], dict[str, list[str]]] = defaultdict(
-        lambda: defaultdict(list)
-    )
+    by_source: dict[tuple[str, str], dict[str, list[str]]] = defaultdict(lambda: defaultdict(list))
     for citation in records(review, Citation):
         by_source[citation.source_id, citation.source_sha256][citation.locator].append(
             citation.quote
@@ -264,7 +265,10 @@ def test_all_oracle_families_retain_dimensions_and_ci_transport_identity() -> No
         == ("currency_per_share", "USD/share", "USD", "UNITS", Decimal(1))
         for cell in eps.values()
     )
-    assert all(any(citation.locator == "page:106" for citation in cell.quantity_citations) for cell in eps.values())
+    assert all(
+        any(citation.locator == "page:106" for citation in cell.quantity_citations)
+        for cell in eps.values()
+    )
 
     shares = {cell.period_id: cell for cell in reported if cell.item_id == "other:is_22"}
     assert {period: cell.normalized_amount for period, cell in shares.items()} == {
@@ -287,19 +291,27 @@ def test_all_oracle_families_retain_dimensions_and_ci_transport_identity() -> No
 
     nil_keys = {
         (
-            "T4.4" if row["statement"] in {"IS", "CI"} else "T4.5" if row["statement"] == "CFS" else "T4.6",
-            f"other:{'ci' if row['statement'] == 'CI' else row['statement'].casefold()}_{row['row_id'].split('-')[1]}",
+            "T4.4"
+            if row["statement"] in {"IS", "CI"}
+            else "T4.5"
+            if row["statement"] == "CFS"
+            else "T4.6",
+            "other:"
+            + ("ci" if row["statement"] == "CI" else row["statement"].casefold())
+            + "_"
+            + row["row_id"].split("-")[1],
             cell["period_id"],
         )
         for row in EXPECTED["financial_rows"]
         for cell in row["cells"]
         if cell["raw_value"] == "—"
     }
-    assert len(nil_keys) == EXPECTED["unit_totals"]["existing_financial_reference"]["printed_nil_cells"]
+    assert (
+        len(nil_keys)
+        == EXPECTED["unit_totals"]["existing_financial_reference"]["printed_nil_cells"]
+    )
     nil_cells = tuple(
-        cell
-        for cell in reported
-        if (cell.table_id, cell.item_id, cell.period_id) in nil_keys
+        cell for cell in reported if (cell.table_id, cell.item_id, cell.period_id) in nil_keys
     )
     assert len(nil_cells) == 21
     assert all(
@@ -330,7 +342,9 @@ def test_full_statement_view_exposes_units_ci_origin_and_no_nonmonetary_arithmet
         for value in nonmonetary
     )
     constructions = {item.construction_id: item for item in history.constructions}
-    source_by_observation = {cell.observation_id: cell for cell in report.cells if cell.observation_id}
+    source_by_observation = {
+        cell.observation_id: cell for cell in report.cells if cell.observation_id
+    }
     for value in nonmonetary:
         if value.value.amount is not None:
             construction = constructions[value.construction_id]
@@ -343,7 +357,9 @@ def test_full_statement_view_exposes_units_ci_origin_and_no_nonmonetary_arithmet
             assert value.value.reason or value.value.note
 
     eps_history = next(
-        value for value in history.values if value.item_id == "other:is_18" and value.quantity_kind == "currency_per_share"
+        value
+        for value in history.values
+        if value.item_id == "other:is_18" and value.quantity_kind == "currency_per_share"
     )
     assert any(citation.locator == "page:106" for citation in eps_history.quantity_citations)
     assert any(citation.locator == "page:106" for citation in eps_history.value.citations)
@@ -361,7 +377,9 @@ def test_full_statement_view_exposes_units_ci_origin_and_no_nonmonetary_arithmet
     ci_facts = tuple(fact for fact in source_facts if fact.row_id.startswith("other:ci_"))
     assert len(ci_facts) == 24
     assert all(fact.label.startswith("CI · ") for fact in ci_facts)
-    eps = next(fact for fact in source_facts if fact.row_id == "other:is_18" and fact.field == "FY2024")
+    eps = next(
+        fact for fact in source_facts if fact.row_id == "other:is_18" and fact.field == "FY2024"
+    )
     assert (eps.amount, eps.unit, eps.currency, eps.scale) == (
         Decimal("25.62"),
         "USD/share",
@@ -369,7 +387,9 @@ def test_full_statement_view_exposes_units_ci_origin_and_no_nonmonetary_arithmet
         Decimal(1),
     )
     assert any(citation.locator == "page:106" for citation in eps.citations)
-    shares = next(fact for fact in source_facts if fact.row_id == "other:is_22" and fact.field == "FY2024")
+    shares = next(
+        fact for fact in source_facts if fact.row_id == "other:is_22" and fact.field == "FY2024"
+    )
     assert (shares.amount, shares.unit, shares.currency, shares.scale) == (
         Decimal("57.8"),
         "million shares",
@@ -426,6 +446,60 @@ def test_canonical_and_prose_currency_scale_comes_from_fact_scale() -> None:
         figure_unit(million.model_copy(update={"scale": Decimal(10)}))
 
 
+def _scale_fact(unit: str, currency: str | None, scale: int, name: str) -> Fact:
+    return Fact(
+        fact_id=f"tdg.{name}",
+        label=name,
+        table_id="T4.9",
+        row_id=name,
+        field="FY2024",
+        amount=Decimal(1),
+        unit=unit,
+        currency=currency,
+        scale=Decimal(scale),
+        period="FY2024",
+        status="known",
+    )
+
+
+def test_scale_of_treats_equivalent_currency_and_amount_unit_spellings_as_one_scale() -> None:
+    cur_m = _scale_fact("currency", "USD", 1_000_000, "cur_m")
+    cur_m2 = _scale_fact("currency", "USD", 1_000_000, "cur_m2")
+    mil = _scale_fact("MILLIONS", "USD", 1, "mil")
+    mil2 = _scale_fact("MILLIONS", "USD", 1, "mil2")
+    cur_k = _scale_fact("currency", "USD", 1_000, "cur_k")
+    thou = _scale_fact("THOUSANDS", "USD", 1, "thou")
+    for row in (
+        [cur_m, mil],
+        [mil, cur_m],
+        [cur_m, cur_m2, mil],  # currency spelling dominant
+        [mil, mil2, cur_m],  # MILLIONS spelling dominant
+    ):
+        assert _scale_of("T4.9", ("A",) * 3, [row]) == "US$ m"
+    assert _scale_of("T4.9", ("A", "B"), [[cur_k, thou]]) == "US$ 000"
+    assert _scale_of("T4.9", ("A", "B"), [[thou, cur_k]]) == "US$ 000"
+
+
+@pytest.mark.parametrize(
+    "left, right",
+    [
+        (("currency", "USD", 1_000), ("MILLIONS", "USD", 1)),
+        (("MILLIONS", "USD", 1), ("THOUSANDS", "USD", 1)),
+        (("MILLIONS", "USD", 1), ("MILLIONS", "EUR", 1)),
+        (("MILLIONS", None, 1), ("MILLIONS", "USD", 1)),
+        (("currency", "USD", 1_000_000), ("currency", "EUR", 1_000_000)),
+    ],
+)
+def test_scale_of_still_refuses_genuinely_different_scales(
+    left: tuple[str, str | None, int], right: tuple[str, str | None, int]
+) -> None:
+    a = _scale_fact(*left, "a")
+    b = _scale_fact(*right, "b")
+    for row in ([a, b], [b, a]):
+        with pytest.raises(ValueError, match="mixes amount units"):
+            _scale_of("T4.9", ("A", "B"), [row])
+
+
 def test_model_interface_prefers_explicit_cell_scale_and_keeps_legacy_fallback() -> None:
     book = _book()
     tables = _Tables(book)
@@ -436,7 +510,7 @@ def test_model_interface_prefers_explicit_cell_scale_and_keeps_legacy_fallback()
             "metric_id": "cash",
             "period_id": "FY2024",
             "value": _Cell(
-            Decimal(6261),
+                Decimal(6261),
                 unit="currency",
                 currency="USD",
                 scale=Decimal(1_000_000),
@@ -669,7 +743,9 @@ def test_fix_round_one_history_formula_evidence_and_canonical_dimensions() -> No
         "unit context",
     }
 
-    tables = _Tables(book, schemas={key: (title, None, _keys(key)) for key, (title, _) in COLUMNS.items()})
+    tables = _Tables(
+        book, schemas={key: (title, None, _keys(key)) for key, (title, _) in COLUMNS.items()}
+    )
     _constructed(tables, history)
     q2_eps_t48 = next(
         fact
@@ -742,7 +818,7 @@ def test_fix_round_one_preserves_all_180_accepted_legacy_balance_sheet_durations
             item_id=f"other:legacy_bs_{index:02d}",
             label=f"Legacy balance observation {index:02d}",
             period_id=period_id,
-                display_priority=index + 1,
+            display_priority=index + 1,
             line_kind="detail",
             value=Observation(
                 observation_id=f"obs:legacy-bs-{index}:{period_id}",
@@ -819,7 +895,9 @@ def test_fix_round_one_t49_direct_fy_eps_keeps_per_share_dimensions() -> None:
 
 def test_canonical_audit_source_positions_retain_statement_dimensions_and_unit_citations() -> None:
     positions = _positions(_book())
-    source_positions = tuple(position for position in positions if position.register_id == "statement_lines")
+    source_positions = tuple(
+        position for position in positions if position.register_id == "statement_lines"
+    )
     assert len(source_positions) == 280
     eps = next(position for position in source_positions if position.row_id == "line:IS-18:FY2024")
     assert (eps.quantity_kind, eps.currency, eps.scale, eps.factor, eps.unit) == (
@@ -830,7 +908,9 @@ def test_canonical_audit_source_positions_retain_statement_dimensions_and_unit_c
         "USD/share",
     )
     assert any(citation.locator == "page:106" for citation in eps.quantity_citations)
-    shares = next(position for position in source_positions if position.row_id == "line:IS-22:FY2024")
+    shares = next(
+        position for position in source_positions if position.row_id == "line:IS-22:FY2024"
+    )
     assert (shares.quantity_kind, shares.currency, shares.scale, shares.factor, shares.unit) == (
         "shares",
         None,
@@ -838,3 +918,95 @@ def test_canonical_audit_source_positions_retain_statement_dimensions_and_unit_c
         Decimal(1_000_000),
         "million shares",
     )
+
+
+def _cfs_cash_history_book(amounts: dict[tuple[str, str], int]) -> FinancialBook:
+    periods = _quarter_history_book().periods  # Q1 (Jan-Mar 2024) and H1 (Jan-Jun 2024)
+    lines = tuple(
+        quantity_fixtures.line(f"{item}-{period_id}", period_id, item, priority=index).model_copy(
+            update={
+                "value": Observation(
+                    observation_id=f"obs:{item}:{period_id}",
+                    status="known",
+                    amount=Decimal(amount),
+                    citations=(quantity_fixtures.cite(f"{item} {period_id} {amount}"),),
+                )
+            }
+        )
+        for index, ((item, period_id), amount) in enumerate(amounts.items(), start=1)
+    )
+    return quantity_fixtures.book(lines).model_copy(update={"periods": periods})
+
+
+def _history_by_label(book: FinancialBook) -> dict[tuple[str, str], PeriodValue]:
+    pack, review = _bound_pack_review(book)
+    history = statement_history(pack, review, book.book_id)
+    assert validate_statement_history(pack, review, history) == ()
+    labels = {item.construction_id: item.label for item in history.constructions}
+    return {(labels[item.construction_id], item.item_id): item.value for item in history.values}
+
+
+def test_cfs_opening_and_closing_cash_are_balances_not_flows() -> None:
+    # A 10-Q CFS printed YTD only: Q1 cash 480 -> 500, H1 cash 480 -> 520.
+    values = _history_by_label(
+        _cfs_cash_history_book(
+            {
+                ("opening_cash", "Q1"): 480,
+                ("opening_cash", "H1"): 480,
+                ("closing_cash", "Q1"): 500,
+                ("closing_cash", "H1"): 520,
+                ("net_cash_change", "Q1"): 20,
+                ("net_cash_change", "H1"): 40,
+            }
+        )
+    )
+    # Hand-derived: Q2 24 closing cash is the cash at 2024-06-30, H1's printed 520
+    # (never 520 - 500 = 20); LTM Q2 24 ends the same day, so it is 520 too.
+    for label in ("Q2 24", "LTM Q2 24"):
+        closing = values[(label, "closing_cash")]
+        assert closing.amount == Decimal(520)
+        assert closing.observation_ids == ("obs:closing_cash:H1",)
+    # Q2 24 opening cash is the cash at 2024-03-31: no opening-cash line starts on
+    # 2024-04-01, so it is Q1's printed closing cash 500 (never 480 - 480 = 0).
+    opening = values[("Q2 24", "opening_cash")]
+    assert opening.amount == Decimal(500)
+    assert opening.observation_ids == ("obs:closing_cash:Q1",)
+    assert "CFS closing cash at 2024-03-31" in (opening.note or "")
+    # No balance is stated at 2023-06-30, the day before LTM Q2 24 starts.
+    assert values[("LTM Q2 24", "opening_cash")].amount is None
+    # Net cash change is still a flow: 40 - 20 = 20.
+    assert values[("Q2 24", "net_cash_change")].amount == Decimal(20)
+
+
+def test_cfs_opening_cash_without_a_balance_at_its_date_stays_missing() -> None:
+    # Only YTD opening cash (at 2023-12-31) is printed; nothing states 2024-03-31.
+    values = _history_by_label(
+        _cfs_cash_history_book({("opening_cash", "Q1"): 480, ("opening_cash", "H1"): 480})
+    )
+    opening = values[("Q2 24", "opening_cash")]
+    assert opening.amount is None  # never 480 - 480 = 0
+    assert opening.calculation_status != "Calculated"
+
+
+@pytest.mark.parametrize(
+    ("raw", "shown", "value_class"),
+    [
+        # S15-C03: an outflow is shown negative, but a source zero keeps its lexeme (never "-0"),
+        # so it stays an unchanged source value. Expected by hand.
+        ("0", "0", "source"),
+        ("0.00", "0.00", "source"),
+        ("-0", "-0", "source"),  # the source's own lexeme
+        ("-0.00", "-0.00", "source"),
+        ("12.5", "-12.5", "normalized"),
+        ("-12.5", "-12.5", "source"),
+    ],
+)
+def test_an_outflow_zero_keeps_its_source_lexeme(raw: str, shown: str, value_class: str) -> None:
+    from deploy_vii.model_interface import _observed
+
+    cite = Citation(source_id="s", source_sha256="a" * 64, locator="page:1", quote="Dividends 0")
+    amount = Decimal(raw)
+    observed = Observation(observation_id="o", status="known", amount=amount, citations=(cite,))
+    book = SimpleNamespace(unit="MILLIONS", currency="USD")
+    cell = _observed(observed, book, outflow=True)  # type: ignore[arg-type]
+    assert (str(cell.value), cell.value_class, str(cell.source_amount)) == (shown, value_class, raw)

@@ -208,6 +208,16 @@ def test_issuer_word_wrapping_preserves_original_handoff_bytes(
     assert next(s for s in view.sources if s.source_id == "CP-2-handoff").sha256 == expected
 
 
+def test_issuer_name_inside_another_word_does_not_establish_the_issuer(tmp_path: Path) -> None:
+    # "Digm" is the middle of "TransDigm": a name embedded in a longer word is not a match.
+    path = copy_job(tmp_path)
+    job = json.loads(path.read_text())
+    job["run"]["issuer_name"] = "Digm"
+    path.write_text(json.dumps(job))
+    with pytest.raises(ValueError, match="Issuer name"):
+        prepare(path)
+
+
 def test_whitespace_only_issuer_refuses_before_export(tmp_path: Path) -> None:
     path = copy_job(tmp_path)
     job = json.loads(path.read_text())
@@ -276,3 +286,21 @@ def test_concurrent_export_has_one_complete_writer(tmp_path: Path) -> None:
     record = json.loads((destination / "delivery.json").read_text())
     for name, expected in record["files"].items():
         assert hashlib.sha256((destination / name).read_bytes()).hexdigest() == expected
+
+
+def test_cp2_key_risks_line_is_kept_with_its_materiality_ratings() -> None:
+    """The handoff's `**Key risks:**` line (CP-2, runs/tdg-002 line 76) carries the (Material) and
+    (Critical evidence gap) ratings; mapping it away would leave a report that omits them."""
+    view, _, _ = prepare(RUN / "snapshot-inputs.json")
+    cp2 = next(m for m in view.modules if m.module_id == "CP-2")
+    kept = [text for text in cp2.limitations if text.startswith("Key risks")]
+    assert len(kept) == 1
+    for rating in (
+        "(Material) refinancing access at the FY2028–FY2029 maturity concentration",
+        "(Material) cash depletion through distributions and acquisitions alongside debt service",
+        (
+            "(Critical evidence gap) current unrestricted liquidity, covenant headroom and legal "
+            "capacity cannot be established"
+        ),
+    ):
+        assert rating in kept[0]

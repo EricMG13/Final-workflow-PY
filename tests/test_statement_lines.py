@@ -7,6 +7,7 @@ filing, the rows DVII's extractor reads on a td/th-marked re-conversion (`line`,
 
 import hashlib
 import json
+from decimal import Decimal
 from collections.abc import Iterator
 from functools import cache
 from pathlib import Path
@@ -17,11 +18,12 @@ import pytest
 from test_line_locators import FIN, make_pack
 
 from deploy_vii.contracts import Span
+from deploy_vii.live.tools import ToolError
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.source_context import SourceContextReview
 from deploy_workflow import financial_workflow as fw
 from deploy_workflow.html_text import convert_html
-from deploy_workflow.statement_lines import LineTools, respace, seen_tables
+from deploy_workflow.statement_lines import LineTools, line_table, respace, seen_tables
 from deploy_workflow.tools.source import SourceTools
 
 REPO = Path(__file__).resolve().parents[1]
@@ -206,3 +208,88 @@ def test_the_shc_headers_map_to_the_columns_of_the_rows(
     assert found, headers
     widths = {len(row["raw_values"]) for row in unit["rows"]}
     assert widths == {len(found[0])}
+
+
+# ---- S11-A03 / C02: HTML value cells beyond `$ 1,234` (synthetic lines, no corpus) ---------
+
+
+def _spans(lines: list[str]) -> dict[int, Span]:
+    return {i: Span(locator=f"line:{i}", text=text) for i, text in enumerate(lines, 1)}
+
+
+@pytest.mark.parametrize("symbol", ["€", "£"])
+def test_euro_and_pound_value_cells_are_respaced_and_extracted(symbol: str) -> None:
+    """By hand: three data rows, Revenue 1,234 and 1,100, Cost of sales (800) and (700), and
+    Operating profit 434 and 400; the symbol marks the first and third rows' cells."""
+    lines = [
+        "CONSOLIDATED INCOME STATEMENT",
+        "2024 2023",
+        f"Revenue {symbol} 1,234 {symbol} 1,100",
+        "Cost of sales (800) (700)",
+        f"Operating profit {symbol} 434 {symbol} 400",
+    ]
+    assert respace(lines[2]) == f"Revenue  {symbol} 1,234  {symbol} 1,100"
+    assert " ".join(respace(lines[2]).split()) == lines[2]
+    table = line_table(_spans(lines), "line:1-5", "fin")
+    assert [(row.label, row.values, row.currency_values) for row in table.lines] == [
+        ("Revenue", (Decimal(1234), Decimal(1100)), (True, True)),
+        ("Cost of sales", (Decimal(-800), Decimal(-700)), (False, False)),
+        ("Operating profit", (Decimal(434), Decimal(400)), (True, True)),
+    ]
+
+
+@pytest.mark.parametrize(
+    "line,spaced",
+    [
+        ("Operating loss $ (250 ) $ (10 )", "Operating loss  $ (250 )  $ (10 )"),
+        ("Other expense −45 −30", "Other expense  −45  −30"),
+        ("Capex (1,234 ) (1,100 )", "Capex  (1,234 )  (1,100 )"),
+    ],
+)
+def test_split_parenthesis_and_unicode_minus_cells_are_cells_not_label(
+    line: str, spaced: str
+) -> None:
+    assert respace(line) == spaced
+    assert " ".join(spaced.split()) == line
+
+
+def test_a_row_the_extractor_cannot_read_refuses_the_range_instead_of_vanishing() -> None:
+    """EDGAR prints `<td>(250</td><td>)</td>`, converted to `(250 )`, and a Unicode minus `−45`;
+    the extractor reads neither. The range is refused naming the line and its cells, so the
+    operating loss cannot silently disappear from the extraction and the coverage gate."""
+    html = (
+        b"<html><body><table>"
+        b"<tr><td></td><td>2024</td><td>2023</td></tr>"
+        b"<tr><td>Revenue</td><td>$</td><td>1,234</td><td>$</td><td>1,100</td></tr>"
+        b"<tr><td>Operating loss</td><td>$</td><td>(250</td><td>)</td>"
+        b"<td>$</td><td>(10</td><td>)</td></tr>"
+        b"<tr><td>Other expense</td><td>&#8722;45</td><td>&#8722;30</td></tr>"
+        b"<tr><td>Net loss</td><td>$</td><td>(300)</td><td>$</td><td>(40)</td></tr>"
+        b"</table></body></html>"
+    )
+    lines = convert_html(html).text.splitlines()
+    assert lines[2] == "Operating loss $ (250 ) $ (10 )"
+    with pytest.raises(ToolError, match=r"line:3 of fin holds value cells Python cannot read"):
+        line_table(_spans(lines), "line:1-5", "fin")
+    with pytest.raises(ToolError, match=r"line:4 of fin .*'−45', '−30'"):
+        line_table(_spans(lines), "line:4-5", "fin")
+    one_column = _spans(["2024", "Operating loss $ (250 )"])
+    with pytest.raises(ToolError, match=r"line:2 of fin .*'\$ \(250 \)'"):
+        line_table(one_column, "line:1-2", "fin")
+    # The readable rows of a range without those lines extract as before (hand-read values).
+    table = line_table(_spans(lines), "line:1-2", "fin")
+    assert [(row.label, row.values) for row in table.lines] == [
+        ("Revenue", (Decimal(1234), Decimal(1100)))
+    ]
+
+
+def test_a_bare_closing_parenthesis_or_minus_in_a_label_is_not_a_value_cell() -> None:
+    """A label ending in `)` (`Tax (note 4)` is a footnote, not a split number) and a label with
+    a minus sign are left to the extractor as today; only a `(N` `)` pair or a `−N` cell counts."""
+    assert respace("Income tax (benefit) 12 10") == "Income tax (benefit)  12  10"
+    assert respace("Other ) 12 10") == "Other )  12  10"
+    assert respace("Non−operating items 12 10") == "Non−operating items  12  10"
+    table = line_table(_spans(["2024 2023", "Income tax (benefit) 12 10"]), "line:1-2", "fin")
+    assert [(row.label, row.values) for row in table.lines] == [
+        ("Income tax (benefit)", (Decimal(12), Decimal(10)))
+    ]

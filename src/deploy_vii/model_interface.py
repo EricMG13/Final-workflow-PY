@@ -198,7 +198,8 @@ def _observed(
     outflow: bool = False,
 ) -> _Cell:
     amount = value.amount if value else None
-    normalized = amount.copy_abs().copy_negate() if outflow and amount is not None else amount
+    # an outflow is shown negative; a zero keeps its source lexeme ("0", "0.00"), never "-0"
+    normalized = amount.copy_abs().copy_negate() if outflow and amount else amount
     return _Cell(
         normalized,
         _citations(value) if value else (),

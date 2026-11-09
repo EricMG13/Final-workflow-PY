@@ -121,6 +121,9 @@ def test_info1_cash_missing_takes_the_currency_the_known_facts_state() -> None:
     inputs = _without_cash(tm._inputs("positive"))
     assert cp3c.reporting_currency(cp1=inputs.cp1, cp2d=inputs.cp2d) == "USD"
     euro = _every_millions_fact(inputs, lambda f: replace(f, currency="EUR"))
+    # S08-cp3-C01: a facility's amortisation is in the facility's own stated currency.
+    facilities = tuple(replace(t, currency="EUR") for t in euro.cp1.facilities)
+    euro = replace(euro, cp1=replace(euro.cp1, facilities=facilities))
     assert cp3c.reporting_currency(cp1=euro.cp1, cp2d=euro.cp2d) == "EUR"
     cp3c.check_currency(cp1=euro.cp1, cp2d=euro.cp2d, currency="EUR")  # sourced: no raise
     # One known US$ m fact is enough to source it; the rest may be gaps.

@@ -1012,7 +1012,7 @@
     "context.py:756-769": "src/deploy_workflow/context.py context_facts pairs and `{path}: context has {theirs!r} but the run has {ours!r}` (verified at 73e254fd: pairs :756-762, problems :763-768, raise :769)",
     "contracts.py:49-51": "src/deploy_vii/contracts.py _PRESETS credit_snapshot (CP-0, CP-1, CP-MODEL, CP-1A, CP-2, CP-4, ...)",
     "owner_workflow _gate": "src/deploy_workflow/owner_workflow.py:837-855; _PRECHECKS :625-627 holds only CP-4 today (the CP-0 row is Task 3)",
-    "cp4_legal.py:476-478": "the frozen 'is not an executed or filed source (CP-0 authority ..., or the source is not ready)' row issue"
+    "cp4_legal.py:476-478": "the row issue 'is not an executed, filed or, on a draft-documents run, draft source (CP-0 authority ..., or the source is not ready)' (reworded by S09-cp4-cp5-C04)"
   },
   "builder": {
     "file": "cases/context-attachments-owner/builder/build.py",
@@ -1026,7 +1026,7 @@
     "context-executed.json": "f92dd06a94396ce504c6fda97ce251aebf156e33b557aed56bee2e0308239f20",
     "context-mismatch.json": "98a6edffbb6cdc0c902dfb1131cb01c49908defd359de312aca8b45230f36fa3",
     "context-none.json": "3e18a4d9115d85718b68d0c93ad9ba68e89c5b6a6b9e13bf58e2f456bc263d49",
-    "expected.json": "e9802e51d8479f842445109a4e198e0b2db1b3df898b1aacc012768878dcd90f",
+    "expected.json": "410f08b736e809c18e8b07c15c4123af86f0c867f9e48d2bc7a69db8759f8690",
     "legal-draft.txt": "cdbe0de656d957909f1ddc7b3b78747c0fbdca1191d06bf5fd0759d5bbea7993",
     "submissions.json": "24873f0bf20ec6bfdae68974fbeddb8e27454d02bc0593f82d9105d35f353437"
   },

@@ -743,3 +743,113 @@ def test_a_family_a_dossier_cell_cannot_hold_stops_intake_before_any_fetch(name:
     with pytest.raises(it.IntakeError) as raised:
         it.parse_rows([one_url_row(family=case["family"])])
     assert str(raised.value) == case["reason"]
+
+
+# S16 A06/C08: hand-derived - a control character anywhere in the path is a manifest error
+# (IntakeError), never a raw ValueError from the file system call.
+@pytest.mark.parametrize("path", ["a\x00b.txt", "a\nb.txt", "\x00", "a\x1fb.txt", "dir/\x7f.txt"])
+def test_a_control_character_in_a_path_is_an_intake_error(tmp_path: Path, path: str) -> None:
+    rows = it.parse_rows(
+        [
+            {
+                "path": path,
+                "family": "Wire",
+                "locator": "L1",
+                "tag": "research",
+                "published": "2025-01-01",
+            }
+        ]
+    )
+    day = date(2026, 1, 1)
+    with pytest.raises(it.IntakeError, match="control character"):
+        it.intake(rows, base_dir=tmp_path, dest_dir=None, as_of=day, cutoff=day, today=day)
+
+
+def _one_path_intake(base: Path, path: str) -> it.IntakeResult:
+    rows = it.parse_rows(
+        [
+            {
+                "path": path,
+                "family": "Wire",
+                "locator": "L1",
+                "tag": "research",
+                "published": "2025-01-01",
+            }
+        ]
+    )
+    day = date(2026, 1, 1)
+    return it.intake(rows, base_dir=base, dest_dir=None, as_of=day, cutoff=day, today=day)
+
+
+# S16 A06 review: hand-derived - a path the file system cannot encode (a lone high surrogate from a
+# JSON \ud800 escape) is a manifest error too, and neither refusal repeats the path it refuses.
+@pytest.mark.parametrize(
+    ("path", "reason"),
+    [
+        ("secret\ud800.txt", "manifest path is not a usable file path"),
+        ("secret\x00name.txt", "manifest path contains a control character (NUL, line feed, ...)"),
+    ],
+)
+def test_an_unusable_path_is_an_intake_error_that_names_no_path(
+    tmp_path: Path, path: str, reason: str
+) -> None:
+    with pytest.raises(it.IntakeError) as raised:
+        _one_path_intake(tmp_path, path)
+    assert str(raised.value) == reason
+
+
+# Hand-derived: accents, CJK, spaces and (on POSIX, a plain name character) a backslash are not
+# control characters; such a file is read as before.
+@pytest.mark.parametrize(
+    "name",
+    [
+        "café.txt",
+        "日本語 文書.txt",
+        "a b.txt",
+        pytest.param(
+            "dir\\win.txt",
+            marks=pytest.mark.skipif(os.name != "posix", reason="a separator off POSIX"),
+        ),
+    ],
+)
+def test_a_unicode_path_name_is_still_read(tmp_path: Path, name: str) -> None:
+    (tmp_path / name).write_text("Alder Ridge said revenue rose.\n", encoding="utf-8")
+    got = _one_path_intake(tmp_path, name)
+    assert [(a.item_id, a.path) for a in got.accepted] == [("ev-1", name)]
+    assert got.refused == ()
+
+
+# Followup of S16-A06/C08: a lone surrogate in a row string is refused at parse time (it used to
+# pass intake and raise UnicodeEncodeError in evidence_bytes).
+# Expected (hand-derived): "\udcff" is a lone low surrogate -> IntakeError for path, family and
+# locator, and the refusal text never contains the value; "é中文" is valid UTF-8 and parses;
+# and a valid JSON pair (U+1F600) in a path is accepted.
+@pytest.mark.parametrize("key", ["path", "family", "locator"])
+def test_lone_surrogate_in_a_row_string_is_refused(manifest: dict[str, Any], key: str) -> None:
+    with pytest.raises(it.IntakeError, match="not valid text|not a usable file path") as caught:
+        it.parse_rows([row_of(manifest, **{key: "\udcff.txt"})])
+    assert "udcff" not in str(caught.value) and "\udcff" not in str(caught.value)
+
+
+def test_non_ascii_path_and_paired_surrogates_are_accepted(
+    tmp_path: Path, manifest: dict[str, Any]
+) -> None:
+    name = "é中文" + json.loads('"\\ud83d\\ude00"') + ".txt"  # the pair decodes to U+1F600
+    put(tmp_path, name, b"good body")
+    result = call(tmp_path, manifest, [row_of(manifest, path=name)])
+    assert len(result.accepted) == 1 and not result.refused
+
+
+def test_surrogate_refusal_comes_before_any_fetch(tmp_path: Path, manifest: dict[str, Any]) -> None:
+    fetched: list[str] = []
+
+    def fetch(*args: object, **kwargs: object) -> Any:
+        fetched.append("called")
+        raise AssertionError("a fetch was attempted")
+
+    url = {k: v for k, v in row_of(manifest).items() if k != "path"} | {
+        "url": "https://x.example/a"
+    }
+    with pytest.raises(it.IntakeError, match="not a usable file path"):
+        call(tmp_path, manifest, [url, row_of(manifest, path="\udcff.txt")], fetch=fetch)
+    assert fetched == [] and not (tmp_path / "out").exists()

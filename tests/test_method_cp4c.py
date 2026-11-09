@@ -18,6 +18,7 @@ import hashlib
 import json
 import re
 import string
+from collections.abc import Mapping, Sequence
 from dataclasses import fields, replace
 from decimal import Decimal
 from fractions import Fraction
@@ -936,6 +937,96 @@ def test_a2_4_other_cp4_rating_or_conditions_stays_fail_closed() -> None:
         with pytest.raises(ValueError, match=r"round 8 A-2 #4") as raised:
             cp4c.compute(cp4c.Cp4cInputs(context=bad, submission=_inputs("positive").submission))
         assert "LEAD to" not in str(raised.value)
+
+
+def _with_cp4(facts: Sequence[Fact]) -> cp4c.Cp4cInputs:
+    """The positive inputs over a CP-4 head holding `facts`."""
+    ctx = _context("positive")
+    bad = replace(ctx, cp4=replace(ctx.cp4, facts=tuple(facts)))
+    return cp4c.Cp4cInputs(context=bad, submission=_inputs("positive").submission)
+
+
+def _renumbered(f: Fact, rows: Mapping[str, str]) -> Fact:
+    """A T4.10 fact moved to the row `rows` names, its fact id with it."""
+    if f.table_id != "T4.10" or f.row_id not in rows:
+        return f
+    row = rows[f.row_id]
+    return _refact(f, row_id=row, fact_id=f.fact_id.replace(f".{f.row_id}.", f".{row}."))
+
+
+def test_s09_c02_baskets_in_another_order_select_the_consent_row() -> None:
+    """S09-C02: the CP-4 model lists the consent basket first (r01 <-> r02). CP-4C reads it by
+    its conditions, so the result equals the frozen one except the consent row's fact ids."""
+    ctx = _context("positive")
+    swapped = [_renumbered(f, {"r01": "r02", "r02": "r01"}) for f in ctx.cp4.facts]
+    inputs = _with_cp4(swapped)
+    assert cp4c.content_issues(inputs) == ()
+    terms = inputs.context.cp4.terms(FACILITY)
+    assert (terms.permits.fact_id, terms.conditions.fact_id) == (
+        "T4.10.r01.permits",
+        "T4.10.r01.conditions",
+    )
+    assert terms.conditions.text == (
+        "Prior written consent of every lender; no automatic additional debt basket is provided"
+    )
+    want, got = cp4c.compute(_inputs("positive")), cp4c.compute(inputs)
+    assert (got.waterfalls, got.enterprise_values) == (want.waterfalls, want.enterprise_values)
+    assert (got.claims, got.own_limitations) == (want.claims, want.own_limitations)
+
+    def shown(result: cp4c.RestructuringResult) -> list[tuple[str, str | None, Decimal | None]]:
+        return [(c.fact.fact_id, c.fact.text, c.fact.amount) for c in result.cells]
+
+    assert shown(got) == shown(want)
+    cp4_refs = [r.fact.fact_id for r in got.references[3].rows]
+    assert cp4_refs == [
+        "T4C.11.r01.facility_id",
+        "T4C.11.r01.facility",
+        "T4.10.r01.permits",
+        "T4.10.r01.conditions",
+        "T4.13.rating.rating",
+    ]
+
+
+@pytest.mark.parametrize(
+    ("drop", "reason"),
+    [
+        (("T4.10", "r02"), "0 CP-4 capacity rows (T4.10) state the every-lender consent"),
+        (("T4C.11", "r01"), "maps no covenant to the secured facility term-loan (T4C.11)"),
+        (("T4.13", "rating"), "the CP-4 lender protection rating is None"),
+    ],
+)
+def test_s09_a04_c02_a_cp4_head_cp4c_cannot_read_is_an_issue(
+    drop: tuple[str, str], reason: str
+) -> None:
+    """S09-A04/C02: a CP-4 head without the consent basket, without a row mapping a covenant to
+    the CP-1 secured facility, or without its rating is the one content issue, not a raise."""
+    facts = [f for f in _context("positive").cp4.facts if (f.table_id, f.row_id) != drop]
+    issues = cp4c.content_issues(_with_cp4(facts))
+    assert len(issues) == 1 and reason in issues[0] and "fails closed" in issues[0]
+
+
+def test_s09_a04_another_rating_is_an_issue_before_compute() -> None:
+    """S09-A04: an Adequate rating (an ordinary CP-4 output) is refused by the validator's own
+    issue set, so `compute` is never reached with a head it would raise on."""
+    facts = [
+        _refact(f, text="Adequate") if f.fact_id == "T4.13.rating.rating" else f
+        for f in _context("positive").cp4.facts
+    ]
+    assert cp4c.content_issues(_with_cp4(facts)) == (
+        (
+            "CP-4C: the CP-4 lender protection rating is 'Adequate'; the own limitation states "
+            "Insufficient Information, so another rating fails closed (round 8 A-2 #4)"
+        ),
+    )
+
+
+def test_s09_c02_two_consent_rows_are_an_issue() -> None:
+    """Two capacity rows with the every-lender consent are ambiguous: refused, not guessed."""
+    ctx = _context("positive")
+    extra = [_renumbered(f, {"r02": "r09"}) for f in ctx.cp4.facts if f.row_id == "r02"]
+    extra = [f for f in extra if f.table_id == "T4.10"]
+    issues = cp4c.content_issues(_with_cp4([*ctx.cp4.facts, *extra]))
+    assert len(issues) == 1 and issues[0].startswith("CP-4C: 2 CP-4 capacity rows (T4.10)")
 
 
 CP1_EBITDA_MISSING = f"Not calculable: EBITDA is missing in CP-1 for {LTM}"
@@ -1960,3 +2051,41 @@ def test_nonblank_quote_twin_is_accepted(field: tuple[str, tuple[str | int, ...]
     for key in keys:
         cur = cur[key]
     assert cur.strip() and _payload_issues(payload) == ()
+
+
+def test_review_s09_the_facility_row_must_state_a_known_secured_facility() -> None:
+    """A T4C.11 row whose facility_id is not known (or names another facility) maps nothing."""
+    ctx = _context("positive")
+    for change in (
+        {"status": "missing", "text": None, "limitation": "not stated"},
+        {"text": "other-loan"},
+    ):
+        facts = [
+            _refact(f, **change) if f.fact_id == "T4C.11.r01.facility_id" else f
+            for f in ctx.cp4.facts
+        ]
+        issues = cp4c.content_issues(_with_cp4(facts))
+        assert (
+            len(issues) == 1 and "maps no covenant to the secured facility term-loan" in issues[0]
+        )
+
+
+def test_review_s09_two_ratings_or_two_facility_names_are_an_issue() -> None:
+    """A duplicated rating fact is not read as the pinned one; two T4C.11 rows of the secured
+    facility naming different facilities fail closed."""
+    ctx = _context("positive")
+    rating = next(f for f in ctx.cp4.facts if f.fact_id == "T4.13.rating.rating")
+    issues = cp4c.content_issues(_with_cp4([*ctx.cp4.facts, rating]))
+    assert len(issues) == 1 and "rating is None" in issues[0]
+    rows = [f for f in ctx.cp4.facts if f.table_id == "T4C.11"]
+    other = [
+        _refact(
+            f,
+            row_id="r02",
+            fact_id=f.fact_id.replace(".r01.", ".r02."),
+            **({"text": "Another facility"} if f.field == "facility" else {}),
+        )
+        for f in rows
+    ]
+    issues = cp4c.content_issues(_with_cp4([*ctx.cp4.facts, *other]))
+    assert len(issues) == 1 and "name different facilities" in issues[0]

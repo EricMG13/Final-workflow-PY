@@ -349,3 +349,61 @@ def test_absent_input_limitation_refuses_non_absent_cases() -> None:
     assert text is not None
     assert text.startswith(PREFIX + "Check cannot be computed")
     assert "Component A (not supplied)" in text
+
+
+def _complete_check(explanation: str) -> Reconciliation:
+    """Every term has an amount (reported 55; components 100, -40, -30, 10 sum to 40, a real
+    difference of -15 that a structural blocker suppressed)."""
+    return Reconciliation.model_construct(
+        check_id="chk-2",
+        period_id="fy-2025",
+        reported=_term("Reported EBITDA", "55", "obs-ebitda"),
+        components=(
+            _term("Revenue", "100", "obs-rev"),
+            _term("COGS", "-40", "obs-cogs"),
+            _term("Opex", "-30", "obs-opex"),
+            _term("D&A", "10", "obs-da"),
+        ),
+        difference=None,
+        status="BLOCK",
+        explanation=explanation,
+    )
+
+
+@pytest.mark.parametrize(
+    "explanation",
+    [
+        "Expense presentation is unknown",
+        "Four dated quarters do not span the reported FY",
+        "Add-back bridge is incomplete or undisclosed",
+    ],
+)
+def test_structural_blocker_with_every_input_present_stays_block(explanation: str) -> None:
+    """S13 A01/C02: no term is absent, so the BLOCK is not an absent input (item 82 does not
+    apply) and must not be downgraded to a WARN limitation."""
+    from deploy_vii.canonical_audit import absent_input_limitation
+
+    none: frozenset[str] = frozenset()
+    check = _complete_check(explanation)
+    assert absent_input_limitation(check, public=True, conflicting=none) is None
+    period = _period_check().model_copy(
+        update={
+            "components": (_period_term("Component B", "4", ("obs-b",)),),
+            "explanation": explanation,
+        }
+    )
+    assert absent_input_limitation(period, public=True, conflicting=none) is None
+
+
+@pytest.mark.parametrize(
+    "explanation",
+    ["Disclosed segment schedule is incomplete", "Disclosed segment schedule is partial"],
+)
+def test_partial_segment_disclosure_is_an_absent_input(explanation: str) -> None:
+    """The undisclosed segment rows are the absent inputs, so item 82 applies with every listed
+    term present; the text names no absent term."""
+    from deploy_vii.canonical_audit import absent_input_limitation
+
+    none: frozenset[str] = frozenset()
+    text = absent_input_limitation(_complete_check(explanation), public=True, conflicting=none)
+    assert text == PREFIX + explanation

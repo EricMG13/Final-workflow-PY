@@ -702,6 +702,7 @@
   const DEST = [["front", "Front Page", "#front"], ["analysis", "Analysis", "#analysis"], ["model", "Model", "#CP-1"],
     ["fit", "Portfolio Fit", "#FIT"], ["evidence", "Evidence", "#evidence"], ["limits", "Limitations", "#limitations"]];
   const destOf = (route) => {
+    if (route === "CP-MODEL") return "model";  // model.html's rail link is patched to #CP-MODEL
     const module = moduleFor(route);
     if (module) return module.module_id === "CP-1" ? "model" : "analysis";
     return {front: "front", analysis: "analysis", FIT: "fit", evidence: "evidence", limitations: "limits"}[route] || null;

@@ -183,11 +183,15 @@ _EVIDENCE_GROUPS: dict[str, tuple[frozenset[str], ...]] = {
 }
 
 
+# Catalogue kinds whose row holds a PeriodValue `value`; a null amount there is unavailable.
+_PERIOD_VALUE_KINDS = frozenset({"kpi", "computation", "historical_value", "canonical_value"})
+
+
 def _evidence_tags(record: EvidenceRecord) -> set[str]:
     """Only compatible, available numeric evidence can support sufficient inputs."""
     data = json.loads(record.record_json)
     if (
-        (record.kind == "kpi" and data["value"]["amount"] is None)
+        (record.kind in _PERIOD_VALUE_KINDS and data["value"]["amount"] is None)
         or (record.kind.startswith("statement_") and data["normalized_amount"] is None)
         or (record.kind == "observation" and data["observation"]["amount"] is None)
     ):

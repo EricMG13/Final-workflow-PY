@@ -198,3 +198,33 @@ def test_other_pathway_keeps_its_existing_header_contract():
     files = markdown_files(request, CASE)
     rv = json.loads(files["report-view.json"])
     assert rv["call"][0]["value_text"] == "Assessment pending"
+
+
+def repeated_posture_input(first, second):
+    """`### Final Sizing Posture` once under Findings and once under Gaps (a repeated heading)."""
+    raw = (
+        "# CP-6 — LQD\n\n## Request\n\nSynthetic posture transport test.\n\n"
+        "## Sources\n\nSynthetic test only.\n\n## Findings\n\n### Final Sizing Posture\n\n"
+        f"{first}\n\n## Calculations\n\nNone.\n\n## Gaps\n\n### Final Sizing Posture\n\n"
+        f"{second}\n\n## Next module\n\nTransport verification.\n"
+    ).encode()
+    module, _, metadata = literal_module("CP-6", raw)
+    return module, metadata, {("CP-6", fact.fact_id): ("C1",) for fact in module.facts}
+
+
+def test_a_posture_under_a_repeated_heading_is_still_found_once():
+    # Hand-derived: the repeated heading gives path labels ("Findings > Final Sizing Posture",
+    # "Gaps > Final Sizing Posture"); the one terminal record is still the header's posture.
+    result = _portfolio_call(
+        *repeated_posture_input("Final Sizing Posture: Include.", "Not reassessed here.")
+    )
+    assert (result.value_text, result.ref_id) == ("Include", "C1")
+
+
+def test_conflicting_postures_under_a_repeated_heading_are_refused_not_withheld():
+    with pytest.raises(ValueError, match="markdown_posture"):
+        _portfolio_call(
+            *repeated_posture_input(
+                "Final Sizing Posture: Avoid.", "Final Sizing Posture: Include."
+            )
+        )

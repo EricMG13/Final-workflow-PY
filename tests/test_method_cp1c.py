@@ -8,6 +8,7 @@ probe recorded in the manifest and the literal analyst payloads).
 import hashlib
 import json
 import re
+from datetime import date
 from decimal import Decimal
 from functools import cache
 from pathlib import Path
@@ -136,6 +137,7 @@ def inputs(
         sources=sources(pack or case),
         cp1_metrics=cp1_metrics() if cp1 is None else cp1,
         submission=cp1c.PeerBenchmarkSubmission.model_validate_json(json.dumps(body)),
+        as_of=date.fromisoformat(manifest()["cases"][case]["run"]["as_of"]),
     )
 
 
@@ -458,6 +460,7 @@ def _with_sources(
         sources=edited,
         cp1_metrics=base.cp1_metrics,
         submission=base.submission,
+        as_of=base.as_of,
     )
 
 
@@ -566,6 +569,166 @@ def test_tie_out_differs_when_the_issuer_line_disagrees() -> None:
     assert facts["T1C.6.adjusted_ebitda_margin.result"].text == "Differs"
     assert facts["T1C.6.adjusted_ebitda_margin.difference"].amount != 0
     assert facts["T1C.6.total_leverage_adjusted.result"].text == "Reconciled"
+
+
+# A02/C04: the issuer line dated 2023-12-31 while CP-1's LTM column is LTM Q4 25 (2025-01-01 to
+# 2025-12-31). The same figures would tie exactly (every result Reconciled on the frozen line),
+# but two periods are never tied out: every difference is not_applicable with the stated reason,
+# every result Not compared, and the sheet cell keeps its own period.
+STALE_ISSUER_LINE = ISSUER_LINE.replace("2025-12-31", "2023-12-31")
+STALE_REASON = "Not compared: the issuer line on the peer source ends 2023-12-31, not 2025-12-31"
+STALE_LIMITATION = (
+    "Peer ratios use the definitions stated in the peer summary; the issuer line on the same "
+    "summary is for the twelve months to 2023-12-31, not CP-1's LTM period ending 2025-12-31, so "
+    "it is not tied to CP-1 in the definition alignment table."
+)
+TIED_LIMITATION = (
+    "Peer ratios use the definitions stated in the peer summary; the issuer line on the same "
+    "summary is tied to CP-1 in the definition alignment table."
+)
+
+
+@pytest.mark.parametrize(
+    ("metric", "unit"),
+    [
+        ("adjusted_ebitda_margin", "pp"),
+        ("total_leverage_adjusted", "MULTIPLE"),
+        ("interest_coverage_adjusted", "MULTIPLE"),
+        ("ffo_to_debt", "pp"),
+    ],
+)
+def test_tie_out_across_two_periods_is_not_compared(metric: str, unit: str) -> None:
+    edited = _edited("positive", 1, ISSUER_LINE, STALE_ISSUER_LINE)
+    case = _with_sources("positive", edited)
+    assert cp1c.calculation_issues(case) == ()
+    found = cp1c.compute(case)
+    facts = _facts(found)
+    assert facts[f"T1C.6.{metric}.sheet"].status == "known"
+    assert facts[f"T1C.6.{metric}.sheet"].period == "Twelve months to 2023-12-31"
+    assert facts[f"T1C.6.{metric}.cp1"].period == "LTM Q4 25: 2025-01-01 to 2025-12-31"
+    difference = facts[f"T1C.6.{metric}.difference"]
+    assert (
+        difference.status,
+        difference.limitation,
+        difference.amount,
+        difference.unit,
+        difference.period,
+    ) == ("not_applicable", STALE_REASON, None, unit, None)
+    assert facts[f"T1C.6.{metric}.result"].text == "Not compared"
+    assert STALE_LIMITATION in found.limitations
+    assert TIED_LIMITATION not in found.limitations
+
+
+def test_tie_out_on_cp1s_period_end_still_reconciles() -> None:
+    """Control: the frozen issuer line (2025-12-31) still ties and keeps the tied limitation."""
+    found = cp1c.compute(_with_sources("positive", sources("positive")))
+    facts = _facts(found)
+    assert facts["T1C.6.total_leverage_adjusted.result"].text == "Reconciled"
+    assert TIED_LIMITATION in found.limitations
+
+
+# A03: the run is as of 2026-01-10 and CP-1's LTM column ends 2025-12-31 (manifest and
+# cp1_metrics above). REF_CP-1C trigger 7: peer data more than 12 months older than the
+# borrower's cannot be Comparable without disclosure; 12 calendar months before 2025-12-31 is
+# 2024-12-31, so a period end on 2024-12-31 is in the window and 2024-12-30 is not.
+BROOKMERE = "Brookmere Industries  2025-12-31  150.0  33.0  99.0  11.0  30.0"
+STALE_BROOKMERE = (
+    "Peer period end more than 12 months before the issuer's LTM end 2025-12-31: assess it "
+    "Partly comparable with a limitation, or Not comparable: Brookmere Industries"
+)
+
+
+@pytest.mark.parametrize("end", ["2026-01-11", "2027-12-31"])
+def test_a_period_end_after_the_run_as_of_is_a_table_rule_breach(end: str) -> None:
+    """No source can report twelve months ending after the run's as-of date (2026-01-10)."""
+    edited = _edited("positive", 1, ALDER, ALDER.replace("2025-12-31", end))
+    assert cp1c.calculation_issues(_with_sources("positive", edited)) == ("Peer table not found",)
+
+
+def test_a_period_end_on_the_run_as_of_is_read() -> None:
+    edited = _edited("positive", 1, ALDER, ALDER.replace("2025-12-31", "2026-01-10"))
+    assert cp1c.calculation_issues(_with_sources("positive", edited)) == ()
+
+
+@pytest.mark.parametrize(
+    ("end", "issues"),
+    [
+        ("2012-12-31", (STALE_BROOKMERE,)),
+        ("2024-12-30", (STALE_BROOKMERE,)),
+        ("2024-12-31", ()),
+    ],
+)
+def test_a_comparable_peer_older_than_twelve_months_is_refused(
+    end: str, issues: tuple[str, ...]
+) -> None:
+    edited = _edited("positive", 1, BROOKMERE, BROOKMERE.replace("2025-12-31", end))
+    assert cp1c.calculation_issues(_with_sources("positive", edited)) == issues
+
+
+@pytest.mark.parametrize(
+    ("comparability", "included"),
+    [("Partly comparable", "Included"), ("Not comparable", "Excluded")],
+)
+def test_an_old_peer_assessed_with_its_limitation_is_composed(
+    comparability: str, included: str
+) -> None:
+    payload = submissions()["positive"]["peer_benchmark"]
+    payload = json.loads(json.dumps(payload))
+    brookmere = next(a for a in payload["assessments"] if a["peer"] == "Brookmere Industries")
+    brookmere["comparability"] = comparability
+    brookmere["limitation"] = "Figures are for the twelve months to 2012-12-31."
+    edited = _edited("positive", 1, BROOKMERE, BROOKMERE.replace("2025-12-31", "2012-12-31"))
+    case = _with_sources("positive", edited, payload=payload)
+    assert cp1c.calculation_issues(case) == ()
+    facts = _facts(cp1c.compute(case))
+    assert facts["T1C.1.p02.period_end"].text == "2012-12-31"
+    assert facts["T1C.1.p02.included"].text == included
+
+
+def test_a_disagreeing_issuer_line_of_another_period_is_not_called_different() -> None:
+    """Review: two periods are neither Reconciled nor Differs, whatever the figures say."""
+    line = STALE_ISSUER_LINE.replace("120.0", "125.0")
+    edited = _edited("positive", 1, ISSUER_LINE, line)
+    found = cp1c.compute(_with_sources("positive", edited))
+    facts = _facts(found)
+    margin = facts["T1C.6.adjusted_ebitda_margin.difference"]
+    assert (margin.status, margin.amount, margin.limitation) == (
+        "not_applicable",
+        None,
+        STALE_REASON,
+    )
+    assert facts["T1C.6.adjusted_ebitda_margin.result"].text == "Not compared"
+    assert STALE_LIMITATION in found.limitations
+
+
+def test_an_issuer_line_ending_after_cp1s_ltm_end_is_not_tied_either() -> None:
+    """The run is as of 2026-01-10, so 2026-01-10 is readable, but it is not CP-1's 2025-12-31."""
+    line = ISSUER_LINE.replace("2025-12-31", "2026-01-10")
+    edited = _edited("positive", 1, ISSUER_LINE, line)
+    case = _with_sources("positive", edited)
+    assert cp1c.calculation_issues(case) == ()
+    facts = _facts(cp1c.compute(case))
+    reason = "Not compared: the issuer line on the peer source ends 2026-01-10, not 2025-12-31"
+    assert facts["T1C.6.ffo_to_debt.difference"].limitation == reason
+    assert facts["T1C.6.ffo_to_debt.result"].text == "Not compared"
+
+
+def test_an_unavailable_issuer_figure_keeps_its_own_reason_over_a_period_mismatch() -> None:
+    line = STALE_ISSUER_LINE.replace("  120.0  ", "  Not stated  ")
+    edited = _edited("positive", 1, ISSUER_LINE, line)
+    found = cp1c.compute(_with_sources("positive", edited))
+    margin = _facts(found)["T1C.6.adjusted_ebitda_margin.difference"]
+    assert (margin.status, margin.limitation) == (
+        "missing",
+        "Not compared: one side is not available",
+    )
+    assert STALE_LIMITATION in found.limitations  # the leverage tie-out is still across periods
+
+
+def test_an_issuer_period_end_after_the_run_as_of_is_a_table_rule_breach() -> None:
+    line = ISSUER_LINE.replace("2025-12-31", "2026-01-11")
+    edited = _edited("positive", 1, ISSUER_LINE, line)
+    assert cp1c.calculation_issues(_with_sources("positive", edited)) == ("Peer table not found",)
 
 
 def test_negative_denominator_is_not_meaningful_with_its_reason() -> None:
@@ -749,6 +912,26 @@ def test_page2_table_ends_at_the_first_line_that_is_not_four_fields() -> None:
 def test_c3_basis_line_without_the_usd_millions_clause_is_peer_table_not_found(basis: str) -> None:
     case = _with_sources("positive", _edited("positive", 1, BASIS, basis))
     assert cp1c.calculation_issues(case) == ("Peer table not found",)
+
+
+@pytest.mark.parametrize(
+    ("first", "second", "accepted"),
+    [
+        (BASIS, None, True),  # one Basis line that agrees
+        ("Basis: EUR; amounts in thousands.", BASIS, False),  # contradicts, then agrees
+        (BASIS, "Basis: EUR; amounts in thousands.", False),  # agrees, then contradicts
+        (BASIS, BASIS, False),  # repeated
+    ],
+)
+def test_a06_more_than_one_basis_line_is_peer_table_not_found(
+    first: str, second: str | None, accepted: bool
+) -> None:
+    # Hand-derived: only a page:1 with exactly one Basis line is read; two lines could state two
+    # currencies or scales, so any second Basis line (agreeing or not) refuses the table.
+    both = first if second is None else f"{first}\n{second}"
+    case = _with_sources("positive", _edited("positive", 1, BASIS, both))
+    expected = () if accepted else ("Peer table not found",)
+    assert cp1c.calculation_issues(case) == expected
 
 
 # Round 3 ruling 1C-x: an amount with more than one decimal place breaches the table rule.
@@ -1299,3 +1482,35 @@ def test_blank_text_twin_is_accepted(field: tuple[str, tuple[str | int, ...]]) -
     path, keys = field
     issues = _blank_adapter(keys)("", "", "The peer figures are desk-supplied.")
     assert EMPTY_TEXT.format(path=path) not in issues, issues
+
+
+def test_c08_one_compute_parses_and_composes_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Hand-derived: a valid payload needs one peer-sheet parse and one composition; the
+    # composition built to check the references is the one the result is made from.
+    calls = {"parse_peer_source": 0, "_compose": 0}
+    for name in calls:
+        original = getattr(cp1c, name)
+
+        def counted(*args: object, _o: object = original, _n: str = name, **kw: object) -> object:
+            calls[_n] += 1
+            return _o(*args, **kw)  # type: ignore[operator]
+
+        monkeypatch.setattr(cp1c, name, counted)
+    case = inputs("positive")
+    assert cp1c.compute(case).facts
+    assert calls == {"parse_peer_source": 1, "_compose": 1}
+
+
+def test_c09_the_thin_universe_line_and_the_rule_wrapper_have_one_definition() -> None:
+    # The thin-universe limitation is THIN_LINE itself (the de-duplication against the EV
+    # limitations depends on the two strings being the same object's text), and cp1c/cp1d wrap
+    # tool-use rules with the product's one `_with_rules`.
+    from deploy_vii.live import submission
+    from deploy_workflow.owners import cp1d
+
+    case = inputs("positive")
+    limitations = cp1c.compute(case).limitations
+    assert sum(line == cp1c.THIN_LINE for line in limitations) <= 1
+    assert cp1c._with_rules is submission._with_rules
+    assert cp1d._with_rules is submission._with_rules
+    assert 'out.append("Medians over fewer' not in Path(cp1c.__file__).read_text()

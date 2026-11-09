@@ -56,6 +56,7 @@ from deploy_workflow.owners.blank import is_blank
 from deploy_workflow.owners.cp1a import probe_one_step
 from deploy_workflow.owners.period_basis import DEFAULT_CURRENCY
 from deploy_workflow.owners.pins import pin_issues, pinned_line, pins_of
+from deploy_workflow.research.peer_basis import ISO_4217
 from deploy_workflow.workflow import WorkflowError
 
 MODULE_ID = "CP-2E"
@@ -481,6 +482,9 @@ class MacroFxInputs:
     pinned: bool = False
     hedge_pinned: bool = False
     periods: Periods = DEFAULT_PERIODS
+    # `inputs_from_submission` sets this when the page prints cash interest paid as a negative
+    # (parenthesised) outflow and `interest` holds the amount paid; an own limitation says so.
+    interest_sign_normalised: bool = False
 
     def __post_init__(self) -> None:
         pairs = (
@@ -541,11 +545,18 @@ def inputs_from_submission(
         )
     share = fx.get("foreign_ebitda_share")
     hedge = sub.get("hedge_ratio")
+    # The method reads cash interest outflow-positive (EBITDA / interest; interest + added
+    # interest). A page that prints the "Cash interest paid" outflow in accounting parentheses
+    # states the same payment, so the operand is its amount paid and the sign is recorded.
+    interest = row(ex["interest"])
+    normalised = interest.value < 0  # a parenthesised zero reads as 0.00: nothing to reverse
+    if normalised:
+        interest = Sourced(value=-interest.value, cite=interest.cite)
     return MacroFxInputs(
         reporting_currency=code(sub["reporting_currency"]),
         total_debt=row(ex["total_debt"]),
         ebitda=row(ex["ebitda"]),
-        interest=row(ex["interest"]),
+        interest=interest,
         fcf=row(ex["fcf"]),
         fx_cash_effect=row(fx["fx_cash_effect"]),
         facility=facility,
@@ -573,6 +584,7 @@ def inputs_from_submission(
         ),
         summary=sub["summary"]["text"],
         source_names=dict(source_names),
+        interest_sign_normalised=normalised,
     )
 
 
@@ -612,6 +624,98 @@ _ROW_LABELS = {
     "fx_cash_effect": "FX effect on cash",
 }
 _SENTENCE_NUM = re.compile(r"[0-9]{1,3}(?:\.[0-9]{1,4})?")  # operand bound: at most 999.9999
+_CELLS = re.compile(r"  +")  # statement cells are separated by two or more spaces
+# A page's unit statement: "amounts in millions", "in thousands", "USD millions", "$ millions",
+# "millions of dollars". A share-count clause ("shares in thousands") and a negated one ("not in
+# millions") state no monetary unit, and neither does prose such as "thousands of customers". Every
+# MILLIONS operand is stamped at scale 1e6 of the reporting currency, so its page must state
+# exactly that unit (as the CP-1 adapters refuse other scales). The symbol spellings "$m",
+# "US$m" and "USDm" (`m` lower case, whole token) state millions too (`_MILLIONS_SYMBOL`); any
+# other spelling ("$mm", "USDmn", "000s", "EURm") states none, and its rows are refused. This
+# check accepts no other code + "m" ("EURm" is not accepted on any book).
+# Ruling (units): a unit statement that names a currency other than the book's reporting currency
+# is refused (`_unit_currencies`), in word, code and symbol forms; one that names none keeps the
+# scale-only reading. "$" is the dollar family (a CAD or AUD book may print "$ millions"), "US$"
+# and "U.S. dollars" are USD, "¥" is JPY or CNY. Review: the currency is read in every shape the
+# scale is ("€ in millions", "EUR (in millions)", "millions of U.S. Dollars"), a prefixed dollar
+# ("C$", "A$", "HK$") names its own currency, and an unknown one ("J$") names none recognised, so
+# it is refused on every book (fail closed).
+_UNIT_WORDS = re.compile(
+    r"(?<!shares )(?<!share )(?<!not )\bin\s+(thousands|millions|billions)\b"
+    r"|(?:(?-i:\b[A-Z]{3}\s+)|[$€£]\s*)(thousands|millions|billions)\b"
+    r"|\b(thousands|millions|billions)\s+of\s+"
+    r"(?:(?:U\.S\.|US)\s+)?(?:dollars|euros?|pounds|(?-i:[A-Z]{3}\b))",
+    re.IGNORECASE,
+)
+_MILLIONS_SYMBOL = re.compile(r"(?<![A-Za-z0-9$])(?:US\$|\$|USD)m(?![A-Za-z0-9])")
+_DOLLARS = ("USD", "CAD", "AUD", "NZD", "SGD", "HKD")
+# What a unit statement's currency names, by its spelling case-folded without dots or spaces
+# ("U.S. Dollars" -> "usdollars"); a three-capital-letter ISO 4217 code names itself.
+_NAMED_CURRENCY: dict[str, tuple[str, ...]] = {
+    "$": _DOLLARS,
+    "dollars": _DOLLARS,
+    "us$": ("USD",),
+    "usdollars": ("USD",),
+    "unitedstatesdollars": ("USD",),
+    "c$": ("CAD",),
+    "ca$": ("CAD",),
+    "canadiandollars": ("CAD",),
+    "a$": ("AUD",),
+    "au$": ("AUD",),
+    "aus$": ("AUD",),
+    "australiandollars": ("AUD",),
+    "nz$": ("NZD",),
+    "newzealanddollars": ("NZD",),
+    "s$": ("SGD",),
+    "singaporedollars": ("SGD",),
+    "hk$": ("HKD",),
+    "hongkongdollars": ("HKD",),
+    "r$": ("BRL",),
+    "mx$": ("MXN",),
+    "nt$": ("TWD",),
+    "€": ("EUR",),
+    "euro": ("EUR",),
+    "euros": ("EUR",),
+    "£": ("GBP",),
+    "pounds": ("GBP",),
+    "britishpounds": ("GBP",),
+    "sterling": ("GBP",),
+    "poundssterling": ("GBP",),
+    "¥": ("JPY", "CNY"),
+    "yen": ("JPY",),
+    "japaneseyen": ("JPY",),
+}
+_UNIT_SCALE = r"(?i:thousands|millions|billions)"
+_UNIT_CUR = (  # a currency word, a (prefixed) symbol or a three-capital-letter code
+    r"(?i:(?:(?:U\.?S\.?|United\s+States|Canadian|Australian|New\s+Zealand|Singapore|Hong\s+Kong"
+    r"|British|Japanese)\s+)?(?:dollars|euros?|(?:pounds\s+)?sterling|pounds|yen))"
+    r"|(?:U\.?S\.?\s?|[A-Z]{1,3})?\$|[€£¥]|[A-Z]{3}"
+)
+_UNIT_CURRENCY = re.compile(  # the currency before the scale (or "m"), or after "<scale> of"
+    rf"(?<![A-Za-z0-9$.])(?P<cur>{_UNIT_CUR})"
+    rf"(?:\s*[;,()]?\s*(?:(?i:(?:amounts\s+)?in)\s+)?{_UNIT_SCALE}\b|\s*m(?![A-Za-z0-9]))"
+    rf"|\b{_UNIT_SCALE}\s+of\s+(?P<of>{_UNIT_CUR})(?![A-Za-z])"
+)
+_AMBIGUOUS_CODES = frozenset({"ALL", "AMD", "TOP", "CUP", "BOB", "SOS", "BAM"})  # words and tickers
+
+
+def _unit_currencies(page: str) -> list[tuple[str, tuple[str, ...]]]:
+    """The currencies the page's unit statements name: (text, candidate ISO codes) each; an
+    unknown prefixed dollar ("J$") or currency phrase names none recognised: ()."""
+    found: list[tuple[str, tuple[str, ...]]] = []
+    for m in _UNIT_CURRENCY.finditer(page):
+        text = m["cur"] or m["of"]
+        named = _NAMED_CURRENCY.get(re.sub(r"[\s.]", "", text.casefold()))
+        if named is not None or not re.fullmatch(r"[A-Z]{3}", text):
+            found.append((text, named or ()))
+        elif text in ISO_4217 and not (
+            text in _AMBIGUOUS_CODES and re.search(r"\bin\b", m.group(), re.IGNORECASE)
+        ):
+            # a word that is also a code ("ALL amounts in millions") names one only before a scale
+            found.append((text, (text,)))
+    return found
+
+
 _ROW_NUM = re.compile(r"[0-9]+(?:\.[0-9]+)?|\([0-9]+(?:\.[0-9]+)?\)")  # parentheses balanced
 _HEDGE_NUM = re.compile(r"[0-9]{1,3}(?:\.[0-9]{1,2})?")
 _RATE_PHRASE = re.compile(r"\b(floating|fixed)[\s-]+rate\b", re.IGNORECASE)
@@ -683,12 +787,25 @@ def _once(token: str, quote: str, page: str) -> bool:
 
 
 _RUN_TEXT: TypeAdapter[str] = TypeAdapter(RunText)
+# S06-A07: the reporting currency's quote states the code as the currency of the amounts: right
+# after the word "currency" ("Currency: USD"), or joined to a unit statement ("USD millions",
+# "USD in millions", "USD; amounts in millions", "millions of USD"), never as a word elsewhere in
+# a line.
+_SCALE = r"(?i:thousands|millions|billions)"
+_CURRENCY_STATED = (
+    r"(?i:\bcurrency)\s*(?::|\bis\b)?\s*{code}(?![A-Za-z])"
+    rf"|(?<![A-Za-z]){{code}}\s*(?:[;,]?\s*(?i:(?:amounts\s+)?in)\s+)?{_SCALE}\b"
+    rf"|\b{_SCALE}\s+of\s+{{code}}(?![A-Za-z])"
+)
 
 
 class _Check:
     """Accumulates the validator's issues in rule order over one pack's financial pages."""
 
-    def __init__(self, pages: Mapping[str, str], header: re.Pattern[str]) -> None:
+    def __init__(
+        self, pages: Mapping[str, str], header: re.Pattern[str], currency: str = "USD"
+    ) -> None:
+        self.currency = currency  # the book's reporting currency
         self.pages = pages
         self.header = header
         self.issues: list[str] = []
@@ -739,7 +856,10 @@ class _Check:
             return False
         return True
 
-    def code(self, ref: Mapping[str, Any], path: str) -> None:
+    def code(self, ref: Mapping[str, Any], path: str, *, reporting: bool = False) -> None:
+        """A quoted ISO 4217 code (S06-A07); the reporting currency's quote states it as the
+        currency of the amounts (`_CURRENCY_STATED`), so a code-like word elsewhere on the page is
+        not read as it."""
         if not self.on_page(ref, path):
             return
         c = ref["code_text"]
@@ -747,6 +867,10 @@ class _Check:
         in_quote = re.search(rf"(?<![A-Za-z]){re.escape(c)}(?![A-Za-z])", quote)
         if not re.fullmatch(r"[A-Z]{3}", c) or not in_quote:
             self.add(f"{path}: code_text {c} does not occur in the quote")
+        elif c not in ISO_4217:
+            self.add(f"{path}: code_text {c} is not an ISO 4217 currency code")
+        elif reporting and not re.search(_CURRENCY_STATED.format(code=c), quote):
+            self.add(f"{path}: the quote does not state {c} as the currency (Currency: {c})")
 
     def labelled(self, ref: Mapping[str, Any], key: str, label: str, path: str) -> Decimal | None:
         """A sentence operand: ``ref[key]`` occurs once in the quote, right after ``label``."""
@@ -763,26 +887,65 @@ class _Check:
         return Decimal(v)
 
     def row(self, ref: Mapping[str, Any], key: str, path: str) -> Decimal | None:
-        """A statement row: a whole page line with its label, FY column last, value_text last."""
+        """A statement row: a whole page line with its label, FY column last, value_text last,
+        on a page that states its amounts in millions."""
         if not self.on_page(ref, path):
             return None
+        issue = self._row_issue(ref, key)
+        if issue is not None:
+            self.add(f"{path}: {issue}")
+            return None
+        return _row_decimal(ref["value_text"])
+
+    def unit_issue(self, locator: str) -> str | None:
+        """Why the page at ``locator`` (one of ``self.pages``) is not in millions, or None."""
+        page = self.pages[locator]
+        found = {w.lower() for groups in _UNIT_WORDS.findall(page) for w in groups if w}
+        found |= {"millions"} if _MILLIONS_SYMBOL.search(page) else set()
+        if found and found != {"millions"}:
+            return f"{locator} states amounts in {', '.join(sorted(found))}, not millions"
+        for text, codes in _unit_currencies(page):
+            if self.currency not in codes:
+                return (
+                    f"{locator} states its unit in {text} ({'/'.join(codes) or 'unrecognised'}), "
+                    f"but the reporting currency is {self.currency}: restate the unit in "
+                    f"{self.currency}"
+                )
+        if not found:
+            return f"{locator} does not state the unit of its amounts"
+        return None
+
+    def millions(self, ref: Mapping[str, Any], path: str) -> None:
+        """A MILLIONS operand quoted from a page the ``on_page`` check accepted."""
+        issue = self.unit_issue(ref["locator"])
+        if issue is not None:
+            self.add(f"{path}: {issue}")
+
+    def _row_issue(self, ref: Mapping[str, Any], key: str) -> str | None:
+        """Why the quoted row is not the FY value of the ``key`` statement row, or None."""
         lines = [ln.strip() for ln in self.pages[ref["locator"]].split("\n")]
         quote = ref["quote"]
         if quote.strip() not in lines:
-            self.add(f"{path}: quote is not a whole page line")
-            return None
+            return "quote is not a whole page line"
         if not quote.startswith(_ROW_LABELS[key] + "  "):
-            self.add(f"{path}: the row is not {_ROW_LABELS[key]}")
-            return None
+            return f"the row is not {_ROW_LABELS[key]}"
         header = next((ln for ln in lines if ln.startswith("Period")), "")
-        if not self.header.search(header):
-            self.add(f"{path}: the page header does not end in the FY column")
-            return None
+        page_issue = (
+            "the page header does not end in the FY column"
+            if not self.header.search(header)
+            else self.unit_issue(ref["locator"])
+        )
+        if page_issue is not None:
+            return page_issue
+        # The last value is the FY value only when the row fills every column of the header: a
+        # row with a blank or dropped FY cell would otherwise give its Q4 value as the FY value.
+        values, columns = len(_CELLS.split(quote.strip())) - 1, len(_CELLS.split(header)) - 1
+        if values != columns:
+            return f"the row has {values} values for the {columns} header columns"
         v = ref["value_text"]
         if not _ROW_NUM.fullmatch(v) or v != quote.split()[-1]:
-            self.add(f"{path}: value_text {v} is not the last value of the row")
-            return None
-        return _row_decimal(v)
+            return f"value_text {v} is not the last value of the row"
+        return None
 
     def exactly_one(self, a: object, b: object, path: str, names: tuple[str, str]) -> bool:
         if bool(a) == bool(b):
@@ -823,6 +986,8 @@ def _check_rate_exposure(chk: _Check, r: Mapping[str, Any]) -> Decimal | None:
     balance = chk.labelled(
         r["facility_balance"], "value_text", "balance of", "rate_exposure.facility_balance"
     )
+    if balance is not None:
+        chk.millions(r["facility_balance"], "rate_exposure.facility_balance")
     rb, path = r["rate_basis"], "rate_exposure.rate_basis"
     if chk.on_page(rb, path):
         quote = normalise(rb["quote"])  # the text the on_page match read
@@ -901,12 +1066,17 @@ def _check_text(chk: _Check, sub: Mapping[str, Any]) -> None:
 
 
 def validate_macro_fx(
-    *, submission: Mapping[str, Any], pages: Mapping[str, str], periods: Periods = DEFAULT_PERIODS
+    *,
+    submission: Mapping[str, Any],
+    pages: Mapping[str, str],
+    periods: Periods = DEFAULT_PERIODS,
+    currency: str = DEFAULT_CURRENCY.currency,
 ) -> tuple[str, ...]:
     """Issues of a macro_fx submission against the pack's financial pages (locator -> text); the
-    statement rows must sit under the `periods` fiscal-year column."""
-    sub, chk = submission, _Check(pages, periods.header)
-    chk.code(sub["reporting_currency"], "reporting_currency")
+    statement rows must sit under the `periods` fiscal-year column, and a page unit statement may
+    name only the book's reporting `currency`."""
+    sub, chk = submission, _Check(pages, periods.header, currency)
+    chk.code(sub["reporting_currency"], "reporting_currency", reporting=True)
     r = sub.get("rate_exposure")
     chk.exactly_one(r, sub.get("rate_absence"), "rate_exposure", ("rate_exposure", "rate_absence"))
     balance = _check_rate_exposure(chk, r) if r else None
@@ -1521,6 +1691,10 @@ _LIM_DEBT_CCY = (
     "The currency of the debt is read from the header of the facility schedule, which states the "
     "currency of its amounts; no denomination clause is cited"
 )
+LIM_INTEREST_SIGN = (
+    "The cash flow statement prints cash interest paid in parentheses, as an outflow, so the "
+    "cash interest operand is the amount paid, shown as a positive figure"
+)
 _LIM_MACRO = (
     "Macro drivers other than the reference rate and currency, such as demand, input costs and "
     "inflation, are not sourced and not assessed; the figures are unaudited {fy} statements"
@@ -1563,6 +1737,8 @@ def own_limitations(i: MacroFxInputs) -> tuple[str, ...]:
         out.append(_LIM_NO_SPLIT)
     if i.debt_currency is not None:
         out.append(_LIM_DEBT_CCY)
+    if i.interest_sign_normalised:
+        out.append(LIM_INTEREST_SIGN)
     out.append(_LIM_MACRO.format(fy=i.periods.label))
     if i.pinned:
         out.append(pinned_line(MODULE_ID, hedge_pinned=i.hedge_pinned))
@@ -2024,16 +2200,21 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     except ContextRefused:
         # `_pin_lines` reports this context as the one `Context refused: ...` issue below, and
         # nothing is composed on an issue, so the periods read here are not used.
-        periods, context = DEFAULT_PERIODS, None
+        periods, context, refused = DEFAULT_PERIODS, None, True
+    else:
+        refused = False
+    # S06-A07: with no run context the run's basis is the default (USD) one, as for CP-1.
+    wanted = DEFAULT_CURRENCY.currency if context is None else context.run.reporting_currency
     content = validate_macro_fx(
-        submission=submission.model_dump(mode="json"), pages=_pages_of(pack), periods=periods
+        submission=submission.model_dump(mode="json"),
+        pages=_pages_of(pack),
+        periods=periods,
+        currency=wanted,
     )
     stated = submission.reporting_currency.code_text
-    if context is not None and stated != context.run.reporting_currency:
-        wanted = context.run.reporting_currency
-        content += (
-            f"reporting_currency: the statements state {stated}, the run context states {wanted}",
-        )
+    if not refused and stated != wanted:
+        run = "the run context states" if context is not None else "the run's default basis is"
+        content += (f"reporting_currency: the statements state {stated}, {run} {wanted}",)
     issues = tuple(dict.fromkeys((*content, *_pin_lines(pack, submission))))
     if issues:
         return StepValidation(issues=issues)

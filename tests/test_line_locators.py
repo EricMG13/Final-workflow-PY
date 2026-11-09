@@ -406,12 +406,16 @@ def test_a_line_read_over_five_lines_and_over_the_byte_bound_is_refused() -> Non
     assert tools.read == set()
 
 
-def test_a_read_of_five_lines_is_allowed_even_when_one_line_exceeds_the_bound() -> None:  # (j)
+def test_a_read_of_five_lines_is_refused_when_one_line_exceeds_the_bound() -> None:  # (j)
+    # S14-A02: the five-line read was allowed before, whatever its size; it is measured now
     key = _window()
     tools = _window_tools(["z" * (key["max_line_read_bytes"] + 1000), "short"])
-    body = tools.read_pages({"source_id": FIN, "first_page": 1, "last_page": 2})
-    assert body.count("<<<SOURCE ") == 2
-    assert tools.read == {(FIN, "line:1"), (FIN, "line:2")}
+    with pytest.raises(ToolError) as refused:
+        tools.read_pages({"source_id": FIN, "first_page": 1, "last_page": 2})
+    assert str(refused.value) == key["line_refusal"]
+    assert tools.read == set()
+    body = tools.read_pages({"source_id": FIN, "first_page": 2, "last_page": 2})
+    assert body.count("<<<SOURCE ") == 1 and tools.read == {(FIN, "line:2")}
 
 
 def test_a_page_source_still_refuses_six_pages_with_the_old_text() -> None:  # (k)
@@ -512,8 +516,7 @@ def test_a_200_line_read_totalling_32769_bytes_is_refused() -> None:
     with pytest.raises(ToolError) as refused:
         tools.read_pages({"source_id": FIN, "first_page": 1, "last_page": 200})
     assert str(refused.value) == (
-        "bad arguments: on a line source, at most 5 lines, or at most 200 lines totalling "
-        "32768 bytes, per call"
+        "bad arguments: on a line source, at most 200 lines totalling 32768 bytes, per call"
     )
     assert tools.read == set()
 
@@ -527,7 +530,65 @@ def test_a_read_valid_at_the_old_bound_stays_valid() -> None:
     assert body.count("<<<SOURCE ") == 6
 
 
+# --- S14-A02: a read of five lines or fewer is measured too --------------------------------------
+
+LINE_REFUSAL = "bad arguments: on a line source, at most 200 lines totalling 32768 bytes, per call"
+
+
+@pytest.mark.parametrize(
+    ("lines", "last"),
+    [
+        (["x" * 1_000_000] * 5, 5),  # five 1 MB lines: 5,000,000 bytes > 32768
+        (_bytes_lines(32769, 5), 5),  # five lines one byte over the bound
+        (["y" * 32769], 1),  # one line one byte over the bound
+        (["z" * 10_000_000], 1),  # a 10 MB one-line source
+    ],
+)
+def test_a_short_line_read_over_the_byte_bound_is_refused(lines: list[str], last: int) -> None:
+    tools = _window_tools(lines)
+    with pytest.raises(ToolError) as refused:
+        tools.read_pages({"source_id": FIN, "first_page": 1, "last_page": last})
+    assert str(refused.value) == LINE_REFUSAL
+    assert tools.read == set()
+
+
+def test_a_short_line_read_of_exactly_the_byte_bound_is_allowed() -> None:
+    for lines in (_bytes_lines(32768, 5), ["w" * 32768]):  # 32768 bytes: within the bound
+        tools = _window_tools(lines)
+        body = tools.read_pages({"source_id": FIN, "first_page": 1, "last_page": len(lines)})
+        assert body.count("<<<SOURCE ") == len(lines)
+        assert len(tools.read) == len(lines)
+
+
 def test_the_read_tool_description_states_32768_bytes() -> None:
     specs = live_tools.tool_specs("source_readiness", "pack")
     read = next(spec for spec in specs if spec["function"]["name"] == live_tools.READ)
     assert "at most 200 lines totalling 32768 bytes" in read["function"]["description"]
+
+
+def test_a_line_range_rebases_label_candidates_and_omitted_lines() -> None:
+    # S14-C02: every line number of a `line:100-106` table is a source line. Expected by hand:
+    # the range's relative line k is source line 99 + k, so "Revenue from contracts" (relative 4)
+    # is line 103 and "with customers" (5) line 104; the percent row (7) is omitted at line 106.
+    texts = {
+        100: "Consolidated Statement of Operations",
+        101: "(in thousands)                     2024        2023",
+        102: "",
+        103: "Revenue from contracts",
+        104: "  with customers                  1,234       1,100",
+        105: "Cost of revenue                    (500)       (450)",
+        106: "Gross margin                       12.5%       11.0%",
+    }
+    spans = {n: Span(locator=f"line:{n}", text=text) for n, text in texts.items()}
+    table = live_tools._line_table(spans, "line:100-106", "S1")
+    rows = [
+        (r.line_no, r.locator, [(p.line_no, p.text) for p in r.label_candidates])
+        for r in table.lines
+    ]
+    assert rows == [
+        (104, "line:104", [(103, "Revenue from contracts"), (104, "with customers")]),
+        (105, "line:105", [(105, "Cost of revenue")]),
+    ]
+    assert [(o.line_no, o.text) for o in table.omitted] == [(106, texts[106])]
+    body = live_tools.extracted_body(table)
+    assert '[{"line_no":103,"text":"Revenue from contracts"},{"line_no":104,' in body

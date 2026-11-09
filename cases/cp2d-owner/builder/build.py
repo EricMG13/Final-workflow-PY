@@ -16,6 +16,7 @@ import re
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal, getcontext
 from pathlib import Path
+from typing import Any
 
 getcontext().prec = 60
 ROOT = Path(__file__).resolve().parents[3]
@@ -739,6 +740,54 @@ def case_expected(case):
 
 
 EXPECTED_CASES = {c: case_expected(c) for c in SCEN}
+
+SECTION_NAMES = {
+    "liquidity_runway": "Liquidity runway",
+    "maturity_wall": "Maturity wall",
+    "funding_gap": "Funding gap",
+}
+
+
+def analyst_words(sub: dict[str, Any]) -> tuple[list[list[str]], list[tuple[str, str]]]:
+    """S06-C02 (hand edit): the T2E.6 rows of the analyst's submitted words, verbatim, after the
+    five category rows, and (T2E.7 label, text) of each stated assessment limitation."""
+    rows: list[list[str]] = []
+    if sub["minimum_cash"]:
+        rows.append(["Minimum cash rationale", sub["minimum_cash"]["rationale"]])
+    absence = sub["minimum_cash_absence"]
+    if absence:
+        rows.append(["Minimum cash not assessed: reason", absence["reason"]])
+        rows.append(["Minimum cash not assessed: follow-up", absence["follow_up"]])
+    by = {a["section"]: a for a in sub["assessments"]}
+    gaps: list[tuple[str, str]] = []
+    for section, name in SECTION_NAMES.items():
+        a = by[section]
+        rows.append([f"{name} assessment", a["text"]])
+        rows.append([f"{name} credit implication", a["credit_implication"]])
+        if a["limitation"] is not None:
+            rows.append([f"{name} limitation", a["limitation"]])
+            gaps.append((f"{name} assessment", f"{name}: {a['limitation']}"))
+    return rows, gaps
+
+
+def add_analyst_words(cases: dict[str, Any], subs: dict[str, Any]) -> None:
+    """Append the analyst rows to T2E.6 and the stated limitations (kind Gap) to T2E.7 and
+    own_limitations; `analyst_limitations` follows own_limitations."""
+    for case, sub in subs.items():
+        rows, gaps = analyst_words(sub)
+        e = cases[case]
+        e["T2E.6_rows"] += rows
+        e["T2E.7_rows"] += [[label, "Gap"] for label, _ in gaps]
+        e["own_limitations"] += [text for _, text in gaps]
+        ordered: dict[str, Any] = {}
+        for key, value in e.items():
+            ordered[key] = value
+            if key == "own_limitations":
+                ordered["analyst_limitations"] = [text for _, text in gaps]
+        cases[case] = ordered
+
+
+add_analyst_words(EXPECTED_CASES, SUBS)
 
 # --- cross-checks of the source-derived values against the frozen financial oracle -----------
 

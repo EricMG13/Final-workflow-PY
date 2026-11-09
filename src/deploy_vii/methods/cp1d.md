@@ -60,10 +60,32 @@ cp1d._one_whole_run("The 2nds saving.")   # True: 2
 
 **Round 5 item 12 (accepted readings).** The right side of a run never makes an identifier:
 addendum 5 reads what follows a run as a unit suffix, and its one exception, the ordinal rule,
-never meets a decimal run. So `1.5-Q` and `1.5-` wrapped before `nd` read 1.5 and compose.
+never meets a decimal run. So `1.5-Q` and `1.5-` wrapped before `nd` read 1.5 as one whole run
+(steps 5 and 6 pass); since S05-cp0-cp1-A01 the `-Q` tail is no millions or currency mark, so
+the unit rule below refuses them after step 6 instead of composing.
 ```python
 cp1d._one_whole_run("Savings of 1.5-Q are signed.")     # True: 1.5
 cp1d._one_whole_run("Savings of 1.5-\nnd are signed.")  # True: 1.5
+```
+
+**Basis unit and currency (S05-cp0-cp1-A01).** The one figure becomes a source amount in the
+bridge's currency and MILLIONS, so it must read as one (`cp1d._money_figure`, checked after steps
+1 to 6). On the cited page, at every occurrence of the quote, the figure is followed by
+punctuation, the end of the text or a linking word (`in`, `of` after a unit, `is`, `and`, ...;
+not `per`, so `1.5 per cent` is refused), optionally after a millions word (`m`, `mm`, `mn`,
+`million`, `millions`, any case) and the run's currency code. A currency code, name or symbol
+directly before it (brackets, colons and dots round it are ignored: `(EUR 1.5m)`, `EUR: 1.5m`,
+`U.S.$`) must be the run's (`USD`, `US$`, `$` for USD; `EUR`, `€` for EUR, codes and names in any
+case). Otherwise `Accepted basis quote must state the amount in the bridge's currency and
+millions` is returned. The cost: a figure followed by any other word (`1.80 annualised`, a table
+cell followed by the next line, `1.5-Q`), a capitalised three-letter token before it
+(`LTM 1.80`) and `1.80 USD m` (code before the millions word) are refused; the analyst cites a
+plainer sentence or gives `accepted_fraction`. Guard limit (fail open, not closed): a linking
+word still lets a count through (`2 in ten suppliers`), and a lowercase currency word outside the
+listed codes and names (`aed 1.80`) reads as no currency.
+```python
+# refused: "cover 2% of spend", "cover 2 of the ten categories", "by 1bps", "EUR 1.50m" (USD run)
+# composed: "a saving of 1.80.", "1.80m, net of costs", "USD 1.80 million.", "1.80 in savings"
 ```
 
 **Source quotes (user, 2026-10-28, AGENTS.md "Source quotes").** Quote reading is frozen: no new

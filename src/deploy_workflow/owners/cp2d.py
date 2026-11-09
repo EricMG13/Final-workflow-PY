@@ -26,7 +26,7 @@ from decimal import ROUND_HALF_UP, Context, Decimal, localcontext
 from types import MappingProxyType
 from typing import Any, Literal
 
-from pydantic import ValidationError
+from pydantic import TypeAdapter, ValidationError
 
 from deploy_vii.business_context import spelled
 from deploy_vii.contracts import (
@@ -57,6 +57,7 @@ from deploy_vii.execution import (
     inherited_limitations,
     text_sha256,
 )
+from deploy_vii.financial_contracts import Number
 from deploy_vii.live.schema import exact_json, json_object, normalise
 from deploy_vii.live.submission import Submitted
 from deploy_vii.model._cells import CONTEXT as CP1_CONTEXT
@@ -961,9 +962,7 @@ def _facility_limitations(
     return out
 
 
-def _limitations(
-    *, operands: Operands, bridge: Bridge, pinned: bool = False
-) -> tuple[tuple[str, str, str], ...]:
+def _limitations(*, operands: Operands, bridge: Bridge) -> tuple[tuple[str, str, str], ...]:
     """(T2E.7 label, kind, text) for each own limitation, in a fixed order."""
     out = [
         (
@@ -1020,9 +1019,13 @@ def _limitations(
         else:
             text = FUNDING_GAP_ON_CASH_ALONE
         out.append(("Funding gap on cash alone", "Limitation", text))
-    if pinned:
-        out.append(("Pinned assumptions", "Limitation", pinned_line(MODULE_ID)))
     return tuple(out)
+
+
+def _pin_row(pinned: bool) -> tuple[tuple[str, str, str], ...]:
+    """The pinned-assumptions label: last of the module's limitations, after the analyst's stated
+    ones too (T4 L2/L3)."""
+    return (("Pinned assumptions", "Limitation", pinned_line(MODULE_ID)),) if pinned else ()
 
 
 def revolver_state(undrawn: Num) -> tuple[str, str] | None:
@@ -1039,9 +1042,8 @@ def revolver_state(undrawn: Num) -> tuple[str, str] | None:
 
 
 def own_limitations(*, operands: Operands, bridge: Bridge, pinned: bool = False) -> tuple[str, ...]:
-    return tuple(
-        text for _, _, text in _limitations(operands=operands, bridge=bridge, pinned=pinned)
-    )
+    rows = (*_limitations(operands=operands, bridge=bridge), *_pin_row(pinned))
+    return tuple(text for _, _, text in rows)
 
 
 # --- result types -----------------------------------------------------------------------------
@@ -1709,6 +1711,54 @@ def _claims(o: Operands, b: Bridge, tables: tuple[Table, ...]) -> tuple[ClaimTex
 # --- the module calculation -------------------------------------------------------------------
 
 
+SECTION_NAMES: Mapping[Section, str] = MappingProxyType(
+    {
+        "liquidity_runway": "Liquidity runway",
+        "maturity_wall": "Maturity wall",
+        "funding_gap": "Funding gap",
+    }
+)
+ANALYST_GAP = "{section}: {limitation}"
+"""S06-C02: an Insufficient Information assessment's own limitation, carried verbatim into
+CP-2D's limitations (T2E.7 kind Gap) after the section's name."""
+
+
+def _analyst_rows(submission: LiquidityBridgeSubmission) -> list[tuple[str, str]]:
+    """S06-C02: the analyst's own words, verbatim, after the five category rows of T2E.6: the
+    minimum-cash rationale (or the absence reason and follow-up), then per section in lease order
+    its text, its credit implication and any limitation. Validation has already refused blank,
+    figure-bearing or conclusion-bearing text, so nothing here is Python's analysis."""
+    rows: list[tuple[str, str]] = []
+    if submission.minimum_cash is not None:
+        rows.append(("Minimum cash rationale", submission.minimum_cash.rationale))
+    absence = submission.minimum_cash_absence
+    if absence is not None:
+        rows += [
+            ("Minimum cash not assessed: reason", absence.reason),
+            ("Minimum cash not assessed: follow-up", absence.follow_up),
+        ]
+    by_section = {a.section: a for a in submission.assessments}
+    for section in SECTIONS:
+        a, name = by_section[section], SECTION_NAMES[section]
+        rows.append((f"{name} assessment", a.text))
+        rows.append((f"{name} credit implication", a.credit_implication))
+        if a.limitation is not None:
+            rows.append((f"{name} limitation", a.limitation))
+    return rows
+
+
+def _analyst_limitations(submission: LiquidityBridgeSubmission) -> list[tuple[str, str, str]]:
+    """(T2E.7 label, kind, text) of each assessment's stated limitation, in lease order."""
+    by_section = {a.section: a for a in submission.assessments}
+    stated: list[tuple[str, str, str]] = []
+    for section in SECTIONS:
+        limitation, name = by_section[section].limitation, SECTION_NAMES[section]
+        if limitation is not None:
+            text = ANALYST_GAP.format(section=name, limitation=limitation)
+            stated.append((f"{name} assessment", "Gap", text))
+    return stated
+
+
 def _judgments(b: Bridge, submission: LiquidityBridgeSubmission) -> Ledger:
     categories = {a.section: a.category for a in submission.assessments}
     minimum = (
@@ -1719,9 +1769,8 @@ def _judgments(b: Bridge, submission: LiquidityBridgeSubmission) -> Ledger:
     rows = (
         ("Horizon", _months_text(b.horizon_months)),
         ("Minimum cash", minimum),
-        ("Liquidity runway", categories["liquidity_runway"]),
-        ("Maturity wall", categories["maturity_wall"]),
-        ("Funding gap", categories["funding_gap"]),
+        *((SECTION_NAMES[s], categories[s]) for s in SECTIONS),
+        *_analyst_rows(submission),
     )
     return Ledger("T2E.6", "Analyst judgments", "Judgment", ("value", "Value"), rows)
 
@@ -1732,7 +1781,6 @@ def compute(inputs: Cp2dInputs) -> Cp2dResult:
     Raises ValueError only for a submission that ``submission_issues`` refuses; every missing
     operand, facility term, currency or cross-check difference settles as gaps and limitations.
     """
-    o = inputs.operands
     issues = submission_issues(
         submission=inputs.submission,
         offered_refs=inputs.offered_refs,
@@ -1740,8 +1788,19 @@ def compute(inputs: Cp2dInputs) -> Cp2dResult:
     )
     if issues:
         raise ValueError("; ".join(issues))
+    return _computed(inputs)
+
+
+def _computed(inputs: Cp2dInputs) -> Cp2dResult:
+    """`compute` of inputs whose submission issues are already known to be none (one validation
+    per step, S06-cp2-ade-C06)."""
+    o = inputs.operands
     bridge = bridge_of(inputs)
-    limitations = _limitations(operands=o, bridge=bridge, pinned=inputs.pinned)
+    limitations = (
+        *_limitations(operands=o, bridge=bridge),
+        *_analyst_limitations(inputs.submission),
+        *_pin_row(inputs.pinned),
+    )
     tables = (
         _sources_and_uses(o, bridge),
         _position(o, bridge),
@@ -1771,6 +1830,15 @@ def compute(inputs: Cp2dInputs) -> Cp2dResult:
 
 HORIZON_ISSUE = "horizon_months must be between 1 and 60"
 NEGATIVE_MINIMUM_ISSUE = "minimum_cash.amount must not be negative"
+# S06-A05: a minimum cash is held to the bound of every CP-1 amount (`financial_contracts.Number`:
+# below 1e18, 28 digits, 10 places). A finite amount outside it (1e300, 1E-999999999 or 130 digits)
+# passed every check and then could not be spelled exactly, so submit raised and every resume
+# raised again; it is refused here instead.
+_AMOUNT: TypeAdapter[Decimal] = TypeAdapter(Number)
+MINIMUM_RANGE_ISSUE = (
+    "minimum_cash.amount must be a CP-1 amount: less than 1e18, at most 28 digits and 10 decimal "
+    "places"
+)
 BOTH_ISSUE = "give minimum_cash or minimum_cash_absence, not both"
 NEITHER_ISSUE = "give minimum_cash or minimum_cash_absence"
 SECTION_ISSUE = "assessments must hold exactly one row per section"
@@ -1829,6 +1897,14 @@ def analyst_text_fields(submission: LiquidityBridgeSubmission) -> list[tuple[str
     return fields
 
 
+def _is_amount(amount: Decimal) -> bool:
+    try:
+        _AMOUNT.validate_python(amount)
+    except ValidationError:
+        return False
+    return True
+
+
 def submission_issues(
     *,
     submission: LiquidityBridgeSubmission,
@@ -1843,6 +1919,8 @@ def submission_issues(
         issues.append(HORIZON_ISSUE)
     if s.minimum_cash is not None and s.minimum_cash.amount < 0:
         issues.append(NEGATIVE_MINIMUM_ISSUE)
+    if s.minimum_cash is not None and not _is_amount(s.minimum_cash.amount):
+        issues.append(MINIMUM_RANGE_ISSUE)
     if s.minimum_cash is not None and s.minimum_cash_absence is not None:
         issues.append(BOTH_ISSUE)
     if s.minimum_cash is None and s.minimum_cash_absence is None:
@@ -1862,10 +1940,23 @@ def submission_issues(
         refs += s.minimum_cash.basis_refs
     if any(r not in offered_refs for r in refs):
         issues.append(BASIS_ISSUE)
-    for a in s.assessments:
-        if a.section == "maturity_wall" and not maturity_date_refs & set(a.basis_refs):
+    issues += _assessment_issues(s, maturity_date_refs)
+    return tuple(dict.fromkeys(issues))
+
+
+def _assessment_issues(
+    submission: LiquidityBridgeSubmission, maturity_date_refs: frozenset[str]
+) -> list[str]:
+    """The wall-citation issues, then the limitation issues, of the assessments in order."""
+    issues: list[str] = []
+    # Ruling D-5 binds the wall to a T4.18 maturity_date only when the view offers one: with no
+    # facility row (no schedule, or an empty one) nothing is citable, and the core settles the
+    # wall as a gap or a known zero instead of the validator refusing every submission.
+    for a in submission.assessments:
+        cited = maturity_date_refs & set(a.basis_refs)
+        if a.section == "maturity_wall" and maturity_date_refs and not cited:
             issues.append(WALL_DATE_ISSUE)
-    for a in s.assessments:
+    for a in submission.assessments:
         carried = a.limitation is not None
         stated = a.limitation is not None and not is_blank(a.limitation)
         insufficient = a.category == "Insufficient Information"
@@ -1873,7 +1964,7 @@ def submission_issues(
             issues.append(INSUFFICIENT_ISSUE)
         if carried and not insufficient:
             issues.append(LIMITATION_ISSUE)
-    return tuple(dict.fromkeys(issues))
+    return issues
 
 
 # =============================================================================================
@@ -2252,7 +2343,12 @@ def run_basis(pack: PreparedPack, cp1: Module) -> PeriodBasis:
 def _inputs_from(
     upstream: Upstream, submission: LiquidityBridgeSubmission, basis: PeriodBasis = DEFAULT_BASIS
 ) -> Cp2dInputs:
-    selection = select_cp1(upstream.cp1, basis)
+    return _inputs_of(select_cp1(upstream.cp1, basis), submission, basis)
+
+
+def _inputs_of(
+    selection: Selection, submission: LiquidityBridgeSubmission, basis: PeriodBasis
+) -> Cp2dInputs:
     return Cp2dInputs(
         operands=selection.operands,
         balance_date=selection.balance_date,
@@ -2349,6 +2445,16 @@ def validate_liquidity_bridge(
     """Staleness, provenance, the calculation-level issues of `submission_issues` over the
     facts the bound CP-1 head offers, then the pin lines. Empty when the submission can be
     composed. The one issue set of the step validator and the composer gate."""
+    return _checked(pack, submission, upstream)[1]
+
+
+def _checked(
+    pack: PreparedPack, submission: LiquidityBridgeSubmission, upstream: Upstream
+) -> tuple[Cp2dInputs | None, tuple[str, ...]]:
+    """`validate_liquidity_bridge`'s issues and, when there are none, the core inputs they were
+    found over (the run's basis and its CP-1 selection), so a caller composes without validating
+    again. A refused context is always an issue (`_pin_lines`), so accepted inputs are on the
+    run's basis."""
     issues = [*_stale_issues(upstream), *_provenance_issues(upstream)]
     try:
         basis = run_basis(pack, upstream.cp1)
@@ -2360,17 +2466,18 @@ def validate_liquidity_bridge(
         try:
             select_cp1(upstream.cp1, basis)
         except ValueError:
-            return tuple(dict.fromkeys([*issues, _context_issue(error)]))
+            return None, tuple(dict.fromkeys([*issues, _context_issue(error)]))
     except PeriodRefused as error:
-        return tuple(dict.fromkeys([*issues, _period_issue(error)]))
-    selection = select_cp1(upstream.cp1, basis)
+        return None, tuple(dict.fromkeys([*issues, _period_issue(error)]))
+    inputs = _inputs_of(select_cp1(upstream.cp1, basis), submission, basis)
     issues += submission_issues(
         submission=submission,
-        offered_refs=frozenset(o.fact.fact_id for o in selection.offered),
-        maturity_date_refs=selection.maturity_date_refs,
+        offered_refs=inputs.offered_refs,
+        maturity_date_refs=inputs.maturity_date_refs,
     )
     issues += _pin_lines(pack, submission)
-    return tuple(dict.fromkeys(issues))
+    found = tuple(dict.fromkeys(issues))
+    return (None if found else inputs), found
 
 
 # --- the composed module ----------------------------------------------------------------------
@@ -2656,16 +2763,23 @@ def liquidity_bridge(
 ) -> LiquidityBridgeReport:
     """The composed CP-2D tables, facts, claims and own limitations of a valid submission; raises
     ValueError on any validation issue."""
-    issues = validate_liquidity_bridge(pack=pack, submission=submission, upstream=upstream)
-    if issues:
+    inputs, issues = _checked(pack, submission, upstream)
+    if inputs is None:
         raise ValueError("; ".join(issues))
-    basis = run_basis(pack, upstream.cp1)
-    selection = select_cp1(upstream.cp1, basis)
-    # A refused context is a `Context refused: ...` issue, so `validate_liquidity_bridge` returned
-    # none and raised above; `pins_of` cannot raise `ContextRefused` here.
+    return _report(pack, submission, upstream, inputs)
+
+
+def _report(
+    pack: PreparedPack,
+    submission: LiquidityBridgeSubmission,
+    upstream: Upstream,
+    inputs: Cp2dInputs,
+) -> LiquidityBridgeReport:
+    """The report of inputs `_checked` accepted. A refused context is a `Context refused: ...`
+    issue, so `pins_of` cannot raise `ContextRefused` here."""
     pinned = pins_of(MODULE_ID, pack) is not None
-    result = compute(replace(_inputs_from(upstream, submission, basis), pinned=pinned))
-    out = _Composer(selection, result)
+    result = _computed(replace(inputs, pinned=pinned))
+    out = _Composer(select_cp1(upstream.cp1, inputs.basis), result)
     for table in result.tables:
         out.table(table)
     out.ledger(result.judgments, "analyst_judgment")
@@ -2705,7 +2819,7 @@ def cp2d_module(*, report: LiquidityBridgeReport, inputs: Sequence[Input], attem
 VIEW_NOTE = (
     "Reference a fact only by its ref in basis_refs. A fact whose status is not known has no "
     "value: it is a gap, never a zero. The maturity_wall assessment must cite a T4.18 "
-    "maturity_date ref."
+    "maturity_date ref when the view offers one."
 )
 
 
@@ -2800,11 +2914,10 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     if submission is None:
         return StepValidation(issues=shape)
     upstream = cp2d_upstream(store=store, attempt=attempt)
-    issues = validate_liquidity_bridge(pack=pack, submission=submission, upstream=upstream)
-    if issues:
+    inputs, issues = _checked(pack, submission, upstream)
+    if inputs is None:
         return StepValidation(issues=issues)
-    report = liquidity_bridge(pack=pack, submission=submission, upstream=upstream)
-    return StepValidation(output=report.model_dump_json())
+    return StepValidation(output=_report(pack, submission, upstream, inputs).model_dump_json())
 
 
 # The validator the module's own entry hands `Execution.submit_step` (R4-2 invalid-step replay).

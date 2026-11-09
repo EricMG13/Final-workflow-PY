@@ -20,6 +20,7 @@ binding replaces every run-time marker of the oracle.
 
 import copy
 import dataclasses
+import datetime as dt
 import hashlib
 import json
 import re
@@ -52,10 +53,15 @@ from deploy_vii.contracts import (
 from deploy_vii.cp5_integrity import (
     KIND_LABEL,
     NOT_EVALUATED,
+    REFERENCE_TABLES,
     IntegritySubmission,
     ReviewScope,
+    _own_refs,
+    validate_integrity,
+    figure_identity,
     python_checks,
 )
+from deploy_vii.bindings.shipped import SHIPPED_MAPS
 from deploy_vii.live.context import integrity_projection
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.quotes import prefix
@@ -1253,3 +1259,135 @@ def test_validator_refusal(entry: dict[str, Any]) -> None:
     result = compute(make_inputs(entry["case"], literal))
     assert result.report is None
     assert list(result.issues) == entry["issues"]
+
+
+# S09-A01/C01: the composer-assigned verbatim copy tables of CP-4 (T4F.2), CP-4C, CP-2G and
+# CP-2H, besides every module's cp1_references.
+COPY_TABLES = (
+    ("CP-4", "T4F.2"),
+    ("CP-4C", "cp2g_references"),
+    ("CP-4C", "cp2a_references"),
+    ("CP-4C", "cp4_references"),
+    ("CP-2H", "cp2g_references"),
+    ("CP-2G", "cp2a_references"),
+    ("CP-2G", "cp1d_references"),
+    ("CP-4C", "cp1_references"),
+)
+
+
+def _one_fact_head(module_id: str, fact: Fact) -> Module:
+    table = ReportTable(
+        table_id=fact.table_id,
+        title="t",
+        columns=(TableColumn(field=fact.field, label="Value"),),
+        rows=(TableRow(row_id=fact.row_id, label="r", fact_ids=(fact.fact_id,)),),
+    )
+    return Module(
+        run_id="r",
+        issuer_id="i",
+        as_of=dt.date(2026, 1, 1),
+        module_id=module_id,
+        status="accepted",
+        facts=(fact,),
+        tables=(table,),
+    )
+
+
+@pytest.mark.parametrize(("copier", "table_id"), COPY_TABLES)
+def test_a_verbatim_copy_table_is_not_a_placement_mismatch(copier: str, table_id: str) -> None:
+    """S09-A01/C01: a copy under the source fact id that moves only table, row and field is no
+    figure_identity finding; a copy whose value differs (4.2x against 4.3x, by hand) still is,
+    and names only `value`."""
+    source = Fact(
+        fact_id="interface-fact:abc",
+        label="Net leverage",
+        table_id="T4.10",
+        row_id="net_leverage",
+        field="ltm",
+        amount=Decimal("4.2"),
+        unit="MULTIPLE",
+        period="LTM Q4 25",
+    )
+    moved = {"table_id": table_id, "row_id": "ref01", "field": "value"}
+    same = source.model_copy(update=moved)
+    heads = [_one_fact_head("CP-1", source), _one_fact_head(copier, same)]
+    assert figure_identity(heads) == ()
+    wrong = source.model_copy(update={**moved, "amount": Decimal("4.3")})
+    findings = figure_identity([_one_fact_head("CP-1", source), _one_fact_head(copier, wrong)])
+    assert [f.detail.split(" between ")[0] for f in findings] == ["differs in value"]
+
+
+def test_a_period_or_unit_change_in_a_copy_is_still_a_finding() -> None:
+    """The exemption covers placement only: a T4F.2 copy whose period moves (LTM Q4 25 to LTM
+    Q3 25) or whose unit changes (MULTIPLE to PERCENT) is reported."""
+    source = Fact(
+        fact_id="f1",
+        label="Net leverage",
+        table_id="T4.10",
+        row_id="net_leverage",
+        field="ltm",
+        amount=Decimal("4.2"),
+        unit="MULTIPLE",
+        period="LTM Q4 25",
+    )
+    moved = {"table_id": "T4F.2", "row_id": "ref01", "field": "value"}
+    for change, field in (({"period": "LTM Q3 25"}, "period"), ({"unit": "PERCENT"}, "unit")):
+        copy_ = source.model_copy(update={**moved, **change})
+        findings = figure_identity([_one_fact_head("CP-1", source), _one_fact_head("CP-4", copy_)])
+        assert [f.detail.split(" between ")[0] for f in findings] == [f"differs in {field}"]
+
+
+def test_every_shipped_reference_table_is_exempt() -> None:
+    """Every `*_references` table a shipped binding map names, and CP-4's T4F.2, is a
+    REFERENCE_TABLES copy table."""
+    named = {
+        entry.fact_coord.table_id
+        for binding_map in SHIPPED_MAPS
+        for entry in binding_map.entries
+        if entry.fact_coord.table_id and entry.fact_coord.table_id.endswith("_references")
+    }
+    assert named | {"T4F.2"} <= REFERENCE_TABLES
+
+
+def test_s09_a07_a_supported_verdict_needs_a_ref_of_its_own_claim() -> None:
+    """S09-A07. The oracle's first supported review rests on its claim's own citation ref; swapped
+    for an unrelated fact of the same head (a facility id) it is refused for that review, naming
+    the claim. Restoring the original ref accepts it again (hand-derived: the claim's own refs are
+    its `#cN` citation refs, the facts its text names and the facts filed under its id)."""
+    case = CASES[0]
+    base = json.loads(make_inputs(case).submission.model_dump_json())
+    heads = {h.module_id: h for h in make_inputs(case).scope.evaluated}
+    index = next(i for i, r in enumerate(base["claim_reviews"]) if r["support"] == "supported")
+    review = base["claim_reviews"][index]
+    head = heads[review["producer_module"]]
+    claim = next(c for c in head.claims if c.claim_id == review["claim_ref"])
+    own = _own_refs(head, claim)
+    unrelated = next(f.fact_id for f in head.facts if f.fact_id not in own and f.text is not None)
+    review["upstream_refs"] = [unrelated]
+    scope = make_inputs(case).scope
+    got = validate_integrity(scope, IntegritySubmission.model_validate_json(json.dumps(base)))
+    want = f"claim_reviews[{index}]: a supported verdict names no upstream_ref of {claim.claim_id}"
+    assert any(issue.startswith(want) for issue in got), got
+    review["upstream_refs"] = [next(iter(sorted(own)))]
+    ok = validate_integrity(scope, IntegritySubmission.model_validate_json(json.dumps(base)))
+    assert not any("names no upstream_ref of" in issue for issue in ok), ok
+
+
+@pytest.mark.parametrize("support", ["supported", "partly_supported"])
+def test_review_s09_a07_another_claims_citation_ref_does_not_carry_a_verdict(support: str) -> None:
+    """Review of S09-A07 (hand-derived): a verdict above unsupported that rests only on another
+    claim's citation ref of the same head (credit_translation.r03#c1 for r05) names no ref of its
+    own claim, for partly_supported as for supported; the oracle review itself is accepted."""
+    case = CASES[0]
+    base = json.loads(make_inputs(case).submission.model_dump_json())
+    index = next(
+        i for i, r in enumerate(base["claim_reviews"]) if r["claim_ref"] == "credit_translation.r05"
+    )
+    review = base["claim_reviews"][index]
+    review["support"] = support
+    review["upstream_refs"] = ["credit_translation.r03#c1"]
+    scope = make_inputs(case).scope
+    got = validate_integrity(scope, IntegritySubmission.model_validate_json(json.dumps(base)))
+    claim = "credit_translation.r05"
+    want = f"claim_reviews[{index}]: a {support} verdict names no upstream_ref of {claim}"
+    assert any(issue.startswith(want) for issue in got), got

@@ -461,6 +461,14 @@ CHILD_BASIS_DIFFERENCE_BLOCKER = "Audited FY / unaudited quarter basis differenc
 CASH_SCOPE_BLOCKER = "Cash scope differs across source periods: "
 
 
+# Disclosure-absence blockers: the issuer discloses only part of the schedule, so the missing
+# rows are absent inputs although every listed term has an amount. Each is the exact text its site
+# builds: financial_reconciliation.py SEGMENT_REVENUE and period_reconciliation.py SEGMENT_REVENUE.
+DISCLOSURE_ABSENCE_BLOCKERS = frozenset(
+    {"Disclosed segment schedule is incomplete", "Disclosed segment schedule is partial"}
+)
+
+
 def shadowed_account_ids(book: FinancialBook) -> frozenset[str]:
     """Observation ids of explicit accounts without an amount that hide a known printed line.
 
@@ -499,9 +507,12 @@ def absent_input_limitation(
     """The limitation text for a BLOCK check that only lacks an input, else None (stays BLOCK).
 
     Rulings item 82: on a public filed pack a check that cannot be computed because an input is
-    absent is a stated limitation. A check that computed a difference, a term that is a
+    absent is a stated limitation. An input is absent when a term has no amount, or when the
+    blocker is a disclosure-absence blocker (`DISCLOSURE_ABSENCE_BLOCKERS`). A check that computed
+    a difference, a check whose terms all have amounts under any other blocker, a term that is a
     conflicting observation, an FX-normalised term, a term that cites a shadowing explicit
-    account, a quoted child difference, a cash-scope mismatch, a non-public case and a WARN check all stay as they are.
+    account, a quoted child difference, a cash-scope mismatch, a non-public case and a WARN check
+    all stay as they are.
     """
     if not public or check.status != "BLOCK" or check.difference is not None:
         return None
@@ -524,6 +535,10 @@ def absent_input_limitation(
     absent = "; ".join(
         f"{t.label} ({t.reason})" if t.reason else t.label for t in terms if t.amount is None
     )
+    # Every term present: a structural blocker (unknown expense presentation, quarters that do
+    # not span the FY, an NCF structure) suppressed a computable difference. That stays BLOCK.
+    if not absent and check.explanation not in DISCLOSURE_ABSENCE_BLOCKERS:
+        return None
     return ABSENT_INPUT_PREFIX + check.explanation + (f"; absent: {absent}" if absent else "")
 
 

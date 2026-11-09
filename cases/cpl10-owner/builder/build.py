@@ -11,6 +11,7 @@ Run: python3 -I cases/cpl10-owner/builder/build.py   (from the repository root)
 
 import hashlib
 import json
+from typing import Any
 import re
 import sys
 from copy import deepcopy
@@ -220,14 +221,26 @@ def cp1_value(metric, qkey):
     raise KeyError(metric)
 
 
-def cp1_fact(metric, qkey):
+# S13 C01: CP-1 states a quarter column's ratio over the twelve months ending the quarter (the
+# operands' basis), `LTM <quarter>: start to end`; the window ending Q4 25 is the four 2025
+# quarters, the windows ending Q1-Q3 25 lack earlier quarters in this case, so their start is null.
+TRAILING = {
+    "Q1": "LTM Q1 25: null to 2025-03-31",
+    "Q2": "LTM Q2 25: null to 2025-06-30",
+    "Q3": "LTM Q3 25: null to 2025-09-30",
+    "Q4": "LTM Q4 25: 2025-01-01 to 2025-12-31",
+}
+RATIOS = ("total_leverage_reported", "interest_coverage_reported")
+
+
+def cp1_fact(metric: str, qkey: str) -> dict[str, Any]:
     column, period = QUARTERS[qkey]
-    value = cp1_value(metric, qkey)
+    value = cp1_value(metric, qkey)  # type: ignore[no-untyped-call]  # legacy builder helper
     return {
         "label": f"{column} · {metric}",
-        "period": period,
+        "period": TRAILING[qkey] if metric in RATIOS else period,
         "status": "known" if value is not None else "missing",
-        "amount_exact": None if value is None else norm(value),
+        "amount_exact": None if value is None else norm(value),  # type: ignore[no-untyped-call]
         "value_class": VCLASS[metric],
         "value_class_basis": "observed",
         "limitation": None if value is not None else GATE,

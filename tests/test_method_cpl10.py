@@ -8,6 +8,7 @@ this test's upstream values; Stage 2 binds them from the store.
 
 import hashlib
 import json
+import re
 from copy import deepcopy
 from datetime import date
 from decimal import Decimal
@@ -28,6 +29,7 @@ from deploy_vii.contracts import (
     TableRow,
     validate_tables,
 )
+from deploy_vii.report_view import fact_spelling
 from deploy_workflow.owners import cpl10
 from deploy_workflow.owners.blank import one_per_page
 
@@ -43,6 +45,17 @@ FINANCIAL_SHA = "82d684ccaa230ca1ff5ada477b02b510c193b0deabf7cd749e420508f93c042
 
 def _digest(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()
+
+
+# S13 C01: CP-1 states a quarter column's ratio over the twelve months ending the quarter, written
+# here by hand (the builder's own TRAILING table is not read): 2025-01-01 to 2025-12-31 is the
+# four 2025 quarters; the windows ending Q1-Q3 lack earlier quarters, so their start is null.
+TRAILING = {
+    "Q1 25: 2025-01-01 to 2025-03-31": "LTM Q1 25: null to 2025-03-31",
+    "Q2 25: 2025-04-01 to 2025-06-30": "LTM Q2 25: null to 2025-06-30",
+    "Q3 25: 2025-07-01 to 2025-09-30": "LTM Q3 25: null to 2025-09-30",
+    "Q4 25: 2025-10-01 to 2025-12-31": "LTM Q4 25: 2025-01-01 to 2025-12-31",
+}
 
 
 def _cp1_facts() -> list[Fact]:
@@ -77,7 +90,7 @@ def _cp1_facts() -> list[Fact]:
                     currency="USD" if money else None,
                     scale=Decimal(1000000) if money else Decimal(1),
                     decimals=0,
-                    period=value["period"],
+                    period=value["period"] if money else TRAILING[value["period"]],
                     citations=(
                         Citation(
                             source_id="financial",
@@ -263,16 +276,14 @@ def test_unsettled_copied_cell_takes_the_topics_unit() -> None:
             None,
             Decimal(1),
         ), fact_id
-    # a MILLIONS topic: its own USD and 1,000,000 even when the twin is known in another currency
+    # a MILLIONS topic: its own USD and 1,000,000 even when the missing twin states EUR (S10-A04:
+    # a known twin in another currency is now refused, see test_a_known_operand_currency_*)
     cash = {"status": "missing", "amount": None, "limitation": "close gap", **odd}
-    cells = _limited_with(
-        {f"{q3} · cash_closing": cash, f"{q2} · cash_closing": {"currency": "EUR"}},
-        drop_cash=True,
-    )
+    cells = _limited_with({f"{q3} · cash_closing": cash}, drop_cash=True)
     fact = cells["TL10.2.cash.to_value"]
     assert (fact.unit, fact.currency, fact.scale) == ("MILLIONS", "USD", Decimal(1000000))
     known = cells["TL10.2.cash.from_value"]  # a known copied cell stays verbatim
-    assert (known.unit, known.currency, known.scale) == ("MILLIONS", "EUR", Decimal(1000000))
+    assert (known.unit, known.currency, known.scale) == ("MILLIONS", "USD", Decimal(1000000))
 
 
 def test_unsettled_operand_without_unit_is_accepted() -> None:
@@ -680,6 +691,47 @@ def _with(path: tuple[Any, ...], value: Any) -> dict[str, Any]:
     return sub
 
 
+def _closing_known(*metrics: str) -> cpl10.Upstream:
+    """CP-1 with every Q4 25 operand missing except the named metrics'."""
+    out = []
+    for f in _cp1_facts():
+        if f.label.startswith("Q4 25") and f.row_id not in metrics:
+            f = f.model_copy(update={"status": "missing", "amount": None, "limitation": "Absent"})
+        out.append(f)
+    return _upstream(out)
+
+
+@pytest.mark.parametrize(
+    ("known", "assessed", "supported"),
+    [
+        # S10-A02, hand-read: no topic has a closing value, so CP-1 supports none; the cell
+        # states that (it was empty known text, and the report view raised on it)
+        ((), (), "None: no topic has values at both ends"),
+        # a single-topic scope: only Cash has values at both ends
+        (("cash_closing",), ("cash",), "Cash"),
+    ],
+)
+def test_s10_a02_topics_supported_is_never_empty_text(
+    known: tuple[str, ...], assessed: tuple[str, ...], supported: str
+) -> None:
+    upstream = _closing_known(*known)
+    sub = deepcopy(SUBMISSIONS["positive"])
+    sub["assessments"] = [a for a in sub["assessments"] if a["topic_id"] in assessed]
+    if not assessed:
+        sub["overall"] = {
+            "rationale": "No topic can be screened for this pair.",
+            "category": "Insufficient Information",
+            "confidence": "Insufficient Information",
+            "limitation": "Closing quarter values are not reported.",
+        }
+    assert cpl10.validate_screen(submission=json.dumps(sub), upstream=upstream) == ()
+    result = cpl10.change_screen(submission=json.dumps(sub), upstream=upstream)
+    cells = {c.fact.fact_id: c.fact for c in result.cells}
+    fact = cells["TL10.1.cp1.topics_supported"]
+    assert (fact.status, fact.value_class, fact.text) == ("known", "calculated", supported)
+    assert fact_spelling(fact, "G1") == ("text", "known", supported)
+
+
 def test_text_check_binds_every_python_built_fact() -> None:
     # L10-a: the settlement prose path against every Python-built fact of the module.
     for ref in (
@@ -916,3 +968,91 @@ def test_derived_cells_cite_one_quote_per_page() -> None:
                 )
                 repeated += len(inputs) > len(one_per_page(inputs))
     assert repeated, "the fixture must exercise two quotes on one page"
+
+
+def test_a_known_operand_currency_other_than_the_basis_is_refused() -> None:
+    # S10-A04/C01, hand-read: with no run context the basis is USD. A known MILLIONS operand in
+    # EUR (every quarter, or only one) is not on that basis, so the plain Upstream refuses it
+    # (before, TL10.2 copied EUR from/to cells beside a USD change). A missing operand states no
+    # amount, so its currency text is not an amount's currency and is not refused.
+    cash_q2 = cpl10.QUARTERS[1].column + " · cash_closing"
+    mixed = [
+        f.model_copy(update={"currency": "EUR"}) if f.label == cash_q2 else f for f in _cp1_facts()
+    ]
+    with pytest.raises(cpl10.UpstreamError, match=f"currency EUR is not USD: {re.escape(cash_q2)}"):
+        _upstream(mixed)
+    every = [
+        f.model_copy(update={"currency": "EUR"}) if f.unit == "MILLIONS" else f
+        for f in _cp1_facts()
+    ]
+    with pytest.raises(cpl10.UpstreamError, match="currency EUR is not USD"):
+        _upstream(every)
+    gap = {"status": "missing", "amount": None, "limitation": "gap", "currency": "EUR"}
+    unknown = [f.model_copy(update=gap) if f.label == cash_q2 else f for f in _cp1_facts()]
+    assert _upstream(unknown).currency.currency == "USD"
+
+
+def test_s10_c02_limitation_and_gap_text_get_the_rationale_checks() -> None:
+    # S10-C02, hand-read. "recommend", "covenant" and "recovery" are PROHIBITED words (three
+    # issues, one per word, in PROHIBITED order); "5.2x" and "40%" are the bare figures the
+    # prose check names. The same words in overall.rationale already gave this shape.
+    sub = _with(("overall", "category"), cpl10.INSUFFICIENT)
+    sub["overall"]["confidence"] = cpl10.INSUFFICIENT
+    sub["overall"]["limitation"] = "We recommend a covenant reset at 5.2x; recovery is 40% at most."
+    assert _issues(sub) == [
+        "overall.limitation: Bare figure: 5.2x",
+        "overall.limitation: Bare figure: 40%",
+        "overall.limitation: prohibited conclusion: recommend",
+        "overall.limitation: prohibited conclusion: recovery",
+        "overall.limitation: prohibited conclusion: covenant",
+    ]
+    sub["overall"]["limitation"] = "Only two quarters are compared."
+    assert _issues(sub) == []
+    # a gap field: the prohibited word is refused; a field with a digit keeps only its own issue
+    gap = _with(("gaps", 0, "why_it_matters"), "Recovery prospects cannot be screened.")
+    assert _issues(gap) == ["gaps[0].why_it_matters: prohibited conclusion: recovery"]
+    gap = _with(("gaps", 0, "action"), "Supply the covenant package, then rerun.")
+    assert _issues(gap) == ["gaps[0].action: prohibited conclusion: covenant"]
+    gap = _with(("gaps", 0, "gap"), "Leverage above 5.2x is not modelled.")
+    assert _issues(gap) == ["gaps[0].gap: must not contain a digit"]
+    # a blank limitation keeps the single "empty" issue
+    sub["overall"]["limitation"] = "   "
+    assert _issues(sub) == ["overall.limitation: empty"]
+
+
+def test_s10_review_limitation_and_gap_text_resolve_no_reference() -> None:
+    # S10 review, hand-read: overall.limitation and gap texts are plain text (a claim limitation
+    # and Module.limitations), so a reference is printed literally, braces and all. In the
+    # rationale (run text) the same reference resolves and stays accepted.
+    ref = "{TL10.2.cash.change}"
+    sub = _with(("overall", "rationale"), f"Cash moved by {ref} over the pair.")
+    assert _issues(sub) == []
+    sub = _with(("overall", "category"), cpl10.INSUFFICIENT)
+    sub["overall"]["confidence"] = cpl10.INSUFFICIENT
+    sub["overall"]["limitation"] = f"The move of {ref} rests on two quarters."
+    assert _issues(sub) == ["overall.limitation: Unresolved reference: TL10.2.cash.change"]
+    sub["overall"]["limitation"] = "The screen rests on [two] quarters."
+    assert _issues(sub) == ["overall.limitation: Unresolved reference: two"]
+    gap = _with(("gaps", 0, "action"), "Supply the {cash} statements, then rerun.")
+    assert _issues(gap) == ["gaps[0].action: Unresolved reference: cash"]
+    # "Discovery" holds no prohibited word; the oracle's own gap texts stay accepted
+    gap = _with(("gaps", 0, "why_it_matters"), "Discovery of a seasonal pattern needs a year.")
+    assert _issues(gap) == []
+
+
+def test_s10_review_a_known_money_operand_without_currency_is_refused() -> None:
+    # S10 review, hand-read: a known MILLIONS operand with no currency is not on the USD basis
+    # (None is not USD), so the plain Upstream refuses it; a known multiple has no currency and
+    # is not a money operand, so a None there is accepted.
+    cash_q1 = cpl10.QUARTERS[0].column + " · cash_closing"
+    none = [
+        f.model_copy(update={"currency": None}) if f.label == cash_q1 else f for f in _cp1_facts()
+    ]
+    assert next(f for f in none if f.label == cash_q1).status == "known"
+    with pytest.raises(
+        cpl10.UpstreamError, match=f"currency None is not USD: {re.escape(cash_q1)}"
+    ):
+        _upstream(none)
+    multiples = [f for f in _cp1_facts() if f.unit == "MULTIPLE" and f.status == "known"]
+    assert multiples and all(f.currency is None for f in multiples)
+    assert _upstream().currency.currency == "USD"

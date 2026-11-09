@@ -148,9 +148,8 @@ def test_layout_the_tools_browse_modules_toggle_is_auto_width() -> None:
     assert "width:auto" in found and "width:100%" not in found
 
 
-def test_layout_filters_flex_headers_stick_long_names_truncate_groups_fit() -> None:
-    assert any("flex:1 1 140px" in b for b in rule(".library-select"))
-    assert any("position:sticky" in b for b in rule(".case-list thead th"))
+def test_layout_filters_flow_long_names_truncate_groups_fit() -> None:
+    assert any("auto-fit" in b for b in rule(".library-filters"))
     assert any("text-overflow:ellipsis" in b for b in rule(".issuer h1"))
     assert any("auto-fit" in b for b in rule(".question-map>section>div"))
 

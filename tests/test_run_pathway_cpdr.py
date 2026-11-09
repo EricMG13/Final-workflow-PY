@@ -9,9 +9,11 @@ compared is what staging wrote: the pack, ``research/rejected.json``, ``research
 import hashlib
 import json
 import socket
+from dataclasses import replace
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
+from runpy import run_path
 from types import SimpleNamespace
 from typing import Any
 
@@ -34,9 +36,10 @@ from deploy_vii.preparation import load_pack
 from deploy_workflow import run_pathway as rp
 from deploy_workflow.model.adapter import AdapterReply
 from deploy_workflow.model.budget import Budget
+from deploy_workflow.model.loop import ToolLoop
 from deploy_workflow.model.redact import Redactor
-from deploy_workflow.model.turn import ToolCall, Turn
-from deploy_workflow.owner_workflow import OwnerWorkflow
+from deploy_workflow.model.turn import Message, ToolCall, Turn
+from deploy_workflow.owner_workflow import OwnerBinding, OwnerWorkflow
 from deploy_workflow.owners import cpdr
 from deploy_workflow.prompts import factory
 from deploy_workflow.prompts.fence import UntrustedItem
@@ -144,9 +147,25 @@ def test_a_manifest_error_writes_nothing(tmp_path: Path, monkeypatch: pytest.Mon
     assert not (tmp_path / "run").exists()
 
 
-def test_cp_dr_false_is_byte_identical(tmp_path: Path) -> None:
+# The deliberate sentences the CP-0 system message gained after checkpoint 65d1a180, undone by
+# the frozen-digest tests' own helpers (tests/prompts). A new deliberate CP-0 change adds its own.
+_UNDO_S13 = run_path(str(ROOT / "tests" / "prompts" / "s13_strip.py"))["undo_s13"]
+_UNDO_S14_C04 = run_path(str(ROOT / "tests" / "prompts" / "s14_c04_strip.py"))["undo_s14_c04"]
+
+
+def test_cp_dr_false_is_byte_identical(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Plan 4 row 3: the same inputs as the fixture, run with this code, give the same run.json
-    and the same run_dir tree. The fixture was made by ``off_run_record`` on checkpoint 65d1a180 (O7-R44)."""
+    and the same run_dir tree. The fixture was made by ``off_run_record`` on checkpoint 65d1a180
+    (O7-R44). The run stops at its first call, whose invocation digest is taken with the S13-A04/C07
+    run-text sentences and the S14-C04 rule-2 sentence undone, as the frozen-digest tests do."""
+    digest = ToolLoop._digest
+
+    def frozen(self: ToolLoop, binding: OwnerBinding, opening: tuple[Message, ...]) -> str:
+        first, *rest = opening
+        text = _UNDO_S14_C04(binding.step_id, _UNDO_S13(binding.step_id, first.text))
+        return digest(self, binding, (replace(first, text=text), *rest))
+
+    monkeypatch.setattr(ToolLoop, "_digest", frozen)
     pinned = json.loads(FIXTURE.read_text(encoding="utf-8"))
     got = off_run_record(tmp_path)
     assert got["run_json"] == pinned["run_json"]

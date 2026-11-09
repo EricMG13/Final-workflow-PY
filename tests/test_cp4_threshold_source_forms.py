@@ -9,7 +9,7 @@ from decimal import Decimal
 
 import pytest
 
-from deploy_vii.cp4_legal import parse_threshold
+from deploy_vii.cp4_legal import Covenant, Quote, _threshold_issues, parse_threshold
 
 
 @pytest.mark.parametrize(
@@ -45,3 +45,39 @@ def test_supported_thresholds_keep_their_exact_value(
     text: str, unit: str, expected: Decimal
 ) -> None:
     assert parse_threshold(text, unit) == (expected, None)
+
+
+def _covenant(threshold_text: str, threshold_value: str, quote: str) -> Covenant:
+    return Covenant(
+        name="Total Net Leverage Ratio",
+        kind="maintenance",
+        document_id="credit-agreement",
+        clause="Section 7.11",
+        definition_text="Consolidated Total Net Debt to Consolidated EBITDA",
+        test_formula="total net debt / EBITDA",
+        threshold_text=threshold_text,
+        threshold_unit="multiple",
+        threshold_value=threshold_value,
+        comparison="<=",
+        metric_ref=None,
+        metric_basis="Not determinable",
+        facility_ids=(),
+        period_scope="each fiscal quarter",
+        citations=(Quote(source_id="credit-agreement", locator="page 88", quote=quote),),
+        limitation=None,
+    )
+
+
+COVENANT_QUOTE = "the Total Net Leverage Ratio shall not exceed 12.50:1.00 as of the last day"
+
+
+def test_threshold_cut_out_of_a_larger_figure_is_not_quoted() -> None:
+    """S13 A03/C05: `2.50:1.00` is a substring of `12.50:1.00` but not a quote of it, so the
+    12.50x covenant cannot be recorded as 2.50x. The whole threshold is accepted without issue.
+    No pack sources are passed: the S09 sentence check then reads the quote alone."""
+    issues = _threshold_issues("covenants[0]", _covenant("2.50:1.00", "2.50", COVENANT_QUOTE), ())
+    assert issues == ["covenants[0]: threshold_text is not part of the row's quotes"]
+    assert (
+        _threshold_issues("covenants[0]", _covenant("12.50:1.00", "12.50", COVENANT_QUOTE), ())
+        == []
+    )

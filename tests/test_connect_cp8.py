@@ -191,6 +191,50 @@ def test_labelled_joins_only_a_comma_directly_before_a_digit() -> None:
     assert cp8._labelled("total_leverage", "1.80", "Total leverage 1, 2 and 1.80x")
 
 
+# S10-A01: a label binds the figure directly after it, with no other measure's word between, and
+# every occurrence of the label that binds a figure must bind the submitted one. Expected values
+# are read by hand from each sentence.
+COVER_FIRST = "Total leverage was not reported; interest cover was 6.00x and total leverage 1.80x."
+OFFER_FIRST = "The offer side was indicative only; bid 98.50 and offer 99.25."
+COVENANT = "interest cover of 6.00x against a minimum interest cover of 3.00x"
+
+
+@pytest.mark.parametrize(
+    ("metric", "value", "quote", "accepted"),
+    [
+        ("total_leverage", "1.80", COVER_FIRST, True),
+        ("total_leverage", "6.00", COVER_FIRST, False),  # 6.00x is the cover's figure
+        ("interest_cover", "6.00", COVER_FIRST, True),
+        ("loan_offer", "99.25", OFFER_FIRST, True),
+        ("loan_offer", "98.50", OFFER_FIRST, False),  # 98.50 is the bid's figure
+        ("loan_bid", "98.50", OFFER_FIRST, True),
+        ("total_leverage", "2.10", "Total leverage was not reported; net leverage 2.10x", False),
+        ("total_leverage", "1.80", "Net leverage 2.10x and total leverage 1.80x", True),
+        ("total_leverage", "1.80", "Total leverage 1.80x (interest cover 5.50x)", True),
+        ("interest_cover", "5.50", "Total leverage 1.80x (interest cover 5.50x)", True),
+        ("loan_offer", "98.75", "On April 29, 2026 the offer was 98.75% of par", True),
+        ("interest_cover", "6.00", COVENANT, False),  # two labelled figures: ambiguous
+        ("interest_cover", "3.00", COVENANT, False),
+        ("loan_offer", "99.00", "A counteroffer 99.00 was made", False),  # not the label
+        # a joined list of labels reads by position: no label binds the first figure
+        ("loan_offer", "98.00", "Dealer bid/offer 98.00/98.75", False),
+        ("loan_bid", "98.00", "Dealer bid and offer 98.00 and 98.75", False),
+        ("total_leverage", "6.00", "Interest cover and total leverage were 6.00x and 1.80x", False),
+        ("interest_cover", "6.00", "Interest cover and total leverage were 6.00x and 1.80x", False),
+        # an unreadable figure after any occurrence of the label refuses the value
+        ("loan_bid", "98.00", "bid 1,250.50 and bid 98.00", False),
+        ("loan_bid", "98.00", "bid 98.00 and bid 1,250.50", False),
+        ("loan_offer", "98.75", "Offer: 98.75", False),  # a colon is not the label's space
+        ("loan_offer", "98.75", "OFFER 98.75", True),
+        ("loan_offer", "98.75", "bid 98.00, offer 98.75", True),
+    ],
+)
+def test_labelled_binds_the_figure_of_the_label_before_it(
+    metric: str, value: str, quote: str, accepted: bool
+) -> None:
+    assert cp8._labelled(metric, value, quote) is accepted
+
+
 # --- backlog: a blank citation quote (round 13 addendum 3) -------------------------------------------
 
 POSITIVE = SUBMISSIONS["positive"]

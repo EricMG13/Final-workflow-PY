@@ -683,6 +683,13 @@ def _gone(fact: cp3c.Cp2dFact, reason: str) -> cp3c.Cp2dFact:
     return replace(fact, status="missing", amount=None, text=None, period=None, reason=reason)
 
 
+def _in(terms: cp3c.FacilityTerms, currency: str) -> cp3c.FacilityTerms:
+    """The terms of a facility in `currency`: CP-1 writes its annual_amortisation in the row's own
+    currency (CP-2D `_facility_of`), so the fact is stamped with it too (S08-cp3-C01)."""
+    amort = replace(terms.annual_amortisation, currency=currency)
+    return replace(terms, currency=currency, annual_amortisation=amort)
+
+
 def _no_amortisation() -> cp3c.FacilityTerms:
     missing = _missing_cp1("term-loan.annual_amortisation")
     return replace(_positive_terms(), annual_amortisation=missing)
@@ -755,12 +762,14 @@ def test_c1_cost_claim_at_a_zero_step_up_leaves_interest_cover() -> None:
     )
 
 
-def test_c1_cost_claim_with_cover_raised_changes_interest_cover() -> None:
-    """Negative EBITDA: the cover rises towards zero as interest grows."""
+def test_c1_cost_claim_with_negative_ebitda_takes_both_cover_chips() -> None:
+    """Ruling S08-cp3-C08: with adjusted EBITDA -30 both covers are not meaningful, so the claim
+    shows both as chips. Before the ruling it read "changes interest cover from (6.00)x to
+    (4.29)x" (-30 / 5 and -30 / 7)."""
     result = cp3c.compute(_with_cp1(adjusted_ebitda=_cp1_amount("adjusted_ebitda", "-30")))
     assert _claim(result, "CP-3C-COST-01") == (
-        f"{COST}{{T3D.3.r06|US$ m}} to annual cash interest and changes interest cover from "
-        "{T3D.3.r03|x} to {T3D.3.r08|x}."
+        f"{COST}{{T3D.3.r06|US$ m}} to annual cash interest; interest cover is [T3D.3.r03] "
+        "before and [T3D.3.r08] after it."
     )
 
 
@@ -774,6 +783,27 @@ def test_c1_cost_claim_with_one_cover_not_known_keeps_the_known_side() -> None:
 
 def test_c1_cost_claim_with_neither_cover_known() -> None:
     result = cp3c.compute(_with_cp1(cash_interest=_missing_cp1("cash_interest")))
+    assert _claim(result, "CP-3C-COST-01") == (
+        f"{COST}{{T3D.3.r06|US$ m}} to annual cash interest; interest cover is [T3D.3.r03] "
+        "before and [T3D.3.r08] after it."
+    )
+
+
+def test_a_positive_cp1_cash_interest_leaves_both_pro_forma_values_not_meaningful() -> None:
+    """S08-A09/C05: CP-1 stores cash interest as a negative outflow. A stored +2.00 negates to
+    paid -2.00 (T3D.3.r01, exact); with a 1000 bp step-up the added interest is still known
+    (T3D.3.r06), but pro forma interest (-2.00 + added) and its cover are not meaningful, as the
+    base cover is: before the fix the pro forma cover printed 10.0000x (30 / 3.00)."""
+    inputs = _with_cp1(cash_interest=_cp1_amount("cash_interest", "2.00"))
+    result = cp3c.compute(_with_step_up(inputs, 1000))
+    cells = _cells_of(result)
+    assert cells["T3D.3.r01"].amount == Decimal("-2.00")
+    assert cells["T3D.3.r06"].status == "known"
+    for fact_id in ("T3D.3.r03", "T3D.3.r07", "T3D.3.r08"):
+        assert (cells[fact_id].status, cells[fact_id].reason) == (
+            "not_applicable",
+            cp3c.NM_INTEREST,
+        ), fact_id
     assert _claim(result, "CP-3C-COST-01") == (
         f"{COST}{{T3D.3.r06|US$ m}} to annual cash interest; interest cover is [T3D.3.r03] "
         "before and [T3D.3.r08] after it."
@@ -838,17 +868,81 @@ def test_c2_missing_ebitda_and_cash_interest() -> None:
     )
 
 
-@pytest.mark.parametrize("ebitda", ["0", "-30"])
+_COVERS = ["T3D.3.r03", "T3D.3.r08"]  # interest cover and pro forma interest cover
+NM_EBITDA_TEXT = f"Not meaningful: adjusted EBITDA is zero or negative {NM}"
+NM_INTEREST_TEXT = f"Not meaningful: cash interest paid is zero or negative {NM}"
+
+
+@pytest.mark.parametrize("ebitda", ["0", "-30", "-0"])
 def test_c2_non_positive_ebitda_is_not_meaningful(ebitda: str) -> None:
+    """Ruling S08-cp3-C08: both covers join the ratios over adjusted EBITDA (a -0 is zero); before
+    the ruling they were published as -30 / 5 = (6.00)x and -30 / 7 = (4.29)x, or 0.00x."""
     result = cp3c.compute(_with_cp1(adjusted_ebitda=_cp1_amount("adjusted_ebitda", ebitda)))
-    reason = f"Not meaningful: adjusted EBITDA is zero or negative {NM}"
-    assert _own_gaps(result) == _all(_OVER_EBITDA, "not_applicable", reason)
+    assert _own_gaps(result) == _all([*_OVER_EBITDA, *_COVERS], "not_applicable", NM_EBITDA_TEXT)
+
+
+@pytest.mark.parametrize(
+    ("ebitda", "cover", "pro_forma"),
+    [
+        # The positive case: CP-1 cash interest -5.00 negates to paid 5; 400 bp on principal
+        # payable 50 adds 2, pro forma 7. 30 / 5 = 6.0000; 30 / 7 = 4.285714... -> 4.2857.
+        ("30", "6.0000", "4.2857"),
+        # A positive EBITDA, however small, is published: 0.000001 / 5 and / 7 round to 0.0000.
+        ("0.000001", "0.0000", "0.0000"),
+    ],
+)
+def test_s08_c08_positive_ebitda_publishes_both_covers(
+    ebitda: str, cover: str, pro_forma: str
+) -> None:
+    cells = _cells_of(
+        cp3c.compute(_with_cp1(adjusted_ebitda=_cp1_amount("adjusted_ebitda", ebitda)))
+    )
+    for fact_id, value in zip(_COVERS, (cover, pro_forma), strict=True):
+        assert (cells[fact_id].status, cells[fact_id].amount) == ("known", Decimal(value))
+
+
+def test_s08_c08_zero_interest_keeps_its_reason() -> None:
+    """Zero cash interest keeps its pre-ruling behaviour: interest cover is not meaningful for the
+    interest and the pro forma cover is 30 / (0 + 2) = 15.0000. With adjusted EBITDA -30 as well,
+    interest cover keeps the interest reason (a gap that is not a multiple is unchanged) and the
+    pro forma cover, -30 / 2 = (15.00)x before the ruling, is not meaningful for the EBITDA."""
+    zero = _cp1_amount("cash_interest", "0")
+    cells = _cells_of(cp3c.compute(_with_cp1(cash_interest=zero)))
+    assert (cells["T3D.3.r03"].status, cells["T3D.3.r03"].reason) == (
+        "not_applicable",
+        NM_INTEREST_TEXT,
+    )
+    assert (cells["T3D.3.r08"].status, cells["T3D.3.r08"].amount) == ("known", Decimal(15))
+    negative = _cp1_amount("adjusted_ebitda", "-30")
+    result = cp3c.compute(_with_cp1(cash_interest=zero, adjusted_ebitda=negative))
+    assert {k: v for k, v in _own_gaps(result).items() if k in _COVERS} == {
+        "T3D.3.r03": ("not_applicable", NM_INTEREST_TEXT),
+        "T3D.3.r08": ("not_applicable", NM_EBITDA_TEXT),
+    }
+
+
+def test_s08_c08_a_missing_or_not_meaningful_interest_keeps_its_gap_under_negative_ebitda() -> None:
+    """Missing stays missing: with cash interest missing and adjusted EBITDA -30 both covers name
+    the missing interest. A positive stored CP-1 cash interest (+2, paid -2) keeps S08-A09's
+    interest reason on both covers."""
+    negative = _cp1_amount("adjusted_ebitda", "-30")
+    missing = cp3c.compute(
+        _with_cp1(cash_interest=_missing_cp1("cash_interest"), adjusted_ebitda=negative)
+    )
+    reason = "Not calculable: cash interest paid is missing"
+    assert {k: v for k, v in _own_gaps(missing).items() if k in _COVERS} == _all(
+        _COVERS, "missing", reason
+    )
+    received = _cp1_amount("cash_interest", "2")
+    result = cp3c.compute(_with_cp1(cash_interest=received, adjusted_ebitda=negative))
+    assert {k: v for k, v in _own_gaps(result).items() if k in _COVERS} == _all(
+        _COVERS, "not_applicable", NM_INTEREST_TEXT
+    )
 
 
 def test_c2_zero_cash_interest_and_zero_balloon_are_not_meaningful() -> None:
     result = cp3c.compute(_with_cp1(cash_interest=_cp1_amount("cash_interest", "0")))
-    reason = f"Not meaningful: cash interest paid is zero or negative {NM}"
-    assert _own_gaps(result) == {"T3D.3.r03": ("not_applicable", reason)}
+    assert _own_gaps(result) == {"T3D.3.r03": ("not_applicable", NM_INTEREST_TEXT)}
     amortised = _cp1_amount("term-loan.annual_amortisation", "50")
     result = cp3c.compute(_positive_with(replace(_positive_terms(), annual_amortisation=amortised)))
     reason = f"Not meaningful: principal payable at maturity is zero {NM}"
@@ -927,7 +1021,7 @@ def test_c6_a_facility_in_another_currency_uses_the_2d5_wording() -> None:
     fx = "Not calculable: facility term-loan is in EUR, not USD; no FX conversion is applied"
     row = _positive_row()
     wall = (replace(row, principal=_gone(row.principal, fx)),)
-    result = cp3c.compute(_positive_with(replace(_positive_terms(), currency="EUR"), wall=wall))
+    result = cp3c.compute(_positive_with(_in(_positive_terms(), "EUR"), wall=wall))
     assert _own_gaps(result) == _all(
         [*_PAYABLE, *_RESOURCES, *_REPRICED, "T3D.4.r01.c4", *_CLAIMS], "missing", fx
     )
@@ -1470,7 +1564,7 @@ def test_a39_a_usd_principal_gap_keeps_its_own_cause_beside_a_eur_facility() -> 
     result = cp3c.compute(
         _positive_with(
             replace(_positive_terms(), facility_id="a-usd"),
-            replace(_positive_terms(), facility_id="b-eur", currency="EUR"),
+            _in(replace(_positive_terms(), facility_id="b-eur"), "EUR"),
             wall=(usd, replace(row, facility_id="b-eur")),
         )
     )
@@ -1861,9 +1955,111 @@ def test_r13_every_millions_facility_and_cp2d_fact_read_has_the_same_currency() 
             cp3c.compute(replace(inputs, cp2d=cp2d))
 
 
+def test_s08_c01_a_eur_facilitys_eur_amortisation_reaches_the_fx_gap() -> None:
+    """S08-cp3-C01: CP-2D requires a facility's annual_amortisation in the facility's own
+    currency, so a EUR term loan carries a EUR amortisation. CP-3C must not raise on it against
+    the USD reporting currency; the facility takes the FX gaps of ruling C-6 instead (the same
+    21 own gaps as test_c6_a_facility_in_another_currency_uses_the_2d5_wording)."""
+    fx = "Not calculable: facility term-loan is in EUR, not USD; no FX conversion is applied"
+    row = _positive_row()
+    wall = (replace(row, principal=_gone(row.principal, fx)),)
+    eur = _in(_positive_terms(), "EUR")
+    assert eur.annual_amortisation.currency == "EUR"
+    result = cp3c.compute(_positive_with(eur, wall=wall))
+    assert _own_gaps(result) == _all(
+        [*_PAYABLE, *_RESOURCES, *_REPRICED, "T3D.4.r01.c4", *_CLAIMS], "missing", fx
+    )
+    # The amortisation is held to the facility's own currency: a USD-stamped one on a EUR
+    # facility is the shape CP-2D refuses, and raises here with the facility's currency.
+    usd_amort = replace(eur, annual_amortisation=_positive_terms().annual_amortisation)
+    with pytest.raises(
+        ValueError, match=r"^CP-3C term-loan.annual_amortisation: currency 'USD' is not 'EUR'$"
+    ):
+        cp3c.compute(_positive_with(usd_amort, wall=wall))
+
+
+def test_s08_c01_a_facilitys_own_currency_amortisation_does_not_source_the_reporting_currency() -> (
+    None
+):
+    """cash_closing not known and the EUR facility's amortisation the only known money fact: it
+    states the facility's currency, not the run's, so the reporting currency stays unsourced."""
+    inputs = _positive_with(_in(_positive_terms(), "EUR"))
+    gone = {"status": "missing", "amount": None, "text": None, "reason": "Not stated"}
+    cp1 = inputs.cp1
+    cp1 = replace(
+        cp1,
+        cash_closing=replace(cp1.cash_closing, **gone),
+        undrawn_rcf=replace(cp1.undrawn_rcf, **gone),
+        adjusted_ebitda=replace(cp1.adjusted_ebitda, **gone),
+        cash_interest=replace(cp1.cash_interest, **gone),
+    )
+    cp2d = inputs.cp2d
+    cp2d = replace(
+        cp2d,
+        run_rate=replace(cp2d.run_rate, **gone),
+        minimum_cash=replace(cp2d.minimum_cash, **gone),
+        funding_gap=replace(cp2d.funding_gap, **gone),
+        wall=tuple(replace(r, principal=replace(r.principal, **gone)) for r in cp2d.wall),
+    )
+    unsourced = (
+        "CP-3C: the reporting currency is not sourced: cash_closing is not known and no known "
+        "US$ m fact states a currency"
+    )
+    with pytest.raises(ValueError, match=f"^{re.escape(unsourced)}$"):
+        cp3c.reporting_currency(cp1=cp1, cp2d=cp2d)
+
+
 def test_r13_a_missing_cash_closing_needs_no_currency() -> None:
     base = cp3c.compute(
         _with_cp1(cash_closing=_missing_cp1("cash_closing"))
     ).refinancing.base_resources
     assert isinstance(base, cp3c.Gap)
     assert base.reason == "Not calculable: cash and cash equivalents is missing"
+
+
+@pytest.mark.parametrize(
+    ("stored", "cover", "pro_forma", "pro_forma_cover"),
+    [
+        ("0.00", None, "5.00", "6.0000"),
+        ("-2.00", "15.0000", "7.00", "4.2857"),
+    ],
+)
+def test_confidence_review_s08_a09_only_a_positive_cp1_cash_interest_is_not_meaningful(
+    stored: str, cover: str | None, pro_forma: str, pro_forma_cover: str
+) -> None:
+    """Hand-derived from the S08-A09 test's operands (adjusted EBITDA 30; a 1000 bp step-up adds
+    5.00): a stored zero gives paid 0 (base cover n.m., pro forma 0 + 5.00 = 5.00, 30 / 5.00 =
+    6.0000: the pro forma interest is positive, so its cover is meaningful); the normal stored
+    -2.00 gives paid 2.00, cover 30 / 2.00 = 15.0000, pro forma 7.00, 30 / 7.00 = 4.2857."""
+    inputs = _with_cp1(cash_interest=_cp1_amount("cash_interest", stored))
+    cells = _cells_of(cp3c.compute(_with_step_up(inputs, 1000)))
+    assert (cells["T3D.3.r03"].status == "known") == (cover is not None)
+    if cover is not None:
+        assert cells["T3D.3.r03"].amount == Decimal(cover)
+    assert cells["T3D.3.r07"].amount == Decimal(pro_forma)
+    assert cells["T3D.3.r08"].amount is not None
+    assert cells["T3D.3.r08"].amount.quantize(Decimal("0.0001")) == Decimal(pro_forma_cover)
+
+
+# --- review of S08-cp3-C08: precedence at the composer, operands given directly ---------------
+
+
+def test_s08_c08_review_precedence_at_the_composer() -> None:
+    """Hand-derived from the ruling. EBITDA -30 and paid interest 5: an unassessed step-up leaves
+    the pro forma interest missing, so the pro forma cover keeps that gap and the plain cover is
+    over EBITDA (not meaningful); a 0 bp step-up makes the pro forma interest 5 + 0, so both are
+    over EBITDA. A missing EBITDA with zero interest names the missing EBITDA first (operand
+    gaps come before the interest test). A tiny positive EBITDA over a 400 bp step-up publishes."""
+    negative = _single(adjusted_ebitda=Decimal(-30), cash_interest_paid=Decimal(5))
+    unassessed = cp3c.compose_refinancing(operands=negative, step_up_bps=None)
+    assert unassessed.interest_cover == _nm("adjusted EBITDA is zero or negative")
+    assert _missing(unassessed.pro_forma_interest_cover)
+    zero_bp = cp3c.compose_refinancing(operands=negative, step_up_bps=0)
+    nm = _nm("adjusted EBITDA is zero or negative")
+    assert (zero_bp.interest_cover, zero_bp.pro_forma_interest_cover) == (nm, nm)
+    missing = _single(adjusted_ebitda=None, cash_interest_paid=Decimal(0))
+    r = cp3c.compose_refinancing(operands=missing, step_up_bps=0)
+    assert _missing(r.interest_cover)
+    tiny = _single(adjusted_ebitda=Decimal("0.000000001"), cash_interest_paid=Decimal(5))
+    r = cp3c.compose_refinancing(operands=tiny, step_up_bps=0)
+    assert r.interest_cover == Decimal("0.0000")

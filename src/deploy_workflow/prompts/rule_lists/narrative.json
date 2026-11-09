@@ -2,7 +2,7 @@
  "rules": [
   {
    "id": "narrative.a",
-   "statement": "a. Every free-text field (a prose part's `text`, a `title`, `rationale`, `action` or `limitation`) is nonblank run text with no bare figure: digits appear only inside a period, filing, section, instrument, coverage-count or ordinal label (`FY2025`, `Q3 2025`, `10-K`, `Item 7A`, `6.50% notes due 2032`, `195 of 195 pages`, `CP-1`); a number stays in the evidence it comes from and is never written out. Write no braces or square brackets anywhere in prose, since all are reserved for references. A space or an empty string is not prose.",
+   "statement": "a. Every free-text field (a prose part's `text`, a `title`, `rationale`, `action` or `limitation`) is nonblank run text with no bare figure: digits appear only inside a period, filing, section, instrument, coverage-count or ordinal label (`FY2025`, `Q3 2025`, `10-K`, `Item 7A`, `6.50% notes due 2032`, `195 of 195 pages`, `CP-1`); a number stays in the evidence it comes from and is never written out. Write no braces or square brackets anywhere in prose, since all are reserved for references. A space or an empty string is not prose. `N of M` is a coverage count only before a pack noun (`195 of 195 pages`); a number in words with a quantity or a multiplier (`seven times`, `ten percent`, `halved`) and a year before a quantity word (`2024 basis points`) are bare figures.",
    "checks": [
     "fn:deploy_vii.narrative:validate_narrative_review"
    ]
@@ -16,7 +16,7 @@
   },
   {
    "id": "narrative.c",
-   "statement": "c. `coverage`: one entry for each of the dimensions (`leverage`, `coverage`, `cash_flow_quality`, `liquidity`, `data_quality`, `definition_risks`, `key_gaps`), never two for one dimension (a dimension left out, or `unassessed`, is recorded as a gap); its `finding_ids` are exactly the `findings` whose `dimension` is that dimension, each once and none from another. `status` is `addressed` exactly when that list is non-empty; `not_applicable` also needs an evidence part in its `rationale`; every `rationale` holds a prose part. When the scope line reads `data_quality_only`, no finding takes a financial dimension (`leverage`, `coverage`, `cash_flow_quality`, `liquidity`).",
+   "statement": "c. `coverage`: one entry for each of the dimensions (`leverage`, `coverage`, `cash_flow_quality`, `liquidity`, `data_quality`, `definition_risks`, `key_gaps`), never two for one dimension (a dimension left out, or `unassessed`, is recorded as a gap); its `finding_ids` are exactly the `findings` whose `dimension` is that dimension, each once and none from another. `status` is `addressed` exactly when that list is non-empty; `not_applicable` also needs an evidence part in its `rationale`; every `rationale` holds a prose part. When the scope line reads `data_quality_only`, no finding takes a financial dimension (`leverage`, `coverage`, `cash_flow_quality`, `liquidity`). Under `financial_synthesis`, a financial dimension the `financial_dimensions` line leaves out takes no finding either.",
    "checks": [
     "fn:deploy_vii.narrative:validate_narrative_review"
    ]

@@ -59,13 +59,14 @@ from deploy_vii.contracts import (
     Module,
     ReportTable,
     Run,
+    Source,
     TableColumn,
     TableRow,
     Text,
 )
 from deploy_vii.execution import Attempt, Execution, Qualification, StepValidation, text_sha256
 from deploy_vii.preparation import PreparedPack
-from deploy_vii.quotes import normalise, quoted
+from deploy_vii.quotes import normalise, quoted_whole
 from deploy_vii.readiness import (
     absence_issues,
     citation_issues,
@@ -299,12 +300,9 @@ def _decimal(text: str) -> Decimal:
     return Decimal(text.replace(",", ""))
 
 
-def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:
-    """The one threshold a quoted text states, as written (a ratio N to one is N, a multiple
-    N x is N, a percentage is its number: 12.5 for 12.5%), or None with the reason it cannot be
-    read. A ratio to anything but one is not read: Python would have to divide a number the
-    model never wrote. Only the multiple and percent forms are read."""
-    plain = normalise(text)
+def _threshold_values(plain: str, unit: str) -> tuple[list[Decimal], str | None]:
+    """Every multiple or percent threshold a normalised text writes, in order, and the reason
+    one of them cannot be read (a ratio to other than one, a fractional percentage)."""
     values: list[Decimal] = []
     issue: str | None = None
     if unit == "multiple":
@@ -320,10 +318,19 @@ def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:
         values += [_decimal(m[1]) for m in _TIMES.finditer(_RATIO.sub(" ", plain))]
     elif unit == "percent":
         if _FRACTION_PERCENT.search(plain):
-            return None, "a fractional percentage is not parsed; set threshold_unit to other"
+            issue = "a fractional percentage is not parsed; set threshold_unit to other"
         values = [_decimal(m[1]) for m in _PERCENT.finditer(plain)]
-    else:
+    return values, issue
+
+
+def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:
+    """The one threshold a quoted text states, as written (a ratio N to one is N, a multiple
+    N x is N, a percentage is its number: 12.5 for 12.5%), or None with the reason it cannot be
+    read. A ratio to anything but one is not read: Python would have to divide a number the
+    model never wrote. Only the multiple and percent forms are read."""
+    if unit not in ("multiple", "percent"):
         return None, f"a {unit} threshold is not parsed"
+    values, issue = _threshold_values(normalise(text), unit)
     if issue is not None:
         return None, issue
     if not values:
@@ -485,13 +492,17 @@ def _row_issues(path: str, row: BaseModel, upstream: Upstream) -> list[str]:
     for source_id in dict.fromkeys(quote.source_id for quote in _quotes(row)):
         if source_id not in legal:
             issues.append(
-                f"{path}: {source_id} is not an executed or filed source (CP-0 authority "
-                f"{upstream.authority.get(source_id, 'none')}, or the source is not ready)"
+                f"{path}: {source_id} is not an executed, filed or, on a draft-documents run, "
+                f"draft source (CP-0 authority {upstream.authority.get(source_id, 'none')}, or "
+                "the source is not ready)"
             )
     quotes = _quotes(row)
     if isinstance(row, LegalDocument):
         if row.source_id not in legal:
-            issues.append(f"{path}: {row.source_id} is not an executed or filed source")
+            issues.append(
+                f"{path}: {row.source_id} is not an executed, filed or, on a draft-documents "
+                "run, draft source"
+            )
         if not quotes:
             issues.append(f"{path}: a document row quotes its own source")
         if any(quote.source_id != row.source_id for quote in quotes):
@@ -509,33 +520,129 @@ def _row_issues(path: str, row: BaseModel, upstream: Upstream) -> list[str]:
 
 
 # Fix round 1: the cheap directional check. Wording in the threshold's own quote that names a
-# floor or a cap; a comparison pointing the other way is rejected. A quote naming neither (the
-# common "shall not permit ... to exceed") or both leaves the direction to the model's judgement,
-# a residual risk recorded in `methods/cp4.md`.
-_FLOOR = re.compile(r"(?<![A-Za-z])(?:not less than|at least|minimum)(?![A-Za-z])", re.IGNORECASE)
-_CAP = re.compile(
-    r"(?<![A-Za-z])(?:not exceed|not to exceed|not more than|maximum|shall not be greater)"
-    r"(?![A-Za-z])",
+# floor or a cap; a comparison pointing the other way is rejected. A quote naming neither or both
+# leaves the direction to the model's judgement, a residual risk recorded in `methods/cp4.md`.
+# S09-A05 widened the wording: "no greater than", "or less", "less than or equal to" and "shall
+# not permit ... to exceed" are caps; "no less than", "or more" and "shall not permit ... to be
+# less than" are floors. Every phrase here is also inclusive (non-strict): a strict comparison on
+# a quote that words the limit only so is rejected, because the verdict flips at the threshold.
+# "or less" / "or more" count only as a figure's own tail ("0.75x or less", "2.0 to 1.0 or more"):
+# "one or more occasions", "four or more quarters" and "more or less" name no limit.
+_FIGURE_OR = r"\d(?:\s*(?:x|%|times))?\s+or "
+_CAP_WORDS = (
+    r"not exceed|not to exceed|not more than|no more than|not greater than|no greater than|"
+    rf"shall not be greater|maximum|less than or equal to|{_FIGURE_OR}less|"
+    r"permit\b[^.;]{0,80}?\bto (?:exceed|be (?:greater|more) than)"
+)
+_FLOOR_WORDS = (
+    r"not less than|no less than|at least|minimum|greater than or equal to|"
+    rf"{_FIGURE_OR}(?:more|greater)|"
+    r"permit\b[^.;]{0,80}?\bto (?:be less than|fall below)"
+)
+_FLOOR = re.compile(rf"(?<![A-Za-z])(?:{_FLOOR_WORDS})(?![A-Za-z])", re.IGNORECASE)
+_CAP = re.compile(rf"(?<![A-Za-z])(?:{_CAP_WORDS})(?![A-Za-z])", re.IGNORECASE)
+_STRICT_WORDS = re.compile(
+    r"(?<![A-Za-z])(?:less than|greater than|more than|fewer than|below|above|exceed\w*|"
+    r"in excess of)(?![A-Za-z])",
     re.IGNORECASE,
 )
 
 
+def _threshold_quotes(row: Covenant) -> tuple[Quote, ...]:
+    """S09-A02: the row's quotes of its governing document (`document_id`) that hold
+    `threshold_text`; a threshold quoted from another document is not the covenant's."""
+    return tuple(
+        quote
+        for quote in row.citations
+        if quote.source_id == row.document_id and quoted_whole(row.threshold_text, quote.quote)
+    )
+
+
+# A sentence ends at `.`, `!` or `?` before a space and a capital, an opening bracket or quote
+# mark, or the end of the span ("4.00x for" does not end one). A period after a single capital
+# ("U.S. Borrower") or a common abbreviation ("Inc. Holdings") is no end: wrongly keeping a
+# sentence open only widens the context read, wrongly ending one would hide a step of the
+# schedule that precedes it.
+_ABBREVIATIONS = ("Inc", "Corp", "Co", "Ltd", "No", "Nos", "Sec", "Art", "St", "Mr", "Ms", "Dr")
+_SENTENCE_END = re.compile(
+    r"(?<!\b[A-Z])"
+    + "".join(rf"(?<!\b{a})" for a in _ABBREVIATIONS)
+    + r"[.!?](?=\s+[A-Z(\"']|\s*$)"
+)
+
+
+def _sentence_context(quote: Quote, sources: Sequence[Source]) -> str:
+    """The normalised sentences of the quote's span that the quote lies in, or the quote alone
+    when its span or its exact normalised text is not found there."""
+    plain = normalise(quote.quote)
+    spans = (
+        span.text
+        for source in sources
+        if source.source_id == quote.source_id
+        for span in source.spans
+        if span.locator == quote.locator
+    )
+    text = normalise(next(spans, ""))
+    at = text.find(plain) if plain else -1
+    if at < 0:
+        return plain
+    ends = [m.end() for m in _SENTENCE_END.finditer(text)]
+    start = max((end for end in ends if end <= at), default=0)
+    stop = min((end for end in ends if end >= at + len(plain)), default=len(text))
+    return text[start:stop]
+
+
+def _schedule_issues(
+    path: str, row: Covenant, parsed: Decimal, sources: Sequence[Source]
+) -> list[str]:
+    """S09-A03: the threshold tested is the one its governing quote states. The quote must
+    write `parsed` as a threshold of the unit (not inside a longer number), and neither the
+    quote nor the sentence it lies in may state another: a step-down schedule or several tests
+    in one sentence. Which step applies at the CP-1 metric's period is not read from the text
+    in this version, so such a row is an other threshold (Not calculable)."""
+    unit = row.threshold_unit
+    stating = [
+        quote
+        for quote in _threshold_quotes(row)
+        if parsed in _threshold_values(normalise(quote.quote), unit)[0]
+    ]
+    if not stating:
+        found = f"{path}: threshold_text {row.threshold_text!r} is not a {unit} threshold"
+        return [f"{found} its governing quote states"]
+    issues: list[str] = []
+    for quote in stating:
+        stated, _ = _threshold_values(_sentence_context(quote, sources), unit)
+        if len(set(stated)) > 1:
+            listed = ", ".join(str(value) for value in dict.fromkeys(stated))
+            issues.append(
+                f"{path}: the governing text around threshold_text states more than one {unit} "
+                f"threshold ({listed}: a step-down schedule or several tests); which one applies "
+                "at the CP-1 metric's period is not determined, so set threshold_unit to other"
+            )
+    return list(dict.fromkeys(issues))
+
+
 def _direction_issues(path: str, row: Covenant) -> list[str]:
-    """A maximum comparison on a quote that names only a floor, or the reverse."""
+    """A maximum comparison on a quote that names only a floor, or the reverse; a strict
+    comparison on a quote whose only limit wording is inclusive."""
     if row.comparison == "none":
         return []
-    wording = " ".join(
-        normalise(quote.quote) for quote in row.citations if quoted(row.threshold_text, quote.quote)
-    )
+    wording = " ".join(normalise(quote.quote) for quote in _threshold_quotes(row))
     floor, cap = bool(_FLOOR.search(wording)), bool(_CAP.search(wording))
     maximum = row.comparison in ("<=", "<")
     if (maximum and floor and not cap) or (not maximum and cap and not floor):
         named = "a minimum" if floor else "a maximum"
         return [f"{path}: comparison {row.comparison} contradicts the quote, which states {named}"]
+    if row.comparison in ("<", ">") and (cap if maximum else floor):
+        bare = _CAP.sub(" ", _FLOOR.sub(" ", wording))  # the wording left once inclusive phrases go
+        if not _STRICT_WORDS.search(bare):
+            inclusive = "<=" if maximum else ">="
+            said = "contradicts the quote, which words the limit as inclusive"
+            return [f"{path}: comparison {row.comparison} {said}; use {inclusive}"]
     return []
 
 
-def _threshold_issues(path: str, row: Covenant) -> list[str]:
+def _threshold_issues(path: str, row: Covenant, sources: Sequence[Source]) -> list[str]:
     """Ruling 2: the stated value is the number Python reads from the quoted threshold."""
     unit = row.threshold_unit
     if unit == NOT_STATED:
@@ -545,8 +652,14 @@ def _threshold_issues(path: str, row: Covenant) -> list[str]:
             [] if row.comparison == "none" else [f"{path}: an unstated threshold has no comparison"]
         )
     issues: list[str] = []
-    if not any(quoted(row.threshold_text, quote.quote) for quote in row.citations):
+    # Whole token: a threshold cut out of a larger figure (2.50:1.00 from 12.50:1.00) is not quoted.
+    if not any(quoted_whole(row.threshold_text, quote.quote) for quote in row.citations):
         issues.append(f"{path}: threshold_text is not part of the row's quotes")
+    elif not _threshold_quotes(row):
+        issues.append(
+            f"{path}: threshold_text is not part of a quote of its governing document "
+            f"{row.document_id}"
+        )
     if unit == "other":
         if row.threshold_value is not None:
             issues.append(f"{path}: an other threshold is not parsed, so threshold_value is null")
@@ -565,13 +678,19 @@ def _threshold_issues(path: str, row: Covenant) -> list[str]:
         issues.append(f"{path}: threshold_text cannot be read: {reason}")
     elif not stated.is_finite() or stated != parsed:
         issues.append(f"{path}: threshold_value {row.threshold_value} differs from {parsed}")
+    elif _threshold_quotes(row):  # an unquoted threshold is already refused above, once
+        issues.extend(_schedule_issues(path, row, parsed, sources))
     return issues
 
 
 def _covenant_issues(
-    path: str, row: Covenant, upstream: Upstream, documents: frozenset[str]
+    path: str,
+    row: Covenant,
+    upstream: Upstream,
+    documents: frozenset[str],
+    sources: Sequence[Source],
 ) -> list[str]:
-    issues = _threshold_issues(path, row)
+    issues = _threshold_issues(path, row, sources)
     if row.document_id not in documents:
         issues.append(f"{path}: no documents row for {row.document_id}, its governing document")
     if not any(quote.source_id == row.document_id for quote in row.citations):
@@ -655,7 +774,7 @@ def validate_covenant_interpretation(
         issues.extend(f"{path}: {i}" for i in citation_issues(binding.of(row), pack.sources))
         issues.extend(_row_issues(path, row, upstream))
         if isinstance(row, Covenant):
-            issues.extend(_covenant_issues(path, row, upstream, documents))
+            issues.extend(_covenant_issues(path, row, upstream, documents, pack.sources))
         scope = tuple(dict.fromkeys(quote.source_id for quote in _quotes(row)))
         for name, text in _texts(row):
             where = f"{path}.{name}"
@@ -813,6 +932,11 @@ class _Composer:
         limitation = getattr(row, "limitation", None)
         return Cell(self.text(limitation) if limitation else NONE_STATED)
 
+    def stored(self, limitation: str | None) -> str | None:
+        """A claim's limitation as stored: spelled like its table cell (`text`), never with raw
+        `{ref|unit}` braces (S06-cp2-ade-C03, S10-cp6-cp8-cpl10-C04); None stays None."""
+        return None if limitation is None else self.text(limitation)
+
     def trace(self, row: BaseModel) -> Cell:
         cited = self.binding.of(row)
         return Cell(_trace(cited) or NO_EVIDENCE, cited)
@@ -966,6 +1090,12 @@ def _computed(
     )
 
 
+def _headroom_amount(test: _Test, result: Headroom) -> Decimal:
+    """The headroom as T4.9 shows it: percentage points (x100) for a percent threshold, else the
+    metric's own amount. T4F.3 traces this same value (S09-C05)."""
+    return result.amount * 100 if test.row.threshold_unit == "percent" else result.amount
+
+
 def _test_cells(test: _Test, out: _Composer) -> tuple[CellLike, CellLike, CellLike]:
     """Headroom, its share and the test result: computed, not calculable or not applicable."""
     if test.result is None:
@@ -979,10 +1109,10 @@ def _test_cells(test: _Test, out: _Composer) -> tuple[CellLike, CellLike, CellLi
     ref, operand = metric.fact_id, test.operand
     upper = test.row.comparison in ("<=", "<")
     formula = f"{operand} (threshold) - {ref}" if upper else f"{ref} - {operand} (threshold)"
-    amount, unit = test.result.amount, metric.unit
+    amount, unit = _headroom_amount(test, test.result), metric.unit
     if test.row.threshold_unit == "percent":
         # Fix round 1: room between two percentages is percentage points, not a percent.
-        amount, unit, formula = amount * 100, POINTS, f"({formula}) x 100, percentage points"
+        unit, formula = POINTS, f"({formula}) x 100, percentage points"
     cited = out.binding.of(test.row)
     room = _computed(metric, cited, "Headroom", amount, unit, formula)
     share: CellLike = (
@@ -1192,17 +1322,19 @@ def _check_tables(tests: Sequence[_Test], upstream: Upstream, out: _Composer) ->
                 ),
                 Cell(str(t.operand)) if t.operand is not None else _absent("No parsed threshold"),
                 Cell(t.metric.fact_id) if t.metric else _absent("No CP-1 metric"),
-                Cell(
-                    str(t.result.amount)
-                    if t.result
-                    else f"{NOT_CALCULABLE}: {t.reason}"
-                    if not t.inapplicable
-                    else "Not applicable"
-                ),
+                Cell(_traced_result(t)),
             )
             for t in tests
         ),
     )
+
+
+def _traced_result(test: _Test) -> str:
+    """T4F.3's Result: the headroom in T4.9's unit (percentage points for a percent threshold)."""
+    if test.result is None:
+        return "Not applicable" if test.inapplicable else f"{NOT_CALCULABLE}: {test.reason}"
+    amount = _headroom_amount(test, test.result)
+    return f"{amount} {POINTS}" if test.row.threshold_unit == "percent" else str(amount)
 
 
 def _document_tables(
@@ -1477,7 +1609,7 @@ def covenant_interpretation(
             text=f"Lender protection {submission.protection_score.rating}: "
             f"{submission.protection_score.rationale}",
             citations=out.binding.of(submission.protection_score),
-            limitation=submission.protection_score.limitation,
+            limitation=out.stored(submission.protection_score.limitation),
         ),
     )
     return CovenantInterpretationReport(
@@ -1563,6 +1695,19 @@ def submit_cp4_step(store: Execution, ticket_id: str, step_id: str, payload: str
     )
 
 
+def _facts_note(upstream: Upstream) -> str:
+    """The figure rule keyed on the offered figures; the facility clause only when no facility is
+    listed, since the validator accepts a listed facility id without any figure (S09-C03)."""
+    if upstream.facts:
+        return (
+            "Reference a figure only as {ref|unit} with a ref and unit listed in cp1_facts; a "
+            "test's metric_ref names one of these refs."
+        )
+    if upstream.facilities:
+        return "No CP-1 figure is offered: write no figure and name no metric_ref."
+    return "No CP-1 figure is offered: write no figure, name no metric_ref and no facility."
+
+
 def context_block(pack: PreparedPack, upstream: Upstream) -> dict[str, object]:
     """What the `legal_covenants` CONTEXT block adds to the pack facts: the citable (executed, filed
     or draft) sources, the CP-1 status and the gaps it carries, the T4.18 facility list and the CP-1
@@ -1601,12 +1746,7 @@ def context_block(pack: PreparedPack, upstream: Upstream) -> dict[str, object]:
             }
             for fact in upstream.facts
         ],
-        "cp1_facts_note": (
-            "Reference a figure only as {ref|unit} with a ref and unit listed in cp1_facts; a "
-            "test's metric_ref names one of these refs."
-            if upstream.facts
-            else "No CP-1 figure is offered: write no figure, name no metric_ref and no facility."
-        ),
+        "cp1_facts_note": _facts_note(upstream),
         "headroom_note": (
             "Python computes every headroom from the quoted threshold and the CP-1 metric; "
             "where an operand is missing it writes not calculable, never zero. State no "

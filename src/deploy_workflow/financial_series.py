@@ -12,9 +12,11 @@ import hashlib
 from dataclasses import dataclass
 from datetime import date, timedelta
 from decimal import Decimal
+from itertools import pairwise
 from typing import Literal
 
 from deploy_vii.contracts import Fact, ModuleView
+from deploy_workflow.trailing_period import states_trailing_period
 
 
 @dataclass(frozen=True, slots=True)
@@ -57,6 +59,10 @@ _PERIOD_FIELDS = (
     "accounting_basis",
     "entity_perimeter",
 )
+# The T4.14 period types (financial_contracts.FinancialPeriod.period_type) the projection reads,
+# and the two it leaves out of the chart periods.
+_CHART_KINDS = frozenset({"QUARTER", "FY", "PERIOD_END"})
+_UNPLOTTED_KINDS = frozenset({"YTD", "LTM"})
 _SERIES = (
     ("S.1", "Leverage", ("total_leverage_reported", "net_leverage_reported")),
     ("S.2", "Interest cover", ("interest_coverage_reported",)),
@@ -91,8 +97,10 @@ def _rows(module: ModuleView, table: str) -> tuple[dict[str, Fact], ...]:
     return tuple(rows.values())
 
 
-def _periods(module: ModuleView) -> tuple[_Period, ...]:
+def _periods(module: ModuleView) -> tuple[tuple[_Period, ...], frozenset[str]]:
+    """The plotted T4.14 periods by date, and the ids of the YTD and LTM periods left out."""
     periods = []
+    unplotted = set()
     seen = set()
     for row in _rows(module, "T4.14"):
         if not set(_PERIOD_FIELDS) <= row.keys():
@@ -109,10 +117,16 @@ def _periods(module: ModuleView) -> tuple[_Period, ...]:
         if any(f.basis != "IFRS · consolidated group" for f in row.values()):
             raise ValueError("Inconsistent chart period perimeter")
         kind = _text(row["period_type"])
-        if kind not in {"QUARTER", "FY", "PERIOD_END"}:
+        if kind in _UNPLOTTED_KINDS:
+            # A YTD or LTM row is a valid register period the charts do not plot (only QUARTER
+            # rows are plotted; QUARTER and FY rows give the facility snapshot). It is checked
+            # above and left out here, never an exception out of the renderer.
+            unplotted.add(identity)
+            continue
+        if kind not in _CHART_KINDS:
             raise ValueError("Unsupported historical chart period type")
         periods.append(_Period(identity, kind, date.fromisoformat(_text(row["end_date"])), row))
-    return tuple(sorted(periods, key=lambda p: (p.end, p.identity)))
+    return tuple(sorted(periods, key=lambda p: (p.end, p.identity))), frozenset(unplotted)
 
 
 def _basis(identity: str) -> str:
@@ -144,26 +158,37 @@ def _numeric(fact: Fact, money: bool) -> None:
         raise ValueError(f"Invalid chart gap: {fact.fact_id}")
 
 
-def _quarter_figures(
-    module: ModuleView, periods: tuple[_Period, ...]
-) -> tuple[FinancialFigureSeries, ...]:
-    quarters = tuple(p for p in periods if p.kind == "QUARTER")
-    reason = None
-    if len(quarters) != 4:
-        reason = "Charts require exactly four reported QUARTER periods; no periods were fabricated."
-    else:
-        year = _text(quarters[0].row["fiscal_year"])
-        previous_end = None
-        for number, period in zip(("1", "2", "3", "4"), quarters, strict=True):
-            start = date.fromisoformat(_text(period.row["start_date"]))
-            if (
-                _text(period.row["fiscal_year"]) != year
-                or _text(period.row["fiscal_quarter"]).removeprefix("Q") != number
-                or start > period.end
-                or (previous_end is not None and start != previous_end + timedelta(days=1))
-            ):
-                raise ValueError("Ambiguous or noncontiguous QUARTER identities")
-            previous_end = period.end
+_QUARTER_SCOPE = (
+    "Charts require four contiguous reported QUARTER periods numbered Q1 to Q4 of one fiscal "
+    "year; no periods were fabricated."
+)
+
+
+def _quarter_scope(quarters: tuple[_Period, ...]) -> str | None:
+    """None for four contiguous quarters Q1 to Q4 of one fiscal year, else the unsupported
+    reason (a trailing four quarters across a year end, a gap). Contradictory identities raise:
+    a start after its end, quarters that overlap, a quarter number outside 1 to 4, or (fiscal
+    year, quarter) labels that repeat or do not increase with the dates."""
+    labels = [
+        (_text(p.row["fiscal_year"]), _text(p.row["fiscal_quarter"]).removeprefix("Q"))
+        for p in quarters
+    ]
+    if any(n not in {"1", "2", "3", "4"} for _, n in labels) or any(
+        a >= b for a, b in pairwise(labels)
+    ):
+        raise ValueError("Ambiguous QUARTER identities")
+    spans = [(date.fromisoformat(_text(p.row["start_date"])), p.end) for p in quarters]
+    if any(start > end for start, end in spans) or any(b[0] <= a[1] for a, b in pairwise(spans)):
+        raise ValueError("Overlapping or inverted QUARTER periods")
+    contiguous = all(b[0] == a[1] + timedelta(days=1) for a, b in pairwise(spans))
+    year = labels[0][0]
+    if contiguous and labels == [(year, n) for n in ("1", "2", "3", "4")]:
+        return None
+    return _QUARTER_SCOPE
+
+
+def _kpi_metrics(module: ModuleView) -> dict[str, dict[str, Fact]]:
+    """The T4.10 rows by their `field_1` metric identity; a missing or repeated one raises."""
     metrics: dict[str, dict[str, Fact]] = {}
     for row in _rows(module, "T4.10"):
         if "field_1" not in row:
@@ -172,8 +197,21 @@ def _quarter_figures(
         if key in metrics:
             raise ValueError("Duplicate KPI metric identity")
         metrics[key] = row
+    return metrics
 
-    coordinates = []
+
+def _quarter_figures(
+    module: ModuleView, periods: tuple[_Period, ...]
+) -> tuple[FinancialFigureSeries, ...]:
+    quarters = tuple(p for p in periods if p.kind == "QUARTER")
+    reason: str | None
+    if len(quarters) != 4:
+        reason = "Charts require exactly four reported QUARTER periods; no periods were fabricated."
+    else:
+        reason = _quarter_scope(quarters)
+    metrics = _kpi_metrics(module)
+
+    coordinates: list[tuple[str, str, str, str, tuple[str, ...]]] = []
     if reason is None:
         for period in quarters:
             dates = f"{_text(period.row['start_date'])} to {period.end.isoformat()}"
@@ -189,7 +227,7 @@ def _quarter_figures(
     figures = []
     for fig_id, title, series in _SERIES:
         money = fig_id in _MONEY_FIGURES
-        points = []
+        points: list[FinancialSeriesPoint] = []
         for key in series:
             if key not in metrics:
                 raise ValueError(f"Missing chart metric implementation: {key}")
@@ -202,7 +240,7 @@ def _quarter_figures(
                         raise ValueError(f"Missing canonical QUARTER basis: {key}/{identity}")
                     fact = metric[field]
                     _numeric(fact, money)
-                    if fact.period is None or fact.period.rsplit(": ", 1)[-1] != dates:
+                    if not _states_dates(fact.period, dates, trailing=not money):
                         raise ValueError("Chart fact does not match its canonical QUARTER dates")
                     companions = (metric_id, *period_companions)
                     points.append(FinancialSeriesPoint(key, category, fact.fact_id, companions))
@@ -221,7 +259,54 @@ def _quarter_figures(
     return tuple(figures)
 
 
-def _maturity_figure(module: ModuleView, periods: tuple[_Period, ...]) -> FinancialFigureSeries:
+def _states_dates(stated: str | None, dates: str, *, trailing: bool) -> bool:
+    """Whether a chart fact states its quarter's `start to end` dates. A quarter's leverage and
+    coverage (`trailing`) state the twelve months ending it instead (S13 C01)."""
+    if stated is None:
+        return False
+    return stated.rsplit(": ", 1)[-1] == dates or (
+        trailing and states_trailing_period(stated, dates.rpartition(" to ")[2])
+    )
+
+
+_FACILITY_FIELDS = (
+    "facility_id",
+    "facility_name",
+    "period_id",
+    "facility_type",
+    "principal",
+    "currency",
+    "maturity_date",
+    "annual_amortisation",
+    "lease_classification",
+)
+
+
+def _facility_rows(
+    rows: tuple[dict[str, Fact], ...],
+    period_ids: set[str] | frozenset[str],
+    unplotted: frozenset[str],
+) -> dict[tuple[str, str], dict[str, Fact]]:
+    """The T4.18 rows by (facility, period). Every row must be complete and dated at a T4.14
+    period; a row dated at a YTD or LTM period is checked and then left out, as the period is."""
+    indexed: dict[tuple[str, str], dict[str, Fact]] = {}
+    for row in rows:
+        if not frozenset(_FACILITY_FIELDS) <= row.keys():
+            raise ValueError("Incomplete facility chart coordinates")
+        fid, pid = _text(row["facility_id"]), _text(row["period_id"])
+        if pid not in period_ids or any(f.period != pid for f in row.values()):
+            raise ValueError("Foreign facility period")
+        if pid in unplotted:
+            continue
+        if (fid, pid) in indexed:
+            raise ValueError("Duplicate facility snapshot identity")
+        indexed[fid, pid] = row
+    return indexed
+
+
+def _maturity_figure(
+    module: ModuleView, periods: tuple[_Period, ...], unplotted: frozenset[str]
+) -> FinancialFigureSeries:
     rows = _rows(module, "T4.18")
     title = "Maturity wall"
     reason = "No complete current facility snapshot is supplied."
@@ -236,29 +321,7 @@ def _maturity_figure(module: ModuleView, periods: tuple[_Period, ...]) -> Financ
             raise ValueError("Ambiguous current facility snapshot period")
         period = selected[0]
         title = f"Maturity wall — principal at {latest.isoformat()} (not a forecast)"
-        indexed: dict[tuple[str, str], dict[str, Fact]] = {}
-        required = (
-            "facility_id",
-            "facility_name",
-            "period_id",
-            "facility_type",
-            "principal",
-            "currency",
-            "maturity_date",
-            "annual_amortisation",
-            "lease_classification",
-        )
-        required_fields = frozenset(required)
-        period_ids = {p.identity for p in periods}
-        for row in rows:
-            if not required_fields <= row.keys():
-                raise ValueError("Incomplete facility chart coordinates")
-            fid, pid = _text(row["facility_id"]), _text(row["period_id"])
-            if pid not in period_ids or any(f.period != pid for f in row.values()):
-                raise ValueError("Foreign facility period")
-            if (fid, pid) in indexed:
-                raise ValueError("Duplicate facility snapshot identity")
-            indexed[fid, pid] = row
+        indexed = _facility_rows(rows, {p.identity for p in periods} | unplotted, unplotted)
         population = {fid for fid, _ in indexed}
         actual = {fid for fid, pid in indexed if pid == period.identity}
         if population and actual == population:
@@ -268,11 +331,11 @@ def _maturity_figure(module: ModuleView, periods: tuple[_Period, ...]) -> Financ
                 # FY/Q4 are aliases only when the facility identity AND its terms agree.
                 for alias in current:
                     other = indexed.get((fid, alias.identity))
-                    if other is None:
-                        raise ValueError("Incomplete same-date facility snapshot alias")
-                    if other is row:
+                    # The selected quarter's snapshot is complete; an alias without this
+                    # facility's row has nothing to compare, and is not plotted.
+                    if other is None or other is row:
                         continue
-                    for key in required:
+                    for key in _FACILITY_FIELDS:
                         if key == "period_id":
                             continue
                         a, b = row[key], other[key]
@@ -297,9 +360,9 @@ def _maturity_figure(module: ModuleView, periods: tuple[_Period, ...]) -> Financ
                     break
                 maturity = date.fromisoformat(_text(row["maturity_date"]))
                 label = f"{_text(row['facility_name'])} ({fid})"
-                companions = tuple(row[k].fact_id for k in required if k != "principal") + tuple(
-                    period.row[k].fact_id for k in _PERIOD_FIELDS
-                )
+                companions = tuple(
+                    row[k].fact_id for k in _FACILITY_FIELDS if k != "principal"
+                ) + tuple(period.row[k].fact_id for k in _PERIOD_FIELDS)
                 series.append(label)
                 points.append(
                     FinancialSeriesPoint(
@@ -315,6 +378,44 @@ def _maturity_figure(module: ModuleView, periods: tuple[_Period, ...]) -> Financ
         tuple(series) if not reason else (),
         tuple(points) if not reason else (),
         reason or None,
+    )
+
+
+_SCOPE_FIELDS = ("currency", "unit", "accounting_basis", "entity_perimeter")
+_SUPPORTED_SCOPE = ("USD", "MILLIONS", "IFRS", "consolidated group")
+_SCOPE_REASON = (
+    "Charts support USD millions on an IFRS consolidated group basis; this register states "
+    "another currency, unit, accounting basis or perimeter; nothing was converted."
+)
+
+
+def _states_other_scope(module: ModuleView) -> bool:
+    """Whether a T4.14 period states a known currency, unit, basis and perimeter that are not the
+    supported scope. An incomplete or unresolved identity is left to `_periods`, which raises."""
+    for row in _rows(module, "T4.14"):
+        facts = [row.get(key) for key in _SCOPE_FIELDS]
+        stated = tuple(f.text for f in facts if f is not None and f.status == "known")
+        if len(stated) == len(_SCOPE_FIELDS) and None not in stated and stated != _SUPPORTED_SCOPE:
+            return True
+    return False
+
+
+def _unsupported_scope_figures() -> tuple[FinancialFigureSeries, ...]:
+    """S.1 to S.5 with no points, each carrying the unsupported-scope reason."""
+    kinds: dict[str, Literal["line", "grouped"]] = {"S.4": "grouped", "S.5": "grouped"}
+    titles = {fig_id: title for fig_id, title, _ in _SERIES} | {"S.4": "Maturity wall"}
+    return tuple(
+        FinancialFigureSeries(
+            fig_id,
+            titles[fig_id],
+            kinds.get(fig_id, "line"),
+            "multiple" if fig_id in {"S.1", "S.2"} else "amount",
+            "x" if fig_id in {"S.1", "S.2"} else "US$m",
+            (),
+            (),
+            _SCOPE_REASON,
+        )
+        for fig_id in ("S.1", "S.2", "S.3", "S.4", "S.5")
     )
 
 
@@ -334,6 +435,8 @@ def cp1_chart_series(module: ModuleView) -> tuple[FinancialFigureSeries, ...]:
         raise ValueError("Settled CP1 chart facts require an artifact identity")
     if len({f.fact_id for f in module.facts}) != len(module.facts):
         raise ValueError("Duplicate chart fact identity")
-    periods = _periods(module)
+    if _states_other_scope(module):
+        return _unsupported_scope_figures()
+    periods, unplotted = _periods(module)
     *strip, period_figure = _quarter_figures(module, periods)
-    return (*strip, _maturity_figure(module, periods), period_figure)
+    return (*strip, _maturity_figure(module, periods, unplotted), period_figure)

@@ -40,7 +40,7 @@ from deploy_workflow.context import ContextRefused, context_facts
 from deploy_workflow.context_periods import resolve
 from deploy_workflow.earnings import EarningsDeltaReport, _periods, build_earnings_delta_in
 from deploy_workflow.earnings_workflow import OwnerError, _operands, _own_limits, compose_delta
-from deploy_workflow.owners.cp1a import probe_one_step
+from deploy_workflow.owners.cp1a import OneStep, probe_one_step, submit_one_step
 from deploy_workflow.owners.period_basis import DEFAULT_CURRENCY, PeriodRefused, currency_basis
 from deploy_workflow.workflow import WorkflowError
 
@@ -330,13 +330,9 @@ def _context_state(module: ModuleView, pack: PreparedPack) -> tuple[ContextPair,
 def _default_pairs(rows: Mapping[str, Mapping[str, Fact]]) -> tuple[tuple[str, str], ...]:
     """Without a context, the flat q3 -> q4 pair and the missing-prior fy pair of each fiscal year
     the register states; `supported` keeps the ones the validator accepts (ruling B19, Phase 8)."""
-    years = sorted(
-        {
-            int(r["fiscal_year"].text or "")
-            for r in rows.values()
-            if (r["fiscal_year"].text or "").isdigit()
-        }
-    )
+    texts = {r["fiscal_year"].text or "" for r in rows.values()}
+    # ASCII digits only: `isdigit` also takes "2025²", which `int` refuses.
+    years = sorted({int(text) for text in texts if text.isdigit() and text.isascii()})
     return tuple(
         pair for y in years for pair in ((f"q3-{y}", f"q4-{y}"), (f"fy-{y - 1}", f"fy-{y}"))
     )
@@ -479,22 +475,8 @@ def submit(
     def validate(pack: PreparedPack, current: Attempt) -> StepValidation:
         return _validate_step(store, pack, current)
 
-    attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, step_id, normal, validate)
-    if (
-        attempt.status == "pending"
-        and len(attempt.steps) == 1
-        and attempt.steps[0].status == "valid"
-    ):
-        outcome = _validate_step(store, store.pack(), attempt)
-        if outcome.issues or not outcome.retained_as(attempt.steps[0]):
-            raise ValueError("Retained CP-1B output differs from trusted validation")
-        candidate = _candidate(outcome.output or "", attempt)
-        attempt = store.finish(
-            ticket_id,
-            candidate.model_dump_json(),
-            lambda supplied: () if supplied == candidate else ("CP-1B candidate differs",),
-            qualification=QUALIFICATION,
-        )
+    one_step = OneStep(MODULE_ID, STEP_ID, _validate_step, _candidate, QUALIFICATION)
+    attempt = submit_one_step(store, ticket_id, one_step, normal, validate)
     return Submitted(attempt, normal, resolved, (), (), None)
 
 

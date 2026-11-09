@@ -20,7 +20,8 @@ restated) or a `{ref|unit}` reference to a referencable fact of the bound CP-1 h
   `third_party` source; an `observed` row never quotes indicative talk; indicative talk is never
   worded as a market level; a market observation cites a market-evidence quote;
 - the ordering: each instrument exactly once, or no ordering with explicit insufficient
-  evidence and a limitation;
+  evidence and a limitation; an Insufficient Information preference has no ordering (ruling
+  S08-cp3-C09);
 - gap propagation (decision 0007, ruling 4): no observed or indicative evidence makes the
   preference Insufficient Information; a CP-2 that is not `accepted`, any blocked bound input
   (a blocked optional CP-1A or CP-4 included) or talk-only evidence caps its confidence below
@@ -43,7 +44,8 @@ import re
 from collections import Counter
 from collections.abc import Collection, Iterator, Mapping, Sequence
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime
+from functools import cached_property
 from typing import Any, Literal
 
 from pydantic import (
@@ -96,6 +98,7 @@ from deploy_vii.execution import (
     text_sha256,
 )
 from deploy_vii.preparation import PreparedPack
+from deploy_vii.quotes import normalise
 from deploy_vii.readiness import citation_issues, shape_issues
 from deploy_vii.report_view import figure_unit
 
@@ -355,11 +358,13 @@ class Upstream:
     def cp2_status(self) -> str | None:
         return self.status(CP2)
 
-    @property
+    # Built once per Upstream, as CP-6's `cp2_rows` (S08-cp3-C10: a property rebuilt the
+    # catalogue for every reference it checked, 25 times in one compute).
+    @cached_property
     def catalogue(self) -> dict[str, CatalogueRow]:
         return {} if self.cp2_status == "blocked" else cp2_catalogue(self.cp2)
 
-    @property
+    @cached_property
     def facilities(self) -> dict[str, Facility]:
         return facilities(self.cp1)
 
@@ -447,6 +452,7 @@ UNREADABLE = "context source unreadable: "
 USER_SUPPLIED = "Market evidence rows from the context file are user-supplied figures"
 NOT_STATED = "Not stated"
 CONTEXT_CAP = f"a context quote is more than {STALE_DAYS} days old"
+PACK_CAP = f"a market_evidence quote is more than {STALE_DAYS} days old"
 BY_ROW_ID = "cite it by row id in a basis"
 CONTEXT_ONLY_NOTE = (
     "Market evidence is the rows in context_market_evidence; cite one only by its row id in "
@@ -1007,6 +1013,8 @@ class _Evidence:
     citations: Mapping[QuoteKey, Citation]
     issues: tuple[str, ...]
     context: ContextEvidence = NO_CONTEXT
+    # One stale line per model-cited quote dated more than STALE_DAYS before the run as-of.
+    stale: tuple[str, ...] = ()
 
     def strength(self) -> frozenset[str]:
         return (frozenset(self.kinds.values()) | {row.kind for row in self.context.rows}) - {NONE}
@@ -1014,6 +1022,10 @@ class _Evidence:
     @property
     def context_kinds(self) -> Mapping[str, str]:
         return {row.row_id: row.kind for row in self.context.rows}
+
+    @property
+    def context_facilities(self) -> Mapping[str, str]:
+        return {row.row_id: row.facility_id for row in self.context.rows}
 
     @property
     def context_stale(self) -> bool:
@@ -1034,6 +1046,7 @@ def _bind_evidence(
     citations: dict[QuoteKey, Citation] = {}
     first: dict[QuoteKey, int] = {}
     issues: list[str] = list(context.issues)
+    stale: list[str] = []
     for index, row in enumerate(submission.market_evidence):
         path = f"market_evidence[{index}]"
         if row.source_id == CONTEXT_SOURCE:  # a model never writes a context row
@@ -1047,11 +1060,61 @@ def _bind_evidence(
                 f"({row.quote.source_id} {row.quote.locator})"
             )
         found, citation = _market_row(path, row, market, digests, pack)
+        if citation is not None and not found:
+            found, late = _as_of_issues(path, row.as_of, citation, pack)
+            stale += [late] if late else []
         issues += found
         if citation is not None and row.quote is not None:
             kinds[_key(row.quote)] = row.kind
             citations[_key(row.quote)] = citation
-    return _Evidence(kinds, citations, tuple(dict.fromkeys(issues)), context)
+    return _Evidence(
+        kinds, citations, tuple(dict.fromkeys(issues)), context, tuple(dict.fromkeys(stale))
+    )
+
+
+_DATE_TEXT = re.compile(r"[A-Z][a-z]+ [1-9][0-9]?, [0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2}")
+
+
+def _stated_date(text: str) -> date | None:
+    """`Month D, YYYY` or an ISO date as written; None for anything else."""
+    if re.fullmatch(r"[A-Z][a-z]+ [1-9][0-9]?, [0-9]{4}", text):
+        try:
+            return datetime.strptime(text, "%B %d, %Y").date()
+        except ValueError:
+            return None
+    return _valid_date(text)
+
+
+def _dates_in(text: str) -> list[str]:
+    """The dates `text` prints in the form `_stated_date` reads, as written."""
+    return [d for d in _DATE_TEXT.findall(normalise(text)) if _stated_date(d)]
+
+
+def _as_of_issues(
+    path: str, as_of: str, citation: Citation, pack: PreparedPack
+) -> tuple[list[str], str | None]:
+    """A model market-evidence row's `as_of` (S08-cp3-A06): a date its quote prints or, when the
+    quote prints none, one its cited span prints (a newer page date never stands for an older
+    quote's); not after the run as-of; and the stale line when it is more than STALE_DAYS days
+    before it."""
+    source = next(s for s in pack.sources if s.source_id == citation.source_id)
+    span = next(x.text for x in source.spans if x.locator == citation.locator)
+    own = _dates_in(citation.quote)
+    allowed = own or _dates_in(span)
+    when = _stated_date(as_of)
+    if when is None or normalise(as_of) not in allowed:
+        where = f"its quote states ({', '.join(own)})" if own else "stated on its page"
+        return [f"{path}.as_of {as_of!r} is not a date {where}"], None
+    run_as_of = pack.run.as_of
+    if when > run_as_of:
+        return [f"{path}.as_of {as_of} is after the run as-of {run_as_of.isoformat()}"], None
+    days = (run_as_of - when).days
+    if days <= STALE_DAYS:
+        return [], None
+    return [], (
+        f"Stale quote: {citation.source_id} {citation.locator} quote dated {as_of} is {days} days "
+        f"before the run as-of {run_as_of.isoformat()} (limit {STALE_DAYS})"
+    )
 
 
 def _market_row(
@@ -1089,11 +1152,42 @@ def _market_row(
         return [*issues, f"{path}: malformed citation (empty locator or quote)"], None
     issues.extend(f"{path}: {i}" for i in citation_issues((citation,), pack.sources))
     if row.kind == "observed":
+        own = _found(_TALK, quote.quote)
+        issues.extend(f'{path}: an observed row quotes indicative talk: "{m}"' for m in own)
         issues.extend(
-            f'{path}: an observed row quotes indicative talk: "{marker}"'
-            for marker in _found(_TALK, quote.quote)
+            f'{path}: an observed row quotes a sentence of indicative talk: "{m}"'
+            for m in _found(_TALK, _sentences_of(quote, pack))
+            if m not in own
         )
     return issues, citation
+
+
+_SENTENCE_END = re.compile(r"[.!?](?=\s|$)")
+
+
+def _sentences_of(quote: Quote, pack: PreparedPack) -> str:
+    """S08-cp3-A08: the whole sentences of the cited span that hold each occurrence of the quote
+    (both normalised), so a sub-span cut out of a talk sentence still reads as talk. A sentence
+    ends at ".", "!" or "?" before a space or the end, never inside "99.75". The quote alone when
+    the span is not in the pack or does not hold it (`citation_issues` reports that)."""
+    spans = [
+        x.text
+        for s in pack.sources
+        if s.source_id == quote.source_id
+        for x in s.spans
+        if x.locator == quote.locator
+    ]
+    needle = normalise(quote.quote)
+    text = normalise(spans[0]) if spans else ""
+    ends = [m.end() for m in _SENTENCE_END.finditer(text)]
+    found: list[str] = []
+    at = text.find(needle) if needle else -1
+    while at >= 0:
+        stop = at + len(needle)
+        start = max((e for e in ends if e <= at), default=0)
+        found.append(text[start : min((e for e in ends if e >= stop), default=len(text))])
+        at = text.find(needle, at + 1)
+    return " ".join(found) or quote.quote
 
 
 def _basis_issues(
@@ -1144,6 +1238,7 @@ def _instrument_issues(
     issues: list[str] = []
     offered = upstream.facilities
     catalogue = upstream.catalogue
+    context_facilities = evidence.context_facilities
     seen = [row.facility_id for row in submission.instruments]
     for facility_id in sorted(f for f, n in Counter(seen).items() if n > 1):
         issues.append(f"instruments: facility {facility_id} appears more than once")
@@ -1152,6 +1247,13 @@ def _instrument_issues(
         if row.facility_id not in offered:
             issues.append(f"{path}.facility_id: unknown CP-1 facility {row.facility_id}")
         issues += _basis_issues(path, row.basis, catalogue, evidence)
+        # S08-cp3-A07: a context row is another facility's market evidence unless it is this one's.
+        issues += [
+            f"{path}.basis.context_rows[{j}]: context row {row_id} quotes facility "
+            f"{context_facilities[row_id]}, not {row.facility_id}"
+            for j, row_id in enumerate(row.basis.context_rows)
+            if row_id in context_facilities and context_facilities[row_id] != row.facility_id
+        ]
         market = not _none(row.market_observation)
         cites_market = _cites_market(row.basis)
         if market and not cites_market:
@@ -1165,14 +1267,28 @@ def _instrument_issues(
     return issues
 
 
-def _cap_reasons(upstream: Upstream, evidence: _Evidence) -> list[str]:
-    """Why the preference is capped below High: the upstream caps, talk-only evidence and a stale
-    context quote, in that order."""
+TALK_BASIS_CAP = "the preference's market basis is indicative talk only"
+# Ruling S08-cp3-C09: an Insufficient Information preference ranks nothing (rule e).
+INSUFFICIENT_ORDERING = (
+    "preference.ordering: an Insufficient Information preference has an empty ordering; empty "
+    "it, or cite observed or indicative market evidence and state a confidence other than "
+    "Insufficient Information"
+)
+
+
+def _cap_reasons(upstream: Upstream, evidence: _Evidence, basis: Basis) -> list[str]:
+    """Why the preference is capped below High: the upstream caps, talk-only evidence (all of
+    it, or the market evidence the preference's basis cites: S08-cp3-C03) and a stale context
+    quote, in that order."""
     reasons = list(upstream.caps)
     if evidence.strength() == {"indicative_talk"}:
         reasons.append("the market evidence is indicative talk only")
+    elif _talk_only(basis, evidence):
+        reasons.append(TALK_BASIS_CAP)
     if evidence.context_stale:
         reasons.append(CONTEXT_CAP)
+    if evidence.stale:
+        reasons.append(PACK_CAP)
     return reasons
 
 
@@ -1192,10 +1308,12 @@ def _preference_issues(
             issues.append(f"preference.ordering: {facility_id} is not an instruments row")
         elif ranked[facility_id] > 1:
             issues.append(f"preference.ordering: {facility_id} appears more than once")
-    if row.ordering or not insufficient:
+    if not insufficient:
         for facility_id in dict.fromkeys(instruments):
             if facility_id not in ranked:
                 issues.append(f"preference.ordering: {facility_id} is missing")
+    elif row.ordering:  # ruling S08-cp3-C09: no ranking without a basis and a confidence
+        issues.append(INSUFFICIENT_ORDERING)
     if insufficient and not row.limitation:
         issues.append("preference: an Insufficient Information preference states its limitation")
     strength = evidence.strength()
@@ -1206,7 +1324,7 @@ def _preference_issues(
         )
     if not insufficient and not _cites_market(row.basis):
         issues.append("preference: a relative value preference cites a market_evidence quote")
-    reasons = _cap_reasons(upstream, evidence)
+    reasons = _cap_reasons(upstream, evidence, row.basis)
     if reasons and row.confidence == "High":
         issues.append(f"preference.confidence: capped below High because {'; '.join(reasons)}")
     if _talk_only(row.basis, evidence):
@@ -1393,6 +1511,11 @@ class _Composer:
 
     def limit(self, limitation: str | None) -> Cell:
         return Cell(self.text(limitation) if limitation else NONE_STATED)
+
+    def stored(self, limitation: str | None) -> str | None:
+        """A claim's limitation as stored: spelled like its table cell (`text`), never with raw
+        `{ref|unit}` braces (S06-cp2-ade-C03, S10-cp6-cp8-cpl10-C04); None stays None."""
+        return None if limitation is None else self.text(limitation)
 
     def basis(self, row: Instrument | Preference | Risk) -> Cell:
         """Python's basis cell: each cited CP-2 row with its label in catalogue (register)
@@ -1647,14 +1770,20 @@ def _risks_and_gaps(submission: RelativeValueSubmission, out: _Composer) -> None
     )
 
 
-def _evidence_limitations(evidence: _Evidence) -> list[str]:
-    """Own limitations of the market evidence (decision 0007): none at all, or talk only."""
+TALK_BASIS_LIMITATION = (
+    "The preference's market basis is indicative talk only, not an observed market level"
+)
+
+
+def _evidence_limitations(evidence: _Evidence, basis: Basis) -> list[str]:
+    """Own limitations of the market evidence (decision 0007): none at all, or talk only (all of
+    it, or what the preference's basis cites: S08-cp3-C03)."""
     strength = evidence.strength()
     if not strength:
         return ["No observed or indicative market evidence: relative value is not assessed"]
     if strength == {"indicative_talk"}:
         return ["Market evidence is indicative talk only, not an observed market level"]
-    return []
+    return [TALK_BASIS_LIMITATION] if _talk_only(basis, evidence) else []
 
 
 def _context_limitations(evidence: _Evidence) -> list[str]:
@@ -1672,6 +1801,14 @@ def relative_value(
     issues = validate_relative_value(pack, submission, upstream)
     if issues:
         raise ValueError("; ".join(issues))
+    return _composed(pack, submission, upstream)
+
+
+def _composed(
+    pack: PreparedPack, submission: RelativeValueSubmission, upstream: Upstream
+) -> RelativeValueReport:
+    """`relative_value` of a submission `validate_relative_value` already accepted (one
+    validation per step, S08-cp3-C10)."""
     pack = PreparedPack.model_validate_json(pack.model_dump_json())
     submission = RelativeValueSubmission.model_validate_json(submission.model_dump_json())
     evidence = _bind_evidence(pack, submission, upstream)
@@ -1681,14 +1818,19 @@ def relative_value(
     # empty required register and an Insufficient Information preference.
     # Inherited ones (a restricted CP-2's included) are settlement's (`execution.settle`).
     out.limitations.extend(f"Gap ({g.severity}): {out.text(g.gap)}" for g in submission.gaps)
-    out.limitations.extend(_evidence_limitations(evidence))
+    out.limitations.extend(_evidence_limitations(evidence, submission.preference.basis))
     out.limitations.extend(_context_limitations(evidence))
+    out.limitations.extend(evidence.stale)
     out.limitations.extend(upstream.limits)
     lines = _instruments(submission, offered, out)
     _market(submission, out)
     preference = _preference(submission, offered, out)
     _risks_and_gaps(submission, out)
     out.front([("preference", "Preference", preference), *lines])
+    # A limitation is plain stored text: spelled before the references are carried (each
+    # table cell already referenced its figures).
+    preference_limitation = out.stored(submission.preference.limitation)
+    instrument_limitations = [out.stored(row.limitation) for row in submission.instruments]
     referenced = [
         fact.model_copy(
             update={"table_id": CP1_REFERENCES, "row_id": f"ref{index:02d}", "field": "value"}
@@ -1721,16 +1863,18 @@ def relative_value(
             claim_id="T3.4.preference",
             text=preference_row.rationale,
             citations=out.cited(preference_row.basis),
-            limitation=preference_row.limitation,
+            limitation=preference_limitation,
         ),
         *(
             Claim(
                 claim_id=f"T3.1.i{index:02d}",
                 text=row.market_observation,
                 citations=out.cited(row.basis),
-                limitation=row.limitation,
+                limitation=limitation,
             )
-            for index, row in enumerate(submission.instruments, 1)
+            for index, (row, limitation) in enumerate(
+                zip(submission.instruments, instrument_limitations, strict=True), 1
+            )
             if not _none(row.market_observation)
         ),
     )
@@ -1779,7 +1923,7 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     issues = validate_relative_value(pack, submission, upstream)
     if issues:
         return StepValidation(issues=issues)
-    return StepValidation(output=relative_value(pack, submission, upstream).model_dump_json())
+    return StepValidation(output=_composed(pack, submission, upstream).model_dump_json())
 
 
 def submit_cp3_step(store: Execution, ticket_id: str, step_id: str, payload: str) -> Attempt:

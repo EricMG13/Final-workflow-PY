@@ -120,20 +120,9 @@ BATCH_CASES: Mapping[str, Case] = {
             ("gaps", "*", "action"): f"T1D.7 {_GAP_ROW}",
         },
     ),
-    "CP-2G": Case(
-        _cp2g,
-        {
-            ("base_drivers", "revenue_growth", "limitation"): (
-                "Claim.limitation of T2H.3.revenue_growth"
-            ),
-            ("base_drivers", "ebitda_margin", "limitation"): (
-                "Claim.limitation of T2H.3.ebitda_margin"
-            ),
-            ("base_drivers", "dividends", "limitation"): "Claim.limitation of T2H.3.dividends",
-            ("downside", "limitation"): "Claim.limitation of T2H.3.downside",
-            ("assessment", "limitation"): "Claim.limitation of T2H.3.assessment",
-        },
-    ),
+    # No CP-2G free-text path is stored verbatim: a limitation is checked like a rationale
+    # (S07-cp2-gh-A02), as for CP-2H.
+    "CP-2G": Case(_cp2g, {}),
     "CP-1C": Case(
         _cp1c,
         {

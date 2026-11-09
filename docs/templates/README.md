@@ -38,11 +38,12 @@ Every column is required unless the tables below say optional. Rules that apply 
   optional exponent of at most two digits (`1e3`), and at most 40 characters. No `%`, units,
   spaces or thousands separators. The validator reads each number as a decimal from the cell's
   stored text, never as a binary float, and compares exactly.
-- **Percent of NAV** cells (`pct_nav`, `limit_pct_nav`, `headroom_pct_nav`, and `limit`,
-  `current_value` and `headroom` when `limit_unit` is `% NAV`) are plain numbers in percent:
-  `2.5` means 2.5 % NAV. A number cell formatted as a percentage (for example `0.00%`) is
-  refused: Excel stores 2.5 % as 0.025, which would read 100 times too small. A format that
-  only shows a literal sign (`0.00"%"`) is accepted.
+- **Percent of NAV** cells (`pct_nav`, `limit_pct_nav`, `headroom_pct_nav`, `limit`,
+  `current_value` and `headroom` when `limit_unit` is `% NAV`, and `Exposure_Summary` `value`
+  when `unit` is `% NAV`) are plain numbers in percent: `2.5` means 2.5 % NAV. A number cell
+  formatted as a percentage (for example `0.00%`) is refused: Excel stores 2.5 % as 0.025, which
+  would read 100 times too small. A format that only shows a literal sign (`0.00"%"`) is
+  accepted. A `pct_nav` below 0 is refused: a share of NAV is at least 0.
 - **Dates** are text `YYYY-MM-DD` and real calendar dates. The template formats these columns
   as Text. A date Excel has turned into a serial number (such as `46171`) is rejected.
 - **Values, not formulas**: `prepare` freezes the stored values and never recalculates.
@@ -52,8 +53,9 @@ Every column is required unless the tables below say optional. Rules that apply 
   containing the word `total` or `subtotal`, such as `Total` or `Top 20 Subtotal`). Python adds
   the rows up. A genuine label that contains the word, such as a sector `Total Return Swaps`,
   is refused too: rename it without the word (for example `TR Swaps`).
-- Hidden rows, columns and sheets are read like any others, and the pack marks their cells
-  hidden.
+- Hidden rows, columns and sheets are refused, not read: one issue for a sheet whose filled
+  cells are all hidden, else one per row holding a hidden filled cell. Unhide them or delete
+  them.
 - Cell addresses must be canonical uppercase A1 coordinates within A1:XFD1048576, with no
   spaces, line breaks or leading row zeroes. Sheet locators must retain their canonical
   URI spelling so typed values quote the exact frozen cell. Invalid addresses or locators
@@ -210,6 +212,7 @@ has an issue. These are the fixes it can print:
 | A number that is not a plain number | enter a plain number: digits, an optional sign and one decimal point (no %, units, spaces or thousands separators) |
 | A number longer than 40 characters | enter the number with at most 40 characters (Excel keeps 15 significant digits) |
 | A number cell formatted as a percentage in a percent-of-NAV column | format the cell as General and enter 2.5 for 2.5 % NAV |
+| A hidden sheet, or a row holding a hidden cell (a hidden row or column) | unhide the sheet, row or column, or delete it: hidden cells are not read as data |
 | A date that is empty, not an ISO date, or an Excel date serial | enter the date as text YYYY-MM-DD (format the column as Text so Excel keeps it) |
 | A total or subtotal row | leave out total and subtotal rows; Python adds the rows up |
 | `Mandate` `section` empty or not one of the seven | enter one of Strategy, Key Parties, Capital Structure, Mandate Constraints, Liquidity Terms, Fees or Reporting |
@@ -232,6 +235,7 @@ has an issue. These are the fixes it can print:
 | A `one_pct_nav` row | delete the one_pct_nav row; Python computes 1 % of NAV from nav |
 | `rating_bucket` empty | enter the rating bucket, e.g. B or Unrated |
 | A `pct_nav` empty | enter the share of NAV in percent as a plain number (2.5 means 2.5 % NAV) |
+| A `pct_nav` below 0 | enter the share of NAV as a number of at least 0; a short position is not a share |
 | `Rating_Distribution` `pct_nav` sum outside 99.0 to 101.0 | correct the percentages, or add a row Unallocated with the remainder of NAV |
 | `issuers` empty or not a whole number of at least 0 | enter the number of issuers as a whole number of at least 0, e.g. 12 |
 | `sector` empty | enter the sector's name |
@@ -288,3 +292,16 @@ has an issue. These are the fixes it can print:
 
 Keep real portfolio files out of Git. They belong in your environment's pack root, not in this
 repository.
+
+## Run context form (`context-form.html`, `context.json`, schema `context/1`)
+
+The form writes `context.json`; `src/deploy_workflow/context.py` reads it, and the form's `build()` is the
+normative rule set. New optional fields, each omitted from the file when empty (so older files load
+and re-save unchanged; a file that uses one needs this version or later):
+
+- `identity.issue_classification`: `investment_grade` or `high_yield`. The form requires a choice
+  (nothing preselected); the reader accepts a file without it.
+- `deal_terms[].coupon_pct`, `margin_bps` (plain non-negative numbers, no sign or unit) and `maturity`
+  (`YYYY-MM-DD`). Facility rows are allowed on every run type and required (at least one) for Primary only.
+  Tenor and price talk are shown for Primary only; the form writes them blank on other run types.
+- `attachments.legal_documents` has no preselected choice in the form (`executed`, `draft` or `none`).

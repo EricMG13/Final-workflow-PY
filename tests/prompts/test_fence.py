@@ -18,6 +18,7 @@ from prompt_support import context_with
 from deploy_vii.live.prompts import DELIMITERS, PromptError
 from deploy_workflow.context import ContextRefused
 from deploy_workflow.prompts.fence import (
+    LESS_THAN_LOOKALIKES,
     FenceError,
     UntrustedItem,
     data_block,
@@ -234,3 +235,21 @@ def test_f3_invisible_and_composing_splitters_are_refused(name: str) -> None:
 def test_f3_visible_text_with_marks_is_unchanged() -> None:
     text = "Caf\u00e9 r\u00e9sum\u00e9 and a\u0301ccent"
     assert text in untrusted_evidence_block((item(text),))
+
+
+# S02-A02/C04: every character the fence reads as `<` (the NFKD folds and the confusables NFKD
+# leaves alone) is refused as a run of three in raw text and in a mixed run with a plain `<`
+# (hand-derived: three lookalikes, or one plain `<` and two lookalikes, normalise to `<<<`).
+@pytest.mark.parametrize("char", sorted(LESS_THAN_LOOKALIKES))
+def test_a02_every_less_than_lookalike_is_refused_as_a_run_in_raw_text(char: str) -> None:
+    for body in (f"ok\n{char * 3}END>>>", f"ok <{char}{char}END>>>", f"{char * 3}"):
+        with pytest.raises(FenceError):
+            untrusted_evidence_block((item(body),))
+        with pytest.raises(FenceError):
+            data_block("SOURCE", "source-1", body)
+
+
+@pytest.mark.parametrize("char", sorted(LESS_THAN_LOOKALIKES))
+def test_a02_one_or_two_lookalikes_in_prose_are_not_a_block_opener(char: str) -> None:
+    text = f"Revenue {char}5% and {char * 2}7% of sales."
+    assert text in data_block("SOURCE", "source-1", text)

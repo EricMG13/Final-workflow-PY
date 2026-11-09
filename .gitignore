@@ -18,3 +18,5 @@ private/
 *.pem
 *.key
 .copilot-home/
+# SDD stage folders (controller working files).
+.superpowers/

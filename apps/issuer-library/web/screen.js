@@ -41,9 +41,9 @@ const unnamed=[...new Set(Object.values(data).map(output=>output.module))].filte
 if(unnamed.length)groups.push(['Other modules',unnamed.map(id=>[id,id])]);
 const moduleNames = Object.fromEntries(groups.flatMap(g=>g[1]));
 delete modules.undefined; // A pin this workspace does not hold.
-const isAnalytical = id => !id.startsWith('W-')&&!['CP-OS','CP-MODEL'].includes(id);
+const isAnalytical = id => !id.startsWith('W-')&&id!=='CP-OS';
 const $ = id => document.getElementById(id);
-const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = value => String(value ?? '').replace(/[&<>"'\r]/g, c => ({'\r':'&#13;','&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const plain = value => String(value).replace(/\*\*|`/g,'');
 const rich = value => esc(value).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>');
 const icon = name => `<img src="icons/${name}.svg" alt="">`;
@@ -51,13 +51,14 @@ const matchesHeading = (heading,prefix) => prefix.startsWith('=') ? heading===pr
 const evidence = new Map();
 const lastSection = new Map(), lastFile = new Map();
 const readingPositions = new Map(), expandedGroups = new Map();
-const LIBRARY_DEFAULTS = {query:'',sector:'all',workflow:'all',year:'all',content:'all',module:'all'};
+// Screening state, kept while the reader is on another screen. Filter names are LibraryLogic's.
+const LIBRARY_DEFAULTS = {search:'',sector:'',workflow:'',completion:'',availability:'',basis:'',period:'',leverageMin:'',leverageMax:'',coverageMin:'',coverageMax:'',issuer:''};
 const libraryFilters = {...LIBRARY_DEFAULTS};
-const expandedIssuers = new Set(); // Issuers whose run list is open; kept for the page session.
+const libraryState = {selected:'',sortKey:'',direction:'asc'};
 let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll = 0;
 installDestinations();
 const appDestinations=new Set(['W-Library','W-NewRun','W-Settings','W-Help']); // These need no selected run.
-const aliases = {'CP-2F':'CP-2E','CP-2C':'CP-1A','CP-1E':'CP-1D','CP-5A':'CP-5','CP-6A':'CP-6'};
+const aliases = {'CP-MODEL':'W-Forecast','CP-2F':'CP-2E','CP-2C':'CP-1A','CP-1E':'CP-1D','CP-5A':'CP-5','CP-6A':'CP-6'};
 for(const visual of window.DESIGN_WORKSPACE.visuals)for(const alias of String(visual.aliases||'').split(/[;,\s]+/).filter(Boolean))aliases[alias]??=visual.module;
 // Reader pages show names; the audit, inspector and evidence pages keep exact codes. Text only, so
 // downloads, links and the retained files are untouched, and each name carries its code as a title.
@@ -69,7 +70,7 @@ const moduleLabel=code=>{
   return (own!==code&&own)||moduleNames[aliases[code]]||own||(code==='CP-MEMO'?'Credit memo':null);
 };
 const namedText=text=>text.replace(new RegExp(MODULE_CODE,'g'),code=>moduleLabel(code)||code);
-const showsCodes=({module,section})=>section==='audit'||['W-Evidence','CP-OS','W-Help','W-Settings','W-NewRun'].includes(module);
+const showsCodes=({module,section})=>section==='audit'||['W-Evidence','W-Forecast','CP-OS','W-Help','W-Settings','W-NewRun'].includes(module);
 function readerMark(token) {
   if(!MODULE_CODE.test(token))return Object.assign(document.createElement('small'),{className:'ref',textContent:token});
   const label=moduleLabel(token);
@@ -185,7 +186,7 @@ function trendChart(module, metric) {
   const {table,row,key}=findRow(module,'T4.10',metric),unit=data[module].basis.unit;
   const points=[3,2,1].map(i=>({label:table.headers[i],exact:row.cells[i],n:Number(row.cells[i].replace(/,/g,''))}));
   const max=Math.max(...points.map(p=>p.n));
-  return `<div class="chart-head"><h3>${esc(metric)}</h3><span>${esc(unit)} · ${esc(row.cells[4])}</span></div><div class="bars" role="group" aria-label="${esc(metric)} by financial year">${points.map(p=>`<button class="bar-column" data-evidence="${key}" aria-label="${esc(p.label)} ${esc(metric)} ${esc(p.exact)} ${esc(unit)}. View source"><span class="bar-value">${p.exact}</span><span class="bar" style="height:${Math.max(2,p.n/max*142)}px"></span><span class="bar-period">${p.label}</span></button>`).join('')}</div>${sourceFooter(key)}`;
+  return `<div class="chart-head"><h3>${esc(metric)}</h3><span>${esc(unit)} · ${esc(row.cells[4])}</span></div><div class="bars" role="group" aria-label="${esc(metric)} by financial year">${points.map(p=>`<button class="bar-column" data-evidence="${esc(key)}" aria-label="${esc(p.label)} ${esc(metric)} ${esc(p.exact)} ${esc(unit)}. View source"><span class="bar-value">${esc(p.exact)}</span><span class="bar" style="height:${Math.max(2,p.n/max*142)}px"></span><span class="bar-period">${esc(p.label)}</span></button>`).join('')}</div>${sourceFooter(key)}`;
 }
 function performanceView() {
   const id=pins['CP-1'],{table}=findRow(id,'T4.10','Net sales');
@@ -198,7 +199,13 @@ function eventTimeline() {
   const order={'1993':0,'May 8, 2023':1,'July 12, 2024':2,'September 19, 2024':3,'October 2024':4};
   calendar.sort((a,b)=>order[a.cells[0]]-order[b.cells[0]]);
   const periods=block.rows.filter(r=>!calendar.includes(r));
-  const rowMarkup=row=>`<li><div class="event-date"><strong>${esc(row.cells[0])}</strong><span>${/^\d{4}$/.test(row.cells[0])?'Year only':/^\w+ \d{4}$/.test(row.cells[0])?'Month only':row.cells[0].includes('FY')||row.cells[0].includes(' / ')||row.cells[0].includes(' and ')?'Fiscal / combined dates':'Exact day'}</span></div><div class="event-body"><p>${rich(row.cells[1])}</p><div class="event-detail">${rich(row.cells[2])}</div>${sourceFooter(`${id}:${row.line}`)}</div></li>`;
+  const calendarDate=cell=>{
+    const m=/^([A-Z][a-z]+) (\d{1,2}), (\d{4})$/.exec(cell),month=m?DISPLAY_MONTHS.indexOf(m[1]):-1;
+    if(month<0) return cell;
+    const iso=`${m[3]}-${String(month+1).padStart(2,'0')}-${m[2].padStart(2,'0')}`;
+    return displayDate(iso)===iso?cell:displayDate(iso);
+  };
+  const rowMarkup=row=>{const shown=calendarDate(row.cells[0]);return `<li><div class="event-date"${shown&&shown!==row.cells[0]?` title="${esc(row.cells[0])}"`:''}><strong>${esc(shown)}</strong><span>${/^\d{4}$/.test(row.cells[0])?'Year only':/^\w+ \d{4}$/.test(row.cells[0])?'Month only':row.cells[0].includes('FY')||row.cells[0].includes(' / ')||row.cells[0].includes(' and ')?'Fiscal / combined dates':'Exact day'}</span></div><div class="event-body"><p>${rich(row.cells[1])}</p><div class="event-detail">${rich(row.cells[2])}</div>${sourceFooter(`${id}:${row.line}`)}</div></li>`;};
   return `<div class="section-heading"><h2>Issuer event timeline</h2><span>Historical record</span></div><p class="intro">Calendar events retain their actual date precision. Fiscal periods and grouped dates stay in a separate register.</p><ol class="timeline">${calendar.map(rowMarkup).join('')}</ol><h2>Fiscal periods & grouped events</h2><ol class="timeline periods">${periods.map(rowMarkup).join('')}</ol>`;
 }
 function businessVisual() {
@@ -206,7 +213,7 @@ function businessVisual() {
   // Read the mix from the retained cell; a change in the handoff surfaces as a failed view.
   const [,mix,reading]=plain(row.row.cells[1]).match(/(FY2024 sales were[^.]+\.) (.+)$/);
   const parts=[...mix.matchAll(/(\d+)% ([^,.]+?)(?=,|\.)/g)].map(m=>[m[2].replace(/^and /,''),Number(m[1])]),max=Math.max(...parts.map(p=>p[1]));
-  return `<div class="section-heading"><h2>Revenue exposure</h2><span>FY2024 · approximate</span></div><div class="mix-bars">${parts.map(([label,n])=>`<div><span>${esc(label)}</span><button data-evidence="${row.key}" aria-label="${esc(label)} approximately ${n} percent, view source"><i style="width:${n/max*100}%"></i></button><strong>≈${n}%</strong></div>`).join('')}</div><p class="chart-reading">${esc(reading)}</p>${sourceFooter(row.key)}`;
+  return `<div class="section-heading"><h2>Revenue exposure</h2><span>FY2024 · approximate</span></div><div class="mix-bars">${parts.map(([label,n])=>`<div><span>${esc(label)}</span><button data-evidence="${esc(row.key)}" aria-label="${esc(label)} approximately ${n} percent, view source"><i style="width:${n/max*100}%"></i></button><strong>≈${n}%</strong></div>`).join('')}</div><p class="chart-reading">${esc(reading)}</p>${sourceFooter(row.key)}`;
 }
 function factorMatrix() {
   const id=pins['CP-2'],table=sectionData(id,'factors')[0].blocks.find(b=>b.type==='table');
@@ -275,7 +282,7 @@ function renderNavigator(module) {
   const query=$('module-search').value.trim().toLowerCase(),context=current.context;
   let count=0;
   const sectionsOf=id=>navigationSections(id,context).filter(s=>s[0]!=='status');
-  const catalogue=groups.concat([['Workspace tools',[['CP-MODEL','Published model'],['CP-OS','Run activity']]]]).map(([title,items])=>{
+  const catalogue=groups.concat([['Workspace tools',[['W-Forecast','Published model'],['CP-OS','Run activity']]]]).map(([title,items])=>{
     const matches=items.filter(([id,name])=>`${id} ${Object.keys(aliases).filter(k=>aliases[k]===id).join(' ')} ${name} ${sectionsOf(id).map(s=>s[1]).join(' ')} ${isAnalytical(id)?availability(id,context):''}`.toLowerCase().includes(query));
     count+=matches.length;
     if(!matches.length)return '';
@@ -294,7 +301,12 @@ function renderNavigator(module) {
 }
 function parseRoute() {
   const [path,query='']=location.hash.slice(1).split('?');
-  const [requestedModule,requestedSection]=path.split('/');
+  const [encodedModule,encodedSection]=path.split('/');
+  // routeHref encodes each segment once. A module escape that cannot be decoded is read as typed (an unknown module
+  // opens the library); a section escape that cannot be decoded names no section, so the module opens its default.
+  let requestedModule=encodedModule,requestedSection=encodedSection;
+  try{requestedModule=decodeURIComponent(encodedModule);}catch(error){if(!(error instanceof URIError))throw error;}
+  try{if(encodedSection!==undefined)requestedSection=decodeURIComponent(encodedSection);}catch(error){if(!(error instanceof URIError))throw error;requestedSection=null;}
   const resolved=!Object.hasOwn(moduleNames,requestedModule)&&Object.hasOwn(aliases,requestedModule)?aliases[requestedModule]:requestedModule;
   let module=Object.hasOwn(moduleNames,resolved)?resolved:'W-Library';
   const params=new URLSearchParams(query);
@@ -304,7 +316,7 @@ function parseRoute() {
   let context=Object.hasOwn(contexts,requestedContext)?requestedContext:fallback||current?.context||Object.keys(contexts)[0]||null;
   // A deliverable opens under a run of its own issuer, or under none if no run file matches.
   const report=module==='W-Reports'&&window.DESIGN_WORKSPACE.reports.find(r=>r.id===requestedSection);
-  if(report&&contexts[context]?.issuer!==report.issuer)context=tracedRun(report);
+  if(report&&!sameIssuer(contexts[context]?.issuerKey,report.issuerKey))context=tracedRun(report);
   if(!context&&!appDestinations.has(module)&&module!=='W-Reports')module='W-Library';
   const output=resolveOutput(module,context,params.get('o'));
   const sections=navigationSections(module,context,output),first=output?modules[output].first:modules[module]?.first;
@@ -318,7 +330,7 @@ function go(module,section,key=null,file) {location.hash=file===undefined?routeH
 function showInspector(key) {
   const item=evidence.get(key), output=data[item.output];
   $('inspector').hidden=false; $('workbench').classList.add('has-evidence');
-  $('inspector').innerHTML=`<div class="inspector-bar"><button id="back-analysis">${icon('arrow-left')}Back to analysis</button><span>Esc</span></div><div class="inspector-body"><h2>Evidence inspector</h2><div class="evidence-context">${esc(item.module)}${output.label===item.module?'':` · ${esc(output.label)}`} · Line ${item.line}</div><h3>${esc(item.title)}</h3><span class="badge badge-gray classification">${esc(classification(item))}</span><div class="evidence-fields">${item.fields.map(([label,value])=>`<div><h4>${esc(label)}</h4><div>${rich(value)}</div></div>`).join('')}</div>${item.basis?`<div class="evidence-basis"><h3>Basis & context</h3><p>${rich(item.basis)}</p></div>`:''}<div class="source-location"><h3>Source location</h3><p>${esc(item.section)}</p><a href="${esc(output.href)}" download>${icon('file-text')}Download retained handoff</a><p class="small">${esc(output.file)}<br>${esc(output.case)} · saved output</p></div><div class="inspector-note"><strong>Reading boundary</strong><p>These are exact retained fields from this historical case. Source and PDF locators remain attributed to the original handoff. The library does not authenticate the underlying PDFs.</p></div></div>`;
+  $('inspector').innerHTML=`<div class="inspector-bar"><button id="back-analysis">${icon('arrow-left')}Back to analysis</button><span>Esc</span></div><div class="inspector-body"><h2>Evidence inspector</h2><div class="evidence-context">${esc(moduleNames[item.module]&&moduleNames[item.module]!==item.module?`${moduleNames[item.module]} (${item.module})`:item.module)}${output.label===item.module?'':` · ${esc(output.label)}`} · Line ${item.line}</div><h3>${esc(item.title)}</h3><span class="badge badge-gray classification">${esc(classification(item))}</span><div class="evidence-fields">${item.fields.map(([label,value])=>`<div><h4>${esc(label)}</h4><div>${rich(value)}</div></div>`).join('')}</div>${item.basis?`<div class="evidence-basis"><h3>Basis & context</h3><p>${rich(item.basis)}</p></div>`:''}<div class="source-location"><h3>Source location</h3><p>${esc(item.section)}</p><a href="${esc(output.href)}" download>${icon('file-text')}Download retained handoff</a><p class="small">${esc(output.file)}<br>${esc(output.case)} · saved output</p></div><div class="inspector-note"><strong>Reading boundary</strong><p>These are exact retained fields from this historical case. Source and PDF locators remain attributed to the original handoff. The library does not authenticate the underlying PDFs.</p></div></div>`;
   document.querySelectorAll('[data-evidence]').forEach(el=>el.classList.toggle('source-selected',el.dataset.evidence===key));
   if(returnTrigger) {
     if(window.innerWidth<=1050) $('inspector').scrollIntoView({block:'start'});
@@ -336,13 +348,41 @@ function moduleBody({module,context,output}) {
   }
 }
 let cancelReportFrame=null;
-// Column headers stick just under the sticky filter band, which sits 8px above the content's top edge.
-function sizeLibraryBand() {
-  const workspace=document.querySelector('.library-workspace'),band=document.querySelector('.library-discovery');
-  if(workspace&&band)workspace.style.setProperty('--band-h',`${band.offsetHeight-8}px`);
-  else document.getElementById('workbench')?.style.removeProperty('--band-h');
+// A number box with text it cannot read is 'invalid', which excludes every run rather than being ignored.
+function readLibraryFilters() {
+  $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{libraryFilters[control.dataset.libraryFilter]=control.validity?.badInput?'invalid':control.value;});
+  updateLibrary();
 }
-window.addEventListener('resize',sizeLibraryBand);
+function resetLibrary() {
+  Object.assign(libraryFilters,LIBRARY_DEFAULTS);
+  Object.assign(libraryState,{selected:'',sortKey:'',direction:'asc'});
+  updateLibrary(true);
+}
+// Clicks inside the Library screen; true when one was handled.
+function libraryClick(target) {
+  const choose=target.closest('[data-library-select]'),sort=target.closest('[data-library-sort]'),nav=target.closest('[data-library-nav],[data-library-issuer]'),source=target.closest('[data-library-source]');
+  if(choose) {
+    libraryState.selected=choose.dataset.librarySelect;updateLibrary();
+    $('run-detail').focus({preventScroll:true});$('run-detail').scrollIntoView({block:'start'});
+  } else if(sort) {
+    const key=sort.dataset.librarySort;
+    libraryState.direction=libraryState.sortKey===key&&libraryState.direction==='asc'?'desc':'asc';libraryState.sortKey=key;
+    updateLibrary();$('library-results').querySelector(`[data-library-sort="${key}"]`).focus();
+  } else if(nav) {
+    const {libraryNav:kind,libraryIssuer:issuer}=nav.dataset;
+    if(kind==='all')resetLibrary();
+    else if(kind==='reports')Object.assign(libraryFilters,{issuer:'',availability:'report'});
+    else libraryFilters.issuer=libraryFilters.issuer===issuer?'':issuer;
+    updateLibrary(true);
+    [...$('library-nav').querySelectorAll('button')].find(b=>b.dataset.libraryNav===kind&&b.dataset.libraryIssuer===issuer).focus();
+  } else if(source) {
+    $('metric-sources').open=true;
+    const block=$(`source-${source.dataset.librarySource}`);block.focus({preventScroll:true});block.scrollIntoView({block:'center'});
+  } else if(target.closest('#library-clear,#library-empty-reset')) {
+    resetLibrary();$('library-query').focus();
+  } else return false;
+  return true;
+}
 function showNavigator(open) {
   $('navigator').classList.toggle('mobile-open',open);
   $('module-toggle').setAttribute('aria-expanded',String(open));
@@ -352,6 +392,11 @@ function focusSearch() {
   if(current.module==='W-Library'){$('library-query').focus();return;}
   showNavigator(true);
   $('module-search').focus();
+}
+// Run label and module or destination name: the same run label the workspace header shows, never a code.
+function contextPrefix({module,context}) {
+  const ctx=contexts[context];
+  return ctx&&!appDestinations.has(module)?`<span class="section-context">${esc(ctx.run)} · ${esc(moduleNames[module])}</span>`:'';
 }
 function renderRoute() {
   const next=parseRoute(), previous=current,changed=!current||next.module!==current.module||next.output!==current.output||next.section!==current.section||next.context!==current.context;
@@ -365,16 +410,29 @@ function renderRoute() {
     $('module-head').innerHTML=moduleHead(next);
     // A page with one section already says its name in the heading above.
     const only=sections.length===1&&!isAnalytical(next.module);
+    // The pager names what it steps through on the pages where the sections are models or reports.
+    const pagerNoun={'W-Forecast':'model','W-Reports':'report'}[next.module]||'section';
     const title=`<h3 id="section-title" tabindex="-1" ${only?'class="sr-only"':''}>${esc(sections[index][1])}</h3>`;
-    $('section-nav').innerHTML=only||(isAnalytical(next.module)&&!next.output)?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
+    // The bar sticks at narrow widths, so it names the run and the module (or destination) it belongs to.
+    $('section-nav').innerHTML=contextPrefix(next)+(only||(isAnalytical(next.module)&&!next.output)?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous ${pagerNoun}">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next ${pagerNoun}">${icon('arrow-right')}</button>`);
     if(!showsCodes(next))nameCodes($('section-nav'));
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);
-    sizeLibraryBand();
+    const activity=$('run-activity');if(activity)loadRunActivity(activity);
     // watchFrame returns the callback that stops its timer; the previous report's timer must not fire against a detached element.
     if(cancelReportFrame)cancelReportFrame();
     cancelReportFrame=null;
-    const frame=$('report-preview');
+    const modelFrame=$('model-preview'),frame=$('report-preview');
+    // The published model loads only when its disclosure is first opened: the frame gets its address and its watch then.
+    const disclosure=$('content').querySelector('details.model-original');
+    if(modelFrame&&disclosure){
+      const openModel=()=>{
+        if(!disclosure.open||modelFrame.getAttribute('src'))return;
+        modelFrame.setAttribute('src',modelFrame.dataset.src);
+        cancelReportFrame=watchFrame(modelFrame,disclosure.querySelector('.frame-status'),'Loading model…','The model did not load.',()=>{const link=document.createElement('a');link.setAttribute('href',modelFrame.dataset.download);link.download='';link.textContent='Download original HTML';return link;},'This model\'s file could not be found. Reload the library to refresh the list.');
+      };
+      disclosure.addEventListener('toggle',openModel);
+    }
     if(frame)cancelReportFrame=watchFrame(frame,$('content').querySelector('.frame-status'),'Loading report…','The report did not load.',()=>{const link=document.createElement('a');link.setAttribute('href',window.DESIGN_WORKSPACE.reports.find(r=>r.id===next.section).download);link.download='';link.textContent='Download original HTML';return link;},'This report\'s file could not be found. Reload the library to refresh the list.');
     if(!showsCodes(next))nameCodes($('content'));
     $('content').scrollTop=readingPositions.get(`${next.context}:${next.output||next.module}:${next.section}`)||0;
@@ -382,15 +440,16 @@ function renderRoute() {
     // Search hits drive moves between analytical modules, so the query is kept there and dropped elsewhere.
     if(previous&&previous.module!==next.module&&!isAnalytical(next.module))$('module-search').value='';
     renderNavigator(next.module);
-    document.title=`${moduleNames[next.module]} · Issuer Library`;
+    titleBase=moduleNames[next.module];applyTitle();
     const creating=next.module==='W-NewRun';
     $('content').hidden=creating;
     $('new-run').hidden=!creating;
+    if(typeof presentRun==='function')presentRun();
     if(previous) {
       const report=isReportRoute(next.module,next.section),library=appDestinations.has(next.module)||!contexts[next.context];
       const restored=!report&&!library&&focusId&&$(focusId);
       const link=window.innerWidth>720&&focused?.classList.contains('section-item')&&focusHref&&[...$('module-list').querySelectorAll('.section-item')].find(el=>el.getAttribute('href')===focusHref);
-      const destination=report?$('report-select'):library?$('analysis'):$('section-title');
+      const destination=report?$('report-select'):next.module==='W-Forecast'&&$('model-select')?$('model-select'):library?$('analysis'):$('section-title');
       if(!creating)(restored&&!restored.disabled?restored:link||destination).focus({preventScroll:true});
       if(previous.module!==next.module||previous.context!==next.context)$('navigator').scrollTop=0;
     }
@@ -410,7 +469,8 @@ function renderRoute() {
   $('announcement').textContent=`${named}${moduleNames[next.module]}, ${namedText(navigationSections(next.module,next.context,next.output).find(s=>s[0]===next.section)[1])}${next.evidence?', evidence open':''}`;
 }
 document.addEventListener('change',event=>{
-  if(event.target.matches('[data-library-filter]'))updateLibraryResults();
+  if(event.target.matches('[data-library-filter]'))readLibraryFilters();
+  if(event.target.id==='model-select')go('W-Forecast',event.target.value);
   if(event.target.id==='report-select')go('W-Reports',event.target.value);
   if(event.target.id==='output-select')go(current.module,current.section,null,event.target.value);
   if(event.target.id==='chart-metric') {
@@ -425,19 +485,7 @@ document.addEventListener('click',event=>{
   if(searchHit){returnTrigger=$('module-search');showNavigator(false);if(searchHit.hash===location.hash)$('analysis').focus();}
   const summary=event.target.closest('summary');
   if(summary?.parentElement.dataset.group)expandedGroups.set(summary.parentElement.dataset.group,!summary.parentElement.open);
-  const toggle=event.target.closest('.run-toggle');
-  if(toggle){
-    const open=toggle.getAttribute('aria-expanded')!=='true',issuer=toggle.closest('tbody').querySelector('h2').textContent;
-    if(open)expandedIssuers.add(issuer);else expandedIssuers.delete(issuer);
-    toggle.setAttribute('aria-expanded',String(open));toggle.getAttribute('aria-controls').split(' ').forEach(id=>{$(id).hidden=!open;});return;
-  }
-  const unset=event.target.closest('[data-library-unset]');
-  if(unset){const control=$('library-filters').querySelector(`[data-library-filter="${unset.dataset.libraryUnset}"]`);control.value='all';updateLibraryResults();control.focus();return;}
-  if(event.target.closest('#library-clear')){
-    Object.assign(libraryFilters,LIBRARY_DEFAULTS);
-    $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{control.value=libraryFilters[control.dataset.libraryFilter];});
-    updateLibraryResults();$('library-query').focus();return;
-  }
+  if(libraryClick(event.target))return;
   if(event.target.closest('.skip')){event.preventDefault();if(current.evidence){returnTrigger=$('analysis');go(current.module,current.section);}else $('analysis').focus();return;}
   const source=event.target.closest('[data-evidence]');
   if(source){event.preventDefault();returnTrigger=source;returnScroll=window.scrollY;returnContentScroll=$('content').scrollTop;go(current.module,current.section,source.dataset.evidence);return;}
@@ -447,7 +495,7 @@ document.addEventListener('click',event=>{
   const step=event.target.closest('#next-section')?1:event.target.closest('#previous-section')?-1:0;
   if(step){const sections=navigationSections(current.module,current.context),index=sections.findIndex(s=>s[0]===current.section);if(sections[index+step])go(current.module,sections[index+step][0]);}
 });
-document.addEventListener('input',event=>{if(event.target.id==='library-query')updateLibraryResults();});
+document.addEventListener('input',event=>{if(event.target.matches('input[data-library-filter]'))readLibraryFilters();});
 document.addEventListener('submit',event=>{if(event.target.id==='library-filters')event.preventDefault();});
 $('module-search').addEventListener('input',()=>renderNavigator(current.module));
 $('module-search-clear').addEventListener('click',()=>{$('module-search').value='';renderNavigator(current.module);$('module-search').focus();});
@@ -470,6 +518,30 @@ document.addEventListener('keydown',event=>{
   if($('navigator').classList.contains('mobile-open')){showNavigator(false);$('module-toggle').focus();}
 });
 window.addEventListener('hashchange',renderRoute);
+// The rail opens 100 ms after the pointer comes within 16 px of its right edge and closes 300 ms after it leaves; touch has no proximity.
+(()=>{
+  const rail=document.querySelector('.rail');let openTimer=null,closeTimer=null;
+  const coarse=window.matchMedia?.('(hover: none), (pointer: coarse)')||{matches:false}; // no matchMedia (test DOMs): treat as a fine pointer
+  const inZone=x=>x<=rail.getBoundingClientRect().right+16;
+  document.addEventListener('pointermove',event=>{
+    if(coarse.matches||event.pointerType!=='mouse')return;
+    const near=inZone(event.clientX),isOpen=rail.classList.contains('rail-open');
+    if(near){
+      clearTimeout(closeTimer);closeTimer=null;
+      if(!isOpen&&!openTimer)openTimer=setTimeout(()=>{openTimer=null;rail.classList.add('rail-open');},100);
+    }else{
+      clearTimeout(openTimer);openTimer=null;
+      if(isOpen&&!closeTimer)closeTimer=setTimeout(()=>{closeTimer=null;rail.classList.remove('rail-open');},300);
+    }
+  });
+  // Leaving the window, or the open rail itself for an embedded frame (a pointer inside a frame sends the page nothing), starts the close delay.
+  const leave=()=>{
+    clearTimeout(openTimer);openTimer=null;
+    if(rail.classList.contains('rail-open')&&!closeTimer)closeTimer=setTimeout(()=>{closeTimer=null;rail.classList.remove('rail-open');},300);
+  };
+  document.documentElement.addEventListener('pointerleave',leave);
+  rail.addEventListener('pointerleave',leave);
+})();
 const newRun=installNewRun();
 installSettings();
 renderRoute();

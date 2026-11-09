@@ -409,9 +409,25 @@ def _http_error_class(status: int) -> str:
     return "UnexpectedStatus"
 
 
+# One JSON string escape: a \uXXXX code unit or one of the one-character escapes.
+_JSON_ESCAPE = re.compile(r'\\(?:u([0-9a-fA-F]{4})|(["\\/bfnrt]))')
+_JSON_SIMPLE = dict(zip('"\\/bfnrt', '"\\/\b\f\n\r\t', strict=True))
+
+
+def _unescaped(text: str) -> str:
+    """``text`` with every JSON string escape decoded once, wherever it stands: any JSON shape,
+    a duplicate key, a body that is not JSON or too deep to parse. A key that one JSON decode
+    makes whole (``sk\\u002d...``) is whole here."""
+    return _JSON_ESCAPE.sub(lambda m: chr(int(m[1], 16)) if m[1] else _JSON_SIMPLE[m[2]], text)
+
+
 def _http_error(redactor: Redactor, status: int, body: bytes, text: str) -> ProviderError:
     message = _provider_message(text)
-    reflected = redactor.text(message) != message  # e.g. a JSON-escaped key, whole once decoded
+    decoded = _unescaped(text)
+    clean = redactor.text(decoded)
+    reflected = clean != decoded or redactor.text(message) != message
+    if clean != decoded and message == text:
+        message = clean  # the whole body is the message: shown decoded and redacted
     return ProviderError(
         kind=classify(status, body),
         error_class="KeyReflected" if reflected else _http_error_class(status),

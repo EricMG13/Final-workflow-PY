@@ -221,3 +221,16 @@ def test_typed_report_banner_cannot_replace_balance_sheet_column_dates():
         frozenset(("sep24",)),
         frozenset(("sep23",)),
     )
+
+
+def test_month_and_year_header_does_not_read_the_year_as_a_day():
+    # S11-C07. By hand: "June 2024" names no day; the "20" of 2024 is not June 20. The header
+    # maps to nothing (fails closed), while "30 June" with years below still maps to June 30.
+    text = "Balance sheet\nJune 2024  June 2023\nAssets\nCash 1 2\n"
+    assert mapping_headers(text, first_data_line=4, statement="BS") is None
+    spaced = "Balance sheet\nJune   2024      June 2023\nAssets\nCash 1 2\n"
+    assert mapping_headers(spaced, first_data_line=4, statement="BS") is None
+    dated = "Balance sheet\nAs at 30 June\n2024  2023\nCash 1 2\n"
+    assert mapping_headers(dated, first_data_line=4, statement="BS") == (
+        "June 30, 2024 | June 30, 2023",
+    )

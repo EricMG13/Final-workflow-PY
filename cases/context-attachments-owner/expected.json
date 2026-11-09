@@ -13,8 +13,9 @@
     "legal_draft_missing": "attachments.legal_documents: 'draft' documents are declared but no source is assessed draft; add a source gap naming legal_documents",
     "context_refused_prefix": "Context refused: ",
     "draft_wrong_context": "Draft authority needs a context that declares draft legal documents: {source_id}",
-    "not_legal_source (frozen, cp4_legal.py:476-478)": "{path}: {source_id} is not an executed or filed source (CP-0 authority {authority}, or the source is not ready)",
-    "gap_match_regex": "(?<![A-Za-z0-9_])<id>(?![A-Za-z0-9_])"
+    "not_legal_source (frozen, cp4_legal.py:476-478)": "{path}: {source_id} is not an executed, filed or, on a draft-documents run, draft source (CP-0 authority {authority}, or the source is not ready)",
+    "gap_match_regex": "['\"`]<id>['\"`]",
+    "gap_token_regex": "(?<![A-Za-z0-9_])<field or legal_documents>(?![A-Za-z0-9_])"
   },
   "attachment_ids": {
     "portfolio_workbook": "portfolio",
@@ -254,9 +255,9 @@
       "M": {
         "CP-4": {
           "step_validation_issues_include": [
-            "capacity[3]: identity is not an executed or filed source (CP-0 authority issuer, or the source is not ready)"
+            "capacity[3]: identity is not an executed, filed or, on a draft-documents run, draft source (CP-0 authority issuer, or the source is not ready)"
           ],
-          "wording": "frozen (plan Q2): the text keeps 'executed or filed'; `is not an executed, filed or draft source` is NOT used",
+          "wording": "ruling S09-cp4-cp5-C04 (replaces plan Q2): the text names what is accepted, `executed, filed or, on a draft-documents run, draft`",
           "journal": "the CP-4 step is rejected; the legal documents row still cites legal-draft (draft) and is not among the issues",
           "not_among_issues": "documents[0] / the covenant rows quoting legal-draft"
         }

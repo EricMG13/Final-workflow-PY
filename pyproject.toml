@@ -37,6 +37,11 @@ markers = ["live: paid/provider execution; paused", "browser: real browser proof
 target-version = "py313"
 line-length = 100
 
+[tool.ruff.lint]
+# Codes the quality gate (tools/ruff-gate.toml) enables; noqa for them is not "unused" here.
+external = ["C90", "PLR0911", "PLR0912", "PLR0913", "PLR0915"]
+
 [tool.mypy]
 python_version = "3.13"
 strict = true
+mypy_path = "src"

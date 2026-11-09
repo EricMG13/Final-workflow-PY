@@ -425,6 +425,13 @@ class Upstream:
                 scales.add(fact.scale)
             if len(scales) > 1:
                 raise UpstreamError(f"CP-1 operands of {topic.topic_id} differ in scale")
+        for fact in self.cp1_facts.values():
+            known_money = fact.status == "known" and fact.unit == "MILLIONS"
+            if known_money and fact.currency != self.currency.currency:  # S10-A04: USD too
+                raise UpstreamError(
+                    f"CP-1 operand currency {fact.currency} is not "
+                    f"{self.currency.currency}: {fact.label}"
+                )
 
     def operand(self, topic: Topic, period: str) -> Fact:
         column = self.quarters[self.periods.index(period)].column
@@ -437,16 +444,6 @@ class RunUpstream(Upstream):
     money tokens and cells state it. A USD run (or none) keeps the plain `Upstream`."""
 
     run_currency: CurrencyBasis = DEFAULT_CURRENCY
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        for fact in self.cp1_facts.values():
-            known_money = fact.status == "known" and fact.unit == "MILLIONS"
-            if known_money and fact.currency != self.run_currency.currency:
-                raise UpstreamError(
-                    f"CP-1 operand currency {fact.currency} is not "
-                    f"{self.run_currency.currency}: {fact.label}"
-                )
 
     @property
     def currency(self) -> CurrencyBasis:
@@ -874,8 +871,10 @@ def _total_row(counts: Mapping[str, int], pair_period: str, cp1: Mapping[str, Fa
 def _scope_rows(
     upstream: Upstream, rows: tuple[TopicResult, ...], pair_period: str
 ) -> list[tuple[str, _Cells]]:
-    """TL10.1: one row per upstream head; source_ref and scope_status are run-bound (F3)."""
+    """TL10.1: one row per upstream head; source_ref and scope_status are run-bound (F3). With no
+    topic complete, CP-1 supports none: stated as such, never as empty text (S10-A02)."""
     supported = ", ".join(r.topic.label for r in rows if r.screen.evidence == "Complete")
+    supported = supported or "None: no topic has values at both ends"
     out = []
     for rid, module, sha, word, period, topics in (
         (
@@ -1188,9 +1187,20 @@ def _assessment_issues(sub: ChangeScreenSubmission, rated: Mapping[str, Material
     return issues
 
 
+def _prose_issues(path: str, text: str, bound: Mapping[str, Fact], issuer: str) -> list[str]:
+    """The figure and reference check, then the prohibited words, of one analyst text field."""
+    issues = [f"{path}: {i}" for i in prose_issues(text, bound, names=(issuer,))]
+    issues += [f"{path}: prohibited conclusion: {w}" for w in PROHIBITED if w in text.lower()]
+    return issues
+
+
 def _text_issues(sub: ChangeScreenSubmission, bound: Mapping[str, Fact], issuer: str) -> list[str]:
     """Step (4): the settlement prose path (`prose.issues`, L10-a) against the module's bound
-    facts, then prohibited words (substring match, the v1 limit of L10-b), then empty text."""
+    facts, then prohibited words (substring match, the v1 limit of L10-b), then empty text. The
+    stated `overall.limitation` and the gap texts are analyst text too and get the same two checks
+    (S10-C02); a blank one and a gap field with a digit keep their own issues (`_overall_issues`,
+    `_gap_issues`). They are plain text (a limitation, never a claim's run text), so no reference
+    resolves in them: a `{fact}` there would be printed literally."""
     texts = [
         (f"assessments[{i}].{field}", getattr(a, field))
         for i, a in enumerate(sub.assessments)
@@ -1199,10 +1209,17 @@ def _text_issues(sub: ChangeScreenSubmission, bound: Mapping[str, Fact], issuer:
     texts.append(("overall.rationale", sub.overall.rationale))
     issues: list[str] = []
     for path, text in texts:
-        issues += [f"{path}: {i}" for i in prose_issues(text, bound, names=(issuer,))]
-        issues += [f"{path}: prohibited conclusion: {w}" for w in PROHIBITED if w in text.lower()]
+        issues += _prose_issues(path, text, bound, issuer)
         if is_blank(text):
             issues.append(f"{path}: empty")
+    limitation = sub.overall.limitation
+    if limitation is not None and not is_blank(limitation):
+        issues += _prose_issues("overall.limitation", limitation, {}, issuer)
+    for i, gap in enumerate(sub.gaps):
+        for field in ("gap", "why_it_matters", "action"):
+            text = getattr(gap, field)
+            if not is_blank(text) and not _DIGIT.search(text):
+                issues += _prose_issues(f"gaps[{i}].{field}", text, {}, issuer)
     return issues
 
 

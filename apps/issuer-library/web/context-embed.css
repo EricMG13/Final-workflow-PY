@@ -23,3 +23,18 @@ body>details { margin:var(--rb-s-5); }
 .panel>summary { display:none; }
 .panel .sig li { border-left-width:1px; }
 @media(max-width:650px) { #sec1 .cards,.grid { grid-template-columns:minmax(0,1fr); } }
+/* The app's look: 40 px controls, 16 px text, 8 px corners, the xs shadow. */
+.f input[type=text],.f input[type=date],.f select { height:40px; min-height:40px; padding:0 12px; font-size:16px; line-height:24px; border:1px solid #CFD3DD; border-radius:8px; background-color:#fff; box-shadow:0 1px 2px rgba(0,5,51,.05); color:#0B1030; }
+.f textarea { min-height:40px; padding:8px 12px; font-size:16px; line-height:24px; border:1px solid #CFD3DD; border-radius:8px; box-shadow:0 1px 2px rgba(0,5,51,.05); }
+.f select { appearance:none; -webkit-appearance:none; padding-right:36px; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='%234F566B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M5 7.5l5 5 5-5'/></svg>"); background-repeat:no-repeat; background-position:right 12px center; background-size:20px 20px; }
+.f input:focus,.f select:focus,.f textarea:focus { outline:none; border-color:#0017E5; box-shadow:0 1px 2px rgba(0,5,51,.05),0 0 0 4px rgba(0,23,229,.16); }
+.f input[aria-invalid=true],.f select[aria-invalid=true],.f textarea[aria-invalid=true] { border-color:var(--rb-neg); background-color:var(--rb-neg-tint); }
+.filebtn input::file-selector-button { height:40px; margin-right:12px; padding:0 14px; border:1px solid #CFD3DD; border-radius:8px; background:#fff; box-shadow:0 1px 2px rgba(0,5,51,.05); color:#3A4056; font-size:14px; line-height:20px; font-weight:600; font-family:inherit; cursor:pointer; }
+.filebtn input::file-selector-button:hover { background:#F8F9FB; color:#0B1030; }
+/* Labels: grey pills; no green or red label (validation error styling above stays). */
+.rtag,.tag { border-radius:999px; padding:0 8px; letter-spacing:0; }
+.rtag.req { background:#F8F9FB; border:1px solid #E4E6EC; color:#3A4056; }
+.rtag.rec { background:transparent; border:1px solid #CFD3DD; color:#3A4056; }
+.rtag.opt { background:transparent; border:1px solid #E4E6EC; color:#4F566B; }
+/* Default tag: the grey .badge-gray of screen.css (--gray-50 #F8F9FB, --border-secondary #E4E6EC, --text-secondary #3A4056); this sandboxed form cannot read the app's variables. */
+.tag.def { background:#F8F9FB; border:1px solid #E4E6EC; color:#3A4056; text-transform:none; font-weight:500; }

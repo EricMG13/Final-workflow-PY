@@ -36,7 +36,13 @@ from deploy_vii.statement_extract import (
 )
 
 _NUMBER = r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?"
-_NUMTOK = re.compile(rf"\$?(?:\((?:{_NUMBER})\)|(?:{_NUMBER})|—|–|-)")
+# The currency symbols the extractor reads (`statement_extract._SIGNS`): `$`, `€`, `£`.
+_CURRENCY = frozenset("$€£")
+_NUMTOK = re.compile(rf"[$€£]?(?:\((?:{_NUMBER})\)|−?(?:{_NUMBER})|—|–|-)")
+# An EDGAR split parenthesis: `<td>(250</td><td>)</td>` converts to the tokens `(250` and `)`.
+_OPEN_PAREN = re.compile(rf"[$€£]?\((?:{_NUMBER})")
+# A value cell the extractor cannot read: a split parenthesis `(250 )` or a Unicode minus `−45`.
+_UNREADABLE = re.compile(r"\(\S+ \)|−")
 _YEAR = re.compile(r"(?:19|20)\d\d")
 _DAY = r"\d\d?"
 _WORD = re.compile(r"[A-Za-z]+")
@@ -85,6 +91,44 @@ def _header_cells(line: str) -> str | None:
     return _CELL_GAP.join(([lead] if lead else []) + [m.group() for m in found])
 
 
+def _split(tokens: list[str]) -> tuple[int, list[str]]:
+    """The trailing value cells of a line's space-split tokens, last first, and the index where
+    they start: money and number tokens, a bare `$`, `€` or `£` folded into the cell to its
+    right, and a bare `)` folded onto the `(N` token to its left (an EDGAR split parenthesis)."""
+    values: list[str] = []
+    index = len(tokens)
+    while index > 0:
+        token = tokens[index - 1]
+        if token in _CURRENCY and values and values[-1][0] not in _CURRENCY:
+            values[-1] = f"{token} {values[-1]}"
+            index -= 1
+            continue
+        if token == ")" and index >= 2 and _OPEN_PAREN.fullmatch(tokens[index - 2]):
+            values.append(f"{tokens[index - 2]} )")
+            index -= 2
+            continue
+        if _NUMTOK.fullmatch(token):
+            if (
+                _YEAR.fullmatch(token)
+                and index >= 2
+                and not _NUMTOK.fullmatch(tokens[index - 2])
+                and tokens[index - 2] not in _CURRENCY
+            ):
+                break
+            values.append(token)
+            index -= 1
+            continue
+        break
+    return index, values
+
+
+def _unreadable_cells(line: str) -> list[str]:
+    """The trailing value cells of a line that the extractor cannot read (`_UNREADABLE`), in line
+    order; empty for any other line. One such cell is enough: `(250 )` or `−45` is a value."""
+    _, values = _split(line.split(" "))
+    return [cell for cell in reversed(values) if _UNREADABLE.search(cell)]
+
+
 def respace(line: str) -> str:
     """`line` with its trailing money and number tokens as cells joined by two spaces.
 
@@ -93,26 +137,7 @@ def respace(line: str) -> str:
     header cells. Any other line is returned unchanged. Only spacing changes: splitting on
     whitespace gives the same tokens, and no newline is added or removed."""
     tokens = line.split(" ")
-    values: list[str] = []
-    index = len(tokens)
-    while index > 0:
-        token = tokens[index - 1]
-        if token == "$" and values and not values[-1].startswith("$"):
-            values[-1] = f"$ {values[-1]}"
-            index -= 1
-            continue
-        if _NUMTOK.fullmatch(token):
-            if (
-                _YEAR.fullmatch(token)
-                and index >= 2
-                and not _NUMTOK.fullmatch(tokens[index - 2])
-                and tokens[index - 2] != "$"
-            ):
-                break
-            values.append(token)
-            index -= 1
-            continue
-        break
+    index, values = _split(tokens)
     if len(values) >= 2:
         label = " ".join(tokens[:index])
         header = _header_cells(line) if not label or _is_header(line) else None
@@ -146,6 +171,15 @@ def line_table(spans: Mapping[int, Span], item: str, source_id: str) -> Extracte
             raise ToolError(f"line:{number} is not a located span of {source_id}")
         if "\n" in span.text:
             raise ToolError(f"line:{number} of {source_id} holds a newline and cannot be ranged")
+        if unreadable := _unreadable_cells(span.text):
+            # Fail closed: the extractor would drop the line (or read it without these cells)
+            # and a negative row such as an operating loss would vanish without a flag.
+            cells = ", ".join(repr(cell) for cell in unreadable)
+            raise ToolError(
+                f"line:{number} of {source_id} holds value cells Python cannot read ({cells}: "
+                "a split parenthesis or a Unicode minus); the range is refused rather than "
+                "extracted without the line"
+            )
         texts.append(respace(span.text))
     table = extract_statement_lines("\n".join(texts), item, source_id=source_id)
     rows = []

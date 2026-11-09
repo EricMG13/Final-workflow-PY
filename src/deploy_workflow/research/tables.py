@@ -153,7 +153,7 @@ class _Table:
         self.facts: list[Fact] = []
         self.rows: list[TableRow] = []
 
-    def add(self, row_id: str, cells: Sequence[Fact]) -> None:
+    def add(self, row_id: str, cells: Sequence[Fact], *, total: bool = False) -> None:
         if tuple(cell.field for cell in cells) != self.columns:
             raise TablesInvalid(f"{self.table_id} {row_id} does not fill every column in order")
         self.facts += cells
@@ -162,7 +162,7 @@ class _Table:
                 row_id=row_id,
                 label=row_id,
                 fact_ids=tuple(cell.fact_id for cell in cells),
-                row_kind="total" if row_id == TOTAL_ROW else "row",
+                row_kind="total" if total else "row",
             )
         )
 
@@ -413,7 +413,7 @@ def _tdr3(
             received[receiver][1] += row_counts["answered"]
     if sums != {name: getattr(counts, name) for name in sums}:
         raise TablesInvalid("the counts differ from the sum of the question rows")
-    table.add(TOTAL_ROW, _total_cells(counts, answers, received, period))
+    table.add(TOTAL_ROW, _total_cells(counts, answers, received, period), total=True)
     return table
 
 

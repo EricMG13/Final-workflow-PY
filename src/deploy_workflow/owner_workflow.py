@@ -142,7 +142,7 @@ from deploy_workflow.owners import (
     cpl10,
 )
 from deploy_workflow.tools.source import SourceError
-from deploy_workflow.workflow import SourceEvidence, WorkflowError
+from deploy_workflow.workflow import SourceEvidence, WorkflowError, read_line
 
 AUDIT = "owner-run-audit"
 SUPPORTED_ANALYTICAL = frozenset(
@@ -292,6 +292,15 @@ _ENTRY_VALIDATORS: dict[str, Callable[[Execution, PreparedPack, Attempt], StepVa
 _PRE_BEGIN: dict[str, Callable[[Execution, ExecutionSnapshot], object]] = {
     "CP-DR": cpdr.check_begin,
 }
+# AGENTS.md: CP-8's decision-ledger post-mortem is superseded; CP-8 compares delivered bundles
+# through CP-OS. A workflow that will not begin CP-8 (run_pathway's native walk) retains this as
+# its refusal's reason; the verifier accepts it only where the journal itself would have begun CP-8.
+CP8_SUPERSEDED = (
+    "the decision-ledger post-mortem is superseded; compare prior and current deliverables with "
+    "CP-OS run_comparison (deploy_workflow.owners.cpos --compare)"
+)
+# What a refusal names in the submit outcome (`<module>_<kind>`, L2).
+RefusalKind = Literal["not_authorized", "blocked", "superseded", "upstream_fault"]
 # CP-0 and CP-1 keep the reused financial helpers, which are bound to their 11-field binding.
 _FINANCIAL_MODULES = frozenset({"CP-0", "CP-1"})
 # G6: the bytes a `read_inputs` body may take: the bound a submitted payload already obeys.
@@ -746,7 +755,10 @@ class BeginRecord(Contract):
 
 
 class RefusedBegin(Contract):
-    """A begin the journal refused: why, and what was missing (G3).
+    """A begin the journal refused: why, and what was missing (G3); or a CP-8 the workflow did not
+    begin because it is superseded (reason `CP8_SUPERSEDED`, nothing missing); or a CP-4C it did
+    not begin because CP-1's head yields a facility issue (`_upstream_fault`, the issue's text,
+    nothing missing).
 
     `missing_inputs` names the required upstream modules with no usable head;
     `missing_commands` the CP-0 command (`Run <id>`) that is absent. Both are omitted from the
@@ -1539,7 +1551,7 @@ class OwnerWorkflow:
         self._publications: list[PublicationCall] = []
         self._begins: list[BeginRecord] = []
         self._refusals: list[RefusedBegin] = []
-        self._refusal_kind: Literal["not_authorized", "blocked"] | None = None
+        self._refusal_kind: RefusalKind | None = None
         self._model: ModelPublication | None = None
         self._participant = "trusted-python"
         self._transport: Literal["python-api", "bounded-json-lines/1"] = "python-api"
@@ -1745,9 +1757,7 @@ class OwnerWorkflow:
         self._rebuild_publications(got, position)
         self._check_listed()
         if self._refusals:  # the first refusal names the submit outcome (L2)
-            self._refusal_kind = (
-                "not_authorized" if self._refusals[0].missing_commands else "blocked"
-            )
+            self._refusal_kind = _kind_of(self._refusals[0])
         limits: Counter[tuple[str, str, str]] = Counter()
         for call in self._calls:
             limits[(call.binding.ticket_id, call.binding.step_id, "invoke")] += 1
@@ -2112,6 +2122,13 @@ class OwnerWorkflow:
         pre_begin = _PRE_BEGIN.get(module_id)
         if pre_begin is not None:  # O7-R20: a refusal here is a fault that stops the run
             pre_begin(self._store, before)
+        fault = _upstream_fault(self._store, before, module_id)
+        if fault is not None:  # ruling: no model response repairs a CP-1 fault; nothing begins
+            at = before.content_hash()
+            return self._refuse(
+                RefusedBegin(module_id=module_id, snapshot_sha256=at, reason=fault),
+                "upstream_fault",
+            )
         kind: Literal["not_authorized", "blocked"]
         try:
             attempt = self._store.begin(module_id)
@@ -2149,12 +2166,17 @@ class OwnerWorkflow:
             missing_inputs=missing[0],
             missing_commands=missing[1],
         )
+        return self._refuse(refusal, kind)
+
+    def _refuse(self, refusal: RefusedBegin, kind: RefusalKind) -> bool:
+        """Retain a refused begin, at the snapshot it names, and continue the walk past it (G3);
+        False, as `_begin` returns for a refusal."""
         _retain(self._store, "refused-begin", refusal)
         self._refusals.append(refusal)
         if self._refusal_kind is None:  # the first refusal names the submit outcome (L2)
             self._refusal_kind = kind
-        self._current_sha256 = before.content_hash()
-        self._advance(module_id)
+        self._current_sha256 = refusal.snapshot_sha256
+        self._advance(refusal.module_id)
         return False
 
     def _advance(self, module_id: str) -> None:
@@ -2652,10 +2674,47 @@ def _missing_inputs(
     return tuple(missing), ()
 
 
-def _verify_refusal(before: ExecutionSnapshot, refusal: RefusedBegin, refused: set[str]) -> None:
+def _kind_of(refusal: RefusedBegin) -> RefusalKind:
+    """The kind a retained refusal was named by: a missing CP-0 command, the superseded CP-8, a
+    CP-4C upstream fault (the only CP-4C refusal whose reason is not the blocked edge's), else a
+    blocked edge."""
+    if refusal.missing_commands:
+        return "not_authorized"
+    if (refusal.module_id, refusal.reason) == ("CP-8", CP8_SUPERSEDED):
+        return "superseded"
+    if refusal.module_id == cp4c.MODULE_ID and not refusal.reason.startswith(BLOCKED_EDGE):
+        return "upstream_fault"
+    return "blocked"
+
+
+def _upstream_fault(store: Execution, before: ExecutionSnapshot, module_id: str) -> str | None:
+    """The facility issue CP-1's head yields for a CP-4C the journal would begin afresh at
+    `before` (no attempt pending, no CP-4C attempt, and `current_inputs` holds, so CP-0
+    authorizes it); None otherwise, also for a head `cp1_of` cannot read (a ValueError). Ruling:
+    no model response can repair it, so `_begin` refuses CP-4C with this text instead of calling
+    the model, and the verifier recomputes it. A repair an earlier run left next is begun as
+    before."""
+    if module_id != cp4c.MODULE_ID or any(
+        a.module_id == module_id or a.status == "pending" for a in before.attempts
+    ):
+        return None
+    try:
+        inputs = current_inputs(before, module_id)  # NotAuthorized included: the ordinary refusal
+        cp1 = next(item for item in inputs if item.input_id == "CP-1")  # a required input
+        return cp4c.cp1_of(store.result(cp1.sha256), cp1.status).facility_issue
+    except ValueError:  # also a CP-1 head `cp1_of` cannot read: begun as before, it fails there
+        return None
+
+
+def _verify_refusal(
+    before: ExecutionSnapshot, refusal: RefusedBegin, refused: set[str], fault: str | None = None
+) -> None:
     """The refusal is the journal's own answer at `before`: `current_inputs` raises with the same
     reason, and `_missing_inputs` of that error equals what was recorded. A blocked-edge refusal
-    needs a blocked head in `before` or every missing input itself refused in the walk."""
+    needs a blocked head in `before` or every missing input itself refused in the walk. Where the
+    journal would have begun the module, only CP-8 refused as superseded (`CP8_SUPERSEDED`, nothing
+    missing), or CP-4C refused with `fault` (`_upstream_fault` at `before`, nothing missing), is a
+    refusal."""
     try:
         current_inputs(before, refusal.module_id)
     except ValueError as error:
@@ -2669,7 +2728,11 @@ def _verify_refusal(before: ExecutionSnapshot, refusal: RefusedBegin, refused: s
         ):
             raise WorkflowError("identity_mismatch") from None
     else:
-        raise WorkflowError("identity_mismatch")
+        reason = {"CP-8": CP8_SUPERSEDED, cp4c.MODULE_ID: fault}.get(refusal.module_id)
+        if reason is None or refusal != RefusedBegin(
+            module_id=refusal.module_id, snapshot_sha256=refusal.snapshot_sha256, reason=reason
+        ):
+            raise WorkflowError("identity_mismatch")
 
 
 def _retainable(before: ExecutionSnapshot, missing: tuple[str, ...], refused: set[str]) -> bool:
@@ -2917,7 +2980,9 @@ def _verify_walk(
             refusal.module_id
         ):
             raise WorkflowError("identity_mismatch")
-        _verify_refusal(_snapshot(store, refusal.snapshot_sha256), refusal, refused)
+        before = _snapshot(store, refusal.snapshot_sha256)
+        fault = _upstream_fault(store, before, refusal.module_id)
+        _verify_refusal(before, refusal, refused, fault)
 
 
 def _interrupted_issues(interruption: str) -> tuple[str, ...]:
@@ -3730,16 +3795,6 @@ def _utf8_text(value: object) -> bool:
     return True
 
 
-def _drain(reader: TextIO, line: str) -> None:
-    """Read on to the end of an over-length line. If the rest of it is not UTF-8 the participant's
-    bytes end the drain there: the caller answers `bad_arguments` for the line, as before G7."""
-    try:
-        while line and not line.endswith("\n"):
-            line = reader.readline(MAX_LINE + 1)
-    except UnicodeDecodeError:
-        return
-
-
 def serve_json_lines(
     workflow: OwnerWorkflow,
     reader: TextIO,
@@ -3760,12 +3815,11 @@ def serve_json_lines(
     workflow._participant, workflow._transport = participant, "bounded-json-lines/1"
     _retain(workflow._store, "transport", TransportMarker(participant=participant))
     for _ in range(MAX_MESSAGES):
-        line = reader.readline(MAX_LINE + 1)
+        line = read_line(reader, writer, MAX_LINE)  # "" also once a non-UTF-8 line is answered
         if not line:
             return
         try:
             if len(line) > MAX_LINE or not line.endswith("\n"):
-                _drain(reader, line)
                 raise WorkflowError("bad_arguments")
             request = _checked(_request_of(line), sessionless=workflow._session is None)
             operation = request.get("operation")

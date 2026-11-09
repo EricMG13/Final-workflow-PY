@@ -1,0 +1,514 @@
+{
+ "schema": "document-key/1",
+ "note": "Hand-labelled expected document kinds, executed flags and period ends, written before any guess_kind exists. Labels come from the file name and what pages 1-3 show; the guess sees pages[:3] as the launcher's _pages yields them (PDF pages, xlsx sheets, 12,000-char chunks for text/CSV/XML, 3,000-char rows for HTML whose first line 'Visible text of <file name>' is ignored). Real paths are repo-relative and read in place. Synthetic .txt fixtures: line 1 is the banner 'SYNTHETIC FIXTURE - not issuer evidence' and is not page text; pages are separated by a line '=== PAGE ==='; the text before the first separator is page 1; the file name is the name given to guess_kind. executed is true only for an explicit execution mark (or for the file name where it says so and nothing contradicts it), false only for an explicit draft mark, else null. period_end only for a financial_report whose cover states the period end.",
+ "entries": [
+  {
+   "path": "runs/arcc-2024-001/sources/ARCC-FY2024-10K.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-12-31",
+   "why": "Page 1: 'FORM 10-K', 'ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d)', 'For the fiscal year ended December 31, 2024'."
+  },
+  {
+   "path": "runs/arcc-2024-001/sources/annual-pages.txt",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-12-31",
+   "why": "Text extract of the same 10-K; chunk 1 starts '=== PDF PAGE 1 ===' then 'FORM 10-K ... For the fiscal year ended December 31, 2024'. The name 'annual-pages' is not a kind signal."
+  },
+  {
+   "path": "data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-09-30",
+   "why": "HTML row 1 (after the 'Visible text of <file>' line): 'FORM 10-K ... For the fiscal year ended September 30, 2024'. Its exhibit index (far beyond page 3) names the Second Amended and Restated Credit Agreement; the cover outranks it.",
+   "focus": "2"
+  },
+  {
+   "path": "data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-06-29",
+   "why": "Cover: 'For the quarterly period ended June 29, 2024'; the body names the Credit Agreement 28 times but the cover is a Form 10-Q.",
+   "focus": "2"
+  },
+  {
+   "path": "data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-03-30",
+   "why": "Cover: 'For the quarterly period ended March 30, 2024' (Form 10-Q)."
+  },
+  {
+   "path": "data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-12-28",
+   "why": "Cover: 'For the quarterly period ended December 28, 2024' (Form 10-Q)."
+  },
+  {
+   "path": "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-09-30",
+   "why": "Page 1: 'FORM 10-K ... For the fiscal year ended September 30, 2024' (annual report book whose page 1 is the 10-K cover)."
+  },
+  {
+   "path": "runs/tdg-peers-2024-001/sources/CW-FY2024.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-12-31",
+   "why": "Page 1: 'FORM 10-K ... For the fiscal year ended December 31, 2024' (Curtiss-Wright)."
+  },
+  {
+   "path": "runs/tdg-peers-2024-001/sources/MOOG-FY2024.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-09-28",
+   "why": "Page 1: 'FORM 10-K ... For the fiscal year ended September 28, 2024' (Moog)."
+  },
+  {
+   "path": "runs/tdg-peers-2024-001/sources/HEICO-FY2024.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1 reads '2024 Annual Report on Form 10-K'; page 2 is empty and page 3 is garbled by the font encoding, so no period-end date is legible on pages 1-3. A real empty page and unreadable text; the cover phrase alone decides the kind.",
+   "focus": "empty page"
+  },
+  {
+   "path": "runs/berkshire-capital-2008-2017-001/sources/BRK-2011-annual.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'BERKSHIRE HATHAWAY INC. 2011 ANNUAL REPORT'; the cover gives a year, not a period-end date, so period_end is null."
+  },
+  {
+   "path": "runs/erste-parse-2024-001/sources/AR2024_Group_Consolidated_Financial_Statements_en.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'Group Consolidated Financial Statements 2024 (IFRS)' with a statement index; no period-end date on the cover page, so null (a later page mentions 31 December 2024 only inside the contents list). Non-USD (EUR) issuer.",
+   "focus": "5"
+  },
+  {
+   "path": "runs/erste-parse-2024-001/sources/AR24_Statement_of_income.xlsx",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": null,
+   "why": "Workbook, sheet 'Tabelle1', first cell 'Consolidated statement of income', columns 'in EUR million', '1-12 23', '1-12 24'. xlsx workbook; no dated period-end, so null.",
+   "focus": "xlsx workbook"
+  },
+  {
+   "path": "runs/erste-parse-2024-001/sources/AR24_Balancesheet.xlsx",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": null,
+   "why": "Workbook, sheet 'Tabelle1', first cell 'Consolidated balance sheet', columns 'Dec 23', 'Dec 24' (month and two-digit year, not a date).",
+   "focus": "xlsx workbook"
+  },
+  {
+   "path": "runs/erste-parse-2024-001/sources/AR24_Cashflows.xlsx",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": null,
+   "why": "Workbook, sheet 'Tabelle1', first cell 'Consolidated statement of cash flows', columns '1-12 23', '1-12 24'.",
+   "focus": "xlsx workbook"
+  },
+  {
+   "path": "runs/enel-sdg-2021-001/sources/S1-efi-2019.pdf",
+   "origin": "real",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2019-12-31",
+   "why": "Page 1: 'Annual Report of Enel Finance International N.V. at December 31, 2019'."
+  },
+  {
+   "path": "runs/enel-sdg-2021-001/sources/S2-supplement-2019.pdf",
+   "origin": "real",
+   "kind": "prospectus",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'Supplement No. 2 dated 8 October 2019 to the Base Prospectus dated 17 December 2018 ... EUR 35,000,000,000 Euro Medium Term Note Programme'. A supplement to a base prospectus, not an amendment to a credit agreement or indenture; no execution or draft mark. (Enel EMTN supplement.)",
+   "focus": "supplement is not an amendment"
+  },
+  {
+   "path": "runs/arcc-selection-2024-001/sources/March2029-executed-supplement.html",
+   "origin": "real",
+   "kind": "indenture",
+   "executed": true,
+   "period_end": null,
+   "why": "HTML row 1 after the header line: 'EIGHTEENTH SUPPLEMENTAL INDENTURE between ARES CAPITAL CORPORATION and U.S. BANK TRUST COMPANY ... Dated as of January 23, 2024'. A supplemental indenture is an indenture-family document, not an amendment agreement (labelled indenture; see report). executed=true rests on the file name 'executed-supplement': no cover mark exists, and nothing on pages 1-3 contradicts the name.",
+   "focus": "executed supplemental indenture"
+  },
+  {
+   "path": "runs/arcc-selection-2024-001/sources/March2029-lines.txt",
+   "origin": "real",
+   "kind": "indenture",
+   "executed": null,
+   "period_end": null,
+   "why": "Same Eighteenth Supplemental Indenture, text lines: 'EIGHTEENTH SUPPLEMENTAL INDENTURE ... Dated as of January 23, 2024'. No execution or draft mark and the name carries none, so executed is null.",
+   "focus": "unmarked EDGAR exhibit"
+  },
+  {
+   "path": "runs/arcc-2024-001/sources/base-lines.txt",
+   "origin": "real",
+   "kind": "indenture",
+   "executed": true,
+   "period_end": null,
+   "why": "Line 4: 'EXECUTION VERSION' under 'Exhibit 4.1'; then 'ARES CAPITAL CORPORATION (Issuer) ... Indenture Dated as of May 13, 2024 ... Providing for the Issuance of Debt Securities'.",
+   "focus": "EXECUTION VERSION"
+  },
+  {
+   "path": "runs/arcc-2024-001/sources/supplement-lines.txt",
+   "origin": "real",
+   "kind": "indenture",
+   "executed": null,
+   "period_end": null,
+   "why": "'EX-4.2 ... FIRST SUPPLEMENTAL INDENTURE ... Dated as of May 13, 2024'. No execution or draft mark: the words 'execution and delivery' occur only inside a recital (not a mark), so executed is null. Unmarked EDGAR exhibit.",
+   "focus": "unmarked EDGAR exhibit"
+  },
+  {
+   "path": "runs/tdg-004/legal-source/source-lines.txt",
+   "origin": "real",
+   "kind": "indenture",
+   "executed": true,
+   "period_end": null,
+   "why": "Line 4: 'EXECUTION VERSION' under 'Exhibit 4.1'; 'TRANSDIGM INC. ... INDENTURE Dated as of September 19, 2024 ... 6.000% Senior Secured Notes due 2033'.",
+   "focus": "EXECUTION VERSION"
+  },
+  {
+   "path": "runs/lmi-2014-001/sources/source-lines.txt",
+   "origin": "real",
+   "kind": "intercreditor",
+   "executed": true,
+   "period_end": null,
+   "why": "'EX-4.6 ... EXHIBIT 4.6 / Execution Version / INTERCREDITOR AGREEMENT ... dated as of June 19, 2014'.",
+   "focus": "EXECUTION VERSION"
+  },
+  {
+   "path": "runs/frontier-2020-001/sources/source-lines.txt",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "'EX-99.1 ... Solicitation Version ... DISCLOSURE STATEMENT RELATING TO THE THIRD AMENDED JOINT PLAN OF REORGANIZATION'. A bankruptcy disclosure statement is none of the listed kinds; 'Solicitation Version' is neither an execution nor a draft mark, so executed is null."
+  },
+  {
+   "path": "runs/crc-liquidity-2020-001/sources/filing-captures.txt",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Web-capture transcript: 'www.sec.gov (...)' headers, then signature pages of a DIP Credit Agreement, a budget and other captures. Concatenated captures with no cover; ambiguous, so unrecognised (combined file).",
+   "focus": "combined file"
+  },
+  {
+   "path": "runs/crc-liquidity-2020-001/sources/maturity-supplement.txt",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Web-capture transcript of search snippets from an SEC exhibit; no cover. The name says 'supplement' but nothing on pages 1-3 identifies a document kind (misleading name).",
+   "focus": "misleading file name"
+  },
+  {
+   "path": "runs/tdg-valuation-2025-001/sources/receivables-supplement.txt",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Capture of notes from a Moog 10-K ('mog-20250927 ... Note 3 - Acquisitions'), starting mid-document with no cover. The name 'receivables-supplement' is misleading; no kind is recognisable.",
+   "focus": "misleading file name"
+  },
+  {
+   "path": "runs/enel-sdg-2021-001/sources/S3-kpi-june-2021.pdf",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'KPMG S.p.A. ... Independent Limited Assurance Report on the Statement of the Renewable Installed Capacity Percentage as of June 30, 2021'. An assurance report, not a financial report; it mentions the offering circular and supplement only as references."
+  },
+  {
+   "path": "runs/enel-sdg-2021-001/sources/S4-issuer-target.pdf",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'ENEL RECEIVES IFR'S ESG ISSUER OF THE YEAR ... AWARDS', Rome, December 16th, 2019. A press release about an award, not an earnings release."
+  },
+  {
+   "path": "runs/lqd-portfolio-001/sources/formn-port.pdf",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'FORM N-PORT ... This is a reference copy of Form N-PORT'. A blank SEC form, not a filed portfolio report; the title 'MONTHLY PORTFOLIO INVESTMENTS REPORT' is a form heading (misleading).",
+   "focus": "misleading content"
+  },
+  {
+   "path": "runs/lqd-portfolio-001/sources/LQD-20250531-NPORT.xml",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "XML: '<submissionType>NPORT-P</submissionType>' filer header; the file starts with markup and no cover phrase from the kind list. A credit analyst would call it fund holdings data but no listed kind's cover phrase is present, so unrecognised (see report)."
+  },
+  {
+   "path": "runs/lqd-portfolio-001/sources/product-page.html",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "HTML row 1: 'iShares iBoxx $ Investment Grade Corporate Bond ETF | LQD' plus navigation text: a marketing page."
+  },
+  {
+   "path": "runs/berkshire-capital-2008-2017-001/sources/BAC-decision-20110825.html",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "'PRESS RELEASE - 8-K: Current report filing ... Berkshire Hathaway to Invest $5 Billion in Bank of America': a transaction press release, not an earnings release or financial report."
+  },
+  {
+   "path": "runs/berkshire-capital-2008-2017-001/sources/GE-decision-20081001.html",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "'GE Announces Common Stock Offering; Warren Buffett Announces Investment In GE': a press release about an equity offering, not an earnings release."
+  },
+  {
+   "path": "runs/arcc-market-2024-001/sources/treasury-2024.csv",
+   "origin": "real",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "CSV header 'Date,1 Mo,2 Mo,...,30 Yr' with daily Treasury par yields: benchmark rates, not quotes of the issuer's instruments, so not market_quotes."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/01-credit-agreement-preliminary-statements.txt",
+   "origin": "synthetic",
+   "kind": "credit_agreement",
+   "executed": true,
+   "period_end": null,
+   "why": "Page 1: 'EXECUTION VERSION' and 'CREDIT AGREEMENT dated as of March 14, 2025'. The heading 'PRELIMINARY STATEMENTS' is a recitals heading, never a draft mark.",
+   "focus": "3"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/02-credit-agreement-draft.txt",
+   "origin": "synthetic",
+   "kind": "credit_agreement",
+   "executed": false,
+   "period_end": null,
+   "why": "Page 1: 'DRAFT', 'Draft of March 12, 2025 - Subject to completion - Not for execution'.",
+   "focus": "1"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/03-edgar-exhibit-credit-agreement-unmarked.txt",
+   "origin": "synthetic",
+   "kind": "credit_agreement",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'EX-10.1 ... Exhibit 10.1 CREDIT AGREEMENT dated as of September 8, 2023'; no execution or draft mark.",
+   "focus": "3"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/04-amendment-no-3-alone.txt",
+   "origin": "synthetic",
+   "kind": "amendment",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'AMENDMENT NO. 3 TO CREDIT AGREEMENT'; no mark of execution (page 3 says it will become effective on receipt of executed counterparts, which is a condition, not a mark). The base agreement is absent.",
+   "focus": "4"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/05-offering-memorandum-audited-financials.txt",
+   "origin": "synthetic",
+   "kind": "offering_memorandum",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'CONFIDENTIAL OFFERING MEMORANDUM $500,000,000 ... Senior Secured Notes due 2031'; page 3 holds the 'INDEPENDENT AUDITOR'S REPORT' and audited statements. Kind stays offering_memorandum.",
+   "focus": "offering memorandum with audited financial pages"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/06-preliminary-offering-memorandum.txt",
+   "origin": "synthetic",
+   "kind": "offering_memorandum",
+   "executed": false,
+   "period_end": null,
+   "why": "Page 1: 'PRELIMINARY OFFERING MEMORANDUM Subject to completion': a draft mark on an offering document's cover."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/07-combined-compliance-certificate-then-10q.txt",
+   "origin": "synthetic",
+   "kind": "compliance_certificate",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'COMPLIANCE CERTIFICATE ... For the fiscal quarter ended March 31, 2025'; page 2 begins a bound-in 'FORM 10-Q'. Page 1 outranks later pages; period_end is null because the kind is not financial_report.",
+   "focus": "combined PDF"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/Credit-Agreement-Executed.txt",
+   "origin": "synthetic",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2025-06-30",
+   "why": "Page 1: 'FORM 10-K ... For the fiscal year ended June 30, 2025'. The name claims an executed credit agreement; the cover outranks the name, and the cover carries no execution mark, so executed is null.",
+   "focus": "misleading file name"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/scan-0001.txt",
+   "origin": "synthetic",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1 is empty (no text); nothing to recognise.",
+   "focus": "empty page"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/10-earnings-release.txt",
+   "origin": "synthetic",
+   "kind": "earnings_release",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'FOR IMMEDIATE RELEASE ... Reports Fourth Quarter and Full Year 2025 Results ... Press release ... earnings conference call'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/11-compliance-certificate.txt",
+   "origin": "synthetic",
+   "kind": "compliance_certificate",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'COMPLIANCE CERTIFICATE ... Total Net Leverage Ratio'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/12-covenant-review.txt",
+   "origin": "synthetic",
+   "kind": "covenant_review",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'COVENANT REVIEW ... assessment of the covenant package'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/13-lender-presentation.txt",
+   "origin": "synthetic",
+   "kind": "lender_presentation",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'LENDER PRESENTATION ... Management presentation to prospective lenders'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/14-information-memorandum.txt",
+   "origin": "synthetic",
+   "kind": "information_memorandum",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'INFORMATION MEMORANDUM ... Term Loan B Facility ... prospective lenders'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/15-term-sheet.txt",
+   "origin": "synthetic",
+   "kind": "term_sheet",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'SUMMARY OF TERMS AND CONDITIONS Term Sheet'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/16-commitment-letter.txt",
+   "origin": "synthetic",
+   "kind": "commitment_letter",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'COMMITMENT LETTER ... We are pleased to advise you of our commitment'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/17-ratings-report.txt",
+   "origin": "synthetic",
+   "kind": "ratings",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'RATING ACTION ... affirms ... Corporate Family Rating at B2'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/18-market-quotes.txt",
+   "origin": "synthetic",
+   "kind": "market_quotes",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'Bond quotes as of 2025-05-30' with Bid, Ask, Yield, Spread columns."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/19-peer-data.txt",
+   "origin": "synthetic",
+   "kind": "peer_data",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'Peer comparables' with EV, LTM EBITDA and EV/EBITDA columns."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/20-management-bridge.txt",
+   "origin": "synthetic",
+   "kind": "management_bridge",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'MANAGEMENT BRIDGE ... Reported EBITDA to Adjusted EBITDA bridge'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/21-portfolio-holdings.txt",
+   "origin": "synthetic",
+   "kind": "portfolio",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'PORTFOLIO HOLDINGS ... Position, Face, Price, Sector, Rating'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/22-prior-decision.txt",
+   "origin": "synthetic",
+   "kind": "prior_decision",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'INVESTMENT COMMITTEE DECISION MEMO ... Prior case ... Action bias: Buy'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/23-non-english-annual-report.txt",
+   "origin": "synthetic",
+   "kind": "financial_report",
+   "executed": null,
+   "period_end": "2024-12-31",
+   "why": "Page 1 (German): 'Geschäftsbericht 2024 ... Konzernabschluss nach IFRS zum 31. Dezember 2024' (annual report, consolidated financial statements as of 31 December 2024). No retained real non-English file exists. An English-only phrase list would miss this; the key records what an analyst would label.",
+   "focus": "non-English report"
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/24-conformed-copy-credit-agreement.txt",
+   "origin": "synthetic",
+   "kind": "credit_agreement",
+   "executed": true,
+   "period_end": null,
+   "why": "Page 1: 'CONFORMED COPY ... executed and signed by all parties as of November 3, 2022 ... CREDIT AGREEMENT'."
+  },
+  {
+   "path": "tests/fixtures/run-expectations/synthetic/25-ambiguous-closing-set-index.txt",
+   "origin": "synthetic",
+   "kind": "unrecognised",
+   "executed": null,
+   "period_end": null,
+   "why": "Page 1: 'CLOSING SET INDEX' listing a credit agreement, indenture, intercreditor agreement and commitment letter: an index naming several kinds, so ambiguous.",
+   "focus": "ambiguity gives unrecognised"
+  }
+ ]
+}

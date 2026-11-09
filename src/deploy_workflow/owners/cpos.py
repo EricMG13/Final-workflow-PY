@@ -27,7 +27,7 @@ import hashlib
 import json
 import re
 import warnings
-from collections.abc import Callable, Mapping
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from decimal import Decimal
 from pathlib import Path
@@ -60,7 +60,8 @@ from deploy_workflow.owner_workflow import (
     SettledHead,
     verify_owner_run_receipt,
 )
-from deploy_workflow.run_pathway import _single_writer
+from deploy_workflow.run_events import append_event, stop_reason
+from deploy_workflow.run_pathway import RunDirBusy, _single_writer
 from deploy_workflow.run_scopes import PUBLIC_S1A_MODULES
 from deploy_workflow.workflow import _put
 
@@ -172,7 +173,30 @@ def _checked_handoff(
     return issues
 
 
-def _handoff(
+def _retain_request(path: Path, raw: bytes, module_id: str) -> bool:
+    """Retain an attempt's request; whether it was already retained (dispatched earlier). A
+    retained request differs only in its feedback, which the recheck of the attempt before it now
+    gives differently, so that attempt's answer cannot stand for this one."""
+    started = path.exists()
+    if started and path.read_bytes() != raw:
+        raise ValueError(
+            f"cpos_feedback_changed: {module_id}: the retained {path.name} answered other feedback "
+            "than the recheck of the attempt before it now gives"
+        )
+    _put(path, raw)
+    return started
+
+
+def _retain_review(path: Path, raw: bytes) -> None:
+    """Retain a verdict. A recheck that differs from the retained one (a fixed or tightened
+    checker) is kept beside it under its own hash and is the one acted on; earlier verdicts stay as
+    evidence (S01-C05)."""
+    if path.exists() and path.read_bytes() != raw:
+        path = path.with_name(f"{path.name.removesuffix('.json')}-{_sha(raw)}.json")
+    _put(path, raw)
+
+
+def _handoff(  # noqa: PLR0913 - existing signature
     task: HandoffTask,
     directory: Path,
     execute: Callable[[HandoffTask], bytes],
@@ -203,8 +227,7 @@ def _handoff(
         review_path = folder / f"{attempt}.review.json"
         request = {**inputs, "attempt": attempt, "feedback": feedback}
         raw_request = json.dumps(request, sort_keys=True, indent=2).encode()
-        already_started = request_path.exists()
-        _put(request_path, raw_request)
+        already_started = _retain_request(request_path, raw_request, task.module_id)
         if response_path.exists():
             response = response_path.read_bytes()
         elif already_started:
@@ -222,7 +245,7 @@ def _handoff(
                 raise ValueError(f"cpos_response_changed: {task.module_id}")
         feedback = _checked_handoff(current, response, check)
         review = {"response_sha256": _sha(response), "issues": feedback}
-        _put(review_path, json.dumps(review, sort_keys=True, indent=2).encode())
+        _retain_review(review_path, json.dumps(review, sort_keys=True, indent=2).encode())
         if not feedback:
             return response, str(response_path.relative_to(directory))
         if retained is not None:
@@ -230,14 +253,36 @@ def _handoff(
     raise ValueError(f"cpos_module_failed: {task.module_id}: {'; '.join(feedback)}")
 
 
-def run_handoffs(
+def _refuse_decided_stale(ordered: Sequence[str], specs: Mapping[str, RetainedHandoff]) -> None:
+    """Refuse, before any call, a retained module whose pinned upstream is not exactly the
+    modules placed before it: the pins alone decide that, so no call may precede the refusal."""
+    for position, module_id in enumerate(ordered):
+        spec = specs.get(module_id)
+        if spec is None:
+            continue
+        earlier = set(ordered[:position])
+        if set(spec.upstream) != earlier:
+            raise ValueError(f"cpos_retained_stale: {module_id}")
+
+
+def _refuse_pins_of_replayed(
+    specs: Mapping[str, RetainedHandoff], handoffs: Mapping[str, bytes]
+) -> None:
+    """Refuse a retained module whose pin of an already accepted module differs from those bytes.
+    Run before each dispatch, so no call precedes a refusal the replayed modules already decide."""
+    for module_id, spec in specs.items():
+        if any(m in handoffs and sha != _sha(handoffs[m]) for m, sha in spec.upstream.items()):
+            raise ValueError(f"cpos_retained_stale: {module_id}")
+
+
+def run_handoffs(  # noqa: C901, PLR0912, PLR0913, PLR0915 -- legacy orchestrator; events is one more observer
     manifest: Path,
     directory: Path,
     *,
     execute: Callable[[HandoffTask], bytes],
     check: Callable[[HandoffTask, bytes], tuple[str, ...]],
     on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
-    on_start: Callable[[HandoffTask], None] | None = None,
+    events: Path | None = None,
 ) -> Path:
     """CP-OS exchange: plan, retain, check, pass current handoffs, deliver.
 
@@ -252,6 +297,8 @@ def run_handoffs(
     An optional observer runs after each checked response is durable and before
     the next module. It may stop for evidence review; resume rechecks the bytes.
     The start observer runs before each module is dispatched.
+    With ``events`` (a live run's directory) each module, the delivery and its
+    completion are appended to ``events.jsonl`` there; otherwise nothing is written.
     Their declared consumed inputs bound reuse planning; a checked published case
     does not trigger a new analytical build merely to satisfy a native producer.
     """
@@ -275,6 +322,8 @@ def run_handoffs(
         )
     ):
         raise ValueError("cpos_live_binding: executor must share this run's cap, state and checker")
+    if request.execution == "live-provider" and request.layout is None:
+        raise ValueError("cpos_layout: a live-provider run needs a delivery layout")
     if request.layout is None and (
         request.run.pathway != "credit_snapshot"
         or request.run.case_kind != "public"
@@ -291,7 +340,8 @@ def run_handoffs(
         selected_modules = set(planned)
         if selected_modules & {"CP-8", "CP-MODEL", "CP-MEMO", "CP-OS"}:
             raise ValueError(
-                "cpos_scope: select analytical Markdown modules; comparison and Model use their existing routes"
+                "cpos_scope: select analytical Markdown modules; comparison and Model use their "
+                "existing routes"
             )
         preset = next(p for p in pathways() if p.id == request.run.pathway)
         if (
@@ -303,6 +353,7 @@ def run_handoffs(
                 and not (r.module_id == "CP-MODEL" and request.model is not None)
                 for r in request.layout.routes
             )
+            or any(r.module_id not in selected_modules for r in request.layout.front)
         ):
             raise ValueError(
                 "cpos_layout: route selected modules to unique blocks of the requested pathway"
@@ -315,6 +366,7 @@ def run_handoffs(
     sources = _pinned_inputs(manifest.parent, request.sources)
     instructions = _pinned_inputs(manifest.parent, request.instructions)
     retained = _pinned_inputs(manifest.parent, request.retained_handoffs)
+    _refuse_decided_stale(ordered, request.retained_handoffs)
     source_hashes = {name: _sha(raw) for name, raw in sources.items()}
     for module_id, retained_spec in request.retained_handoffs.items():
         if retained_spec.source_hashes != source_hashes:
@@ -341,6 +393,7 @@ def run_handoffs(
         handoffs: dict[str, bytes] = {}
         selected: dict[str, str] = {}
         for module_id in ordered:
+            _refuse_pins_of_replayed(request.retained_handoffs, handoffs)
             spec = request.retained_handoffs.get(module_id)
             if spec is not None and spec.upstream != {m: _sha(raw) for m, raw in handoffs.items()}:
                 raise ValueError(f"cpos_retained_stale: {module_id}")
@@ -353,8 +406,8 @@ def run_handoffs(
                 1,
                 (),
             )
-            if on_start is not None:
-                on_start(task)
+            if events is not None:
+                append_event(events, "module_started", module=module_id)
             raw, path = _handoff(
                 task,
                 directory,
@@ -365,8 +418,12 @@ def run_handoffs(
             )
             handoffs[module_id] = raw
             selected[module_id] = path
+            if events is not None:
+                append_event(events, "module_accepted", module=module_id)
             if on_handoff is not None:
                 on_handoff(task, raw)
+        if events is not None:
+            append_event(events, "delivery_started")
         delivery_request = DeliveryRequest(
             run=request.run,
             handoffs={
@@ -374,6 +431,9 @@ def run_handoffs(
                 for m in (ordered if request.layout is not None else ("CP-1", "CP-1A", "CP-2"))
             },
             layout=request.layout,
+            module_execution=_module_execution(ordered, retained, request)
+            if request.layout is not None
+            else None,
             model=None
             if request.model is None
             else request.model.model_copy(
@@ -425,17 +485,23 @@ def run_handoffs(
             + "; not full pathway/native acceptance",
             "provider_cap_usd": str(request.provider_cap_usd) if live else 0,
             "modules": selected,
-            "module_execution": {
-                m: "retained-response-replay" if m in retained else request.execution
-                for m in ordered
-            },
+            "module_execution": _module_execution(ordered, retained, request),
             "cp_model_published": request.model is not None,
             "delivery_manifest_sha256": manifest_id,
             "report_sha256": _sha(report.read_bytes()),
         }
         completion_raw = json.dumps(completion, indent=2).encode()
         _put(directory / f"completed-{_sha(completion_raw)}.json", completion_raw)
+        if events is not None:
+            append_event(events, "delivered")
         return report
+
+
+def _module_execution(
+    ordered: tuple[str, ...], retained: Mapping[str, object], request: HandoffPlan
+) -> dict[str, Literal["host-session", "retained-response-replay", "synthetic", "live-provider"]]:
+    """How each module was produced: a retained handoff is a replay whatever the run's mode."""
+    return {m: "retained-response-replay" if m in retained else request.execution for m in ordered}
 
 
 def live_adapter_for(
@@ -469,7 +535,7 @@ def _release(adapter: "LiveAdapter | CopilotAdapter") -> None:
         adapter.close()
 
 
-def run_live_handoffs(
+def run_live_handoffs(  # noqa: PLR0913 -- the explicit paid entry point takes every run option
     manifest: Path,
     directory: Path,
     *,
@@ -479,7 +545,6 @@ def run_live_handoffs(
     max_turns: int = 24,
     max_output_tokens: int = 16000,
     on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
-    on_start: Callable[[HandoffTask], None] | None = None,
     config: str = "sol-medium",
     rulings_root: Path | None = None,
 ) -> Path:
@@ -508,6 +573,7 @@ def run_live_handoffs(
             redactor=Redactor.from_environ(environment),
             max_turns=max_turns,
             max_output_tokens=max_output_tokens,
+            events=directory,
         )
         result = run_handoffs(
             manifest,
@@ -515,11 +581,14 @@ def run_live_handoffs(
             execute=executor,
             check=check,
             on_handoff=on_handoff,
-            on_start=on_start,
+            events=directory,
         )
     except BaseException as stop:
         # Documented fail-open: a release failure must not mask the stop it follows; it is
         # recorded as a note on the propagating exception.
+        if isinstance(stop, Exception) and not isinstance(stop, RunDirBusy):
+            # A refused second invocation never held the folder; the running run owns its log.
+            append_event(directory, "stopped", reason=stop_reason(stop))
         try:
             _release(adapter)
         except Exception as failure:  # noqa: BLE001 -- noted on the propagating stop
@@ -625,6 +694,28 @@ def _comparison_bundle(base: Path, spec: HandoffInput) -> tuple[View, dict[str, 
     return view, {**files, "delivery.json": receipt_raw}
 
 
+def _check_comparison_pair(request: ComparisonPlan, prior: View, current: View) -> None:
+    """Both deliveries are the selected issuer's, the current one has the selected date, and they
+    are a prior delivery and a later-or-same-dated current one: CP-8 compares a prior run's
+    deliverables with the current run's (AGENTS.md), never a delivery with itself."""
+    for view in (prior, current):
+        if (view.run.issuer_id, view.run.issuer_name) != (
+            request.run.issuer_id,
+            request.run.issuer_name,
+        ):
+            raise ValueError("cp8_issuer: both deliveries must identify the selected issuer")
+    if current.run.as_of != request.run.as_of:
+        raise ValueError(
+            "cp8_as_of: comparison uses the selected current delivery's financial date"
+        )
+    if request.prior.sha256 == request.current.sha256:
+        raise ValueError("cp8_same_delivery: prior and current pin the same delivery receipt")
+    if prior.run.as_of > current.run.as_of:
+        raise ValueError(
+            "cp8_order: the prior delivery's financial date is after the current delivery's"
+        )
+
+
 def run_comparison(
     manifest: Path,
     directory: Path,
@@ -657,16 +748,7 @@ def run_comparison(
         raise ValueError("cp8_scope: select CP-8 deliverable comparison on the snapshot shell")
     prior_view, prior = _comparison_bundle(manifest.parent, request.prior)
     current_view, current = _comparison_bundle(manifest.parent, request.current)
-    for view in (prior_view, current_view):
-        if (view.run.issuer_id, view.run.issuer_name) != (
-            request.run.issuer_id,
-            request.run.issuer_name,
-        ):
-            raise ValueError("cp8_issuer: both deliveries must identify the selected issuer")
-    if current_view.run.as_of != request.run.as_of:
-        raise ValueError(
-            "cp8_as_of: comparison uses the selected current delivery's financial date"
-        )
+    _check_comparison_pair(request, prior_view, current_view)
     instructions = _pinned_inputs(manifest.parent, {"CP-8": request.instructions})["CP-8"]
     instructions.decode("utf-8")
     sources = {
@@ -720,7 +802,8 @@ def run_comparison(
         completion = {
             "kind": "cpos-deliverable-comparison/1",
             "execution": request.execution,
-            "scope": "Checked CP-8 comparison of selected delivery bundles; not decision calibration or full pathway acceptance",
+            "scope": "Checked CP-8 comparison of selected delivery bundles; "
+            "not decision calibration or full pathway acceptance",
             "provider_cap_usd": str(request.provider_cap_usd) if live else 0,
             "response": response_path,
             "response_sha256": _sha(response),

@@ -31,13 +31,17 @@ from deploy_vii.financial_validation import records
 from deploy_vii.model import history, metrics
 from deploy_vii.model._cells import ABSENT, CONTEXT, calc, join_notes
 from deploy_vii.model.frame import Cell, Column, Frame
+from deploy_vii.model.registers import Cp1Registers
 from deploy_vii.model.statements import statement_frame
 from deploy_vii.preparation import PreparedPack
 
 
 class CanonicalKpi(Contract):
     calculation_id: Identifier
+    # The column the KPI is displayed in; `period_basis_id` is the basis its operands
+    # use (a trailing ratio on a QUARTER column reads the rolling four-quarter basis).
     display_basis_id: Identifier
+    period_basis_id: Identifier
     key: Text
     operation: Literal["value", "ratio", "growth", "unavailable"]
     unit: Text
@@ -164,9 +168,9 @@ def _preferred(reported: Cell, derived: Cell, observations: dict[str, Observatio
         or reported.arithmetic is not None
     ):
         return reported
+    derivation = "derived from components" if derived.value is not None else "components incomplete"
     return replace(
-        derived,
-        note=join_notes(derived.note, "Reported value unavailable; derived from components"),
+        derived, note=join_notes(derived.note, f"Reported value unavailable; {derivation}")
     )
 
 
@@ -198,8 +202,12 @@ def _canonical_frame(
                 calc(((cells["ebit"], 1), (cells["da"], -1))),
                 observations,
             )
+            # As `statements._income`: an add-back with no row for this column's periods
+            # (`NOT_SOURCED`) adds nothing; one whose row has no figure leaves the sum missing.
             adjustments = tuple(
-                (value, 1) for key, value in source.items() if key.startswith("addback:")
+                (value, 1)
+                for key, value in source.items()
+                if key.startswith("addback:") and value.reason != "NOT_SOURCED"
             )
             cells["adjusted_ebitda"] = _preferred(
                 source.get("acct:adjusted_ebitda", ABSENT),
@@ -287,7 +295,7 @@ def _kpi_rows(
             ),
         )
 
-    def add(
+    def add(  # noqa: PLR0913 - one parameter per CanonicalKpi field the row does not derive
         column: Column,
         key: str,
         operation: Literal["value", "ratio", "growth"],
@@ -296,6 +304,7 @@ def _kpi_rows(
         top: MetricLeg,
         bottom: MetricLeg | None,
         cell: Cell,
+        period_basis: str | None = None,
     ) -> None:
         basis = _basis_id(column)
         value = _value(cell, observations, evidence, normalizations)
@@ -310,6 +319,7 @@ def _kpi_rows(
             CanonicalKpi(
                 calculation_id=_id("canonical-kpi", basis, key),
                 display_basis_id=basis,
+                period_basis_id=period_basis or basis,
                 key=key,
                 operation=operation,
                 unit=unit,
@@ -362,7 +372,7 @@ def _kpi_rows(
                     + " + ".join(f"{s} * {k}" for k, s in recipe.denominator)
                     + ")"
                 )
-                add(column, key, "ratio", recipe.unit, formula, top, bottom, cell)
+                add(column, key, "ratio", recipe.unit, formula, top, bottom, cell, selected_basis)
             prior = metrics._prior_cells(column, columns, frame, rolling)
             growth = metrics._growth(column, own, prior, frozenset())
             for target in metrics._GROWTH:
@@ -389,12 +399,20 @@ def _kpi_rows(
     return tuple(rows)
 
 
-def canonical_kpis(pack: PreparedPack, review: FinancialReview, book_id: str) -> CanonicalKpiReport:
-    regs = kernel_registers(pack, review, book_id)
+def canonical_kpis(
+    pack: PreparedPack,
+    review: FinancialReview,
+    book_id: str,
+    *,
+    regs: Cp1Registers | None = None,
+) -> CanonicalKpiReport:
+    """The KPI report of one book. `regs` are the book's `kernel_registers`, when the caller
+    already built them from this pack and review."""
+    regs = regs or kernel_registers(pack, review, book_id)
     review = FinancialReview.model_validate_json(review.model_dump_json())
     book = next(b for b in review.books if b.book_id == book_id)
     observations = {o.observation_id: o for o in records(book, Observation)}
-    historical = historical_report(pack, review, book_id)
+    historical = historical_report(pack, review, book_id, regs=regs)
     columns = history.historical_columns(regs)
     rolling_columns = history.ltm_columns(regs, columns)
     accounts = history.account_frame(regs, columns)
@@ -444,17 +462,27 @@ def canonical_kpis(pack: PreparedPack, review: FinancialReview, book_id: str) ->
         kpis=_kpi_rows(columns, frame, rolling, book, observations),
         computations=computations,
         limitations=(
-            "Canonical debt uses CP-1 carrying values excluding both lease types; Model "
-            "debt is separate",
-            "Reported income values take precedence; missing values may be derived, "
-            "conflicts never are",
-            "CFO retains the reviewed financing classifications; "
-            "FFO = adjusted CFO - working capital change",
-            "Cash conversion is FCF / adjusted EBITDA; both EBITDA variants are "
-            "explicitly retained",
+            (
+                "Canonical debt uses CP-1 carrying values excluding both lease types; Model "
+                "debt is separate"
+            ),
+            (
+                "Reported income values take precedence; missing values may be derived, "
+                "conflicts never are"
+            ),
+            (
+                "CFO retains the reviewed financing classifications; "
+                "FFO = adjusted CFO - working capital change"
+            ),
+            (
+                "Cash conversion is FCF / adjusted EBITDA; both EBITDA variants are "
+                "explicitly retained"
+            ),
             "DCF = FCF - dividends paid; share repurchases are not deducted",
-            "Calculations do not establish source reconciliation, readiness, analytical "
-            "trends or report acceptance",
+            (
+                "Calculations do not establish source reconciliation, readiness, analytical "
+                "trends or report acceptance"
+            ),
             *book.limitations,
         ),
     )

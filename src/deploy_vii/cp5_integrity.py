@@ -97,14 +97,27 @@ UNIT_SCALE: Mapping[str, Decimal] = {
     "MILLIONS": Decimal(1000000),
     **dict.fromkeys(("PERCENT", "MULTIPLE", "decimal_fraction"), Decimal(1)),
 }
-# Tables of verbatim copies of CP-1 facts at coordinates Python assigns by rule: every
-# module's `cp1_references` (CP-1A, CP-2, CP-3 and CP-6 compose one; the table id is the
-# composer's, never a model's). Task 8.4b, coordinator ruling 1 (superseding fix round 2's
-# CP-1A-only key): a copy's placement is not compared under its fact id; its exact value
-# (amount times scale), unit, currency and period are, with the source and every other copy.
-# Ruling 2: a copy is never pooled by coordinate, since each producer numbers its copies
+# Tables of verbatim copies of upstream facts, under the upstream fact id, at coordinates
+# Python assigns by rule (the table id is the composer's, never a model's): every module's
+# `cp1_references` (CP-1A, CP-1D, CP-2, CP-2A, CP-2G, CP-2H, CP-3, CP-4C and CP-6 compose
+# one), CP-4's `T4F.2` (`cp4_legal._referenced_table`), CP-2G's `cp2a_references` and
+# `cp1d_references`, CP-2H's `cp2g_references` and CP-4C's `cp2a_references`,
+# `cp2g_references` and `cp4_references` (`_placed_references`). An explicit list: the binding
+# maps carry no "copied" flag, only labels. Task 8.4b, coordinator ruling 1 (superseding fix
+# round 2's CP-1A-only key): a copy's placement is not compared under its fact id; its exact
+# value (amount times scale), unit, currency and period are, with the source and every other
+# copy. Ruling 2: a copy is never pooled by coordinate, since each producer numbers its copies
 # from `ref01` (T5.6).
-REFERENCE_TABLES = frozenset({CP1_REFERENCES})
+REFERENCE_TABLES = frozenset(
+    {
+        CP1_REFERENCES,
+        "T4F.2",
+        "cp1d_references",
+        "cp2a_references",
+        "cp2g_references",
+        "cp4_references",
+    }
+)
 
 # --- the model-facing contract ---------------------------------------------------------------
 # Plain `str` fields, as in `BusinessContextSubmission`: the validator holds references and
@@ -620,6 +633,66 @@ def _resolve(
     return (module_id, claim_id)
 
 
+def _own_refs(head: Module, claim: Claim) -> frozenset[str]:
+    """What a review may rest a claim on (S09-A07): the claim's own citation refs, the facts its
+    text names and the facts filed under the claim's id (`T2.10.kf02.finding` for claim
+    `T2.10.kf02`)."""
+    bound = prose.bind(head.facts)
+    named = {
+        bound[run.text].fact_id
+        for run in prose.tokenize(claim.text)
+        if run.kind != "text" and run.text in bound
+    }
+    cited = {citation_ref(claim.claim_id, n) for n in range(1, len(claim.citations) + 1)}
+    filed = {f.fact_id for f in head.facts if f.fact_id.startswith(f"{claim.claim_id}.")}
+    return frozenset(named | cited | filed)
+
+
+def _ref_issues(
+    path: str, key: tuple[str, str], review: ClaimReview, known: frozenset[str], own: frozenset[str]
+) -> list[str]:
+    """The upstream_refs of one review: each resolves in the producer head, a verdict above
+    unsupported names one, and (S09-A07) one of them belongs to the claim."""
+    issues = [
+        f"{path}: unresolved upstream_ref {ref} in {key[0]}"
+        for ref in review.upstream_refs
+        if ref not in known
+    ]
+    if review.support == "unsupported":
+        return issues
+    if not review.upstream_refs:
+        issues.append(f"{path}: a {review.support} verdict names no upstream_ref")
+    elif not own.intersection(review.upstream_refs):
+        issues.append(
+            f"{path}: a {review.support} verdict names no upstream_ref of {key[1]}: cite its "
+            "own citation refs or a fact its text names"
+        )
+    return issues
+
+
+def _contradiction_issues(
+    submission: IntegritySubmission, claims: Mapping[str, frozenset[str]], names: tuple[str, ...]
+) -> list[str]:
+    issues: list[str] = []
+    for index, item in enumerate(submission.contradictions):
+        path = f"contradictions[{index}]"
+        issues.extend(_text_issues(f"{path}.nature", item.nature, names))
+        issues.extend(_text_issues(f"{path}.rationale", item.rationale, names))
+        keys: list[tuple[str, str]] = []
+        for number, claim_ref in enumerate(item.claim_refs):
+            where = f"{path}.claim_refs[{number}]"
+            key = _resolve(where, claim_ref.producer_module, claim_ref.claim_ref, claims)
+            if isinstance(key, str):
+                issues.append(key)
+            else:
+                keys.append(key)
+        if len(set(keys)) != len(keys):
+            issues.append(f"{path}: names a claim more than once")
+        if len({named.producer_module for named in item.claim_refs}) < 2:
+            issues.append(f"{path}: a contradiction names claims of at least two modules")
+    return issues
+
+
 def _review_issues(
     scope: ReviewScope, submission: IntegritySubmission, checks: PythonChecks
 ) -> list[str]:
@@ -627,6 +700,11 @@ def _review_issues(
     evaluated = {head.module_id: head for head in scope.evaluated}
     claims = {m: frozenset(c.claim_id for c in head.claims) for m, head in evaluated.items()}
     refs = {m: frozenset(upstream_refs(head)) for m, head in evaluated.items()}
+    own = {
+        (m, claim.claim_id): _own_refs(head, claim)
+        for m, head in evaluated.items()
+        for claim in head.claims
+    }
     issues: list[str] = []
     reviewed: dict[tuple[str, str], int] = {}
     for index, review in enumerate(submission.claim_reviews):
@@ -637,11 +715,7 @@ def _review_issues(
             issues.append(key)
             continue
         reviewed[key] = reviewed.get(key, 0) + 1
-        for ref in review.upstream_refs:
-            if ref not in refs[key[0]]:
-                issues.append(f"{path}: unresolved upstream_ref {ref} in {key[0]}")
-        if review.support != "unsupported" and not review.upstream_refs:
-            issues.append(f"{path}: a {review.support} verdict names no upstream_ref")
+        issues.extend(_ref_issues(path, key, review, refs[key[0]], own[key]))
         if review.support == "supported":
             marked = checks.ref_marks.get(key[0], frozenset())
             touching = [
@@ -662,22 +736,7 @@ def _review_issues(
             "Incomplete review: unreviewed material claims: "
             + ", ".join(f"{module_id} {claim_id}" for module_id, claim_id in missing)
         )
-    for index, item in enumerate(submission.contradictions):
-        path = f"contradictions[{index}]"
-        issues.extend(_text_issues(f"{path}.nature", item.nature, names))
-        issues.extend(_text_issues(f"{path}.rationale", item.rationale, names))
-        keys: list[tuple[str, str]] = []
-        for number, claim_ref in enumerate(item.claim_refs):
-            where = f"{path}.claim_refs[{number}]"
-            key = _resolve(where, claim_ref.producer_module, claim_ref.claim_ref, claims)
-            if isinstance(key, str):
-                issues.append(key)
-            else:
-                keys.append(key)
-        if len(set(keys)) != len(keys):
-            issues.append(f"{path}: names a claim more than once")
-        if len({named.producer_module for named in item.claim_refs}) < 2:
-            issues.append(f"{path}: a contradiction names claims of at least two modules")
+    issues.extend(_contradiction_issues(submission, claims, names))
     bound = scope.bound_modules()
     for index, gap in enumerate(submission.gaps):
         path = f"gaps[{index}]"
@@ -689,17 +748,27 @@ def _review_issues(
     return issues
 
 
+def _checked(
+    scope: ReviewScope, submission: IntegritySubmission
+) -> tuple[tuple[str, ...], PythonChecks | None]:
+    """The issues of `submission` over `scope` and the Python checks they were made against
+    (None when the submission or scope was refused before the checks ran): one `python_checks`
+    pass, handed on to the composer (S09-C06)."""
+    try:
+        submission = IntegritySubmission.model_validate_json(submission.model_dump_json())
+    except ValidationError as error:
+        return shape_issues(error), None
+    if scope.issues:
+        return scope.issues, None
+    checks = python_checks(scope)
+    return tuple(dict.fromkeys(_review_issues(scope, submission, checks))), checks
+
+
 def validate_integrity(scope: ReviewScope, submission: IntegritySubmission) -> tuple[str, ...]:
     """Every issue of `submission` over `scope`, in a stable order; empty when it composes.
 
     A scope that cannot be reviewed (stale or unreadable inputs) returns its own issues."""
-    try:
-        submission = IntegritySubmission.model_validate_json(submission.model_dump_json())
-    except ValidationError as error:
-        return shape_issues(error)
-    if scope.issues:
-        return scope.issues
-    return tuple(dict.fromkeys(_review_issues(scope, submission, python_checks(scope))))
+    return _checked(scope, submission)[0]
 
 
 # --- composition -------------------------------------------------------------------------------
@@ -1185,13 +1254,29 @@ def _status_tables(c: _Composition, own: Mapping[str, str], status: str) -> None
     )
 
 
+def review_outcome(
+    scope: ReviewScope, submission: IntegritySubmission
+) -> tuple[tuple[str, ...], IntegrityReport | None]:
+    """(issues, None) for a refused submission, else ((), the composed review): the validation and
+    the composition share one `python_checks` pass."""
+    issues, checks = _checked(scope, submission)
+    if issues or checks is None:
+        return issues, None
+    return (), _composed(scope, submission, checks)
+
+
 def integrity_review(scope: ReviewScope, submission: IntegritySubmission) -> IntegrityReport:
     """The composed CP-5 review of a valid submission; raises ValueError on any issue."""
-    issues = validate_integrity(scope, submission)
-    if issues:
+    issues, report = review_outcome(scope, submission)
+    if issues or report is None:
         raise ValueError("; ".join(issues))
+    return report
+
+
+def _composed(
+    scope: ReviewScope, submission: IntegritySubmission, checks: PythonChecks
+) -> IntegrityReport:
     submission = IntegritySubmission.model_validate_json(submission.model_dump_json())
-    checks = python_checks(scope)
     findings = _ordered((*checks.findings, *_review_findings(submission)))
     c = _Composition(scope, submission, checks, findings)
     own: dict[str, str] = {}
@@ -1254,11 +1339,10 @@ def _validate_step(store: Execution, attempt: Attempt) -> StepValidation:
         )
     except ValidationError as error:
         return StepValidation(issues=shape_issues(error))
-    scope = review_scope(store, attempt)
-    issues = validate_integrity(scope, submission)
-    if issues:
+    issues, report = review_outcome(review_scope(store, attempt), submission)
+    if issues or report is None:
         return StepValidation(issues=issues)
-    return StepValidation(output=integrity_review(scope, submission).model_dump_json())
+    return StepValidation(output=report.model_dump_json())
 
 
 def submit_cp5_step(store: Execution, ticket_id: str, step_id: str, payload: str) -> Attempt:
@@ -1319,7 +1403,9 @@ def all_facts(head: Module) -> Sequence[Fact]:
     return head.facts
 
 
-def context_block(scope: ReviewScope, facts: FactProjection = all_facts) -> dict[str, object]:
+def context_block(
+    scope: ReviewScope, facts: FactProjection = all_facts, checks: PythonChecks | None = None
+) -> dict[str, object]:
     """What the `integrity_review` CONTEXT block states, all Python's: per bound analyst head
     its status, the facts `facts` projects (Python's spelling), claims with their citation refs
     and the Python findings that touch each, limitations and inherited limitations; the claims
@@ -1328,8 +1414,10 @@ def context_block(scope: ReviewScope, facts: FactProjection = all_facts) -> dict
 
     `facts` is the seam a live projection uses to trim the block (every fact of a promoted CP-1
     is tens of megabytes of JSON): only the projected facts are spelled and listed. The checks
-    and the validator always run over every fact; the projection changes the prompt only."""
-    checks = python_checks(scope)
+    and the validator always run over every fact; the projection changes the prompt only.
+    `checks` is the `python_checks(scope)` the caller already holds."""
+    if checks is None:
+        checks = python_checks(scope)
     evaluated = {head.module_id for head in scope.evaluated}
     heads = sorted(scope.heads, key=lambda pair: _rank(pair[0].input_id))
     return {

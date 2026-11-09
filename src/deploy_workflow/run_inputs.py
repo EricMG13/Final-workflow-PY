@@ -292,7 +292,10 @@ def _case_files(
             if b"ix:header" in raw.lower():
                 from deploy_workflow.inline_xbrl import parse, period_lines
 
-                dates = period_lines(parse(raw))
+                try:
+                    dates = period_lines(parse(raw))
+                except ValueError as error:  # malformed contexts, units or facts
+                    raise SourceUnreadable(f"{item.path}: inline XBRL: {error}") from None
                 data = data.rstrip() + b"\n\n" + "\n".join(dates).encode("utf-8") + b"\n"
             if len(data) > MAX_BYTES:
                 raise SourceTooLarge(f"{item.path}: converted text larger than {MAX_BYTES} bytes")

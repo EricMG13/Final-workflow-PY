@@ -1269,3 +1269,20 @@ def test_lineage_cites_one_quote_per_page_the_first() -> None:
     stub = cp2a.BaseOperands.__new__(cp2a.BaseOperands)
     object.__setattr__(stub, "sources", shared)
     assert cp2a.lineage(stub, ("total_debt", "ebitda", "cash_interest")) == (page, other)
+
+
+def test_t2b2_columns_are_value_and_source_not_the_first_row_label() -> None:
+    """S06-cp2-ade-C04: T2B.2's value facts carry their row label, so its columns are fixed. The
+    six operand rows (EBITDA through Net debt, `OPERANDS`) sit under one "Value" column and one
+    "Source" column; the first row's label "EBITDA" heads no column."""
+    result, _, _ = composed("positive")
+    table = next(t for t in result.tables if t.table_id == "T2B.2")
+    assert [(c.field, c.label) for c in table.columns] == [("value", "Value"), ("source", "Source")]
+    assert [r.label for r in table.rows] == [
+        "EBITDA",
+        "Cash interest paid (outflow)",
+        "Free cash flow",
+        "Total debt",
+        "Cash and cash equivalents",
+        "Net debt",
+    ]

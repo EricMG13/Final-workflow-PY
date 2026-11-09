@@ -774,3 +774,288 @@ def test_context_block_matches_step_view(case: str) -> None:
     body = json.dumps(block, ensure_ascii=False)
     for key in ('"quote"', '"citations"', '"record_json"'):
         assert key not in body
+
+
+# --- S09-A02/A03: the tested threshold is the governing document's, and one step -----------
+
+_CAP_SENTENCE = (
+    "The Borrower shall maintain the ratio of Covenant Net Debt to Covenant EBITDA at not more "
+    "than 4.00x, tested at every calendar quarter end from December 31, 2025."
+)
+_STEP_DOWN = (
+    "The Borrower shall maintain the ratio of Covenant Net Debt to Covenant EBITDA at not more "
+    "than 0.75x for each test date in 2025 and not more than 4.00x for each test date thereafter."
+)
+_OTHER_DOC = "Section 4.09. The Consolidated Leverage Ratio shall not be more than 6.00x."
+_LATER_STEP = "not more than 4.00x for each test date thereafter"
+
+
+def _with_sentence(pack: PreparedPack, sentence: str) -> list[Source]:
+    """The pack's sources with the cap sentence of legal-covenants replaced by `sentence`."""
+    return [
+        s.model_copy(
+            update={
+                "spans": tuple(
+                    p.model_copy(update={"text": p.text.replace(_CAP_SENTENCE, sentence)})
+                    for p in s.spans
+                )
+            }
+        )
+        if s.source_id == "legal-covenants"
+        else s
+        for s in pack.sources
+    ]
+
+
+def _threshold_case(
+    sentence: str,
+    covenant: Mapping[str, Any],
+    quote: str | None = None,
+    extra: Source | None = None,
+) -> cp4.Cp4Result:
+    """The positive case with the governing cap sentence of legal-covenants page:2 replaced by
+    `sentence`, covenants[0] quoting `quote` (default the sentence) and updated with
+    `covenant`; `extra` is an executed legal source, cited by a fourth quote."""
+    pack = make_pack("positive")
+    sources = _with_sentence(pack, sentence)
+    upstream = make_upstream("positive")
+    raw = json.loads(json.dumps(SUBMISSIONS["positive"]["legal_covenants"]))
+    row = raw["covenants"][0]
+    assert row["citations"][2]["quote"] == _CAP_SENTENCE
+    row["citations"][2]["quote"] = quote or sentence
+    if extra is not None:
+        sources.append(extra)
+        upstream = cp4_legal.Upstream(
+            **{
+                **upstream.__dict__,
+                "authority": {**upstream.authority, extra.source_id: "executed"},
+                "legal_sources": (*upstream.legal_sources, extra.source_id),
+            }
+        )
+        span = extra.spans[0]
+        row["citations"].append(
+            {"source_id": extra.source_id, "locator": span.locator, "quote": span.text}
+        )
+    row.update(covenant)
+    pack = pack.model_copy(update={"sources": tuple(sources)})
+    text = json.dumps(raw).replace(FIG, select_metric(pack, upstream))
+    submission = cp4_legal.CovenantInterpretationSubmission.model_validate_json(text)
+    inputs = make_inputs("positive", pack)
+    return cp4.compute(
+        cp4.Cp4Inputs(pack=pack, submission=submission, upstream=upstream, inputs=inputs)
+    )
+
+
+def test_threshold_quoted_from_another_document_is_refused() -> None:
+    """S09-A02: the covenant is registered under legal-covenants (a 0.75x cap there) and its
+    6.00x is quoted from another executed source; the tested number is the governing one."""
+    extra = Source(
+        source_id="legal-other",
+        name="Other indenture",
+        status="ready",
+        sha256=hashlib.sha256(b"legal-other").hexdigest(),
+        spans=(Span(locator="page:1", text=_OTHER_DOC),),
+        extraction_status="complete",
+        limitation=None,
+    )
+    row = {"threshold_text": "6.00x", "threshold_value": "6.00", "comparison": "<="}
+    result = _threshold_case(_CAP_SENTENCE.replace("4.00x", "0.75x"), row, extra=extra)
+    assert result.report is None
+    assert (
+        "covenants[0]: threshold_text is not part of a quote of its governing document "
+        "legal-covenants"
+    ) in result.issues
+
+
+STEP_REFUSAL = (
+    "covenants[0]: the governing text around threshold_text states more than one multiple "
+    "threshold (0.75, 4.00: a step-down schedule or several tests); which one applies at the "
+    "CP-1 metric's period is not determined, so set threshold_unit to other"
+)
+
+
+@pytest.mark.parametrize(
+    ("quote", "threshold"),
+    [(None, "4.00"), (_LATER_STEP, "4.00"), ("not more than 0.75x for each test date", "0.75")],
+)
+def test_one_step_of_a_step_down_schedule_is_refused(quote: str | None, threshold: str) -> None:
+    """S09-A03: a schedule of 0.75x (2025) then 4.00x is refused as a multiple threshold
+    whether the whole sentence or one step alone is quoted: which step applies at the CP-1
+    metric's period is not read from the text."""
+    row = {"threshold_text": f"{threshold}x", "threshold_value": threshold, "comparison": "<="}
+    result = _threshold_case(_STEP_DOWN, row, quote)
+    assert result.report is None
+    assert STEP_REFUSAL in result.issues
+
+
+def test_a_step_down_schedule_as_other_threshold_is_not_calculable() -> None:
+    """The refusal's remedy composes: an other threshold keeps its words, headroom missing."""
+    row = {
+        "threshold_text": "not more than 0.75x for each test date in 2025 and not more than 4.00x",
+        "threshold_unit": "other",
+        "threshold_value": None,
+        "comparison": "<=",
+    }
+    result = _threshold_case(_STEP_DOWN, row)
+    assert result.issues == () and result.report is not None
+    headroom = _fact(result.report, "T4.9.r01.headroom")
+    assert headroom.status == "missing" and headroom.amount is None
+
+
+def test_threshold_text_inside_a_longer_number_is_refused() -> None:
+    """S09-A03 with S13-A03/C05: "4.00x" is a substring of "14.00x" but not a threshold the
+    quote states, which is 14.00. The whole-token quote check refuses it first, once."""
+    row = {"threshold_text": "4.00x", "threshold_value": "4.00", "comparison": "<="}
+    result = _threshold_case(_CAP_SENTENCE.replace("4.00x", "14.00x"), row)
+    assert result.report is None
+    assert "covenants[0]: threshold_text is not part of the row's quotes" in result.issues
+    assert not any("governing quote states" in issue for issue in result.issues)
+
+
+def test_the_same_threshold_twice_in_the_sentence_is_one_threshold() -> None:
+    """A sentence that repeats 4.00x states one threshold; the positive row still composes."""
+    sentence = _CAP_SENTENCE.replace(", tested", " (and not more than 4.00x pro forma), tested")
+    row = {"threshold_text": "4.00x", "threshold_value": "4.00", "comparison": "<="}
+    result = _threshold_case(sentence, row)
+    assert result.issues == ()
+
+
+# --- review of S09-A03: the sentence context and the boundary-aware threshold read ------------
+
+_BORROWER = (
+    "The Borrower shall maintain the ratio of Covenant Net Debt to Covenant EBITDA at not more "
+    "than "
+)
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        # an abbreviation's period is no sentence end: the 0.75x step stays in the context
+        _BORROWER + "0.75x for each test date in 2025 and, as to the U.S. Borrower, not more "
+        "than 4.00x thereafter.",
+        _BORROWER + "0.75x until Acme Inc. Holdings is acquired and not more than 4.00x "
+        "thereafter.",
+    ],
+)
+def test_an_abbreviation_does_not_hide_the_other_step(sentence: str) -> None:
+    """Only the later step is quoted; "U.S." and "Inc." must not cut the sentence before 0.75x."""
+    row = {"threshold_text": "4.00x", "threshold_value": "4.00", "comparison": "<="}
+    result = _threshold_case(sentence, row, "not more than 4.00x thereafter")
+    assert result.report is None
+    assert STEP_REFUSAL in result.issues
+
+
+@pytest.mark.parametrize(
+    ("sentence", "text"),
+    [
+        (_BORROWER + "14.00 to 1.00, tested at every calendar quarter end.", "4.00 to 1.00"),
+        (_BORROWER + "14.00:1.00, tested at every calendar quarter end.", "4.00:1.00"),
+    ],
+)
+def test_a_ratio_inside_a_longer_ratio_is_refused(sentence: str, text: str) -> None:
+    row = {"threshold_text": text, "threshold_value": "4.00", "comparison": "<="}
+    result = _threshold_case(sentence, row)
+    assert result.report is None
+    assert "covenants[0]: threshold_text is not part of the row's quotes" in result.issues
+
+
+def test_a_ratio_and_a_wrapped_multiple_compose() -> None:
+    """ "4.00 to 1.00" and "4.00" wrapped before "x" are each one threshold: accepted."""
+    for sentence, text in (
+        (_BORROWER + "4.00 to 1.00, tested at every calendar quarter end.", "4.00 to 1.00"),
+        (_BORROWER + "4.00\nx, tested at every calendar quarter end.", "4.00 x"),
+    ):
+        row = {"threshold_text": text, "threshold_value": "4.00", "comparison": "<="}
+        result = _threshold_case(sentence, row)
+        assert result.issues == () and result.report is not None
+
+
+# S09-A05. Hand-derived: a cap reads `<=`/`<`, a floor `>=`/`>`; wording that is inclusive
+# ("no greater than", "or less", "to exceed") is not strict, so `<`/`>` on it is refused; a quote
+# that also words the limit strictly ("less than 0.75x") leaves `<` alone.
+def _direction(sentence: str, comparison: str) -> list[str]:
+    from types import SimpleNamespace
+
+    quote = SimpleNamespace(source_id="d", quote=sentence)
+    row: Any = SimpleNamespace(
+        comparison=comparison, citations=(quote,), document_id="d", threshold_text="0.75x"
+    )
+    return cp4_legal._direction_issues("covenants[0]", row)
+
+
+@pytest.mark.parametrize(
+    ("sentence", "comparison"),
+    [
+        ("keep the ratio no greater than 0.75x", ">="),
+        ("keep the ratio no more than 0.75x", ">"),
+        ("keep the ratio at 0.75x or less", ">="),
+        ("keep the ratio at less than or equal to 0.75x", ">="),
+        ("shall not permit the ratio to exceed 0.75x", ">="),
+        ("keep the ratio no less than 0.75x", "<="),
+        ("keep the ratio at 0.75x or more", "<"),
+        ("shall not permit the ratio to be less than 0.75x", "<="),
+        ("keep the ratio no greater than 0.75x", "<"),
+        ("keep the ratio at least 0.75x", ">"),
+        ("keep the ratio at 0.75x or more", ">"),
+    ],
+)
+def test_s09_a05_wrong_direction_or_strictness_is_refused(sentence: str, comparison: str) -> None:
+    assert len(_direction(sentence, comparison)) == 1, (sentence, comparison)
+
+
+@pytest.mark.parametrize(
+    ("sentence", "comparison"),
+    [
+        ("keep the ratio no greater than 0.75x", "<="),
+        ("keep the ratio at 0.75x or less", "<="),
+        ("keep the ratio no less than 0.75x", ">="),
+        ("shall not permit the ratio to exceed 0.75x", "<="),
+        ("keep the ratio less than 0.75x", "<"),  # strict wording, no inclusive phrase
+        ("keep the ratio greater than 0.75x", ">"),
+        ("keep the ratio below 0.75x, no greater than 1.00x", "<"),  # strict word remains
+        ("keep the ratio within 0.75x", "<"),  # names neither: the model's judgement
+    ],
+)
+def test_s09_a05_matching_wording_is_accepted(sentence: str, comparison: str) -> None:
+    assert _direction(sentence, comparison) == [], (sentence, comparison)
+
+
+# Review of S09-A05. "or more"/"or less" name a cap or floor only as a figure's own tail
+# ("0.75x or less"); in "one or more occasions", "four or more consecutive quarters" or "more or
+# less" they name nothing. Hand-derived from the wording, not from the regexes.
+_TDG_L1095 = (  # runs/tdg-004 legal source L1095 (TDG indenture, retained; outdated-source scope)
+    "the Company shall be entitled at its option on one or more occasions to redeem Notes "
+    "(which includes Additional Notes, if any) in an aggregate principal amount not to exceed 40% "
+    "of the aggregate principal amount of the Notes"
+)
+
+
+@pytest.mark.parametrize(
+    ("sentence", "comparison", "refused"),
+    [
+        (_TDG_L1095, ">=", True),  # a cap ("not to exceed"); "one or more" is no floor
+        (_TDG_L1095, "<=", False),
+        ("keep the ratio less than 0.75x for four or more consecutive quarters", "<", False),
+        ("keep the ratio greater than 0.75x for any period of ninety days or less", ">", False),
+        ("keep the ratio at more or less 0.75x", ">=", False),  # names neither
+        ("keep the ratio no more or less than 0.75x", "<=", False),  # names neither
+        ("keep the ratio not less than 0.25x and not more than 0.75x", "<=", False),
+        ("keep the ratio not less than 0.25x and not more than 0.75x", "<", True),  # inclusive
+        ("keep the ratio not less than 0.75x and not more than 1.25x", ">", True),  # inclusive
+        ("Maximum ratio: the ratio shall be less than 0.75x", "<", False),  # strict word stays
+        ("keep the ratio at 0.75 to 1.00 or less", "<", True),  # inclusive tail of a figure
+        ("keep the ratio at 0.75 to 1.00 or more", "<=", True),  # a floor
+    ],
+)
+def test_review_s09_a05_or_more_or_less_is_a_figure_tail(
+    sentence: str, comparison: str, refused: bool
+) -> None:
+    threshold = "40%" if sentence is _TDG_L1095 else "0.75"
+    from types import SimpleNamespace
+
+    quote = SimpleNamespace(source_id="d", quote=sentence)
+    row: Any = SimpleNamespace(
+        comparison=comparison, citations=(quote,), document_id="d", threshold_text=threshold
+    )
+    assert bool(cp4_legal._direction_issues("covenants[0]", row)) is refused

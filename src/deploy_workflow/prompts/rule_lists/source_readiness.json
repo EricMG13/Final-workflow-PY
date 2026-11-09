@@ -53,7 +53,7 @@
   },
   {
    "id": "source_readiness.h",
-   "statement": "h. `analysis`: at least one evidence-grounded read-through entry; an empty list is rejected. `analysis[].text` is run text: digits only in period labels (`FY2025`, `Q3 2025`, `LTM`), filing and section labels (`Items 7, 7A`, `page:12`, `pages 16-18`), SEC file numbers (`001-36629`) and coverage counts (`195 of 195 pages`); every other figure belongs in a citation's quote, not in the text (the validator rejects a bare figure).",
+   "statement": "h. `analysis`: at least one evidence-grounded read-through entry; an empty list is rejected. `analysis[].text` is run text: digits only in period labels (`FY2025`, `Q3 2025`, `LTM`), filing and section labels (`Items 7, 7A`, `page:12`, `pages 16-18`), SEC file numbers (`001-36629`) and coverage counts (`195 of 195 pages`); every other figure belongs in a citation's quote, not in the text (the validator rejects a bare figure). `N of M` is a coverage count only before a pack noun (`195 of 195 pages`); a number in words with a quantity or a multiplier (`seven times`, `ten percent`, `halved`) and a year before a quantity word (`2024 basis points`) are bare figures.",
    "checks": [
     "fn:deploy_vii.readiness:validate_review",
     "fn:deploy_vii.prose:issues"

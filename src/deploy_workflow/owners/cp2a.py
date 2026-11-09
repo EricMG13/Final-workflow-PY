@@ -78,6 +78,7 @@ from deploy_workflow.owners.period_basis import (
     run_currency,
 )
 from deploy_workflow.owners.pins import pin_issues, pinned_line, pins_of
+from deploy_workflow.trailing_period import states_trailing_period
 
 MODULE_ID = "CP-2A"
 STEP_ID = "downside_pathway"
@@ -186,6 +187,19 @@ def _column(period: str) -> str:
     return f"{head} ({span})"
 
 
+def _in_period(fact: Fact, period: str, metric: str) -> bool:
+    """Whether a `<column> · metric` fact of the base `period` states that period. A reported
+    ratio in a quarter column is calculated from the twelve months ending that quarter (P1-W),
+    so CP-1 states that rolling period on it: `LTM <quarter label>: start to <quarter end>` (the
+    start `null` while the window is incomplete)."""
+    if fact.period == period:
+        return True
+    if metric not in REPORTED.values() or period_kind(period) != "quarter":
+        return False
+    head, _, span = period.partition(": ")
+    return states_trailing_period(fact.period, span.rpartition(" to ")[2], head)
+
+
 @dataclass(frozen=True)
 class BaseOperands:
     """The base period's operands (None where CP-1 has no known fact; never 0 for missing).
@@ -223,7 +237,7 @@ class BaseOperands:
             found = [
                 f
                 for f in facts
-                if f.table_id == CP1_TABLE and f.label == label and f.period == period
+                if f.table_id == CP1_TABLE and f.label == label and _in_period(f, period, metric)
             ]
             if len(found) != 1:
                 raise ValueError(
@@ -741,8 +755,14 @@ TABLES = {
     "T2B.9": "Gaps ledger",
 }
 CP1_REFERENCES = "cp1_references"
-# T2B.7 is the one table that can be empty (no break ranks), so its columns are fixed.
+# T2B.7 is the one table that can be empty (no break ranks), so its columns are fixed. T2B.2's
+# value facts carry their row's label (EBITDA, Total debt, ...), so its columns are fixed too
+# (S06-cp2-ade-C04: the first row's label would head every row's value "EBITDA").
 FIXED_COLUMNS: Mapping[str, tuple[TableColumn, ...]] = {
+    "T2B.2": (
+        TableColumn(field="value", label="Value"),
+        TableColumn(field="source", label="Source"),
+    ),
     "T2B.7": (
         TableColumn(field="break_point", label="Break point"),
         TableColumn(field="required_decline", label="Required EBITDA decline"),
@@ -1425,6 +1445,12 @@ def compute(inputs: Inputs) -> Result:
     issues = validate(inputs)
     if issues:
         raise ValueError("; ".join(bounded_issues(issues)))
+    return _composed(inputs)
+
+
+def _composed(inputs: Inputs) -> Result:
+    """`compute` of inputs whose issues are already known to be none (one validation per step,
+    S06-cp2-ade-C06)."""
     sub = inputs.submission
     base = BaseOperands.from_cp1(inputs.cp1_facts, period=sub.base_period)
     bound = prose.bind(referencable(inputs.cp1_facts))
@@ -1552,7 +1578,8 @@ def offered_bases(cp1: Iterable[Fact], currency: str = "USD") -> tuple[OfferedBa
 
     A period is offered only if its label parses (`period_kind`, `_column`) and CP-1 holds exactly
     one T4.10 fact per operand and reported-ratio metric for it (`BaseOperands.from_cp1` raises
-    otherwise), and every known operand is in `currency` millions (Stage 2 round 5 item 1). Any other period is not offered, so the analyst cannot choose it and no core call
+    otherwise), and every known operand is in `currency` millions (Stage 2 round 5 item 1). Any
+    other period is not offered, so the analyst cannot choose it and no core call
     can raise on it (fail closed; CP-1 head integrity is not this module's to repair). One
     derivation feeds the view's `kind` and the core's `offered_periods` (round 5-6 L6)."""
     facts = tuple(f for f in cp1 if f.table_id == CP1_TABLE)
@@ -1566,7 +1593,11 @@ def offered_bases(cp1: Iterable[Fact], currency: str = "USD") -> tuple[OfferedBa
             continue
         chosen: list[Fact] = []
         for metric in metrics:
-            found = [f for f in facts if f.label == f"{column} · {metric}" and f.period == period]
+            found = [
+                f
+                for f in facts
+                if f.label == f"{column} · {metric}" and _in_period(f, period, metric)
+            ]
             if len(found) != 1:
                 break
             chosen.append(found[0])
@@ -1651,36 +1682,46 @@ def validate_downside(
     content issues in their order, then the pin lines (also after a base-period issue that
     `validate` returns alone); empty when it composes. The one issue set of the entry validator and
     the composer gate."""
+    return _checked(pack, submission, upstream)[1]
+
+
+def _checked(
+    pack: PreparedPack, submission: DownsideSubmission, upstream: Upstream
+) -> tuple[Inputs | None, tuple[str, ...]]:
+    """`validate_downside`'s issues and, when there are none, the core inputs they were found
+    over (in the run's currency), so a caller composes without validating again."""
     try:
         currency = _run_currency(pack, upstream.cp1)
     except PeriodRefused as error:
-        return (clipped(("Currency refused: ", str(error))),)
+        return None, (clipped(("Currency refused: ", str(error))),)
     except ContextRefused:
         # `_pin_lines` reports this context as the one `Context refused: ...` line after the
         # content issues (frozen: test_owner_cp2a_pins), and nothing is composed on an issue. The
         # content issues are read in the one currency CP-1's register states, so that the refused
         # context adds no spurious `base_period` line.
         currency = _stated_currency(upstream.cp1)
-    issues = [
-        *_stale_issues(upstream),
-        *validate(_inputs(pack, submission, upstream, currency)),
-        *_pin_lines(pack, submission),
-    ]
-    return tuple(dict.fromkeys(issues))
+    inputs = _inputs(pack, submission, upstream, currency)
+    issues = tuple(
+        dict.fromkeys([*_stale_issues(upstream), *validate(inputs), *_pin_lines(pack, submission)])
+    )
+    return (None if issues else inputs), issues
 
 
 def downside_report(
     *, pack: PreparedPack, submission: DownsideSubmission, upstream: Upstream
 ) -> DownsideReport:
     """The composed report of a valid submission; raises ValueError on any issue."""
-    issues = validate_downside(pack=pack, submission=submission, upstream=upstream)
-    if issues:
+    inputs, issues = _checked(pack, submission, upstream)
+    if inputs is None:
         raise ValueError("; ".join(bounded_issues(issues)))
-    # A refused context is a `Context refused: ...` issue, so `validate_downside` returned it and
-    # this function raised above; `pins_of` cannot raise `ContextRefused` here.
+    return _report(pack, submission, inputs)
+
+
+def _report(pack: PreparedPack, submission: DownsideSubmission, inputs: Inputs) -> DownsideReport:
+    """The report of inputs `_checked` accepted: they are in the run's currency, since a refused
+    context is a `Context refused: ...` issue, so `pins_of` cannot raise `ContextRefused`."""
     pinned = pins_of(MODULE_ID, pack) is not None
-    inputs = _inputs(pack, submission, upstream, _run_currency(pack, upstream.cp1))
-    result = compute(replace(inputs, pinned=pinned))
+    result = _composed(replace(inputs, pinned=pinned))
     return DownsideReport(
         run=pack.run,
         pack_sha256=pack.content_hash(),
@@ -1733,11 +1774,10 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     if submission is None:
         return StepValidation(issues=shape)
     upstream = cp2a_upstream(store, attempt)
-    issues = validate_downside(pack=pack, submission=submission, upstream=upstream)
-    if issues:
+    inputs, issues = _checked(pack, submission, upstream)
+    if inputs is None:
         return StepValidation(issues=issues)
-    report = downside_report(pack=pack, submission=submission, upstream=upstream)
-    return StepValidation(output=report.model_dump_json())
+    return StepValidation(output=_report(pack, submission, inputs).model_dump_json())
 
 
 ENTRY_VALIDATOR = _validate_step

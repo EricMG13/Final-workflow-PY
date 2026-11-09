@@ -348,6 +348,24 @@ ITEMS = {
 }
 
 
+# The expense and outflow rows the source prints as positive magnitudes (page 2 "Cost of sales
+# 15 ... 60" beside revenue 30 and gross profit 15; page 3 "Cash interest paid 1.25 ..." and
+# "Cash tax paid 1 ..."): each is `outflow_magnitude`, citing its own row. A positive `signed`
+# amount on an outflow account is refused (S12-A02); the rows printed in parentheses (capex,
+# dividends) stay `signed` negatives.
+PRINTED_MAGNITUDES = frozenset(
+    {
+        ("IS", "cogs"),
+        ("IS", "opex_including_da"),
+        ("IS", "depreciation_amortization"),
+        ("IS", "interest_expense_total"),
+        ("IS", "income_tax_total"),
+        ("CFS", "cash_interest_paid"),
+        ("CFS", "cash_taxes_paid"),
+    }
+)
+
+
 def observation(identifier, amount, citation):
     return {
         "observation_id": identifier,
@@ -357,21 +375,21 @@ def observation(identifier, amount, citation):
     }
 
 
-def financials(pack):
+def financials(pack):  # noqa: C901, PLR0912, PLR0915 - pre-existing (C901 17, 15 branches, 51 statements at base, unchanged)
     notes = cite(
         "financial",
         1,
-        "No acquisitions, disposals, net equity movements, equity issuance, equity repurchases, leases, operating lease costs, lease cash payments, lease payments in financing, interest paid in financing, or other investing/financing cash flows occurred in any quarter or FY2025. Each such flow is explicitly zero.",
+        "No acquisitions, disposals, net equity movements, equity issuance, equity repurchases, leases, operating lease costs, lease cash payments, lease payments in financing, interest paid in financing, or other investing/financing cash flows occurred in any quarter or FY2025. Each such flow is explicitly zero.",  # noqa: E501 - pre-existing long literal
     )
     definitions = cite(
         "financial",
         5,
-        "Reported EBITDA equals revenue less cost of sales less function-only operating expenses including depreciation plus depreciation and amortization. Each reported quarter and FY2025 use this definition. Adjusted EBITDA equals reported EBITDA because there are no adjustments.",
+        "Reported EBITDA equals revenue less cost of sales less function-only operating expenses including depreciation plus depreciation and amortization. Each reported quarter and FY2025 use this definition. Adjusted EBITDA equals reported EBITDA because there are no adjustments.",  # noqa: E501 - pre-existing long literal
     )
     terms = cite(
         "financial",
         5,
-        "The facility has floating rate type with SOFR reference rate, spread 0 basis points and floor 0 basis points. Fixed coupon is not applicable. Mandatory annual amortisation is 0; final maturity is December 31, 2029.",
+        "The facility has floating rate type with SOFR reference rate, spread 0 basis points and floor 0 basis points. Fixed coupon is not applicable. Mandatory annual amortisation is 0; final maturity is December 31, 2029.",  # noqa: E501 - pre-existing long literal
     )
     statement_lines = []
     for locator, table in MANIFEST["extraction_expectations"].items():
@@ -411,24 +429,10 @@ def financials(pack):
                             statement + "-" + slug + "-" + period, amount, line_cite
                         ),
                         "sign_convention": "outflow_magnitude"
-                        if statement == "IS"
-                        and item
-                        in (
-                            "opex_including_da",
-                            "depreciation_amortization",
-                            "interest_expense_total",
-                            "income_tax_total",
-                        )
+                        if (statement, item) in PRINTED_MAGNITUDES
                         else "signed",
                         "sign_citations": [line_cite]
-                        if statement == "IS"
-                        and item
-                        in (
-                            "opex_including_da",
-                            "depreciation_amortization",
-                            "interest_expense_total",
-                            "income_tax_total",
-                        )
+                        if (statement, item) in PRINTED_MAGNITUDES
                         else [],
                     }
                 )
@@ -467,7 +471,7 @@ def financials(pack):
         )
 
         def value(name, amount, citation=facility_cite):
-            return observation(name + "-" + pid, amount, citation)
+            return observation(name + "-" + pid, amount, citation)  # noqa: B023 - pre-existing; called only in its own iteration
 
         facilities.append(
             {
@@ -513,13 +517,13 @@ def financials(pack):
                         cite(
                             "financial",
                             5,
-                            "No leases, unsecured debt, revolving commitments or revolving drawings exist at any reporting date.",
+                            "No leases, unsecured debt, revolving commitments or revolving drawings exist at any reporting date.",  # noqa: E501 - pre-existing long literal
                         )
                         if metric == "unsecured_debt"
                         else cite(
                             "financial",
                             1,
-                            "There is no revolving credit facility: RCF commitment and RCF drawings are each zero at opening and every quarter/FY end.",
+                            "There is no revolving credit facility: RCF commitment and RCF drawings are each zero at opening and every quarter/FY end.",  # noqa: E501 - pre-existing long literal
                         ),
                     ),
                 }
@@ -578,14 +582,14 @@ def financials(pack):
                         cite(
                             "financial",
                             1,
-                            "One operating segment, Consolidated Operations, reports revenue of 30 in each quarter and 120 in FY2025; there are no corporate or elimination segments.",
+                            "One operating segment, Consolidated Operations, reports revenue of 30 in each quarter and 120 in FY2025; there are no corporate or elimination segments.",  # noqa: E501 - pre-existing long literal
                         ),
                     ),
                     "classification_citations": [
                         cite(
                             "financial",
                             1,
-                            "One operating segment, Consolidated Operations, reports revenue of 30 in each quarter and 120 in FY2025; there are no corporate or elimination segments.",
+                            "One operating segment, Consolidated Operations, reports revenue of 30 in each quarter and 120 in FY2025; there are no corporate or elimination segments.",  # noqa: E501 - pre-existing long literal
                         )
                     ],
                 }
@@ -600,7 +604,7 @@ def financials(pack):
                         cite(
                             "financial",
                             1,
-                            "There were no pro-forma adjustments, subsequent events, FX cash movements, or noncash debt changes through January 10, 2026.",
+                            "There were no pro-forma adjustments, subsequent events, FX cash movements, or noncash debt changes through January 10, 2026.",  # noqa: E501 - pre-existing long literal
                         )
                     ],
                 }
@@ -608,7 +612,7 @@ def financials(pack):
     disclosure_cite = cite(
         "financial",
         1,
-        "No EBITDA adjustments or add-backs occurred in any quarter or FY2025; this disclosure is complete.",
+        "No EBITDA adjustments or add-backs occurred in any quarter or FY2025; this disclosure is complete.",  # noqa: E501 - pre-existing long literal
     )
     identities = []
     statement_disclosures = []
@@ -626,7 +630,7 @@ def financials(pack):
                     "period_id": pid,
                     "disclosure": {
                         "status": "complete",
-                        "explanation": "All printed source lines retained; nonreported data remain explicitly unavailable",
+                        "explanation": "All printed source lines retained; nonreported data remain explicitly unavailable",  # noqa: E501 - pre-existing long literal
                         "citations": [cite("financial", page, caption)],
                     },
                 }
@@ -642,7 +646,7 @@ def financials(pack):
                     "cfs-depreciation-and-amortization",
                     "cfs-working-capital-cash-movement",
                 ),
-                "CFO equals net profit plus depreciation and amortization plus the signed working-capital cash movement.",
+                "CFO equals net profit plus depreciation and amortization plus the signed working-capital cash movement.",  # noqa: E501 - pre-existing long literal
             ),
             (
                 "ncf",
@@ -652,7 +656,7 @@ def financials(pack):
                     "cfs-net-cash-used-in-investing",
                     "cfs-net-cash-used-in-financing",
                 ),
-                "Net cash change equals operating cash flow plus net investing cash flow plus net financing cash flow.",
+                "Net cash change equals operating cash flow plus net investing cash flow plus net financing cash flow.",  # noqa: E501 - pre-existing long literal
             ),
         ):
             assert all(
@@ -681,7 +685,7 @@ def financials(pack):
                     "citations": [cite("financial", 5, source_quote)],
                 }
             )
-    equity_note = "The complete equity roll-forward in each quarter consists only of net profit 4 and dividends paid (2.25); FY2025 consists only of net profit 16 and dividends paid (9). Other comprehensive income and every other equity movement were zero throughout these periods: no capital contributions, share issuance, repurchases, revaluations, currency translation, perimeter changes, reserve transfers or other equity adjustments occurred."
+    equity_note = "The complete equity roll-forward in each quarter consists only of net profit 4 and dividends paid (2.25); FY2025 consists only of net profit 16 and dividends paid (9). Other comprehensive income and every other equity movement were zero throughout these periods: no capital contributions, share issuance, repurchases, revaluations, currency translation, perimeter changes, reserve transfers or other equity adjustments occurred."  # noqa: E501 - pre-existing long literal
     movements, movement_bridges = [], []
     for period in MANIFEST["periods"]:
         if period["period_type"] == "PERIOD_END":
@@ -713,7 +717,7 @@ def financials(pack):
                 "movement_ids": ["dividends"],
                 "disclosure": {
                     "status": "complete",
-                    "explanation": "Only sourced net income and signed dividends changed total equity; other movements explicitly zero",
+                    "explanation": "Only sourced net income and signed dividends changed total equity; other movements explicitly zero",  # noqa: E501 - pre-existing long literal
                     "citations": [cite("financial", 1, equity_note)],
                 },
             }
@@ -768,8 +772,8 @@ def financials(pack):
                 {
                     "assessment_id": "definition-" + item,
                     "metric": item,
-                    "canonical_definition": "Historical reported EBITDA bridge; no adjustment is present",
-                    "issuer_definition": "Revenue less operating expenses including depreciation plus depreciation and amortization; adjusted equals reported",
+                    "canonical_definition": "Historical reported EBITDA bridge; no adjustment is present",  # noqa: E501 - pre-existing long literal
+                    "issuer_definition": "Revenue less operating expenses including depreciation plus depreciation and amortization; adjusted equals reported",  # noqa: E501 - pre-existing long literal
                     "status": "aligned",
                     "observation_ids": [
                         line["value"]["observation_id"]
@@ -1549,3 +1553,61 @@ def test_transport_rejects_nonfinite_json_before_tool_invocation(tmp_path):
     )
     assert json.loads(writer.getvalue()) == {"status": "refused", "error_code": "bad_arguments"}
     assert not workflow._calls
+
+
+@pytest.mark.parametrize("step", ["write", "fsync", "link"])
+def test_financial_put_failing_midway_leaves_no_target_and_no_temp_file(
+    tmp_path, monkeypatch, step
+):
+    import os
+
+    from deploy_workflow import financial_workflow as fw
+
+    target = tmp_path / "missing-parent" / "audit" / "record"  # The put creates the parent.
+
+    def fail(*_args, **_kwargs):
+        raise OSError("disk failure")
+
+    if step == "write":
+        real_open = Path.open
+
+        class Dying:  # Writes half of the bytes, then the disk fails.
+            def __init__(self, stream):
+                self.stream = stream
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                self.stream.close()
+
+            def write(self, raw):
+                self.stream.write(raw[: len(raw) // 2])
+                self.stream.flush()
+                fail()
+
+        monkeypatch.setattr(Path, "open", lambda self, *a, **k: Dying(real_open(self, *a, **k)))
+    elif step == "fsync":
+        monkeypatch.setattr(os, "fsync", fail)
+    else:
+        monkeypatch.setattr(os, "link", fail)
+    with pytest.raises(OSError, match="disk failure"):
+        fw._put(target, b"payload")
+    monkeypatch.undo()
+    # Expected by hand: nothing is published and the hidden temp file is removed.
+    assert not target.exists()
+    assert list(target.parent.iterdir()) == []
+
+
+def test_financial_put_refuses_an_existing_target_as_before(tmp_path):
+    from deploy_workflow import financial_workflow as fw
+    from deploy_workflow.workflow import WorkflowError
+
+    target = tmp_path / "audit" / "record"
+    fw._put(target, b"abc")
+    fw._put(target, b"abc")  # Same bytes: accepted, nothing changes.
+    with pytest.raises(WorkflowError) as refused:
+        fw._put(target, b"xyz")  # Different bytes: refused, the original stays.
+    assert "identity_mismatch" in str(refused.value) or refused.value.args == ("identity_mismatch",)
+    assert target.read_bytes() == b"abc"
+    assert [p.name for p in target.parent.iterdir()] == ["record"]

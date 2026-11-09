@@ -37,8 +37,9 @@ balance, so it keeps CP-1's sign (a refinancing that cuts interest is a
 positive adjustment to cash interest); a negative zero reads as zero. A PF
 facility adjustment for
 a facility the LTM has no balance for adds to zero. The PF-LTM's debt
-roll-forward opens at the LTM's opening, keeps the LTM's debt raised and
-non-cash movements, and closes at the pro forma total debt, so it foots.
+roll-forward shows only its closing, the pro forma total debt; its opening,
+debt raised and non-cash lines are `NOT_APPLICABLE`, because the LTM's no
+longer foot to that closing (as the cash roll-forward shows only its closing).
 
 A debt balance that leaves something out (a facility in another currency,
 `debt.py`) passes its note to the balances read from it: net debt and the
@@ -109,7 +110,9 @@ _LINES = {
 }
 # The PF-LTM: what each pro forma metric adds to, and the keys with no
 # pro forma meaning (the waterfall from FFO to the net cash flow, its
-# residual, and both roll-forwards).
+# residual, and both roll-forwards; the debt roll-forward keeps only its
+# closing, the pro forma total debt, because the opening, raised and
+# non-cash lines of the LTM no longer foot to it).
 _PF_TARGETS = {
     "revenue": ("revenue",),
     "ebitda": ("ebitda", "adjusted_ebitda"),
@@ -129,7 +132,9 @@ _PF_BLANK = (
     "capex",
     "fcf",
     "acquisitions_net",
+    "debt_opening",
     "debt_raised_net",
+    "debt_non_cash",
     "equity_raised_net",
     "dividends",
     "other_investing_financing",
@@ -159,7 +164,8 @@ def _stated(host: Cell, account: Cell, compare: bool = True) -> Cell:
     """`host` with CP-1's figure as `stated`: the account's own on a reported
     column, else the figure CP-1 stated for the derived one (the account's
     value there is the host's sum); noted where it differs beyond its
-    rounding."""
+    rounding, after the host's own notes (`SIGN_NORMALISED`, `UNSPANNED`,
+    why a part is missing), which it keeps."""
     figure = account.value if account.basis == "REPORTED" else account.stated
     differs = (
         compare
@@ -167,16 +173,21 @@ def _stated(host: Cell, account: Cell, compare: bool = True) -> Cell:
         and host.value is not None
         and beyond_rounding(figure, host.value)
     )
-    return replace(host, stated=figure, note=DIFFERS if differs else None)
+    return replace(host, stated=figure, note=join_notes(host.note, DIFFERS if differs else None))
 
 
 def excluded_addbacks(regs: Cp1Registers, exclude_unrealised: bool) -> frozenset[str]:
-    """The add-backs left out of adjusted EBITDA, those with any row
+    """The add-backs left out of adjusted EBITDA, those with any CP-1 row
     unrealised or not stated (`UNREALISED`); none unless
-    `exclude_unrealised`."""
+    `exclude_unrealised`. A row the adapter wrote for a period CP-1 gave the
+    add-back no figure in has no source and states no realisation."""
     if not exclude_unrealised:
         return frozenset()
-    return frozenset(b.addback_id for b in regs.addbacks if b.realization_status in UNREALISED)
+    return frozenset(
+        b.addback_id
+        for b in regs.addbacks
+        if b.source is not None and b.realization_status in UNREALISED
+    )
 
 
 def is_deduction(cell: Cell) -> bool:

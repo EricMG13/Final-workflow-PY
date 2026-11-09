@@ -4,6 +4,7 @@ The FinancialReview remains the canonical, hash-bound source artifact. Kernel
 SourceRefs point to its observation IDs, never masquerade as original documents.
 """
 
+from datetime import date
 from decimal import Decimal
 
 from deploy_vii.contracts import Citation
@@ -17,6 +18,7 @@ from deploy_vii.financial_contracts import (
     Observation,
 )
 from deploy_vii.financial_validation import records, validate_financial_review
+from deploy_vii.model._cells import CONVERTED
 from deploy_vii.model.frame import SourceRef
 from deploy_vii.model.history import BALANCE_METRICS, OUTFLOW_METRICS
 from deploy_vii.model.registers import (
@@ -88,6 +90,19 @@ def _accounts(book: FinancialBook) -> tuple[AccountRow, ...]:
     return tuple(result)
 
 
+def facility_issued_after(
+    book: FinancialBook, facility_id: str, end_date: date | None
+) -> FacilityObservation | None:
+    """The facility's last dated row when it was issued after `end_date`, else None. A
+    period ending before issuance with no row of its own holds zero for the facility
+    (validation keeps one issuance date per facility)."""
+    dated = [r for r in book.facilities if r.facility_id == facility_id and r.issued_on]
+    if not dated or end_date is None:
+        return None
+    issued = dated[-1]
+    return issued if issued.issued_on and issued.issued_on > end_date else None
+
+
 def _facilities(book: FinancialBook) -> tuple[FacilityRow, ...]:
     normalized = {(n.facility_id, n.period_id, n.field): n for n in normalize_facilities(book)}
     supplied = {(row.facility_id, row.period_id): row for row in book.facilities}
@@ -110,15 +125,10 @@ def _facilities(book: FinancialBook) -> tuple[FacilityRow, ...]:
             if supplied_row and row.currency != book.currency:
                 value = normalized[facility_id, period.period_id, "carrying_value"]
                 carrying = value.amount
-                source = SourceRef(value.normalization_id, "facility-normalization", str(carrying))
+                source = SourceRef(value.normalization_id, CONVERTED, str(carrying))
             if (facility_id, period.end_date) in conflicted:
                 carrying = None
-            elif (
-                supplied_row is None
-                and row.issued_on
-                and period.end_date
-                and row.issued_on > period.end_date
-            ):
+            elif supplied_row is None and facility_issued_after(book, facility_id, period.end_date):
                 carrying = Decimal(0)
                 source = SourceRef(facility_id, f"facility-issuance:{book.book_id}", "0")
             result.append(
@@ -308,7 +318,7 @@ def source_citations(review: FinancialReview, refs: tuple[SourceRef, ...]) -> tu
     index = {value.observation_id: value for value in records(review, Observation)}
     normalizations = (
         {n.normalization_id: n for book in review.books for n in normalize_facilities(book)}
-        if any(ref.source_locator == "facility-normalization" for ref in refs)
+        if any(ref.source_locator == CONVERTED for ref in refs)
         else {}
     )
     citations: list[Citation] = []
@@ -328,7 +338,7 @@ def source_citations(review: FinancialReview, refs: tuple[SourceRef, ...]) -> tu
             if not matching:
                 raise ValueError(f"Unknown facility issuance provenance: {ref.source_id}")
             citations.extend(citation for row in matching for citation in row.issuance_citations)
-        elif ref.source_locator == "facility-normalization":
+        elif ref.source_locator == CONVERTED:
             citations.extend(normalizations[ref.source_id].citations)
         else:
             raise ValueError(f"Unknown kernel provenance: {ref.source_locator}")

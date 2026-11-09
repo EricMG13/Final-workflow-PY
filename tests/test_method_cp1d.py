@@ -33,6 +33,7 @@ from deploy_vii import quotes
 from deploy_vii.contracts import Citation, Source, Span
 from deploy_vii.readiness import citation_issues
 from deploy_workflow.owners import cp1d
+from deploy_workflow.owners.period_basis import DEFAULT_BASIS
 
 ROOT = Path(__file__).resolve().parents[1]
 CASE = ROOT / "cases" / "cp1d-owner"
@@ -593,6 +594,138 @@ UNUSABLE_PAGES = {
 }
 
 
+# S05-cp0-cp1-C01: every bridge amount is recorded as MILLIONS in the run's currency, so the
+# page:1 basis line must state exactly `; USD; amounts in millions` after the period (the frozen
+# positive page does). Any other currency or scale, a missing clause or a contradicting later
+# clause is not a bridge table: a EUR-thousands 3.00 must never become a USD 3.00 million fact.
+BASIS_CLAUSE = "; USD; amounts in millions;"
+WRONG_BASIS_PAGES = {
+    "EUR thousands": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; EUR; amounts in thousands;"),
+    "EUR millions": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; EUR; amounts in millions;"),
+    "USD thousands": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; USD; amounts in thousands;"),
+    "USD billions": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; USD; amounts in billions;"),
+    "no clause": POSITIVE_PAGE1.replace(BASIS_CLAUSE, ";"),
+    "no currency": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; amounts in millions;"),
+    "swapped": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; amounts in millions; USD;"),
+    "text after period": POSITIVE_PAGE1.replace(BASIS_CLAUSE, " restated" + BASIS_CLAUSE),
+    "second currency": POSITIVE_PAGE1.replace(BASIS_CLAUSE, BASIS_CLAUSE + " EUR;"),
+    "second scale": POSITIVE_PAGE1.replace(BASIS_CLAUSE, BASIS_CLAUSE + " amounts in thousands;"),
+    # Ruling CP-1D Basis case: only letter case is relaxed; spacing and punctuation stay exact.
+    "doubled space in the unit clause": POSITIVE_PAGE1.replace(
+        BASIS_CLAUSE, "; USD; amounts  in millions;"
+    ),
+    "no space in the unit clause": POSITIVE_PAGE1.replace(
+        BASIS_CLAUSE, "; USD; amountsin millions;"
+    ),
+    "comma for the semicolon": POSITIVE_PAGE1.replace(BASIS_CLAUSE, ", USD, amounts in millions;"),
+    "hyphenated unit clause": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; USD; amounts-in-millions;"),
+    "lowercase second currency": POSITIVE_PAGE1.replace(BASIS_CLAUSE, BASIS_CLAUSE + " eur;"),
+    "capitalised second scale": POSITIVE_PAGE1.replace(
+        BASIS_CLAUSE, BASIS_CLAUSE + " Amounts in Thousands;"
+    ),
+    "lowercase other currency": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; eur; amounts in millions;"),
+    "capitalised thousands": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; usd; Amounts in Thousands;"),
+    # Review of the ruling: a letter that only looks like I is not I in another case.
+    "dotted capital I": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; USD; AMOUNTS \u0130N MILLIONS;"),
+    "dotless i": POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; USD; amounts \u0131n millions;"),
+    "thousand millions": POSITIVE_PAGE1.replace(
+        BASIS_CLAUSE, "; USD; amounts in thousand millions;"
+    ),
+    "currency inside the unit clause": POSITIVE_PAGE1.replace(
+        BASIS_CLAUSE, "; USD; amounts in millions of EUR;"
+    ),
+    "second basis line": POSITIVE_PAGE1.replace(
+        HEADER,
+        "Basis: FY2025 (January 1-December 31, 2025); EUR; amounts in thousands.\n" + HEADER,
+    ),
+}
+
+
+@pytest.mark.parametrize("variant", WRONG_BASIS_PAGES)
+def test_bridge_basis_must_state_the_run_currency_in_millions(variant: str) -> None:
+    page1 = WRONG_BASIS_PAGES[variant]
+    assert page1 != POSITIVE_PAGE1
+    assert cp1d.parse_bridge([page1]) is None
+    assert cp1d.parse_bridge([page1], DEFAULT_BASIS.bridge_basis_line, "USD") is None
+    inputs = _bridge_inputs(page1, SUBMISSIONS["positive"]["earnings_quality"])
+    assert cp1d.validation_issues(inputs) == ("Bridge table not found",)
+    with pytest.raises(ValueError, match="Bridge table not found"):
+        cp1d.compute(inputs)
+
+
+@pytest.mark.parametrize(
+    "clause",
+    [
+        " ; USD; amounts in millions;",  # blanks round a semicolon are not text
+        "; USD ;  amounts in millions ;",
+        ";USD;amounts in millions;",
+    ],
+)
+def test_bridge_basis_clause_spacing_and_ending_still_parse(clause: str) -> None:
+    page1 = POSITIVE_PAGE1.replace(BASIS_CLAUSE, clause)
+    assert page1 != POSITIVE_PAGE1
+    bridge = cp1d.parse_bridge([page1])
+    assert bridge is not None
+    assert [i.amount for i in bridge.items][:3] == [
+        Decimal("3.00"),
+        Decimal("1.20"),
+        Decimal("0.80"),
+    ]
+
+
+@pytest.mark.parametrize(
+    "clause",
+    [
+        "; usd; amounts in millions;",
+        "; USD; Amounts in millions;",
+        "; Usd; AMOUNTS IN MILLIONS;",
+    ],
+)
+def test_bridge_basis_clause_matches_without_regard_to_case(clause: str) -> None:
+    """Ruling CP-1D Basis case: "USD; amounts in millions" in any letter case reads as before.
+
+    Expected: the frozen page's items 3.00, 1.20, 0.80 (page:1), unchanged by the casing."""
+    page1 = POSITIVE_PAGE1.replace(BASIS_CLAUSE, clause)
+    assert page1 != POSITIVE_PAGE1
+    bridge = cp1d.parse_bridge([page1])
+    assert bridge is not None
+    assert [i.amount for i in bridge.items][:3] == [
+        Decimal("3.00"),
+        Decimal("1.20"),
+        Decimal("0.80"),
+    ]
+
+
+def test_bridge_basis_case_relaxes_the_runs_currency_only() -> None:
+    """Review of the ruling: the clause's case is relaxed for the run's own currency, never across
+    currencies: "usd" reads under USD and not under EUR, "eur" under EUR and not under USD, with
+    the frozen amounts 3.00, 1.20, 0.80 (page:1)."""
+    line = DEFAULT_BASIS.bridge_basis_line
+    usd = POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; usd; amounts in millions;")
+    eur = POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; eur; Amounts In Millions;")
+    assert cp1d.parse_bridge([usd], line, "EUR") is None
+    assert cp1d.parse_bridge([eur], line, "USD") is None
+    want = [Decimal("3.00"), Decimal("1.20"), Decimal("0.80")]
+    for page, currency in ((usd, "USD"), (eur, "EUR")):
+        bridge = cp1d.parse_bridge([page], line, currency)
+        assert bridge is not None and [i.amount for i in bridge.items][:3] == want
+
+
+def test_bridge_basis_currency_is_the_runs() -> None:
+    """The frozen USD page reads under USD only; the same page relabelled EUR reads under EUR
+    only, with the same stated amounts (3.00, 1.20, 0.80 on page:1)."""
+    eur_page = POSITIVE_PAGE1.replace(BASIS_CLAUSE, "; EUR; amounts in millions;")
+    line = DEFAULT_BASIS.bridge_basis_line
+    assert cp1d.parse_bridge([POSITIVE_PAGE1], line, "EUR") is None
+    assert cp1d.parse_bridge([eur_page], line, "USD") is None
+    usd = cp1d.parse_bridge([POSITIVE_PAGE1], line, "USD")
+    eur = cp1d.parse_bridge([eur_page], line, "EUR")
+    assert usd is not None and eur is not None
+    want = [Decimal("3.00"), Decimal("1.20"), Decimal("0.80")]
+    assert [i.amount for i in usd.items][:3] == want
+    assert [i.amount for i in eur.items][:3] == want
+
+
 @pytest.mark.parametrize("ruling", UNUSABLE_PAGES)
 def test_unusable_bridge_table_is_not_found(ruling: str) -> None:
     page1 = UNUSABLE_PAGES[ruling]
@@ -618,6 +751,8 @@ LONG_DECIMAL = "0." + "0" * 250 + "1"
 EXACTNESS = "Accepted basis amount cannot be held exactly as a product amount: "
 BOUNDS = "Accepted basis must be above 0 and below the proposed amount: "
 EXACTLY_ONE = "Accepted basis quote must contain exactly one amount: "
+# S05-cp0-cp1-A01: the one figure is not a bridge-currency million amount.
+NOT_MONEY = "Accepted basis quote must state the amount in the bridge's currency and millions: "
 
 
 @pytest.mark.parametrize(
@@ -802,8 +937,10 @@ def test_signed_basis_figure_meets_the_bounds_rule(figure: str) -> None:
 @pytest.mark.parametrize(
     ("line", "issues"),
     [
-        ("From 1-December, signed contracts cover the saving.", ()),
-        ("Supplier contract S-1.80 covers the annualised saving.", ()),
+        # S05-cp0-cp1-A01: both read unsigned (1 and 1.80), but a day of a date and a contract
+        # identifier are no USD-million amount, so the unit rule refuses them after step 6.
+        ("From 1-December, signed contracts cover the saving.", (f"{NOT_MONEY}{A01_LABEL}",)),
+        ("Supplier contract S-1.80 covers the annualised saving.", (f"{NOT_MONEY}{A01_LABEL}",)),
         (A01_LINE.format("+1.80"), ()),
         (A01_LINE.format("(1.80 million)"), ()),
         ("Savings were signed over 2024-2025.", (f"{EXACTLY_ONE}{A01_LABEL}",)),
@@ -813,7 +950,11 @@ def test_signed_basis_figure_meets_the_bounds_rule(figure: str) -> None:
 def test_hyphen_after_a_letter_or_digit_is_not_a_sign(line: str, issues: tuple[str, ...]) -> None:
     """Non-sign forms read unsigned: a single amount below the proposed 3.00 composes, and a
     range still holds two amounts (step 5)."""
-    assert cp1d.validation_issues(_a01_on_page1(line)) == issues
+    inputs = _a01_on_page1(line)
+    assert cp1d.validation_issues(inputs) == issues
+    accepted = inputs.submission.assessments[0].accepted_basis
+    assert accepted is not None
+    assert not any(a.startswith("-") for a in cp1d._basis_amounts(accepted, inputs.sources))
 
 
 @pytest.mark.parametrize(
@@ -1285,6 +1426,145 @@ def test_basis_quote_with_a_letter_after_the_figure_reads_it(line: str, amount: 
     assert cp1d._basis_amounts(accepted, inputs.sources) == [amount]
 
 
+# S05-cp0-cp1-A01: the one basis figure becomes T1D.2.a01.basis in USD MILLIONS (the positive
+# run's bridge currency and unit), so it must read as a USD-million amount. Each line below
+# holds one whole figure between 0 and the proposed 3.00 (so steps 5 and 6 pass) but measures
+# something else: a percentage, a count, basis points, a multiple, another scale or currency.
+NOT_MONEY_LINES = [
+    "Signed supplier contracts cover 2% of supplier spend.",
+    "Signed supplier contracts cover 2 percent of supplier spend.",
+    "Signed supplier contracts cover 2 of the ten supplier categories.",
+    "Signed supplier contracts cover 2 supplier categories.",
+    "Signed contracts improve margin by 1bps.",
+    "Signed contracts improve margin by 1 bp.",
+    "Signed contracts cover 2.5x the saving.",
+    "Signed supplier contracts cover EUR 1.50m of the saving.",
+    "Signed supplier contracts cover \u20ac1.50m of the saving.",
+    "Signed supplier contracts cover C$1.50m of the saving.",
+    "Signed supplier contracts cover 1.50 EUR of the saving.",
+    "Signed supplier contracts cover eur 1.50m of the saving.",
+    "Signed supplier contracts cover euro 1.50m of the saving.",
+    "Signed supplier contracts cover 1.50m euros of the saving.",
+    "Signed supplier contracts cover 1.50 million dollars of the saving.",
+    "Signed supplier contracts cover 1.50m EUR of the saving.",
+    "Signed supplier contracts cover 1.5k of the saving.",
+    "Signed supplier contracts cover 1.5 thousand of the saving.",
+    "Signed supplier contracts cover 1.5bn of the saving.",
+    "Signed supplier contracts cover 1.5 months of the saving.",
+    # Review of the fix: a percentage said in words, and another currency in brackets,
+    # after a colon or across a line wrap or a no-break space.
+    "Signed supplier contracts cover 1.5 per cent of the saving.",
+    "Signed supplier contracts cover 1.5 pct of the saving.",
+    "Signed supplier contracts cover 1.5 percentage points of margin.",
+    "Signed supplier contracts cover 2 are signed.",
+    "Signed supplier contracts cover (EUR 1.50m) of the saving.",
+    "Signed supplier contracts cover EUR: 1.50m of the saving.",
+    "Signed supplier contracts cover EUR\u00a01.50m of the saving.",
+    "Signed supplier contracts cover EUR\n1.50m of the saving.",
+    "Signed supplier contracts cover (\u20ac1.50m) of the saving.",
+    "Signed supplier contracts cover 1.5 thousand USD of the saving.",
+    "Signed supplier contracts cover 1.5 billion of the saving.",
+]
+
+
+@pytest.mark.parametrize("line", NOT_MONEY_LINES)
+def test_basis_figure_in_another_unit_or_currency_is_refused(line: str) -> None:
+    inputs = _a01_on_page1(line)
+    assert cp1d.validation_issues(inputs) == (f"{NOT_MONEY}{A01_LABEL}",)
+    with pytest.raises(ValueError, match="bridge's currency and millions"):
+        cp1d.compute(inputs)
+
+
+@pytest.mark.parametrize(
+    ("line", "amount"),
+    [
+        # A bare figure reads in the bridge's unit (the frozen quote is of this form).
+        ("Signed supplier contracts cover an annualised saving of 1.80.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80, in full.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80m.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80 million.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80 mn.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80M.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of USD 1.80m.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of US$1.80m.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of $1.80 million.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80m USD.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of usd 1.80m.", "1.80"),
+        ("Signed supplier contracts cover an annualised saving of 1.80m, net of costs.", "1.80"),
+        ("Signed supplier contracts cover 1.80 in annualised savings.", "1.80"),
+        # Review of the fix: punctuation round a USD mark, a no-break space, a line wrap.
+        ("Signed supplier contracts cover ($1.80m) of the saving.", "1.80"),
+        ("Signed supplier contracts cover (USD 1.80m) of the saving.", "1.80"),
+        ("Signed supplier contracts cover USD:\u00a01.80m of the saving.", "1.80"),
+        ("Signed supplier contracts cover USD\n1.80 million.", "1.80"),
+        ("Signed supplier contracts cover 1.80\u00a0m of the saving.", "1.80"),
+        ("Signed supplier contracts cover 1.80 mn USD.", "1.80"),
+        ("Signed supplier contracts cover 1.80 MM.", "1.80"),
+    ],
+)
+def test_basis_figure_in_the_bridge_money_unit_composes(line: str, amount: str) -> None:
+    """The twins: USD, millions or no unit at all. Expected values by hand: basis = the quoted
+    figure 1.80 (USD m) against the claimed 3.00, so the applied fraction is 1.80 / 3.00 = 0.6."""
+    inputs = _a01_on_page1(line)
+    assert cp1d.validation_issues(inputs) == ()
+    facts = {f.fact_id: f for f in cp1d.compute(inputs).facts}
+    basis = facts["T1D.2.a01.basis"]
+    assert (basis.amount, basis.unit, basis.currency) == (Decimal(amount), "MILLIONS", "USD")
+    assert facts["T1D.2.a01.applied_fraction"].amount == Decimal("0.6")
+
+
+def test_basis_quote_cut_before_its_unit_is_refused() -> None:
+    """The page shows what the figure measures even when the quote stops at it: a04 (Recurring,
+    so its basis is kept as evidence) quotes `cover 2` from `cover 2 of the ten categories`."""
+    inputs = _defect_inputs("Contracts cover 2 of the ten categories.", "Contracts cover 2")
+    assert f"{NOT_MONEY}{DEFECT_LABEL}" in cp1d.validation_issues(inputs)
+    whole = _defect_inputs("Contracts cover 2.", "Contracts cover 2")
+    assert f"{NOT_MONEY}{DEFECT_LABEL}" not in cp1d.validation_issues(whole)
+
+
+def test_basis_bounds_come_before_the_unit_rule() -> None:
+    """Steps 1 to 6 keep their frozen order: 25bps is above the proposed 3.00, so the bounds
+    text is returned alone; 2.5bps passes the bounds and gets the unit text."""
+    assert cp1d.validation_issues(_a01_on_page1("a saving of 25bps.")) == (f"{BOUNDS}{A01_LABEL}",)
+    assert cp1d.validation_issues(_a01_on_page1("a saving of 2.5bps.")) == (
+        f"{NOT_MONEY}{A01_LABEL}",
+    )
+
+
+@pytest.mark.parametrize(
+    ("head", "tail", "currency", "money"),
+    [
+        ("a saving of ", ".", "EUR", True),
+        ("a saving of EUR ", "m.", "EUR", True),
+        ("a saving of \u20ac", "m.", "EUR", True),
+        ("a saving of ", " EUR.", "EUR", True),
+        ("a saving of USD ", "m.", "EUR", False),
+        ("a saving of $", "m.", "EUR", False),
+        ("a saving of ", "m USD.", "EUR", False),
+        ("a saving of ", "%.", "EUR", False),
+        ("a saving of GBP ", "m.", "USD", False),
+        ("a saving of \u00a3", "m.", "USD", False),
+        ("a saving of eur ", "m.", "EUR", True),
+        ("a saving of euro ", "m.", "USD", False),
+        ("a saving of ", "m euros.", "USD", False),
+        ("a saving of ", " each quarter.", "USD", True),
+        ("a saving of ", " eachness.", "USD", False),
+        ("a saving of ", "-Q are signed.", "USD", False),
+        ("a saving of (EUR ", "m) of it.", "USD", False),
+        ("a saving of EUR: ", "m.", "USD", False),
+        ("a saving of ($", "m).", "USD", True),
+        ("a saving of U.S.$", "m.", "USD", True),
+        ("a saving of ", " per cent.", "USD", False),
+        ("", " are signed.", "USD", False),
+        ("", ".", "USD", True),
+    ],
+)
+def test_money_figure_follows_the_run_currency(
+    head: str, tail: str, currency: str, money: bool
+) -> None:
+    assert (cp1d._money_head(head, currency) and cp1d._money_tail(tail, currency)) is money
+
+
 @pytest.mark.parametrize("line", HIDDEN_RUN_LINES)
 def test_basis_quote_with_a_hidden_run_is_refused(line: str) -> None:
     """Round 13 addendum 4 (fail closed): a numeral run is a maximal run of digits joined by
@@ -1578,3 +1858,26 @@ def test_partly_supported_recipe_text_states_the_comma_space_grammar() -> None:
         "exactly one numeral run",
     ):
         assert needle in recipe, needle
+
+
+@pytest.mark.parametrize(
+    ("tail", "reads"),
+    [
+        # Hand-derived: a later clause refuses the line only if it is an ISO 4217 code (any case).
+        (" net;", True),  # "net" is not a code
+        (" Net;", True),
+        (" usd;", False),  # USD, folded
+        (" EUR;", False),
+        (" eur;", False),
+        (" xyz;", True),  # three letters, not an ISO code
+        (" NET;", True),
+        # Second review: a clause that is an English word and an ISO code is a code (ALL is the
+        # lek, TOP the pa'anga), so the line is refused (fail closed, as ruled).
+        (" all;", False),
+        (" top;", False),
+        (" amounts in thousands;", False),  # a second scale clause still refuses
+    ],
+)
+def test_bridge_basis_second_currency_guard_reads_iso_codes_only(tail: str, reads: bool) -> None:
+    page1 = POSITIVE_PAGE1.replace(BASIS_CLAUSE, BASIS_CLAUSE + tail)
+    assert (cp1d.parse_bridge([page1]) is not None) is reads

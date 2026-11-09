@@ -228,7 +228,21 @@ def test_r5b_cp1b_through_the_context_with_the_oracle_pair() -> None:
         for f in base.facts
         if f.row_id == "period.q3-2026"
     )
-    producer = base.model_copy(update={"facts": (*base.facts, *extra)})
+    # The register carries the prior's T4.10 KPI column, as the oracle's re-cut assumes: q3's
+    # cells under the q2-2026 basis and period text (else the core refuses incomplete_register).
+    q3_basis, q2_basis = own._basis_of("q3-2026", "QUARTER"), own._basis_of("q2-2026", "QUARTER")
+    kpis = tuple(
+        f.model_copy(
+            update={
+                "fact_id": f.fact_id.replace("q3-2026", "q2-2026"),
+                "field": q2_basis,
+                "period": "Q2 26: 2026-04-01 to 2026-06-30",
+            }
+        )
+        for f in base.facts
+        if f.table_id == "T4.10" and f.field == q3_basis
+    )
+    producer = base.model_copy(update={"facts": (*base.facts, *extra, *kpis)})
     pack = _pack("USD", current="q3-2026", prior="q2-2026")
     body = json.loads(cp1b.view(own._Store(producer, "", pack), own._attempt(producer))[1])
     step = StepSubmission(step_id="earnings_delta", inputs=(), payload_sha256="b" * 64)

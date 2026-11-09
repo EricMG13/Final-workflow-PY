@@ -40,6 +40,7 @@ from pathlib import Path
 from typing import Literal
 
 from deploy_workflow.model.pricing import money_text, price_of, refusal_values
+from deploy_workflow.platform_io import fsync_directory
 
 __all__ = [
     "Budget",
@@ -280,11 +281,7 @@ def _write_once(path: Path, payload: dict[str, object]) -> None:
 
 
 def _fsync_dir(path: Path) -> None:
-    fd = os.open(path, os.O_RDONLY)
-    try:
-        os.fsync(fd)
-    finally:
-        os.close(fd)
+    fsync_directory(path)  # a no-op on Windows, which cannot open a directory
 
 
 def _make_dirs(target: Path) -> None:

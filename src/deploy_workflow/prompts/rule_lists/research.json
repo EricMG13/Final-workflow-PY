@@ -83,7 +83,7 @@
   },
   {
    "id": "research.12",
-   "statement": "A `figures` entry names a `peer_id`, an `operand`, a `unit`, a `currency` and a `period_end`, and cites a quote that states the amount: you type no amount, and no field of inclusion, comparability, normalisation or statistic. The `operand` is one of revenue, ebitda, debt, interest and ffo, and every `peer_id` of an observation or a figure is the `peer_id` of a candidate. A figure whose `period_end` is after the cutoff of `read_inputs`, or whose quote gives no readable amount, is recorded as missing, not accepted.",
+   "statement": "A `figures` entry names a `peer_id`, an `operand`, a `unit`, a `currency` and a `period_end`, and cites a quote that states the amount: you type no amount, and no field of inclusion, comparability, normalisation or statistic. The `operand` is one of revenue, ebitda, debt, interest and ffo, and every `peer_id` of an observation or a figure is the `peer_id` of a candidate. A figure whose `period_end` is after the cutoff of `read_inputs`, or whose quote gives no readable amount, is recorded as missing, not accepted. The quote is the whole figure as the span prints it, with its minus sign; a part of a larger number, of a date or of a signed figure, a percentage, a count of time and the year of the period are refused as an amount. The `unit`, the `currency` (a three-letter ISO 4217 code) and the `period_end` are the one scale, currency and date the cited span states or, where the span states none, a `Basis:` line of the same item states, and a figure other than debt is stated there for twelve months and no other period length.",
    "checks": [
     "fn:deploy_workflow.research.peers:peer_issues",
     "fn:deploy_workflow.owners.cpdr:_parse"

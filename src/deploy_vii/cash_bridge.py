@@ -1,11 +1,10 @@
 """Validate explicitly sourced cash movement adjustments, without inferring FX."""
 
-from datetime import timedelta
-
 from deploy_vii.financial_contracts import (
     CashMovementBridge,
     FinancialBook,
     FinancialPeriod,
+    opening_day,
     statement_dimensions,
 )
 
@@ -88,8 +87,8 @@ def _scope_issues(
     if period is None or period.end_date is None:
         return issues
     days = [period.end_date]
-    if period.start_date is not None and period.start_date.toordinal() > 1:
-        days.append(period.start_date - timedelta(days=1))
+    if (opening := opening_day(period.start_date)) is not None:
+        days.append(opening)
     for day in days:
         ids = {p.period_id for p in book.periods if p.end_date == day}
         for item in scope.items:

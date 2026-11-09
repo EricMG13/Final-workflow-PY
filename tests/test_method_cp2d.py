@@ -237,8 +237,11 @@ def test_derived_values_equal_oracle(case: str) -> None:
 
 @pytest.mark.parametrize("case", list(CASES))
 def test_own_limitations_equal_oracle(case: str) -> None:
+    """The bridge's own limitations; the module's list adds the analyst's stated limitations
+    (`analyst_limitations`, S06-C02), which only a submission carries."""
     got = cp2d.own_limitations(operands=_operands(case), bridge=_bridge(case))
-    assert list(got) == CASES[case]["own_limitations"]
+    analyst = CASES[case].get("analyst_limitations", [])
+    assert list(got) == [t for t in CASES[case]["own_limitations"] if t not in analyst]
 
 
 def test_compose_bridge_refuses_horizon_outside_bound() -> None:
@@ -500,6 +503,66 @@ def test_cp1_cross_check_mismatch_settles_with_a_limitation() -> None:
     want = "CP-1 reports no undrawn_rcf; the value recomputed from its line items is used."
     assert result.own_limitations[-1] == want
     assert _cells(result)["T2E.2.r05"].amount == Decimal(0)
+
+
+@pytest.mark.parametrize(
+    ("amount", "spelled"),
+    [
+        ("1e300", None),
+        ("1E+40", None),
+        ("1E+18", None),
+        ("1E-999999999", None),  # the display spelling raised on it too
+        ("0." + "1" * 11, None),  # 11 places
+        ("1" * 29, None),  # 29 digits (and above 1e18)
+        ("1." + "1" * 130, None),  # a 131-digit amount passed the 1e18 bound and still raised
+        ("0.0000000001", "0 "),  # 10 places: half-up at 0 dp
+        ("999999999999999999.99", "1,000,000,000,000,000,000 "),
+    ],
+)
+def test_a_minimum_cash_outside_the_cp1_amount_bound_is_refused(
+    amount: str, spelled: str | None
+) -> None:
+    """S06-A05: 1e300 passed every check and then raised in the display spelling, so submit
+    raised and every resume raised again. The bound is a CP-1 amount's (financial_contracts.Number:
+    below 1e18, 28 digits, 10 places): 1E+18 itself is refused, and so are 1E-999999999 and a
+    131-digit amount, which raised the same way. The two inside it compose, and T2E.6 spells them
+    at 0 dp half-up as 0 and 1,000,000,000,000,000,000."""
+    payload = json.loads(json.dumps(SUBMISSIONS["cp2d"]["positive"]))
+    payload["minimum_cash"]["amount"] = amount
+    inputs = replace(_inputs("positive"), submission=_submission(payload))
+    issues = cp2d.submission_issues(
+        submission=inputs.submission, offered_refs=OFFERED, maturity_date_refs=MATURITY_REFS
+    )
+    if spelled is None:
+        assert issues == (cp2d.MINIMUM_RANGE_ISSUE,)
+        with pytest.raises(ValueError, match="must be a CP-1 amount"):
+            cp2d.compute(inputs)
+        return
+    assert issues == ()
+    rows = dict(cp2d.compute(inputs).judgments.rows)
+    assert rows["Minimum cash"].startswith(spelled)
+
+
+def test_the_analysts_words_and_limitation_reach_the_module() -> None:
+    """S06-C02: T2E.6 kept only each section's category, so the analyst's text, credit
+    implication, limitation and the minimum-cash absence reason were lost. Hand-derived from
+    submissions.json#cp2d.gap_minimum_cash: rows 6-7 are the absence reason and follow-up, then
+    each section's text and credit implication, and the funding_gap limitation as its own row;
+    the limitation also ends own_limitations and T2E.7 as ("Funding gap assessment", "Gap")."""
+    sub = SUBMISSIONS["cp2d"]["gap_minimum_cash"]
+    result = cp2d.compute(_inputs("gap_minimum_cash"))
+    rows = dict(result.judgments.rows)
+    absence = sub["minimum_cash_absence"]
+    assert rows["Minimum cash not assessed: reason"] == absence["reason"]
+    assert rows["Minimum cash not assessed: follow-up"] == absence["follow_up"]
+    by = {a["section"]: a for a in sub["assessments"]}
+    assert rows["Maturity wall assessment"] == by["maturity_wall"]["text"]
+    assert rows["Funding gap credit implication"] == by["funding_gap"]["credit_implication"]
+    limitation = by["funding_gap"]["limitation"]
+    assert rows["Funding gap limitation"] == limitation
+    assert result.own_limitations[-1] == "Funding gap: " + limitation
+    assert result.gaps_ledger.rows[-1] == ("Funding gap assessment", "Gap")
+    assert "Liquidity runway limitation" not in rows  # a null limitation adds no row
 
 
 # --- calculation-level refusals ---------------------------------------------------------------
@@ -1081,7 +1144,10 @@ def _no_raise_cases() -> list[tuple[str, cp2d.Cp2dInputs]]:
     inputs = _inputs("positive")
     o = inputs.operands
     cases: list[tuple[str, cp2d.Cp2dInputs]] = []
-    for amount in ("1E+30", "123456789012345678901234567890"):
+    # S06-A05 holds minimum cash to a CP-1 amount (below 1e18, 28 digits, 10 places), so the
+    # largest values kept here sit inside it; 1E+30 is now refused (see the test above).
+    # The second has 27 significant digits, close to the default 28-digit context's limit.
+    for amount in ("9.99E+17", "12345678901234567.8901234567"):
         payload = json.loads(json.dumps(SUBMISSIONS["cp2d"]["positive"]))
         payload["minimum_cash"]["amount"] = amount
         cases.append((f"minimum cash {amount}", replace(inputs, submission=_submission(payload))))

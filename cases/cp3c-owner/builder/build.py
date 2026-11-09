@@ -9,6 +9,12 @@ The CP-1 head facts the product reads at run time are bound at run time by the p
 Run: python3 -I cases/cp3c-owner/builder/build.py   (from the repository root)
 """
 
+# Pin-only generator script, untyped throughout and written before tools/quality_gate.py; the
+# S08-cp3-C08 ruling edits cover_x inside compose, so the gate's function-scope rule would
+# otherwise report compose's pre-existing missing annotations and docstring line length.
+# ruff: noqa: E501
+# mypy: ignore-errors
+
 import hashlib
 import json
 import re
@@ -273,7 +279,7 @@ def ratio(a, b):
     return r4(a / b)
 
 
-def compose(fac, *, cash, undrawn, f_annual, min_cash, ebitda, interest, step_up):
+def compose(fac, *, cash, undrawn, f_annual, min_cash, ebitda, interest, step_up):  # noqa: PLR0913 - pre-existing signature (8 Method operands at base)
     """Pure oracle composer. None = missing. fac: dicts with id, name, principal, maturity, months, inside,
     amort (None = missing), secured, seniority."""
     fs = sorted(fac, key=lambda f: (f["months"], f["id"]))
@@ -329,7 +335,11 @@ def compose(fac, *, cash, undrawn, f_annual, min_cash, ebitda, interest, step_up
     def cover_x(e, i):
         if e is None or i is None:
             return None
-        return NM if i <= 0 else r4(e / i)
+        if i <= 0:
+            return NM
+        # ruling S08-cp3-C08: over a zero or negative EBITDA a cover is not_applicable, as the
+        # leverage-type ratios are (the interest test stays first, as before the ruling)
+        return NM if e <= 0 else r4(e / i)
 
     ranks = {r["id"]: rank_of(r) for r in rows}
     known_ranks = all(v is not None for v in ranks.values())
@@ -467,7 +477,10 @@ FIXT = {  # composer-level fixtures (no pack run); inputs are pure-function vect
         "horizon": 24,
     },
     "fixture_zero_ebitda": {
-        "note": "adjusted EBITDA 0 (a known zero): leverage-type ratios are not_applicable, interest cover is a known 0",
+        "note": (
+            "adjusted EBITDA 0 (a known zero): leverage-type ratios, interest cover and pro forma"
+            " interest cover are not_applicable (ruling S08-cp3-C08)"
+        ),
         "fac": [tl()],
         "kw": dict(BASE_IN, ebitda=D(0), min_cash=D(10), step_up=STEP_UP),
         "horizon": 24,
@@ -2502,7 +2515,11 @@ expected = {
         "revolver_availability": "the undrawn committed revolver at the balance date is counted at every maturity date, including a date after the revolver's own maturity (not read); an own limitation",
         "run_rate_beyond_horizon": "the CP-2D annual flow is held flat to each maturity date, including dates after the CP-2D horizon (own limitation)",
         "added_annual_cash_interest": "total principal payable at maturity x margin step-up (bp) / 10000; 0 bp is a known 0, an unassessed step-up is missing",
-        "interest_cover": "adjusted EBITDA / cash interest paid; pro forma: / (cash interest paid + added annual cash interest); a zero interest is not_applicable, a zero EBITDA gives a known 0",
+        "interest_cover": (
+            "adjusted EBITDA / cash interest paid; pro forma: / (cash interest paid + added annual"
+            " cash interest); a zero interest is not_applicable, and so is a zero or negative"
+            " EBITDA (ruling S08-cp3-C08)"
+        ),
         "leverage_type_ratios": "amount / adjusted EBITDA; a non-positive EBITDA is not_applicable (shown n.m.), a missing operand is missing",
         "ranking": "(secured_status: SECURED 0, UNSECURED 1; seniority: SUPER_SENIOR 0, SENIOR 1, SENIOR_SUBORDINATED 2, SUBORDINATED 3, JUNIOR 4) compared lexicographically; claims at or ahead = principal of facilities with rank <= the facility's rank; any NOT_STATED flag makes every claims cell missing",
         "lme_capacity": "CP-4 is not read: the LME and Stress columns of T3D.5 are gaps in every case; the Base column is the largest claims at or ahead",

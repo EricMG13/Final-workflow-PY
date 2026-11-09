@@ -469,20 +469,24 @@ def test_absence_claim_submit_is_fast_end_to_end(tmp_path: Path) -> None:
 
 
 def _pairwise_shape(error: ValidationError) -> tuple[str, ...]:
-    """The pairwise rule: a container min-length error is dropped when another error sits
-    inside that container."""
-    errors = error.errors(include_url=False, include_input=False, include_context=False)
+    """The pairwise rule: a container min-length error is dropped when errors sit inside that
+    container and its valid items (ctx actual_length) plus their distinct item indexes reach
+    ctx min_length; a container shorter than that is reported (S15 C02)."""
+    errors = error.errors(include_url=False, include_input=False, include_context=True)
 
     def echoes(item: Any) -> bool:
-        return (
-            item["type"] == "too_short"
-            and item["msg"].startswith(("Tuple should have at least", "List should have at least"))
-            and any(
-                len(other["loc"]) > len(item["loc"])
-                and other["loc"][: len(item["loc"])] == item["loc"]
-                for other in errors
-            )
-        )
+        if item["type"] != "too_short" or not item["msg"].startswith(
+            ("Tuple should have at least", "List should have at least")
+        ):
+            return False
+        depth = len(item["loc"])
+        failed = {
+            other["loc"][depth]
+            for other in errors
+            if len(other["loc"]) > depth and other["loc"][:depth] == item["loc"]
+        }
+        ctx = item.get("ctx") or {}
+        return bool(failed) and ctx["actual_length"] + len(failed) >= ctx["min_length"]
 
     return tuple(
         f"{'.'.join(str(part) for part in item['loc']) or '(root)'}: {item['msg']}"
@@ -564,8 +568,16 @@ def test_shape_issues_equals_the_pairwise_reference() -> None:
     two = TypeAdapter(Annotated[tuple[int, ...], Field(min_length=2)])
     with pytest.raises(ValidationError) as caught:
         two.validate_json('["a"]')
+    # one item, failed, against a minimum of 2: 0 valid + 1 failed < 2, a real length error
     assert shape_issues(caught.value) == (
         "0: Input should be a valid integer, unable to parse string as an integer",
+        "(root): Tuple should have at least 2 items after validation, not 0",
+    )
+    with pytest.raises(ValidationError) as caught:
+        two.validate_json('[1, "a"]')
+    # 1 valid + 1 failed = 2: the length error only echoes the failed item
+    assert shape_issues(caught.value) == (
+        "1: Input should be a valid integer, unable to parse string as an integer",
     )
     with pytest.raises(ValidationError) as caught:
         two.validate_json("[]")

@@ -39,9 +39,16 @@ LEGAL_DRAFT_MISSING = (
     "attachments.legal_documents: 'draft' documents are declared but no source is assessed "
     "draft; add a source gap naming legal_documents"
 )
-# A gap names an id only as a whole token (`<id>` is replaced by the escaped id).
-GAP_MATCH = "(?<![A-Za-z0-9_]){id}(?![A-Za-z0-9_])"
+# A gap names a declared source by its quoted id, as the issue text writes it (`<id>` is replaced
+# by the escaped id), or by the attachment field / `legal_documents` as a whole token. A bare
+# "bridge" or "portfolio" in unrelated prose names nothing (S02-A01).
+GAP_MATCH = """['"`]{id}['"`]"""
+GAP_TOKEN = "(?<![A-Za-z0-9_]){word}(?![A-Za-z0-9_])"
 LEGAL_GAP_WORD = "legal_documents"
+
+
+def _names(word: str, text: str) -> bool:
+    return re.search(GAP_TOKEN.format(word=re.escape(word)), text) is not None
 
 
 def absent_issue(field: str, source_id: str) -> str:
@@ -60,7 +67,7 @@ def _legal_issue(
         return ()
     wanted = ("executed", "filed") if declared == "executed" else ("draft",)
     held = any(s.source_id in ready and s.authority in wanted for s in review.sources)
-    if held or any(LEGAL_GAP_WORD in text for text in gaps):
+    if held or any(_names(LEGAL_GAP_WORD, text) for text in gaps):
         return ()
     return (LEGAL_EXECUTED_MISSING if declared == "executed" else LEGAL_DRAFT_MISSING,)
 
@@ -71,8 +78,8 @@ def _issues(context: RunContext, review: ReadinessReview, ready: frozenset[str])
     for field, source_id in ATTACHMENT_IDS.items():
         if not getattr(context.attachments, field) or source_id in ready:
             continue
-        named = re.compile(GAP_MATCH.format(id=re.escape(source_id)))
-        if not any(named.search(text) for text in gaps):
+        quoted = re.compile(GAP_MATCH.format(id=re.escape(source_id)))
+        if not any(quoted.search(text) or _names(field, text) for text in gaps):
             issues.append(absent_issue(field, source_id))
     issues.extend(_legal_issue(context.attachments.legal_documents, review, ready, gaps))
     return tuple(issues)

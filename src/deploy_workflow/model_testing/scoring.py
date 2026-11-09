@@ -40,6 +40,8 @@ _FRACTION_UNITS = frozenset({"PERCENT", "decimal_fraction"})
 _POINT_UNITS = frozenset({"decimal_percent", "pp"})
 _BPS_UNITS = frozenset({"basis_points"})
 _RATIO_UNITS = _FRACTION_UNITS | _POINT_UNITS | _BPS_UNITS
+# A golden unit other than these names a currency (cases._gold_unit: "USD"); a fact must carry it.
+_NON_CURRENCY_UNITS = frozenset({None, "percent", "bps"})
 _PRINTED_NUMBER = re.compile(r"\d[\d,]*(\.\d+)?")
 _SCALE_WORD = re.compile(r"\s*(thousand|million|billion)s?\b", re.IGNORECASE)
 _SCALE_WORD_EXP = {"thousand": 3, "million": 6, "billion": 9}
@@ -103,6 +105,9 @@ def _unit_problem(fact: Fact, golden: Any) -> str | None:
     expected_scale = UNIT_SCALE.get(unit)
     if fact.amount is not None and expected_scale is not None and fact.scale != expected_scale:
         return f"unit {unit} expects scale {expected_scale}, fact has scale {fact.scale}"
+    golden_unit = golden.get("unit")
+    if golden_unit not in _NON_CURRENCY_UNITS and fact.currency != golden_unit:
+        return f"currency {fact.currency or 'none'} is not the golden's {golden_unit}"
     vtype = golden["value_type"]
     if vtype == "percent":
         ok = unit in _FRACTION_UNITS | _POINT_UNITS

@@ -3,14 +3,16 @@
  "what": "deploy_vii.live.tools read_pages bound on a line source (B22 follow-up, PF-R7)",
  "max_spans_per_read": 5,
  "max_line_read_bytes": 32768,
- "allowed_on_line_source": "last-first+1 <= max_spans_per_read, OR (last-first+1 <= max_lines_per_line_read AND the measured bytes <= max_line_read_bytes); the line-count check comes before any iteration over the range",
+ "allowed_on_line_source": "last-first+1 <= max_lines_per_line_read AND the measured bytes <= max_line_read_bytes, however few the lines (S14-A02); the line-count check comes before any iteration over the range",
  "measure": "sum of len(span.text.encode('utf-8')) over the located line:N spans first..last; a line the source does not hold counts 0",
  "page_sources": "unchanged: at most max_spans_per_read pages, refusal text unchanged",
- "line_refusal": "bad arguments: on a line source, at most 5 lines, or at most 200 lines totalling 32768 bytes, per call",
- "tool_description": "Verbatim text of pages first_page..last_page of one source (at most 5 pages; on a line source, at most 5 lines, or at most 200 lines totalling 32768 bytes), each page or line as a SOURCE block with its locator.",
+ "line_refusal": "bad arguments: on a line source, at most 200 lines totalling 32768 bytes, per call",
+ "tool_description": "Verbatim text of pages first_page..last_page of one source (at most 5 pages; on a line source, at most 200 lines totalling 32768 bytes), each page or line as a SOURCE block with its locator.",
  "why": "Model-testing pilot 2026-11-02: under B22 an HTML filing is a line source, so 5 spans are about 1.3 KB per call and 16 calls see about 80 lines of a 1.6 MB pack (MANAGER root-cause note).",
  "ruled_by": "controller, PF-R7 (B31a), 2026-11-02",
  "max_lines_per_line_read": 200,
  "amended_by": "PF-R9 (controller gate finding PF1-G1: an unbounded last_page made both loops unbounded)",
- "amended_by_cp1h_r10": "CP1H-R10 (user via MANAGER, 2026-11-02: \"Approve 32 KB\"); was 8192 under PF-R7"
+ "amended_by_cp1h_r10": "CP1H-R10 (user via MANAGER, 2026-11-02: \"Approve 32 KB\"); was 8192 under PF-R7",
+ "amended_by_s14_a02": "S14-A02 (review fix, 2026-11-07): a read of max_spans_per_read lines or fewer had no byte bound (five 1 MB lines returned 5 MB while six lines of 36 KB were refused); every line read is now measured. The largest five-line window in the retained text sources is 6,992 bytes, so no retained read changes.",
+ "confirmed_s14_a02": "user ruling, 2026-11-07: keep the bound of 200 lines and 32768 bytes on every line read; the PF-R7 exemption for five lines or fewer stays removed. A single line over 32768 bytes is not returned by read_pages; search_pack still finds text in it."
 }

@@ -1104,3 +1104,46 @@ def test_the_view_shows_a_known_operand_it_does_not_let_the_analyst_cite(tmp_pat
     assert cell["ref"] is None and cell["shown"] == "30 US$ m" and cell["status"] == "known"
     assert tree["cp1_facts"] == []
     assert "no figure may be referenced" in str(tree["cp1_facts_note"])
+
+
+def _trailing(facts: tuple[Fact, ...], period: str, stated: str) -> tuple[Fact, ...]:
+    """The CP-1 facts with the reported-ratio facts of the `period` column restated on `stated`,
+    as CP-1 states a quarter column's trailing ratio (S13 C01)."""
+    column = cp2a._column(period)
+    ratios = {f"{column} · {metric}" for metric in cp2a.REPORTED.values()}
+    return tuple(f.model_copy(update={"period": stated}) if f.label in ratios else f for f in facts)
+
+
+def test_quarter_base_reads_its_ratios_from_the_stated_trailing_period() -> None:
+    """S13 C01: CP-1 states the twelve months ending the quarter on a quarter column's reported
+    ratio (`LTM Q4 25: 2025-01-01 to 2025-12-31`; `null` start while the window is incomplete).
+    The quarter base is still offered, its ratio facts are still its sources, and the ratios stay
+    not meaningful (P1-W); an operand fact restated on that period is not accepted."""
+    facts = cp1_facts("fixture_quarter_known")
+    restated = _trailing(
+        _trailing(facts, Q4, "LTM Q4 25: 2025-01-01 to 2025-12-31"),
+        Q3,
+        "LTM Q3 25: null to 2025-09-30",
+    )
+    assert {b.period: b.kind for b in cp2a.offered_bases(restated)} == {
+        LTM: "ltm",
+        Q3: "quarter",
+        Q4: "quarter",
+    }
+    base = cp2a.BaseOperands.from_cp1(restated, period=Q4)
+    assert base.sources["total_leverage_reported"].period == "LTM Q4 25: 2025-01-01 to 2025-12-31"
+    assert base.not_meaningful == frozenset(cp2a.REPORTED)
+    # Another quarter's trailing period, or the LTM base's own ratio facts, are not this base's.
+    other = _trailing(facts, Q4, "LTM Q3 25: 2024-10-01 to 2025-09-30")
+    assert Q4 not in {b.period for b in cp2a.offered_bases(other)}
+    # A window that is not twelve months (2024-06-01 to 2025-12-31 is 579 days) is not accepted.
+    long = _trailing(facts, Q4, "LTM Q4 25: 2024-06-01 to 2025-12-31")
+    assert Q4 not in {b.period for b in cp2a.offered_bases(long)}
+    ebitda = f"{cp2a._column(Q4)} · ebitda"
+    operand = tuple(
+        f.model_copy(update={"period": "LTM Q4 25: 2025-01-01 to 2025-12-31"})
+        if f.label == ebitda
+        else f
+        for f in facts
+    )
+    assert Q4 not in {b.period for b in cp2a.offered_bases(operand)}

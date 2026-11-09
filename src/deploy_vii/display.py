@@ -6,6 +6,7 @@ fails closed when the data that spelling needs (gap id, reason, as-of date) is a
 """
 
 import re
+from collections.abc import Iterable
 from datetime import date
 from decimal import ROUND_HALF_UP, Context, Decimal, Inexact, InvalidOperation
 from typing import Literal
@@ -31,6 +32,20 @@ _NUMERIC: dict[str, tuple[int, int, str]] = {
 def format_date(value: date) -> str:
     """``D Mon YYYY`` without locale dependence."""
     return f"{value.day} {_MONTHS[value.month - 1]} {value.year}"
+
+
+def places_to_show(amounts: Iterable[Decimal], unit_class: str) -> int | None:
+    """Decimal places at which every amount displays exactly: the class default, or more.
+
+    The default (amount 0, multiple 2, percent 1) is the minimum, so whole-number axes keep their
+    look; a fractional step such as 0.5 or 2.5 widens it so no two labels round to the same text.
+    At most six. None for a class that is not numeric.
+    """
+    if unit_class not in _NUMERIC:
+        return None
+    places, scale, _ = _NUMERIC[unit_class]
+    written = (-int((a * scale).normalize().as_tuple().exponent) for a in amounts)
+    return min(6, max([places, *written]))
 
 
 def _number(amount: Decimal, unit_class: str, decimals: int | None = None) -> str:

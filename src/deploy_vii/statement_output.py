@@ -7,6 +7,7 @@ from typing import Literal
 
 from deploy_vii.contracts import Citation, Contract, Hash, Identifier, Text
 from deploy_vii.financial_contracts import (
+    STATEMENT_UNIT_FACTORS,
     EffectiveStatementDimensions,
     FinancialBook,
     FinancialReview,
@@ -18,12 +19,6 @@ from deploy_vii.financial_validation import validate_financial_review
 from deploy_vii.model.history import OUTFLOW_METRICS
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.statement_validation import ACCOUNT_LINKS, REQUIRED_ITEMS
-
-_SCALE_FACTORS = {
-    "UNITS": Decimal(1),
-    "THOUSANDS": Decimal(1000),
-    "MILLIONS": Decimal(1000000),
-}
 
 
 def statement_quantity_unit(dimensions: EffectiveStatementDimensions) -> str:
@@ -83,7 +78,7 @@ class StatementReport(Contract):
     limitations: tuple[Text, ...]
 
 
-def _cell(
+def _cell(  # noqa: PLR0913 - pre-existing
     book: FinancialBook,
     statement: Literal["IS", "CFS", "BS"],
     pid: str,
@@ -97,7 +92,7 @@ def _cell(
     kind = dimensions.kind if dimensions is not None else "monetary"
     currency = dimensions.currency if dimensions is not None else book.currency
     scale = dimensions.scale if dimensions is not None else book.unit
-    factor = dimensions.factor if dimensions is not None else _SCALE_FACTORS[book.unit]
+    factor = dimensions.factor if dimensions is not None else STATEMENT_UNIT_FACTORS[book.unit]
     unit = statement_quantity_unit(dimensions) if dimensions is not None else "currency"
     quantity_citations = row.quantity.citations if row and row.quantity else ()
     outflow = kind == "monetary" and (

@@ -520,6 +520,36 @@ def test_session_error_is_reported(rig: Rig) -> None:
     assert rig.session.disconnected == 1 and rig.client.stopped == 1
 
 
+def test_session_error_text_and_archived_body_hold_no_home_directory(rig: Rig) -> None:
+    # S03-A04/C03: the runtime's own error names local files. Expected by hand: each home
+    # directory ("/home/jane.doe", r"C:\Users\Jane Doe") becomes "<home>"; the error type, the
+    # rest of the message and the status are kept.
+    message = r"ENOENT: open '/home/jane.doe/.copilot/c.json' and C:\Users\Jane Doe\AppData\x.js"
+    data = {"errorType": "fs", "message": message, "statusCode": 500}
+    reply = call(rig.make([Emit(wire("session.error", data))]), request())
+    scrubbed = r"ENOENT: open '<home>/.copilot/c.json' and <home>\AppData\x.js"
+    assert (reply.kind, reply.error_class, reply.http_status) == (
+        "sent_unknown",
+        "SessionError",
+        500,
+    )
+    assert reply.message == f"fs: {scrubbed}"
+    assert reply.raw is not None and b"jane.doe" not in reply.raw and b"Jane Doe" not in reply.raw
+    (event,) = json.loads(reply.raw)
+    assert event["data"]["message"] == scrubbed
+    assert event["data"]["statusCode"] == 500
+    rig.released()
+
+
+def test_a_private_path_is_replaced_only_as_whole_segments() -> None:
+    # S03-C03: "/home/jan" is not a prefix to cut out of "/home/janet" or "/home/jan.doe"; a
+    # path ending in a separator, or followed by a sentence's ".", still is replaced.
+    paths = ["/home/jan", "/opt/run/"]
+    text = "/home/janet/x /home/jan.doe/y /home/jan/z /home/jan. /opt/run/bin"
+    expected = "/home/janet/x /home/jan.doe/y <path>/z <path>. <path>bin"
+    assert copilot_adapter._paths_in(text, paths) == expected
+
+
 def test_model_mismatch_is_sent_usage(rig: Rig) -> None:
     script: list[Step] = [said("x"), usage(model="other-model"), Idle()]
     reply = call(rig.make(script), request())
@@ -527,6 +557,45 @@ def test_model_mismatch_is_sent_usage(rig: Rig) -> None:
     assert reply.usage is not None and reply.raw is not None
     rig.released()
     assert rig.session.disconnected == 1
+
+
+def test_model_mismatch_without_counts_or_charge_is_sent_unknown(rig: Rig, tmp_path: Path) -> None:
+    # The usage event names another model and carries no token field and no copilotUsage: no
+    # count and no charge, so the paid amount is unknown (the other Copilot paths say the same).
+    # The call record is cost unknown, the export writes sent_unknown, and the replay gives the
+    # same kind and class the live reply had.
+    script: list[Step] = [
+        said("x"),
+        Emit(wire("assistant.usage", {"model": "other-model"})),
+        Idle(),
+    ]
+    adapter = rig.make(script, idle_s=2.0)
+    run, exported = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    assert (rec["error_class"], rec["http_status"], rec["cost_status"]) == (
+        "ModelMismatch", 200, "unknown",
+    )  # fmt: skip
+    assert exported["response"]["kind"] == "sent_unknown"
+    (out := tmp_path / "rec").mkdir()
+    (out / "r.jsonl").write_bytes((tmp_path / "out.jsonl").read_bytes())
+    replayed = recorded_adapter(SPEC, out).complete(
+        request(),
+        invocation_digest=exported["invocation_digest"],
+        call_index=exported["call_index"],
+        reservation_id="r",
+    )
+    assert (replayed.kind, replayed.error_class) == ("sent_unknown", "ModelMismatch")
+
+
+def test_model_mismatch_with_a_zero_charge_stays_sent_usage(rig: Rig) -> None:
+    script: list[Step] = [
+        said("x"),
+        usage(model="other-model", copilotUsage={"totalNanoAiu": 0}),
+        Idle(),
+    ]
+    reply = call(rig.make(script), request())
+    assert reply.kind == "sent_usage" and reply.error_class == "ModelMismatch"
+    assert reply.billed_usd == Decimal(0)
 
 
 @pytest.mark.parametrize(

@@ -56,7 +56,7 @@
   },
   {
    "id": "forward_credit_model.6",
-   "statement": "Every `rationale`, `limitation` and gap field is nonblank prose with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in `cp1_facts` or `cp1d_facts`, closed and non-empty, and you state no peer ranking, instrument recommendation, recovery conclusion or probability weighting (phrases such as `versus peers`, `recommend`, `will recover` or `probability-weighted` are refused).",
+   "statement": "Every `rationale`, `limitation` and gap field is nonblank prose with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in `cp1_facts` or `cp1d_facts`, closed and non-empty, and you state no peer ranking, instrument recommendation, recovery conclusion or probability weighting (phrases such as `versus peers`, `recommend`, `will recover` or `probability-weighted` are refused). A `limitation` is plain text: no figure and no reference. A fiscal-year label (`FY2025`, `fiscal 2025`) written up to the next `.`, `;` or `:` beside a `{ref|unit}` must be a year of the period of a figure referenced there.",
    "checks": [
     "oracle:cp2g:v08",
     "oracle:cp2g:v09",
@@ -68,6 +68,7 @@
     "oracle:cp2g:v16",
     "oracle:cp2g:v17",
     "fn:deploy_workflow.owners.cp2g:_text_issues",
+    "fn:deploy_workflow.owners.cp2g:_guard_issues",
     "fn:deploy_workflow.owners.cp2g:_run_text_issues",
     "fn:deploy_workflow.owners.cp2g:_limitation_issues",
     "fn:deploy_workflow.owners.cp2g:content_issues"

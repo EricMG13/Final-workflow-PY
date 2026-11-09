@@ -2,7 +2,7 @@
  "rules": [
   {
    "id": "liquidity_bridge.1",
-   "statement": "`horizon_months` is a whole number from 1 to 60. Give exactly one of `minimum_cash` and `minimum_cash_absence`; a `minimum_cash.amount` is not negative.",
+   "statement": "`horizon_months` is a whole number from 1 to 60. Give exactly one of `minimum_cash` and `minimum_cash_absence`; a `minimum_cash.amount` is not negative and is a CP-1 amount (less than 1e18, at most 28 digits and 10 decimal places).",
    "checks": [
     "oracle:cp2d:horizon_zero",
     "oracle:cp2d:horizon_over_limit",
@@ -13,11 +13,12 @@
   },
   {
    "id": "liquidity_bridge.2",
-   "statement": "`assessments` holds exactly one row for each `section` (liquidity_runway, maturity_wall, funding_gap), no section missing and none twice. The maturity_wall row lists in `basis_refs` a ref of the T4.18 maturity_date fact from `cp1_facts`.",
+   "statement": "`assessments` holds exactly one row for each `section` (liquidity_runway, maturity_wall, funding_gap), no section missing and none twice. The maturity_wall row lists in `basis_refs` a ref of the T4.18 maturity_date fact from `cp1_facts`, when the view offers one.",
    "checks": [
     "oracle:cp2d:section_missing",
     "oracle:cp2d:section_repeated",
-    "fn:deploy_workflow.owners.cp2d:submission_issues"
+    "fn:deploy_workflow.owners.cp2d:submission_issues",
+    "fn:deploy_workflow.owners.cp2d:_assessment_issues"
    ]
   },
   {

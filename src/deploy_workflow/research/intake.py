@@ -10,6 +10,7 @@ import json
 import os
 import re
 import stat
+import unicodedata
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
@@ -138,12 +139,28 @@ def _check_url(url: str) -> None:
         raise IntakeError(str(refusal)) from None
 
 
+def _encodable(text: str) -> bool:
+    try:
+        text.encode("utf-8")
+    except UnicodeEncodeError:
+        return False
+    return True
+
+
 def parse_rows(rows: Sequence[Mapping[str, Any]]) -> tuple[ManifestRow, ...]:
     """Validate the manifest rows; any malformed row stops intake (the user's file is wrong)."""
     parsed: list[ManifestRow] = []
     for row in rows:
         if unknown := sorted(set(row) - set(ROW_KEYS)):
             raise IntakeError(f"manifest row has unknown fields: {', '.join(unknown)}")
+        for key, value in row.items():
+            if isinstance(value, str) and not _encodable(value):
+                # The value is never echoed; a path keeps its established reason.
+                raise IntakeError(
+                    "manifest path is not a usable file path"
+                    if key == "path"
+                    else f"manifest row {key} is not valid text (a lone surrogate)"
+                )
         if row.get("tag") != "research":
             raise IntakeError("manifest row tag must be 'research'")
         path, url = row.get("path"), row.get("url")
@@ -188,8 +205,13 @@ def _date_refusal(row: ManifestRow, as_of: date, cutoff: date, today: date) -> R
 
 
 def _resolve(base_dir: Path, relative: str) -> Path:
+    if any(unicodedata.category(ch) == "Cc" for ch in relative):
+        raise IntakeError("manifest path contains a control character (NUL, line feed, ...)")
     base = base_dir.resolve()
-    target = (base / relative).resolve()
+    try:
+        target = (base / relative).resolve()
+    except ValueError:
+        raise IntakeError("manifest path is not a usable file path") from None
     if not target.is_relative_to(base):
         raise IntakeError(f"manifest path {relative!r} is outside the manifest directory")
     return target

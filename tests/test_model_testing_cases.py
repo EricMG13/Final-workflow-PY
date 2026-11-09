@@ -218,6 +218,7 @@ def _score_one(fid: str, **fact_kw: Any) -> str:
         field="f",
         period="2024-03-30",
         citations=(cite,),
+        currency="USD",
         **fact_kw,
     )
     module = Module(
