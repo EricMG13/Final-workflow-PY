@@ -47,8 +47,8 @@ CHECK_CMD = (
     'start "" /wait "%PYTHONW%" -I -B -X utf8 "%~dp0check.py"\r\n'
     "set CODE=%ERRORLEVEL%\r\n"
     'if exist "%TEMP%\\credit-os-network-check.txt" goto show\r\n'
-    "echo No result file was written. The company Python could not run check.py from this\r\n"
-    "echo folder. Exit code: %CODE%\r\n"
+    "echo No result file was written. Either the company Python could not run check.py from\r\n"
+    "echo this folder, or %TEMP% is not writable. Exit code: %CODE%\r\n"
     "pause\r\n"
     "exit /b 1\r\n"
     ":show\r\n"
@@ -93,7 +93,15 @@ try:
     server = uvicorn.Server(
         uvicorn.Config(app, log_config=None, access_log=False, lifespan="off")
     )
-    thread = threading.Thread(target=server.run, kwargs={"sockets": [listener]}, daemon=True)
+    failure = []
+
+    def serve():
+        try:
+            server.run(sockets=[listener])
+        except BaseException:
+            failure.append(traceback.format_exc())
+
+    thread = threading.Thread(target=serve, daemon=True)
     started = time.perf_counter()
     thread.start()
     try:
@@ -101,6 +109,8 @@ try:
         while not server.started and thread.is_alive() and time.monotonic() < deadline:
             time.sleep(0.01)
         if not server.started:
+            if failure:
+                raise RuntimeError("uvicorn server thread failed:\n" + failure[0])
             raise RuntimeError("uvicorn did not start within 30 s")
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         with opener.open("http://127.0.0.1:%d/health" % port, timeout=15) as reply:

@@ -1,9 +1,12 @@
 """Network-path check package: the folder generator and the check script it writes."""
 
 import importlib.util
+import os
 import re
+import shutil
 import subprocess
 import sys
+import time
 import zipfile
 from pathlib import Path
 from types import ModuleType
@@ -28,6 +31,20 @@ WHEELS = [
     "idna-3.20-py3-none-any.whl",
     "opentelemetry_api-1.45.2-py3-none-any.whl",
 ]
+
+
+def run_check(target: Path, temp: Path) -> subprocess.CompletedProcess[str]:
+    env = {"TEMP": str(temp)}
+    if "SYSTEMROOT" in os.environ:
+        env["SYSTEMROOT"] = os.environ["SYSTEMROOT"]
+    return subprocess.run(
+        [sys.executable, "-I", "-B", "-X", "utf8", str(target / "check.py")],
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
 
 
 @pytest.fixture
@@ -70,23 +87,40 @@ def test_check_folder_has_no_executable_and_the_server_closure(
 def test_check_script_serves_health_and_writes_pass(
     network_check: ModuleType, tmp_path: Path
 ) -> None:
+    """Runs the venv interpreter: proves check.py's logic, not the packed lib's closure."""
     import pydantic_core
 
     target = tmp_path / "check"
     network_check.write_scripts(target)
     temp = tmp_path / "temp"
     temp.mkdir()
-    done = subprocess.run(
-        [sys.executable, "-I", "-B", "-X", "utf8", str(target / "check.py")],
-        env={"TEMP": str(temp)},
-        capture_output=True,
-        text=True,
-        timeout=60,
-        check=False,
-    )
+    done = run_check(target, temp)
     assert done.returncode == 0, done.stderr
     lines = (temp / "credit-os-network-check.txt").read_text(encoding="utf-8").splitlines()
     assert "PASS" in lines
     assert f"pydantic_core: {pydantic_core.__file__}" in lines
     for field in ("import_ms", "first_response_ms"):
         assert any(re.fullmatch(field + r": \d+", line) for line in lines), lines
+
+
+def test_check_reports_server_thread_failure(network_check: ModuleType, tmp_path: Path) -> None:
+    import uvicorn
+
+    target = tmp_path / "check"
+    network_check.write_scripts(target)
+    package = target / "lib/uvicorn"
+    shutil.copytree(Path(uvicorn.__file__).parent, package, ignore=shutil.ignore_patterns("*.pyc"))
+    anchor = "    def run(self, sockets: list[socket.socket] | None = None) -> None:\n"
+    source = (package / "server.py").read_text(encoding="utf-8")
+    assert anchor in source, "uvicorn Server.run signature changed; update the probe"
+    patched = anchor + "        raise OSError('simulated: event loop could not start')\n"
+    (package / "server.py").write_text(source.replace(anchor, patched), encoding="utf-8")
+    temp = tmp_path / "temp"
+    temp.mkdir()
+    begun = time.monotonic()
+    done = run_check(target, temp)
+    assert time.monotonic() - begun < 20
+    assert done.returncode == 1
+    text = (temp / "credit-os-network-check.txt").read_text(encoding="utf-8")
+    assert "FAIL" in text
+    assert "simulated: event loop could not start" in text
