@@ -17,3 +17,17 @@ def test_retained_launcher_run_is_reported_with_verdicts() -> None:
 
 def test_a_reconstructed_context_case_is_labelled() -> None:
     assert "(reconstructed context)" in backtest.report(["lmi-intercreditor"])
+
+
+def test_a_module_with_no_handoff_is_read_from_cp0_only_when_cp0_says_blocked() -> None:
+    from deploy_workflow import handoff_outcome
+
+    assert handoff_outcome.actual_of("CP-1", None, "CP-0 says CP-1 BLOCKED") == (
+        "will_refuse",
+        "BLOCKED in CP-0 handoff",
+    )
+    assert handoff_outcome.actual_of("CP-1", None, "CP-1 READY") == ("not_reached", "no handoff")
+    assert handoff_outcome.actual_of("CP-1", None, refused=True) == (
+        "will_refuse",
+        "run stopped here",
+    )

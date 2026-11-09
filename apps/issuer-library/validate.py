@@ -28,6 +28,7 @@ BROWSER_TESTS = (
     "tests/test_issuer_library_escape_sinks.py",
     "tests/test_issuer_library_example.py",
     "tests/test_issuer_library_reader.py",
+    "tests/test_issuer_library_run_activity.py",
     "tests/test_issuer_library_run_spend.py",
     "tests/test_issuer_library_screening.py",
     "tests/test_issuer_library_screens.py",
@@ -51,6 +52,7 @@ PYTHON_TESTS = (
     "tests/product/test_context.py",
     "tests/test_run_expectations.py",
     "tests/test_expectations_backtest.py",
+    "tests/test_issuer_library_single_run.py",
 )
 PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "not live and not browser")
 BROWSER_PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "browser")
