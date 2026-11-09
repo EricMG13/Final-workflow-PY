@@ -526,3 +526,43 @@ Checks: `tests/test_nightly_tests.py` 9 passed and `tests/test_quality_gate.py` 
 this change exits 0. Not verified: the workflow has not run. Scheduled runs start once it is on
 `main`; its first run establishes the real known-failure list and duration.
 
+
+## 2026-11-09 — Phase 2: work-PC package and package default workspace (S8, PRs 2-A and 2-B)
+
+- **Scope:** Plan Tasks 2.1 (PR 2-A, `claude/s8-package-72303f`) and 2.2 (PR 2-B, `claude/s8-default-workspace`). Task 2.3 was skipped, because Phase 0 passed from `\\`. All checks ran on macOS with synthetic inputs. No provider was called, and no Windows step ran.
+- **2.1 — what the package is now:** `build(target)` writes the following:
+  - `target/Credit OS.cmd`. It is the only line naming the version, and it runs `"C:\Program Files\Statestreet\Python313\pythonw.exe" -I -B -X utf8 "%~dp0app\<version>\start.py"`. It gives a plain message when the company Python or the release is missing.
+  - `target/default-workspace.json.example`.
+  - The release `target/app/<YYYY.MM.DD>-<12 hex>/`.
+- **2.1 — wheels and binaries:**
+  - The wheels come from `uv export --locked --no-dev --no-emit-project`, 24 packages today: S0's 14, the Copilot SDK closure (6), pypdf, openpyxl, et-xmlfile and python-multipart.
+  - Each wheel's URL and SHA-256 come from `uv.lock`. The SHA-256 must also be one of the export's hashes, and the download is checked against it.
+  - The embeddable runtime, `._pth`, arm64 and the zip are gone. The package holds no `.exe` or `.dll`.
+- **Deviation 1, layout (lead accepted):** the plan says `start.py` adds `<release>/src`. The code's package contract fixes the layout instead:
+  - `jobs.engine_root()` is the folder holding `src/`.
+  - `server.WEB` is that folder's parent plus `web`.
+  - So the release is `{start.py, lib/, web/, engine/{bridge.py, store.py, VERSION, src/, docs/, prompts/}}`, and `start.py` adds `lib/` and `engine/src`.
+  - `VERSION` sits beside `src/`, which is where `app_version()` reads it; in the repository it is absent and gives `dev`.
+- **Deviation 2, `bridge.py` (lead ruling R-S8-1):** the review/start worker runs `bridge.py` under `-I`. It now also puts the release's `lib/` on `sys.path` when that folder exists (one statement after line 24). `tools/copied-from.txt` marks the file `edited`.
+- **Deviation 3, `load_config` (2.2):** the plan's `load_config(loc, defaults)` became `Locations.defaults`, because `server.py` calls `load_config(loc)`. The order is: policy (locked), then the user's file, then the package default (not locked), then `Documents/FinalWorkflow`. `--defaults` sets it, and `start.py` passes `<package root>/default-workspace.json`.
+- **Checks on 2-A** (head HEAD_2A):
+  - `tests/test_packaging.py` and `tests/test_network_check.py`: 12 passed. The build is real: `uv export`, real wheel downloads and the SHA-256 checks.
+  - The worker test resolves `pydantic`, `pydantic_core` and `copilot` from the release's `lib/` under `-I`. It failed before the `bridge.py` line, when they came from the venv.
+  - quality_gate 0, pr_size 0 (509), validate quick QUICK_2A, browser BROWSER_2A.
+- **Checks on 2-B** (head c6661237):
+  - `tests/test_issuer_library_settings.py` plus the server, launch and quit suites: 99 passed, 2 skipped (the skips were already there).
+  - quality_gate 0, pr_size 0 (113), validate quick QUICK_2B, browser 0 (86/0).
+- **Reviews:** `mx-precise` per task: both spec ✅ and quality Approved.
+  - 2.1's two Lows were fixed in c2865d92: `build.py` loaded `runtime.py` with a lasting `sys.path` change, and the launcher echoes dropped their quotes.
+  - Probes `t21_hash_probe.py` (tampered cache, hash missing from the export, version mismatch) and `t21_wheel_contents_probe.py` exit 0.
+  - `task-2.2-save-after-default.py` exits 0: a saved user choice wins over the package default, unlocked.
+- **Known, not fixed here:**
+  - A `%` in the share path breaks `Credit OS.cmd`, because `call` expands it twice.
+  - Repo-mode `smoke_test.py` fails at the catalogue `issues` list on unchanged main too, because this worktree lacks `deliverables/tdg-model-*`.
+  - `apps/issuer-library/README.md`, which is copied into each release, still describes `Issuer Library.cmd`, the zip and arm64.
+- **Ledger:**
+  - Task 2.1: `agent=mx-feature fix-rounds=0 gates-first-pass=y`. The Lows were batched; no High or Medium finding.
+  - Task 2.2: `agent=mx-feature fix-rounds=0 gates-first-pass=y`.
+- **Not verified:**
+  - Windows-only, for the owner: `Credit OS.cmd` under cmd.exe; a start from a UNC share; a full import of pydantic and the Copilot SDK from `lib/` in the server and the worker (macOS checks resolution only, because `pydantic_core` is `win_amd64`); `Smoke-test.ps1`; `smoke_test.py` in release mode; a UNC package default on a work PC.
+  - The full weekly suite.
