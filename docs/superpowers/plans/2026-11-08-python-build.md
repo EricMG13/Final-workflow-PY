@@ -255,11 +255,11 @@ Not ported: upstream changes to `packaging/runtime.py` and `smoke_test.py`, beca
 **Interfaces:**
 - Produces:
   - `GET /api/runs/events?id=<job>` returns `{"events": [...], "complete": bool}`;
-  - `POST /api/runs/resume` takes `{"id": str}` and returns 200 with the new job's review payload;
+  - `POST /api/runs/resume` takes `{"id": str, "cap_usd": str, "max_turns": int}` and returns 200 with the new job's review payload;
   - `events.progress(folder: Path) -> dict | None`;
   - `notify.finish_notice(job: dict) -> tuple[str, str]` (title, body);
   - `notify.toast(title: str, body: str) -> None` (a no-op off Windows, logged).
-- The resume cap comes from the stopped run's recorded `cap_usd`.
+- The resume cap and turn limit come from the request's `cap_usd` and `max_turns`, as in the Go key (`resumeRun`); the stopped run's recorded `cap_usd` is not reused.
 
 - [ ] **Step 1:** Port the listed cases. Not-applicable cases are handled as in Task 1.4.
 - [ ] **Step 2: Run** `uv run pytest tests/test_issuer_library_jobs.py tests/test_issuer_library_notify.py -q`. Expected: the failures are the missing behaviour.

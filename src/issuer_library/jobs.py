@@ -591,7 +591,8 @@ def stopped_run_state(raw: bytes) -> str | None:
 
 
 # Directories are walked by descriptor, each opened relative to its parent without following a
-# link, so a link swapped in after a check is refused where it is used (as Go's os.Root does).
+# link, so a link swapped in after a check is refused where it is used. Stricter than Go's
+# os.Root, which follows a link that stays inside the root: here every link is refused.
 # Windows has no dir_fd for os.open: there only an lstat check made just before use stands in.
 FD_WALK = hasattr(os, "O_NOFOLLOW") and os.open in os.supports_dir_fd
 GONE = (
