@@ -25,11 +25,17 @@ class Locations:
     state: Path
     documents: Path
     policy: Path | None = None
+    defaults: Path | None = None
 
 
 def load_config(loc: Locations) -> tuple[Config, bool]:
-    """The managed policy file first, then the per-user file; a malformed file is an error."""
-    for name, locked in ((loc.policy, True), (loc.state / "settings.json", False)):
+    """The managed policy file (locked), then the per-user file, then the package default
+    (not locked), then Documents; a malformed file is an error."""
+    for name, locked in (
+        (loc.policy, True),
+        (loc.state / "settings.json", False),
+        (loc.defaults, False),
+    ):
         if name is None:
             continue
         try:

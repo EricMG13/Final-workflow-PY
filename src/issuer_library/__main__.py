@@ -88,6 +88,9 @@ def run(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--state-dir", default="", help="Override per-user state directory for testing"
     )
+    parser.add_argument(
+        "--defaults", default="", help="Package default workspace file, read without a user setting"
+    )
     parser.add_argument("--no-browser", action="store_true", help="Start without opening a browser")
     parser.add_argument(
         "--port", type=int, default=0, help="Loopback port; zero selects a stable per-user port"
@@ -96,6 +99,8 @@ def run(argv: list[str] | None = None) -> int:
     loc = platform_locations()
     if arguments.state_dir:
         loc = replace(loc, state=Path(os.path.abspath(arguments.state_dir)))
+    if arguments.defaults:
+        loc = replace(loc, defaults=Path(os.path.abspath(arguments.defaults)))
     os.makedirs(loc.state, mode=0o700, exist_ok=True)
     rotate_log(loc.state / "library.log")
     logging.basicConfig(
