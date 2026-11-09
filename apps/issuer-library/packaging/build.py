@@ -1,13 +1,20 @@
 """Build the Credit OS network-share package: wheels, engine, front end, launcher. No providers."""
 
+import importlib.util
 import json
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from runtime import unpack
+# Loaded by path so importing build.py leaves sys.path and sys.modules untouched.
+_spec = importlib.util.spec_from_file_location(
+    "credit_os_runtime", Path(__file__).resolve().with_name("runtime.py")
+)
+assert _spec is not None and _spec.loader is not None
+_runtime = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_runtime)
+unpack = _runtime.unpack
 
 APP = Path(__file__).resolve().parents[1]
 ROOT = APP.parents[1]
@@ -28,6 +35,7 @@ def git(*args: str) -> str:
 
 
 def launcher(version: str) -> str:
+    # ponytail: call expands % twice, so a % in the share path breaks; ceiling: no % in paths.
     # goto, not a ( ) block, so a parenthesis in a share path cannot break it.
     start = f'"{PYTHON}" -I -B -X utf8 "%~dp0app\\{version}\\start.py"'
     return "\r\n".join(
@@ -37,12 +45,12 @@ def launcher(version: str) -> str:
             "exit /b %ERRORLEVEL%",
             ":run",
             "if exist %1 goto python",
-            "echo Credit OS needs the company Python at %~1, which is not on this PC.",
+            "echo Credit OS needs the company Python at %1, which is not on this PC.",
             "pause",
             "exit /b 1",
             ":python",
             "if exist %6 goto release",
-            "echo This Credit OS release is missing: %~6",
+            "echo This Credit OS release is missing: %6",
             "pause",
             "exit /b 1",
             ":release",

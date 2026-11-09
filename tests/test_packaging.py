@@ -16,14 +16,10 @@ COMPANY_PYTHON = r"C:\Program Files\Statestreet\Python313\pythonw.exe"
 
 
 def load_build() -> ModuleType:
-    sys.path.insert(0, str(PACKAGING))  # build.py imports runtime.py as a sibling
-    try:
-        spec = importlib.util.spec_from_file_location("credit_os_build", PACKAGING / "build.py")
-        assert spec is not None and spec.loader is not None
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-    finally:
-        sys.path.remove(str(PACKAGING))
+    spec = importlib.util.spec_from_file_location("credit_os_build", PACKAGING / "build.py")
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
     return module
 
 
@@ -73,8 +69,10 @@ def test_launcher_runs_company_python_on_this_release(built: tuple[Path, Path]) 
     assert len(named) == 1
     assert f'"{COMPANY_PYTHON}" -I -B -X utf8 "%~dp0app\\{version}\\start.py"' in named[0]
     assert "if exist %6" in text
-    assert re.search(r"if exist %6.*\r\necho .*missing.*%~6", text, re.DOTALL)
-    assert re.search(r"if exist %1.*\r\necho .*company Python", text, re.DOTALL)
+    for check, subject in (("if exist %1 ", "company Python"), ("if exist %6 ", "missing")):
+        at = next(i for i, line in enumerate(lines) if line.startswith(check))
+        message = lines[at + 1]
+        assert message.startswith("echo ") and subject in message, (check, message)
     assert 'start "Credit OS"' in text
 
 
