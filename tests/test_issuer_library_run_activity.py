@@ -47,17 +47,9 @@ def status(**over: Any) -> dict[str, Any]:
         "modules": MODULES,
         "module_details": [{"id": m, "title": "Title " + m} for m in MODULES],
         "spent_usd": "0.00",
-        "progress": {
-            "module": "CP-1",
-            "step": "running",
-            "turn": 1,
-            "max_turns": 24,
-            "spent_usd": "0.00",
-            "held_usd": "5.73",
-            "cap_usd": "10",
-            "accepted": 1,
-        },
-    }
+        "progress": {"module": "CP-1", "step": "running", "turn": 1, "max_turns": 24,
+                     "spent_usd": "0.00", "held_usd": "5.73", "cap_usd": "10", "accepted": 1},
+    }  # fmt: skip
     return {**base, **over}
 
 
@@ -83,15 +75,9 @@ def answer(value: Any) -> Reply:
 
 
 def run_store(key: str, modules: dict[str, Any]) -> dict[str, Any]:
-    run = {
-        "run": key,
-        "title": "Northbridge Group",
-        "period": "as of 31 March 2025",
-        "issuerKey": "id:nbg",
-        "issuer": "Northbridge Group",
-        "modules": modules,
-        "first": None,
-    }
+    run = {"run": key, "title": "Northbridge Group", "period": "as of 31 March 2025",
+           "issuerKey": "id:nbg", "issuer": "Northbridge Group", "modules": modules,
+           "first": None}  # fmt: skip
     return {"runs": {key: run}, "outputs": {}, "inputs": {}, "pins": {}}
 
 

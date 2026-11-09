@@ -301,7 +301,7 @@ def until(page: Any, expression: str, timeout: float = 5.0) -> None:
 
 
 def release(opened: list[Screen]) -> None:
-    """Fixture teardown: every opened page ended without errors; all are closed even if one failed."""
+    """Fixture teardown: no opened page had errors; all are closed even if one failed."""
     try:
         for screen in opened:
             assert screen.errors == []
