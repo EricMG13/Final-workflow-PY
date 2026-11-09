@@ -160,11 +160,11 @@ KEY_C = [
     ),
     (
         "tdg-fy2024-snapshot-7",
-        "CP-8 repairs applied",
+        "Repairs from the deliverable comparison",
         "tdg-run-comparison-001/CP-2-delivery.md",
         "22edd045e3d6",
         "c7c4156e7c2a",
-        "Latest",
+        "Latest build",
     ),
 ]
 REPORTS_BY_RUN = {
@@ -224,7 +224,9 @@ def test_every_retained_body_block_is_reachable_in_exactly_one_named_section(fix
             const count=modules[id].sections.filter(d=>d[2].some(p=>matchesHeading(s.heading,p))).length;
             if(count!==1)failures.push(`${{id}}: ${{s.heading}} in ${{count}} sections`);}}
           for(const s of modules[id].sections){{
-            const text=norm(window.__fragment(renderContent(id,s[0])));
+            const frag=document.createElement('template');frag.innerHTML=renderContent(id,s[0]);
+            const dates=[...frag.content.querySelectorAll('.event-date[title]')].map(e=>e.title).filter(t=>/^[A-Z][a-z]+ \\d{{1,2}}, \\d{{4}}$/.test(t));
+            const text=norm(frag.content.textContent+' '+dates.join(' '));
             for(const block of sectionData(id,s[0]).flatMap(x=>x.blocks)){{
               const values=block.type==='text'?[block.text]:block.rows.flatMap(r=>r.cells);
               for(const value of values)if(!text.includes(norm(value)))failures.push(`${{id}}/${{s[0]}} line ${{block.line}}: ${{value.slice(0,70)}}`);
@@ -410,7 +412,7 @@ def test_evidence_cases_are_isolated_and_report_selection_changes_preview_and_or
     )
     assert screen.attr("#report-preview", "sandbox") == "allow-scripts allow-downloads"
     screen.go("W-Library/cases")
-    assert screen.count(".case-list tbody.run-list") == 3
+    assert screen.count("#library-results tbody tr") == 8
 
 
 def test_malformed_and_inherited_object_route_keys_cannot_break_navigation(fixture: Any) -> None:
@@ -590,14 +592,17 @@ def test_library_return_restores_filters_and_clear_resets_without_changing_conte
 ) -> None:
     screen = fixture("W-Library/cases")
     screen.set_value("#library-query", "Ford")
-    screen.go(str(screen.attr(".run-list a", "href"))[1:])
+    screen.go(str(screen.attr("#library-results a.run-link", "href"))[1:])
     assert screen.text(".issuer h1") == "Ford Otosan"
     screen.go("W-Library/cases")
     assert screen.eval("document.getElementById('library-query').value") == "Ford"
-    assert screen.count(".run-list a") == 1
+    assert screen.count("#library-results a.run-link") == 1
     screen.click("#library-clear")
     assert screen.eval("document.getElementById('library-query').value") == ""
-    assert screen.count(".run-list a") == 8 and screen.eval("current.context") == "ford-otosan-2024"
+    assert (
+        screen.count("#library-results a.run-link") == 8
+        and screen.eval("current.context") == "ford-otosan-2024"
+    )
     screen.focus("#analysis")
     screen.eval("document.dispatchEvent(new KeyboardEvent('keydown',{key:'/',bubbles:true}))")
     assert screen.active() == "library-query"
@@ -613,7 +618,7 @@ def test_literal_search_text_is_escaped_and_short_ids_include_the_delivery_colle
 ) -> None:
     screen = fixture("W-Library/cases")
     screen.set_value("#library-query", "TDG")
-    assert screen.count(".run-list a") == 6
+    assert screen.count("#library-results a.run-link") == 6
     bad = '"><img src=x onerror=alert(1)>'
     screen.set_value("#library-query", bad)
     screen.go("CP-1")
@@ -1013,11 +1018,11 @@ def test_the_slash_key_opens_search_unless_typing_or_modified(fixture: Any) -> N
     assert screen.attr("#module-toggle", "aria-expanded") == "true"
     assert screen.press("#module-search", "/") is False
     screen.focus("#analysis")
-    assert screen.exists('.rail button[aria-label="Search (/)"]')
-    screen.click('.rail button[aria-label="Search (/)"]')
+    assert screen.exists('.rail button[data-place="Search"]')
+    screen.click('.rail button[data-place="Search"]')
     assert screen.active() == "module-search"
     screen.go("W-Library/cases")
-    screen.click('.rail button[aria-label="Search (/)"]')
+    screen.click('.rail button[data-place="Search"]')
     assert screen.active() == "library-query"
 
 
@@ -1039,10 +1044,10 @@ def test_escape_steps_back_one_layer_at_a_time(fixture: Any) -> None:
     screen.go("W-Library/cases")
     screen.focus("#library-query")
     screen.set_value("#library-query", "zzz")
-    assert re.search(r"No matching issuers or runs", screen.content())
+    assert re.search(r"No runs match these filters", screen.content())
     screen.press("#library-query", "Escape")
     assert screen.eval("document.getElementById('library-query').value") == ""
-    assert not re.search(r"No matching issuers or runs", screen.content())
+    assert not re.search(r"No runs match these filters", screen.content())
 
 
 def test_arrow_keys_walk_chart_marks_without_wrapping(fixture: Any) -> None:
@@ -1200,15 +1205,15 @@ def test_the_rail_reaches_every_destination_marks_where_you_are_and_keeps_the_ru
         "Settings",
         "Help",
     ]:
-        assert screen.exists(f'.rail a[aria-label="{label}"]'), label
+        assert screen.exists(f'.rail a[data-place="{label}"]'), label
     assert (
-        screen.attr('.rail a[aria-label="Reports"]', "href") == "#W-Reports/list?c=ford-otosan-2024"
+        screen.attr('.rail a[data-place="Reports"]', "href") == "#W-Reports/list?c=ford-otosan-2024"
     )
     assert (
-        screen.attr('.rail a[aria-label="Run activity"]', "href")
+        screen.attr('.rail a[data-place="Run activity"]', "href")
         == "#CP-OS/activity?c=ford-otosan-2024"
     )
-    assert screen.attr('.rail a[aria-label="Research workspace"]', "aria-current") == "page"
+    assert screen.attr('.rail a[data-place="Research workspace"]', "aria-current") == "page"
     for route, label in [
         ("W-Library/cases", "Issuer library"),
         ("W-NewRun/run", "New run"),
@@ -1218,7 +1223,7 @@ def test_the_rail_reaches_every_destination_marks_where_you_are_and_keeps_the_ru
         ("CP-OS/activity", "Run activity"),
     ]:
         screen.go(route)
-        assert screen.attrs(".rail a[aria-current]", "aria-label") == [label], route
+        assert screen.attrs(".rail a[aria-current]", "data-place") == [label], route
 
 
 def test_no_destination_still_calls_itself_a_gallery_or_a_prototype(fixture: Any) -> None:
@@ -1229,7 +1234,7 @@ def test_no_destination_still_calls_itself_a_gallery_or_a_prototype(fixture: Any
         "W-Reports/list?c=tdg-002",
         "W-Evidence/sources?c=tdg-002",
         "CP-OS/activity?c=tdg-002",
-        "CP-MODEL/publication?c=tdg-002",
+        "W-Forecast/forecast?c=tdg-002",
         "W-NewRun/run",
         "W-Settings/workspace",
         "W-Help/help",
@@ -1240,17 +1245,6 @@ def test_no_destination_still_calls_itself_a_gallery_or_a_prototype(fixture: Any
         assert not re.search(
             r"screen.design|prototype|gallery|working app", combined, re.IGNORECASE
         ), route
-
-
-REBUILD = "location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute();"
-
-
-def pick(screen: Screen, name: str, value: str) -> None:
-    screen.set_value(f'[data-library-filter="{name}"]', value, "change")
-
-
-def shown(screen: Screen) -> list[str]:
-    return sorted(context_of(str(href)) or "" for href in screen.attrs(".run-list a", "href"))
 
 
 def test_evidence_rows_act_through_labelled_icons_instead_of_repeating_link_words(
@@ -1363,7 +1357,7 @@ def test_grey_text_run_pages_drop_state_narration_hash_notes_design_specs_and_em
     assert "remains selected" not in screen.content()
     screen.go("CP-OS/activity?c=tdg-002")
     content = screen.content()
-    assert "No live progress or cost recorded for this run." in content
+    assert "No live progress is recorded for this run in this workspace." in content
     assert "9 saved outputs" in content
     assert not re.search(r"source identity|SHA-256|historical selection", content)
     screen.go("W-Calendar/unavailable?c=tdg-003")
@@ -1385,7 +1379,7 @@ def test_grey_text_run_pages_drop_state_narration_hash_notes_design_specs_and_em
         ".map(n=>n.textContent).join('')));",
     )
     assert labels[:4] == ["Base", "", "", "Demand and margin pressure"]
-    screen.go("CP-MODEL/publication?c=tdg-002")
+    screen.go("W-Forecast/forecast?c=tdg-002")
     assert not screen.exists("#content .visual-plan")
     assert "delivery metadata" not in screen.content()
     screen.go("CP-2H?c=tdg-002")

@@ -14,8 +14,8 @@ import re
 from typing import Any
 
 import pytest
-from issuer_library_browser import ROOT, js, norm, open_app
-from test_issuer_library_app import NORTHBRIDGE, NORTHBRIDGE_REPORTS
+from issuer_library_browser import ROOT, js, norm
+from test_issuer_library_app import NORTHBRIDGE, NORTHBRIDGE_REPORTS, open_store
 
 pytestmark = pytest.mark.browser
 
@@ -58,6 +58,7 @@ def reader_store(fields: dict[str, Any] | None = None) -> dict[str, Any]:
         "source": "CP-1.md",
         "file": "web-1--CP-1.md",
         "label": "CP-1",
+        "sha256": "dd" * 32,
         **(fields if fields is not None else reader_output()),
     }
     return store
@@ -68,7 +69,7 @@ def northbridge(browser: Any) -> Any:
     opened: list[Any] = []
 
     def factory(route: str, store: dict[str, Any] | None = None) -> Any:
-        screen = open_app(browser, route, store or NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+        screen = open_store(browser, route, store or NORTHBRIDGE, NORTHBRIDGE_REPORTS)
         opened.append(screen)
         return screen
 
@@ -152,6 +153,7 @@ def test_the_app_is_organised_by_credit_question_and_its_chrome_shows_names_not_
         "Overview",
         "Modules",
         "Calendar",
+        "Forecast",
         "Reports",
         "Evidence",
     ]
@@ -231,7 +233,7 @@ def test_every_card_on_a_summary_quotes_its_own_handoff(fixture: Any) -> None:
 
 def test_a_run_in_the_library_opens_on_its_summary(fixture: Any) -> None:
     screen = fixture("W-Library/cases")
-    hrefs = [str(h) for h in screen.attrs(".run-list a", "href")]
+    hrefs = [str(h) for h in screen.attrs("#library-results a.run-link", "href")]
     link = next(h for h in hrefs if "c=tdg-002" in h)
     assert link.startswith("#W-Overview/overview?")
 
