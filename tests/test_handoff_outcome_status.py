@@ -77,6 +77,14 @@ CASES = {
     "p": (handoff(body="| Module Status | Blocked |\n"), "", "unconfirmed"),
     "q": (handoff(body="Module Status: Blocked pending review\n"), "", "unconfirmed"),
     "r": (handoff(body="Module Status: completed with limitations\n"), "", "limited"),
+    "s": (handoff(body="Module Status: `Blocked`.\n"), "", "will_refuse"),
+    "t": (handoff(body="- `Module Status: Blocked` \n"), "", "will_refuse"),
+    "u": (handoff(body="**Module Status:** `Completed`.\n"), "", "ready"),
+    "v": (handoff(body="***Module Status:*** Blocked\n"), "", "will_refuse"),
+    "w": (handoff(body="> Module Status: Blocked\n"), "", "will_refuse"),
+    "x": (handoff(body="module status: Blocked\n"), "", "will_refuse"),
+    "y": (handoff(body="| module status | Blocked |\n"), "", "unconfirmed"),
+    "z": (handoff(body="> Module Status: Blocked pending review\n"), "", "unconfirmed"),
     "table-column-never-counts": (
         handoff(body="| x | Module Status |\n|---|---|\n| a | Blocked |\n"),
         "",
@@ -135,3 +143,10 @@ def test_case_outcomes_reports_cp0_not_testable(
     ok, what = notes[-1]
     assert ok is True
     assert what.startswith("forecast confirmed equal for the 1 testable modules")
+
+
+@pytest.mark.parametrize("body", ["Module Status: Blocked\n", "module status: Blocked\n"])
+def test_explanation_quotes_the_status_value_as_written(body: str) -> None:
+    got = handoff_outcome.actual_of("CP-4", handoff(body=body), "")
+    assert got[0] == "will_refuse"
+    assert "Blocked" in got[1]
