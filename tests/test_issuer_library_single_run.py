@@ -110,7 +110,7 @@ def test_not_exercisable_fails_outside_the_fixture_and_skips_inside_it(
     monkeypatch.setattr(bc, "RETAINED_FIXTURE", False)
     bc.not_exercisable("chromium", "Run activity events", "no events.jsonl")
     assert [ok for ok, _ in bc.results] == [False]
-    assert len(bc.FAULTS.items) == 1
+    assert [fault.kind for fault in bc.FAULTS.items] == ["missing"]
     assert bc.NOT_EXERCISABLE == []
     monkeypatch.setattr(bc, "RETAINED_FIXTURE", True)
     bc.not_exercisable("chromium", "Run activity events", "no events.jsonl")
