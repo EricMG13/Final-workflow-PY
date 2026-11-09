@@ -1,0 +1,83 @@
+{
+  "literals": [
+    {
+      "text": "7,940",
+      "what": "Net sales FY2024, USD millions (FY2023 6,585)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "6,585",
+      "what": "Net sales FY2023, USD millions",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "1,286",
+      "what": "Interest expense-net FY2024, USD millions (FY2023 1,164)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "1,714",
+      "what": "Net income attributable to TD Group FY2024, USD millions (FY2023 1,298)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Results of Operations table, p. 26"
+    },
+    {
+      "text": "4,173",
+      "what": "EBITDA As Defined FY2024, USD millions (FY2023 3,395)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 EBITDA reconciliation, p. 41"
+    },
+    {
+      "text": "6,261",
+      "what": "Cash and cash equivalents at 2024-09-30, USD millions (2023-09-30 3,472)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Selected Balance Sheet Data, p. 31"
+    },
+    {
+      "text": "24,880",
+      "what": "Total debt at 2024-09-30, USD millions (2023-09-30 19,750)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Selected Balance Sheet Data, p. 31"
+    },
+    {
+      "text": "2,045",
+      "what": "Net cash provided by operating activities FY2024, USD millions (FY2023 1,375)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 cash-flow EBITDA reconciliation, p. 42"
+    },
+    {
+      "text": "7.50x",
+      "what": "Maximum consolidated net leverage ratio (net debt to trailing four-quarter EBITDA As Defined) of the springing revolver covenant; 8.00x after a material acquisition",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Liquidity, 'no maintenance covenants' paragraph, p. 36"
+    },
+    {
+      "text": "40%",
+      "what": "Revolver usage that triggers the covenant (currently $364 million of commitments)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Liquidity, p. 36"
+    },
+    {
+      "text": "$910 million",
+      "what": "Revolving commitments after the 2024-02-27 amendment; maturity extended from May 2026 to February 2029",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Recent developments, bullet 'On February 27, 2024'"
+    },
+    {
+      "text": "8,702",
+      "what": "Term loans gross amount at 2024-09-30, USD millions",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Note 10 Debt table, p. F-21"
+    },
+    {
+      "text": "2,650",
+      "what": "5.50% senior subordinated notes due 2027, principal, USD millions (matures November 15, 2027)",
+      "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm, Item 7 Indentures table, p. 35"
+    }
+  ],
+  "criteria": [
+    "Records whether CP-4 ends as an accepted Blocked handoff or stops the run",
+    "Records what downstream modules (CP-3C, CP-5) and the report then show",
+    "Records what the run cost",
+    "The Will refuse wording and the 'Run without' fix are set from this run",
+    "Forecast equals outcome for every module (CP-4 Will refuse; CP-3C and CP-5 Limited by inheritance; all others Ready)"
+  ],
+  "observe": [
+    "Whether CP-4 ends as an accepted Blocked handoff or stops the run",
+    "What CP-3C, CP-5 and the report show after CP-4",
+    "Total cost in USD against the 25 cap",
+    "Whether the run reached delivery",
+    "Whether CP-2D ran normally (forecast Ready)"
+  ]
+}

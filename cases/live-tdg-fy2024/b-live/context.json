@@ -1,0 +1,96 @@
+{
+  "schema": "context/1",
+  "run": {
+    "run_type": "secondary",
+    "pathway": "relative_value",
+    "case_kind": "public",
+    "as_of": "2024-09-30",
+    "cutoff": "",
+    "current_period": "fy-2024",
+    "prior_period": "fy-2023",
+    "reporting_currency": "USD"
+  },
+  "identity": {
+    "issuer_name": "TransDigm Group Incorporated",
+    "issuer_id": "tdg",
+    "borrower_name": "",
+    "parent_name": "",
+    "guarantors": [],
+    "aliases": [],
+    "listed_equity": true,
+    "ticker": "TDG",
+    "sector": "Aerospace",
+    "country": "United States",
+    "sponsor": "",
+    "issue_classification": "high_yield"
+  },
+  "deal_terms": [
+    {
+      "facility_id": "tdg-6-00-secured-2033",
+      "instrument": "6.00% senior secured notes due 2033",
+      "currency": "USD",
+      "size_m": "1500",
+      "tenor_years": "",
+      "talk_spread_bps_low": "",
+      "talk_spread_bps_high": "",
+      "talk_oid_low": "",
+      "talk_oid_high": "",
+      "floor_pct": "",
+      "coupon_pct": "6.00",
+      "margin_bps": "",
+      "maturity": "2033-01-15",
+      "call_protection": "",
+      "use_of_proceeds": "",
+      "as_of": "2024-09-30",
+      "provider": "synthetic user entry (terms transcribed from TDG FY2024 10-K, Note 10 Debt, p. F-21, and Item 7 Indentures table, p. 35)"
+    }
+  ],
+  "quotes": [
+    {
+      "facility_id": "tdg-6-00-secured-2033",
+      "kind": "observed",
+      "bid": "99.25",
+      "ask": "99.75",
+      "price": "",
+      "yield_pct": "",
+      "spread_bps": "",
+      "as_of": "2024-09-30",
+      "provider": "synthetic user entry (not a market observation)"
+    }
+  ],
+  "ratings": [],
+  "valuation": {
+    "peer_source": "none",
+    "basis": "auto",
+    "issuer_market": {
+      "market_cap_m": "",
+      "net_debt_m": "",
+      "ev_m": "",
+      "ebitda_basis": "LTM",
+      "as_of": "",
+      "source": ""
+    },
+    "peers": [],
+    "precedents": [],
+    "user_multiple": {
+      "value": "",
+      "basis": "LTM",
+      "rationale": ""
+    }
+  },
+  "assumptions": {
+    "cp2a": null,
+    "cp2d": null,
+    "cp2e": null,
+    "cp3c": null,
+    "cp3d": null,
+    "cp4c": null
+  },
+  "attachments": {
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "management_bridge": false,
+    "legal_documents": "none"
+  },
+  "research_questions": []
+}
