@@ -31,8 +31,8 @@ from .jobs import (
     engine_root,
     job_status,
     json_response,
+    list_runs,
     local_engine,
-    recent_jobs,
     resume_run,
     review_run,
     run_events,
@@ -482,10 +482,8 @@ def build(lib: Application) -> FastAPI:
         return lib.quit()
 
     @app.get("/api/runs/list")
-    def runs_list() -> Response:
-        with lib.lock:
-            workspace = lib.config.workspace
-        return json_response(recent_jobs(workspace))
+    def runs_list(request: Request) -> Response:
+        return list_runs(lib, request.query_params.getlist("notify"))
 
     @app.get("/api/runs/status")
     def runs_status(request: Request) -> Response:

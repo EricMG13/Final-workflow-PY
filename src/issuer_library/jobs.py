@@ -27,7 +27,7 @@ from typing import TYPE_CHECKING, Any
 from fastapi import HTTPException, Response
 from starlette.datastructures import FormData, UploadFile
 
-from . import events
+from . import events, notify
 from .desktop import WORKER_FLAGS
 from .model import digest
 from .settings import save_json
@@ -934,13 +934,81 @@ def settle_job(folder: Path) -> None:
             log.warning("Settle %s: %s", folder.name, error)
 
 
-def finish_job(lib: Application, folder: Path, job_id: str) -> None:
-    """Settle a job whose worker has ended, end its activity and refresh the library."""
-    settle_job(folder)
+def tab_served(lib: Application, jobs: list[dict[str, Any]]) -> None:
+    """Record a poll from a tab that can show the browser notice.
+
+    A run served in a non-running state while its finish_job is still pending (it is in
+    active_jobs) has been seen finished by that tab, so finish_job need not notify natively: the
+    worker writes its final status before finish_job records the finish. Only pending runs are
+    marked, so a mark cannot outlive its finish_job (a failed start that is retried keeps no stale
+    mark). The check and the mark happen under lib.lock, which finish_job holds while it takes the
+    mark and leaves active_jobs, so a mark is either honoured or not made. A non-running run
+    served after its finish_job left active_jobs was seen finished too: the poll then counts as
+    after the finish even if the clock has not ticked since lib.finished was set.
+    """
+    after_finish = False
     with lib.lock:
-        lib.active_jobs.discard(job_id)
-        lib.refresh_locked()
-    # Finish notices (sub-task 5E) go here, after the job has left the active set.
+        for job in jobs:
+            job_id = job.get("id")
+            if not isinstance(job_id, str) or not job_id or job.get("state") == "running":
+                continue
+            if job_id in lib.active_jobs:
+                lib.saw_finish.add(job_id)
+            else:
+                after_finish = True
+        at = lib.now()
+        if after_finish and at <= lib.finished:
+            at = lib.finished + 1
+        lib.watched = at
+
+
+def list_runs(lib: Application, notify_values: list[str]) -> Response:
+    """Answer the run list; a tab that can notify (anything but notify=0) counts as watching.
+
+    notify=0 is a tab that builds no browser notice (the watcher sends it when
+    Notification.permission is not granted); its poll must not suppress the native one.
+    """
+    with lib.lock:
+        workspace = lib.config.workspace
+    jobs = recent_jobs(workspace)
+    notify_value = (
+        notify_values[0] if notify_values else None
+    )  # Go's Query().Get takes the first value.
+    if notify_value != "0":
+        tab_served(lib, jobs)
+    return json_response(jobs)
+
+
+def finish_job(lib: Application, folder: Path, job_id: str) -> None:
+    """Settle a job whose worker has ended, end its activity, refresh and notice the finish."""
+    try:
+        settle_job(folder)
+        # Stored before the lock: a poll served the final state after the mark is taken must
+        # still count as after the finish, which tab_served decides from this value.
+        lib.finished = lib.now()
+        with lib.lock:
+            # The mark is taken and the job leaves active_jobs in one critical section, so a
+            # tab's poll either marked the run before this point or sees it no longer pending.
+            saw_finish = job_id in lib.saw_finish
+            lib.saw_finish.discard(job_id)
+            lib.active_jobs.discard(job_id)
+            lib.refresh_locked()
+        if not saw_finish and not notify.tab_watching(lib):
+            notice_finish(lib, folder, job_id)
+    finally:
+        if lib.on_finished is not None:
+            lib.on_finished(job_id)
+
+
+def notice_finish(lib: Application, folder: Path, job_id: str) -> None:
+    """Send the native notice for a finished run; a failure is logged, never retried."""
+    text = notify.finish_notice(folder)
+    if text is None:
+        return
+    try:
+        lib.notifier(*text)
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        log.warning("Run %s: native notice failed: %s", job_id, error)
 
 
 def watch(lib: Application, job_id: str, folder: Path, process: subprocess.Popen[bytes]) -> None:
