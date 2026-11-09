@@ -30,6 +30,7 @@ BROWSER_TESTS = (
     "tests/test_issuer_library_reader.py",
     "tests/test_issuer_library_run_activity.py",
     "tests/test_issuer_library_run_spend.py",
+    "tests/test_issuer_library_run_watch.py",
     "tests/test_issuer_library_screening.py",
     "tests/test_issuer_library_screens.py",
 )
@@ -76,7 +77,10 @@ def report(name: str, passed: bool, output: str = "") -> bool:
     if not passed:
         lines = output.splitlines()
         print(
-            "\n".join([line for line in lines if line.startswith("FAIL ")] + lines[-40:]),
+            "\n".join(
+                [line for line in lines if re.match(r"(?:FAIL|FAILED|ERROR) \S", line)]
+                + lines[-40:]
+            ),
             flush=True,
         )
     return passed

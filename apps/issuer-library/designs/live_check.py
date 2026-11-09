@@ -621,9 +621,6 @@ def check_run(
     )
     if args.case_data:
         case_outcomes(bc, args, ws, summary)
-        summary["real_workspace_walk"] = (
-            "not run: browser_check.real_workspace asserts the repo store's rows (KEY counts)"
-        )
     if args.rehearse:
         return
     shown = report.locator("#view-root").evaluate(
@@ -685,11 +682,13 @@ def run_walk(
         )
         dog = arm_watchdog(server)
         with sync_playwright() as driver:
-            browser = bc.SignedBrowser(driver.chromium.launch())
+            browser = bc.SignedBrowser(driver.chromium.launch(**bc.engine_options()["chromium"]))
             try:
                 bc.attempt("live", browser, lambda: walk(bc, browser, args, ws, summary))
             finally:
                 browser.close()
+            if args.case_data:
+                single_run_walks(bc, driver, ws, summary)
     finally:
         ignore_signals()  # teardown must finish
         try:
@@ -701,6 +700,30 @@ def run_walk(
                 dog.kill()  # disarmed: the group is gone, its id must not be signalled again
                 dog.wait()
             report_spend(bc, ws, summary)
+
+
+def single_run_walks(bc: Any, driver: Any, ws: Path, summary: dict[str, Any]) -> None:
+    """The real-workspace walk over this workspace's one run, in both engines (browser_check)."""
+    if not summary["run_id"]:  # the run never completed: nothing to read
+        summary["real_workspace_walk"] = "not run: the run did not complete"
+        return
+    for name, options in bc.engine_options().items():
+        browser = bc.SignedBrowser(getattr(driver, name).launch(**options))
+        try:
+            bc.attempt(
+                f"{name}-single-run",
+                browser,
+                lambda: bc.single_run_walk(browser, name, PORT, ws),  # noqa: B023
+            )
+        finally:
+            browser.close()
+    for line in bc.NOT_EXERCISABLE:  # R18 allows a skip only on the retained fixture, never here
+        bc.FAULTS.add("live", "missing", line)
+    summary["real_workspace_walk"] = {
+        "engines": list(bc.engine_options()),
+        "repo_store_counts": bc.NOT_APPLICABLE,
+        "not_exercisable": list(bc.NOT_EXERCISABLE),
+    }
 
 
 def report_spend(bc: Any, ws: Path, summary: dict[str, Any]) -> None:

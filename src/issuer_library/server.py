@@ -3,15 +3,18 @@
 from __future__ import annotations
 
 import contextlib
+import hashlib
 import json
 import logging
 import mimetypes
 import os
 import re
+import stat
 import threading
 import time
 from collections.abc import Callable, Iterator
 from pathlib import Path
+from typing import Any
 from urllib.parse import parse_qsl, quote
 
 from fastapi import FastAPI, Request, Response
@@ -74,6 +77,108 @@ WEB = engine_root().parent / "web"
 log = logging.getLogger("issuer_library")
 
 
+class StoreCache:
+    """The last workspace store output. run_lock is held while the store runs, so concurrent
+    requests share one run; it is never taken while holding Application.refreshing or
+    Application.lock, and neither is taken while holding it, so they cannot deadlock. state_lock
+    guards the entry and the generation and is held only for a field read or write, so clear()
+    never waits for a run: it bumps the generation, and a run that began before the bump does
+    not store its body."""
+
+    def __init__(self) -> None:
+        self.run_lock = threading.Lock()
+        self.state_lock = threading.Lock()
+        self.generation = 0
+        self.key = ""
+        self.body: bytes | None = None
+
+    def clear(self) -> None:
+        with self.state_lock:
+            self.generation += 1
+            self.key, self.body = "", None
+
+    def current(self) -> int:
+        """The generation now; a run records it before it reads anything."""
+        with self.state_lock:
+            return self.generation
+
+    def lookup(self, key: str) -> bytes | None:
+        """The cached body for key, or None when there is none."""
+        with self.state_lock:
+            return self.body if key == self.key else None
+
+    def store(self, key: str, body: bytes, generation: int) -> None:
+        """Keep body under key unless clear() ran since generation was read."""
+        with self.state_lock:
+            if self.generation == generation:
+                self.key, self.body = key, body
+
+
+def describe(label: str, name: Path) -> str:
+    try:
+        info = name.lstat()
+    except FileNotFoundError:
+        return f"{label}\tmissing"
+    return f"{label}\t{info.st_size}\t{info.st_mtime_ns}"
+
+
+def tree_files(workspace: Path, tree: str) -> list[str]:
+    """One line per regular file under workspace/tree; links and junctions are never followed, a
+    missing tree is empty, a file that vanishes mid-walk is recorded missing and a regular file in
+    place of the tree is described itself (as Go's WalkDir does). Any other error raises."""
+    top = workspace / tree
+    try:
+        mode = top.lstat().st_mode
+    except FileNotFoundError:
+        return []
+    if stat.S_ISREG(mode):
+        return [describe(tree, top)]
+    if not stat.S_ISDIR(mode) or top.is_junction():
+        return []
+    lines: list[str] = []
+    pending = [top]
+    while pending:
+        with os.scandir(pending.pop()) as entries:
+            for entry in entries:
+                relative = Path(entry.path).relative_to(workspace).as_posix()
+                try:
+                    info = entry.stat(follow_symlinks=False)
+                except FileNotFoundError:
+                    lines.append(f"{relative}\tmissing")
+                    continue
+                if entry.is_symlink() or entry.is_junction():
+                    continue
+                if stat.S_ISDIR(info.st_mode):
+                    pending.append(Path(entry.path))
+                elif stat.S_ISREG(info.st_mode):
+                    lines.append(f"{relative}\t{info.st_size}\t{info.st_mtime_ns}")
+    return lines
+
+
+def workspace_fingerprint(workspace: str, catalogue: Catalogue, engine_dir: Path) -> str:
+    """The inputs of one store run: the catalogue without its build time, and size and mtime
+    (never contents) of every regular file under workspace/runs and workspace/deliverables, the
+    only workspace trees store.py reads, plus store.py, catalog.json and the visualisation
+    catalogue. A missing file is recorded as missing, not as an error.
+    ponytail: one entry keyed on size and mtime; an edit that keeps both is missed until Refresh.
+    Hash the files if that happens.
+    """
+    raw = catalogue.model_copy(update={"built_at": ""}).model_dump_json()
+    lines = [
+        line for tree in ("runs", "deliverables") for line in tree_files(Path(workspace), tree)
+    ]
+    # store.py's REPO: the engine folder itself when packaged (it has src), else the checkout root.
+    repo = engine_dir if (engine_dir / "src").is_dir() else engine_dir / ".." / ".." / ".."
+    lines += [
+        describe("engine/store.py", engine_dir / "store.py"),
+        describe("engine/catalog.json", engine_dir / "catalog.json"),
+        describe(
+            "docs/visualisations/catalogue.csv", repo / "docs" / "visualisations" / "catalogue.csv"
+        ),
+    ]
+    return hashlib.sha256((raw + "\n" + "\n".join(sorted(lines))).encode()).hexdigest()
+
+
 class UploadTooLarge(Exception):
     pass
 
@@ -90,6 +195,15 @@ def bounded_receive(receive: Receive, limit: int) -> Receive:
         return message
 
     return inner
+
+
+def last_body_close(html: bytes) -> int:
+    """Offset of the final "</body>" in html, len(html) when there is none.
+
+    bytes.lower() folds ASCII only and keeps the length, so the offset indexes the original
+    bytes; Unicode lower-casing would change lengths (U+0130, Kelvin sign, invalid UTF-8)."""
+    found = html.lower().rfind(b"</body>")
+    return len(html) if found < 0 else found
 
 
 def attachment(filename: str) -> str:
@@ -261,6 +375,7 @@ class Application:
         self.active_jobs: set[str] = set()
         self.stop: Callable[[], None] = lambda: None
         self.catalogue = Catalogue()
+        self.store_cache = StoreCache()
         self.refresh_locked()
         # The ticket's lifetime counts from when the library is ready, after its first discovery.
         self.session = Session()
@@ -290,6 +405,10 @@ class Application:
             self.catalogue.issues.append(
                 "Search index could not be saved; live browsing is still available."
             )
+
+    def refresh(self) -> None:
+        with self.refresh_slot(), self.lock:
+            self.refresh_locked()
 
     def catalogue_locked(self) -> Response:
         return Response(self.catalogue.model_dump_json(), media_type=JSON)
@@ -357,26 +476,47 @@ class Application:
 
     def workspace_store(self) -> Response:
         with self.lock:
+            snapshot = self.catalogue.model_copy()
             catalogue = self.catalogue.model_dump(mode="json")
             workspace = self.config.workspace
-        try:
-            store = self.engine.library(workspace, catalogue)
-        except Exception as error:  # Producer-written files; the app still opens.
-            log.warning("Workspace store: %r", error)
-            raise HTTPException(
-                503,
-                "the workspace could not be read; check the runtime installation and "
-                "workspace folder",
-            ) from error
-        return Response(json.dumps(store, ensure_ascii=False), media_type="application/json")
+        body = self.store_body(workspace, snapshot, catalogue)
+        return Response(body, media_type="application/json")  # written with run_lock released
+
+    def store_body(self, workspace: str, snapshot: Catalogue, catalogue: dict[str, Any]) -> bytes:
+        """The store output, rerun only when its fingerprint changed. A failed fingerprint or
+        store is not cached."""
+        cache = self.store_cache
+        with cache.run_lock:
+            generation = cache.current()
+            key: str | None = None
+            try:
+                key = workspace_fingerprint(workspace, snapshot, self.engine.root)
+            except (OSError, ValueError) as error:
+                # Documented fail-open: without a key the store still runs, just uncached.
+                log.warning("Workspace fingerprint: %s; running the store uncached", error)
+            else:
+                cached = cache.lookup(key)
+                if cached is not None:
+                    return cached
+            try:
+                store = self.engine.library(workspace, catalogue)
+            except Exception as error:  # Producer-written files; the app still opens.
+                log.warning("Workspace store: %r", error)
+                raise HTTPException(
+                    503,
+                    "the workspace could not be read; check the runtime installation and "
+                    "workspace folder",
+                ) from error
+            body = json.dumps(store, ensure_ascii=False).encode()
+            if key is not None:
+                cache.store(key, body, generation)
+            return body
 
     def report_presentation(self, original: bytes) -> bytes:
         style = (self.web / "report-adapter.css").read_bytes()
         brand = (self.web / "brand.css").read_bytes()
         script = (self.web / "report-adapter.js").read_bytes()
-        position = original.lower().rfind(b"</body>")
-        if position < 0:
-            position = len(original)
+        position = last_body_close(original)
         return b"".join(
             [
                 original[:position],
@@ -423,7 +563,7 @@ class Application:
         download = request.query_params.get("download") == "1"
         if download:
             filename = os.path.basename(name)
-            if sha256 and filename == "report.html":
+            if sha256 and filename in ("report.html", "model.html"):
                 filename = os.path.basename(os.path.dirname(name)) + ".html"
             headers["Content-Disposition"] = attachment(filename)
         ancestors = "'none'"
@@ -433,7 +573,8 @@ class Application:
             and request.query_params.get("embedded") == "1"
         ):
             ancestors = f"http://{self.host}"
-            if not download:
+            # A published model is served as verified, embedded or not; only a report is adapted.
+            if not download and os.path.basename(name) == "report.html":
                 raw = self.report_presentation(raw)
         headers["Content-Security-Policy"] = REPORT_POLICY.format(ancestors=ancestors)
         return serve_bytes(request, raw, headers)
@@ -500,13 +641,20 @@ def build(lib: Application) -> FastAPI:
 
     @app.post("/api/refresh")
     def refresh() -> Response:
-        with lib.refresh_slot(), lib.lock:
-            lib.refresh_locked()
-            return lib.catalogue_locked()
+        try:
+            with lib.refresh_slot(), lib.lock:
+                lib.refresh_locked()
+                return lib.catalogue_locked()
+        finally:
+            lib.store_cache.clear()  # after the locks are released
 
     @app.post("/api/settings")
     async def settings(request: Request) -> Response:
-        return await run_in_threadpool(lib.apply_settings, await request.body())
+        try:
+            return await run_in_threadpool(lib.apply_settings, await request.body())
+        finally:
+            # After the locks are released; the key also names the workspace.
+            lib.store_cache.clear()
 
     @app.post("/api/quit")
     def quit_library() -> Response:
