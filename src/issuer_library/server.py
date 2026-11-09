@@ -122,7 +122,8 @@ def serve_bytes(request: Request, raw: bytes, headers: dict[str, str]) -> Respon
 
 
 class Boundary:
-    """Loopback requests from this app only, and the headers every response carries."""
+    """Loopback requests from this app only, with this launch's session, and the headers every
+    response carries."""
 
     def __init__(self, app: ASGIApp, lib: Application) -> None:
         self.app = app
@@ -146,7 +147,21 @@ class Boundary:
         if refusal is not None:
             await refusal(scope, receive, send_marked)
             return
+        if scope["method"] == "HEAD":
+            # net/http answers an authorised HEAD from the GET route with no body; so does this.
+            scope = {**scope, "method": "GET"}
+            await self.app(scope, receive, self.without_body(send_marked))
+            return
         await self.app(scope, receive, send_marked)
+
+    @staticmethod
+    def without_body(send: Send) -> Send:
+        async def bodiless(message: Message) -> None:
+            if message["type"] == "http.response.body":
+                message = {**message, "body": b""}
+            await send(message)
+
+        return bodiless
 
     def refusal(self, scope: Scope) -> Response | None:
         """The answer that stops the request here, or None when it may reach the routes."""
@@ -171,10 +186,11 @@ class Boundary:
         """A request that is not this app's own: another host, Origin or site."""
         origin = headers.get("origin", "")
         host = self.lib.host
+        sites = headers.getlist("sec-fetch-site")
         return (
             headers.get("host") != host
             or bool(origin and origin != f"http://{host}")
-            or headers.get("sec-fetch-site") == "cross-site"
+            or any(site not in ("same-origin", "none") for site in sites)
         )
 
     def launch(self, scope: Scope) -> Response:
