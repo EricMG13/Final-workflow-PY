@@ -9,6 +9,8 @@ from __future__ import annotations
 import math
 import os
 import re
+import unicodedata
+from dataclasses import dataclass
 from datetime import UTC, date, datetime
 from pathlib import Path
 
@@ -23,6 +25,7 @@ from .model import (
     DeliveryView,
     FileLink,
     Manifest,
+    Metric,
     Run,
     Source,
     blank_run,
@@ -35,7 +38,14 @@ from .model import (
     read_json,
 )
 
-NUMERIC_TOKEN = re.compile(r"-?[0-9][0-9,]*(?:\.[0-9]+)?")
+# One number in full: an optional leading minus, digits with thousands commas grouping exactly
+# three digits, and an optional decimal part.
+WHOLE_NUMBER = re.compile(r"-?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?")
+LEADING_GROUP = re.compile(r"-?[0-9]{1,3}")
+TRAILING_GROUP = re.compile(r"[0-9]{3}(?:[^0-9]|\Z)")
+DASHES = "-\u2010\u2011\u2012\u2013\u2014\u2212"
+SPACES = " \u00a0\u2009\u202f"
+EXPONENT_GAPS = ("e", "E", "e+", "E+")
 SOURCE_KEY = re.compile(r"[a-zA-Z0-9_-]+")
 CALENDAR_DATE = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
 DATA_ROOTS = ("runs/", "data/", "deliverables/")
@@ -65,6 +75,127 @@ def calendar_date(value: str) -> bool:
     return True
 
 
+def number_char(char: str) -> bool:
+    """A character that can belong to a written number: digits, decimal and group separators,
+    dashes and the slash of a date. A run of them is read as a whole, never in fragments."""
+    return sign_or_digit(char) or char in ".,'\u2019/"
+
+
+def is_dash(char: str) -> bool:
+    return char in DASHES
+
+
+def sign_or_digit(char: str) -> bool:
+    return "0" <= char <= "9" or is_dash(char)
+
+
+@dataclass(frozen=True)
+class NumberRun:
+    start: int
+    end: int
+    depth: int
+    text: str
+
+
+def number_runs(chars: str) -> list[NumberRun]:
+    """Maximal runs of number characters, trailing . and , trimmed, with the parenthesis depth."""
+    runs: list[NumberRun] = []
+    depth = 0
+    i = 0
+    while i < len(chars):
+        if not number_char(chars[i]):
+            if chars[i] == "(":
+                depth += 1
+            elif chars[i] == ")" and depth > 0:
+                depth -= 1
+            i += 1
+            continue
+        start = i
+        while i < len(chars) and number_char(chars[i]):
+            i += 1
+        end = i
+        while end > start and chars[end - 1] in ".,":
+            end -= 1
+        runs.append(NumberRun(start, end, depth, chars[start:end]))
+    return runs
+
+
+def grouped_runs(chars: str, runs: list[NumberRun]) -> set[int]:
+    """Indexes of runs that read as space-grouped thousands (1 234) or an exponent (1.2e3)."""
+    grouped: set[int] = set()
+    for k in range(1, len(runs)):
+        before, after = runs[k - 1], runs[k]
+        gap = chars[before.end : after.start]
+        spaced = (
+            len(gap) == 1
+            and gap in SPACES
+            and LEADING_GROUP.fullmatch(before.text) is not None
+            and TRAILING_GROUP.match(after.text) is not None
+        )
+        exponent = gap in EXPONENT_GAPS and before.text != "" and after.text != ""
+        if spaced or exponent:
+            grouped.update((k - 1, k))
+    return grouped
+
+
+def accounting_number(chars: str, run: NumberRun, number: str) -> str | None:
+    """The value of a number inside parentheses: only the exact form "(x)" stands alone, as -x,
+    with no sign inside it and no sign or digit around it."""
+    exact = (
+        chars[run.start - 1] == "("
+        and run.end < len(chars)
+        and chars[run.end] == ")"
+        and number[0] != "-"
+    )
+    if not exact:
+        return None
+    if run.start > 1 and sign_or_digit(chars[run.start - 2]):
+        return None
+    if run.end + 1 < len(chars) and sign_or_digit(chars[run.end + 1]):
+        return None
+    return "-" + number
+
+
+def run_number(chars: str, run: NumberRun) -> str | None:
+    """The number a run states, or None when its sign or scale is not known."""
+    if WHOLE_NUMBER.fullmatch(run.text) is None:
+        return None
+    if run.text[0] == "-" and run.start > 0 and chars[run.start - 1].isalpha():
+        return None
+    # A minus before a currency symbol (-$5) is a sign this reader does not move.
+    if (
+        run.start > 1
+        and unicodedata.category(chars[run.start - 1]) == "Sc"
+        and is_dash(chars[run.start - 2])
+    ):
+        return None
+    number = run.text.replace(",", "")
+    # The end of a parenthesis opened before the quote: its sign is unknown.
+    if run.depth == 0 and run.end < len(chars) and chars[run.end] == ")":
+        return None
+    if run.depth > 0:
+        return accounting_number(chars, run, number)
+    return number
+
+
+def stated_numbers(quote: str) -> list[str]:
+    """The numbers a quote states, as decimal strings without thousands commas.
+
+    A maximal run of number characters counts only when all of it is one whole number, so a
+    date, range, list or figure in another separator convention states nothing rather than a
+    fragment of itself; sentence punctuation after a number is dropped. These also state nothing:
+    a minus joined to a word (COVID-19) or placed before a currency symbol (-$5), two runs that
+    read as space-grouped thousands (1 234) or as an exponent (1.2e3), and a number closing a
+    parenthesis the quote did not open. Inside parentheses only the exact accounting form "(x)"
+    has a known sign, -x; any other parenthesised number, or "(x)" next to a dash or digit, is
+    not taken.
+    """
+    runs = number_runs(quote)
+    grouped = grouped_runs(quote, runs)
+    numbers = (run_number(quote, run) for k, run in enumerate(runs) if k not in grouped)
+    return [number for number in numbers if number is not None]
+
+
 def verify_source(root: Path, source: Source) -> Source:
     if not source.path.startswith(DATA_ROOTS):
         raise ValueError("source is outside workspace data directories")
@@ -77,8 +208,30 @@ def verify_source(root: Path, source: Source) -> Source:
     return source.model_copy(update={"href": pinned_url(source.path, source.sha256)})
 
 
-def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Run:
-    run = manifest.run.model_copy(deep=True)
+def check_metric(metric: Metric, verified: dict[str, Source]) -> None:
+    if metric.provenance not in ("", "cited", "calculated", "synthetic"):
+        raise ValueError("metric provenance must be cited, calculated, synthetic or omitted")
+    try:
+        value = float(metric.value)
+    except ValueError:
+        value = math.nan
+    pinned = verified.get(metric.source)
+    if (
+        not math.isfinite(value)
+        or pinned is None
+        or not metric.unit
+        or not metric.period
+        or not metric.basis
+    ):
+        raise ValueError(
+            "metric requires finite exact value, unit, period, basis and pinned source"
+        )
+    if metric.value not in stated_numbers(pinned.quote):
+        raise ValueError("metric value absent from source excerpt")
+
+
+def verify_identity(root: Path, manifest: Manifest, run: Run, run_id: str) -> dict[str, Source]:
+    """The manifest's pinned sources, verified, after the run's identity checks."""
     if run.id != run_id or not run.name or not run.issuer:
         raise ValueError("run identity must match folder and include issuer/name")
     if run.date and not calendar_date(run.date):
@@ -95,29 +248,28 @@ def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Ru
         raise ValueError("issuer identity needs a pinned source")
     if run.sector and run.sector != "Unclassified" and not run.sector_source:
         raise ValueError("sector needs a pinned source")
+    return verified
+
+
+def apply_defaults(root: Path, run: Run, run_id: str) -> None:
+    if not run.sector:
+        run.sector = "Unclassified"
+    if not run.period:
+        run.period = "Not established"
+    if not run.workflow:
+        run.workflow = "Unclassified"
+    if run.handoff:
+        if not run.handoff.startswith(f"runs/{run_id}/"):
+            raise ValueError("primary handoff must belong to run")
+        run.handoff_href = pinned_url(run.handoff, digest(read_file(root, run.handoff)))
+
+
+def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Run:
+    run = manifest.run.model_copy(deep=True)
+    verified = verify_identity(root, manifest, run, run_id)
     for metric in run.metrics.values():
-        if metric is None:
-            continue
-        if metric.provenance not in ("", "cited", "calculated", "synthetic"):
-            raise ValueError("metric provenance must be cited, calculated, synthetic or omitted")
-        try:
-            value = float(metric.value)
-        except ValueError:
-            value = math.nan
-        pinned = verified.get(metric.source)
-        if (
-            not math.isfinite(value)
-            or pinned is None
-            or not metric.unit
-            or not metric.period
-            or not metric.basis
-        ):
-            raise ValueError(
-                "metric requires finite exact value, unit, period, basis and pinned source"
-            )
-        tokens = {token.replace(",", "") for token in NUMERIC_TOKEN.findall(pinned.quote)}
-        if metric.value not in tokens:
-            raise ValueError("metric value absent from source excerpt")
+        if metric is not None:
+            check_metric(metric, verified)
     for rating in run.ratings:
         if rating.source not in verified:
             raise ValueError("rating requires pinned source")
@@ -131,16 +283,7 @@ def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Ru
             item.stage == "delivery" and item.done for item in manifest.checklist.requirements
         )
     run.handoff_href = ""
-    if not run.sector:
-        run.sector = "Unclassified"
-    if not run.period:
-        run.period = "Not established"
-    if not run.workflow:
-        run.workflow = "Unclassified"
-    if run.handoff:
-        if not run.handoff.startswith(f"runs/{run_id}/"):
-            raise ValueError("primary handoff must belong to run")
-        run.handoff_href = pinned_url(run.handoff, digest(read_file(root, run.handoff)))
+    apply_defaults(root, run, run_id)
     # Publish references only after every check succeeds: failed records cannot
     # leave admitted files or source labels behind in the aggregate catalogue.
     for key, source in verified.items():
