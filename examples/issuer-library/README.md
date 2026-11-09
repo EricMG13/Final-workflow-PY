@@ -3,6 +3,9 @@
 A local, read-only screening directory. Open `index.html` directly in a browser.
 Rebuild from this directory with `../../.venv/bin/python build.py`.
 
+This screening now lives in the app's Library (`apps/issuer-library`). This example stays
+as the approved reference and its tests keep running.
+
 ## Design and implementation plan
 
 Approved direction: one local directory of issuer runs, searchable by identity,
