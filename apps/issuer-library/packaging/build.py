@@ -35,7 +35,7 @@ def git(*args: str) -> str:
 
 
 def launcher(version: str) -> str:
-    # ponytail: call expands % twice, so a % in the share path breaks; ceiling: no % in paths.
+    # ponytail: call re-parses the line; ceiling: no % or ^ in the share path.
     # goto, not a ( ) block, so a parenthesis in a share path cannot break it.
     start = f'"{PYTHON}" -I -B -X utf8 "%~dp0app\\{version}\\start.py"'
     return "\r\n".join(

@@ -1,12 +1,15 @@
 """Credit OS package build: the layout, launcher, version stamp and wheels, built for real."""
 
+import hashlib
 import importlib.util
+import io
 import json
 import re
 import subprocess
 import sys
 from pathlib import Path
 from types import ModuleType
+from typing import Self
 
 import pytest
 
@@ -188,3 +191,92 @@ def test_worker_imports_from_release_lib(built: tuple[Path, Path]) -> None:
     assert set(origins) == {"pydantic", "pydantic_core", "copilot"}
     for name, origin in origins.items():
         assert Path(origin).resolve().is_relative_to((release / "lib").resolve()), (name, origin)
+
+
+GOOD = b"wheel-bytes"
+GOOD_SHA = hashlib.sha256(GOOD).hexdigest()
+URL = "https://files.pythonhosted.org/x/foo-1.0-%s.whl"
+NONE_ANY = "py3-none-any"
+
+
+class Served(io.BytesIO):
+    def __enter__(self) -> Self:
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        self.close()
+
+
+@pytest.fixture
+def runtime(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> ModuleType:
+    """runtime.py in a fresh module, rooted in tmp_path, with no network and a fake export."""
+    spec = importlib.util.spec_from_file_location("credit_os_runtime_t", PACKAGING / "runtime.py")
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "CACHE", tmp_path / "cache")
+    return module
+
+
+def arrange(
+    runtime: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    tag: str,
+    export_hashes: set[str],
+    body: bytes = GOOD,
+) -> None:
+    row = f'{{ url = "{URL % tag}", hash = "sha256:{GOOD_SHA}" }}'
+    lock = f'[[package]]\nname = "foo"\nversion = "1.0"\nwheels = [\n{row}\n]\n'
+    (runtime.ROOT / "uv.lock").write_text(lock)
+    monkeypatch.setattr(runtime, "exported", lambda: {"foo": ("1.0", export_hashes)})
+    monkeypatch.setattr(runtime.urllib.request, "urlopen", lambda url, timeout=0: Served(body))
+
+
+def fetch_all(runtime: ModuleType) -> None:
+    for url, sha, name in runtime.pinned_wheels():
+        runtime.download(url, sha, name)
+
+
+@pytest.mark.parametrize(
+    ("tag", "export_hashes"),
+    [
+        (NONE_ANY, {"0" * 64}),
+        (NONE_ANY, set()),
+        ("cp312-cp312-win_amd64", {GOOD_SHA}),
+        ("cp313-cp313-win32", {GOOD_SHA}),
+        ("cp313-cp313t-win_amd64", {GOOD_SHA}),
+        ("cp313-cp313-manylinux_2_17_x86_64", {GOOD_SHA}),
+    ],
+)
+def test_wheel_choice_fails_closed(
+    runtime: ModuleType, monkeypatch: pytest.MonkeyPatch, tag: str, export_hashes: set[str]
+) -> None:
+    arrange(runtime, monkeypatch, tag, export_hashes)
+    with pytest.raises(ValueError):
+        fetch_all(runtime)
+
+
+def test_served_bytes_must_match_the_lock_hash(
+    runtime: ModuleType, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    arrange(runtime, monkeypatch, NONE_ANY, {GOOD_SHA}, body=b"evil")
+    with pytest.raises(ValueError, match="Checksum mismatch"):
+        fetch_all(runtime)
+    assert not (runtime.CACHE / f"foo-1.0-{NONE_ANY}.whl").exists()
+
+
+def test_tampered_cache_is_not_trusted(
+    runtime: ModuleType, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    arrange(runtime, monkeypatch, NONE_ANY, {GOOD_SHA}, body=b"evil")
+    runtime.CACHE.mkdir()
+    (runtime.CACHE / f"foo-1.0-{NONE_ANY}.whl").write_bytes(b"tampered")
+    with pytest.raises(ValueError, match="Checksum mismatch"):
+        fetch_all(runtime)
+
+
+def test_genuine_bytes_are_cached(runtime: ModuleType, monkeypatch: pytest.MonkeyPatch) -> None:
+    arrange(runtime, monkeypatch, "cp313-cp313-win_amd64", {GOOD_SHA})
+    ((url, sha, name),) = runtime.pinned_wheels()
+    assert runtime.download(url, sha, name).read_bytes() == GOOD
