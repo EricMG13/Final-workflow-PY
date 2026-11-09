@@ -41,7 +41,6 @@ Mattress Firm Holding Corp. (CIK 1419852) only. No code changed; no module or pr
 - Gates exit 0: `tools/quality_gate.py` (0 lines in scope); `validate.py quick` (node 354, python 610 passed).
 Not verified: no module has consumed the case or key; whether a run can reach EDGAR (the free lane would change C1n);
 the EBITDA-path base is a range, because the documents leave the acquired "EBITDA" definitions unstated.
-Carried verbatim from final-workflow `8d22e84c` by PR 1-P (#31): the gate counts and "No code changed" above describe that repository, not this one.
 
 ## 2026-11-08 — Issuer Library: Library screening screen, offline: retained workspace; no provider called (branch `claude/library-screening-tests`)
 
