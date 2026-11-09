@@ -20,7 +20,16 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from issuer_library_browser import WEB, Screen, json_reply, open_app, release, until
+from issuer_library_browser import (
+    WEB,
+    Library,
+    Screen,
+    json_reply,
+    open_app,
+    release,
+    squash,
+    until,
+)
 
 pytestmark = pytest.mark.browser
 
@@ -35,10 +44,6 @@ CATALOGUE = load("screening-catalogue.json")
 CASES = load("filter-cases.json")
 SORT_CASES = load("sort-cases.json")
 TOTAL = len(CATALOGUE["real"])
-
-
-def squash(text: str) -> str:
-    return " ".join(text.split())
 
 
 def by_name(name: str) -> dict[str, Any]:
@@ -56,30 +61,20 @@ def js_number(value: Any) -> float:
         return math.nan
 
 
-class Library:
-    """The Library screen of the real app, driven through the page's own controls."""
+class CreditLibrary(Library):
+    """S5's Library screen helper plus what the credit and market filters need."""
 
     def __init__(self, screen: Screen) -> None:
-        self.screen = screen
+        super().__init__(screen)
         self.page = screen.page
 
     @property
     def hash(self) -> str:
         return self.screen.hash()
 
-    def ids(self) -> list[str]:
-        selector = "#library-results button[data-library-select]"
-        return [i or "" for i in self.screen.attrs(selector, "data-library-select")]
-
-    def text(self, element_id: str) -> str:
-        return squash(self.screen.text(f"#{element_id}"))
-
     def value(self, element_id: str) -> str:
         value: str = self.page.evaluate("i=>document.getElementById(i).value", element_id)
         return value
-
-    def detail(self) -> str:
-        return self.text("run-detail")
 
     def set(self, element_id: str, value: str) -> None:
         # The key's unreadable number text is "abc". A person cannot enter letters into a
@@ -157,7 +152,7 @@ class Library:
         return values
 
 
-LibraryOpener = Callable[..., Library]
+LibraryOpener = Callable[..., CreditLibrary]
 
 
 @pytest.fixture
@@ -166,7 +161,7 @@ def library(browser: Any) -> Iterator[LibraryOpener]:
 
     def open_library(
         hash_route: str = "W-Library/cases", data: dict[str, Any] = CATALOGUE
-    ) -> Library:
+    ) -> CreditLibrary:
         reply = {
             "workspace": "",
             "policy_locked": False,
@@ -177,7 +172,7 @@ def library(browser: Any) -> Iterator[LibraryOpener]:
         app = {"workspace": "", "policy_locked": False, "issues": [], "problem": ""}
         screen = open_app(browser, hash_route, app=app, api={"/api/catalogue": json_reply(reply)})
         opened.append(screen)
-        return Library(screen)
+        return CreditLibrary(screen)
 
     yield open_library
     release(opened)
