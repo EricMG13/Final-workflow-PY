@@ -350,7 +350,8 @@ def test_summary_draws_chart_tables_with_their_exact_values_and_shows_a_gap_with
     screen = northbridge("W-Overview?c=web-1", reader_store())
     charts = js(
         screen,
-        "return [...d.querySelectorAll('.summary-chart')].map(c=>({title:norm(c.querySelector('h2').textContent),"
+        "return [...d.querySelectorAll('.summary-chart')]"
+        ".map(c=>({title:norm(c.querySelector('h2').textContent),"
         "rows:[...c.querySelectorAll('.chart-row')].map(r=>[norm(r.querySelector('.chart-label').textContent),"
         "norm(r.querySelector('strong').textContent)])}));",
     )

@@ -269,7 +269,7 @@ def handoffs_of(store: dict[str, Any]) -> dict[str, Any]:
 
 
 def catalogue_reply(store: dict[str, Any], app: dict[str, Any] = DEFAULT_APP) -> Reply:
-    """/api/catalogue with one metric-free record per store run, as the server sends for most runs."""
+    """/api/catalogue with one metric-free record per store run, as most runs are served."""
     real = [
         {
             "id": run["folder"],
