@@ -506,6 +506,8 @@ def link_deliverable(cat: Catalogue, folder: str, artifact: Artifact, view: Deli
 
 
 def withhold_unverified_completeness(run: Run, cat: Catalogue) -> None:
+    if not run._delivery_claimed:
+        return
     # The delivery checkpoint is the report bundle: a published model alone does not complete a run.
     available = any(
         item.available
@@ -537,32 +539,6 @@ def seed_manifest(seed: Run, seeds: Catalogue) -> Manifest:
     return manifest
 
 
-def admit_folder(
-    root: Path, folder: str, seed_by_id: dict[str, Run], seeds: Catalogue, cat: Catalogue
-) -> Run:
-    """One run folder as a run: its manifest, else a surviving legacy summary, else discovered."""
-    run_id = os.path.basename(folder)
-    run = blank_run(run_id)
-    if os.path.lexists(root / folder / "library.json"):
-        try:
-            manifest = read_json(root, f"{folder}/library.json", Manifest)
-            if manifest.schema_ != MANIFEST_SCHEMA:
-                raise ValueError("unsupported run manifest schema")
-            run = admit_run(root, manifest, run_id, cat)
-        except (OSError, ValueError) as error:
-            run = blank_run(run_id)
-            run.gaps.append(f"Run metadata rejected: {describe(error)}")
-            cat.issues.append(f"{folder}: {describe(error)}")
-    elif run_id in seed_by_id:
-        try:
-            run = admit_run(root, seed_manifest(seed_by_id[run_id], seeds), run_id, cat)
-        except (OSError, ValueError) as error:
-            run = blank_run(run_id)
-            run.gaps.append(f"Legacy summary unavailable: {describe(error)}")
-            cat.issues.append(f"{folder}: {describe(error)}")
-    return run
-
-
 def unattached_delivery(artifact: Artifact, view: DeliveryView) -> Run:
     run = blank_run(f"delivery:{os.path.basename(artifact.folder)}")
     run.title = "Delivery revision"
@@ -578,6 +554,18 @@ def unattached_delivery(artifact: Artifact, view: DeliveryView) -> Run:
             "run folders has not been established; no metrics or completion are inferred."
         )
     return run
+
+
+def place_deliverable(root: Path, folder: str, cat: Catalogue) -> None:
+    """A deliverables/ folder verified, pinned and attached to its runs, else a run of its own."""
+    artifact, view, files = verify_delivery(root, folder)
+    linked = link_deliverable(cat, folder, artifact, view)
+    if artifact.available:
+        cat._allowed.update(files)
+    else:
+        cat.issues.append(f"{folder}: {artifact.issue}")
+    if not linked:
+        cat.real.append(unattached_delivery(artifact, view))
 
 
 def discover(workspace: str, seeds: Catalogue) -> Catalogue:
@@ -598,7 +586,25 @@ def discover(workspace: str, seeds: Catalogue) -> Catalogue:
     # Legacy summaries remain useful only when their exact pinned files survive.
     seed_by_id = {run.id: run for run in seeds.real}
     for folder in run_folders:
-        run = admit_folder(root, folder, seed_by_id, seeds, cat)
+        run_id = os.path.basename(folder)
+        run = blank_run(run_id)
+        if os.path.lexists(root / folder / "library.json"):
+            try:
+                manifest = read_json(root, f"{folder}/library.json", Manifest)
+                if manifest.schema_ != MANIFEST_SCHEMA:
+                    raise ValueError("unsupported run manifest schema")
+                run = admit_run(root, manifest, run_id, cat)
+            except (OSError, ValueError) as error:
+                run = blank_run(run_id)
+                run.gaps.append(f"Run metadata rejected: {describe(error)}")
+                cat.issues.append(f"{folder}: {describe(error)}")
+        elif run_id in seed_by_id:
+            try:
+                run = admit_run(root, seed_manifest(seed_by_id[run_id], seeds), run_id, cat)
+            except (OSError, ValueError) as error:
+                run = blank_run(run_id)
+                run.gaps.append(f"Legacy summary unavailable: {describe(error)}")
+                cat.issues.append(f"{folder}: {describe(error)}")
         # Delivery availability is always checked afresh, not inherited from a seed.
         for artifact in run.artifacts:
             artifact.available = False
@@ -613,16 +619,8 @@ def discover(workspace: str, seeds: Catalogue) -> Catalogue:
         cat.issues.append(str(error))
         delivery_folders = []
     for folder in delivery_folders:
-        artifact, view, files = verify_delivery(root, folder)
-        linked = link_deliverable(cat, folder, artifact, view)
-        if artifact.available:
-            cat._allowed.update(files)
-        else:
-            cat.issues.append(f"{folder}: {artifact.issue}")
-        if not linked:
-            cat.real.append(unattached_delivery(artifact, view))
+        place_deliverable(root, folder, cat)
     for run in cat.real:
-        if run._delivery_claimed:
-            withhold_unverified_completeness(run, cat)
+        withhold_unverified_completeness(run, cat)
     cat.real.sort(key=lambda run: (run.name, run.id))
     return cat
