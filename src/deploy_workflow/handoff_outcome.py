@@ -3,9 +3,11 @@
 Standard library only: live_check loads this file by path, tools/expectations_backtest imports it.
 
 1. The module's own handoff is read first. Its evidence is exact `key: value` lines in the
-   handoff's leading `---` front-matter block (prose never counts), a line that starts with the
-   label `Module Status:` (bold, backticks, a list marker and a final period
-   allowed; case-insensitive; a table row never counts), plus a
+   handoff's leading `---` front-matter block (prose never counts; values match in any letter
+   case, may be single- or double-quoted and may end in ` # comment`; a leading BOM is
+   ignored), a line that starts with the label `Module Status:` (case-insensitive; bold,
+   backticks, a `> ` quote, a list marker and a final period allowed; a table row never counts;
+   a line inside a ``` code fence never counts, front matter excepted), plus a
    status word after the module id (below). The most severe value wins:
    will_refuse > limited > ready.
 
@@ -38,12 +40,12 @@ import re
 
 STATUS = {"BLOCKED": "will_refuse", "READY_WITH_LIMITATIONS": "limited", "READY": "ready"}
 FIELDS = {
-    ("qa_status", "Blocked"): "will_refuse",
-    ("committee_status", "Blocked"): "will_refuse",
-    ("qa_status", "Restricted"): "limited",
-    ("committee_status", "Restricted"): "limited",
-    ("review_status", "Provisional"): "limited",
-    ("committee_status", "Committee Ready"): "ready",
+    ("qa_status", "blocked"): "will_refuse",
+    ("committee_status", "blocked"): "will_refuse",
+    ("qa_status", "restricted"): "limited",
+    ("committee_status", "restricted"): "limited",
+    ("review_status", "provisional"): "limited",
+    ("committee_status", "committee ready"): "ready",
 }
 SEVERITY = {"ready": 0, "limited": 1, "will_refuse": 2}
 COMPATIBLE = {
@@ -58,7 +60,7 @@ COMPATIBLE = {
 
 def front_matter(text: str) -> list[tuple[str, str]]:
     """The `key: value` lines of the leading `---` block; [] when there is no closed block."""
-    lines = text.split("\n")
+    lines = text.removeprefix("\ufeff").split("\n")
     if lines[0].strip() != "---":
         return []
     pairs: list[tuple[str, str]] = []
@@ -67,6 +69,9 @@ def front_matter(text: str) -> list[tuple[str, str]]:
             return pairs
         key, sep, value = line.partition(":")
         if sep:
+            value = re.sub(r"\s+#.*$", "", value.strip())
+            if len(value) > 1 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1]
             pairs.append((key.strip(), value.strip()))
     return []
 
@@ -105,12 +110,15 @@ def own_status(module: str, own: str) -> tuple[str, str] | None:
     """The most severe (class, how) the module's own handoff states, or None."""
     name = f"{module} handoff"
     found = [
-        (FIELDS[pair], f"{pair[0]}: {pair[1]} in {name}")
-        for pair in front_matter(own)
-        if pair in FIELDS
+        (FIELDS[(key, value.lower())], f"{key}: {value} in {name}")
+        for key, value in front_matter(own)
+        if (key, value.lower()) in FIELDS
     ]
-    for line in own.splitlines():
-        if not line.lstrip().startswith("|") and (value := module_status(line)):
+    fenced = False
+    for line in own.removeprefix("\ufeff").splitlines():
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+        elif not fenced and (value := module_status(line)):
             found.append((MODULE_STATUS[value.lower()], f"Module Status: {value} in {name}"))
     if word := status_word(module, own, tuple(STATUS)):
         found.append((STATUS[word], f"{word} in {name}"))
