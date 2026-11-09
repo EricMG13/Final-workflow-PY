@@ -136,10 +136,27 @@ class Engine:
         )
 
 
+def refuse_non_regular(path: Path) -> None:
+    """Windows stand-in for O_NOFOLLOW: OSError for a link or other non-regular file."""
+    if not stat.S_ISREG(path.lstat().st_mode):
+        raise OSError(f"not a regular file: {path.name}")
+
+
+def refuse_non_regular_descriptor(descriptor: int, path: Path) -> None:
+    """Close the descriptor and raise OSError when it is not a regular file."""
+    if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+        os.close(descriptor)
+        raise OSError(f"not a regular file: {path.name}")
+
+
 if sys.platform == "win32":
 
     def hold_worker_lock(path: Path) -> int:
         """Open the lock file shared for reading only, so a second open for writing is refused."""
+        try:
+            refuse_non_regular(path)
+        except FileNotFoundError:
+            pass  # CreateFile below creates it.
         handle: int = _winapi.CreateFile(str(path), 0x80000000, 1, 0, 4, 0x80, 0)
         try:
             os.set_handle_inheritable(handle, True)
@@ -159,10 +176,11 @@ if sys.platform == "win32":
     def worker_alive(path: Path) -> bool:
         """Whether a worker holds the lock; OSError when that cannot be checked."""
         try:
+            refuse_non_regular(path)
             _winapi.CloseHandle(_winapi.CreateFile(str(path), 0x40000000, 3, 0, 3, 0x80, 0))
+        except FileNotFoundError:  # The file is absent: no worker ever held it.
+            return False
         except OSError as error:
-            if error.winerror == 2:  # The file is absent: no worker ever held it.
-                return False
             if error.winerror == 32:  # A sharing violation: the worker holds it.
                 return True
             raise
@@ -172,7 +190,9 @@ else:
 
     def hold_worker_lock(path: Path) -> int:
         """Lock the file exclusively; the worker inherits the descriptor and so keeps the lock."""
-        descriptor = os.open(path, os.O_RDWR | os.O_CREAT, 0o600)
+        flags = os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK
+        descriptor = os.open(path, flags, 0o600)
+        refuse_non_regular_descriptor(descriptor, path)
         try:
             fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except OSError:
@@ -189,9 +209,10 @@ else:
     def worker_alive(path: Path) -> bool:
         """Whether a worker holds the lock; OSError when that cannot be checked."""
         try:
-            descriptor = os.open(path, os.O_RDONLY)
+            descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
         except FileNotFoundError:
             return False
+        refuse_non_regular_descriptor(descriptor, path)
         try:
             fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
@@ -912,10 +933,20 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
         release_lock(lock)
 
 
+def read_job_state(folder: Path) -> str | None:
+    """The state in status.json as Go decodes it; None where the decode fails.
+
+    FileNotFoundError for a missing file; any other OSError for a link, a non-regular file or an
+    unreadable one. Never follows a link or blocks on a FIFO.
+    """
+    with events.open_regular(folder / "status.json") as stream:
+        return stopped_run_state(stream.read())
+
+
 def job_state(folder: Path) -> str | None:
     """The state in the job's status.json as Go's JobStatus decode reads it; None if unreadable."""
     try:
-        return stopped_run_state((folder / "status.json").read_bytes())
+        return read_job_state(folder)
     except OSError:
         return None
 
@@ -954,15 +985,28 @@ def adopt_jobs_locked(lib: Application, workspace: str) -> None:
 
     A lock that cannot be checked leaves its job as it is. The caller holds lib.lock or owns lib.
     """
+    intake = Path(workspace) / "intake"
     try:
-        names = sorted(os.listdir(Path(workspace) / "intake"))
-    except OSError:
+        names = sorted(os.listdir(intake))
+    except FileNotFoundError:
+        return  # A fresh workspace has no intake folder.
+    except OSError as error:
+        log.warning("Adoption skipped: %s cannot be listed: %s", intake, error)
         return
     for name in names:
         folder = Path(workspace) / "intake" / name
         if not JOB_ID.fullmatch(name) or name in lib.active_jobs:
             continue
-        if job_state(folder) != "running":
+        try:
+            state = read_job_state(folder)
+        except FileNotFoundError:
+            continue  # A reviewed job that never started has no status.
+        except OSError as error:
+            log.warning("Run %s: its status.json is skipped: %s", name, error)
+            continue
+        if state is None:
+            log.warning("Run %s: its status.json is skipped: it cannot be decoded", name)
+        if state != "running":
             continue
         try:
             alive = worker_alive(folder / "worker.lock")
