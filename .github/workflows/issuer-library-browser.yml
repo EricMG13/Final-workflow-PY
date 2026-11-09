@@ -18,6 +18,9 @@ concurrency:
   # Only superseded PR runs are cancelled.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 jobs:
   issuer-library-browser:
     name: issuer library browser walk (chromium)

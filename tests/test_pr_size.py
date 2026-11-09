@@ -1,22 +1,28 @@
 """PR size and copy check: each test builds its own temporary git repo."""
 
-import os
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 from tools import pr_size
 
 SCRIPT = Path(__file__).resolve().parents[1] / "tools" / "pr_size.py"
 IDENT = ["-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "commit.gpgsign=false"]
 UNKNOWN_SHA = "0123456789abcdef0123456789abcdef01234567"
-# The developer's own git config (hooks, signing, aliases) must not reach the temporary repos.
-GIT_ENV = {**os.environ, "GIT_CONFIG_GLOBAL": "/dev/null", "GIT_CONFIG_NOSYSTEM": "1"}
+
+
+@pytest.fixture(autouse=True)
+def isolated_git_config(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The developer's own git config (hooks, signing, aliases) must not reach any test."""
+    monkeypatch.setenv("GIT_CONFIG_GLOBAL", "/dev/null")
+    monkeypatch.setenv("GIT_CONFIG_NOSYSTEM", "1")
 
 
 def git(repo: Path, *args: str) -> str:
     done = subprocess.run(
-        ["git", *IDENT, *args], cwd=repo, check=True, capture_output=True, text=True, env=GIT_ENV
+        ["git", *IDENT, *args], cwd=repo, check=True, capture_output=True, text=True
     )
     return done.stdout.strip()
 
@@ -68,7 +74,6 @@ def result(repo: Path, base: str) -> subprocess.CompletedProcess[str]:
         check=False,
         capture_output=True,
         text=True,
-        env=GIT_ENV,
     )
 
 
@@ -172,3 +177,116 @@ def test_unknown_source_sha_fails(tmp_path: Path) -> None:
     done = result(repo, base)
     assert done.returncode == 1
     assert f"source commit {UNKNOWN_SHA} is not in this repository" in done.stderr
+
+
+def replace_lines(data: bytes, count: int) -> bytes:
+    """Return data with its first `count` lines replaced."""
+    rows = data.splitlines(keepends=True)
+    return b"".join([f"changed {i}\n".encode() for i in range(count)] + rows[count:])
+
+
+def edited_setup(tmp_path: Path, replaced: int) -> tuple[Path, str]:
+    """Base holds a different 1000-line file; source holds 900; HEAD edits the source copy."""
+    repo, base = make_repo(tmp_path, {"vendor/big.txt": lines(1000)[::-1]})
+    source_data = lines(900)
+    sha = make_source(repo, {"vendor/big.txt": source_data})
+    commit(
+        repo,
+        "copy and edit",
+        {
+            "vendor/big.txt": replace_lines(source_data, replaced),
+            "tools/copied-from.txt": listing_text(sha, "edited vendor/big.txt"),
+        },
+    )
+    return repo, base
+
+
+def test_edited_copy_counts_only_its_difference_from_source(tmp_path: Path) -> None:
+    repo, base = edited_setup(tmp_path, 3)
+    assert pr_size.pr_lines(base, repo) == 6
+    assert run(repo, base) == 0
+
+
+def test_edited_path_is_not_a_mismatch(tmp_path: Path) -> None:
+    repo, _ = edited_setup(tmp_path, 3)
+    listing = repo / "tools" / "copied-from.txt"
+    assert pr_size.copied_mismatches(listing, repo) == []
+
+
+def test_edited_path_absent_at_source_is_a_mismatch(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"other.txt": b"x\n"})
+    commit(
+        repo,
+        "new",
+        {
+            "new/file.py": b"x = 1\n",
+            "tools/copied-from.txt": listing_text(sha, "edited new/file.py"),
+        },
+    )
+    listing = repo / "tools" / "copied-from.txt"
+    assert pr_size.copied_mismatches(listing, repo) == ["new/file.py"]
+    done = result(repo, base)
+    assert done.returncode == 1
+    assert "copy mismatch: new/file.py" in done.stdout
+
+
+def test_edited_path_absent_here_is_a_mismatch(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"vendor/f.txt": lines(5)})
+    commit(repo, "list", {"tools/copied-from.txt": listing_text(sha, "edited vendor/f.txt")})
+    listing = repo / "tools" / "copied-from.txt"
+    assert pr_size.copied_mismatches(listing, repo) == ["vendor/f.txt"]
+    assert run(repo, base) == 1
+
+
+def test_edited_difference_over_800_fails(tmp_path: Path) -> None:
+    repo, base = edited_setup(tmp_path, 401)
+    assert pr_size.pr_lines(base, repo) == 802
+    assert run(repo, base) == 1
+
+
+def test_edited_path_binary_at_source_keeps_its_range_count(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"code.py": b"bin\x00ary\n"})
+    commit(
+        repo,
+        "new text",
+        {"code.py": lines(1000), "tools/copied-from.txt": listing_text(sha, "edited code.py")},
+    )
+    assert pr_size.pr_lines(base, repo) == 1000
+    assert run(repo, base) == 1
+
+
+def test_unknown_base_fails_with_a_message(tmp_path: Path) -> None:
+    repo, _ = make_repo(tmp_path)
+    done = result(repo, "nonexistent-ref")
+    assert done.returncode == 1
+    assert "git failed" in done.stderr
+    assert "nonexistent-ref" in done.stderr
+    assert "Traceback" not in done.stderr
+
+
+def test_dirty_working_tree_does_not_change_the_result(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    data = lines(900)
+    sha = make_source(repo, {"vendor/big.txt": data})
+    commit(
+        repo,
+        "copy",
+        {"vendor/big.txt": data, "tools/copied-from.txt": listing_text(sha, "vendor/big.txt")},
+    )
+    write(repo, {"vendor/big.txt": b"dirty\n", "tools/copied-from.txt": listing_text(sha, "x.txt")})
+    assert pr_size.copied_mismatches(repo / "tools" / "copied-from.txt", repo) == []
+    assert pr_size.pr_lines(base, repo) == 0
+    assert run(repo, base) == 0
+
+
+def test_a_listed_directory_is_a_mismatch(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"vendor/a.txt": b"a\n"})
+    commit(
+        repo, "copy", {"vendor/a.txt": b"a\n", "tools/copied-from.txt": listing_text(sha, "vendor")}
+    )
+    assert pr_size.copied_mismatches(repo / "tools" / "copied-from.txt", repo) == ["vendor"]
+    assert run(repo, base) == 1
