@@ -6,7 +6,6 @@ import argparse
 import json
 import logging
 import os
-import socket
 import sys
 import threading
 import time
@@ -17,8 +16,9 @@ from pathlib import Path
 
 import uvicorn
 
+from . import quit as quitting
 from .desktop import open_browser, platform_locations, show_error
-from .launch import ALREADY_RUNNING, launch_link
+from .launch import launch_link
 from .model import digest
 from .server import APPLICATION, Application
 
@@ -99,19 +99,15 @@ def run(argv: list[str] | None = None) -> int:
         raise ValueError("port must be between 1024 and 65535")
     host = f"127.0.0.1:{port}"
     address = f"http://{host}"
-    listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    if os.name != "nt":
-        listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     try:
-        listener.bind(("127.0.0.1", port))
+        listener = quitting.listen(port)
     except OSError as error:
-        listener.close()
-        if running_instance(address, digest(str(loc.state).encode())):
-            # Its session secret is in its memory only, so this launch cannot sign a browser in
-            # to it (the relaunch quit request lands in Task 1.4b).
-            raise ValueError(ALREADY_RUNNING) from error
-        raise ValueError(f"local port is occupied by another application: {error}") from error
-    listener.listen(128)
+        if not running_instance(address, digest(str(loc.state).encode())):
+            raise ValueError(f"local port is occupied by another application: {error}") from error
+        # This user's instance answers. Its session secret is in its memory only, so this launch
+        # cannot sign a browser in to it; it asks the instance to quit instead (quit.py).
+        listener = quitting.ask_to_quit(loc.state, port)
+    quitting.clear_quit_files(loc.state)
     app = Application(loc, arguments.workspace, host)
     server = uvicorn.Server(
         uvicorn.Config(
@@ -135,10 +131,20 @@ def run(argv: list[str] | None = None) -> int:
     def rediscover() -> None:
         while not server.should_exit:
             time.sleep(30)
-            with app.lock:
-                app.refresh_locked()
+            if not quitting.hold_refreshing(app):
+                return  # The library is quitting; no discovery starts again.
+            try:
+                with app.lock:
+                    app.refresh_locked()
+            finally:
+                app.refreshing.release()
 
     threading.Thread(target=rediscover, daemon=True).start()
+    threading.Thread(
+        target=quitting.watch_quit_requests,
+        args=(app, lambda: server.should_exit, quitting.quit_poll),
+        daemon=True,
+    ).start()
     announce(
         link=launch_link(host, app.session.ticket()),
         address=address,
