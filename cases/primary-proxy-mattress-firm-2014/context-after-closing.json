@@ -1,0 +1,66 @@
+{
+  "schema": "context/1",
+  "run": {
+    "run_type": "secondary",
+    "pathway": "covenant_refinancing",
+    "case_kind": "public",
+    "as_of": "2014-10-21",
+    "current_period": "",
+    "prior_period": "",
+    "reporting_currency": "USD"
+  },
+  "identity": {
+    "issuer_name": "Mattress Firm Holding Corp.",
+    "issuer_id": "mattress-firm",
+    "borrower_name": "Mattress Holding Corp.",
+    "parent_name": "",
+    "guarantors": [
+      "Mattress Holdco, Inc."
+    ],
+    "aliases": [
+      "Mattress Firm"
+    ],
+    "listed_equity": true,
+    "ticker": "MFRM",
+    "sector": "Specialty retail (mattresses and accessories)",
+    "country": "United States",
+    "sponsor": ""
+  },
+  "deal_terms": [],
+  "quotes": [],
+  "ratings": [],
+  "valuation": {
+    "peer_source": "none",
+    "basis": "auto",
+    "issuer_market": {
+      "market_cap_m": "",
+      "net_debt_m": "",
+      "ev_m": "",
+      "ebitda_basis": "LTM",
+      "as_of": "",
+      "source": ""
+    },
+    "peers": [],
+    "precedents": [],
+    "user_multiple": {
+      "value": "",
+      "basis": "LTM",
+      "rationale": ""
+    }
+  },
+  "assumptions": {
+    "cp2a": null,
+    "cp2d": null,
+    "cp2e": null,
+    "cp3c": null,
+    "cp3d": null,
+    "cp4c": null
+  },
+  "attachments": {
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "management_bridge": false,
+    "legal_documents": "executed"
+  },
+  "research_questions": []
+}

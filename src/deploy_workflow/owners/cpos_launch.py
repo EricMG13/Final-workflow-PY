@@ -27,6 +27,7 @@ from types import MappingProxyType
 from typing import Any
 
 from deploy_vii.contracts import PATHWAY_MODULES, Run
+from deploy_vii.cp4_legal import DRAFT_LIMITATION
 from deploy_vii.live.prompts import STEP_CONTRACTS
 from deploy_vii.registry import modules, plan
 from deploy_vii.report_view import _spec_of, pathways
@@ -37,6 +38,7 @@ from deploy_workflow.handoff_delivery import (
     MarkdownLayout,
     MarkdownRoute,
     section,
+    table_row,
 )
 from deploy_workflow.html_text import convert_html
 from deploy_workflow.markdown_delivery import (
@@ -242,6 +244,71 @@ READER_STANDARD = (
     "modules and locators in brackets or tables.\n"
     "- Use plain-English labels. Hashes and raw locators belong in `## Sources` and tables.\n\n"
 )
+
+
+# Provisional review (Plan 3 Task 10; owner decision 1, 2026-11-08): on a Primary run, or when the
+# context declares draft legal documents, CP-4 reviews draft and marketing documents as Provisional
+# instead of stopping. The Deploy VII owner path admits drafts the same way (`DRAFT_LIMITATION`).
+FINAL_OM_REASON = (
+    "After closing, the final offering memorandum is a summary of the executed documents, "
+    "not the governing document."
+)
+BLOCKED_LINE = "Module Status: Blocked"
+REGISTER_HEADING = "Legal document register"
+REGISTER_HEADER = ["Document", "Kind", "Status", "Authority rank", "Source"]
+OTHER_KIND = "other"
+MARKETING_KIND = "lender presentation, term sheet or commitment letter"
+KIND_RANK = {
+    "credit agreement or indenture": "1",
+    "intercreditor agreement": "2",
+    "compliance certificate": "3",
+    "offering memorandum": "4",
+    "covenant-review report": "5",
+    MARKETING_KIND: "6",
+    OTHER_KIND: "not ranked",
+}
+STATUSES = ("executed", "draft", "indicative", "final", "filed")
+PROVISIONAL = "Provisional"
+FINAL_OM_DRAFT_WORDING = "may change before signing"
+CONSUMERS = ("CP-3", "CP-5", "CP-6")
+CONSUMER_SENTENCE = "Label any term taken from a Provisional CP-4 handoff as Provisional."
+PROVISIONAL_PARAGRAPH = (
+    "Provisional review. This run may hold draft or marketing documents instead of executed ones. "
+    "Review them rather than stopping, and mark the result Provisional:\n"
+    f"- Under `## Findings`, write `### {REGISTER_HEADING}` with exactly one table headed "
+    f"`| {' | '.join(REGISTER_HEADER)} |`, one row per document you read. Kind is one of "
+    + "; ".join(f"`{kind}` (rank {rank})" for kind, rank in KIND_RANK.items())
+    + ". `other` is not a legal or offering document, for example an annual or quarterly report, "
+    "an acquisition agreement, a press release or a current report. Status is one of "
+    + ", ".join(f"`{status}`" for status in STATUSES)
+    + ": `executed` is signed; `draft` is an unsigned ranked document; `indicative` is a lender "
+    "presentation, term sheet or commitment letter; `final` is a final offering memorandum after "
+    "closing; `filed` is a regulatory filing that is not itself an agreement. Source is the source "
+    "name you relied on.\n"
+    "- Never call a draft or a marketing document executed, and never use CP-1D figures as "
+    "covenant capacity.\n"
+    "- If any ranked document is a draft or indicative, or none is executed and the others are not "
+    f"all final, state this sentence word for word: {DRAFT_LIMITATION}\n"
+    f"- If any document is a final offering memorandum, state this sentence word for word: "
+    f"{FINAL_OM_REASON} Then do not use the draft sentence for it.\n"
+    f"- When either sentence applies, write the word {PROVISIONAL} in every report section routed "
+    f"to this module and in the Main limitation of the Reader summary, and give {PROVISIONAL} "
+    "confidence.\n"
+    f"- With no legal document at all, or a register that lists no legal or offering document, "
+    f"state `{BLOCKED_LINE}` and the method's Blocked message.\n\n"
+)
+PROVISIONAL_ISSUES = {
+    "register_missing": "Provisional register missing",
+    "blocked_line_missing": "Provisional register lists no legal or offering document",
+    "register_malformed": "Provisional register row malformed",
+    "executed_marketing_document": "Provisional register calls a marketing document executed",
+    "draft_limitation_missing": "Provisional draft limitation missing",
+    "final_om_reason_missing": "Provisional final offering memorandum reason missing",
+    "final_om_draft_wording": "Provisional final offering memorandum carries draft wording",
+    "provisional_section_missing": "Provisional label missing in routed section",
+    "provisional_main_limitation_missing": "Provisional label missing in Main limitation",
+    "consumer_provisional_missing": "Provisional label missing from a Provisional CP-4 term",
+}
 
 
 class LaunchRefused(ValueError):
@@ -541,9 +608,12 @@ def _instructions(
     module: str,
     routes: Sequence[MarkdownRoute],
     *,
-    run_type: str,  # Plan 3 (Primary scope) reads these two; no instruction byte uses them yet.
+    run_type: str,
     legal_documents: str,
 ) -> bytes:
+    provisional = run_type == "primary" or legal_documents == "draft"
+    paragraph = PROVISIONAL_PARAGRAPH if provisional and module == "CP-4" else ""
+    consumer = f"{CONSUMER_SENTENCE}\n\n" if provisional and module in CONSUMERS else ""
     selectors = "\n".join(_selector(r) for r in routes if r.module_id == module)
     sections = [(path, (ROOT / path).read_text(encoding="utf-8")) for path in METHODS[module]]
     if module == "CP-1":
@@ -584,6 +654,8 @@ def _instructions(
             if selectors
             else ""
         )
+        + paragraph
+        + consumer
         + f"Selected method, verbatim:\n\n{method}\n"
     ).encode()
 
@@ -821,6 +893,156 @@ def without_for(ordered: Sequence[str], items: Sequence[Item]) -> dict[str, list
     return result
 
 
+def _cells(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def _body(lines: list[str], heading: str, level: int) -> list[str]:
+    """The lines under one heading, or none when it is missing or repeated. The report adapter
+    refuses that itself; here a missing section reads as empty, so the label checks still name it
+    as lacking Provisional."""
+    try:
+        return [line for _, line in section(lines, heading, (level,))]
+    except ValueError:
+        return []
+
+
+def _register(lines: list[str]) -> list[list[str]] | None:
+    """The register's data rows; None when the heading, the exact header or a row is missing."""
+    rows: list[list[str]] = []
+    for line in _body(_body(lines, "Findings", 2), REGISTER_HEADING, 3):
+        found = table_row(line)
+        if found is not None:
+            rows.append(_cells(found))
+        elif rows:
+            break
+    if not rows or rows[0] != REGISTER_HEADER or len(rows) < 3:
+        return None
+    if not all(re.fullmatch(r":?-+:?", cell) for cell in rows[1]):  # No separator: not a table.
+        return None
+    return rows[2:]
+
+
+def _main_limitation(lines: list[str]) -> str:
+    rows = [_cells(r) for r in map(table_row, _body(lines, "Reader summary", 3)) if r]
+    if len(rows) < 3 or "Main limitation" not in rows[0]:
+        return ""
+    cells = rows[2]
+    return cells[rows[0].index("Main limitation")] if len(cells) == len(rows[0]) else ""
+
+
+def _row_problem(row: list[str]) -> str:
+    if len(row) != len(REGISTER_HEADER):
+        return f"needs {len(REGISTER_HEADER)} cells"
+    _, kind, status, rank, _ = row
+    if kind not in KIND_RANK:
+        return f"Kind `{kind}` is not one of the listed kinds"
+    if status not in STATUSES:
+        return f"Status `{status}` is not one of {', '.join(STATUSES)}"
+    if rank != KIND_RANK[kind]:
+        return f"Authority rank for `{kind}` is {KIND_RANK[kind]}"
+    return ""
+
+
+def _problem(category: str, detail: str) -> str:
+    return f"{PROVISIONAL_ISSUES[category]}: {detail}"
+
+
+def _valid_rows(register: list[list[str]]) -> tuple[list[list[str]], list[str]]:
+    valid, issues = [], []
+    for row in register:
+        if problem := _row_problem(row):
+            issues.append(_problem("register_malformed", f"`{' | '.join(row)}`: {problem}."))
+        elif row[1] == MARKETING_KIND and row[2] == "executed":
+            issues.append(
+                _problem("executed_marketing_document", f"`{row[0]}` is marketing, never executed.")
+            )
+        else:
+            valid.append(row)
+    return valid, issues
+
+
+def _label_issues(lines: list[str], routes: Sequence[MarkdownRoute]) -> list[str]:
+    issues = [
+        _problem("provisional_section_missing", f"write {PROVISIONAL} in {route.heading}.")
+        for route in routes
+        if PROVISIONAL not in "\n".join(_body(lines, route.heading, 3))
+    ]
+    if PROVISIONAL not in _main_limitation(lines):
+        issues.append(
+            _problem(
+                "provisional_main_limitation_missing",
+                f"write {PROVISIONAL} in the Reader summary's Main limitation.",
+            )
+        )
+    return issues
+
+
+def cp4_issues(task: HandoffTask, text: str, routes: Sequence[MarkdownRoute]) -> tuple[str, ...]:
+    """C-1 to C-7: CP-4's register and Provisional labels, for a run whose instructions carry the
+    Provisional paragraph. Structure only; the analysis is never judged."""
+    if PROVISIONAL_PARAGRAPH.encode() not in task.instructions:
+        return ()
+    lines = text.splitlines()
+    register = _register(lines)
+    if register is None:
+        if BLOCKED_LINE in text:  # The method's Blocked message stands with no legal document.
+            return ()
+        return (
+            _problem(
+                "register_missing",
+                f"add `### {REGISTER_HEADING}` inside ## Findings, with one table headed "
+                f"`| {' | '.join(REGISTER_HEADER)} |` and a row per document read.",
+            ),
+        )
+    valid, issues = _valid_rows(register)
+    ranked = [row for row in valid if row[1] != OTHER_KIND]
+    if not ranked:
+        if BLOCKED_LINE not in text and not issues:
+            issues.append(
+                _problem(
+                    "blocked_line_missing",
+                    f"state `{BLOCKED_LINE}` and the method's Blocked message.",
+                )
+            )
+        return tuple(issues)
+    statuses = [row[2] for row in ranked]
+    unsigned = [s for s in statuses if s != "executed"]
+    all_final = bool(unsigned) and all(s == "final" for s in unsigned)
+    has_final = "final" in statuses
+    needs_limit = any(s in ("draft", "indicative") for s in statuses) or (
+        "executed" not in statuses and not all_final
+    )
+    if needs_limit and DRAFT_LIMITATION not in text:
+        issues.append(_problem("draft_limitation_missing", f"state: {DRAFT_LIMITATION}"))
+    if has_final and FINAL_OM_REASON not in text:
+        issues.append(_problem("final_om_reason_missing", f"state: {FINAL_OM_REASON}"))
+    if all_final and FINAL_OM_DRAFT_WORDING in text:
+        issues.append(
+            _problem(
+                "final_om_draft_wording", "remove the draft sentence; every document is final."
+            )
+        )
+    if needs_limit or has_final:
+        issues += _label_issues(lines, routes)
+    return tuple(issues)
+
+
+def consumer_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
+    """C-8: a consumer of a Provisional CP-4 handoff says so."""
+    upstream = task.handoffs.get("CP-4", b"")
+    provisional = DRAFT_LIMITATION.encode() in upstream or FINAL_OM_REASON.encode() in upstream
+    if task.module_id in CONSUMERS and provisional and PROVISIONAL not in text:
+        return (
+            _problem(
+                "consumer_provisional_missing",
+                f"the CP-4 handoff is {PROVISIONAL}; write {PROVISIONAL} where this module uses "
+                "its terms.",
+            ),
+        )
+    return ()
+
+
 def checker(layout: MarkdownLayout) -> Check:
     """Anchors and report selectors for one module's answer, so a defect is repaired inside the
     module's loop rather than found at delivery after every module was paid for."""
@@ -868,6 +1090,7 @@ def checker(layout: MarkdownLayout) -> Check:
         for route in routes:
             if route.kind == "chart":
                 issues += chart_issues(text, route)
+        issues += cp4_issues(task, text, routes) + consumer_issues(task, text)
         return tuple(issues)
 
     return check

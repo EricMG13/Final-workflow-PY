@@ -1,0 +1,1129 @@
+{
+  "frozen": "2026-11-08",
+  "authored_by": "key-writer subagent; not the author of Task 10 code",
+  "placeholders": {
+    "{DRAFT_LIMITATION}": "deploy_vii.cp4_legal.DRAFT_LIMITATION",
+    "{FINAL_OM_REASON}": "cpos_launch.FINAL_OM_REASON",
+    "{BLOCKED_LINE}": "Module Status: Blocked"
+  },
+  "cases": [
+    {
+      "id": "rf12-indicative-no-limitation",
+      "covers": "Review Focus 12; C-4 first condition (indicative row); labels present so C-6 silent",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "rf12-indicative-with-limitation",
+      "covers": "Review Focus 12 counterpart; C-4 satisfied, C-6 labels present",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "rf13-final-om-secondary",
+      "covers": "Review Focus 13; C-5: Secondary + draft is in scope; only non-executed ranked row is final, so no DRAFT_LIMITATION; reason and labels present",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{FINAL_OM_REASON}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "rf13-final-om-with-draft-wording",
+      "covers": "C-5: all non-executed ranked rows are final, so DRAFT_LIMITATION text ('may change before signing') is forbidden",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{FINAL_OM_REASON}\n\n{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "final_om_draft_wording"
+        ]
+      }
+    },
+    {
+      "id": "rf13-final-om-no-reason",
+      "covers": "C-5: final row needs FINAL_OM_REASON; labels present",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "final_om_reason_missing"
+        ]
+      }
+    },
+    {
+      "id": "executed-only-no-labels",
+      "covers": "C-7: every ranked row executed; no limitation or label required",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "executed-only-with-other-rows",
+      "covers": "C-7: executed ranked row plus an unranked other row; still nothing required",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Annual report | other | filed | not ranked | 10-k.htm |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "blocked-no-register",
+      "covers": "C-1 exception: BLOCKED_LINE and no register",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "none",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "Blocked: no legal document supplied.",
+        "routed_sections_text": null,
+        "findings_text": "{BLOCKED_LINE}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "blocked-only-other-rows",
+      "covers": "C-1 exception: BLOCKED_LINE and only 'other' rows (no ranked row, so C-4/C-6 not triggered)",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "none",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Annual report | other | filed | not ranked | 10-k.htm |",
+        "main_limitation": "Blocked: no legal document supplied.",
+        "routed_sections_text": null,
+        "findings_text": "{BLOCKED_LINE}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "no-register-not-blocked",
+      "covers": "C-1: Provisional scope, no register, no BLOCKED_LINE",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "none",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_missing"
+        ]
+      }
+    },
+    {
+      "id": "blocked-line-no-register-draft-limitation-irrelevant",
+      "covers": "C-1: no register and no BLOCKED_LINE even with limitation present still register_missing",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_missing"
+        ]
+      }
+    },
+    {
+      "id": "register-wrong-header",
+      "covers": "C-1: misheaded register (Rank instead of Authority rank) counts as missing; its rows are not parsed so no other issue",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_missing"
+        ]
+      }
+    },
+    {
+      "id": "register-header-only",
+      "covers": "C-1: header without a row is not a register",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_missing"
+        ]
+      }
+    },
+    {
+      "id": "malformed-rank-mismatch",
+      "covers": "C-2: credit agreement carries rank 2 (reading: row is malformed; executed status means no C-4 either way)",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 2 | credit-agreement.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_malformed"
+        ]
+      }
+    },
+    {
+      "id": "malformed-unknown-status",
+      "covers": "C-2: status 'pending' is not in the list (row is an 'other' kind so ranked-row rules are unaffected; an executed ranked row is alongside)",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Annual report | other | pending | not ranked | 10-k.htm |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_malformed"
+        ]
+      }
+    },
+    {
+      "id": "malformed-four-cells",
+      "covers": "C-2: row with 4 cells (alongside an executed ranked row)",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Annual report | other | filed | not ranked |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_malformed"
+        ]
+      }
+    },
+    {
+      "id": "malformed-unknown-kind",
+      "covers": "C-2: kind 'side letter' not in the list (alongside an executed ranked row)",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Side letter | side letter | executed | 1 | side-letter.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_malformed"
+        ]
+      }
+    },
+    {
+      "id": "malformed-other-with-numeric-rank",
+      "covers": "C-2: 'other' kind must carry 'not ranked'",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Annual report | other | filed | 3 | 10-k.htm |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "register_malformed"
+        ]
+      }
+    },
+    {
+      "id": "executed-marketing-document",
+      "covers": "C-3 only: lender presentation 'executed' is a valid status/rank so C-2 silent; C-4 does not fire because a ranked row is executed and no ranked row is draft/indicative; C-6 not triggered",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | executed | 6 | lender-presentation.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "executed_marketing_document"
+        ]
+      }
+    },
+    {
+      "id": "executed-marketing-plus-indicative",
+      "covers": "C-3 with a second indicative row: C-4 fires and is satisfied",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | executed | 6 | lp1.pdf |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "executed_marketing_document"
+        ]
+      }
+    },
+    {
+      "id": "section-label-missing",
+      "covers": "C-6: limitation present, main limitation labelled, routed section lacks Provisional",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section covers the covenant terms.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "provisional_section_missing"
+        ]
+      }
+    },
+    {
+      "id": "main-limitation-label-missing",
+      "covers": "C-6: limitation present, routed section labelled, main limitation lacks Provisional",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Legal documents are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "provisional_main_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "both-labels-missing",
+      "covers": "C-6: both labels absent",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Legal documents are not executed.",
+        "routed_sections_text": "This section covers the covenant terms.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "provisional_main_limitation_missing",
+          "provisional_section_missing"
+        ]
+      }
+    },
+    {
+      "id": "labels-and-limitation-missing",
+      "covers": "C-4 and C-6 are independent: limitation and both labels absent",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Legal documents are not executed.",
+        "routed_sections_text": "This section covers the covenant terms.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing",
+          "provisional_main_limitation_missing",
+          "provisional_section_missing"
+        ]
+      }
+    },
+    {
+      "id": "draft-row-needs-limitation",
+      "covers": "C-4 first condition: draft ranked row",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement draft | credit agreement or indenture | draft | 1 | credit-agreement-draft.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "executed-plus-draft-needs-limitation",
+      "covers": "C-4 first condition applies even though a ranked row is executed",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Intercreditor draft | intercreditor agreement | draft | 2 | ic-draft.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "executed-plus-draft-with-limitation",
+      "covers": "C-4 satisfied",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Intercreditor draft | intercreditor agreement | draft | 2 | ic-draft.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "filed-only-ranked-needs-limitation",
+      "covers": "C-4 second condition: ranked row, none executed, non-executed not all final (status filed)",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Covenant review | covenant-review report | filed | 5 | review.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "filed-only-ranked-with-limitation",
+      "covers": "C-4 second condition satisfied",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Covenant review | covenant-review report | filed | 5 | review.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "executed-plus-final-om",
+      "covers": "C-5 with an executed row: non-executed ranked rows all final, so reason required, no limitation; labels required by C-6 because C-5 requires a fixed text",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{FINAL_OM_REASON}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "executed-plus-final-om-no-labels",
+      "covers": "C-5 requires fixed text so C-6 labels required",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+        "findings_text": "{FINAL_OM_REASON}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "provisional_main_limitation_missing",
+          "provisional_section_missing"
+        ]
+      }
+    },
+    {
+      "id": "final-om-plus-draft-both-texts",
+      "covers": "C-5 draft-wording ban applies only when every non-executed ranked row is final; here a draft row exists so both texts required and allowed",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |\n| Credit agreement draft | credit agreement or indenture | draft | 1 | credit-agreement-draft.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{FINAL_OM_REASON}\n\n{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "final-om-plus-draft-missing-reason",
+      "covers": "final row with draft row, DRAFT_LIMITATION present, reason absent",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Final offering memorandum | offering memorandum | final | 4 | om-final.pdf |\n| Credit agreement draft | credit agreement or indenture | draft | 1 | credit-agreement-draft.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "final_om_reason_missing"
+        ]
+      }
+    },
+    {
+      "id": "secondary-executed-out-of-scope",
+      "covers": "C-9: Secondary, executed, no register",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "executed",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "secondary-none-out-of-scope",
+      "covers": "C-9: Secondary, no legal documents, no register",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "none",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "No legal documents supplied.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "secondary-executed-malformed-register-ignored",
+      "covers": "C-9 reading: out of scope adds no issue, even for a malformed register",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "executed",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 3 | ca.pdf |",
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "cp6-upstream-draft-no-word",
+      "covers": "C-8: CP-6 upstream holds DRAFT_LIMITATION; no 'Provisional' in answer",
+      "module": "CP-6",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\n{DRAFT_LIMITATION}",
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant headroom is stated against the supplied terms.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "consumer_provisional_missing"
+        ]
+      }
+    },
+    {
+      "id": "cp6-upstream-draft-with-word",
+      "covers": "C-8: CP-6 answer contains Provisional",
+      "module": "CP-6",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\n{DRAFT_LIMITATION}",
+      "answer": {
+        "register": null,
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "cp6-upstream-draft-word-in-findings-only",
+      "covers": "C-8 reading: 'somewhere in its answer' includes findings text",
+      "module": "CP-6",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\n{DRAFT_LIMITATION}",
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant headroom is stated against the supplied terms.",
+        "routed_sections_text": null,
+        "findings_text": "Provisional terms apply."
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "cp5-upstream-final-om-no-word",
+      "covers": "C-8: CP-5 upstream holds FINAL_OM_REASON; no 'Provisional'",
+      "module": "CP-5",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\n{FINAL_OM_REASON}",
+      "answer": {
+        "register": null,
+        "main_limitation": "Terms follow the offering memorandum.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "consumer_provisional_missing"
+        ]
+      }
+    },
+    {
+      "id": "cp5-upstream-final-om-with-word",
+      "covers": "C-8: CP-5 upstream holds FINAL_OM_REASON; answer has Provisional",
+      "module": "CP-5",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\n{FINAL_OM_REASON}",
+      "answer": {
+        "register": null,
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "cp3-upstream-neither",
+      "covers": "C-8: CP-3 upstream has neither text; no new check",
+      "module": "CP-3",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\nCovenant terms are from the executed credit agreement.",
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "cp3-upstream-both-no-word",
+      "covers": "C-8: CP-3 upstream holds both texts; no 'Provisional'",
+      "module": "CP-3",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\n{DRAFT_LIMITATION}\n\n{FINAL_OM_REASON}",
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "consumer_provisional_missing"
+        ]
+      }
+    },
+    {
+      "id": "cp5-no-upstream-primary-run",
+      "covers": "C-8 reading: consumer scope depends only on the upstream handoff, so a Primary run with no upstream CP-4 adds no check",
+      "module": "CP-5",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "cp6-upstream-neither-primary-draft-run",
+      "covers": "C-8: run fields do not put a consumer in scope",
+      "module": "CP-6",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": "Module Status: Completed with Limitations\n\nExecuted terms apply.",
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "mattress-firm-c1-accepted",
+      "covers": "Realistic Mattress Firm C1: all eight documents; executed APA is 'other' so unranked; indicative lender presentation requires DRAFT_LIMITATION; labels present",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| 8-K Item 7.01 furnishing wrapper | other | filed | not ranked | 2014-09-11-8k-item-7-01.htm |\n| Public lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | 2014-09-11-ex99-1-public-lender-presentation.htm |\n| 10-K year ended 2014-01-28 | other | filed | not ranked | 10-k-year-ended-2014-01-28.htm |\n| 10-Q quarter ended 2014-04-29 | other | filed | not ranked | 10-q-quarter-ended-2014-04-29.htm |\n| 10-Q quarter ended 2014-07-29 | other | filed | not ranked | 10-q-quarter-ended-2014-07-29.htm |\n| 8-K Back to Bed asset purchase | other | filed | not ranked | 2014-08-29-8k-back-to-bed-asset-purchase.htm |\n| Back to Bed Asset Purchase Agreement (acquisition contract, not a credit document) | other | executed | not ranked | 2014-08-29-ex2-1-asset-purchase-agreement.htm |\n| Back to Bed press release | other | filed | not ranked | 2014-08-29-ex99-1-press-release.htm |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}\n\nThe 2012 Credit Agreement is being refinanced and is not attached."
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "mattress-firm-c1-no-limitation",
+      "covers": "Mattress Firm C1 without DRAFT_LIMITATION",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| 8-K Item 7.01 furnishing wrapper | other | filed | not ranked | 2014-09-11-8k-item-7-01.htm |\n| Public lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | 2014-09-11-ex99-1-public-lender-presentation.htm |\n| 10-K year ended 2014-01-28 | other | filed | not ranked | 10-k-year-ended-2014-01-28.htm |\n| 10-Q quarter ended 2014-04-29 | other | filed | not ranked | 10-q-quarter-ended-2014-04-29.htm |\n| 10-Q quarter ended 2014-07-29 | other | filed | not ranked | 10-q-quarter-ended-2014-07-29.htm |\n| 8-K Back to Bed asset purchase | other | filed | not ranked | 2014-08-29-8k-back-to-bed-asset-purchase.htm |\n| Back to Bed Asset Purchase Agreement (acquisition contract, not a credit document) | other | executed | not ranked | 2014-08-29-ex2-1-asset-purchase-agreement.htm |\n| Back to Bed press release | other | filed | not ranked | 2014-08-29-ex99-1-press-release.htm |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "This section is Provisional.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "mattress-firm-c1-unlabelled",
+      "covers": "Mattress Firm C1 with limitation but unlabelled",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "credit_snapshot",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| 8-K Item 7.01 furnishing wrapper | other | filed | not ranked | 2014-09-11-8k-item-7-01.htm |\n| Public lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | 2014-09-11-ex99-1-public-lender-presentation.htm |\n| 10-K year ended 2014-01-28 | other | filed | not ranked | 10-k-year-ended-2014-01-28.htm |\n| 10-Q quarter ended 2014-04-29 | other | filed | not ranked | 10-q-quarter-ended-2014-04-29.htm |\n| 10-Q quarter ended 2014-07-29 | other | filed | not ranked | 10-q-quarter-ended-2014-07-29.htm |\n| 8-K Back to Bed asset purchase | other | filed | not ranked | 2014-08-29-8k-back-to-bed-asset-purchase.htm |\n| Back to Bed Asset Purchase Agreement (acquisition contract, not a credit document) | other | executed | not ranked | 2014-08-29-ex2-1-asset-purchase-agreement.htm |\n| Back to Bed press release | other | filed | not ranked | 2014-08-29-ex99-1-press-release.htm |",
+        "main_limitation": "Terms come from a lender presentation.",
+        "routed_sections_text": "This section covers the keyed terms.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "provisional_main_limitation_missing",
+          "provisional_section_missing"
+        ]
+      }
+    },
+    {
+      "id": "earnings-update-cp4-primary-draft-accepted",
+      "covers": "Pathway earnings_update + CP-4 added: CP-4 owns no report section, so C-6 section rule has nothing to check (routed text null); register, C-4 and main-limitation label still apply",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "earnings_update",
+      "upstream_cp4": null,
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-MODEL",
+        "CP-1B",
+        "CP-1D",
+        "CP-5",
+        "CP-4"
+      ],
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": null,
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "earnings-update-cp4-primary-draft-no-limitation",
+      "covers": "Same pathway: C-4 still applies",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "earnings_update",
+      "upstream_cp4": null,
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-MODEL",
+        "CP-1B",
+        "CP-1D",
+        "CP-5",
+        "CP-4"
+      ],
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "draft_limitation_missing"
+        ]
+      }
+    },
+    {
+      "id": "earnings-update-cp4-secondary-executed-out-of-scope",
+      "covers": "C-9 on earnings_update: Secondary, executed, no register",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "executed",
+      "pathway": "earnings_update",
+      "upstream_cp4": null,
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-MODEL",
+        "CP-1B",
+        "CP-1D",
+        "CP-5",
+        "CP-4"
+      ],
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": null,
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "distressed-primary-draft-accepted",
+      "covers": "Pathway distressed_restructuring: CP-4 routed section is the prose block covenant-levers, labelled Provisional",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "distressed_restructuring",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "Covenant-levers: this block is Provisional.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    },
+    {
+      "id": "distressed-primary-draft-section-unlabelled",
+      "covers": "distressed_restructuring: covenant-levers block lacks Provisional",
+      "module": "CP-4",
+      "run_type": "primary",
+      "legal_documents": "draft",
+      "pathway": "distressed_restructuring",
+      "upstream_cp4": null,
+      "answer": {
+        "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Lender presentation | lender presentation, term sheet or commitment letter | indicative | 6 | lender-presentation.pdf |",
+        "main_limitation": "Provisional: legal documents in this run are not executed.",
+        "routed_sections_text": "Covenant-levers: the block covers the available covenant levers.",
+        "findings_text": "{DRAFT_LIMITATION}"
+      },
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "provisional_section_missing"
+        ]
+      }
+    },
+    {
+      "id": "distressed-secondary-executed-out-of-scope",
+      "covers": "C-9 on distressed_restructuring: Secondary, executed, no register",
+      "module": "CP-4",
+      "run_type": "secondary",
+      "legal_documents": "executed",
+      "pathway": "distressed_restructuring",
+      "upstream_cp4": null,
+      "answer": {
+        "register": null,
+        "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+        "routed_sections_text": "Covenant-levers follow the executed credit agreement.",
+        "findings_text": null
+      },
+      "expected": {
+        "accepted": true,
+        "issues": []
+      }
+    }
+  ]
+}

@@ -47,8 +47,8 @@ into `_instructions`.
 - **The Provisional label travels:**
   - Every CP-4 section routed to the report says "Provisional", and so does the Reader summary's main
     limitation.
-  - On Primary runs, CP-3, CP-5 and CP-6 label any term taken from a Provisional CP-4 handoff as
-    Provisional.
+  - In Provisional scope (Primary, or declared draft), CP-3, CP-5 and CP-6 label any term taken from
+    a Provisional CP-4 handoff as Provisional.
 - **CP-1D:** Primary runs add it to the default modules. The review shows the extra module, and the
   user can remove it. CP-4 is told not to use CP-1D figures as covenant capacity (CP-1D's own rule).
 - **Pro forma, by module and by dependency:**
@@ -141,7 +141,9 @@ entry to `VERIFICATION.md`.
   - **Financial base:** 10-K for the year ended 28 January 2014 (0001047469-14-003037); 10-Qs for
     29 April 2014 (0001104659-14-044836) and 29 July 2014 (0001558370-14-000163), the presentation's
     LTM basis.
-  - **Context support:** merger 8-K of 29 August 2014 (0001104659-14-064027).
+  - **Context support:** Back to Bed asset purchase 8-K of 29 August 2014 (0001104659-14-064027;
+    Item 1.01, the bolt-on Asset Purchase Agreement, not the Sleep Train merger agreement, which is
+    not in the case; the lender presentation carries sources and uses and acquired EBITDA).
   - **After closing, for C1r:** 8-K of 21 October 2014 (0001104659-14-072654). Exhibit 10.1 is the
     ABL Credit Agreement and Exhibit 10.2 the Term Loan Credit Agreement, both dated 20 October
     2014; margin LIBOR + 4.00–4.25%, maturity 20 October 2021.
@@ -172,8 +174,8 @@ entry to `VERIFICATION.md`.
     routed section and in the main limitation.
   - It never calls a draft executed, and never uses CP-1D figures as capacity.
   - With no legal document at all, the Blocked message stands.
-- [ ] **On Primary runs,** CP-3, CP-5 and CP-6 are told to label terms taken from a Provisional CP-4
-      handoff as Provisional.
+- [ ] **In Provisional scope (Primary, or declared draft; coordinator ruling 2026-11-08),** CP-3, CP-5
+      and CP-6 are told to label terms taken from a Provisional CP-4 handoff as Provisional.
 - [ ] **Checkers:**
   - The register is present in Provisional scope.
   - Any non-executed status, or no executed document recognised with any legal or offering document

@@ -1,0 +1,220 @@
+{
+  "schema_version": "public-case/1",
+  "case_id": "primary-proxy-mattress-firm-2014",
+  "label": "public proxy for a private primary deal; older source (2014)",
+  "issuer": {
+    "name": "Mattress Firm Holding Corp.",
+    "cik": "1419852",
+    "ticker": "MFRM"
+  },
+  "transaction": "2014 acquisition financing: Sleep Train (USD 440m) and bolt-ons (USD 66m), funded by a new USD 125m ABL revolver, a USD 720m Term Loan B, USD 40m of equity issued to Sleep Train and balance-sheet cash; existing USD 297m term loan refinanced. Marketed 11 September 2014; closed 20 October 2014.",
+  "owner_decision": "Owner chose this case on 2026-11-08 (Plan 3 Task 9; decision 4: public pre-closing filings as a labelled proxy).",
+  "retrieved": "2026-11-08 from EDGAR (www.sec.gov), byte-identical to the filed documents; sha256 per file.",
+  "documents": [
+    {
+      "source_id": "2014-09-11-8k-item-7-01.htm",
+      "path": "documents/2014-09-11-8k-item-7-01.htm",
+      "sha256": "2595eb8f2fc515a56bd4f38f692e29e04e226e39eea15a5f77faf586b6505255",
+      "document_type": "Form 8-K, Item 7.01, 11 September 2014, furnishing the Public Lender Presentation",
+      "role": "pre-closing",
+      "accession": "0001104659-14-065798",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914065798/a14-20804_18k.htm"
+    },
+    {
+      "source_id": "2014-09-11-ex99-1-public-lender-presentation.htm",
+      "path": "documents/2014-09-11-ex99-1-public-lender-presentation.htm",
+      "sha256": "7991125860a8530336d6100a1eb8d393266d6e70af51ff9b142c06f15aa101de",
+      "document_type": "Exhibit 99.1: Public Lender Presentation, 11 September 2014 (Barclays; ABL and Term Loan B summary terms, sources and uses, pro forma capitalisation, Pro Forma EBITDA reconciliations)",
+      "role": "pre-closing",
+      "accession": "0001104659-14-065798",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914065798/a14-20804_1ex99d1.htm"
+    },
+    {
+      "source_id": "10-k-year-ended-2014-01-28.htm",
+      "path": "documents/10-k-year-ended-2014-01-28.htm",
+      "sha256": "139ac4e274669265cda7257cd7b4a08d2330798520bdd19f9d4050e60d916a61",
+      "document_type": "Form 10-K, fiscal year ended 28 January 2014 (fiscal 2013)",
+      "role": "financial base",
+      "accession": "0001047469-14-003037",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000104746914003037/a2219241z10-k.htm"
+    },
+    {
+      "source_id": "10-q-quarter-ended-2014-04-29.htm",
+      "path": "documents/10-q-quarter-ended-2014-04-29.htm",
+      "sha256": "48bdbec7a6f19b6b3c44f77e67906e75d96e32ac3701c4ef8f07e2b5989a3cab",
+      "document_type": "Form 10-Q, quarter ended 29 April 2014",
+      "role": "financial base",
+      "accession": "0001104659-14-044836",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914044836/a14-11600_110q.htm"
+    },
+    {
+      "source_id": "10-q-quarter-ended-2014-07-29.htm",
+      "path": "documents/10-q-quarter-ended-2014-07-29.htm",
+      "sha256": "42a5e035a2662ca4445d40f312267834065aff85bd9908272f2dc115337e4452",
+      "document_type": "Form 10-Q, quarter ended 29 July 2014 (the presentation's LTM Q2 2014 basis)",
+      "role": "financial base",
+      "accession": "0001558370-14-000163",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000155837014000163/mfrm-20140729x10q.htm"
+    },
+    {
+      "source_id": "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+      "path": "documents/2014-08-29-8k-back-to-bed-asset-purchase.htm",
+      "sha256": "996bba389174a7ed842705175a84c74f3f2b9ad2a2a22a7927cdab3636930f71",
+      "document_type": "Form 8-K, Item 1.01, 29 August 2014: Asset Purchase Agreement for the Back to Bed bolt-on (not the Sleep Train merger agreement)",
+      "role": "context support",
+      "accession": "0001104659-14-064027",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914064027/a14-20266_18k.htm"
+    },
+    {
+      "source_id": "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+      "path": "documents/2014-08-29-ex2-1-asset-purchase-agreement.htm",
+      "sha256": "54a4df48034fc89eeffba176ca025004a1920c0e5d25304c9d06af3d070cbab4",
+      "document_type": "Exhibit 2.1: Asset Purchase Agreement dated 28 August 2014 (Back to Bed and affiliated sellers)",
+      "role": "context support",
+      "accession": "0001104659-14-064027",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914064027/a14-20266_1ex2d1.htm"
+    },
+    {
+      "source_id": "2014-08-29-ex99-1-press-release.htm",
+      "path": "documents/2014-08-29-ex99-1-press-release.htm",
+      "sha256": "5b8bfc2470cc795693f665ec5ff0368478942dff4fe5782371688d96f7697567",
+      "document_type": "Exhibit 99.1: press release, 29 August 2014",
+      "role": "context support",
+      "accession": "0001104659-14-064027",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914064027/a14-20266_1ex99d1.htm"
+    },
+    {
+      "source_id": "2014-10-21-8k-credit-agreements.htm",
+      "path": "documents/2014-10-21-8k-credit-agreements.htm",
+      "sha256": "21a88242dd0880dfb1ed951b218b1decbf9a42bca6fc242eefe424b61277cb5a",
+      "document_type": "Form 8-K, Items 1.01/2.03, 21 October 2014: entry into the ABL and Term Loan Credit Agreements",
+      "role": "after closing",
+      "accession": "0001104659-14-072654",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914072654/a14-22648_18k.htm"
+    },
+    {
+      "source_id": "2014-10-21-ex10-1-abl-credit-agreement.htm",
+      "path": "documents/2014-10-21-ex10-1-abl-credit-agreement.htm",
+      "sha256": "6caf956aac14dfd17fea9b3e8b2a7b524e0cd04d2880814dac34233ed75d61eb",
+      "document_type": "Exhibit 10.1: ABL Credit Agreement dated 20 October 2014 (executed)",
+      "role": "after closing",
+      "accession": "0001104659-14-072654",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914072654/a14-22648_1ex10d1.htm"
+    },
+    {
+      "source_id": "2014-10-21-ex10-2-term-loan-credit-agreement.htm",
+      "path": "documents/2014-10-21-ex10-2-term-loan-credit-agreement.htm",
+      "sha256": "5382e0a5edad69b19b0e29b1722e91fb8851995f77463b322b24723a0b71cba0",
+      "document_type": "Exhibit 10.2: Term Loan Credit Agreement dated 20 October 2014 (executed)",
+      "role": "after closing",
+      "accession": "0001104659-14-072654",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419852/000110465914072654/a14-22648_1ex10d2.htm"
+    }
+  ],
+  "not_public": [
+    "Confidential Information Memorandum: referenced by the presentation (\"Notice to Recipients\"); not filed, not in the case.",
+    "Marketing Term Sheet: referenced by the Term Loan summary terms (\"please consult the Marketing Term Sheet\"); not filed, not in the case."
+  ],
+  "contexts": {
+    "context-pre-closing.json": "Primary, credit_snapshot, as of 2014-09-11, legal documents declared draft; facility rows as the presentation states them.",
+    "context-after-closing.json": "Secondary, covenant_refinancing, as of 2014-10-21, legal documents declared executed.",
+    "context-c1n.json": "C1n only: context-pre-closing.json with legal documents declared none (the lender presentation is removed, so no legal document remains)."
+  },
+  "checks": {
+    "C1": {
+      "context": "context-pre-closing.json",
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-4"
+      ],
+      "documents": [
+        "2014-09-11-8k-item-7-01.htm",
+        "2014-09-11-ex99-1-public-lender-presentation.htm",
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cap_usd": 10
+    },
+    "C1n": {
+      "context": "context-c1n.json",
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-4"
+      ],
+      "documents": [
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cap_usd": 10,
+      "note": "C1 without the lender presentation and the 8-K that furnishes it. Context declares legal documents 'none' (coordinator ruling 2026-11-08, option a), so Plan 2 forecasts Will refuse and CP-4 stays Blocked; CP-4 still receives the Provisional paragraph (Primary). The answer key (Blocked) is unchanged."
+    },
+    "C2": {
+      "context": "context-pre-closing.json",
+      "modules": [
+        "CP-0",
+        "CP-1",
+        "CP-1A",
+        "CP-1D",
+        "CP-2"
+      ],
+      "documents": [
+        "2014-09-11-8k-item-7-01.htm",
+        "2014-09-11-ex99-1-public-lender-presentation.htm",
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cap_usd": 15
+    },
+    "C1r": {
+      "context": "context-after-closing.json",
+      "modules": "covenant_refinancing preset (app runs drop CP-MODEL)",
+      "documents": [
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-10-21-8k-credit-agreements.htm",
+        "2014-10-21-ex10-1-abl-credit-agreement.htm",
+        "2014-10-21-ex10-2-term-loan-credit-agreement.htm"
+      ],
+      "cap_usd": 30,
+      "note": "Executed agreements only; the pre-closing presentation is left out so no draft is in scope."
+    },
+    "C3": {
+      "context": "context-pre-closing.json",
+      "modules": "credit_snapshot preset plus CP-1D (app runs drop CP-MODEL)",
+      "documents": [
+        "2014-09-11-8k-item-7-01.htm",
+        "2014-09-11-ex99-1-public-lender-presentation.htm",
+        "10-k-year-ended-2014-01-28.htm",
+        "10-q-quarter-ended-2014-04-29.htm",
+        "10-q-quarter-ended-2014-07-29.htm",
+        "2014-08-29-8k-back-to-bed-asset-purchase.htm",
+        "2014-08-29-ex2-1-asset-purchase-agreement.htm",
+        "2014-08-29-ex99-1-press-release.htm"
+      ],
+      "cap_usd": 30,
+      "note": "Through the app UI."
+    }
+  },
+  "answer_key": "expected.json",
+  "case_notes": [
+    "Accession 0001104659-14-064027 (listed in the plan as the merger 8-K of 29 August 2014) is the Back to Bed asset purchase 8-K. The Sleep Train merger agreement 8-K (announced 4 September 2014) is not in the case.",
+    "The 10-K and 10-Qs describe the 2012 Credit Agreement but do not attach it; no executed credit agreement is in the pre-closing set.",
+    "The presentation states pro forma figures as of the end of fiscal Q2 2014 (29 July 2014), LTM Q2 2014."
+  ],
+  "limits": "Older source, one issuer and one transaction. Labelled public proxy: a private primary deal would supply the CIM and term sheet, which are not public here. No module run has consumed this case yet."
+}

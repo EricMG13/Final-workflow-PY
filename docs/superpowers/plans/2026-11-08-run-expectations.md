@@ -99,9 +99,14 @@ asks the coordinator first; the change lands here before it lands in code.
 **Run type and legal-documents declaration in the launcher** (Plan 2 Task 4; used by Plan 3):
 - `prepare` reads `settings.run.run_type` and `settings.attachments.legal_documents` and passes them
   as keywords: `_instructions(run, module, routes, *, run_type, legal_documents)`. `Run` is unchanged.
-- `checker(layout)` keeps its signature. Plan 3 gives `_layout` the same two keywords and marks
-  Provisional scope (Primary, or `legal_documents == "draft"`) and Primary pro forma tables with
-  their own routes, so the checker learns scope from `layout.routes`.
+- `checker(layout)` keeps its signature. The checker learns Provisional scope (Primary, or
+  `legal_documents == "draft"`) from CP-4's instruction bytes: one module-level constant holds the
+  fixed paragraph, `_instructions` writes it, and the checker tests that constant's bytes in
+  `task.instructions`. A consumer (CP-3, CP-5, CP-6) is in scope when its upstream CP-4 handoff
+  holds `DRAFT_LIMITATION` or the final offering memorandum reason. `_layout` still gets the two
+  keywords, for Plan 3 Task 11's pro forma table routes. The legal document register stays out of
+  the report; every CP-4 section routed to the report still says Provisional (coordinator
+  ruling, 2026-11-08).
 
 **`library.json` additions** (`issuer-library-run/1`; Plan 4 Task 12, admitted under the existing
 rule: an exact value in its pinned quote):
