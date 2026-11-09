@@ -5,12 +5,12 @@
 > agent that writes the code they check. Split on 2026-11-08 from the combined plan revised after
 > its adversarial review.
 
-**Goal:** Readers who only want reports can find them in the Issuer Library by credit and market
+**Goal:** Readers who only want reports can find them in the Credit OS Library by credit and market
 information. Each finished app run writes a `library.json` manifest pinning its credit and market
 facts to exact lines of its handoffs and context snapshot; the screening ported in Plan 1 filters on
 admitted values, links each to its pinned line, and never calculates a figure.
 
-**Tech Stack:** Python 3.13 (stdlib), Go, plain browser JavaScript; jsdom test-only.
+**Tech Stack:** Python 3.13 (stdlib), FastAPI server (`src/issuer_library`), plain browser JavaScript; pytest and Playwright.
 
 **Delivery:** one PR. It does not wait for Plan 3's live checks, except the pro forma basis, which
 ships only after live check C2 passes.
@@ -24,7 +24,7 @@ quotes in the context, the context snapshot, `expectations.json`); Plan 3 for th
 
 | Finding | Decision |
 |---|---|
-| The app already admits per-run manifests `runs/<id>/library.json` under the approved example's rules and serves them at `/api/catalogue` (`discovery.go:45-130, 261-296`; `model.go`). Before Plan 1 the Library screen ignored them (`boot.js:11-15`); app runs write none. `store.py` only recognises the shape of `Chart data:` tables | The bridge writes the manifest for each finished app run (Task 12), and Task 13 extends Plan 1's ported screening for the new fields. `store.py` is unchanged for the library |
+| The app already admits per-run manifests `runs/<id>/library.json` under the approved example's rules and serves them at `/api/catalogue` (`src/issuer_library/discovery.py`, the admission functions; `src/issuer_library/model.py`). Before Plan 1 the Library screen ignored them (`boot.js:11-15`); app runs write none. `store.py` only recognises the shape of `Chart data:` tables | The bridge writes the manifest for each finished app run (Task 12), and Task 13 extends Plan 1's ported screening for the new fields. `store.py` is unchanged for the library |
 | CP-1's chart tables hold one row per period, with units fixed at x, US$m or % | Manifest metrics come from the last annual or LTM row. A non-USD issuer's monetary rows are `Not supplied` and write no metric; a rule says so |
 
 **Source design (owner decision 7), ported by Plan 1:** `examples/issuer-library`, the user-approved screening
@@ -42,13 +42,13 @@ with completeness and links to the existing reports". It is ported, not rewritte
     Completeness, Deliverable.
   - The selected-run detail: each metric's value, unit, period, basis and pinned source; gaps;
     report history.
-- **Tests:** `test_logic.cjs` and `test_dom.cjs` move with the code and keep passing.
+- **Tests:** `tests/test_issuer_library_screening.py` moves with the code and keeps passing.
 - **Style:** the example used the deliverables' Direction C shell. In the app the composition is kept
   and restyled with the app's own tokens (`screen.css`); there is no second palette.
 
 **Data path (already in the backend):**
-- Go discovery admits `runs/<id>/library.json` (`issuer-library-run/1`) under the example's rules
-  (`discovery.go:45-130, 261-296`):
+- Server discovery admits `runs/<id>/library.json` (`issuer-library-run/1`) under the example's rules
+  (`src/issuer_library/discovery.py`, the admission functions):
   - Every metric is an exact value present in its pinned source line (path, sha256, line, quote).
   - Provenance is cited, calculated or synthetic.
   - Ratings are pinned the same way.
@@ -112,8 +112,8 @@ Rewrite-tournament targets: the credit-facts reader, the facility matcher and `f
 
 ### Task 12: Run manifest for every finished app run
 
-**Files:** modify `apps/issuer-library/engine/bridge.py`, `apps/issuer-library/model.go`,
-`apps/issuer-library/discovery.go`, `apps/issuer-library/discovery_test.go`, `tests/test_cpos_app.py`;
+**Files:** modify `apps/issuer-library/engine/bridge.py`, `src/issuer_library/model.py`,
+`src/issuer_library/discovery.py`, `tests/test_issuer_library_discovery.py`, `tests/test_cpos_app.py`;
 create `tests/fixtures/library-manifest/` (hand-written expected manifests).
 
 - [ ] Hand-write the expected manifests first: one synthetic run and one from the retained CP-1 chart
@@ -139,7 +139,7 @@ create `tests/fixtures/library-manifest/` (hand-written expected manifests).
     - delivery: the verified `report.html`.
 
     Each done item cites its evidence.
-- [ ] **Admission:** `model.go` and `discovery.go` gain `classification`, `private_side`, `facilities`
+- [ ] **Admission:** `model.py` and `discovery.py` (the admission functions) gain `classification`, `private_side`, `facilities`
       and provenance `user`, under the same rule (exact value in the pinned quote). Nothing else in
       admission changes.
 - [ ] **Failure isolation:** a manifest failure never changes the run's outcome. It becomes a
