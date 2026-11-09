@@ -22,6 +22,8 @@ COMPLETE_MESSAGE = (
 HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
+if (HERE.parent / "lib").is_dir():
+    sys.path.insert(0, str(HERE.parent / "lib"))
 
 from deploy_vii.registry import modules
 from deploy_workflow.context import load_context
