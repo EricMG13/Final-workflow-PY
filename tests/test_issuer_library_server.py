@@ -5,6 +5,8 @@ from __future__ import annotations
 import base64
 import json
 import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -13,7 +15,9 @@ from issuer_library_support import (
     ORIGIN,
     POST_HEADERS,
     REPORT,
+    call,
     client_of,
+    fake_engine,
     fixture,
     locations,
     make_app,
@@ -22,6 +26,7 @@ from issuer_library_support import (
 )
 
 import issuer_library.server as server_module
+from issuer_library.jobs import Engine
 from issuer_library.model import Catalogue, digest
 from issuer_library.server import Application
 from issuer_library.settings import Config, Locations, load_config, save_json
@@ -293,3 +298,137 @@ def test_index_cache_failure_is_a_notice_not_a_failure(tmp_path: Path) -> None:
     (loc.state / "index.json").mkdir()
     app = Application(loc, str(root), HOST)
     assert app.catalogue.issues[-1].startswith("Search index could not be saved")
+
+
+COUNTING_STORE = """import os, time
+def workspace_store(root, catalogue):
+    with open({counter!r}, 'a') as stream:
+        stream.write('run\\n')
+    time.sleep(.2)
+    if os.path.exists({fail!r}):
+        raise RuntimeError('store failed')
+    return {{'ok': True}}
+"""
+HELD_STORE = """import os, time
+def workspace_store(root, catalogue):
+    with open({starts!r}, 'a') as stream:
+        stream.write('x')
+    n = os.path.getsize({starts!r})
+    while not os.path.exists({release!r}):
+        time.sleep(.02)
+    return {{'run': n}}
+"""
+
+
+def counting_engine(tmp_path: Path) -> tuple[Engine, Path, Path]:
+    """The fake engine whose store appends one line to a counter per run and fails while the
+    fail file exists."""
+    engine = fake_engine(tmp_path)
+    counter, fail = tmp_path / "store-runs.txt", tmp_path / "fail"
+    (engine.root / "store.py").write_text(
+        COUNTING_STORE.format(counter=str(counter), fail=str(fail))
+    )
+    return engine, counter, fail
+
+
+def store_runs(counter: Path) -> int:
+    return counter.read_text().count("run\n") if counter.exists() else 0
+
+
+def test_workspace_store_runs_once_until_a_file_changes(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    app.engine, counter, _ = counting_engine(tmp_path)
+    client = client_of(app)
+    for _ in range(2):
+        assert call(client, "GET", "/api/workspace").status_code == 200
+    assert store_runs(counter) == 1, "two reads ran the store more than once"
+    put(root, "runs/case-a/extra-note.md", b"a longer file than before")
+    call(client, "GET", "/api/workspace")
+    assert store_runs(counter) == 2, "after a file change the store did not rerun once"
+
+
+def test_catalogue_rebuild_alone_does_not_rerun_the_store(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine, counter, _ = counting_engine(tmp_path)
+    client = client_of(app)
+    call(client, "GET", "/api/workspace")
+    with app.lock:
+        app.catalogue.built_at = "2001-01-01T00:00:00Z"
+    call(client, "GET", "/api/workspace")
+    app.refresh()
+    call(client, "GET", "/api/workspace")
+    assert store_runs(counter) == 1, "a rebuild that changed only built_at ran the store again"
+
+
+def test_concurrent_workspace_reads_share_one_store(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine, counter, _ = counting_engine(tmp_path)
+
+    def read() -> int:
+        return int(call(client_of(app), "GET", "/api/workspace").status_code)
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        codes = [future.result() for future in [pool.submit(read) for _ in range(8)]]
+    assert codes == [200] * 8
+    assert store_runs(counter) == 1, "8 parallel reads ran the store more than once"
+
+
+def test_refresh_clears_the_workspace_cache(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine, counter, _ = counting_engine(tmp_path)
+    client = client_of(app)
+    call(client, "GET", "/api/workspace")
+    call(client, "POST", "/api/refresh", "{}")
+    call(client, "GET", "/api/workspace")
+    assert store_runs(counter) == 2, "a read after /api/refresh did not rerun the store"
+
+
+def test_a_failed_store_is_not_cached(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine, counter, fail = counting_engine(tmp_path)
+    client = client_of(app)
+    fail.write_bytes(b"")
+    assert call(client, "GET", "/api/workspace").status_code == 503
+    fail.unlink()
+    assert call(client, "GET", "/api/workspace").status_code == 200
+    call(client, "GET", "/api/workspace")
+    assert store_runs(counter) == 2, "expected failure, then one success, then a hit"
+
+
+def test_settings_clear_the_workspace_cache_even_when_refused(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine, counter, _ = counting_engine(tmp_path)
+    client = client_of(app)
+    call(client, "GET", "/api/workspace")
+    assert call(client, "POST", "/api/settings", "{").status_code == 400
+    call(client, "GET", "/api/workspace")
+    assert store_runs(counter) == 2
+
+
+def test_refresh_does_not_wait_for_a_running_store_and_its_body_is_not_cached(
+    tmp_path: Path,
+) -> None:
+    app, _ = make_app(tmp_path)
+    engine = fake_engine(tmp_path)
+    release, starts = engine.root / "release", engine.root / "starts"
+    (engine.root / "store.py").write_text(
+        HELD_STORE.format(starts=str(starts), release=str(release))
+    )
+    app.engine = engine
+    client = client_of(app)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        first = pool.submit(call, client, "GET", "/api/workspace")
+        deadline = time.monotonic() + 5
+        while not (starts.exists() and starts.stat().st_size == 1):
+            assert time.monotonic() < deadline, "the store run never started"
+            time.sleep(0.01)
+        refreshed = pool.submit(call, client_of(app), "POST", "/api/refresh", "{}")
+        response = refreshed.result(timeout=3)  # a TimeoutError means refresh waited for the store
+        assert response.status_code == 200, response.text
+        release.write_bytes(b"")
+        body = first.result(timeout=10)
+    assert body.status_code == 200 and body.text.strip() == '{"run": 1}'
+    follow = call(client, "GET", "/api/workspace")
+    assert follow.status_code == 200 and follow.text.strip() == '{"run": 2}', (
+        "the pre-refresh body was cached: " + follow.text
+    )
