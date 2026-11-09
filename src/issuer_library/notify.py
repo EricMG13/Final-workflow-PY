@@ -198,32 +198,39 @@ def powershell_path() -> str:
 
 
 def toast(title: str, body: str) -> None:
-    """Show a native notice. Off Windows there is none: say so in the log."""
+    """Show a native notice. Off Windows there is none: say so in the log.
+
+    It raises OSError only: ToastFailed ("exit status N") for a nonzero exit, and a plain OSError,
+    chained to the cause, for a timeout, a NUL in the text or a failed start.
+    """
     if sys.platform != "win32":
         log.info("No tab is open; native run notices are Windows-only (%s)", body)
         return
     # close_fds stays at its default so the child never inherits a worker.lock handle.
-    result = subprocess.run(
-        [
-            powershell_path(),
-            "-NoProfile",
-            "-NonInteractive",
-            "-ExecutionPolicy",
-            "Bypass",
-            "-Command",
-            TOAST_SCRIPT,
-        ],
-        env=dict(
-            entry.partition("=")[::2]
-            for entry in toast_env([f"{k}={v}" for k, v in os.environ.items()], title, body)
-        ),
-        creationflags=WORKER_FLAGS,
-        stdin=subprocess.DEVNULL,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        timeout=TOAST_TIMEOUT,
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            [
+                powershell_path(),
+                "-NoProfile",
+                "-NonInteractive",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                TOAST_SCRIPT,
+            ],
+            env=dict(
+                entry.partition("=")[::2]
+                for entry in toast_env([f"{k}={v}" for k, v in os.environ.items()], title, body)
+            ),
+            creationflags=WORKER_FLAGS,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=TOAST_TIMEOUT,
+            check=False,
+        )
+    except (subprocess.TimeoutExpired, ValueError) as error:
+        raise OSError(f"PowerShell notice failed: {error}") from error
     if result.returncode != 0:
         log.warning("PowerShell toast output: %s", result.stdout.decode("utf-8", "replace"))
         raise ToastFailed(result.returncode, "powershell", result.stdout)

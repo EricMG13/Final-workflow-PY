@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import subprocess
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, cast
@@ -289,6 +290,35 @@ def test_a_failed_toast_logs_its_output_and_raises_the_exit_status(
         notify.toast("T", "B")
     assert str(raised.value) == "exit status 1"
     assert "PowerShell toast output: boom\n" in [r.getMessage() for r in caplog.records]
+
+
+def fake_powershell(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, script: str) -> None:
+    exe = tmp_path / "WindowsPowerShell" / "v1.0" / "powershell.exe"
+    exe.parent.mkdir(parents=True)
+    exe.write_text(script)
+    exe.chmod(0o700)
+    monkeypatch.setattr(notify, "sys", SimpleNamespace(platform="win32"))
+    monkeypatch.setattr(notify, "system_directory", lambda: str(tmp_path))
+
+
+def test_a_toast_timeout_raises_a_plain_oserror_chained_to_the_timeout(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fake_powershell(tmp_path, monkeypatch, "#!/bin/sh\nsleep 5\n")
+    monkeypatch.setattr(notify, "TOAST_TIMEOUT", 0.5)
+    with pytest.raises(OSError) as raised:
+        notify.toast("T", "B")
+    assert not isinstance(raised.value, subprocess.TimeoutExpired)
+    assert isinstance(raised.value.__cause__, subprocess.TimeoutExpired)
+
+
+def test_a_toast_with_a_nul_in_the_text_raises_a_plain_oserror_chained_to_the_valueerror(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fake_powershell(tmp_path, monkeypatch, "#!/bin/sh\nexit 0\n")
+    with pytest.raises(OSError) as raised:
+        notify.toast("T", "A\x00B run stopped")
+    assert isinstance(raised.value.__cause__, ValueError)
 
 
 def test_toast_script_is_gos_byte_for_byte() -> None:
