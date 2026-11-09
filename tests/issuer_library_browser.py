@@ -407,3 +407,50 @@ class ContextForm:
     def close(self) -> None:
         assert self.errors == []
         self.page.context.close()
+
+
+def squash(text: str) -> str:
+    return " ".join(text.split())
+
+
+class Library:
+    """The Library screen of the real app, driven through the page's own controls."""
+
+    def __init__(self, screen: Screen) -> None:
+        self.screen = screen
+
+    def ids(self) -> list[str]:
+        selector = "#library-results button[data-library-select]"
+        return [i or "" for i in self.screen.attrs(selector, "data-library-select")]
+
+    def set(self, element_id: str, value: str) -> None:
+        self.screen.page.evaluate(
+            "([id,v])=>{const el=document.getElementById(id);el.value=v;"
+            "el.dispatchEvent(new Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));}",
+            [element_id, value],
+        )
+
+    def text(self, element_id: str) -> str:
+        return squash(self.screen.text(f"#{element_id}"))
+
+    def detail(self) -> str:
+        return self.text("run-detail")
+
+    def sort_click(self, name: str) -> None:
+        self.screen.click(f'[data-library-sort="{name}"]')
+
+    def aria_sort(self, name: str) -> str | None:
+        return self.screen.attr(f'th:has([data-library-sort="{name}"])', "aria-sort")
+
+    def select(self, run_id: str) -> None:
+        self.screen.click(f'[data-library-select="{run_id}"]')
+
+    def focused(self, name: str) -> tuple[str | None, str | None]:
+        value: list[str | None] = self.screen.eval(
+            f"(()=>{{const a=document.activeElement;"
+            f"return [a.dataset.{name},a.getAttribute('aria-pressed')];}})()"
+        )
+        return value[0], value[1]
+
+
+LibraryOpener = Callable[..., Library]
