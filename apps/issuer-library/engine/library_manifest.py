@@ -24,6 +24,7 @@ HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
 
+from issuer_library import events
 from issuer_library.events import open_regular
 
 SCHEMA = "issuer-library-run/1"
@@ -68,6 +69,10 @@ class ManifestError(ValueError):
     """A required input of the manifest is missing or malformed."""
 
 
+class _Absent(ManifestError):
+    """A folder on the way to an optional file does not exist."""
+
+
 _Item = tuple[str, "_Doc | None", int | None]
 
 
@@ -91,13 +96,18 @@ class _Delivery(NamedTuple):
 
 def _read(root: Path, rel: str) -> bytes | None:
     """The file's bytes, or None when it is absent; a link or non-regular file is refused."""
-    path = root / rel
-    for parent in reversed(Path(rel).parents):
-        if parent.parts and (root / parent).is_symlink():
-            raise ManifestError(f"{rel} is under a link ({parent.as_posix()})")
     try:
-        with open_regular(path) as stream:
+        if os.open in os.supports_dir_fd:
+            return _read_pinned(root, Path(rel))
+        # ponytail: no dir_fd (Windows): folders are checked then opened by path, so a link
+        # swapped in between can be followed. Ceiling: the POSIX path above.
+        for parent in reversed(Path(rel).parents):
+            if parent.parts and (root / parent).is_symlink():
+                raise ManifestError(f"{rel} is under a link ({parent.as_posix()})")
+        with open_regular(root / rel) as stream:
             return stream.read()
+    except _Absent:
+        return None
     except FileNotFoundError:
         return None
     except OSError as err:
@@ -106,6 +116,16 @@ def _read(root: Path, rel: str) -> bytes | None:
         if err.errno in (None, errno.EOPNOTSUPP, errno.ENXIO):  # None: open_regular; others: socket
             raise ManifestError(f"{rel} is not a regular file") from err
         raise ManifestError(f"{rel} cannot be read: {err.strerror}") from err
+
+
+def _read_pinned(root: Path, rel: Path) -> bytes:
+    """Read `rel` through folder fds opened one name at a time, so no link is followed."""
+    fds = _walk(root, rel.parts[:-1])
+    try:
+        with events.open_regular(Path(rel.name), dir_fd=fds[-1]) as stream:
+            return stream.read()
+    finally:
+        _close(fds)
 
 
 def _doc(root: Path, rel: str) -> _Doc:
@@ -338,7 +358,14 @@ def _deliveries(root: Path, base: str) -> list[_Delivery]:
     for path in sorted((root / base / "deliveries").glob("*/delivery.json")):
         doc, data = _load(root, path.relative_to(root).as_posix())
         files = _need(data, "files", dict, doc.rel)
-        out.append(_Delivery(path.parent, doc, files, _doc_if(path.parent, "report.html")))
+        out.append(
+            _Delivery(
+                path.parent,
+                doc,
+                files,
+                _doc_if(root, f"{path.parent.relative_to(root).as_posix()}/report.html"),
+            )
+        )
     return out
 
 
@@ -483,23 +510,40 @@ def _open_dir(part: str, parent: int | None) -> int:
         return os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent)
     except OSError as err:
         if err.errno in (errno.ELOOP, errno.EMLINK) or (
-            err.errno == errno.ENOTDIR and _is_link(part, parent)
+            err.errno in (errno.ENOTDIR, errno.ENOENT) and _is_link(part, parent)
         ):
             raise ManifestError(f"{part} is a link") from err
         if err.errno == errno.ENOTDIR:
             raise ManifestError(f"{part} is not a folder") from err
+        if err.errno == errno.ENOENT:
+            raise _Absent(f"{part} is missing") from err
         raise ManifestError(f"{part} cannot be opened: {err.strerror}") from err
+
+
+def _walk(workspace: Path, parts: tuple[str, ...]) -> list[int]:
+    """Open the workspace root, then each folder name under it; every fd is closed on failure."""
+    fds: list[int] = []
+    try:
+        fds.append(_open_dir(str(workspace), None))
+        for part in parts:
+            fds.append(_open_dir(part, fds[-1]))
+    except BaseException:
+        _close(fds)
+        raise
+    return fds
+
+
+def _close(fds: list[int]) -> None:
+    for fd in reversed(fds):
+        os.close(fd)
 
 
 def _publish(workspace: Path, run_id: str, text: str) -> None:
     """Write `library.json` through folder fds; a link swapped in after `build` is not followed."""
-    fds: list[int] = []
+    fds = _walk(workspace, ("runs", run_id))
     temp = f".library-{secrets.token_hex(8)}.tmp"
     made = False
     try:
-        fds.append(_open_dir(str(workspace), None))
-        for part in ("runs", run_id):
-            fds.append(_open_dir(part, fds[-1]))
         run_fd = fds[-1]
         flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
         handle = os.open(temp, flags, 0o644, dir_fd=run_fd)
@@ -513,8 +557,7 @@ def _publish(workspace: Path, run_id: str, text: str) -> None:
             os.unlink(temp, dir_fd=fds[-1])
         raise
     finally:
-        for fd in reversed(fds):
-            os.close(fd)
+        _close(fds)
 
 
 def write(workspace: Path, run_id: str) -> Path:
