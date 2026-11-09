@@ -10,6 +10,7 @@ import os
 import re
 import runpy
 import shutil
+import socket
 import subprocess
 import sys
 import tempfile
@@ -75,6 +76,14 @@ def not_exercisable(name: str, what: str, why: str) -> None:
     line = f"{name}: {what}: not exercisable on this fixture: {why}"
     NOT_EXERCISABLE.append(line)
     print(redact("SKIP " + line, secrets()), flush=True)
+
+
+def free_port() -> int:
+    # ponytail: free when returned; another process may take it before the server binds.
+    # Upgrade path: retry on EADDRINUSE.
+    with socket.socket() as probe:
+        probe.bind(("127.0.0.1", 0))
+        return int(probe.getsockname()[1])
 
 
 def serve(
@@ -1096,16 +1105,17 @@ def single_main(workspace: Path, fixture: bool = False) -> int:
     PY = os.environ["FW_PYTHON"]
     SCOPE = f"offline: single-run walk over {workspace}; no provider called"
     server = None
+    port = free_port()
     try:
         try:
-            server = serve(workspace, 53901, R / "apps/issuer-library/engine")
+            server = serve(workspace, port, R / "apps/issuer-library/engine")
             with sync_playwright() as driver:
                 for name, options in engine_options().items():
                     browser = SignedBrowser(getattr(driver, name).launch(**options))
                     attempt(
                         f"{name}-single-run",
                         browser,
-                        lambda: single_run_walk(browser, name, 53901, workspace),  # noqa: B023
+                        lambda: single_run_walk(browser, name, port, workspace),  # noqa: B023
                     )
                     browser.close()
         except (Exception, SystemExit) as error:  # noqa: BLE001 - recorded below, never silent
@@ -1148,13 +1158,14 @@ def main(argv: list[str]) -> int:
     engines = engine_options()
     only = argv or list(engines)
     servers: list[subprocess.Popen[bytes]] = []
+    library_port = free_port()
     try:
         try:
-            servers.append(serve(R, 53901, R / "apps/issuer-library/engine"))
+            servers.append(serve(R, library_port, R / "apps/issuer-library/engine"))
             with sync_playwright() as driver:
-                for number, name in enumerate(only):
+                for name in only:
                     browser = SignedBrowser(getattr(driver, name).launch(**engines[name]))
-                    walk_engine(browser, name, number, servers)
+                    walk_engine(browser, name, library_port, servers)
                     browser.close()
         except (Exception, SystemExit) as error:  # noqa: BLE001 - recorded below, never silent
             note(False, f"setup: stopped: {type(error).__name__}: {str(error)[:600]}", fault=False)
@@ -1172,18 +1183,18 @@ def main(argv: list[str]) -> int:
     return int(bool(FAULTS.items) or passed != len(results))
 
 
-def walk_engine(browser: SignedBrowser, name: str, number: int, servers: list[Any]) -> None:
+def walk_engine(browser: SignedBrowser, name: str, library_port: int, servers: list[Any]) -> None:
     workspace = S / f"ws-{name}"
 
     def library() -> None:
         # Via Any: real_workspace is untyped; typing it would pull its 75 statements into the gate.
         walk: Any = real_workspace
-        walk(browser, name, 53901, full=name == "chromium")
+        walk(browser, name, library_port, full=name == "chromium")
 
     def fake_run() -> None:
         shutil.rmtree(workspace, ignore_errors=True)
         workspace.mkdir()
-        port = 53902 + number
+        port = free_port()
         servers.append(serve(workspace, port, HERE / "fake_engine", key="not-a-real-key"))
         new_run(browser, name, port, workspace, start=True)
 
@@ -1192,10 +1203,11 @@ def walk_engine(browser: SignedBrowser, name: str, number: int, servers: list[An
         shutil.rmtree(stopped, ignore_errors=True)
         stopped.mkdir()
         extra = {"FAKE_REJECT_AFTER": "1"}
+        stopped_port = free_port()
         servers.append(
-            serve(stopped, 53910, HERE / "fake_engine", key="not-a-real-key", extra=extra)
+            serve(stopped, stopped_port, HERE / "fake_engine", key="not-a-real-key", extra=extra)
         )
-        new_run(browser, "stopped", 53910, stopped, start="stop")
+        new_run(browser, "stopped", stopped_port, stopped, start="stop")
 
     attempt(f"{name}-library", browser, library)
     attempt(f"{name}-run", browser, fake_run)

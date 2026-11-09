@@ -346,6 +346,12 @@ class Boundary:
         return False
 
 
+def clean_path(path: str) -> str:
+    """os.path.normpath, plus Go filepath.Clean's POSIX collapse of a leading "//"."""
+    path = os.path.normpath(path)
+    return path[1:] if os.name != "nt" and path.startswith("//") else path
+
+
 class Application:
     """The library's state: one workspace, its discovered catalogue and at most one active run."""
 
@@ -397,6 +403,14 @@ class Application:
     def catalogue_locked(self) -> Response:
         return Response(self.catalogue.model_dump_json(), media_type=JSON)
 
+    def refuse_switch_during_review_locked(self, workspace: str) -> None:
+        """A review writes into the workspace until it ends; saving the same one is no switch."""
+        if self.reviews > 0 and clean_path(workspace) != clean_path(self.config.workspace):
+            raise HTTPException(
+                409,
+                "A run review is in progress; wait for it to finish before changing the workspace",
+            )
+
     @contextlib.contextmanager
     def refresh_slot(self) -> Iterator[None]:
         """Hold refreshing for a discovery; refused with 503 once the library is quitting."""
@@ -426,8 +440,11 @@ class Application:
             if not os.path.isabs(config.workspace):
                 raise HTTPException(400, "Enter an absolute workspace folder")
             config.workspace = os.path.normpath(config.workspace)
+            self.refuse_switch_during_review_locked(config.workspace)
             if not os.path.isdir(config.workspace):
                 raise HTTPException(400, "The workspace folder is unavailable")
+            # Re-checked at the commit: discovery may stop holding the lock (Task 1.6, C11).
+            self.refuse_switch_during_review_locked(config.workspace)
             try:
                 save_json(self.loc.state / "settings.json", config)
             except OSError as error:
@@ -536,7 +553,7 @@ class Application:
         download = request.query_params.get("download") == "1"
         if download:
             filename = os.path.basename(name)
-            if sha256 and filename == "report.html":
+            if sha256 and filename in ("report.html", "model.html"):
                 filename = os.path.basename(os.path.dirname(name)) + ".html"
             headers["Content-Disposition"] = attachment(filename)
         ancestors = "'none'"
@@ -546,7 +563,8 @@ class Application:
             and request.query_params.get("embedded") == "1"
         ):
             ancestors = f"http://{self.host}"
-            if not download:
+            # A published model is served as verified, embedded or not; only a report is adapted.
+            if not download and os.path.basename(name) == "report.html":
                 raw = self.report_presentation(raw)
         headers["Content-Security-Policy"] = REPORT_POLICY.format(ancestors=ancestors)
         return serve_bytes(request, raw, headers)

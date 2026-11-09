@@ -33,6 +33,7 @@ BROWSER_TESTS = (
     "tests/test_issuer_library_run_watch.py",
     "tests/test_issuer_library_screening.py",
     "tests/test_issuer_library_screens.py",
+    "tests/test_issuer_library_workspace.py",
 )
 PYTHON_TESTS = (
     "tests/test_issuer_library_css.py",
@@ -43,6 +44,7 @@ PYTHON_TESTS = (
     "tests/test_issuer_library_jobs.py",
     "tests/test_issuer_library_store.py",
     "tests/test_issuer_library_gates.py",
+    "tests/test_issuer_library_walk_ports.py",
     "tests/test_cpos_app.py",
     "tests/test_cpos_launch.py",
     "tests/test_cpos_provisional.py",
