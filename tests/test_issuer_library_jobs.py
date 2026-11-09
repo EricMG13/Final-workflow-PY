@@ -1603,9 +1603,15 @@ def test_other_endpoints_keep_the_server_write_timeout() -> None:
     raise AssertionError("not applicable")
 
 
+def close_uploads(form: FormData) -> None:
+    for upload in form.getlist("sources"):
+        if isinstance(upload, UploadFile):
+            upload.file.close()
+
+
 def upload_of_size(tmp_path: Path, size: int, name: str = "big.pdf") -> tuple[FormData, str]:
     """A parsed review form whose one source is a file object of `size` bytes, and its sha256."""
-    stream = tempfile.TemporaryFile()  # noqa: SIM115 (closed with the form's upload by the test)
+    stream = tempfile.TemporaryFile()  # noqa: SIM115 (the calling test closes it through close_uploads)
     chunk = b"0123456789abcdef" * (1 << 16)  # 1 MiB
     hasher = hashlib.sha256()
     written = 0
@@ -1640,6 +1646,7 @@ def test_upload_streams_each_source_within_the_exact_limit(tmp_path: Path) -> No
         peak = tracemalloc.get_traced_memory()[1]
     finally:
         tracemalloc.stop()
+        close_uploads(form)
     assert response.status_code == 200, response.body
     folder = root / "intake" / json.loads(response.body)["id"]
     job = json.loads((folder / "job.json").read_bytes())
@@ -1648,8 +1655,11 @@ def test_upload_streams_each_source_within_the_exact_limit(tmp_path: Path) -> No
     assert peak <= 16 << 20, f"handling a 64 MiB upload allocated {peak >> 20} MiB"
     before = intake_entries(root)
     form, _ = upload_of_size(tmp_path, (64 << 20) + 1)
-    with pytest.raises(HTTPException) as refused:
-        jobs_module.review_run(app, form)
+    try:
+        with pytest.raises(HTTPException) as refused:
+            jobs_module.review_run(app, form)
+    finally:
+        close_uploads(form)
     assert refused.value.status_code == 400 and "up to 64 MiB each" in refused.value.detail
     assert intake_entries(root) == before, "a refused upload left a folder"
 
@@ -1663,11 +1673,33 @@ def test_upload_larger_than_its_declared_size_is_refused_after_a_bounded_read(
     upload = form.getlist("sources")[0]
     assert isinstance(upload, UploadFile)
     upload.size = None
-    with pytest.raises(HTTPException) as refused:
-        jobs_module.review_run(app, form)
+    try:
+        with pytest.raises(HTTPException) as refused:
+            jobs_module.review_run(app, form)
+    finally:
+        close_uploads(form)
     assert refused.value.status_code == 400
     assert refused.value.detail == "Source upload is too large or unreadable: big.pdf"
     assert intake_entries(root) == []
+
+
+def test_workspace_save_spelled_with_a_leading_double_slash_is_no_switch_during_a_review(
+    tmp_path: Path,
+) -> None:
+    # Go's filepath.Clean collapses a leading "//" to "/", so it is the same workspace.
+    app, root = make_app(tmp_path)
+    app.engine = held_review_engine(tmp_path)
+    client = client_of(app)
+    try:
+        done = review_in_thread(app)
+        wait_reviews(app, 1)
+        response = switch_to(client, f"/{root}")
+        assert response.status_code == 200, response.text
+        release_reviews(root, 1)
+        assert done.result(30).status_code == 200
+        wait_reviews(app, 0)
+    finally:
+        release_reviews(root, 0)
 
 
 def test_workspace_switch_is_refused_while_a_review_is_in_flight(

@@ -214,6 +214,12 @@ class Boundary:
         return False
 
 
+def clean_path(path: str) -> str:
+    """os.path.normpath, plus Go filepath.Clean's POSIX collapse of a leading "//"."""
+    path = os.path.normpath(path)
+    return path[1:] if os.name != "nt" and path.startswith("//") else path
+
+
 class Application:
     """The library's state: one workspace, its discovered catalogue and at most one active run."""
 
@@ -260,7 +266,7 @@ class Application:
 
     def refuse_switch_during_review_locked(self, workspace: str) -> None:
         """A review writes into the workspace until it ends; saving the same one is no switch."""
-        if self.reviews > 0 and workspace != os.path.normpath(self.config.workspace):
+        if self.reviews > 0 and clean_path(workspace) != clean_path(self.config.workspace):
             raise HTTPException(
                 409,
                 "A run review is in progress; wait for it to finish before changing the workspace",
