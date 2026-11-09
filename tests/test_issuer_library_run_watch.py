@@ -179,7 +179,7 @@ def page(browser: Any) -> Iterator[OpenWatch]:
             )
         for method in broken:
             init += f"Storage.prototype.{method}=()=>{{throw new Error('storage unavailable');}};"
-        known = {
+        known: dict[str, dict[str, Any]] = {
             run: {"run": run, "title": "Northbridge Group", "period": "as of 31 March 2025",
                   "issuerKey": "id:nbg", "issuer": "Northbridge Group", "modules": {},
                   "first": None}
@@ -505,7 +505,7 @@ def test_at_load_the_active_job_wins_else_the_newest_not_running_and_clicks_do_n
 def test_the_rail_mark_takes_its_colour_state_and_glyph_from_the_run_and_is_not_announced(
     page: OpenWatch,
 ) -> None:
-    rows = (
+    rows: tuple[tuple[dict[str, Any], str, str], ...] = (
         ({}, "●", "running"),
         ({"state": "complete"}, "✓", "complete"),
         ({"state": "stopped", "reason": "budget"}, "!", "stopped"),
