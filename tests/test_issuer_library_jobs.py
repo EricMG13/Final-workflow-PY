@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import logging
 import os
+import shutil
+import sys
 import threading
 import time
 from pathlib import Path
@@ -16,6 +18,7 @@ from issuer_library_support import (
     HOST,
     ORIGIN,
     POST_HEADERS,
+    call,
     client_of,
     fake_engine,
     make_app,
@@ -23,9 +26,10 @@ from issuer_library_support import (
 )
 
 import issuer_library.events as events_module
+import issuer_library.jobs as jobs_module
 import issuer_library.server as server_module
 from issuer_library.events import progress
-from issuer_library.jobs import Engine, job_view
+from issuer_library.jobs import Engine, job_view, mkdir_all_in, recorded_job
 from issuer_library.server import Application
 from issuer_library.settings import save_json
 
@@ -699,3 +703,353 @@ def test_run_list_decodes_status_like_the_go_struct(tmp_path: Path) -> None:
         put(root, f"intake/{job_id}/status.json", raw)
     listed = listed_jobs(client_of(app))
     assert sorted(listed) == sorted(j for j in cases if j[4] in "123"), listed
+
+
+# Resume: the fake bridge of the Go key (its review also echoes max_turns and resume_of; its start
+# waits while <folder>/hold exists). Support's FAKE_BRIDGE lacks both and is not editable here.
+RESUME_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns'],'resume_of':job.get('resume_of')}))
+else:
+ with (folder/'synthetic-starts.txt').open('a') as stream: stream.write('one\\n')
+ while (folder/'hold').exists(): time.sleep(.02)
+ time.sleep(.15)
+ (folder/'status.json').write_text(json.dumps({'state':'stopped',
+ 'message':'Synthetic worker seam only; no provider called.'}))
+"""
+RESUME_STORE = (
+    "def workspace_store(root, catalogue):\n    return {'parsed': catalogue['workspace']}\n"
+)
+
+
+def stopped_run(tmp_path: Path) -> tuple[Application, Path, TestClient, str]:
+    app, root = make_app(tmp_path)
+    engine = tmp_path / "resume-engine"
+    engine.mkdir()
+    (engine / "bridge.py").write_text(RESUME_BRIDGE)
+    (engine / "store.py").write_text(RESUME_STORE)
+    app.engine = Engine(root=engine, python=sys.executable)
+    client = client_of(app)
+    job_id = review_request(client, '["annual.txt"]').json()["id"]
+    assert call(client, "POST", "/api/runs/start", start_payload(job_id)).status_code == 202
+    for _ in range(100):
+        status = root / "intake" / job_id / "status.json"
+        with app.lock:
+            idle = not app.active_jobs
+        if idle and b'"stopped"' in status.read_bytes():
+            return app, root, client, job_id
+        time.sleep(0.05)
+    raise AssertionError("the synthetic run did not stop")
+
+
+def link_or_skip(link: Path, target: Path) -> None:
+    try:
+        link.symlink_to(target)
+    except OSError as error:
+        pytest.skip(f"symlinks unavailable: {error}")
+
+
+def resume_body(job_id: str, **fields: Any) -> str:
+    return json.dumps({"id": job_id, "cap_usd": "12.00", "max_turns": 9, **fields})
+
+
+def test_resume_reviews_a_copy_of_the_stopped_run_as_a_new_job(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    old_job = (root / "intake" / job_id / "job.json").read_bytes()
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 200, response.text
+    result = response.json()
+    new = result["id"]
+    assert new not in ("", job_id) and result["resume_of"] == job_id and result["max_turns"] == 9
+    job = json.loads((root / "intake" / new / "job.json").read_bytes())
+    assert list(job) == [
+        "id", "workspace", "config", "cap_usd", "modules", "max_turns", "sources", "resume_of",
+    ]  # fmt: skip
+    assert (job["resume_of"], job["cap_usd"], job["max_turns"]) == (job_id, "12.00", 9)
+    assert (job["config"], job["modules"]) == ("sol-medium", ["CP-4"])
+    assert [source["path"] for source in job["sources"]] == ["annual.txt"]
+    assert (root / "intake" / new / "sources" / "annual.txt").read_bytes() == b"Synthetic source"
+    assert b'"reviewed"' in (root / "intake" / new / "status.json").read_bytes()
+    assert (root / "intake" / job_id / "job.json").read_bytes() == old_job
+    assert not (root / "intake" / new / "synthetic-starts.txt").exists(), "resume ran a worker"
+    assert call(client, "GET", f"/api/runs/status?id={new}").json()["resume_of"] == job_id
+
+
+def test_resume_refuses_a_running_or_reviewed_job(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    for state in ("reviewed", "running"):
+        save_json(root / "intake" / job_id / "status.json", {"state": state, "id": job_id})
+        response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+        assert response.status_code == 409, state
+        assert "Only a stopped, failed or interrupted run can be resumed" in response.text
+    assert len(intake_entries(root)) == 1, "a refused resume left an intake folder"
+
+
+def test_resume_refuses_when_the_stopped_runs_inputs_are_gone(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    shutil.rmtree(root / "intake" / job_id / "sources")
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 409
+    assert "The stopped run's inputs are no longer in the workspace" in response.text
+    assert len(intake_entries(root)) == 1
+
+
+def test_resume_refuses_a_bad_request(tmp_path: Path) -> None:
+    _, _, client, job_id = stopped_run(tmp_path)
+    for body in (
+        resume_body("nope"),
+        resume_body(job_id, cap_usd=""),
+        resume_body(job_id, max_turns=0),
+        resume_body(job_id, max_turns=65),
+        resume_body(job_id, config="other"),
+    ):
+        assert call(client, "POST", "/api/runs/resume", body).status_code == 400, body
+
+
+def test_resumed_job_starts_only_through_confirmed_start(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    new = call(client, "POST", "/api/runs/resume", resume_body(job_id)).json()["id"]
+    folder = root / "intake" / new
+    assert not (folder / "start.claim").exists(), "resume claimed a start"
+    refused = call(client, "POST", "/api/runs/start", start_payload(new, confirm=False))
+    assert refused.status_code == 400
+    assert not (folder / "synthetic-starts.txt").exists(), "an unconfirmed start ran"
+    started = call(client, "POST", "/api/runs/start", start_payload(new))
+    assert started.status_code == 202, started.text
+    for _ in range(100):
+        if (folder / "synthetic-starts.txt").exists():
+            break
+        time.sleep(0.05)
+    assert (folder / "synthetic-starts.txt").read_text() == "one\n"
+
+
+def test_resume_copies_only_the_listed_regular_files(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    (root / "outside.txt").write_text("secret")
+    sources = root / "intake" / job_id / "sources"
+    link_or_skip(sources / "link.txt", root / "outside.txt")
+    (sources / "unlisted.txt").write_text("late")
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 200, response.text
+    copied = sorted(p.name for p in (root / "intake" / response.json()["id"] / "sources").iterdir())
+    assert copied == ["annual.txt"]
+
+
+def test_resume_refuses_a_listed_source_that_is_now_a_link(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    (root / "outside.txt").write_text("secret")
+    listed = root / "intake" / job_id / "sources" / "annual.txt"
+    listed.unlink()
+    link_or_skip(listed, root / "outside.txt")
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 409 and "no longer in the workspace" in response.text
+    assert len(intake_entries(root)) == 1, "a refused resume left an intake folder"
+
+
+def test_mkdir_all_in_creates_nested_and_accepts_existing(tmp_path: Path) -> None:
+    mkdir_all_in(tmp_path, "intake/job/sources/a", 0o700)
+    assert (tmp_path / "intake/job/sources/a").is_dir()
+    mkdir_all_in(tmp_path, "intake/job", 0o700)
+    mkdir_all_in(tmp_path, ".", 0o700)
+
+
+def test_mkdir_all_in_refuses_files_and_escapes(tmp_path: Path) -> None:
+    root, outside = tmp_path / "root", tmp_path / "outside"
+    root.mkdir()
+    outside.mkdir()
+    (root / "file").write_text("x")
+    with pytest.raises(OSError):
+        mkdir_all_in(root, "file/child", 0o700)
+    for name in ("../outside", "/abs", "a/../../b", ""):
+        with pytest.raises(ValueError):
+            mkdir_all_in(root, name, 0o700)
+    link_or_skip(root / "link", outside)
+    with pytest.raises(OSError):
+        mkdir_all_in(root, "link/escaped", 0o700)
+    assert not (outside / "escaped").exists(), "a directory was created outside the root"
+
+
+def test_resume_reads_no_link_swapped_in_after_the_check(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (outside / "annual.txt").write_text("secret")
+    sources = root / "intake" / job_id / "sources"
+    real_open = os.open
+    swapped: list[bool] = []
+
+    def open_after_swap(path: Any, *args: Any, **kwargs: Any) -> int:
+        # The first open of the source file: sources/ becomes a link just before it.
+        if isinstance(path, str) and path.endswith("annual.txt") and not swapped:
+            swapped.append(True)
+            sources.rename(sources.with_name("sources-moved"))
+            link_or_skip(sources, outside)
+        return real_open(path, *args, **kwargs)
+
+    monkeypatch.setattr(os, "open", open_after_swap)
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert swapped, "the swap never fired"
+    assert response.status_code in (200, 409), response.text
+    copies = (root / "intake").glob("web-*/sources/annual.txt")
+    assert [p for p in copies if job_id not in str(p) and p.read_bytes() == b"secret"] == []
+
+
+def test_resume_writes_nothing_through_a_link_swapped_in_after_the_check(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    real_mkdir = os.mkdir
+    swapped: list[bool] = []
+
+    def mkdir_then_swap(path: Any, *args: Any, **kwargs: Any) -> None:
+        real_mkdir(path, *args, **kwargs)
+        if str(path).endswith("sources") and not swapped:  # The new job's sources/ becomes a link.
+            swapped.append(True)
+            for folder in (root / "intake").iterdir():
+                if folder.name != job_id and (folder / "sources").is_dir():
+                    (folder / "sources").rmdir()
+                    link_or_skip(folder / "sources", outside)
+
+    monkeypatch.setattr(os, "mkdir", mkdir_then_swap)
+    call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert swapped, "the swap never fired"
+    assert list(outside.iterdir()) == [], "a file was created outside the workspace"
+
+
+@pytest.mark.parametrize("inside", [False, True])
+def test_resume_refuses_a_linked_intake_folder(tmp_path: Path, inside: bool) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    moved = (root if inside else tmp_path / "elsewhere") / "intake-real"
+    moved.parent.mkdir(exist_ok=True)
+    (root / "intake").rename(moved)
+    link_or_skip(root / "intake", moved)
+    before = sorted(p.name for p in moved.iterdir())
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 400 and "The workspace is not writable" in response.text
+    assert sorted(p.name for p in moved.iterdir()) == before, "a folder was created"
+
+
+@pytest.mark.parametrize(
+    "job",
+    [
+        b'{"sources":[{"path":"a.txt","sha256":0}]}',
+        b'{"sources":[{"path":"a.txt","sha256":false}]}',
+        b'{"modules":false}',
+        b'{"modules":{}}',
+        b'{"sources":0}',
+        b'{"resume_of":5}',
+        b'{"max_turns":9.0}',
+        b'{"extra":NaN}',
+        b'{"modules":false,"Modules":["CP-4"]}',
+        b'{"sources":[{"path":5,"PATH":"a.txt"}]}',
+        '{"\u017fources":0}'.encode(),
+        b'{"extra":' + b"[" * 20000 + b"]" * 20000 + b"}",
+    ],
+)
+def test_recorded_job_refuses_what_go_unmarshal_refuses(job: bytes) -> None:
+    assert recorded_job(job) is None
+
+
+def test_recorded_job_decodes_as_go_unmarshal_does() -> None:
+    raw = b'{"CONFIG":"a","config":null,"Config":"b","modules":[null,"CP-4"],"sources":[null]}'
+    assert recorded_job(raw) == {
+        "config": "b",
+        "modules": ["", "CP-4"],
+        "sources": [{"path": "", "sha256": ""}],
+    }
+    assert (recorded_job(b'{"config":"c","Config":null}') or {})["config"] == "c"
+    assert (recorded_job(b'{"modules":["CP-4"],"Modules":null}') or {})["modules"] == []
+    assert recorded_job(b"null") == {"config": "", "modules": [], "sources": []}
+    assert recorded_job(rb'{"config":"\udc80"}') == {
+        "config": "\ufffd",
+        "modules": [],
+        "sources": [],
+    }
+    assert recorded_job(b'{"config":"\xff"}')["config"] == "\ufffd"
+
+
+@pytest.mark.parametrize(
+    ("status", "resumes"),
+    [
+        (b'{"State":"stopped"}', True),
+        (b'{"state":"stopped","State":"running"}', False),
+        (b'{"state":"running","STATE":"stopped"}', True),
+        (b'{"state":"stopped","State":null}', True),
+        (b'{"state":5,"State":"stopped"}', False),
+        ('{"\u017ftate":"stopped"}'.encode(), True),
+        (b'{"state":"stopped","message":5}', False),
+        (b'{"state":"stopped","Message":5}', False),
+        (b'{"state":"stopped","id":5}', False),
+        (b'{"state":"stopped","x":NaN}', False),
+        (b'{"state":"stopped","message":"\xff"}', True),
+        (b"null", False),
+        (b'{"state":"stopped","x":' + b"[" * 20000 + b"]" * 20000 + b"}", False),
+    ],
+)
+def test_resume_reads_the_stopped_status_as_go_unmarshal_does(
+    tmp_path: Path, status: bytes, resumes: bool
+) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    (root / "intake" / job_id / "status.json").write_bytes(status)
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == (200 if resumes else 409), response.text
+
+
+def test_resume_reads_at_most_one_byte_past_the_limit(tmp_path: Path) -> None:
+    _, _, client, job_id = stopped_run(tmp_path)
+    big = resume_body(job_id, cap_usd="1" * (jobs_module.REQUEST_LIMIT + 1))
+    response = call(client, "POST", "/api/runs/resume", big)
+    assert response.status_code == 400
+    assert "Choose a stopped run, a maximum spend and 1–64 turns" in response.text
+
+
+def linked_log(tmp_path: Path, name: str, raw: bytes) -> Path:
+    folder = tmp_path / "run"
+    folder.mkdir()
+    (tmp_path / "outside").write_bytes(raw)
+    link_or_skip(folder / name, tmp_path / "outside")
+    return folder
+
+
+def test_events_reads_refuse_a_linked_log_or_progress(tmp_path: Path) -> None:
+    line = b'{"at":"2026-11-07T10:00:00Z","event":"module_started","module":"LEAK"}\n'
+    folder = linked_log(tmp_path, "events.jsonl", line)
+    with pytest.raises(OSError) as error:
+        events_module.read_events(folder)
+    assert not isinstance(error.value, FileNotFoundError)
+    assert events_module.progress(folder) is None and events_module.started(folder) == ""
+    (folder / "progress.json").write_bytes(b'{"step":"started","module":"OLD"}')
+    assert events_module.progress(folder) == {"step": "started", "module": "OLD"}
+    (folder / "events.jsonl").unlink()
+    (folder / "progress.json").unlink()
+    (tmp_path / "outside").write_bytes(b'{"step":"started","module":"LEAK"}')
+    link_or_skip(folder / "progress.json", tmp_path / "outside")
+    assert events_module.progress(folder) is None
+
+
+def test_events_read_of_a_fifo_is_refused_without_blocking(tmp_path: Path) -> None:
+    folder = tmp_path / "run"
+    folder.mkdir()
+    if not hasattr(os, "mkfifo"):
+        pytest.skip("FIFOs unavailable")
+    os.mkfifo(folder / "events.jsonl")
+    outcome: list[str] = []
+
+    def read() -> None:
+        try:
+            events_module.read_events(folder)
+            outcome.append("read")
+        except OSError:
+            outcome.append("refused")
+        outcome.append(events_module.started(folder) or "empty")
+
+    worker = threading.Thread(target=read, daemon=True)
+    worker.start()
+    worker.join(3)
+    assert outcome == ["refused", "empty"]

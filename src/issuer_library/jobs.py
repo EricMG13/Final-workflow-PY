@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import errno
 import functools
 import importlib.util
 import json
@@ -9,9 +10,11 @@ import os
 import re
 import secrets
 import shutil
+import stat
 import subprocess
 import sys
 import threading
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
@@ -164,7 +167,15 @@ def job_view(workspace: str, job_id: str) -> dict[str, Any] | None:
         return None
     review = read_object(Path(workspace) / "intake" / job_id / "review.json")
     if review is not None:
-        for key in ("issuer", "pathway", "as_of", "modules", "module_details"):
+        for key in (
+            "issuer",
+            "pathway",
+            "as_of",
+            "modules",
+            "module_details",
+            "resume_of",
+            "retained_modules",
+        ):
             if key in review:
                 status[key] = review[key]
     folder = Path(workspace) / "runs" / job_id
@@ -184,7 +195,7 @@ def recent_candidate(workspace: str, name: str) -> tuple[int, str, bool] | None:
     file = Path(workspace) / "intake" / name / "status.json"
     try:
         written = file.stat().st_mtime_ns
-        state = events.state_of(events.loads(file.read_bytes()))
+        state = events.state_of(file.read_bytes())
     except (OSError, ValueError):
         return None
     if state is None or state == "reviewed":
@@ -374,6 +385,311 @@ def review_run(lib: Application, form: FormData) -> Response:
         except OSError as error:
             raise HTTPException(500, "Could not retain context") from error
         job["sources"] = stage_sources(folder, paths, files)
+        result, valid = review_staged(lib, folder, job)
+    finally:
+        if not valid:
+            shutil.rmtree(folder, ignore_errors=True)
+    return Response(result, media_type="application/json")
+
+
+RESUMABLE = ("stopped", "failed", "interrupted")
+INPUTS_GONE = "The stopped run's inputs are no longer in the workspace"
+COPY_FAILED = "Could not copy the stopped run's inputs"
+
+
+def resume_request(raw: bytes) -> dict[str, Any]:
+    """The resume body: id, cap_usd and max_turns (a JSON integer 1-64) and nothing else."""
+    refusal = "Choose a stopped run, a maximum spend and 1–64 turns"
+    try:
+        request = json.loads(raw) if len(raw) <= REQUEST_LIMIT else None
+    except ValueError:
+        request = None
+    if not isinstance(request, dict) or set(request) - {"id", "cap_usd", "max_turns"}:
+        raise HTTPException(400, refusal)
+    job_id, cap, turns = request.get("id"), request.get("cap_usd"), request.get("max_turns")
+    if (
+        not isinstance(job_id, str)
+        or not JOB_ID.fullmatch(job_id)
+        or not isinstance(cap, str)
+        or not cap
+        or type(turns) is not int
+        or not 1 <= turns <= MAX_TURNS
+    ):
+        raise HTTPException(400, refusal)
+    return request
+
+
+def go_list(value: Any, convert: Callable[[Any], Any]) -> list[Any]:
+    """A slice field as Go decodes it: null is empty, any other non-array raises ValueError."""
+    if value is None:
+        return []
+    if not isinstance(value, list):
+        raise events.GoDecodeError("not an array")
+    return [convert(item) for item in value]
+
+
+def go_slice(record: dict[str, list[Any]], name: str, convert: Callable[[Any], Any]) -> list[Any]:
+    found: list[Any] = events.go_value(
+        record, name, lambda value: go_list(value, convert), nil_resets=True
+    )
+    return found
+
+
+def go_turns(value: Any) -> int:
+    if value is not None and not events.is_int(value):
+        raise events.GoDecodeError("max_turns is not an integer")
+    return int(value or 0)
+
+
+def recorded_source(item: Any) -> dict[str, str]:
+    if item is not None and not isinstance(item, dict):
+        raise events.GoDecodeError("not an object")
+    record = item or {}
+    return {key: events.go_value(record, key, events.go_text) for key in ("path", "sha256")}
+
+
+def recorded_job(raw: bytes) -> dict[str, Any] | None:
+    """A stopped run's job.json as Go decodes it into NewJob; None where Go's decode fails."""
+    try:
+        job = events.go_record(raw)
+        for key in ("id", "workspace", "cap_usd", "resume_of"):
+            events.go_value(job, key, events.go_text)
+        events.go_value(job, "max_turns", go_turns)
+        return {
+            "config": events.go_value(job, "config", events.go_text),
+            "modules": go_slice(job, "modules", events.go_text),
+            "sources": go_slice(job, "sources", recorded_source),
+        }
+    except ValueError:
+        return None
+
+
+def stopped_run_state(raw: bytes) -> str | None:
+    """status.json as Go decodes it into JobStatus: its state, None where the decode fails."""
+    try:
+        record = events.go_record(raw)
+        for key in ("message", "id"):
+            events.go_value(record, key, events.go_text)
+        return str(events.go_value(record, "state", events.go_text))
+    except ValueError:
+        return None
+
+
+# Directories are walked by descriptor, each opened relative to its parent without following a
+# link, so a link swapped in after a check is refused where it is used (as Go's os.Root does).
+# Windows has no dir_fd for os.open: there only an lstat check made just before use stands in.
+FD_WALK = hasattr(os, "O_NOFOLLOW") and os.open in os.supports_dir_fd
+GONE = (
+    errno.ENOENT,
+    errno.ELOOP,
+    errno.ENOTDIR,
+    errno.EINVAL,
+    errno.ENXIO,
+    errno.ENAMETOOLONG,
+    errno.EOPNOTSUPP,
+)
+DIR_FLAGS = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+
+
+def walk_dirs(parent: int, parts: list[str], mode: int | None) -> int:
+    """Open parts below the directory parent (created with mode when given); the caller closes."""
+    handle = os.dup(parent)
+    try:
+        for part in parts:
+            if mode is not None:
+                try:
+                    os.mkdir(part, mode, dir_fd=handle)
+                except FileExistsError:
+                    pass
+            child = os.open(part, DIR_FLAGS | os.O_NOFOLLOW, dir_fd=handle)
+            os.close(handle)
+            handle = child
+    except BaseException:
+        os.close(handle)
+        raise
+    return handle
+
+
+def mkdir_all_in(root: Path, name: str, mode: int = 0o700) -> None:
+    """Create name and its missing parents inside root, never through a link or outside it.
+
+    ValueError stands for fs.ErrInvalid; an existing non-directory or link raises OSError.
+    """
+    parts = [] if name == "." else name.split("/")
+    if name != "." and (name.startswith("/") or any(part in ("", ".", "..") for part in parts)):
+        raise ValueError(f"invalid path: {name!r}")
+    if not FD_WALK:
+        for position in range(len(parts)):
+            directory = root.joinpath(*parts[: position + 1])
+            try:
+                directory.mkdir(mode=mode)
+            except FileExistsError:
+                if not stat.S_ISDIR(directory.lstat().st_mode):
+                    raise NotADirectoryError(str(directory)) from None
+        return
+    handle = os.open(root, DIR_FLAGS)
+    try:
+        os.close(walk_dirs(handle, parts, mode))
+    finally:
+        os.close(handle)
+
+
+def is_plain_file(base: Path, name: str) -> bool:
+    """name under base is a regular file reached through no symbolic link (the lstat stand-in)."""
+    current = base
+    try:
+        for part in name.split("/"):
+            current = current / part
+            if stat.S_ISLNK(current.lstat().st_mode):
+                return False
+        return stat.S_ISREG(current.lstat().st_mode)
+    except OSError:
+        return False
+
+
+def source_names(job: dict[str, Any]) -> list[str]:
+    names = ["context.json"]
+    for source in job["sources"]:
+        if not valid_source_path(source["path"]):
+            raise HTTPException(409, INPUTS_GONE)
+        names.append(f"sources/{source['path']}")
+    return names
+
+
+def open_source(old: int, folders: list[str], leaf: str) -> int:
+    """A regular file of the stopped run, opened without following a link.
+
+    An unreachable directory above it, or a missing, linked or non-regular leaf, is gone (409):
+    Go's Lstat through the Root fails. A leaf that is there but cannot be opened (permission) is a
+    copy failure (500): Go's Lstat succeeds and the copy fails.
+    """
+    try:
+        parent = walk_dirs(old, folders, None)
+    except OSError as error:
+        raise HTTPException(409, INPUTS_GONE) from error
+    try:
+        source = os.open(leaf, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+        if not stat.S_ISREG(os.fstat(source).st_mode):
+            os.close(source)
+            raise OSError(errno.EINVAL, "not a regular file")
+    except OSError as error:
+        if error.errno in GONE:
+            raise HTTPException(409, INPUTS_GONE) from error
+        raise HTTPException(500, COPY_FAILED) from error
+    finally:
+        os.close(parent)
+    return source
+
+
+def copy_names(old: int, new: int, names: list[str]) -> None:
+    """Stream each file from the stopped run (a regular file, no link) into the new job."""
+    for name in names:
+        *folders, leaf = name.split("/")
+        source = open_source(old, folders, leaf)
+        with os.fdopen(source, "rb") as reader:
+            try:
+                parent = walk_dirs(new, folders, 0o700)
+                try:
+                    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+                    target = os.open(leaf, flags, 0o600, dir_fd=parent)
+                finally:
+                    os.close(parent)
+                with os.fdopen(target, "wb") as writer:
+                    shutil.copyfileobj(reader, writer)
+            except OSError as error:
+                raise HTTPException(500, COPY_FAILED) from error
+
+
+def copy_by_path(old: Path, new: Path, names: list[str]) -> None:
+    """The lstat stand-in for platforms without dir_fd: check, then copy by path."""
+    for name in names:
+        if not is_plain_file(old, name):
+            raise HTTPException(409, INPUTS_GONE)
+        try:
+            target = new / name
+            mkdir_all_in(new, str(Path(name).parent.as_posix()))
+            with (old / name).open("rb") as reader, target.open("xb") as writer:
+                shutil.copyfileobj(reader, writer)
+        except OSError as error:
+            raise HTTPException(500, COPY_FAILED) from error
+
+
+def copy_resume_inputs(root: Path, old_id: str, job: dict[str, Any]) -> None:
+    """Copy the stopped run's context and exactly the sources its job lists; only read the old."""
+    old = root / "intake" / old_id
+    if not old.is_dir():
+        raise HTTPException(409, INPUTS_GONE)
+    new = root / "intake" / job["id"]
+    if not FD_WALK:
+        try:
+            new.mkdir(mode=0o700)
+        except OSError as error:
+            raise HTTPException(400, "The workspace is not writable") from error
+        copy_by_path(old, new, source_names(job))
+        return
+    try:
+        base = os.open(root, DIR_FLAGS)
+    except OSError as error:
+        raise HTTPException(400, "Choose an available workspace folder first") from error
+    try:
+        try:
+            intake = walk_dirs(base, ["intake"], None)
+            try:
+                os.mkdir(job["id"], 0o700, dir_fd=intake)
+                folder = os.open(job["id"], DIR_FLAGS | os.O_NOFOLLOW, dir_fd=intake)
+            finally:
+                os.close(intake)
+        except OSError as error:
+            raise HTTPException(400, "The workspace is not writable") from error
+        try:
+            holder = os.open(old, DIR_FLAGS)
+        except OSError as error:
+            os.close(folder)
+            raise HTTPException(409, INPUTS_GONE) from error
+        try:
+            copy_names(holder, folder, source_names(job))
+        finally:
+            os.close(holder)
+            os.close(folder)
+    finally:
+        os.close(base)
+
+
+def resume_run(lib: Application, raw: bytes) -> Response:
+    """Review a copy of a stopped run's inputs as a new job; never starts a worker."""
+    request = resume_request(raw)
+    with lib.lock:
+        workspace = lib.config.workspace
+    root = Path(workspace)
+    old = root / "intake" / request["id"]
+    try:
+        state = stopped_run_state((old / "status.json").read_bytes())
+    except OSError:
+        state = None
+    if state not in RESUMABLE:
+        raise HTTPException(409, "Only a stopped, failed or interrupted run can be resumed")
+    try:
+        recorded = recorded_job((old / "job.json").read_bytes())
+    except OSError:
+        recorded = None
+    if recorded is None:
+        raise HTTPException(409, INPUTS_GONE)
+    if not root.is_dir():
+        raise HTTPException(400, "Choose an available workspace folder first")
+    job: dict[str, Any] = {
+        "id": f"web-{secrets.token_hex(16)}",
+        "workspace": workspace,
+        "config": recorded["config"],
+        "cap_usd": request["cap_usd"],
+        "modules": recorded["modules"],
+        "max_turns": request["max_turns"],
+        "sources": recorded["sources"],
+        "resume_of": request["id"],
+    }
+    folder = root / "intake" / job["id"]
+    valid = False
+    try:
+        copy_resume_inputs(root, request["id"], job)
         result, valid = review_staged(lib, folder, job)
     finally:
         if not valid:
