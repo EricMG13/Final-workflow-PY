@@ -645,7 +645,8 @@ def test_context_height_messages_are_source_checked_and_bounded(new_run: Any) ->
     def send(editor: bool, height: float) -> str:
         value: str = run.page.evaluate(
             "([editor,height])=>{const frame=document.getElementById('context-editor');"
-            "window.dispatchEvent(new MessageEvent('message',{source:editor?frame.contentWindow:window,"
+            "const source=editor?frame.contentWindow:window;"
+            "window.dispatchEvent(new MessageEvent('message',{source,"
             "data:{type:'cpos:height',height}}));return frame.style.height;}",
             [editor, height],
         )

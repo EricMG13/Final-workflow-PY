@@ -389,7 +389,8 @@ class ContextForm:
 
     def submit(self) -> dict[str, Any]:
         value: dict[str, Any] = self.page.evaluate(
-            "()=>{window.dispatchEvent(new MessageEvent('message',{source:window,data:{type:'cpos:get-context'}}));"
+            "()=>{window.dispatchEvent(new MessageEvent('message',"
+            "{source:window,data:{type:'cpos:get-context'}}));"
             "return window.__messages.filter(m=>m.type==='cpos:context').at(-1);}"
         )
         return value
