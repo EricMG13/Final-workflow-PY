@@ -216,7 +216,7 @@ class Screen:
         self.page.context.close()
 
 
-def open_app(
+def open_app(  # noqa: PLR0913 - every keyword is optional; only route and store are needed
     browser: Any,
     hash_route: str,
     store: dict[str, Any] = EMPTY_STORE,
@@ -226,9 +226,12 @@ def open_app(
     viewport: tuple[int, int] = (1280, 720),
     timers: str = NO_TIMERS,
     init: str = "",
+    device: dict[str, bool] | None = None,
 ) -> Screen:
     """The app at a route: boot reads the catalogue and store the way the server would send them."""
-    context = browser.new_context(viewport={"width": viewport[0], "height": viewport[1]})
+    context = browser.new_context(
+        viewport={"width": viewport[0], "height": viewport[1]}, **(device or {})
+    )
     page = context.new_page()
     screen = Screen(page)
     page.add_init_script(HELPERS + timers + init)
