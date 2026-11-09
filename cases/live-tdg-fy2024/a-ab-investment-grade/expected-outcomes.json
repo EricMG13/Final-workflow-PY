@@ -1,0 +1,81 @@
+{
+  "scope": "A-ab: credit_snapshot, secondary, investment_grade, legal documents none, no quotes, 5 TDG FY2024 filings",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+  ],
+  "run": [
+    {
+      "rule": "ig-method-fit",
+      "outcome": "information",
+      "counted": false,
+      "detail": "methods and persona are written for high-yield and leveraged-loan credit"
+    },
+    {
+      "rule": "section-omitted",
+      "outcome": "information",
+      "counted": false,
+      "section": "what-changed"
+    }
+  ],
+  "modules": {
+    "CP-4": [
+      {
+        "rule": "cp4-declared-none",
+        "outcome": "will_refuse",
+        "counted": true,
+        "inherited_from": []
+      }
+    ],
+    "CP-3": [
+      {
+        "rule": "cp3-no-quotes-no-talk",
+        "outcome": "gap",
+        "counted": true,
+        "inherited_from": []
+      },
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-4"
+        ]
+      }
+    ],
+    "CP-5": [
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-4",
+          "CP-3"
+        ]
+      }
+    ],
+    "CP-6": [
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-3",
+          "CP-5"
+        ]
+      }
+    ]
+  },
+  "counted_total": 2,
+  "without": {
+    "CP-4": [
+      "CP-4"
+    ]
+  }
+}

@@ -275,7 +275,6 @@ tests/model/test_providers.py
 tests/model/test_redact.py
 tests/model/test_turn.py
 tests/nightly-known-failures.txt
-tests/product/test_context.py
 tests/prompts/probes/injection_cases.py
 tests/prompts/r_cp4_strip.py
 tests/prompts/r_narr_strip.py
@@ -443,6 +442,9 @@ edited apps/issuer-library/README.md
 edited apps/issuer-library/designs/browser_check.py
 edited apps/issuer-library/designs/build.py
 edited apps/issuer-library/designs/fake_engine/bridge.py
+edited apps/issuer-library/designs/live_check.py
 edited apps/issuer-library/engine/store.py
 edited docs/VERIFICATION-ARCHIVE.md
 edited examples/issuer-library/README.md
+edited tests/product/test_context.py
+edited tests/test_issuer_library_live_check.py
