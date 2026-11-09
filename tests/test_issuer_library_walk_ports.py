@@ -36,7 +36,7 @@ def test_a_walk_server_starts_while_the_old_fixed_ports_are_taken(
                 probe.close()  # already in use by something else
                 continue
             held.append(probe)
-        with pytest.raises(SystemExit):  # the premise: a held port stops the server
+        with pytest.raises(bc.PortTaken):  # the premise: a held port stops the server
             bc.serve(workspace, OLD_PORTS[0], ROOT / "apps/issuer-library/engine")
         server, port = bc.serve_free(workspace, ROOT / "apps/issuer-library/engine")
         assert port not in OLD_PORTS
