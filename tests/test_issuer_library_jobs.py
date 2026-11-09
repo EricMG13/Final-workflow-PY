@@ -2380,7 +2380,7 @@ def test_a_finishing_run_clears_the_store_cache(
 def test_a_rediscovery_tick_clears_the_store_cache(tmp_path: Path) -> None:
     app, _ = make_app(tmp_path)
     prime_store_cache(app)
-    ticks = iter([False, True])
+    ticks = iter([False, False, True])  # loop test, post-sleep test, loop test
     main_module.rediscover(app, lambda: next(ticks), 0)
     assert app.store_cache.body is None and app.store_cache.key == ""
 

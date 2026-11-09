@@ -11,6 +11,7 @@ import threading
 import time
 import urllib.request
 import zlib
+from collections.abc import Callable
 from dataclasses import replace
 from pathlib import Path
 
@@ -73,6 +74,14 @@ def announce(link: str, address: str, browse: bool) -> None:
     print("Issuer Library:", address, flush=True)
 
 
+def rediscover(app: Application, stopped: Callable[[], bool], every: float) -> None:
+    """Rediscover every interval until stopped() or the library quits."""
+    while not stopped():
+        time.sleep(every)
+        if not stopped() and not app.refresh_for_caller():
+            return  # The library is quitting; no discovery starts again.
+
+
 def run(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="issuer-library", description=__doc__)
     parser.add_argument("--workspace", default="", help="Workspace folder (disabled by IT policy)")
@@ -128,18 +137,9 @@ def run(argv: list[str] | None = None) -> int:
 
     app.stop = stop
 
-    def rediscover() -> None:
-        while not server.should_exit:
-            time.sleep(30)
-            if not quitting.hold_refreshing(app):
-                return  # The library is quitting; no discovery starts again.
-            try:
-                with app.lock:
-                    app.refresh_locked()
-            finally:
-                app.refreshing.release()
-
-    threading.Thread(target=rediscover, daemon=True).start()
+    threading.Thread(
+        target=rediscover, args=(app, lambda: server.should_exit, 30), daemon=True
+    ).start()
     threading.Thread(
         target=quitting.watch_quit_requests,
         args=(app, lambda: server.should_exit, quitting.quit_poll),

@@ -377,8 +377,6 @@ class Application:
         self.catalogue = Catalogue()
         self.store_cache = StoreCache()
         self.catalogue = self.build_catalogue(self.config.workspace)
-        # Counts catalogue installs (under lock) so a slower discovery cannot replace a newer one.
-        self.generation = 0
         # The ticket's lifetime counts from when the library is ready, after its first discovery.
         self.session = Session()
         self.reviews = 0
@@ -411,28 +409,37 @@ class Application:
             )
         return catalogue
 
-    def refresh_locked(self) -> None:
-        """Discover under the caller's hold of lock. Kept only for the periodic rediscovery in
-        __main__.py and jobs.py finish_job, which another session owns and a later task moves to
-        refresh()."""
-        self.catalogue = self.build_catalogue(self.config.workspace)
-        self.generation += 1
-
-    def refresh(self) -> Response:
+    def refresh(self) -> bool:
         """Rediscover without the catalogue lock; requests see the previous catalogue meanwhile
-        and only the swap is locked. Returns the new catalogue, serialised under the lock."""
-        with self.refresh_slot():
+        and only the swap is locked. False when the library is quitting and nothing was
+        discovered. Like Go's refresh it leaves the store cache to its caller (a catalogue
+        rebuild alone must not rerun the store); every caller clears it after."""
+        if not hold_refreshing(self):
+            return False
+        try:
             with self.lock:
                 workspace = self.config.workspace
-                generation = self.generation
             catalogue = self.build_catalogue(workspace)
             with self.lock:
-                # A run-finish path installs through refresh_locked() without refreshing; keep
-                # its newer catalogue rather than swap this older discovery over it.
-                if self.generation == generation:
-                    self.catalogue = catalogue
-                    self.generation += 1
-                return self.catalogue_locked()
+                self.catalogue = catalogue
+        finally:
+            self.refreshing.release()
+        return True
+
+    def refresh_for_caller(self) -> bool:
+        """refresh(), then clear the store cache (also when discovery failed), after the locks
+        are released. The one entry for the route, the periodic rediscovery and run finish."""
+        try:
+            return self.refresh()
+        finally:
+            self.store_cache.clear()
+
+    def refresh_response(self) -> Response:
+        """Answer /api/refresh: the new catalogue, serialised under the lock; 503 when quitting."""
+        if not self.refresh_for_caller():
+            raise HTTPException(503, LIBRARY_QUITTING)
+        with self.lock:
+            return self.catalogue_locked()
 
     def catalogue_locked(self) -> Response:
         return Response(self.catalogue.model_dump_json(), media_type=JSON)
@@ -498,7 +505,6 @@ class Application:
                     raise HTTPException(500, "Could not save settings") from error
                 self.config = config
                 self.catalogue = catalogue
-                self.generation += 1
                 adopt_jobs_locked(self, config.workspace)
                 return self.catalogue_locked()
 
@@ -679,10 +685,7 @@ def build(lib: Application) -> FastAPI:
 
     @app.post("/api/refresh")
     def refresh() -> Response:
-        try:
-            return lib.refresh()
-        finally:
-            lib.store_cache.clear()  # after the locks are released
+        return lib.refresh_response()
 
     @app.post("/api/settings")
     async def settings(request: Request) -> Response:
