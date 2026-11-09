@@ -15,7 +15,7 @@ import json
 import re
 from collections.abc import Callable, Iterator
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import parse_qs, quote
 
 import pytest
 from issuer_library_browser import (
@@ -785,3 +785,156 @@ def test_a_model_id_chosen_in_the_model_select_shows_that_model(
     assert got["value"] == model_id
     assert want["href"].split("?")[0] in got["src"]
     assert (got["scope"], got["section"]) == (want["scope"], model_id)
+
+
+def test_a_malformed_escape_in_the_section_is_an_unknown_section_never_an_error(
+    show: Opener,
+) -> None:
+    screen = show("W-Overview/overview?c=tdg-002")
+    module, section = probe(
+        screen,
+        "location.hash='#W-Forecast/%E0%A4%A?c=tdg-002';const r=parseRoute();"
+        "return [r.module,r.section];",
+    )
+    assert module == "W-Forecast"
+    assert section != "%E0%A4%A"
+    until(screen.page, "current.module==='W-Forecast'")
+
+
+def test_the_forecast_tab_opens_the_default_model_not_superseded_one_with_a_predecessor(
+    show: Opener, forged: Store
+) -> None:
+    # tdg-model-2 records tdg-model-1; the latest folder, tdg-model-3, records none.
+    for model_id, previous in [
+        ("tdg-model-3", None),
+        ("tdg-model-2", "tdg-model-1"),
+        ("tdg-model-1", None),
+    ]:
+        model_of(forged, model_id)["previous"] = previous
+    got = probe(
+        forecast_tab(show, forged, "tdg-002"),
+        "return [q('#model-select').value,qa('#model-select option').map(o=>o.value)];",
+    )
+    assert got == ["tdg-model-2", ["tdg-model-2", "tdg-model-3", "tdg-model-1"]]
+
+
+def test_hydrate_gives_every_output_the_sections_of_its_own_hash(show: Opener) -> None:
+    got = probe(
+        show("W-Library/cases"),
+        "const x=[{heading:'A',level:1,line:1,blocks:[]}];"
+        "const y=[{heading:'B',level:1,line:1,blocks:[]}];"
+        "const o={'r1/CP-1.md':{id:'r1/CP-1.md',sha256:'aa'},"
+        "'r2/CP-1.md':{id:'r2/CP-1.md',sha256:'aa'},"
+        "'r2/CP-2.md':{id:'r2/CP-2.md',sha256:'bb'}};"
+        "const data={runs:{},inputs:{},pins:{},handoffs:{aa:x,bb:y},outputs:o};"
+        "return [hydrate(data)===data,...Object.values(o).map(v=>v.sections[0].heading)];",
+    )
+    assert got == [True, "A", "A", "B"]
+
+
+def test_hydrate_refuses_an_output_whose_handoff_was_not_sent(show: Opener) -> None:
+    refused = probe(
+        show("W-Library/cases"),
+        "try{hydrate({outputs:{'r1/CP-1.md':{id:'r1/CP-1.md',sha256:'zz'}},handoffs:{}});}"
+        "catch(error){return error.message;}return null;",
+    )
+    assert refused is not None, "hydrate did not throw"
+    assert re.search(r"r1/CP-1\.md", refused), refused
+
+
+def test_the_cash_flow_table_is_a_labelled_scroll_region_with_ruled_groups(
+    show: Opener, workspace: Store
+) -> None:
+    got = probe(
+        forecast_tab(show, workspace, "tdg-002"),
+        "const r=q('.forecast-cashflow .table-scroll'),h=q('.forecast-cashflow h2');"
+        "const cs=x=>getComputedStyle(x);"
+        "const f=q('.cashflow tbody tr:not(.band-row)'),c=[...f.querySelectorAll('td')];"
+        "const has=n=>x=>x.classList.contains(n),g=c.find(has('group-start'));"
+        "return {role:r.getAttribute('role'),tab:r.getAttribute('tabindex'),"
+        "labelled:r.getAttribute('aria-labelledby'),id:h.id,cells:c.length,starts:c.map(has('group-start')),"
+        "scenario:c.map(has('scenario')),height:cs(c[0]).height,minWidth:cs(f.querySelector('th')).minWidth,"
+        "root:parseFloat(cs(d.documentElement).fontSize),border:cs(g).borderLeft,padding:cs(g).paddingTop,"
+        "quiet:cs(c.find(has('scenario'))).backgroundColor,"
+        "plain:cs(c.find(x=>!has('scenario')(x))).backgroundColor};",
+    )
+    assert (got["role"], got["tab"]) == ("region", "0")
+    assert got["id"], "the heading has an id"
+    assert got["labelled"] == got["id"]
+    assert got["cells"] == len(CASH["columns"])
+    assert got["starts"].count(True) == len(CASH["groups"]), "one ruled first column per group"
+    assert got["starts"][0] is True
+    assert True in got["scenario"] and False in got["scenario"], "scenario and plain columns"
+    assert got["height"] == "32px"
+    assert float(got["minWidth"].removesuffix("px")) == 12 * got["root"]  # the key reads 12rem
+    assert re.match(r"^1px solid (rgb\(221, 225, 234\)|#dde1ea)$", got["border"]), got["border"]
+    assert got["padding"] == "5px"
+    assert (got["quiet"], got["plain"]) == ("rgb(246, 247, 250)", "rgba(0, 0, 0, 0)")
+
+
+def test_the_section_pager_names_models_reports_and_sections(
+    show: Opener, workspace: Store
+) -> None:
+    screen = forecast_tab(show, workspace, "tdg-002")
+    labels = (
+        "['previous-section','next-section']"
+        ".map(id=>document.getElementById(id).getAttribute('aria-label'))"
+    )
+    assert screen.eval(labels) == ["Previous model", "Next model"]
+    screen.go("W-Reports/list?c=tdg-002")
+    assert screen.eval(labels) == ["Previous report", "Next report"]
+    screen.go("CP-1/summary?c=tdg-002")  # several sections keep the default labels
+    assert screen.eval(labels) == ["Previous section", "Next section"]
+
+
+HELP_NAMES = ["Run notices", "Resuming a stopped run", "n.a. and n.m. in the cash flow model"]
+RESUMING = (
+    "A run started from New run that stopped, failed or was interrupted can be resumed from its "
+    "notice, from Run activity or from Recent runs. The resumed run is a new run: it keeps the "
+    "accepted modules without a new model call and has its own spending cap, and what the stopped "
+    "run spent is not counted against it. A run stopped by a provider ruling cannot be resumed."
+)
+
+
+def test_help_explains_run_notices_resuming_and_na_nm_in_the_cash_flow_model(show: Opener) -> None:
+    got = probe(
+        show("W-Help/help"),
+        "const hs=qa('.help-copy h2');return {heads:hs.map(t),bodies:a.map(n=>{"
+        "const h=hs.find(x=>t(x)===n);return h&&t(h.nextElementSibling);})};",
+        HELP_NAMES,
+    )
+    assert all(name in got["heads"] for name in HELP_NAMES)
+    notices, resuming, na = got["bodies"]
+    for state in ["running", "complete", "stopped", "failed", "interrupted", "Dismiss"]:
+        assert re.search(state, notices), state
+    assert re.search(
+        r"Resume appears on stopped, failed or interrupted notices, "
+        r"except a run stopped by a provider ruling\.",
+        notices,
+    )
+    assert resuming == RESUMING
+    for pattern in [r"n\.a\. means not available", r"Why cells show n\.a\.", r"never zero"]:
+        assert re.search(pattern, na), pattern
+    assert re.search(r"n\.m\. means not modelled", na)
+
+
+def test_an_other_models_row_opens_the_model_under_the_run_it_was_published_for(
+    show: Opener, workspace: Store
+) -> None:
+    screen = forecast_tab(show, workspace, "tdg-run-comparison")
+    owner = screen.eval(
+        "(()=>{const issuer=contexts['tdg-run-comparison'].issuerKey;"
+        "const same=Object.keys(contexts)"
+        ".filter(k=>contexts[k].issuerKey===issuer&&k!=='tdg-run-comparison');"
+        "const supplier=same[0],owner=same.at(-1);"
+        "if(supplier===owner)throw new Error('one run only');"
+        "const models=window.DESIGN_WORKSPACE.models,base=JSON.parse(JSON.stringify(models[0]));"
+        "base.id='zz-owned-model';base.issuerKey=issuer;base.runId=contexts[owner].folder;"
+        "base.sources=[{...base.sources[0],run:supplier}];models.splice(0,models.length,base);"
+        "return owner;})()"
+    )
+    screen.go("W-Library/cases")
+    screen.go("W-Forecast/forecast?c=tdg-run-comparison")
+    href = screen.attr(".forecast-other li a", "href")
+    assert href, "the row links"
+    assert parse_qs(href.split("?")[1])["c"] == [owner]
