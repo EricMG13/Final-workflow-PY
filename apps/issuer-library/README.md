@@ -55,8 +55,8 @@ command line, and stays inside the app: moving elsewhere and back keeps what you
    instructions, workflow code or review invalidate the approval.
 5. Follow the module in progress, the last accepted module and recorded spend. Recent runs stay listed after
    reopening the page. The progress step is headed by the run's issuer, workflow, date and id. Recent runs
-   lists every run in the workspace with its workflow, module, state and spend; opening
-   a row shows its progress. A rejected module stops the run: its work is kept and no automatic
+   lists up to 30 runs started from this app in this workspace, with their workflow, module, state and
+   spend; opening a row shows its progress. A rejected module stops the run: its work is kept and no automatic
    paid retry is made. A finished run opens on its deliverables. Automated checks cover
    structure, anchors and report selectors only: review the handoffs against the sources
    before relying on a report. The launcher publishes the report; it does not publish an
@@ -162,7 +162,10 @@ referenced handoffs exist; incomplete writes remain visible as discovery notices
   Each supplied metric has a decimal-string `value`, `unit`, `period`, `basis` and
   source key. Units must carry currency/scale where applicable, e.g. `USD m`.
   Keep unavailable values null, distinct from zero. Evidence checks establish
-  literal transport, not an independent financial interpretation of the row.
+  literal transport, not an independent financial interpretation of the row:
+  the value must equal a whole number in the quote, sign and scale included
+  (thousands commas group three digits; an accounting `(12.3)` is `-12.3`). A
+  fragment of a date, range, list or decimal-comma figure does not count.
   Optional `provenance` is the producer's explicit `cited`, `calculated` or
   `synthetic` classification. Omit it when unknown: the interface shows
   **Not classified** beside the source link. A verified source alone does not
@@ -231,6 +234,9 @@ uv run pytest -m browser tests/test_issuer_library_app.py tests/test_issuer_libr
 removed. `browser` serves the repository with a fake provider through `designs/browser_check.py`.
 It needs `FW_PYTHON` and, for a Chromium that Playwright did not download,
 `ISSUER_LIBRARY_CHROMIUM`.
+
+Offline browser walks, the flow check on a retained run and the fault-repair loop are
+described in `docs/QUALITY-GATE.md`, section "Live testing and repair".
 
 These checks execute the page's scripts in a real browser with synthetic API replies,
 but do not establish visual layout or Windows launcher acceptance. See the single
