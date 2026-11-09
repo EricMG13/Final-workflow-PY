@@ -24,14 +24,21 @@ KEYS = tuple(runpy.run_path(str(ROOT / "src/deploy_workflow/model/redact.py"))["
 BROWSER_TESTS = (
     "tests/test_issuer_library_app.py",
     "tests/test_issuer_library_design.py",
+    "tests/test_issuer_library_draft_guard.py",
+    "tests/test_issuer_library_escape_sinks.py",
     "tests/test_issuer_library_example.py",
     "tests/test_issuer_library_reader.py",
+    "tests/test_issuer_library_run_activity.py",
+    "tests/test_issuer_library_run_spend.py",
+    "tests/test_issuer_library_screening.py",
     "tests/test_issuer_library_screens.py",
 )
 PYTHON_TESTS = (
     "tests/test_issuer_library_css.py",
     "tests/test_issuer_library_discovery.py",
     "tests/test_issuer_library_server.py",
+    "tests/test_issuer_library_launch.py",
+    "tests/test_issuer_library_quit.py",
     "tests/test_issuer_library_jobs.py",
     "tests/test_issuer_library_store.py",
     "tests/test_issuer_library_gates.py",

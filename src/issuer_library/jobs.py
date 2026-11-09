@@ -6,6 +6,7 @@ import errno
 import functools
 import importlib.util
 import json
+import logging
 import os
 import re
 import secrets
@@ -14,6 +15,7 @@ import stat
 import subprocess
 import sys
 import threading
+import time
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -26,10 +28,18 @@ from starlette.datastructures import FormData, UploadFile
 from . import events
 from .desktop import WORKER_FLAGS
 from .model import digest
+from .quit import LIBRARY_QUITTING
 from .settings import save_json
 
 if TYPE_CHECKING:
     from .server import Application
+
+if sys.platform == "win32":
+    import _winapi
+else:
+    import fcntl
+
+log = logging.getLogger("issuer_library")
 
 JOB_ID = re.compile(r"web-[a-f0-9]{32}")
 MODULE_CODE = re.compile(r"CP-[A-Z0-9]+")
@@ -45,6 +55,8 @@ WINDOWS_RESERVED = {"CON", "PRN", "AUX", "NUL"} | {
     f"{device}{number}" for device in ("COM", "LPT") for number in "123456789"
 }
 PACKAGE = Path(__file__).resolve().parent
+WORKER_POLL = 5.0  # Seconds between checks of a worker this instance did not start.
+NOT_STARTED = "no run was started and no model call was made. Start can be tried again."
 
 
 def engine_root() -> Path:
@@ -109,7 +121,7 @@ class Engine:
             raise RuntimeError("CP-OS validator failed")
         return output
 
-    def start(self, folder: Path) -> subprocess.Popen[bytes]:
+    def start(self, folder: Path, lock: int) -> subprocess.Popen[bytes]:
         # Discard worker output; structured, redacted status is the only browser contract.
         return subprocess.Popen(
             self.command("start", folder),
@@ -117,7 +129,94 @@ class Engine:
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             creationflags=WORKER_FLAGS,
+            **inherit_lock(lock),
         )
+
+
+def refuse_non_regular(path: Path) -> None:
+    """Windows stand-in for O_NOFOLLOW: OSError for a link or other non-regular file."""
+    if not stat.S_ISREG(path.lstat().st_mode):
+        raise OSError(f"not a regular file: {path.name}")
+
+
+def refuse_non_regular_descriptor(descriptor: int, path: Path) -> None:
+    """Close the descriptor and raise OSError when it is not a regular file."""
+    if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+        os.close(descriptor)
+        raise OSError(f"not a regular file: {path.name}")
+
+
+if sys.platform == "win32":
+
+    def hold_worker_lock(path: Path) -> int:
+        """Open the lock file shared for reading only, so a second open for writing is refused."""
+        try:
+            refuse_non_regular(path)
+        except FileNotFoundError:
+            pass  # CreateFile below creates it.
+        handle: int = _winapi.CreateFile(str(path), 0x80000000, 1, 0, 4, 0x80, 0)
+        try:
+            os.set_handle_inheritable(handle, True)
+        except OSError:
+            _winapi.CloseHandle(handle)
+            raise
+        return handle
+
+    def release_lock(lock: int) -> None:
+        _winapi.CloseHandle(lock)
+
+    def inherit_lock(lock: int) -> dict[str, Any]:
+        info = subprocess.STARTUPINFO()
+        info.lpAttributeList = {"handle_list": [lock]}
+        return {"startupinfo": info, "close_fds": True}
+
+    def worker_alive(path: Path) -> bool:
+        """Whether a worker holds the lock; OSError when that cannot be checked."""
+        try:
+            refuse_non_regular(path)
+            _winapi.CloseHandle(_winapi.CreateFile(str(path), 0x40000000, 3, 0, 3, 0x80, 0))
+        except FileNotFoundError:  # The file is absent: no worker ever held it.
+            return False
+        except OSError as error:
+            if error.winerror == 32:  # A sharing violation: the worker holds it.
+                return True
+            raise
+        return False
+
+else:
+
+    def hold_worker_lock(path: Path) -> int:
+        """Lock the file exclusively; the worker inherits the descriptor and so keeps the lock."""
+        flags = os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK
+        descriptor = os.open(path, flags, 0o600)
+        refuse_non_regular_descriptor(descriptor, path)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            os.close(descriptor)
+            raise
+        return descriptor
+
+    def release_lock(lock: int) -> None:
+        os.close(lock)
+
+    def inherit_lock(lock: int) -> dict[str, Any]:
+        return {"pass_fds": (lock,)}
+
+    def worker_alive(path: Path) -> bool:
+        """Whether a worker holds the lock; OSError when that cannot be checked."""
+        try:
+            descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        except FileNotFoundError:
+            return False
+        refuse_non_regular_descriptor(descriptor, path)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            return True
+        finally:
+            os.close(descriptor)
+        return False
 
 
 def local_engine() -> Engine:
@@ -715,6 +814,8 @@ def start_run(lib: Application, raw: bytes) -> Response:
     ):
         raise HTTPException(400, refusal)
     with lib.lock:
+        if lib.quitting:
+            raise HTTPException(503, LIBRARY_QUITTING)
         if lib.active_jobs:
             raise HTTPException(409, "A CP-OS run is already active; wait for it to finish")
         folder = Path(lib.config.workspace) / "intake" / job_id
@@ -738,34 +839,81 @@ def start_run(lib: Application, raw: bytes) -> Response:
             ) from error
         except OSError as error:
             raise HTTPException(500, "Could not retain the start authorisation") from error
-        running = {
-            "state": "running",
-            "message": "CP-OS is validating the reviewed inputs and starting the selected workflow.",
-            "id": job_id,
-        }
         try:
-            save_json(folder / "status.json", running)
-        except OSError as error:
-            raise HTTPException(500, "Could not retain start state") from error
-        try:
-            process = lib.engine.start(folder)
-        except OSError as error:
-            failed = {"state": "failed", "message": "CP-OS runtime could not start."}
-            try:
-                save_json(folder / "status.json", failed)
-            except OSError:
-                pass
-            raise HTTPException(503, "CP-OS runtime could not start") from error
+            process = launch_worker(lib, folder, job_id)
+        except HTTPException:
+            # No process exists, so nothing ran or was paid for: the reviewed run may start again.
+            release_claim(folder, job_id)
+            raise
         lib.active_jobs.add(job_id)
     threading.Thread(target=watch, args=(lib, job_id, folder, process), daemon=True).start()
     return json_response({"state": "running", "message": "Run started.", "id": job_id}, 202)
 
 
-def watch(lib: Application, job_id: str, folder: Path, process: subprocess.Popen[bytes]) -> None:
-    """When the worker exits without a final status, say so; never retry a paid run."""
-    process.wait()
-    status = read_object(folder / "status.json")
-    if status is not None and status.get("state") == "running":
+def release_claim(folder: Path, job_id: str) -> None:
+    try:
+        os.remove(folder / "start.claim")
+    except FileNotFoundError:
+        pass
+    except OSError as error:
+        log.warning("Release start claim for %s: %s", job_id, error)
+
+
+def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Popen[bytes]:
+    """Hold the worker lock, record the running state and spawn; the caller holds lib.lock."""
+    try:
+        lock = hold_worker_lock(folder / "worker.lock")
+    except OSError as error:
+        raise HTTPException(500, f"Could not prepare the run lock; {NOT_STARTED}") from error
+    try:
+        running = {
+            "state": "running",
+            "message": "CP-OS is validating the reviewed inputs and starting the selected "
+            "workflow.",
+            "id": job_id,
+        }
+        try:
+            save_json(folder / "status.json", running)
+        except OSError as error:
+            raise HTTPException(500, f"Could not retain start state; {NOT_STARTED}") from error
+        try:
+            return lib.engine.start(folder, lock)
+        except OSError as error:
+            message = f"CP-OS runtime could not start; {NOT_STARTED}"
+            try:
+                save_json(
+                    folder / "status.json", {"state": "failed", "message": message, "id": job_id}
+                )
+            except OSError as save_error:
+                log.warning(
+                    "Run %s: the failed start could not be recorded: %s", job_id, save_error
+                )
+            raise HTTPException(503, message) from error
+    finally:
+        release_lock(lock)
+
+
+def read_job_state(folder: Path) -> str | None:
+    """The state in status.json as Go decodes it; None where the decode fails.
+
+    FileNotFoundError for a missing file; any other OSError for a link, a non-regular file or an
+    unreadable one. Never follows a link or blocks on a FIFO.
+    """
+    with events.open_regular(folder / "status.json") as stream:
+        return stopped_run_state(stream.read())
+
+
+def job_state(folder: Path) -> str | None:
+    """The state in the job's status.json as Go's JobStatus decode reads it; None if unreadable."""
+    try:
+        return read_job_state(folder)
+    except OSError:
+        return None
+
+
+def settle_job(folder: Path) -> None:
+    """Mark a job interrupted when its worker has ended while its status still says running."""
+    if job_state(folder) == "running":
         interrupted = {
             "state": "interrupted",
             "message": "The worker exited without a final result. Retained evidence remains "
@@ -773,8 +921,81 @@ def watch(lib: Application, job_id: str, folder: Path, process: subprocess.Popen
         }
         try:
             save_json(folder / "status.json", interrupted)
-        except OSError:
-            pass
+        except OSError as error:
+            log.warning("Settle %s: %s", folder.name, error)
+
+
+def finish_job(lib: Application, folder: Path, job_id: str) -> None:
+    """Settle a job whose worker has ended, end its activity and refresh the library."""
+    settle_job(folder)
     with lib.lock:
         lib.active_jobs.discard(job_id)
         lib.refresh_locked()
+    # Finish notices (sub-task 5E) go here, after the job has left the active set.
+
+
+def watch(lib: Application, job_id: str, folder: Path, process: subprocess.Popen[bytes]) -> None:
+    """When the worker exits without a final status, say so; never retry a paid run."""
+    process.wait()
+    finish_job(lib, folder, job_id)
+
+
+def adopt_jobs_locked(lib: Application, workspace: str) -> None:
+    """Settle the jobs an earlier instance left running; a live worker's job is active again.
+
+    A lock that cannot be checked leaves its job as it is. The caller holds lib.lock or owns lib.
+    """
+    intake = Path(workspace) / "intake"
+    try:
+        names = sorted(os.listdir(intake))
+    except FileNotFoundError:
+        return  # A fresh workspace has no intake folder.
+    except OSError as error:
+        log.warning("Adoption skipped: %s cannot be listed: %s", intake, error)
+        return
+    for name in names:
+        folder = Path(workspace) / "intake" / name
+        if not JOB_ID.fullmatch(name) or name in lib.active_jobs:
+            continue
+        try:
+            state = read_job_state(folder)
+        except FileNotFoundError:
+            continue  # A reviewed job that never started has no status.
+        except OSError as error:
+            log.warning("Run %s: its status.json is skipped: %s", name, error)
+            continue
+        if state is None:
+            log.warning("Run %s: its status.json is skipped: it cannot be decoded", name)
+        if state != "running":
+            continue
+        try:
+            alive = worker_alive(folder / "worker.lock")
+        except OSError as error:
+            log.warning(
+                "Run %s: its worker lock cannot be checked; its state is left as it is: %s",
+                name,
+                error,
+            )
+            continue
+        if not alive:
+            settle_job(folder)
+            continue
+        lib.active_jobs.add(name)
+        threading.Thread(target=watch_worker, args=(lib, name, folder), daemon=True).start()
+
+
+def watch_worker(lib: Application, job_id: str, folder: Path) -> None:
+    """Wait for a worker this instance did not start to release its lock, then finish its job."""
+    reported = None
+    while True:
+        time.sleep(WORKER_POLL)
+        try:
+            if not worker_alive(folder / "worker.lock"):
+                break
+            reported = None
+        except OSError as error:
+            # An unreadable lock keeps the job active and is checked again; say so once per error.
+            if str(error) != reported:
+                log.warning("Run %s: its worker lock cannot be checked yet: %s", job_id, error)
+                reported = str(error)
+    finish_job(lib, folder, job_id)
