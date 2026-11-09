@@ -1,0 +1,19 @@
+{
+  "literals": [
+    {
+      "text": "Provisional",
+      "what": "Label every CP-4 term and the main limitation must carry (Primary run, draft legal documents, no executed governing document)",
+      "source": "expected.json outcomes.C1.cp4_status and each_term_label: 'Completed with Limitations, labelled Provisional'"
+    },
+    {
+      "text": "720",
+      "what": "Term Loan B facility amount, USD millions (keyed term tlb.size; also sources and uses 'New Term Loan 720')",
+      "source": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"$720 million Term Loan B\"; line 11: \"$720mm New Term Loan 720\""
+    },
+    {
+      "text": "125",
+      "what": "ABL facility size, USD millions (keyed term abl.size)",
+      "source": "2014-09-11-ex99-1-public-lender-presentation.htm line 47: \"$125 million Asset Based Revolver\""
+    }
+  ]
+}
