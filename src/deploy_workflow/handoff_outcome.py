@@ -79,15 +79,19 @@ MODULE_STATUS = {
 
 
 def module_status(line: str) -> str | None:
-    """The status phrase of a `Module Status:` line, or None. Markup that does not change the
-    words is dropped: ** around the label or value, backticks, a list marker, one final period."""
-    line = line.strip().replace("**", "").strip("`").strip()
-    line = re.sub(r"^[-*][ \t]+", "", line)
+    """The status value, as written, of a `Module Status:` line, or None. Markup that does not
+    change the words is dropped until the text stops changing: runs of *, backticks, a `> `
+    blockquote, a list marker, one final period. The label may be in any letter case."""
+    previous = None
+    while line != previous:
+        previous = line
+        line = line.strip().replace("*", "").strip("`").removesuffix(".")
+        line = re.sub(r"^(?:>|-)[ \t]+", "", line)
     label, sep, value = line.partition(":")
-    if not sep or label.strip() != "Module Status":
+    value = value.strip("` \t")
+    if not sep or label.strip().lower() != "module status":
         return None
-    value = value.strip().strip("`").strip().removesuffix(".").strip().lower()
-    return value if value in MODULE_STATUS else None
+    return value if value.lower() in MODULE_STATUS else None
 
 
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
@@ -106,8 +110,8 @@ def own_status(module: str, own: str) -> tuple[str, str] | None:
         if pair in FIELDS
     ]
     for line in own.splitlines():
-        if not line.lstrip().startswith("|") and (phrase := module_status(line)):
-            found.append((MODULE_STATUS[phrase], f"Module Status: {phrase} in {name}"))
+        if not line.lstrip().startswith("|") and (value := module_status(line)):
+            found.append((MODULE_STATUS[value.lower()], f"Module Status: {value} in {name}"))
     if word := status_word(module, own, tuple(STATUS)):
         found.append((STATUS[word], f"{word} in {name}"))
     # ready only when nothing limited or will_refuse is present: max by severity gives that.
