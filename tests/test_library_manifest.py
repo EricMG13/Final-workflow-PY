@@ -98,7 +98,7 @@ def test_write_bytes_and_no_temp_file(case, tmp_path):
 def test_write_failure_leaves_nothing(tmp_path, monkeypatch):
     root, run_id = workspace("synthetic", tmp_path)
 
-    def boom(*_):
+    def boom(*_, **__):
         raise OSError("probe")
 
     monkeypatch.setattr(lm.os, "replace", boom)
@@ -269,6 +269,64 @@ def test_non_string_module_name_is_refused(tmp_path):
         data = json.loads(text)
         data["run"]["requested_modules"].append(7)
         return json.dumps(data, indent=2) + "\n"
+
+    edit(root, run_id, "workflow.json", add)
+    with pytest.raises(lm.ManifestError, match="not a plain name"):
+        lm.build(root, run_id)
+
+
+def test_write_refuses_a_run_folder_swapped_for_a_link_after_build(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    real_build = lm.build
+
+    def build_then_swap(*args):
+        manifest = real_build(*args)
+        shutil.move(str(run_dir(root, run_id)), tmp_path / "moved")
+        run_dir(root, run_id).symlink_to(outside, target_is_directory=True)
+        return manifest
+
+    monkeypatch.setattr(lm, "build", build_then_swap)
+    with pytest.raises(lm.ManifestError, match="link") as err:
+        lm.write(root, run_id)
+    assert "missing" not in str(err.value)
+    assert list(outside.iterdir()) == []
+
+
+@pytest.mark.skipif(os.geteuid() == 0, reason="root ignores file modes")
+def test_unreadable_file_is_a_typed_error_with_its_true_cause(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    path = run_dir(root, run_id) / "context.json"
+    path.chmod(0)
+    try:
+        with pytest.raises(lm.ManifestError, match="cannot be read") as err:
+            lm.build(root, run_id)
+    finally:
+        path.chmod(0o644)
+    assert "not a regular file" not in str(err.value)
+    assert "Permission denied" in str(err.value)
+
+
+def test_run_folder_that_is_a_file_is_a_typed_error(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    shutil.rmtree(run_dir(root, run_id))
+    run_dir(root, run_id).write_text("not a folder")
+    with pytest.raises(lm.ManifestError, match="cannot be read") as err:
+        lm.build(root, run_id)
+    assert "not a regular file" not in str(err.value)
+
+
+@pytest.mark.parametrize(
+    "name", ["cp-0", "CP-0 ", "\ud800", "x" * 300, "CP-0\u200b", "CP\u20110", "CP-"]
+)
+def test_module_name_outside_the_code_shape_is_refused(tmp_path, name):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+
+    def add(text):
+        data = json.loads(text)
+        data["run"]["requested_modules"].append(name)
+        return json.dumps(data, indent=2, ensure_ascii=True) + "\n"
 
     edit(root, run_id, "workflow.json", add)
     with pytest.raises(lm.ManifestError, match="not a plain name"):

@@ -9,12 +9,14 @@ file without following a link or blocking on a FIFO.
 
 from __future__ import annotations
 
+import errno
 import hashlib
 import json
 import os
 import re
+import secrets
+import stat
 import sys
-import tempfile
 from pathlib import Path
 from typing import Any, NamedTuple
 
@@ -99,8 +101,11 @@ def _read(root: Path, rel: str) -> bytes | None:
     except FileNotFoundError:
         return None
     except OSError as err:
-        what = "a link" if path.is_symlink() else "not a regular file"
-        raise ManifestError(f"{rel} is {what}") from err
+        if err.errno in (errno.ELOOP, errno.EMLINK):
+            raise ManifestError(f"{rel} is a link") from err
+        if err.errno in (None, errno.EOPNOTSUPP, errno.ENXIO):  # None: open_regular; others: socket
+            raise ManifestError(f"{rel} is not a regular file") from err
+        raise ManifestError(f"{rel} cannot be read: {err.strerror}") from err
 
 
 def _doc(root: Path, rel: str) -> _Doc:
@@ -415,8 +420,7 @@ def _identity(ctx: Json, sink: _Sink, run: Json) -> Json:
 
 
 def _check_module(name: object) -> None:
-    ok = isinstance(name, str) and name not in ("", ".", "..") and ".." not in name
-    if not ok or Path(str(name)).name != name or "\\" in name or "\0" in name:
+    if not isinstance(name, str) or not re.fullmatch(r"CP-[A-Z0-9]+(?:-[A-Z0-9]+)*", name):
         raise ManifestError(f"workflow: requested module {name!r} is not a plain name")
 
 
@@ -465,16 +469,68 @@ def build(workspace: Path, run_id: str) -> Json:
     return {"schema": SCHEMA, "run": run, "sources": sink.sources, "checklist": checklist}
 
 
+def _is_link(part: str, parent: int | None) -> bool:
+    """macOS reports a link under O_DIRECTORY|O_NOFOLLOW as ENOTDIR; tell the two apart."""
+    try:
+        return stat.S_ISLNK(os.stat(part, dir_fd=parent, follow_symlinks=False).st_mode)
+    except OSError:
+        return False
+
+
+def _open_dir(part: str, parent: int | None) -> int:
+    """Open one folder name under `parent` without following a link; typed errors."""
+    try:
+        return os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent)
+    except OSError as err:
+        if err.errno in (errno.ELOOP, errno.EMLINK) or (
+            err.errno == errno.ENOTDIR and _is_link(part, parent)
+        ):
+            raise ManifestError(f"{part} is a link") from err
+        if err.errno == errno.ENOTDIR:
+            raise ManifestError(f"{part} is not a folder") from err
+        raise ManifestError(f"{part} cannot be opened: {err.strerror}") from err
+
+
+def _publish(workspace: Path, run_id: str, text: str) -> None:
+    """Write `library.json` through folder fds; a link swapped in after `build` is not followed."""
+    fds: list[int] = []
+    temp = f".library-{secrets.token_hex(8)}.tmp"
+    made = False
+    try:
+        fds.append(_open_dir(str(workspace), None))
+        for part in ("runs", run_id):
+            fds.append(_open_dir(part, fds[-1]))
+        run_fd = fds[-1]
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+        handle = os.open(temp, flags, 0o644, dir_fd=run_fd)
+        made = True
+        with os.fdopen(handle, "w", encoding="utf-8", newline="") as out:
+            out.write(text)
+        os.replace(temp, "library.json", src_dir_fd=run_fd, dst_dir_fd=run_fd)
+        made = False
+    except BaseException:
+        if made:
+            os.unlink(temp, dir_fd=fds[-1])
+        raise
+    finally:
+        for fd in reversed(fds):
+            os.close(fd)
+
+
 def write(workspace: Path, run_id: str) -> Path:
     """Write `build(...)` to `runs/<run_id>/library.json` atomically and return the path."""
     text = json.dumps(build(workspace, run_id), indent=2, ensure_ascii=False) + "\n"
     target = workspace / "runs" / run_id / "library.json"
-    handle, temp = tempfile.mkstemp(dir=target.parent, prefix=".library-", suffix=".tmp")
-    try:
-        with os.fdopen(handle, "w", encoding="utf-8", newline="") as out:
-            out.write(text)
-        os.replace(temp, target)
-    except BaseException:
-        Path(temp).unlink(missing_ok=True)
-        raise
+    if os.open not in os.supports_dir_fd:
+        # ponytail: no dir_fd (Windows), so the folder path is not pinned; a link swapped in
+        # between build() and this write can redirect library.json. Ceiling: the POSIX path above.
+        temp = target.with_name(f".library-{secrets.token_hex(8)}.tmp")
+        try:
+            temp.write_text(text, encoding="utf-8", newline="")
+            os.replace(temp, target)
+        except BaseException:
+            temp.unlink(missing_ok=True)
+            raise
+        return target
+    _publish(workspace, run_id, text)
     return target
