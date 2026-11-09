@@ -29,11 +29,13 @@ from issuer_library_browser import (
 pytestmark = pytest.mark.browser
 
 ID = "web-" + "a" * 32
+ID2 = "web-" + "c" * 32
 ROW_RUNNING: dict[str, Any] = {
     "id": ID,
     "state": "running",
     "message": "Working",
     "run_available": True,
+    "started_at": "2026-11-08T09:00:00Z",
     "issuer": "Northbridge Group",
     "pathway": "covenant_refinancing",
     "as_of": "2025-03-31",
@@ -49,12 +51,13 @@ ROW_DONE = {
     "state": "complete",
     "message": "Done",
     "run_available": True,
+    "started_at": "2026-11-07T08:00:00Z",
     "issuer": "Southport Holdings",
     "pathway": "credit_snapshot",
     "as_of": "2025-06-30",
     "spent_usd": "3.10",
 }
-IDENTITY = f"Northbridge Group · Covenant Refinancing · as of 2025-03-31 · {ID}"
+IDENTITY = "Northbridge Group · Covenant Refinancing · as of 31 March 2025 · WEB-AAAAAAAA"
 STARTED = {
     "state": "running",
     "message": "Working",
@@ -247,14 +250,21 @@ class NewRun:
         self,
         browser: Any,
         ready: bool = True,
-        start_fails: bool = False,
         status: dict[str, Any] | None = None,
         rows: list[dict[str, Any]] | None = None,
+        route: str = "W-NewRun/run",
     ) -> None:
         self.starts = 0
         self.status = status or RUNNING
         self.rows = rows if rows is not None else []
         self.fail_list = False
+        self.fail_start = False
+        self.resume: dict[str, Any] = {
+            **review_reply(ready),
+            "id": ID2,
+            "resume_of": ID,
+            "retained_modules": ["CP-0"],
+        }
 
         def listed(route: Any) -> None:
             if self.fail_list:
@@ -265,16 +275,17 @@ class NewRun:
 
         def start(route: Any) -> None:
             self.starts += 1
-            if start_fails:
+            if self.fail_start:
                 route.abort()
             else:
                 json_reply({"state": "running", "id": ID})(route)
 
         self.screen = open_app(
             browser,
-            "W-NewRun/run",
+            route,
             api={
                 "/api/runs/review": json_reply(review_reply(ready)),
+                "/api/runs/resume": lambda reply: json_reply(self.resume)(reply),
                 "/api/runs/start": start,
                 "/api/runs/status": lambda route: json_reply(self.status)(route),
                 "/api/runs/list": listed,
@@ -314,7 +325,8 @@ class NewRun:
             "current:li.getAttribute('aria-current'),stopped:li.hasAttribute('data-stopped'),"
             "note:li.querySelector('span:not(.step-marker)')?.textContent??null,title:li.title,"
             "marker:li.querySelector('.step-marker')?.textContent,"
-            "tick:Boolean(li.querySelector('.step-marker img'))}))"
+            "tick:Boolean(li.querySelector('.step-marker img')),"
+            "img:Boolean(li.querySelector('img'))}))"
         )
         return value
 
@@ -373,6 +385,16 @@ class NewRun:
     def urls(self) -> list[str]:
         return [call["url"] for call in self.screen.calls()]
 
+    def progress(self) -> list[str]:
+        return self.screen.texts("#run-progress .summary-line")
+
+    def posted(self, url: str) -> list[Any]:
+        """The JSON bodies sent to a path, in order."""
+        value: list[Any] = self.page.evaluate(
+            "u=>window.__calls.filter(c=>c.url===u).map(c=>JSON.parse(c.options.body))", url
+        )
+        return value
+
     def close(self) -> None:
         assert self.screen.errors == []
         self.screen.close()
@@ -401,7 +423,12 @@ def test_the_steps_follow_the_launcher_and_untrusted_messages_are_ignored(new_ru
         "Progress",
     ]
     assert run.screen.attr("#run-sources", "webkitdirectory") is not None
-    assert "No recent runs to show" in run.text("recent-jobs")
+    assert run.text("recent-jobs") == (
+        "No runs started from this app are recorded in this workspace yet. "
+        "Earlier runs are in the Issuer library."
+    )
+    assert run.screen.text("#recent-jobs a") == "Issuer library"
+    assert run.screen.attr("#recent-jobs a", "href") == "#W-Library/cases"
     run.context(source_is_editor=False)
     assert run.hidden("source-step") is True
     run.context()
@@ -448,7 +475,7 @@ def test_the_review_shows_everything_the_launcher_decided(new_run: Any) -> None:
     for expected in [
         "Northbridge Group",
         "Covenant Refinancing",
-        "2025-03-31",
+        "31 March 2025",
         "openai gpt-6.1-sol · medium",
         "USD 10.00",
         "USD 1.86",
@@ -481,12 +508,17 @@ def test_only_an_explicitly_confirmed_start_launches_once(new_run: Any) -> None:
     )
     assert body == {"id": ID, "review_id": "b" * 64, "confirm": True}
     assert run.text("run-identity") == IDENTITY
-    assert re.search(
-        r"running: Working · Source readiness accepted \(1 of 2\)", run.text("run-progress")
-    )
+    assert run.progress() == ["Running", "Source readiness accepted\u00a0(1\u00a0of\u00a02)."]
+    assert run.screen.attr("#run-identity .code", "title") == ID, "the full id stays in the badge"
     assert run.hidden("module-stages") is False
     stages = run.stages()
-    assert [stage["name"] for stage in stages] == ["Source readiness", "Financial analysis"]
+    assert [stage["name"] for stage in stages] == [
+        "Source readiness",
+        "Financial analysis",
+        "Report delivery",
+    ]
+    assert stages[2]["status"] == "incomplete" and stages[2]["note"] is None
+    assert not stages[2]["img"]
     assert stages[0]["current"] == "step" and stages[1]["current"] is None
     assert stages[0]["status"] == "complete" and stages[0]["note"] == "Accepted"
     assert stages[1]["status"] == "incomplete" and stages[1]["note"] is None
@@ -515,7 +547,8 @@ def test_a_missing_provider_key_keeps_start_unavailable_and_names_the_variable(
 
 
 def test_a_lost_start_response_reconnects_by_id_instead_of_launching_again(new_run: Any) -> None:
-    run = new_run(start_fails=True)
+    run = new_run()
+    run.fail_start = True
     run.context()
     run.folder("N/annual.txt")
     run.click("review-run")
@@ -551,7 +584,7 @@ def test_a_finished_run_offers_its_deliverables_a_stopped_one_offers_the_run(
     assert run.hidden("open-run") is False and run.text("open-run") == label
     assert run.screen.attr("#open-run", "data-route") == route
     assert "USD 3.10" in run.text("run-spend") and run.hidden("another-run") is False
-    assert run.text("run-progress").strip() == f"{state}: Done"
+    assert run.text("run-progress").strip() == f"{state.capitalize()}: Done"
     stages = run.stages()
     if state == "complete":
         assert stages[-1]["current"] is not None
@@ -607,10 +640,8 @@ def test_an_issuer_folder_is_required_before_review(new_run: Any) -> None:
 def test_a_module_that_has_started_is_shown_as_running(new_run: Any) -> None:
     run = new_run(status={**STARTED, "progress": {**STARTED["progress"], "spent_usd": "0.42"}})
     run.launch()
-    assert re.search(
-        r"running: Working · running Financial analysis \(2 of 2\)", run.text("run-progress")
-    )
-    first, second = run.stages()
+    assert run.progress() == ["Running", "Running Financial analysis\u00a0(2\u00a0of\u00a02)."]
+    first, second, _ = run.stages()
     assert second["current"] is not None and first["current"] is None
     assert first["status"] == "complete" and first["note"] == "Accepted"
     assert first["tick"], "a tick, not a number"
@@ -621,10 +652,10 @@ def test_a_module_that_has_started_is_shown_as_running(new_run: Any) -> None:
 def test_a_stopped_run_does_not_claim_its_rejected_module_is_still_running(new_run: Any) -> None:
     run = new_run(status={**STARTED, "state": "stopped", "message": "CP-1 rejected.", "id": ID})
     run.launch()
-    assert (
-        run.text("run-progress").strip()
-        == "stopped: CP-1 rejected. · stopped during Financial analysis (2 of 2)"
-    )
+    assert run.progress() == [
+        "Stopped: CP-1 rejected.",
+        "Stopped during Financial analysis\u00a0(2\u00a0of\u00a02).",
+    ]
     second = run.stages()[1]
     assert second["current"] == "step" and second["status"] == "current"
     assert second["stopped"] and second["note"] == "Stopped here"
@@ -644,10 +675,11 @@ def test_recent_runs_are_a_table_active_first_and_a_row_reopens_its_run(new_run:
     rows = run.recent()
     assert len(rows) == 2
     button = run.page.evaluate(
-        "(()=>{const b=document.querySelector('#recent-jobs tbody tr th[scope=\"row\"] button.text-button');"
+        "(()=>{const b=document.querySelector("
+        "'#recent-jobs tbody tr th[scope=\"row\"] button.text-button');"
         "return b&&[b.textContent,b.title];})()"
     )
-    assert button == ["Northbridge Group", ID]
+    assert button == ["Northbridge Group · WEB-AAAAAAAA · 8 November 2026", ID]
     assert rows[0]["cells"] == [
         "Covenant Refinancing",
         "running Financial analysis (2 of 2)",
@@ -655,7 +687,7 @@ def test_recent_runs_are_a_table_active_first_and_a_row_reopens_its_run(new_run:
         "0.10",
     ]
     assert "badge-blue" in rows[0]["badges"][0] and "badge-blue" in rows[0]["badges"][2]
-    assert rows[1]["head"] == "Southport Holdings"
+    assert rows[1]["head"] == "Southport Holdings · WEB-BBBBBBBB · 7 November 2026"
     assert rows[1]["cells"][1:] == ["—", "complete", "3.10"]
     assert "badge-navy" in rows[1]["badges"][2]
     assert run.page.evaluate("document.querySelector('.recent-runs').open") is True
@@ -664,8 +696,8 @@ def test_recent_runs_are_a_table_active_first_and_a_row_reopens_its_run(new_run:
     assert run.hidden("progress-step") is False and run.text("run-identity") == IDENTITY
     assert run.hidden("module-stages") is False
     stages = run.stages()
-    assert len(stages) == 2 and stages[1]["current"] == "step"
-    assert run.text("run-progress") == "running: Working · running Financial analysis (2 of 2)"
+    assert len(stages) == 3 and stages[1]["current"] == "step"
+    assert run.progress() == ["Running", "Running Financial analysis\u00a0(2\u00a0of\u00a02)."]
 
 
 def test_a_list_refresh_keeps_the_focused_row(new_run: Any) -> None:
@@ -699,13 +731,16 @@ def test_a_run_without_a_saved_review_still_lists_and_opens_by_id(new_run: Any) 
     run = new_run(rows=[{**row, "progress": STARTED["progress"]}])
     run.revisit()
     (listed,) = run.recent()
-    assert listed["head"] == ID
+    assert listed["head"] == "WEB-AAAAAAAA", "no start time is recorded, so no date is shown"
+    assert run.screen.attr("#recent-jobs tbody tr button", "title") == ID
     assert listed["cells"][:2] == ["—", "stopped during CP-1"]
     assert run.page.evaluate("document.querySelector('.recent-runs').open") is False
     run.page.evaluate("document.querySelector('#recent-jobs tbody tr button').click()")
     run.settle()
-    assert run.text("run-identity") == ID and run.hidden("module-stages") is True
-    assert run.text("run-progress") == "stopped: Halted · stopped during CP-1"
+    assert run.text("run-identity") == "WEB-AAAAAAAA"
+    assert run.screen.attr("#run-identity .code", "title") == ID
+    assert run.hidden("module-stages") is True
+    assert run.progress() == ["Stopped: Halted", "Stopped during CP-1."]
 
 
 def test_a_malformed_row_degrades_to_a_dash_and_does_not_hide_the_others(new_run: Any) -> None:
@@ -721,7 +756,7 @@ def test_a_malformed_row_degrades_to_a_dash_and_does_not_hide_the_others(new_run
     run.page.evaluate("document.querySelector('#recent-jobs tbody tr button').click()")
     run.settle()
     assert run.hidden("module-stages") is True
-    assert run.text("run-progress") == "running: Working · running CP-1"
+    assert run.progress() == ["Running", "Running CP-1."]
 
 
 def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
