@@ -1,22 +1,28 @@
 """PR size and copy check: each test builds its own temporary git repo."""
 
-import os
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 from tools import pr_size
 
 SCRIPT = Path(__file__).resolve().parents[1] / "tools" / "pr_size.py"
 IDENT = ["-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "commit.gpgsign=false"]
 UNKNOWN_SHA = "0123456789abcdef0123456789abcdef01234567"
-# The developer's own git config (hooks, signing, aliases) must not reach the temporary repos.
-GIT_ENV = {**os.environ, "GIT_CONFIG_GLOBAL": "/dev/null", "GIT_CONFIG_NOSYSTEM": "1"}
+
+
+@pytest.fixture(autouse=True)
+def isolated_git_config(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The developer's own git config (hooks, signing, aliases) must not reach any test."""
+    monkeypatch.setenv("GIT_CONFIG_GLOBAL", "/dev/null")
+    monkeypatch.setenv("GIT_CONFIG_NOSYSTEM", "1")
 
 
 def git(repo: Path, *args: str) -> str:
     done = subprocess.run(
-        ["git", *IDENT, *args], cwd=repo, check=True, capture_output=True, text=True, env=GIT_ENV
+        ["git", *IDENT, *args], cwd=repo, check=True, capture_output=True, text=True
     )
     return done.stdout.strip()
 
@@ -68,7 +74,6 @@ def result(repo: Path, base: str) -> subprocess.CompletedProcess[str]:
         check=False,
         capture_output=True,
         text=True,
-        env=GIT_ENV,
     )
 
 

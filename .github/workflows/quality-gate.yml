@@ -2,7 +2,7 @@ name: quality-gate
 
 on:
   pull_request:
-  # Started hourly on main by the PR manager; off a PR the changed-code gate checks the last merge.
+  # Runs on pull requests and by hand; off a PR the changed-code gate checks the last commit (HEAD~1).
   workflow_dispatch:
 
 jobs:
