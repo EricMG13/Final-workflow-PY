@@ -790,7 +790,7 @@ def test_view_source_on_a_library_figure_opens_the_pinned_line_in_the_evidence_i
     screen.click('[data-library-select="tdg-002"]')
     hrefs = [h or "" for h in screen.attrs("#run-detail a.tertiary-action", "href")]
     link = next(
-        (h for h in hrefs if parse_qs(h.split("?", 1)[1]).get("e", [None])[0] == held_key), None
+        (h for h in hrefs if parse_qs(h.partition("?")[2]).get("e", [None])[0] == held_key), None
     )
     assert link, "the figure pinned to a held file links to its line"
     assert screen.exists(f'#run-detail [data-library-source="{coverage}"]'), (
