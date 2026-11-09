@@ -61,9 +61,35 @@ CASES = {
     "e": (None, CP4_ROW, "will_refuse"),
     "f": (handoff(), CP4_ROW, "unconfirmed"),
     "g": (handoff(body="This section is Provisional pending review.\n"), "", "unconfirmed"),
+    "h": (handoff(body="Module Status: Blocked\n"), "", "will_refuse"),
+    "i": (handoff(body="**Module Status:** Completed with Limitations\n"), "", "limited"),
+    "k": (
+        handoff("review_status: Provisional", body="Module Status: Completed\n"),
+        "",
+        "limited",
+    ),
+    "table-column-never-counts": (
+        handoff(body="| x | Module Status |\n|---|---|\n| a | Blocked |\n"),
+        "",
+        "unconfirmed",
+    ),
+    "label-inside-prose-never-counts": (
+        handoff(body="Note: the Module Status: Blocked line is not used here.\n"),
+        "",
+        "unconfirmed",
+    ),
 }
 
 
 @pytest.mark.parametrize(("own", "cp0", "wanted"), CASES.values(), ids=CASES.keys())
 def test_synthetic_status_cases(own: str | None, cp0: str, wanted: str) -> None:
     assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
+
+
+def test_c1_cp4_table_column_does_not_change_the_result() -> None:
+    """(j) C1 CP-4 holds a "Module Status" table column; it stays limited and is not cited."""
+    own = (FIXTURES / "CP-4.md").read_text()
+    cp0 = (FIXTURES / "CP-0.md").read_text()
+    got = handoff_outcome.actual_of("CP-4", own, cp0)
+    assert got[0] == "limited"
+    assert "Module Status" not in got[1]
