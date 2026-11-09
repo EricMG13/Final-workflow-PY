@@ -11,7 +11,6 @@ from __future__ import annotations
 import re
 from collections.abc import Iterator
 from html.parser import HTMLParser
-from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlsplit
 
@@ -22,6 +21,7 @@ from issuer_library_browser import (
     EMPTY_STORE,
     EMPTY_WORKSPACE,
     ORIGIN,
+    WEB,
     Screen,
     held,
     js,
@@ -183,7 +183,7 @@ _NAME_TEXT_AND_ATTRIBUTES = """()=>{
 
 def test_visible_name_is_credit_os(screens: Any) -> None:
     shell = _ShellTitle()
-    shell.feed(Path("apps/issuer-library/web/index.html").read_text(encoding="utf-8"))
+    shell.feed((WEB / "index.html").read_text(encoding="utf-8"))
     assert shell.text == "Credit OS"
     for route in ("W-Library/cases", "W-Help/help"):
         screen = screens(route)
