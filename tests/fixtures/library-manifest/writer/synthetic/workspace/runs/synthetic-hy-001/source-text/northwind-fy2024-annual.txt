@@ -1,0 +1,2 @@
+SYNTHETIC FIXTURE: fictional Northwind FY2024 annual source text.
+The balance sheet lines are invented.

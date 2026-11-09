@@ -1,0 +1,160 @@
+{
+  "id": "synthetic-hy-001",
+  "issuer": "northwind",
+  "name": "Northwind Fabrication Holdings",
+  "currency": "USD",
+  "classification": "high_yield",
+  "classification_source": "synthetic-hy-001.ctx_classification",
+  "private_side": true,
+  "private_side_source": "synthetic-hy-001.ctx_private",
+  "metrics": {
+    "leverage": {
+      "value": "4.10",
+      "unit": "x",
+      "period": "FY2025 / 2025-06-30",
+      "basis": "Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage.",
+      "source": "synthetic-hy-001.cp1_leverage",
+      "provenance": "calculated"
+    },
+    "net_leverage": {
+      "value": "3.45",
+      "unit": "x",
+      "period": "FY2025 / 2025-06-30",
+      "basis": "Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage.",
+      "source": "synthetic-hy-001.cp1_leverage",
+      "provenance": "calculated"
+    },
+    "coverage": {
+      "value": "2.95",
+      "unit": "x",
+      "period": "FY2025",
+      "basis": "Fictional EBITDA / fictional cash interest paid, net of interest income.",
+      "source": "synthetic-hy-001.cp1_coverage",
+      "provenance": "calculated"
+    },
+    "cash": {
+      "value": "412",
+      "unit": "US$m",
+      "period": "2025-06-30",
+      "basis": "Fictional consolidated cash; facilities cell is fictional revolving availability only.",
+      "source": "synthetic-hy-001.cp1_liquidity",
+      "provenance": "calculated"
+    },
+    "undrawn": {
+      "value": "150",
+      "unit": "US$m",
+      "period": "2025-06-30",
+      "basis": "Fictional consolidated cash; facilities cell is fictional revolving availability only.",
+      "source": "synthetic-hy-001.cp1_liquidity",
+      "provenance": "calculated"
+    }
+  },
+  "ratings": [
+    {
+      "label": "B+",
+      "agency": "S&P",
+      "scope": "issuer",
+      "date": "2025-05-15",
+      "source": "synthetic-hy-001.ctx_rating_sp"
+    },
+    {
+      "label": "(P)B2",
+      "agency": "Moody's",
+      "scope": "issuer",
+      "date": "2025-05-20",
+      "source": "synthetic-hy-001.ctx_rating_moodys"
+    }
+  ],
+  "facilities": [
+    {
+      "facility_id": "TLB",
+      "terms": {
+        "size_m": {
+          "value": "450",
+          "unit": "USD m",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: TLB size_m",
+          "source": "synthetic-hy-001.ctx_tlb_size_m",
+          "provenance": "user"
+        },
+        "talk_spread_bps_low": {
+          "value": "325",
+          "unit": "bps",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: TLB talk_spread_bps_low",
+          "source": "synthetic-hy-001.ctx_tlb_talk_low",
+          "provenance": "user"
+        },
+        "talk_spread_bps_high": {
+          "value": "375",
+          "unit": "bps",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: TLB talk_spread_bps_high",
+          "source": "synthetic-hy-001.ctx_tlb_talk_high",
+          "provenance": "user"
+        },
+        "floor_pct": {
+          "value": "0.50",
+          "unit": "%",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: TLB floor_pct",
+          "source": "synthetic-hy-001.ctx_tlb_floor_pct",
+          "provenance": "user"
+        },
+        "margin_bps": {
+          "value": "375",
+          "unit": "bps",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: TLB margin_bps",
+          "source": "synthetic-hy-001.ctx_tlb_margin_bps",
+          "provenance": "user"
+        }
+      },
+      "quotes": []
+    },
+    {
+      "facility_id": "SSN-2030",
+      "terms": {
+        "size_m": {
+          "value": "300",
+          "unit": "USD m",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: SSN-2030 size_m",
+          "source": "synthetic-hy-001.ctx_ssn2030_size_m",
+          "provenance": "user"
+        },
+        "coupon_pct": {
+          "value": "7.875",
+          "unit": "%",
+          "period": "2025-06-30",
+          "basis": "Deal term entered in run context: SSN-2030 coupon_pct",
+          "source": "synthetic-hy-001.ctx_ssn2030_coupon_pct",
+          "provenance": "user"
+        }
+      },
+      "quotes": [
+        {
+          "kind": "observed",
+          "terms": {
+            "bid": {
+              "value": "98.50",
+              "unit": "% of par",
+              "period": "2025-06-30",
+              "basis": "Deal term entered in run context: SSN-2030 bid",
+              "source": "synthetic-hy-001.ctx_ssn2030_bid",
+              "provenance": "user"
+            },
+            "ask": {
+              "value": "99.00",
+              "unit": "% of par",
+              "period": "2025-06-30",
+              "basis": "Deal term entered in run context: SSN-2030 ask",
+              "source": "synthetic-hy-001.ctx_ssn2030_ask",
+              "provenance": "user"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

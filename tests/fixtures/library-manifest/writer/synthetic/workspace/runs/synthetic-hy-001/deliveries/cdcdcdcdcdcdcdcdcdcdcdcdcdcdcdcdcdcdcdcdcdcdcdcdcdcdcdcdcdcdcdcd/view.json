@@ -1,0 +1,10 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "run_id": "synthetic-hy-001",
+    "issuer_id": "northwind",
+    "issuer_name": "Northwind Fabrication Holdings",
+    "as_of": "2025-06-30"
+  },
+  "mode": "candidate"
+}

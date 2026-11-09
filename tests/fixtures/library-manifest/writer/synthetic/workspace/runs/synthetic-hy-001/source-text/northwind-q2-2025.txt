@@ -1,0 +1,2 @@
+SYNTHETIC FIXTURE: fictional Northwind second-quarter 2025 source text.
+Revenue and EBITDA lines are invented.

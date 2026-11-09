@@ -1,0 +1,7 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "synthetic",
+  "scope": "Fictional high-yield private-side run used only as a manifest-writer fixture; handoffs are hand-written, not model output.",
+  "cp_model_published": false,
+  "report_sha256": "49e861754e717bb17dbb5d7adfe14478fc2553e25ee89c30c61261ad452fd638"
+}

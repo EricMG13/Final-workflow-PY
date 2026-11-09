@@ -1,0 +1,95 @@
+{
+  "schema": "context/1",
+  "run": {
+    "run_type": "primary",
+    "pathway": "credit_snapshot",
+    "case_kind": "private",
+    "as_of": "2025-06-30",
+    "cutoff": "",
+    "current_period": "fy-2025",
+    "prior_period": "fy-2024",
+    "reporting_currency": "USD"
+  },
+  "identity": {
+    "issuer_name": "Northwind Fabrication Holdings",
+    "issuer_id": "northwind",
+    "borrower_name": "",
+    "parent_name": "",
+    "guarantors": [],
+    "aliases": [],
+    "listed_equity": false,
+    "ticker": "",
+    "sector": "Industrials",
+    "country": "United States",
+    "sponsor": "",
+    "issue_classification": "high_yield"
+  },
+  "deal_terms": [
+    {
+      "facility_id": "TLB",
+      "instrument": "Term loan B",
+      "currency": "USD",
+      "size_m": "450",
+      "tenor_years": "",
+      "talk_spread_bps_low": "325",
+      "talk_spread_bps_high": "375",
+      "talk_oid_low": "",
+      "talk_oid_high": "",
+      "floor_pct": "0.50",
+      "coupon_pct": "",
+      "margin_bps": "375",
+      "call_protection": "",
+      "use_of_proceeds": "",
+      "as_of": "2025-06-30",
+      "provider": ""
+    },
+    {
+      "facility_id": "SSN-2030",
+      "instrument": "Senior secured notes",
+      "currency": "USD",
+      "size_m": "300",
+      "tenor_years": "",
+      "talk_spread_bps_low": "",
+      "talk_spread_bps_high": "",
+      "talk_oid_low": "",
+      "talk_oid_high": "",
+      "floor_pct": "",
+      "coupon_pct": "7.875",
+      "margin_bps": "",
+      "call_protection": "",
+      "use_of_proceeds": "",
+      "as_of": "2025-06-30",
+      "provider": ""
+    }
+  ],
+  "quotes": [
+    {
+      "facility_id": "SSN-2030",
+      "kind": "observed",
+      "bid": "98.50",
+      "ask": "99.00",
+      "price": "",
+      "yield_pct": "",
+      "spread_bps": "",
+      "as_of": "2025-06-30",
+      "provider": "Fictional dealer run"
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "S&P",
+      "scope": "issuer",
+      "rating": "B+",
+      "outlook": "Stable",
+      "as_of": "2025-05-15"
+    },
+    {
+      "agency": "Moody's",
+      "scope": "issuer",
+      "rating": "(P)B2",
+      "outlook": "Stable",
+      "as_of": "2025-05-20"
+    }
+  ],
+  "research_questions": []
+}

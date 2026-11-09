@@ -1,0 +1,50 @@
+{
+  "review_id": "synthetic-review-hy-001",
+  "issue_classification": "high_yield",
+  "documents": [],
+  "expectations": [
+    {
+      "id": "CP-4:legal-none",
+      "scope": "CP-4",
+      "outcome": "will_refuse",
+      "reason": "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+      "fix": "Add the executed documents.",
+      "basis": "Fictional fixture rule.",
+      "evidence": "per method",
+      "counted": true,
+      "inherited_from": null
+    },
+    {
+      "id": "CP-1:ratings-entered",
+      "scope": "CP-1",
+      "outcome": "information",
+      "reason": "Ratings were entered by the user and are not independently verified.",
+      "fix": "",
+      "basis": "Fictional fixture rule.",
+      "evidence": "per method",
+      "counted": false,
+      "inherited_from": null
+    },
+    {
+      "id": "run:private-side-no-market",
+      "scope": "run",
+      "outcome": "limited",
+      "reason": "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+      "fix": "",
+      "basis": "Fictional fixture rule.",
+      "evidence": "per method",
+      "counted": true,
+      "inherited_from": null
+    }
+  ],
+  "counted": [
+    "run:private-side-no-market",
+    "CP-4:legal-none"
+  ],
+  "without": {
+    "CP-4": [
+      "CP-4",
+      "CP-6"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "run": {
+    "run_id": "synthetic-missing-001",
+    "issuer_id": "harborlane",
+    "issuer_name": "Harbor Lane Logistics plc",
+    "as_of": "2025-06-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1"
+    ]
+  },
+  "sources": {
+    "src.txt": {
+      "path": "source-text/src.txt",
+      "sha256": "ee51373a37081d29caaa2f8b071e971ebff1ddd33e3f574d7189be26b0b5c26b"
+    }
+  },
+  "execution": "synthetic"
+}

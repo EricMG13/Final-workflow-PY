@@ -23,6 +23,7 @@ ROOT = APP.parents[1]
 KEYS = tuple(runpy.run_path(str(ROOT / "src/deploy_workflow/model/redact.py"))["KEY_ENV_NAMES"])
 BROWSER_TESTS = (
     "tests/test_issuer_library_app.py",
+    "tests/test_issuer_library_context_embed.py",
     "tests/test_issuer_library_design.py",
     "tests/test_issuer_library_draft_guard.py",
     "tests/test_issuer_library_escape_sinks.py",
@@ -47,6 +48,7 @@ PYTHON_TESTS = (
     "tests/test_issuer_library_gates.py",
     "tests/test_issuer_library_walk_ports.py",
     "tests/test_cpos_app.py",
+    "tests/test_library_manifest.py",
     "tests/test_cpos_launch.py",
     "tests/test_cpos_provisional.py",
     "tests/test_reader_summary.py",

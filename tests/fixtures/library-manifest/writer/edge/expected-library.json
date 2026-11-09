@@ -1,0 +1,241 @@
+{
+  "schema": "issuer-library-run/1",
+  "run": {
+    "id": "synthetic-edge-001",
+    "issuer": "harborlane",
+    "name": "Harbor Lane Logistics plc",
+    "identity_source": "ctx_identity",
+    "sector": "Unclassified",
+    "workflow": "Credit snapshot",
+    "title": "Credit snapshot as of 2025-06-30",
+    "date": "2025-06-30",
+    "period": "h1-2025",
+    "period_kind": "Interim",
+    "currency": "USD",
+    "summary": "No completion receipt for this run.",
+    "handoff": "runs/synthetic-edge-001/CP-1.md",
+    "gaps": [
+      "HTML Model not published by app runs"
+    ],
+    "artifacts": [],
+    "ratings": [
+      {
+        "label": "BB-",
+        "date": "",
+        "agency": "S&P",
+        "scope": "facility",
+        "source": "ctx_rating_1"
+      }
+    ],
+    "facilities": [
+      {
+        "facility_id": "TL-A",
+        "terms": {
+          "size_m": {
+            "value": "200",
+            "unit": "USD m",
+            "period": "2025-06-30",
+            "basis": "Entered by the user in the run context",
+            "source": "ctx_term_1_size_m",
+            "provenance": "user"
+          },
+          "tenor_years": {
+            "value": "5",
+            "unit": "years",
+            "period": "2025-06-30",
+            "basis": "Entered by the user in the run context",
+            "source": "ctx_term_1_tenor_years",
+            "provenance": "user"
+          }
+        },
+        "quotes": []
+      },
+      {
+        "facility_id": "TL-B",
+        "terms": {
+          "size_m": {
+            "value": "75",
+            "unit": "EUR m",
+            "period": "2025-05-31",
+            "basis": "Entered by the user in the run context",
+            "source": "ctx_term_2_size_m",
+            "provenance": "user"
+          }
+        },
+        "quotes": []
+      },
+      {
+        "facility_id": "NOTE-X",
+        "terms": {},
+        "quotes": [
+          {
+            "kind": "indicative_talk",
+            "terms": {
+              "price": {
+                "value": "101.25",
+                "unit": "price",
+                "period": "2025-06-15",
+                "basis": "Entered by the user in the run context",
+                "source": "ctx_quote_0_price",
+                "provenance": "user"
+              },
+              "yield_pct": {
+                "value": "5.50",
+                "unit": "%",
+                "period": "2025-06-15",
+                "basis": "Entered by the user in the run context",
+                "source": "ctx_quote_0_yield_pct",
+                "provenance": "user"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "metrics": {
+      "leverage": {
+        "value": "3.60",
+        "unit": "x",
+        "period": "LTM 2025-06-30",
+        "basis": "Fictional last-twelve-months EBITDA; gross debt.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "cash": {
+        "value": "1250",
+        "unit": "US$m",
+        "period": "2025-06-30",
+        "basis": "Fictional consolidated cash; facilities cell is a fictional overdrawn revolver.",
+        "source": "cp1_liquidity",
+        "provenance": "calculated"
+      }
+    }
+  },
+  "sources": {
+    "ctx_identity": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 14,
+      "quote": "    \"issuer_name\": \"Harbor Lane Logistics plc\","
+    },
+    "ctx_rating_1": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 107,
+      "quote": "      \"rating\": \"BB-\","
+    },
+    "ctx_term_1_size_m": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 50,
+      "quote": "      \"size_m\": \"200\","
+    },
+    "ctx_term_1_tenor_years": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 51,
+      "quote": "      \"tenor_years\": \"5\","
+    },
+    "ctx_term_2_size_m": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 68,
+      "quote": "      \"size_m\": \"75\","
+    },
+    "ctx_quote_0_price": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 89,
+      "quote": "      \"price\": \"101.25\","
+    },
+    "ctx_quote_0_yield_pct": {
+      "path": "runs/synthetic-edge-001/context.json",
+      "sha256": "911dd6d5fc0ee3c0ea12b9ed50f134dfb4c6b46140abfaff3ffc5c7d1d9a0f97",
+      "line": 90,
+      "quote": "      \"yield_pct\": \"5.50\","
+    },
+    "cp1_leverage": {
+      "path": "runs/synthetic-edge-001/CP-1.md",
+      "sha256": "6e997285fe990c230e1c581ac6b7fb38bceb12b1a71311ec0db2bb1cdda56968",
+      "line": 10,
+      "quote": "| LTM 2025-06-30 | 3.60 | Not supplied: cash by entity is not disclosed | x | Fictional last-twelve-months EBITDA; gross debt. |"
+    },
+    "cp1_liquidity": {
+      "path": "runs/synthetic-edge-001/CP-1.md",
+      "sha256": "6e997285fe990c230e1c581ac6b7fb38bceb12b1a71311ec0db2bb1cdda56968",
+      "line": 25,
+      "quote": "| 2025-06-30 | 1,250 | -35 | US$m | Fictional consolidated cash; facilities cell is a fictional overdrawn revolver. |"
+    },
+    "wf_source_0": {
+      "path": "runs/synthetic-edge-001/workflow.json",
+      "sha256": "c9879a89173271597f2e93750d19b9b74c5cab5d205096d2535562bc8a8dd199",
+      "line": 18,
+      "quote": "      \"sha256\": \"5bb9c782fd4d2da73a59c0e7258c0d263e69b4d9e9b1479e7440a5a30195d2a2\""
+    },
+    "handoff_CP-0": {
+      "path": "runs/synthetic-edge-001/CP-0.md",
+      "sha256": "37d8ecd65d3beaeb28b3d5b0b4140d2bf9098af16c40df294ec470b1886549f2",
+      "line": 1,
+      "quote": "## Request"
+    },
+    "handoff_CP-1": {
+      "path": "runs/synthetic-edge-001/CP-1.md",
+      "sha256": "6e997285fe990c230e1c581ac6b7fb38bceb12b1a71311ec0db2bb1cdda56968",
+      "line": 1,
+      "quote": "SYNTHETIC FIXTURE: fictional edge-case CP-1 handoff for Harbor Lane Logistics plc; not retained model output."
+    }
+  },
+  "checklist": {
+    "scope": "App run synthetic-edge-001: requested modules and delivery",
+    "requirements": [
+      {
+        "id": "sources",
+        "stage": "sources",
+        "done": true,
+        "evidence": [
+          "wf_source_0"
+        ]
+      },
+      {
+        "id": "analysis-CP-0",
+        "stage": "analysis",
+        "done": true,
+        "evidence": [
+          "handoff_CP-0"
+        ]
+      },
+      {
+        "id": "analysis-CP-1",
+        "stage": "analysis",
+        "done": true,
+        "evidence": [
+          "handoff_CP-1"
+        ]
+      },
+      {
+        "id": "analysis-CP-1A",
+        "stage": "analysis",
+        "done": false,
+        "evidence": []
+      },
+      {
+        "id": "verification",
+        "stage": "verification",
+        "done": false,
+        "evidence": []
+      },
+      {
+        "id": "downstream",
+        "stage": "downstream",
+        "done": false,
+        "evidence": []
+      },
+      {
+        "id": "delivery",
+        "stage": "delivery",
+        "done": false,
+        "evidence": []
+      }
+    ]
+  }
+}
