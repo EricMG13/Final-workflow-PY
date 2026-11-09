@@ -385,6 +385,12 @@ attemptsAfterTable:built.querySelector('.table-scroll').nextElementSibling
 sandbox:q('#model-preview').getAttribute('sandbox'),src:q('#model-preview').getAttribute('src'),
 dataSrc:q('#model-preview').dataset.src};
 """
+# Sets the disclosure's open state and resolves on the toggle event the browser fires for it.
+TOGGLE = (
+    "async o=>{const x=document.querySelector('details.model-original');"
+    "const seen=new Promise(r=>x.addEventListener('toggle',()=>r(x.open),{once:true}));"
+    "x.open=o;return await seen;}"
+)
 BUILT_HEADS = ["Role", "Run", "Source", "SHA-256 prefix", "Status"]
 HEADINGS = [
     "Cash flow model",
@@ -694,9 +700,10 @@ def test_the_model_frame_is_not_loaded_or_watched_until_its_disclosure_is_opened
         "inside": True,
         "src": None,
     }
-    screen.page.wait_for_timeout(80)  # Longer than the 20 ms watch a start would arm.
+    # A timer armed now, at 4x the watch timeout, fires after any watch timer armed at render.
+    screen.page.evaluate("()=>new Promise(r=>setTimeout(r,4*window.DESIGN_FRAME_TIMEOUT_MS))")
     assert probe(screen, parts + "return [s.hidden,t(s)];") == [True, ""], "no watch has started"
-    probe(screen, parts + "x.open=true;")
+    assert screen.page.evaluate(TOGGLE, True) is True
     until(screen.page, "!!document.getElementById('model-preview').getAttribute('src')")
     until(screen.page, "/did not load/.test(document.querySelector('.frame-status').textContent)")
     got = probe(
@@ -709,9 +716,8 @@ def test_the_model_frame_is_not_loaded_or_watched_until_its_disclosure_is_opened
     assert re.search(r"model\.html\?sha256=[0-9a-f]{64}&download=1$", got["href"])
     assert probe(screen, parts + "f.dispatchEvent(new Event('load'));return s.hidden;") is True
     src = screen.attr("#model-preview", "src")  # Reopening starts no second watch.
-    for opened in ("false", "true"):
-        probe(screen, parts + f"x.open={opened};")
-        screen.page.wait_for_timeout(30)
+    assert screen.page.evaluate(TOGGLE, False) is False
+    assert screen.page.evaluate(TOGGLE, True) is True
     assert screen.attr("#model-preview", "src") == src
     assert probe(screen, parts + "return s.hidden;") is True, "no second watch started"
 
