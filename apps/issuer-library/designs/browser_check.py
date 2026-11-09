@@ -80,10 +80,31 @@ def not_exercisable(name: str, what: str, why: str) -> None:
 
 def free_port() -> int:
     # ponytail: free when returned; another process may take it before the server binds.
-    # Upgrade path: retry on EADDRINUSE.
+    # serve_free retries on a taken port, so the race costs a new port, not a failed walk.
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))
         return int(probe.getsockname()[1])
+
+
+class PortTaken(SystemExit):
+    """The server exited because its port was occupied; any other exit stays a plain SystemExit."""
+
+
+def serve_free(
+    workspace: Path,
+    engine: Path,
+    key: str | None = None,
+    extra: dict[str, str] | None = None,
+) -> tuple[subprocess.Popen[bytes], int]:
+    """Start the server on a free port; if another process took it first, pick again (3 tries)."""
+    for _ in range(2):
+        port = free_port()
+        try:
+            return serve(workspace, port, engine, key, extra), port
+        except PortTaken:
+            continue
+    port = free_port()
+    return serve(workspace, port, engine, key, extra), port
 
 
 def serve(
@@ -139,6 +160,9 @@ def serve(
 
 def wait_ready(process: subprocess.Popen[bytes], port: int) -> subprocess.Popen[bytes]:
     for _ in range(100):
+        if process.poll() is not None:
+            taken = "local port is occupied" in LOGS[port].read_text(errors="replace")
+            raise (PortTaken if taken else SystemExit)(f"server exited with {process.returncode}")
         try:
             urllib.request.build_opener(urllib.request.ProxyHandler({})).open(
                 f"http://127.0.0.1:{port}/health", timeout=1
@@ -288,18 +312,97 @@ def library_counts(page: Any, name: str) -> None:
     )
 
 
-def any_run(page: Any) -> None:
-    """Choose Any run where the Library has a Runs control (it defaults to Latest)."""
-    # ponytail: presence guard until #36's Runs control is on main;
-    # 1-U removes this guard and ports 4C's unguarded lines.
-    if page.locator("#library-runs").count():
-        page.select_option("#library-runs", "any")
-
-
 def reset_library(page: Any) -> None:
     """Reset returns Runs to Latest; Plan 1 steps compare every row, so choose Any run."""
     page.click("#library-clear")
-    any_run(page)
+    page.select_option("#library-runs", "any")
+
+
+def coverage_line(page: Any, group: str) -> str:
+    text: str = page.locator(f"[data-library-coverage='{group}']").inner_text()
+    return text
+
+
+def library_credit(page: Any, name: str) -> None:
+    """Credit and market controls on the retained workspace, where most new fields are absent."""
+    every = sorted(KEY["run_folder_rows"]["ids"] + KEY["delivery_rows"]["ids"])
+    total = len(every)
+    reset_library(page)
+    note("runs=any" in page.url, f"{name}: Any run is written to the Library query")
+    note(sorted(row_ids(page)) == every, f"{name}: Any run lists every key row")
+    page.select_option("#library-runs", "latest")
+    note(set(row_ids(page)) <= set(every), f"{name}: the Latest view lists only key rows")
+    page.select_option("#library-runs", "any")
+    page.click("#rating-filters summary")
+    page.select_option("#library-classification", "high_yield")
+    note(
+        f"recorded for 0 of {total} runs" in coverage_line(page, "classification")
+        and row_ids(page) == [],
+        f"{name}: classification screening reports none recorded on the retained runs",
+    )
+    reset_library(page)
+    page.click("#metric-filters summary")
+    page.fill("#library-netLeverageMax", "4")
+    note(
+        f"recorded for 0 of {total} runs" in coverage_line(page, "net_leverage")
+        and row_ids(page) == [],
+        f"{name}: a net leverage maximum reports none recorded and lists no run",
+    )
+    reset_library(page)
+    page.click("#deal-filters summary")
+    page.fill("#library-talkMin", "300")
+    note(
+        f"recorded for 0 of {total} runs" in coverage_line(page, "talk") and row_ids(page) == [],
+        f"{name}: a spread talk minimum reports none recorded and lists no run",
+    )
+    reset_library(page)
+    page.click("#limit-filters summary")
+    options = "els => els.map(e => e.value)"
+    gaps = page.eval_on_selector_all("#library-limitation option", options)
+    if len(gaps) < 2:
+        print(f"SKIP {name}: accepted-limitation step, the workspace serves no gap text")
+    else:
+        page.select_option("#library-limitation", gaps[1])
+        note(
+            row_ids(page) != [] and "recorded for" in coverage_line(page, "limitation"),
+            f"{name}: an accepted limitation taken from the served list keeps its runs",
+        )
+    reset_library(page)
+    for column in ("net_leverage", "rating"):
+        page.locator(f"[data-library-sort='{column}']").click()
+        note(
+            page.locator(f"[data-library-sort='{column}']").evaluate(
+                "e => e.closest('th').getAttribute('aria-sort')"
+            )
+            == "ascending"
+            and sorted(row_ids(page)) == every,
+            f"{name}: the {column} column sorts ascending and keeps every key row",
+        )
+    page.click("[data-library-select='tdg-002']")
+    detail = page.locator("#run-detail").inner_text()
+    note(
+        "Net leverage" in detail and "Classification" in detail and "Currency" in detail,
+        f"{name}: a run detail shows the credit rows",
+    )
+    # The query restores the state after a reload, on Plan 1's leverage minimum case.
+    case = KEY["filter_cases"]["a_leverage_min"]
+    reset_library(page)
+    page.click("#metric-filters summary")
+    page.locator("[data-library-sort='leverage']").click()
+    page.fill("#library-leverageMin", case["filters"]["leverageMin"])
+    before = row_ids(page)
+    page.reload()
+    page.wait_for_selector("#library-results tbody tr")
+    sort = page.locator("[data-library-sort='leverage']")
+    note(
+        page.input_value("#library-runs") == "any"
+        and page.input_value("#library-leverageMin") == case["filters"]["leverageMin"]
+        and sorted(before) == sorted(case["expected_ids"])
+        and row_ids(page) == before
+        and sort.evaluate("e => e.closest('th').getAttribute('aria-sort')") == "ascending",
+        f"{name}: a reload from the Library query restores the controls, the sort and the key rows",
+    )
+    reset_library(page)
 
 
 def library_screening(page: Any, name: str, port: int) -> None:
@@ -341,6 +444,7 @@ def library_screening(page: Any, name: str, port: int) -> None:
         f"{name}: a row's detail opens with its metric and basis",
     )
     library_detail_links(page, name, port, "tdg-002")
+    library_credit(page, name)
 
 
 def library_detail_links(page: Any, name: str, port: int, run: str) -> None:
@@ -391,7 +495,7 @@ def follow_built_from(page: Any, name: str) -> None:
 def library_and_report(page: Any, name: str, port: int) -> None:
     page.goto(f"http://127.0.0.1:{port}/")
     page.wait_for_selector("#library-results tbody tr", timeout=30000)
-    any_run(page)  # Plan 1's checks compare every row
+    page.select_option("#library-runs", "any")  # Plan 1's checks compare every row
     want = sum(p.is_dir() for p in (R / "runs").iterdir())
     # Each run folder in the store has one Overview link; delivery rows sit beside them.
     note(
@@ -821,7 +925,7 @@ def new_run(  # noqa: PLR0915, RUF100
     page.set_viewport_size(size)
     page.click(".rail a[data-place='Issuer library']")
     page.wait_for_selector("#library-results tbody tr")
-    any_run(page)  # Latest could hide the new run
+    page.select_option("#library-runs", "any")  # Latest could hide the new run
     # The catalogue names a run by its folder; only the store knows its issuer.
     find = "(issuer) => Object.keys(contexts).find(k => contexts[k].issuer === issuer)"
     key = page.evaluate(find, ISSUER)
@@ -1121,10 +1225,9 @@ def single_main(workspace: Path, fixture: bool = False) -> int:
     PY = os.environ["FW_PYTHON"]
     SCOPE = f"offline: single-run walk over {workspace}; no provider called"
     server = None
-    port = free_port()
     try:
         try:
-            server = serve(workspace, port, R / "apps/issuer-library/engine")
+            server, port = serve_free(workspace, R / "apps/issuer-library/engine")
             with sync_playwright() as driver:
                 for name, options in engine_options().items():
                     browser = SignedBrowser(getattr(driver, name).launch(**options))
@@ -1174,10 +1277,10 @@ def main(argv: list[str]) -> int:
     engines = engine_options()
     only = argv or list(engines)
     servers: list[subprocess.Popen[bytes]] = []
-    library_port = free_port()
     try:
         try:
-            servers.append(serve(R, library_port, R / "apps/issuer-library/engine"))
+            library_server, library_port = serve_free(R, R / "apps/issuer-library/engine")
+            servers.append(library_server)
             with sync_playwright() as driver:
                 for name in only:
                     browser = SignedBrowser(getattr(driver, name).launch(**engines[name]))
@@ -1210,8 +1313,8 @@ def walk_engine(browser: SignedBrowser, name: str, library_port: int, servers: l
     def fake_run() -> None:
         shutil.rmtree(workspace, ignore_errors=True)
         workspace.mkdir()
-        port = free_port()
-        servers.append(serve(workspace, port, HERE / "fake_engine", key="not-a-real-key"))
+        process, port = serve_free(workspace, HERE / "fake_engine", key="not-a-real-key")
+        servers.append(process)
         new_run(browser, name, port, workspace, start=True)
 
     def stopped_run() -> None:
@@ -1219,10 +1322,10 @@ def walk_engine(browser: SignedBrowser, name: str, library_port: int, servers: l
         shutil.rmtree(stopped, ignore_errors=True)
         stopped.mkdir()
         extra = {"FAKE_REJECT_AFTER": "1"}
-        stopped_port = free_port()
-        servers.append(
-            serve(stopped, stopped_port, HERE / "fake_engine", key="not-a-real-key", extra=extra)
+        process, stopped_port = serve_free(
+            stopped, HERE / "fake_engine", key="not-a-real-key", extra=extra
         )
+        servers.append(process)
         new_run(browser, "stopped", stopped_port, stopped, start="stop")
 
     attempt(f"{name}-library", browser, library)
