@@ -13,7 +13,19 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from issuer_library_browser import FIXTURE, ROOT, WEB, Screen, js, norm, retained_text
+from issuer_library_browser import (
+    EMPTY_STORE,
+    EMPTY_WORKSPACE,
+    FIXTURE,
+    ROOT,
+    WEB,
+    Screen,
+    js,
+    norm,
+    open_app,
+    release,
+    retained_text,
+)
 
 pytestmark = pytest.mark.browser
 
@@ -221,15 +233,19 @@ def test_every_retained_body_block_is_reachable_in_exactly_one_named_section(fix
         f"""()=>{{const norm={NORM};const failures=[];let covered=0;
         for(const [id,out] of Object.entries(data)){{
           for(const s of out.sections.filter(s=>s.blocks.length)){{
-            const count=modules[id].sections.filter(d=>d[2].some(p=>matchesHeading(s.heading,p))).length;
+            const count=modules[id].sections
+              .filter(d=>d[2].some(p=>matchesHeading(s.heading,p))).length;
             if(count!==1)failures.push(`${{id}}: ${{s.heading}} in ${{count}} sections`);}}
           for(const s of modules[id].sections){{
-            const frag=document.createElement('template');frag.innerHTML=renderContent(id,s[0]);
-            const dates=[...frag.content.querySelectorAll('.event-date[title]')].map(e=>e.title).filter(t=>/^[A-Z][a-z]+ \\d{{1,2}}, \\d{{4}}$/.test(t));
+            const frag=document.createElement('template');
+            frag.innerHTML=renderContent(id,s[0]);
+            const dates=[...frag.content.querySelectorAll('.event-date[title]')].map(e=>e.title)
+              .filter(t=>/^[A-Z][a-z]+ \\d{{1,2}}, \\d{{4}}$/.test(t));
             const text=norm(frag.content.textContent+' '+dates.join(' '));
             for(const block of sectionData(id,s[0]).flatMap(x=>x.blocks)){{
               const values=block.type==='text'?[block.text]:block.rows.flatMap(r=>r.cells);
-              for(const value of values)if(!text.includes(norm(value)))failures.push(`${{id}}/${{s[0]}} line ${{block.line}}: ${{value.slice(0,70)}}`);
+              for(const value of values)if(!text.includes(norm(value)))
+                failures.push(`${{id}}/${{s[0]}} line ${{block.line}}: ${{value.slice(0,70)}}`);
               covered++;}}}}}}
         return {{failures,covered}};}}"""
     )
@@ -1425,3 +1441,101 @@ def test_a_source_footer_leaves_the_line_number_to_the_inspector(fixture: Any) -
         "()=>{document.querySelector('#content .source-footer .source-link').click();renderRoute();}"
     )
     assert re.search(r"Line \d+", screen.text(".evidence-context"))
+
+
+def test_calendar_dates_read_d_month_yyyy_every_other_shape_and_the_retained_cell_stay_as_written(
+    fixture: Any,
+) -> None:
+    screen = fixture("CP-1A/events")
+    rows = js(
+        screen,
+        "return Object.fromEntries([...d.querySelectorAll('.timeline li')]"
+        ".map(e=>{const t=e.querySelector('.event-date');"
+        "return [e.querySelector('strong').textContent,"
+        "{shown:t.textContent,title:t.title}];}));",
+    )
+    for label, title in [
+        ("8 May 2023", "May 8, 2023"),
+        ("19 September 2024", "September 19, 2024"),
+    ]:
+        assert "Exact day" in rows[label]["shown"] and rows[label]["title"] == title
+    assert "Month only" in rows["October 2024"]["shown"]
+    assert "May 8, 2023" not in rows
+    cases = [
+        ("2024-12-31", "31 December 2024"),
+        ("2025-05-01", "1 May 2025"),
+        ("2024-02-29", "29 February 2024"),
+        ("2024-02-30", "2024-02-30"),
+        ("2023-02-29", "2023-02-29"),
+        ("0000-01-01", "0000-01-01"),
+        ("2024-13-01", "2024-13-01"),
+        ("2024-1-05", "2024-1-05"),
+        (" 2024-12-31", " 2024-12-31"),
+        ("2024-12-31x", "2024-12-31x"),
+        ("05/08/2023", "05/08/2023"),
+        ("", ""),
+    ]
+    for iso, shown in cases:
+        assert screen.page.evaluate("v=>displayDate(v)", iso) == shown, iso
+
+
+def test_an_unreadable_workspace_says_so_in_the_library_body_and_offers_settings(
+    browser: Any,
+) -> None:
+    app = {
+        "workspace": "/research",
+        "policy_locked": False,
+        "issues": [],
+        "problem": "permission denied",
+    }
+    screen = open_app(browser, "W-Library/cases", EMPTY_STORE, EMPTY_WORKSPACE, app)
+    try:
+        assert (
+            screen.text("#content .library-empty h2") == "The library could not read this workspace"
+        )
+        assert screen.text("#content .library-empty p") == (
+            "Nothing can be listed until it can be read. Check the workspace folder in Settings, "
+            "or quit and reopen the library."
+        )
+        assert norm(screen.text("#content .library-empty a")) == "Open Settings"
+        assert screen.attr("#content .library-empty a", "href") == "#W-Settings/workspace"
+        assert "Start a new run" not in screen.content()
+    finally:
+        release([screen])
+
+
+def test_run_activity_for_a_run_with_no_live_record_states_what_is_recorded(fixture: Any) -> None:
+    screen = fixture("CP-OS/activity?c=tdg-002")
+    assert norm(screen.text("#content .caution")) == (
+        "Live progress and spend are recorded only for runs started from New run in this workspace."
+    )
+
+
+def test_evidence_rows_and_the_inspector_lead_with_the_module_name(fixture: Any) -> None:
+    screen = fixture("W-Evidence/sources?c=tdg-002")
+    heads = js(
+        screen,
+        "return [...d.querySelectorAll('#content .source-inventory h3')].map(h=>{"
+        "const c=h.cloneNode(true);"
+        "c.querySelectorAll('abbr.module-ref').forEach(a=>a.replaceWith(a.title));"
+        "return norm(c.textContent);});",
+    )
+    assert "Financial foundation · CP-1" in heads, heads
+    assert all(re.match(r"^.+ · CP-[\w-]+$", head) for head in heads), heads
+    screen.go("CP-1/performance")
+    key = "tdg-002/CP-1-attempt-2.md:246"
+    context = "return norm(d.querySelector('.evidence-context').textContent);"
+    screen.eval(f"showInspector({json.dumps(key)})")
+    assert js(screen, context) == "Financial foundation (CP-1) · Attempt 2 of 2 · Line 246"
+    screen.eval("delete moduleNames['CP-1']")
+    screen.eval(f"showInspector({json.dumps(key)})")
+    assert js(screen, context) == "CP-1 · Attempt 2 of 2 · Line 246"
+
+
+def test_no_report_link_carries_a_module_code(fixture: Any) -> None:
+    screen = fixture("W-Reports/list?c=tdg-002")
+    assert screen.count(".report-list a")
+    assert screen.count(".report-list a abbr.module-ref") == 0
+    assert any(
+        "Repairs from the deliverable comparison" in text for text in screen.texts(".report-list a")
+    )

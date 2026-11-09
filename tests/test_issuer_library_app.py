@@ -227,11 +227,14 @@ def open_store(
     store: dict[str, Any],
     workspace: dict[str, Any],
     app: dict[str, Any] = DEFAULT_APP,
-    api: dict[str, Reply] | None = None,
+    **options: Any,
 ) -> Any:
-    """open_app with the /api/catalogue records the server sends for the store's runs."""
-    replies: dict[str, Reply] = {"/api/catalogue": catalogue_reply(store, app), **(api or {})}
-    return open_app(browser, route, store, workspace, app, replies)
+    """open_app (option: api) with the /api/catalogue records the server sends for the runs."""
+    api: dict[str, Reply] = {
+        "/api/catalogue": catalogue_reply(store, app),
+        **options.pop("api", {}),
+    }
+    return open_app(browser, route, store, workspace, app, api, **options)
 
 
 def review_reply(ready: bool) -> dict[str, Any]:
@@ -878,17 +881,12 @@ def test_deliverables_and_module_outputs_link_to_each_other_in_both_directions(
     assert to_module is not None and to_module.startswith("#CP-0/")
     screen.go(to_module[1:])
     assert screen.eval("current.output") == "web-1/deliveries/abc/CP-0.md"
-    back = screen.eval(
-        "[...document.querySelectorAll('#module-head a')].find(a=>a.textContent.startsWith('Used in'))"
-        ".getAttribute('href')"
+    used_in = (
+        "[...document.querySelectorAll('#module-head a')]"
+        ".find(a=>a.textContent.startsWith('Used in'))"
     )
-    assert (
-        screen.eval(
-            "[...document.querySelectorAll('#module-head a')].find(a=>a.textContent.startsWith('Used in'))"
-            ".textContent"
-        )
-        == "Used in Northbridge · as of 2025-03-31"
-    )
+    back = screen.eval(used_in + ".getAttribute('href')")
+    assert screen.eval(used_in + ".textContent") == "Used in Northbridge · as of 2025-03-31"
     screen.go(back[1:])
     assert screen.exists("#report-preview")
     assert screen.errors == []
