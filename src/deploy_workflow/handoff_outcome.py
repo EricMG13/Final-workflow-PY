@@ -11,6 +11,9 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
 | accepted, no recognised status word                        | unconfirmed    |
 | no handoff and the run did not stop here (or no record)    | not_reached    |
 
+With no handoff of its own, only CP-0's BLOCKED about the module counts; CP-0's READY or
+READY_WITH_LIMITATIONS leaves it not_reached.
+
 `unconfirmed` and `not_reached` are not evidence: against any forecast the verdict is "not testable"
 (a live check reports them as findings, never as agreement). A status is the first status word
 within 70 characters after the module id, with no other module id between.
