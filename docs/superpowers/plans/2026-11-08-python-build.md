@@ -232,8 +232,7 @@ Not ported: upstream changes to `packaging/runtime.py` and `smoke_test.py`, beca
   - `quit.ask_to_quit(state: Path, port: int) -> socket.socket`: the port's socket once the running instance has quit, otherwise an error carrying the Go key's busy or already-running text (the plan's earlier `request_quit(...) -> Literal[...]` could carry neither the busy counts nor the port; ruling accepted by the lead, 2026-11-09);
   - `Application.reviews`, `Application.quitting`, `Application.refreshing` (Shared names).
 - Not applicable to S2: `go124_test.go`'s `mkdirAllIn` cases (a Go 1.24 stand-in for `os.Root.MkdirAll`, used by intake staging in `jobs.py`; S3 ports them if its staging needs the helper).
-- Deferred to Task 1.5: ported cases that need S3's 503 guards in `review_run`/`start_run` or its A07 job adoption are marked `pytest.mark.skip(reason="deferred: needs Task 1.5 <guard|A07>; the later of 1-D2 and S3's PR un-skips")`; whichever of 1-D2 and S3's PR merges second un-skips them, and they pass there.
-- `designs/browser_check.py` and `packaging/smoke_test.py` fetch a launch ticket (S2, after S1's PR 1-B brings its versions of both files).
+- Deferred to Task 1.5: ported cases that need S3's 503 guards in `review_run`/`start_run` or its A07 job adoption are marked `pytest.mark.skip(reason="deferred: needs Task 1.5 <guard|A07>; the later of 1-D4 and S3's PR un-skips")`; whichever of 1-D4 and S3's PR merges second un-skips them, and they pass there.
 
 - [ ] **Step 1:** Port the listed cases into the two test files. A case that cannot apply to the Python design (for example Go-only lock ordering) becomes `pytest.mark.skip(reason="not applicable: <why>")`, and the reason is copied into the PR body.
 - [ ] **Step 2: Run** `uv run pytest tests/test_issuer_library_launch.py tests/test_issuer_library_quit.py -q`. Expected: the failures are the not-yet-built behaviour.
