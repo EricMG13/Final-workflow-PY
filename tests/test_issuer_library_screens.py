@@ -26,6 +26,7 @@ from issuer_library_browser import (
     json_reply,
     norm,
     open_app,
+    until,
 )
 from test_issuer_library_app import NewRun
 
@@ -48,6 +49,32 @@ def path_of(href: str) -> str:
     return urlsplit(urljoin(ORIGIN + "/index.html", href)).path
 
 
+def catalogue(data: dict[str, Any], app: dict[str, Any]) -> dict[str, Any]:
+    """Synthetic /api/catalogue rows for the fixture's runs (no metrics)."""
+    rows = [
+        {
+            "id": run["folder"],
+            "issuer": "TDG",
+            "name": run["title"],
+            "title": key,
+            "sector": "Aerospace",
+            "workflow": "Annual review",
+            "date": "2024-12-31",
+            "period": "FY2024",
+            "period_kind": "Annual actual",
+            "metrics": {},
+            "completion": None,
+            "checkpoints": None,
+            "ratings": [],
+            "gaps": [],
+            "summary": "Synthetic record.",
+            "artifacts": [],
+        }
+        for key, run in data["runs"].items()
+    ]
+    return {**{k: app[k] for k in ("workspace", "policy_locked", "issues")}, "real": rows}
+
+
 @pytest.fixture
 def screens(browser: Any, design: tuple[dict[str, Any], dict[str, Any]]) -> Iterator[Any]:
     """Open the curated fixture, or another store, at a route; every page ends without errors."""
@@ -58,22 +85,16 @@ def screens(browser: Any, design: tuple[dict[str, Any], dict[str, Any]]) -> Iter
         *,
         timeout: int | None = None,
         api: dict[str, Any] | None = None,
-        timers: str | None = None,
         store: tuple[dict[str, Any], dict[str, Any]] | None = None,
-        app: dict[str, Any] | None = None,
+        **opened_with: Any,
     ) -> Screen:
         init = f"window.DESIGN_FRAME_TIMEOUT_MS={timeout};" if timeout is not None else ""
         data, workspace = store or design
-        screen = open_app(
-            browser,
-            route,
-            data,
-            workspace,
-            app=app or DEFAULT_APP,
-            api=api,
-            init=init,
-            **({"timers": timers} if timers else {}),
-        )
+        if store is None:
+            catalogue_reply = json_reply(catalogue(data, opened_with.get("app", DEFAULT_APP)))
+            api = {"/api/catalogue": catalogue_reply, **(api or {})}
+        app = {"app": DEFAULT_APP, **opened_with}
+        screen = open_app(browser, route, data, workspace, api=api, init=init, **app)
         opened.append(screen)
         return screen
 
@@ -93,6 +114,11 @@ def nav(screen: Screen, hash_route: str) -> None:
     screen.page.wait_for_timeout(30)
 
 
+def after_timers(screen: Screen, ms: int) -> None:
+    """Return once an in-page timer set now has fired, after every shorter product timer."""
+    screen.page.evaluate("ms=>new Promise(resolve=>setTimeout(resolve,ms))", ms)
+
+
 def frame_status(screen: Screen, selector: str = ".frame-status") -> str:
     return norm(screen.text(selector))
 
@@ -107,12 +133,13 @@ def test_tab_and_rail_vocabulary_follows_the_approved_destinations(screens: Any)
         "Overview",
         "Modules",
         "Calendar",
+        "Forecast",
         "Reports",
         "Evidence",
     ]
-    assert screen.exists('.rail a[aria-label="Reports"]')
-    assert not screen.exists('.rail a[aria-label="Deliverables"]')
-    assert str(screen.attr('.rail a[aria-label="Run activity"] img', "src")).endswith(
+    assert screen.exists('.rail a[data-place="Reports"]')
+    assert not screen.exists('.rail a[data-place="Deliverables"]')
+    assert str(screen.attr('.rail a[data-place="Run activity"] img', "src")).endswith(
         "icons/activity.svg"
     )
     nav(screen, "W-Reports/list?c=tdg-002")
@@ -156,9 +183,14 @@ def test_the_report_frame_shows_loading_failure_with_retry_and_loaded(
     screens: Any, design: tuple[dict[str, Any], dict[str, Any]]
 ) -> None:
     report = design[1]["reports"][0]
-    screen = screens("W-Calendar/events?c=tdg-002", timeout=1000, api={report_path(design): held})
+    screen = screens("W-Calendar/events?c=tdg-002", timeout=5000, api={report_path(design): held})
+    # Loading is read under a long timeout; the busy listener stands in for a loaded machine.
+    screen.eval("addEventListener('hashchange',()=>{for(const e=Date.now()+40;Date.now()<e;);})")
     nav(screen, f"W-Reports/{report['id']}")
     assert frame_status(screen).startswith("Loading report")
+    screen.eval("window.DESIGN_FRAME_TIMEOUT_MS=20")
+    nav(screen, "W-Reports/list?c=tdg-002")
+    nav(screen, f"W-Reports/{report['id']}")
     screen.page.wait_for_function(
         "/did not load/.test(document.querySelector('.frame-status').textContent)"
     )
@@ -169,7 +201,7 @@ def test_the_report_frame_shows_loading_failure_with_retry_and_loaded(
     assert screen.attr("#report-preview", "src") == src
     screen.eval("document.getElementById('report-preview').dispatchEvent(new Event('load'))")
     assert screen.eval("document.querySelector('.frame-status').hidden") is True
-    screen.page.wait_for_timeout(1200)
+    after_timers(screen, 60)
     assert screen.eval("document.querySelector('.frame-status').hidden") is True
 
 
@@ -508,21 +540,355 @@ def test_layout_toggle_label_issuer_title_library_band_offset_and_row_labels(
     title = screen.attr(".issuer h1", "title")
     assert title and title == screen.text(".issuer h1")
     nav(screen, "W-Library/cases")
-    # jsdom has no layout, so the Node suite saw -8px; here the band has a real height. The app
-    # measures it on render and on resize, so a resize first makes the comparison independent of
-    # when layout settled.
-    band = js(
+    assert screen.exists(".library-workspace")
+    assert screen.count("#library-results tbody tr") > 0, "the synthetic catalogue is listed"
+
+
+def test_other_runs_of_the_issuer_are_found_by_issuer_key_never_by_display_name(
+    screens: Any,
+) -> None:
+    screen = screens("W-Library/cases")
+    module = screen.eval(
+        "Object.keys(moduleNames).find(m=>isAnalytical(m)&&contexts['tdg-003'].modules[m]"
+        "?.outputs.length&&!contexts['tdg-002'].modules[m]?.outputs.length)"
+    )
+    assert module, "the fixture has a module tdg-003 holds and tdg-002 lacks"
+    third = screen.eval("contexts['tdg-003'].run")
+
+    def others() -> list[str]:
+        return [norm(t) for t in screen.texts(".available-case a")]
+
+    def show() -> None:
+        nav(screen, "W-Help/help")
+        nav(screen, f"{module}?c=tdg-002")
+
+    show()
+    assert third in others(), "a run of the same issuer is offered"
+    screen.eval("contexts['tdg-003'].issuer='A different recorded name'")
+    show()
+    assert third in others(), "a different recorded name is still the same issuer"
+    screen.eval("contexts['tdg-003'].issuerKey='id:someone-else'")
+    show()
+    assert third not in others(), "another key is another issuer"
+    screen.eval("contexts['tdg-003'].issuerKey=null;contexts['tdg-002'].issuerKey=null")
+    show()
+    assert others() == [], "an unrecorded issuer equals nothing, not even itself"
+    assert screen.eval("sameIssuer(null,null)") is False
+    assert screen.eval('issuerReports("tdg-002").length') == 0
+
+
+def test_the_section_bar_leads_with_the_run_and_the_module_or_destination_name(
+    screens: Any,
+) -> None:
+    screen = screens("CP-1/performance?c=tdg-002")
+    prefix = "#section-nav .section-context"
+
+    def lead() -> str | None:
+        text = screen.text(prefix)
+        return None if text is None else norm(text)
+
+    assert lead() == "TDG-002 · Financial foundation"
+    assert screen.eval(
+        f"document.querySelector('#section-nav').firstElementChild===document.querySelector('{prefix}')"
+    )
+    nav(screen, "W-Forecast/forecast?c=tdg-002")
+    assert lead() == "TDG-002 · Forecast"
+    nav(screen, "W-Reports/list?c=tdg-002")
+    assert lead() == "TDG-002 · Reports"
+    for destination in ["W-Library/cases", "W-NewRun/new", "W-Settings/settings", "W-Help/help"]:
+        nav(screen, f"{destination}?c=tdg-002")
+        assert lead() is None, f"{destination} must not carry a run prefix"
+    screen.eval("contexts['tdg-002'].run='<b id=x>R</b>'")
+    nav(screen, "CP-2/assessment?c=tdg-002")
+    assert not screen.exists("#section-nav b#x")
+    assert lead() == f"<b id=x>R</b> · {screen.eval('moduleNames["CP-2"]')}"
+
+
+def test_overview_charts_carry_their_period_name_their_bars_and_the_lead_is_not_repeated(
+    screens: Any,
+) -> None:
+    screen = screens("W-Overview/overview?c=tdg-002")
+    found = js(
         screen,
-        "window.dispatchEvent(new Event('resize'));return {set:d.querySelector('.library-workspace').style.getPropertyValue('--band-h'),"
-        "want:`${d.querySelector('.library-discovery').offsetHeight-8}px`};",
+        "const bridge=[...d.querySelectorAll('.summary-chart')]"
+        ".find(c=>c.querySelector('.bridge-key'));if(!bridge)return null;"
+        "const lead=norm(d.querySelector('.summary-lead .call-quote').textContent);"
+        "const owner=norm(d.querySelector('.summary-lead .summary-owner').textContent);"
+        "return {period:norm(bridge.querySelector('.section-heading span').textContent),"
+        "axis:[...bridge.querySelectorAll('text.axis-label')].map(l=>[...l.querySelectorAll('tspan')]"
+        ".map(s=>s.textContent).join(' ')).join('|'),"
+        "keyBold:bridge.querySelectorAll('.bridge-key b').length,"
+        "leadCount:norm(d.body.textContent).split(lead).length-1,"
+        "ownerCard:d.querySelector('.summary-card[data-module]')&&[...d.querySelectorAll('.summary-card')]"
+        ".some(c=>norm(c.querySelector('h3').textContent)===owner),"
+        "sections:[...d.querySelectorAll('.question-map>section')].map(s=>Boolean(s.querySelector('.summary-card')))};",
     )
-    assert band["set"] == band["want"] and band["set"] != "-8px", band
-    nav(screen, "W-Overview/overview?c=tdg-002")
-    assert "--band-h" not in screen.eval("document.getElementById('workbench').style.cssText")
+    assert found, "a waterfall chart is on the Overview"
+    assert found["period"] == "USD millions · FY2024 cash bridge · historical opening basis"
+    assert found["axis"] == (
+        "Beginning cash|Operating cash flow|Investing cash flow|Financing cash flow"
+        "|Exchange-rate effect|Calculated closing cash"
+    )
+    assert found["keyBold"] == 0 and found["leadCount"] == 1
+    assert found["ownerCard"] is False
+    assert all(found["sections"])
+
+
+# Rail proximity: the rail opens 100 ms after the pointer is within 16 px of its right edge and
+# closes 300 ms after it leaves. Offsets are px from the rail's current right edge (the key's
+# x less its 56 px edge); a real rail widens while open, so they are taken at each event.
+NEAR, FAR, OUT, EDGE, INSIDE = 10, 144, 40, 16, -26
+RAIL_OPEN = "document.querySelector('.rail').classList.contains('rail-open')"
+COARSE = "matchMedia('(hover: none), (pointer: coarse)').matches"
+
+
+def move(screen: Screen, offset: int, pointer: str = "mouse") -> None:
+    screen.page.evaluate(
+        "([o,p])=>{window.__moved=performance.now();"
+        "const r=document.querySelector('.rail').getBoundingClientRect();"
+        "document.dispatchEvent(new PointerEvent('pointermove',"
+        "{clientX:r.right+o,clientY:100,pointerType:p,bubbles:true}));}",
+        [offset, pointer],
+    )
+
+
+def rail_open(screen: Screen) -> bool:
+    return bool(screen.eval(RAIL_OPEN))
+
+
+def rail_turns(screen: Screen, state: bool) -> float:
+    """Wait for a rail state; return the ms since the last move (timers never fire early)."""
+    until(screen.page, f"{RAIL_OPEN}===" + str(state).lower(), 2.0)
+    elapsed: float = screen.eval("performance.now()-window.__moved")
+    return elapsed
+
+
+def test_rail_items_carry_their_names_as_visually_hidden_labels_found_by_data_place(
+    screens: Any,
+) -> None:
+    screen = screens("W-Library/cases")
+    found = js(
+        screen,
+        "const rail=d.querySelector('.rail');const symbol=rail.querySelector('img.symbol');"
+        "return {items:[...rail.querySelectorAll('[data-place]')].map(i=>({place:i.dataset.place,"
+        "label:i.querySelector('.rail-label').textContent,text:i.textContent.trim(),"
+        "title:i.hasAttribute('title'),aria:i.hasAttribute('aria-label')})),"
+        "linkSymbol:rail.querySelector('a[href=\"#W-Library/cases\"] .symbol'),"
+        "symbol:Boolean(symbol),symbolLink:symbol&&symbol.closest('a')};",
+    )
+    assert [i["place"] for i in found["items"]] == [
+        "Issuer library",
+        "Research workspace",
+        "Reports",
+        "Run activity",
+        "New run",
+        "Search",
+        "Settings",
+        "Help",
+    ]
+    for item in found["items"]:
+        assert item["label"] == item["place"] and item["text"] == item["place"]
+        assert item["title"] is False and item["aria"] is False
+    assert found["linkSymbol"] is None and found["symbol"] and found["symbolLink"] is None
+
+
+def test_rail_opens_within_16_px_of_its_edge_after_100_ms_and_closes_300_ms_after_leaving(
+    screens: Any,
+) -> None:
+    screen = screens("W-Library/cases")
+    move(screen, NEAR)
+    assert not rail_open(screen)
+    assert rail_turns(screen, True) >= 95
+    move(screen, FAR)
+    assert rail_open(screen)
+    assert rail_turns(screen, False) >= 295
+
+
+def test_rail_stays_closed_40_px_away_and_re_entering_cancels_a_pending_close(
+    screens: Any,
+) -> None:
+    screen = screens("W-Library/cases")
+    move(screen, OUT)
+    after_timers(screen, 160)
+    assert not rail_open(screen)
+    move(screen, EDGE)
+    rail_turns(screen, True)
+    move(screen, FAR)
+    after_timers(screen, 150)
+    move(screen, INSIDE)
+    after_timers(screen, 400)
+    assert rail_open(screen)
+    move(screen, FAR)
+    move(screen, INSIDE)
+    after_timers(screen, 0)
+    move(screen, OUT)
+    after_timers(screen, 50)
+    move(screen, NEAR)
+    after_timers(screen, 160)
+    assert rail_open(screen)
+
+
+def test_leaving_the_zone_cancels_a_pending_open(screens: Any) -> None:
+    screen = screens("W-Library/cases")
+    move(screen, NEAR)
+    after_timers(screen, 30)
+    move(screen, FAR)
+    after_timers(screen, 200)
+    assert not rail_open(screen)
+
+
+def test_a_coarse_pointer_or_no_hover_never_opens_the_rail_by_proximity(screens: Any) -> None:
+    screen = screens("W-Library/cases", device={"has_touch": True, "is_mobile": True})
+    assert screen.eval(COARSE) is True
+    move(screen, -46)
+    after_timers(screen, 200)
+    assert not rail_open(screen)
+
+
+def test_a_touch_or_pen_pointer_never_opens_the_rail_by_proximity(screens: Any) -> None:
+    screen = screens("W-Library/cases")
+    assert screen.eval(COARSE) is False
+    move(screen, NEAR, "touch")
+    move(screen, NEAR, "pen")
+    after_timers(screen, 200)
+    assert not rail_open(screen)
+
+
+def test_every_route_renders_in_a_workspace_with_no_run_whatever_it_holds(
+    screens: Any,
+) -> None:
+    model = dict.fromkeys(
+        [
+            "qualification",
+            "scope",
+            "inputContract",
+            "revisionNote",
+            "previous",
+            "register",
+            "cashflow",
+        ]
+    )
+    model |= {"id": "m-1", "issuerKey": "id:ex", "mode": "candidate", "runId": "r-1"}
+    model |= {"href": "/files/deliverables/m-1/model.html?sha256=0", "download": "/files/x"}
+    model |= {"files": [], "sources": []}
+    routes = ["W-Library/cases", "W-Forecast/forecast", "W-Forecast/m-1", "W-Reports/list"]
+    routes += ["W-Reports/x", "W-Settings/settings", "CP-OS/activity"]
+    for route in routes:
+        screen = screens(
+            route,
+            store=(EMPTY_STORE, {**EMPTY_WORKSPACE, "models": [model]}),
+            app={**DEFAULT_APP, "workspace": ""},
+        )
+        assert screen.content().strip(), route
+
+
+def test_another_issuers_model_or_one_with_no_recorded_issuer_is_not_a_runs_published_model(
+    screens: Any,
+) -> None:
+    screen = screens("W-Forecast/tdg-model-1?c=tdg-002")
+    screen.eval(
+        "()=>{const base=window.DESIGN_WORKSPACE.models[0],folder=contexts['tdg-002'].folder;"
+        "const copy=(id,extra)=>Object.assign(JSON.parse(JSON.stringify(base)),"
+        "{id,sources:[],...extra});"
+        "window.DESIGN_WORKSPACE.models.push(copy('beta-model',{runId:folder,issuerKey:'id:bet'}),"
+        "copy('null-model',{runId:folder,issuerKey:null}),copy('own-model',{runId:folder}),"
+        "copy('reach-model',{runId:'elsewhere',issuerKey:'id:bet',sources:[{run:'tdg-002'}]}));}"
+    )
+    nav(screen, "W-Forecast/own-model?c=tdg-002")
+    options = screen.texts("#model-select option")
+    assert any(o.startswith("own-model") for o in options), options
+    assert not any(o.startswith(("beta-model", "null-model", "reach-model")) for o in options), (
+        options
+    )
+
+
+COPIED_REPORT = (
+    "()=>{const copy=Object.assign(JSON.parse(JSON.stringify(window.DESIGN_WORKSPACE.reports[0])),"
+    "{id:'erste-parse',issuerKey:null});copy.builtFrom=copy.builtFrom.map(b=>({...b,run:'tdg-002'}));"
+    "window.DESIGN_WORKSPACE.reports.push(copy);}"
+)
+
+
+def test_a_report_built_from_a_run_opens_under_that_run_even_when_its_issuer_differs(
+    screens: Any,
+) -> None:
+    screen = screens("W-Reports/list?c=tdg-002")
+    screen.eval(COPIED_REPORT)
     nav(screen, "W-Library/cases")
-    labels = screen.eval(
-        "[...document.querySelectorAll('.run-row td:not(:first-child):not(.row-open), "
-        ".issuer-row td:not(.row-open)')].map(c=>c.dataset.label??null)"
+    nav(screen, "W-Reports/list?c=tdg-002")
+    assert any("erste-parse" in str(h) for h in screen.attrs(".report-row a", "href"))
+    nav(screen, "W-Reports/erste-parse?c=tdg-002")
+    assert screen.exists("#report-preview"), screen.content()[:120]
+    assert screen.eval("current.context") == "tdg-002"
+
+
+def test_the_report_select_lists_the_same_reports_as_the_report_tabs(screens: Any) -> None:
+    screen = screens("W-Reports/list?c=tdg-002")
+    screen.eval(COPIED_REPORT)
+    nav(screen, "W-Library/cases")
+    nav(screen, "W-Reports/erste-parse?c=tdg-002")
+    assert screen.eval("document.getElementById('report-select').value") == "erste-parse"
+    tabs = screen.eval(
+        "[...reportSections('tdg-002')].filter(s=>s[0]!=='list').map(s=>s[0]).sort()"
     )
-    assert labels and None not in labels
-    assert sorted(set(labels)) == ["Period", "Reports", "Run", "Workflow"]
+    options = screen.eval(
+        "[...document.getElementById('report-select').options].map(o=>o.value).sort()"
+    )
+    assert options == tabs
+
+
+def test_an_other_models_row_links_only_to_a_run_whose_forecast_lists_that_model(
+    screens: Any,
+) -> None:
+    screen = screens("W-Forecast/forecast?c=tdg-002")
+    assert screen.eval(
+        "()=>{const keys=Object.entries(contexts).map(([k,c])=>[c.issuerKey,c.folder]);"
+        "const mine=contexts['tdg-002'].issuerKey,elsewhere=keys.find(([key])=>key!==mine);"
+        "if(!elsewhere)return false;const base=window.DESIGN_WORKSPACE.models[0];"
+        "window.DESIGN_WORKSPACE.models.splice(0,window.DESIGN_WORKSPACE.models.length,"
+        "Object.assign(JSON.parse(JSON.stringify(base)),{id:'stray-model',issuerKey:mine,"
+        "runId:elsewhere[1],sources:[]}));return true;}"
+    )
+    nav(screen, "W-Library/cases")
+    nav(screen, "W-Forecast/forecast?c=tdg-002")
+    assert screen.exists(".forecast-other"), "the Other models list is shown"
+    assert "stray-model" in screen.text(".forecast-other")
+    assert not screen.exists(".forecast-other a"), "no link to a Forecast page that lists nothing"
+
+
+def test_the_rail_closes_300_ms_after_the_pointer_leaves_it_for_an_embedded_frame(
+    screens: Any,
+) -> None:
+    screen = screens("W-Library/cases")
+    move(screen, NEAR)
+    rail_turns(screen, True)
+    screen.eval(
+        "window.__moved=performance.now(),document.querySelector('.rail')"
+        ".dispatchEvent(new Event('pointerleave'))"
+    )
+    assert rail_open(screen)
+    assert rail_turns(screen, False) >= 295
+
+
+def test_the_cash_flow_grid_reads_cell_status_and_column_ytd_never_the_display_or_label_text(
+    screens: Any,
+) -> None:
+    screen = screens("W-Forecast/tdg-model-1?c=tdg-002")
+    ytd_columns, has_plain = screen.eval(
+        "()=>{const cf=window.DESIGN_WORKSPACE.models[0].cashflow;"
+        "const n=cf.columns.filter(c=>c.ytd).length;"
+        "cf.columns[cf.columns.findIndex(c=>c.ytd)].label='Q1 FY1 (YTD)';"
+        "const plain=cf.columns.find(c=>!c.ytd);plain.label='Looks (YTD)';"
+        "const cell=cf.rows[0].cells.find(c=>c.status==='value');"
+        "cell.display='n.a.';cell.reason='text only';"
+        "const gone=cf.rows[1].cells.find(c=>c.status==='value');"
+        "gone.status='na';gone.display='shown as text';gone.reason='by status';"
+        "return [n,Boolean(plain)];}"
+    )
+    assert ytd_columns > 0 and has_plain
+    nav(screen, "W-Library/cases")
+    nav(screen, "W-Forecast/tdg-model-1?c=tdg-002")
+    assert screen.count(".cashflow thead .col-sub") == ytd_columns
+    lines = screen.texts(".cashflow-na li")
+    assert not any("text only" in line for line in lines), lines
+    assert any(line.endswith("by status") for line in lines), lines
