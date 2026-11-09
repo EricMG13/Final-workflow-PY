@@ -414,18 +414,16 @@ def test_seed_metrics_all_stated() -> None:
             )
 
 
-def add_model_delivery(root: Path, folder: str, with_report: bool) -> bytes:
-    view = DeliveryView(mode="")
-    view.run.run_id, view.run.issuer_id = "model-run", "TDG"
+def add_model_delivery(root: Path, folder: str, run_id: str = "model-run") -> bytes:
+    """A deliverables/ folder holding only a published model."""
+    view = DeliveryView()
+    view.run.run_id, view.run.issuer_id = run_id, "TDG" if run_id == "model-run" else "EX"
     view.run.issuer_name, view.run.as_of = "Example Industries", "2024-12-31"
     raw = view.model_dump_json().encode()
     model = b"<!doctype html><title>Model</title><p>Published model</p>"
+    for name, content in (("view.json", raw), ("model.html", model)):
+        put(root, f"deliverables/{folder}/{name}", content)
     files = {"view.json": digest(raw), "model.html": digest(model)}
-    put(root, f"deliverables/{folder}/view.json", raw)
-    put(root, f"deliverables/{folder}/model.html", model)
-    if with_report:
-        put(root, f"deliverables/{folder}/report.html", b"report")
-        files["report.html"] = digest(b"report")
     put_json(root, f"deliverables/{folder}/delivery.json", {"files": files})
     return model
 
@@ -434,26 +432,34 @@ def find_artifact(cat: Catalogue, folder: str) -> Artifact | None:
     return next((a for run in cat.real for a in run.artifacts if a.folder == folder), None)
 
 
-def move_delivery(root: Path, folder: str, run: str) -> str:
-    """Place a verified delivery folder inside a run, as the launcher or a copy would."""
-    target = root / "runs" / run / "deliveries"
-    target.mkdir(parents=True, exist_ok=True)
-    shutil.move(str(root / "deliverables" / folder), str(target / folder))
-    return f"runs/{run}/deliveries/{folder}"
+def deliver(root: Path, run: str, *specs: tuple[str, str, str]) -> list[str]:
+    """Verified deliveries (folder, view run id, view issuer) placed inside a run, as a copy would."""
+    placed = []
+    for folder, run_id, issuer in specs:
+        add_delivery(root, folder, run_id, issuer)
+        target = root / "runs" / run / "deliveries"
+        target.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(root / "deliverables" / folder), str(target / folder))
+        placed.append(f"runs/{run}/deliveries/{folder}")
+    return placed
 
 
 def attached(cat: Catalogue, run_id: str, folder: str) -> bool:
     return any(
-        artifact.folder == folder and artifact.available
-        for run in cat.real
-        if run.id == run_id
-        for artifact in run.artifacts
+        a.folder == folder and a.available for r in cat.real if r.id == run_id for a in r.artifacts
     )
+
+
+def complete_checklist(root: Path) -> None:
+    manifest = fixture(root)
+    done = [{**item, "done": True, "evidence": ["check"]} for item in CHECKLIST["requirements"]]
+    manifest.checklist = Checklist.model_validate({**CHECKLIST, "requirements": done})
+    put_json(root, "runs/case-a/library.json", manifest)
 
 
 def test_model_delivery_verifies_as_a_model_and_a_report_keeps_its_kind(tmp_path: Path) -> None:
     fixture(tmp_path)
-    model = add_model_delivery(tmp_path, "m-1", False)
+    model = add_model_delivery(tmp_path, "m-1")
     add_delivery(tmp_path, "r-1", "case-a", "other")
     cat = discover(str(tmp_path), Catalogue())
     assert cat.issues == []
@@ -464,21 +470,19 @@ def test_model_delivery_verifies_as_a_model_and_a_report_keeps_its_kind(tmp_path
     assert report is not None and report.kind == "report"
     assert report.href.split("?")[0].endswith("/report.html")
     assert cat._allowed["deliverables/m-1/model.html"] == digest(model)
-    assert json.loads(cat.model_dump_json())["real"][0]["artifacts"] is not None
-    assert '"kind"' in artifact.model_dump_json()
+    assert '"kind":"model"' in artifact.model_dump_json()
 
 
 def test_delivery_with_neither_page_keeps_its_issue(tmp_path: Path) -> None:
     fixture(tmp_path)
     put_json(tmp_path, "deliverables/empty/delivery.json", {"files": {"view.json": "x"}})
     cat = discover(str(tmp_path), Catalogue())
-    want = "deliverables/empty: Delivery manifest requires report.html and view.json"
-    assert want in cat.issues
+    assert "deliverables/empty: Delivery manifest requires report.html and view.json" in cat.issues
 
 
 def test_changed_model_makes_its_delivery_unavailable(tmp_path: Path) -> None:
     fixture(tmp_path)
-    add_model_delivery(tmp_path, "m-1", False)
+    add_model_delivery(tmp_path, "m-1")
     put(tmp_path, "deliverables/m-1/model.html", b"changed")
     cat = discover(str(tmp_path), Catalogue())
     artifact = find_artifact(cat, "deliverables/m-1")
@@ -488,15 +492,14 @@ def test_changed_model_makes_its_delivery_unavailable(tmp_path: Path) -> None:
 
 def test_run_internal_delivery_must_match_its_run_and_issuer(tmp_path: Path) -> None:
     fixture(tmp_path)
-    add_delivery(tmp_path, "own", "case-a", "EX")
-    add_delivery(tmp_path, "foreign-run", "other-run", "EX")
-    add_delivery(tmp_path, "foreign-issuer", "case-a", "ZZZ")
-    add_delivery(tmp_path, "foreign-both", "other-run", "ZZZ")
-    own = move_delivery(tmp_path, "own", "case-a")
-    rejected = [
-        move_delivery(tmp_path, name, "case-a")
-        for name in ("foreign-run", "foreign-issuer", "foreign-both")
-    ]
+    own, *rejected = deliver(
+        tmp_path,
+        "case-a",
+        ("own", "case-a", "EX"),
+        ("foreign-run", "other-run", "EX"),
+        ("foreign-issuer", "case-a", "ZZZ"),
+        ("foreign-both", "other-run", "ZZZ"),
+    )
     cat = discover(str(tmp_path), Catalogue())
     assert attached(cat, "case-a", own), cat.issues
     for folder in rejected:
@@ -508,17 +511,15 @@ def test_run_internal_delivery_must_match_its_run_and_issuer(tmp_path: Path) -> 
 def test_run_internal_delivery_accepts_the_launcher_recorded_identity_only(tmp_path: Path) -> None:
     fixture(tmp_path)
     put(tmp_path, "runs/web-1/CP-0.md", b"x")
-    put(
+    recorded = b'{"run":{"run_id":"ex-2024-12-31-full-a","issuer_id":"EX"}}'
+    put(tmp_path, "runs/web-1/workflow.json", recorded)
+    mine, wrong_issuer, other_launch = deliver(
         tmp_path,
-        "runs/web-1/workflow.json",
-        b'{"run":{"run_id":"ex-2024-12-31-full-a","issuer_id":"EX"}}',
+        "web-1",
+        ("mine", "ex-2024-12-31-full-a", "EX"),
+        ("wrong-issuer", "ex-2024-12-31-full-a", "ZZZ"),
+        ("other-launch", "zzz-2024-12-31-full-a", "EX"),
     )
-    add_delivery(tmp_path, "mine", "ex-2024-12-31-full-a", "EX")
-    add_delivery(tmp_path, "wrong-issuer", "ex-2024-12-31-full-a", "ZZZ")
-    add_delivery(tmp_path, "other-launch", "zzz-2024-12-31-full-a", "EX")
-    mine = move_delivery(tmp_path, "mine", "web-1")
-    wrong_issuer = move_delivery(tmp_path, "wrong-issuer", "web-1")
-    other_launch = move_delivery(tmp_path, "other-launch", "web-1")
     cat = discover(str(tmp_path), Catalogue())
     assert attached(cat, "web-1", mine), cat.issues
     assert not attached(cat, "web-1", wrong_issuer)
@@ -526,58 +527,42 @@ def test_run_internal_delivery_accepts_the_launcher_recorded_identity_only(tmp_p
 
 
 def test_foreign_run_delivery_does_not_satisfy_the_delivery_checkpoint(tmp_path: Path) -> None:
-    manifest = fixture(tmp_path)
-    complete = {
-        **CHECKLIST,
-        "requirements": [
-            {**item, "done": True, "evidence": ["check"]} for item in CHECKLIST["requirements"]
-        ],
-    }
-    manifest.checklist = Checklist.model_validate(complete)
-    put_json(tmp_path, "runs/case-a/library.json", manifest)
-    add_delivery(tmp_path, "foreign", "other-run", "ZZZ")
-    move_delivery(tmp_path, "foreign", "case-a")
+    complete_checklist(tmp_path)
+    deliver(tmp_path, "case-a", ("foreign", "other-run", "ZZZ"))
     cat = discover(str(tmp_path), Catalogue())
     assert run_named(cat, "case-a").completion is None, "a foreign delivery restored completeness"
-    add_delivery(tmp_path, "mine", "case-a", "EX")
-    move_delivery(tmp_path, "mine", "case-a")
+    deliver(tmp_path, "case-a", ("mine", "case-a", "EX"))
     cat = discover(str(tmp_path), Catalogue())
     assert run_named(cat, "case-a").completion == 100, "the run's own delivery must still count"
 
 
 def test_review_run_delivery_identity_adversarial(tmp_path: Path) -> None:
     fixture(tmp_path)
-    # web-2: no manifest and a workflow.json whose issuer_id has the wrong type. The file counts
-    # as unreadable, so only the folder id is accepted; the recorded run id is not honoured.
-    put(tmp_path, "runs/web-2/CP-0.md", b"x")
+    for run in ("web-2", "web-3", "web-4"):
+        put(tmp_path, f"runs/{run}/CP-0.md", b"x")
+    # web-2: workflow.json whose issuer_id has the wrong type counts as unreadable, so only the
+    # folder id is accepted; the recorded run id is not honoured without its issuer.
     put(tmp_path, "runs/web-2/workflow.json", b'{"run":{"run_id":"ex-run","issuer_id":7}}')
-    add_delivery(tmp_path, "typed", "ex-run", "ZZZ")
-    add_delivery(tmp_path, "folder-id", "web-2", "EX")
-    typed = move_delivery(tmp_path, "typed", "web-2")
-    folder_id = move_delivery(tmp_path, "folder-id", "web-2")
-    # web-3: no workflow.json at all. Only a view run_id equal to "web-3" is accepted.
-    put(tmp_path, "runs/web-3/CP-0.md", b"x")
-    add_delivery(tmp_path, "none-own", "web-3", "EX")
-    add_delivery(tmp_path, "none-other", "ex-run", "EX")
-    none_own = move_delivery(tmp_path, "none-own", "web-3")
-    none_other = move_delivery(tmp_path, "none-other", "web-3")
-    # web-4: a CP-8 comparison plan recorded as workflow.json; an issuer differing in case is not.
-    put(tmp_path, "runs/web-4/CP-0.md", b"x")
-    put(
-        tmp_path,
-        "runs/web-4/workflow.json",
-        b'{"run":{"run_id":"tdg-cp8-comparison","issuer_id":"TDG"},"prior":{"path":"p","sha256":"x"}}',
+    typed, folder_id = deliver(
+        tmp_path, "web-2", ("typed", "ex-run", "ZZZ"), ("folder-id", "web-2", "EX")
     )
-    add_delivery(tmp_path, "cp8", "tdg-cp8-comparison", "TDG")
-    add_delivery(tmp_path, "cp8-case", "tdg-cp8-comparison", "tdg")
-    cp8 = move_delivery(tmp_path, "cp8", "web-4")
-    cp8_case = move_delivery(tmp_path, "cp8-case", "web-4")
-    # case-a has an admitted manifest (issuer EX): another issuer, or another run, is refused.
-    add_delivery(tmp_path, "case-other-issuer", "case-a", "ex")
-    add_delivery(tmp_path, "case-other-run", "web-3", "EX")
-    case_issuer = move_delivery(tmp_path, "case-other-issuer", "case-a")
-    case_run = move_delivery(tmp_path, "case-other-run", "case-a")
-
+    # web-3: no workflow.json at all; only a view run_id equal to "web-3" is accepted.
+    none_own, none_other = deliver(
+        tmp_path, "web-3", ("none-own", "web-3", "EX"), ("none-other", "ex-run", "EX")
+    )
+    # web-4: a CP-8 comparison plan recorded as workflow.json; an issuer differing in case is not.
+    plan = b'{"run":{"run_id":"tdg-cp8-comparison","issuer_id":"TDG"},"prior":{"path":"p"}}'
+    put(tmp_path, "runs/web-4/workflow.json", plan)
+    cp8, cp8_case = deliver(
+        tmp_path,
+        "web-4",
+        ("cp8", "tdg-cp8-comparison", "TDG"),
+        ("cp8-case", "tdg-cp8-comparison", "tdg"),
+    )
+    # case-a has an admitted manifest (issuer EX): another issuer or another run is refused.
+    case_issuer, case_run = deliver(
+        tmp_path, "case-a", ("other-issuer", "case-a", "ex"), ("other-run", "web-3", "EX")
+    )
     cat = discover(str(tmp_path), Catalogue())
     for run_id, folder, ok in [
         ("web-2", typed, False),
@@ -592,10 +577,8 @@ def test_review_run_delivery_identity_adversarial(tmp_path: Path) -> None:
         assert attached(cat, run_id, folder) == ok, (folder, cat.issues)
         assert (cat._allowed.get(f"{folder}/report.html", "") != "") == ok, folder
     # A refused run delivery never appears as an available artifact under any run.
-    for run in cat.real:
-        for artifact in run.artifacts:
-            if artifact.available:
-                assert artifact.folder not in (typed, case_issuer, case_run), run.id
+    for artifact in (a for run in cat.real for a in run.artifacts if a.available):
+        assert artifact.folder not in (typed, case_issuer, case_run)
 
 
 def test_declared_run_delivery_is_listed_once(tmp_path: Path) -> None:
@@ -607,60 +590,27 @@ def test_declared_run_delivery_is_listed_once(tmp_path: Path) -> None:
         Artifact(folder=foreign, label="Copied", state="candidate", relationship="direct"),
     ]
     put_json(tmp_path, "runs/case-a/library.json", manifest)
-    add_delivery(tmp_path, "v1", "case-a", "EX")
-    add_delivery(tmp_path, "v0", "case-a", "EX")
-    add_delivery(tmp_path, "vx", "other-run", "EX")
-    for folder in ("v1", "v0", "vx"):
-        move_delivery(tmp_path, folder, "case-a")
+    deliver(tmp_path, "case-a", ("v1", "case-a", "EX"), ("v0", "case-a", "EX"))
+    deliver(tmp_path, "case-a", ("vx", "other-run", "EX"))
     cat = discover(str(tmp_path), Catalogue())
-    listed: dict[str, list[Artifact]] = {}
-    for run in cat.real:
-        for artifact in run.artifacts:
-            listed.setdefault(artifact.folder, []).append(artifact)
+    listed = [a for run in cat.real for a in run.artifacts if a.folder.startswith("runs/case-a/")]
+    refusal = "Delivery run identity does not match this run"
     wanted = {
         own: ("Annual report", "candidate", "related", True, ""),
         superseded: ("Earlier", "superseded", "direct", True, ""),
-        foreign: (
-            "Copied",
-            "candidate",
-            "direct",
-            False,
-            "Delivery run identity does not match this run",
-        ),
+        foreign: ("Copied", "candidate", "direct", False, refusal),
     }
-    for folder, want in wanted.items():
-        assert len(listed[folder]) == 1, (folder, listed[folder])
-        a = listed[folder][0]
+    assert sorted(a.folder for a in listed) == sorted(wanted), "each declared folder listed once"
+    for a in listed:
         got = (a.label, a.state, a.relationship, a.available, a.issue)
-        assert got == want and (a.href != "") == want[3], (folder, a)
+        assert got == wanted[a.folder] and (a.href != "") == a.available, a
     assert cat._allowed[f"{own}/report.html"] != ""
     assert cat._allowed.get(f"{foreign}/report.html", "") == ""
 
 
 def test_a_published_model_alone_does_not_restore_a_runs_completeness(tmp_path: Path) -> None:
-    manifest = fixture(tmp_path)
-    complete = {
-        **CHECKLIST,
-        "requirements": [
-            {**item, "done": True, "evidence": ["check"]} for item in CHECKLIST["requirements"]
-        ],
-    }
-    manifest.checklist = Checklist.model_validate(complete)
-    put_json(tmp_path, "runs/case-a/library.json", manifest)
-    view = DeliveryView()
-    view.run.run_id, view.run.issuer_id = "case-a", "EX"
-    view.run.issuer_name, view.run.as_of = "Example Industries", "2024-12-31"
-    raw = view.model_dump_json().encode()
-    model = b"<!doctype html><title>Model</title><p>Published model</p>"
-    put(tmp_path, "deliverables/m-only/view.json", raw)
-    put(tmp_path, "deliverables/m-only/model.html", model)
-    put_json(
-        tmp_path,
-        "deliverables/m-only/delivery.json",
-        {"files": {"view.json": digest(raw), "model.html": digest(model)}},
-    )
-    cat = discover(str(tmp_path), Catalogue())
-    assert run_named(cat, "case-a").completion is None, (
-        "a model-only delivery restored completeness"
-    )
-    assert any("no available direct report" in gap for gap in run_named(cat, "case-a").gaps)
+    complete_checklist(tmp_path)
+    add_model_delivery(tmp_path, "m-only", "case-a")
+    run = run_named(discover(str(tmp_path), Catalogue()), "case-a")
+    assert run.completion is None, "a model-only delivery restored completeness"
+    assert any("no available direct report" in gap for gap in run.gaps)
