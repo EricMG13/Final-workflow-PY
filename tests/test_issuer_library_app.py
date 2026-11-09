@@ -14,11 +14,16 @@ from typing import Any
 import pytest
 from issuer_library_browser import (
     CAPTURED_TIMERS,
+    DEFAULT_APP,
     EMPTY_STORE,
     EMPTY_WORKSPACE,
     ORIGIN,
     ROOT,
     WEB,
+    ContextForm,
+    Reply,
+    catalogue_reply,
+    held,
     json_reply,
     open_app,
     pageerrors,
@@ -77,6 +82,9 @@ NORTHBRIDGE: dict[str, Any] = {
         "web-1": {
             "folder": "web-1",
             "issuer": "Northbridge",
+            "issuerKey": "id:northbridge",
+            "issuerHeading": "Northbridge",
+            "issuerTerms": ["Northbridge"],
             "title": "Northbridge",
             "run": "WEB-1",
             "sector": "Industrials",
@@ -157,6 +165,7 @@ NORTHBRIDGE_REPORTS: dict[str, Any] = {
             "label": "Northbridge · as of 2025-03-31",
             "status": None,
             "issuer": "Northbridge",
+            "issuerKey": "id:northbridge",
             "sha256": "r",
             "scope": "s",
             "modelPublished": False,
@@ -191,6 +200,7 @@ NORTHBRIDGE_REPORTS: dict[str, Any] = {
             "label": "Gamma · as of 2024-01-31",
             "status": None,
             "issuer": "Gamma",
+            "issuerKey": "id:gamma",
             "sha256": "o",
             "scope": "s",
             "modelPublished": False,
@@ -208,8 +218,25 @@ NORTHBRIDGE_REPORTS: dict[str, Any] = {
             ],
         },
     ],
+    "models": [],
     "visuals": [],
 }
+
+
+def open_store(
+    browser: Any,
+    route: str,
+    store: dict[str, Any],
+    workspace: dict[str, Any],
+    app: dict[str, Any] = DEFAULT_APP,
+    **options: Any,
+) -> Any:
+    """open_app (option: api) with the /api/catalogue records the server sends for the runs."""
+    api: dict[str, Reply] = {
+        "/api/catalogue": catalogue_reply(store, app),
+        **options.pop("api", {}),
+    }
+    return open_app(browser, route, store, workspace, app, api, **options)
 
 
 def review_reply(ready: bool) -> dict[str, Any]:
@@ -609,12 +636,17 @@ def test_a_failed_run_offers_nothing_to_open(new_run: Any) -> None:
 
 
 def test_context_height_messages_are_source_checked_and_bounded(new_run: Any) -> None:
-    run = new_run()
+    # The real form posts its own height; hold it so the frame runs no script (jsdom never did).
+    run = new_run(route="W-Library/cases")
+    run.page.route("**/context-form.html", held)
+    run.screen.go("W-NewRun/run")
+    assert run.page.evaluate("document.getElementById('context-editor').contentWindow!==null")
 
     def send(editor: bool, height: float) -> str:
         value: str = run.page.evaluate(
             "([editor,height])=>{const frame=document.getElementById('context-editor');"
-            "window.dispatchEvent(new MessageEvent('message',{source:editor?frame.contentWindow:window,"
+            "const source=editor?frame.contentWindow:window;"
+            "window.dispatchEvent(new MessageEvent('message',{source,"
             "data:{type:'cpos:height',height}}));return frame.style.height;}",
             [editor, height],
         )
@@ -812,7 +844,7 @@ def test_a_null_module_detail_does_not_break_the_row(new_run: Any) -> None:
 
 
 def test_new_run_lives_inside_the_app_and_keeps_what_you_entered(browser: Any) -> None:
-    screen = open_app(browser, "W-Library/cases", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+    screen = open_store(browser, "W-Library/cases", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
     assert screen.hidden("new-run") is True
     assert screen.attr("#context-editor", "src") is None
     assert screen.attr("#library-new-run", "href") == "#W-NewRun/run"
@@ -833,7 +865,7 @@ def test_new_run_lives_inside_the_app_and_keeps_what_you_entered(browser: Any) -
 def test_deliverables_and_module_outputs_link_to_each_other_in_both_directions(
     browser: Any,
 ) -> None:
-    screen = open_app(browser, "W-Reports/list", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+    screen = open_store(browser, "W-Reports/list", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
     assert screen.texts(".report-built .report-row a") == ["Northbridge · as of 2025-03-31"]
     assert screen.texts(".report-rest .report-row a") == ["Gamma · as of 2024-01-31"]
     screen.go("W-Reports/abc")
@@ -856,17 +888,12 @@ def test_deliverables_and_module_outputs_link_to_each_other_in_both_directions(
     assert to_module is not None and to_module.startswith("#CP-0/")
     screen.go(to_module[1:])
     assert screen.eval("current.output") == "web-1/deliveries/abc/CP-0.md"
-    back = screen.eval(
-        "[...document.querySelectorAll('#module-head a')].find(a=>a.textContent.startsWith('Used in'))"
-        ".getAttribute('href')"
+    used_in = (
+        "[...document.querySelectorAll('#module-head a')]"
+        ".find(a=>a.textContent.startsWith('Used in'))"
     )
-    assert (
-        screen.eval(
-            "[...document.querySelectorAll('#module-head a')].find(a=>a.textContent.startsWith('Used in'))"
-            ".textContent"
-        )
-        == "Used in Northbridge · as of 2025-03-31"
-    )
+    back = screen.eval(used_in + ".getAttribute('href')")
+    assert screen.eval(used_in + ".textContent") == "Used in Northbridge · as of 2025-03-31"
     screen.go(back[1:])
     assert screen.exists("#report-preview")
     assert screen.errors == []
@@ -874,7 +901,7 @@ def test_deliverables_and_module_outputs_link_to_each_other_in_both_directions(
 
 
 def test_a_deliverable_with_no_matching_run_still_opens_under_no_run(browser: Any) -> None:
-    screen = open_app(browser, "W-Reports/orphan?c=web-1", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+    screen = open_store(browser, "W-Reports/orphan?c=web-1", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
     assert screen.eval("current.context") is None
     assert (
         screen.attr("#report-preview", "src")
@@ -892,7 +919,7 @@ def test_a_deliverable_with_no_matching_run_still_opens_under_no_run(browser: An
 def test_an_uncurated_workspace_works_unnamed_modules_unstructured_handoffs_no_calendar(
     browser: Any,
 ) -> None:
-    screen = open_app(browser, "CP-4A?c=web-1", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+    screen = open_store(browser, "CP-4A?c=web-1", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
     assert screen.eval("current.module") == "CP-4A"
     body = screen.text("body")
     assert not re.search(r"Historical evidence|not current issuer", body)
@@ -935,10 +962,11 @@ def test_a_module_with_several_unranked_outputs_does_not_break_the_published_mod
         "inputs": [],
         "default": None,
     }
-    screen = open_app(browser, "W-Library/cases", store, NORTHBRIDGE_REPORTS)
-    screen.go("CP-MODEL/publication?c=web-1")
-    assert screen.eval("current.module") == "CP-MODEL"
-    assert re.search(r"No published model available", screen.content())
+    screen = open_store(browser, "W-Library/cases", store, NORTHBRIDGE_REPORTS)
+    screen.go("W-Forecast/forecast?c=web-1")
+    assert screen.eval("current.module") == "W-Forecast"
+    assert re.search(r"No forecast model was published from this run’s files", screen.content())
+    assert not re.search(r"No published model available", screen.content())
     assert screen.errors == []
     screen.close()
 
@@ -958,9 +986,11 @@ def test_names_from_a_workspace_stay_text_on_every_destination(browser: Any) -> 
             report[key] = bad + key
         report["files"] = [{"name": bad, "href": "/files/x"}]
         for row in report["builtFrom"]:
-            row["source"] = bad
+            # a matched row names a real output; only an unmatched one is free text
+            if not row["output"]:
+                row["source"] = bad
     app = {"workspace": bad, "policy_locked": False, "issues": [bad], "problem": bad}
-    screen = open_app(browser, "W-Library/cases", store, workspace, app)
+    screen = open_store(browser, "W-Library/cases", store, workspace, app)
     for route in [
         "W-Library/cases",
         "W-Overview?c=web-1",
@@ -982,16 +1012,16 @@ def test_names_from_a_workspace_stay_text_on_every_destination(browser: Any) -> 
 
 
 def test_an_empty_workspace_opens_on_the_library_with_only_what_can_work(browser: Any) -> None:
-    screen = open_app(browser, "CP-1/performance", EMPTY_STORE, EMPTY_WORKSPACE)
+    screen = open_store(browser, "CP-1/performance", EMPTY_STORE, EMPTY_WORKSPACE)
     assert screen.eval("current.module") == "W-Library"
     assert re.search(r"No runs in this workspace yet", screen.content())
     assert screen.attr("#library-new-run", "href") == "#W-NewRun/run"
     for label in ["Research workspace", "Run activity", "Reports"]:
-        assert screen.eval(f"document.querySelector('.rail a[aria-label=\"{label}\"]').hidden"), (
+        assert screen.eval(f"document.querySelector('.rail a[data-place=\"{label}\"]').hidden"), (
             label
         )
     for label in ["Issuer library", "New run", "Settings", "Help"]:
-        assert not screen.eval(f"document.querySelector('.rail a[aria-label=\"{label}\"]').hidden")
+        assert not screen.eval(f"document.querySelector('.rail a[data-place=\"{label}\"]').hidden")
     for route in [
         "W-Overview/overview",
         "W-Calendar",
@@ -1024,7 +1054,7 @@ def test_settings_shows_the_workspace_and_its_issues_and_respects_the_policy_loc
         quits.append(dict(route.request.headers))
         json_reply({"stopped": True})(route)
 
-    screen = open_app(
+    screen = open_store(
         browser,
         "W-Settings/workspace",
         NORTHBRIDGE,
@@ -1052,14 +1082,14 @@ def test_a_workspace_that_cannot_be_read_says_so_and_the_app_still_opens(browser
         "issues": [],
         "problem": "CP-OS runtime is unavailable",
     }
-    screen = open_app(browser, "W-Library/cases", EMPTY_STORE, EMPTY_WORKSPACE, app)
+    screen = open_store(browser, "W-Library/cases", EMPTY_STORE, EMPTY_WORKSPACE, app)
     assert screen.hidden("app-problem") is False
     assert re.search(r"CP-OS runtime is unavailable", screen.text("#app-problem"))
     screen.close()
 
 
 def test_search_from_an_app_destination_goes_to_the_library_search(browser: Any) -> None:
-    screen = open_app(browser, "W-Settings/workspace", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+    screen = open_store(browser, "W-Settings/workspace", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
     screen.click("#rail-search")
     assert screen.eval("current.module") == "W-Library" and screen.active() == "library-query"
     screen.close()
@@ -1075,56 +1105,6 @@ def test_the_shell_loads_only_files_the_server_packages() -> None:
 
 
 # ---- The existing context form with the embedded presentation. ----
-
-
-class ContextForm:
-    def __init__(self, browser: Any) -> None:
-        self.page = browser.new_context().new_page()
-        self.errors = pageerrors(self.page)
-        self.page.add_init_script(
-            "window.__messages=[];window.postMessage=v=>{window.__messages.push(v)};"
-        )
-        serve(self.page, {})
-        self.page.goto(f"{ORIGIN}/context-form.html")
-        self.page.wait_for_function("typeof update==='function'")
-
-    def set(self, element_id: str, value: str) -> None:
-        self.page.evaluate(
-            "([i,v])=>{const f=document.getElementById(i);f.value=v;"
-            "f.dispatchEvent(new Event('input',{bubbles:true}));}",
-            [element_id, value],
-        )
-
-    def pick(self, element_id: str) -> None:
-        self.page.evaluate(
-            "i=>{const c=document.getElementById(i);c.checked=true;"
-            "c.dispatchEvent(new Event('change',{bubbles:true}));}",
-            element_id,
-        )
-
-    def declare(self) -> None:
-        self.pick("issue_classification-high_yield")
-        self.pick("legal_documents-executed")
-
-    def submit(self) -> dict[str, Any]:
-        value: dict[str, Any] = self.page.evaluate(
-            "()=>{window.dispatchEvent(new MessageEvent('message',{source:window,data:{type:'cpos:get-context'}}));"
-            "return window.__messages.filter(m=>m.type==='cpos:context').at(-1);}"
-        )
-        return value
-
-    def load(self, folder: Path, text: str) -> None:
-        """Choose a saved context file and wait until the form reports it loaded."""
-        saved = folder / "context.json"
-        saved.write_text(text, encoding="utf-8")
-        self.page.set_input_files("#load", saved)
-        self.page.wait_for_function(
-            "document.getElementById('loadmsg').textContent.startsWith('Loaded')"
-        )
-
-    def close(self) -> None:
-        assert self.errors == []
-        self.page.context.close()
 
 
 @pytest.fixture

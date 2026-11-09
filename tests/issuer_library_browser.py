@@ -241,7 +241,7 @@ def open_app(  # noqa: PLR0913 - every keyword is optional; only route and store
         "issues": app["issues"],
         "real": [],
     }
-    full_store = {**store, **workspace, "issues": app["issues"]}
+    full_store = {"handoffs": handoffs_of(store), **store, **workspace, "issues": app["issues"]}
     replies: dict[str, Reply] = {
         "/api/catalogue": json_reply(catalogue),
         "/api/workspace": (
@@ -255,6 +255,51 @@ def open_app(  # noqa: PLR0913 - every keyword is optional; only route and store
     page.goto(f"{ORIGIN}/index.html#{hash_route}", wait_until="domcontentloaded")
     page.wait_for_function("typeof current!=='undefined'&&current!==null")
     return screen
+
+
+def handoffs_of(store: dict[str, Any]) -> dict[str, Any]:
+    """The sections /api/workspace sends once per digest; hydrate puts them back on each output."""
+    handoffs: dict[str, Any] = {}
+    for output in store.get("outputs", {}).values():
+        if "sections" not in output:
+            continue
+        if handoffs.setdefault(output["sha256"], output["sections"]) != output["sections"]:
+            raise ValueError(f"{output['id']} shares a digest with a handoff of other content")
+    return handoffs
+
+
+def catalogue_reply(store: dict[str, Any], app: dict[str, Any] = DEFAULT_APP) -> Reply:
+    """/api/catalogue with one metric-free record per store run, as most runs are served."""
+    real = [
+        {
+            "id": run["folder"],
+            "issuer": "none" if run.get("issuerKey") is None else run["issuerKey"],
+            "name": run["issuer"],
+            "title": run["run"],
+            "sector": run["sector"],
+            "workflow": "Annual review",
+            "date": "2024-12-31",
+            "period": run["period"],
+            "period_kind": "Annual actual",
+            "metrics": {},
+            "completion": None,
+            "checkpoints": None,
+            "ratings": [],
+            "gaps": [],
+            "summary": "Synthetic record.",
+            "artifacts": [],
+        }
+        for run in store["runs"].values()
+    ]
+    return json_reply(
+        {
+            "sources": {},
+            "real": real,
+            "workspace": app["workspace"],
+            "policy_locked": app["policy_locked"],
+            "issues": app["issues"],
+        }
+    )
 
 
 def design_store() -> tuple[dict[str, Any], dict[str, Any]]:
@@ -311,3 +356,54 @@ def release(opened: list[Screen]) -> None:
     finally:
         for screen in opened:
             screen.close()
+
+
+class ContextForm:
+    def __init__(self, browser: Any) -> None:
+        self.page = browser.new_context().new_page()
+        self.errors = pageerrors(self.page)
+        self.page.add_init_script(
+            "window.__messages=[];window.postMessage=v=>{window.__messages.push(v)};"
+        )
+        serve(self.page, {})
+        self.page.goto(f"{ORIGIN}/context-form.html")
+        self.page.wait_for_function("typeof update==='function'")
+
+    def set(self, element_id: str, value: str) -> None:
+        self.page.evaluate(
+            "([i,v])=>{const f=document.getElementById(i);f.value=v;"
+            "f.dispatchEvent(new Event('input',{bubbles:true}));}",
+            [element_id, value],
+        )
+
+    def pick(self, element_id: str) -> None:
+        self.page.evaluate(
+            "i=>{const c=document.getElementById(i);c.checked=true;"
+            "c.dispatchEvent(new Event('change',{bubbles:true}));}",
+            element_id,
+        )
+
+    def declare(self) -> None:
+        self.pick("issue_classification-high_yield")
+        self.pick("legal_documents-executed")
+
+    def submit(self) -> dict[str, Any]:
+        value: dict[str, Any] = self.page.evaluate(
+            "()=>{window.dispatchEvent(new MessageEvent('message',"
+            "{source:window,data:{type:'cpos:get-context'}}));"
+            "return window.__messages.filter(m=>m.type==='cpos:context').at(-1);}"
+        )
+        return value
+
+    def load(self, folder: Path, text: str) -> None:
+        """Choose a saved context file and wait until the form reports it loaded."""
+        saved = folder / "context.json"
+        saved.write_text(text, encoding="utf-8")
+        self.page.set_input_files("#load", saved)
+        self.page.wait_for_function(
+            "document.getElementById('loadmsg').textContent.startsWith('Loaded')"
+        )
+
+    def close(self) -> None:
+        assert self.errors == []
+        self.page.context.close()
