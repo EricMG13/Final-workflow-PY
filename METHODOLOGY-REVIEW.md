@@ -681,8 +681,7 @@ Provisional instead of stopping at the method's executed-document gate. CP-4 the
 writes a fixed `### Legal document register`, `DRAFT_LIMITATION` verbatim and the word
 Provisional in its routed sections and main limitation; with no legal document the
 Blocked message stands. Outside that scope instructions and checks are unchanged.
-Source revision: final-workflow commit 93c3478b (Plan 3 Task 10), carried into this
-repository by PR 1-P (#31).
+Source revision: final-workflow 8d22e84c (Plan 3 Task 10, 0dda0350..37dc6c2b on key commit 93c3478b), carried by PR 1-P (#31).
 Widening: the plan tells CP-3, CP-5 and CP-6 to label Provisional terms "on Primary
 runs". The consumer sentence is written in the whole Provisional scope (Primary, or
 legal documents "draft"), with or without CP-4 in the run, because instructions must match
