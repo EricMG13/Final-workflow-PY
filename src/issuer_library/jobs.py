@@ -28,6 +28,7 @@ from starlette.datastructures import FormData, UploadFile
 from . import events
 from .desktop import WORKER_FLAGS
 from .model import digest
+from .quit import LIBRARY_QUITTING
 from .settings import save_json
 
 if TYPE_CHECKING:
@@ -54,7 +55,6 @@ WINDOWS_RESERVED = {"CON", "PRN", "AUX", "NUL"} | {
     f"{device}{number}" for device in ("COM", "LPT") for number in "123456789"
 }
 PACKAGE = Path(__file__).resolve().parent
-LIBRARY_QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
 WORKER_POLL = 5.0  # Seconds between checks of a worker this instance did not start.
 NOT_STARTED = "no run was started and no model call was made. Start can be tried again."
 
