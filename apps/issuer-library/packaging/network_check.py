@@ -5,12 +5,14 @@ imports the compiled pydantic_core from the share, serves one loopback route wit
 FastAPI and uvicorn, and writes the outcome to %TEMP%\\credit-os-network-check.txt.
 """
 
+import functools
 import importlib.util
 import shutil
 import sys
 import tomllib
 import zipfile
 from pathlib import Path
+from types import ModuleType
 
 HERE = Path(__file__).resolve().parent
 LOCK = HERE.parents[2] / "uv.lock"
@@ -36,13 +38,20 @@ PYTHON = r"C:\Program Files\Statestreet\Python313\pythonw.exe"
 CHECK_CMD = (
     "@echo off\r\n"
     f'set "PYTHONW={PYTHON}"\r\n'
-    'if not exist "%PYTHONW%" (\r\n'
-    "  echo The company Python was not found at %PYTHONW%\r\n"
-    "  pause\r\n"
-    "  exit /b 1\r\n"
-    ")\r\n"
+    'if exist "%PYTHONW%" goto found\r\n'
+    "echo The company Python was not found at %PYTHONW%\r\n"
+    "pause\r\n"
+    "exit /b 1\r\n"
+    ":found\r\n"
     'if exist "%TEMP%\\credit-os-network-check.txt" del "%TEMP%\\credit-os-network-check.txt"\r\n'
-    '"%PYTHONW%" -I -B -X utf8 "%~dp0check.py"\r\n'
+    'start "" /wait "%PYTHONW%" -I -B -X utf8 "%~dp0check.py"\r\n'
+    "set CODE=%ERRORLEVEL%\r\n"
+    'if exist "%TEMP%\\credit-os-network-check.txt" goto show\r\n'
+    "echo No result file was written. The company Python could not run check.py from this\r\n"
+    "echo folder. Exit code: %CODE%\r\n"
+    "pause\r\n"
+    "exit /b 1\r\n"
+    ":show\r\n"
     'notepad "%TEMP%\\credit-os-network-check.txt"\r\n'
 )
 
@@ -114,13 +123,18 @@ sys.exit(0 if lines[-1] == "PASS" else 1)
 """
 
 
-def download(url: str, sha: str, name: str) -> Path:
-    """Fetch one SHA-256-verified wheel through the existing runtime bundler."""
+@functools.cache
+def _runtime() -> ModuleType:
     spec = importlib.util.spec_from_file_location("issuer_runtime", HERE / "runtime.py")
     assert spec is not None and spec.loader is not None
     runtime = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(runtime)
-    return Path(runtime.download(url, sha, name))
+    return runtime
+
+
+def download(url: str, sha: str, name: str) -> Path:
+    """Fetch one SHA-256-verified wheel through the existing runtime bundler."""
+    return Path(_runtime().download(url, sha, name))
 
 
 def pinned_wheels() -> list[tuple[str, str, str]]:
@@ -129,6 +143,8 @@ def pinned_wheels() -> list[tuple[str, str, str]]:
     by_name = {entry["name"]: entry for entry in lock["package"]}
     chosen = []
     for package in PACKAGES:
+        if package not in by_name:
+            raise ValueError(f"No unique pinned Windows wheel: {package} is not in uv.lock")
         matches = []
         for wheel in by_name[package].get("wheels", []):
             filename = wheel["url"].rsplit("/", 1)[1]
