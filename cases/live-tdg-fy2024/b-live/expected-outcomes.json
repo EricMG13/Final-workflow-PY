@@ -1,0 +1,41 @@
+{
+  "scope": "B-live: relative_value, secondary, high_yield, legal documents none, peer_source none, one synthetic notes row and one synthetic observed quote",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+  ],
+  "run": [
+    {
+      "rule": "section-omitted",
+      "outcome": "information",
+      "counted": false,
+      "section": "yield-against-maturity"
+    },
+    {
+      "rule": "section-omitted",
+      "outcome": "information",
+      "counted": false,
+      "section": "what-changed"
+    }
+  ],
+  "modules": {
+    "CP-1C": [
+      {
+        "rule": "cp1c-no-peer-source",
+        "outcome": "gap",
+        "counted": true,
+        "inherited_from": []
+      }
+    ]
+  },
+  "counted_total": 1,
+  "without": {}
+}

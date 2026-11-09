@@ -30,6 +30,7 @@ from starlette.datastructures import FormData, UploadFile
 from . import events
 from .desktop import WORKER_FLAGS
 from .model import digest
+from .quit import LIBRARY_QUITTING
 from .settings import save_json
 
 if TYPE_CHECKING:
@@ -56,7 +57,6 @@ WINDOWS_RESERVED = {"CON", "PRN", "AUX", "NUL"} | {
     f"{device}{number}" for device in ("COM", "LPT") for number in "123456789"
 }
 PACKAGE = Path(__file__).resolve().parent
-LIBRARY_QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
 WORKER_POLL = 5.0  # Seconds between checks of a worker this instance did not start.
 REVIEW_TIMEOUT = 600.0  # Seconds a review may take; the launcher reads every file in the folder.
 COPY_CHUNK = 1 << 20
