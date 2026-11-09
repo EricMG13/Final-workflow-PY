@@ -7,7 +7,6 @@ REUSE-INVENTORY.json
 REUSE-PLAN-REVIEW.md
 REUSE-WORKTREE-CHANGES.json
 REVIEW-FINDINGS.md
-VERIFICATION.md
 apps/issuer-library/DESIGN-SOURCES.md
 apps/issuer-library/DESIGN.md
 apps/issuer-library/designs/faults.py
@@ -439,6 +438,7 @@ edited .github/workflows/issuer-library-browser.yml
 edited .github/workflows/nightly-tests.yml
 edited .github/workflows/quality-gate.yml
 edited README.md
+edited VERIFICATION.md
 edited apps/issuer-library/README.md
 edited apps/issuer-library/designs/browser_check.py
 edited apps/issuer-library/designs/build.py

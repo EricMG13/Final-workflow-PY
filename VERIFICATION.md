@@ -10,6 +10,15 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-09 — Phase 0: network-path check (Task 0.1)
+
+- **Scope:** one work PC; the company Python `C:\Program Files\Statestreet\Python313\pythonw.exe` with `-I -B -X utf8`; the check folder built by `apps/issuer-library/packaging/network_check.py` from PR 0-A (#4) head `d47bd306` (merged as `460b696f`), copied to the network share and opened by its UNC path. Real share and real work PC, not synthetic.
+- **Result:** `PASS`, with `pydantic_core.__file__` starting with `\\` (owner's report in chat, 2026-11-09: "PASS from \\"). The compiled `pydantic_core` (`cp313-win_amd64`) loaded from the share, and uvicorn served a one-route FastAPI app whose `/health` answered over loopback.
+- **Consequence:** Phase 2 follows spec §6.1 as designed. Task 2.3 (local-copy fallback) is not needed, and Owner decision 5 does not arise.
+- **Deviation:** the folder packs 14 wheels, not the plan's 13. `opentelemetry-api` 1.45.2 was added because fastapi 0.162.0 imports it at import time (S0 ruling R1, confirmed by the lead's whole-branch review).
+- **Reviews:** per-task `mx-precise`; lead's whole-branch review (`mx-architect`) APPROVE; its Low finding (a server-thread crash lost its cause under `pythonw`) was fixed test-first before the owner's run.
+- **Not recorded:** the import and first-response times and the Python patch version from the result file (the owner reported the verdict only); the result file itself is not in the repository.
+
 ## 2026-11-08 — Issuer Library: Library screening screen, offline: retained workspace; no provider called (branch `claude/library-screening-tests`)
 
 Scope: the Library screening screen (L2, L3 tests, L4 docs and Help), macOS only, the 59 retained records; no provider call.
