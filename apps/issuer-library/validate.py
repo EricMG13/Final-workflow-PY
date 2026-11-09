@@ -10,6 +10,7 @@ download is not installed. Prints PASS|FAIL per gate and exits non-zero on any f
 import argparse
 import os
 import re
+import runpy
 import subprocess
 import sys
 import tempfile
@@ -17,7 +18,9 @@ from pathlib import Path
 
 APP = Path(__file__).resolve().parent
 ROOT = APP.parents[1]
-KEYS = ("ANTHROPIC_API_KEY", "OPENAI_API_KEY", "OPENROUTER_API_KEY")
+# Every provider key the Redactor knows (KEY_VARIABLES and the GitHub tokens), from its one list,
+# read by path: this script may run under a Python without the project's dependencies.
+KEYS = tuple(runpy.run_path(str(ROOT / "src/deploy_workflow/model/redact.py"))["KEY_ENV_NAMES"])
 BROWSER_TESTS = (
     "tests/test_issuer_library_app.py",
     "tests/test_issuer_library_design.py",
@@ -38,6 +41,8 @@ PYTHON_TESTS = (
     "tests/test_cpos_comparison.py",
     "tests/test_markdown_delivery.py",
     "tests/test_pathway_handoff_charts.py",
+    "tests/product/test_context.py",
+    "tests/test_run_expectations.py",
 )
 PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "not live and not browser")
 BROWSER_PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "browser")
@@ -55,11 +60,15 @@ def required(name):
     return value
 
 
-def report(name, passed, output=""):
-    counted = re.findall(r"\d+ passed[^\n]*", output) if passed else ()
+def report(name: str, passed: bool, output: str = "") -> bool:
+    counted = re.findall(r"\d+ passed[^\n]*|(?<=ℹ )pass \d+", output) if passed else ()
     print(("PASS " if passed else "FAIL ") + name, *(f"({c})" for c in counted[-1:]), flush=True)
     if not passed:
-        print("\n".join(output.splitlines()[-40:]), flush=True)
+        lines = output.splitlines()
+        print(
+            "\n".join([line for line in lines if line.startswith("FAIL ")] + lines[-40:]),
+            flush=True,
+        )
     return passed
 
 
