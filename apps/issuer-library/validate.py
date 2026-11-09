@@ -34,6 +34,7 @@ PYTHON_TESTS = (
     "tests/test_issuer_library_server.py",
     "tests/test_issuer_library_jobs.py",
     "tests/test_issuer_library_store.py",
+    "tests/test_issuer_library_gates.py",
     "tests/test_cpos_app.py",
     "tests/test_cpos_launch.py",
     "tests/test_reader_summary.py",
