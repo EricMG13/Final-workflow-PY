@@ -5,6 +5,9 @@ on:
   # Runs on pull requests and by hand; off a PR the changed-code gate checks the last commit (HEAD~1).
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   changed-code:
     name: changed code passes ruff, format, complexity and mypy
@@ -36,3 +39,21 @@ jobs:
       - env:
           FW_PYTHON: ${{ github.workspace }}/.venv/bin/python
         run: python3 apps/issuer-library/validate.py quick
+
+  pr-size:
+    name: pull request size and copy check
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # Read-only: the pinned upstream commit's objects, over anonymous HTTPS. No token is used.
+      - name: fetch the copy source commit
+        run: |
+          sha="$(sed -n '1s/^source //p' tools/copied-from.txt | tr -d '\r')"
+          printf '%s' "$sha" | grep -Eq '^[0-9a-f]{40}$' || { echo "bad source line in tools/copied-from.txt" >&2; exit 1; }
+          git fetch --no-tags --depth=1 https://github.com/EricMG13/final-workflow "$sha"
+      - env:
+          BASE_REF: ${{ github.base_ref }}
+        run: python3 tools/pr_size.py --base "origin/$BASE_REF"
