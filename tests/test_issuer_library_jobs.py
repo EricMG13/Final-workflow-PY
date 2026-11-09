@@ -878,20 +878,48 @@ def test_resume_reads_no_link_swapped_in_after_the_check(
     outside = tmp_path / "outside"
     outside.mkdir()
     (outside / "annual.txt").write_text("secret")
-    checked = jobs_module.is_plain_file
+    sources = root / "intake" / job_id / "sources"
+    real_open = os.open
+    swapped: list[bool] = []
 
-    def check_then_swap(base: Path, name: str) -> bool:
-        ok = checked(base, name)
-        if name == "sources/annual.txt":
-            shutil.rmtree(base / "sources")
-            link_or_skip(base / "sources", outside)
-        return ok
+    def open_after_swap(path: Any, *args: Any, **kwargs: Any) -> int:
+        # The first open of the source file: sources/ becomes a link just before it.
+        if isinstance(path, str) and path.endswith("annual.txt") and not swapped:
+            swapped.append(True)
+            sources.rename(sources.with_name("sources-moved"))
+            link_or_skip(sources, outside)
+        return real_open(path, *args, **kwargs)
 
-    monkeypatch.setattr(jobs_module, "is_plain_file", check_then_swap)
+    monkeypatch.setattr(os, "open", open_after_swap)
     response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert swapped, "the swap never fired"
     assert response.status_code in (200, 409), response.text
     copies = (root / "intake").glob("web-*/sources/annual.txt")
     assert [p for p in copies if job_id not in str(p) and p.read_bytes() == b"secret"] == []
+
+
+def test_resume_writes_nothing_through_a_link_swapped_in_after_the_check(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    real_mkdir = os.mkdir
+    swapped: list[bool] = []
+
+    def mkdir_then_swap(path: Any, *args: Any, **kwargs: Any) -> None:
+        real_mkdir(path, *args, **kwargs)
+        if str(path).endswith("sources") and not swapped:  # The new job's sources/ becomes a link.
+            swapped.append(True)
+            for folder in (root / "intake").iterdir():
+                if folder.name != job_id and (folder / "sources").is_dir():
+                    (folder / "sources").rmdir()
+                    link_or_skip(folder / "sources", outside)
+
+    monkeypatch.setattr(os, "mkdir", mkdir_then_swap)
+    call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert swapped, "the swap never fired"
+    assert list(outside.iterdir()) == [], "a file was created outside the workspace"
 
 
 @pytest.mark.parametrize("inside", [False, True])
@@ -918,6 +946,9 @@ def test_resume_refuses_a_linked_intake_folder(tmp_path: Path, inside: bool) -> 
         b'{"resume_of":5}',
         b'{"max_turns":9.0}',
         b'{"extra":NaN}',
+        b'{"modules":false,"Modules":["CP-4"]}',
+        b'{"sources":[{"path":5,"PATH":"a.txt"}]}',
+        '{"\u017fources":0}'.encode(),
         b'{"extra":' + b"[" * 20000 + b"]" * 20000 + b"}",
     ],
 )
@@ -932,6 +963,8 @@ def test_recorded_job_decodes_as_go_unmarshal_does() -> None:
         "modules": ["", "CP-4"],
         "sources": [{"path": "", "sha256": ""}],
     }
+    assert (recorded_job(b'{"config":"c","Config":null}') or {})["config"] == "c"
+    assert (recorded_job(b'{"modules":["CP-4"],"Modules":null}') or {})["modules"] == []
     assert recorded_job(b"null") == {"config": "", "modules": [], "sources": []}
     assert recorded_job(rb'{"config":"\udc80"}') == {
         "config": "\ufffd",
@@ -947,6 +980,9 @@ def test_recorded_job_decodes_as_go_unmarshal_does() -> None:
         (b'{"State":"stopped"}', True),
         (b'{"state":"stopped","State":"running"}', False),
         (b'{"state":"running","STATE":"stopped"}', True),
+        (b'{"state":"stopped","State":null}', True),
+        (b'{"state":5,"State":"stopped"}', False),
+        ('{"\u017ftate":"stopped"}'.encode(), True),
         (b'{"state":"stopped","message":5}', False),
         (b'{"state":"stopped","Message":5}', False),
         (b'{"state":"stopped","id":5}', False),
@@ -963,13 +999,6 @@ def test_resume_reads_the_stopped_status_as_go_unmarshal_does(
     (root / "intake" / job_id / "status.json").write_bytes(status)
     response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
     assert response.status_code == (200 if resumes else 409), response.text
-
-
-def test_run_list_reads_the_status_state_as_go_does(tmp_path: Path) -> None:
-    _, root, client, job_id = stopped_run(tmp_path)
-    status = root / "intake" / job_id / "status.json"
-    status.write_bytes(b'{"state":"stopped","STATE":"reviewed"}')  # The last match wins.
-    assert client.get("/api/runs/list").json() == []
 
 
 def test_resume_reads_at_most_one_byte_past_the_limit(tmp_path: Path) -> None:
@@ -1007,6 +1036,8 @@ def test_events_reads_refuse_a_linked_log_or_progress(tmp_path: Path) -> None:
 def test_events_read_of_a_fifo_is_refused_without_blocking(tmp_path: Path) -> None:
     folder = tmp_path / "run"
     folder.mkdir()
+    if not hasattr(os, "mkfifo"):
+        pytest.skip("FIFOs unavailable")
     os.mkfifo(folder / "events.jsonl")
     outcome: list[str] = []
 

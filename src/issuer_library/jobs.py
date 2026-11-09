@@ -428,25 +428,37 @@ def go_list(value: Any, convert: Callable[[Any], Any]) -> list[Any]:
     return [convert(item) for item in value]
 
 
+def go_slice(record: dict[str, list[Any]], name: str, convert: Callable[[Any], Any]) -> list[Any]:
+    found: list[Any] = events.go_value(
+        record, name, lambda value: go_list(value, convert), nil_resets=True
+    )
+    return found
+
+
+def go_turns(value: Any) -> int:
+    if value is not None and not events.is_int(value):
+        raise events.GoDecodeError("max_turns is not an integer")
+    return int(value or 0)
+
+
 def recorded_source(item: Any) -> dict[str, str]:
     if item is not None and not isinstance(item, dict):
         raise events.GoDecodeError("not an object")
     record = item or {}
-    return {key: events.go_text(record.get(key)) for key in ("path", "sha256")}
+    return {key: events.go_value(record, key, events.go_text) for key in ("path", "sha256")}
 
 
 def recorded_job(raw: bytes) -> dict[str, Any] | None:
     """A stopped run's job.json as Go decodes it into NewJob; None where Go's decode fails."""
     try:
         job = events.go_record(raw)
-        for key in ("id", "workspace", "config", "cap_usd", "resume_of"):
-            events.go_text(job.get(key))
-        if (turns := job.get("max_turns")) is not None and not events.is_int(turns):
-            raise events.GoDecodeError("max_turns is not an integer")
+        for key in ("id", "workspace", "cap_usd", "resume_of"):
+            events.go_value(job, key, events.go_text)
+        events.go_value(job, "max_turns", go_turns)
         return {
-            "config": events.go_text(job.get("config")),
-            "modules": go_list(job.get("modules"), events.go_text),
-            "sources": go_list(job.get("sources"), recorded_source),
+            "config": events.go_value(job, "config", events.go_text),
+            "modules": go_slice(job, "modules", events.go_text),
+            "sources": go_slice(job, "sources", recorded_source),
         }
     except ValueError:
         return None
@@ -457,8 +469,8 @@ def stopped_run_state(raw: bytes) -> str | None:
     try:
         record = events.go_record(raw)
         for key in ("message", "id"):
-            events.go_text(record.get(key))
-        return events.go_text(record.get("state"))
+            events.go_value(record, key, events.go_text)
+        return str(events.go_value(record, "state", events.go_text))
     except ValueError:
         return None
 
@@ -467,7 +479,15 @@ def stopped_run_state(raw: bytes) -> str | None:
 # link, so a link swapped in after a check is refused where it is used (as Go's os.Root does).
 # Windows has no dir_fd for os.open: there only an lstat check made just before use stands in.
 FD_WALK = hasattr(os, "O_NOFOLLOW") and os.open in os.supports_dir_fd
-GONE = (errno.ENOENT, errno.ELOOP, errno.ENOTDIR, errno.EINVAL, errno.ENXIO, errno.ENAMETOOLONG)
+GONE = (
+    errno.ENOENT,
+    errno.ELOOP,
+    errno.ENOTDIR,
+    errno.EINVAL,
+    errno.ENXIO,
+    errno.ENAMETOOLONG,
+    errno.EOPNOTSUPP,
+)
 DIR_FLAGS = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
 
 
@@ -536,25 +556,36 @@ def source_names(job: dict[str, Any]) -> list[str]:
     return names
 
 
+def open_source(old: int, folders: list[str], leaf: str) -> int:
+    """A regular file of the stopped run, opened without following a link.
+
+    An unreachable directory above it, or a missing, linked or non-regular leaf, is gone (409):
+    Go's Lstat through the Root fails. A leaf that is there but cannot be opened (permission) is a
+    copy failure (500): Go's Lstat succeeds and the copy fails.
+    """
+    try:
+        parent = walk_dirs(old, folders, None)
+    except OSError as error:
+        raise HTTPException(409, INPUTS_GONE) from error
+    try:
+        source = os.open(leaf, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+        if not stat.S_ISREG(os.fstat(source).st_mode):
+            os.close(source)
+            raise OSError(errno.EINVAL, "not a regular file")
+    except OSError as error:
+        if error.errno in GONE:
+            raise HTTPException(409, INPUTS_GONE) from error
+        raise HTTPException(500, COPY_FAILED) from error
+    finally:
+        os.close(parent)
+    return source
+
+
 def copy_names(old: int, new: int, names: list[str]) -> None:
     """Stream each file from the stopped run (a regular file, no link) into the new job."""
     for name in names:
         *folders, leaf = name.split("/")
-        try:
-            parent = walk_dirs(old, folders, None)
-            try:
-                source = os.open(leaf, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
-            finally:
-                os.close(parent)
-            if not stat.S_ISREG(os.fstat(source).st_mode):
-                os.close(source)
-                raise OSError(errno.EINVAL, "not a regular file")
-        except OSError as error:
-            # Missing, linked or not a regular file: gone (409). Anything else (say, permission)
-            # is a copy failure, as Go's Lstat succeeds there and the open fails.
-            if error.errno in GONE:
-                raise HTTPException(409, INPUTS_GONE) from error
-            raise HTTPException(500, COPY_FAILED) from error
+        source = open_source(old, folders, leaf)
         with os.fdopen(source, "rb") as reader:
             try:
                 parent = walk_dirs(new, folders, 0o700)
@@ -596,7 +627,10 @@ def copy_resume_inputs(root: Path, old_id: str, job: dict[str, Any]) -> None:
             raise HTTPException(400, "The workspace is not writable") from error
         copy_by_path(old, new, source_names(job))
         return
-    base = os.open(root, DIR_FLAGS)
+    try:
+        base = os.open(root, DIR_FLAGS)
+    except OSError as error:
+        raise HTTPException(400, "Choose an available workspace folder first") from error
     try:
         try:
             intake = walk_dirs(base, ["intake"], None)

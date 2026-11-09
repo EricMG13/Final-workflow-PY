@@ -80,20 +80,39 @@ def loads(raw: bytes, pairs: Callable[[list[tuple[str, Any]]], Any] | None = Non
         raise ValueError("nested too deeply") from error
 
 
-def last_match(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-    """An object's members keyed in lower case; of keys equal without case, the last wins."""
-    return {key.lower(): value for key, value in pairs}
+def last_match(pairs: list[tuple[str, Any]]) -> dict[str, list[Any]]:
+    """An object's values per key, in document order; keys equal under case folding are one."""
+    members: dict[str, list[Any]] = {}
+    for key, value in pairs:
+        members.setdefault(key.casefold(), []).append(value)
+    return members
 
 
-def go_record(raw: bytes) -> dict[str, Any]:
-    """The members json.Unmarshal reads into a struct, keys in lower case (also in nested
-    objects). null is the empty struct; any other non-object raises ValueError."""
+def go_record(raw: bytes) -> dict[str, list[Any]]:
+    """The members json.Unmarshal reads into a struct (read them with go_value), also in nested
+    objects. null is the empty struct; any other non-object raises GoDecodeError."""
     value = loads(raw, last_match)
     if value is None:
         return {}
     if not isinstance(value, dict):
         raise GoDecodeError("not an object")
     return value
+
+
+def go_value(
+    record: dict[str, list[Any]],
+    name: str,
+    convert: Callable[[Any], Any],
+    nil_resets: bool = False,
+) -> Any:
+    """A field as Go decodes it: every value in order must have the type (convert raises
+    GoDecodeError otherwise), the last other value wins, and a null leaves the field as it was
+    (for a slice, nil_resets, it sets the field back to nil); convert(None) is the zero value."""
+    found = convert(None)
+    for value in record.get(name, ()):
+        if value is not None or nil_resets:
+            found = convert(value)
+    return found
 
 
 def go_text(value: Any) -> str:
@@ -107,10 +126,11 @@ def go_text(value: Any) -> str:
 
 def state_of(raw: bytes) -> str | None:
     """The `state` of a status.json as Go's struct{State string} reads it: missing or null is "",
-    the key matches without regard to case (the last match wins), a non-string value or a
-    non-object is a decode error, None here."""
+    the key matches without regard to case (null leaves it as it was, the last value wins), a
+    non-string value or a non-object is a decode error, None here."""
     try:
-        return go_text(go_record(raw).get("state"))
+        state: str = go_value(go_record(raw), "state", go_text)
+        return state
     except ValueError:
         return None
 
