@@ -23,6 +23,7 @@ from .model import (
     Counts,
     DeliveryRecord,
     DeliveryView,
+    Facility,
     FileLink,
     LaunchedWorkflow,
     Manifest,
@@ -211,8 +212,8 @@ def verify_source(root: Path, source: Source) -> Source:
 
 
 def check_metric(metric: Metric, verified: dict[str, Source]) -> None:
-    if metric.provenance not in ("", "cited", "calculated", "synthetic"):
-        raise ValueError("metric provenance must be cited, calculated, synthetic or omitted")
+    if metric.provenance not in ("", "cited", "calculated", "synthetic", "user"):
+        raise ValueError("metric provenance must be cited, calculated, synthetic, user or omitted")
     try:
         value = float(metric.value)
     except ValueError:
@@ -230,6 +231,112 @@ def check_metric(metric: Metric, verified: dict[str, Source]) -> None:
         )
     if metric.value not in stated_numbers(pinned.quote):
         raise ValueError("metric value absent from source excerpt")
+
+
+FACILITY_TERM_KEYS = (
+    "size_m",
+    "tenor_years",
+    "talk_spread_bps_low",
+    "talk_spread_bps_high",
+    "talk_oid_low",
+    "talk_oid_high",
+    "floor_pct",
+    "coupon_pct",
+    "margin_bps",
+)
+QUOTE_TERM_KEYS = ("bid", "ask", "price", "yield_pct", "spread_bps")
+GO_ESCAPES = {
+    "\a": "\\a",
+    "\b": "\\b",
+    "\f": "\\f",
+    "\n": "\\n",
+    "\r": "\\r",
+    "\t": "\\t",
+    "\v": "\\v",
+    "\\": "\\\\",
+    '"': '\\"',
+}
+
+
+def go_quote(text: str) -> str:
+    """Go's strconv.Quote (the %q verb): printable runes as they are, the rest escaped."""
+    parts = []
+    for char in text:
+        code = ord(char)
+        if char in GO_ESCAPES:
+            parts.append(GO_ESCAPES[char])
+        elif char.isprintable():
+            parts.append(char)
+        elif code < 0x80:
+            parts.append(f"\\x{code:02x}")
+        elif code < 0x10000:
+            parts.append(f"\\u{code:04x}")
+        else:
+            parts.append(f"\\U{code:08x}")
+    return '"' + "".join(parts) + '"'
+
+
+def facility_metrics(facility: Facility) -> list[Metric]:
+    """Every term metric of a facility, its quotes included."""
+    found = [metric for metric in facility.terms.values() if metric is not None]
+    for quote in facility.quotes:
+        found.extend(metric for metric in quote.terms.values() if metric is not None)
+    return found
+
+
+def check_terms(
+    terms: dict[str, Metric | None], allowed: tuple[str, ...], verified: dict[str, Source]
+) -> None:
+    """Only the allowed term keys, each a user-provenance metric passing check_metric."""
+    for key in sorted(terms):
+        metric = terms[key]
+        if key not in allowed:
+            raise ValueError(f"facility term {go_quote(key)} is not an allowed term")
+        if metric is None or metric.provenance != "user":
+            raise ValueError(f"facility term {go_quote(key)} must be a user-entered metric")
+        try:
+            check_metric(metric, verified)
+        except ValueError as error:
+            raise ValueError(f"facility term {go_quote(key)}: {error}") from error
+
+
+def check_quoted_source(name: str, key: str, value: str, verified: dict[str, Source]) -> None:
+    """A verified source whose quote holds the value in double quotes."""
+    source = verified.get(key)
+    if source is None or f'"{value}"' not in source.quote:
+        raise ValueError(f"{name} needs a pinned source stating {go_quote(value)}")
+
+
+def check_facilities(run: Run, verified: dict[str, Source]) -> None:
+    seen: set[str] = set()
+    for facility in run.facilities:
+        if not facility.facility_id or facility.facility_id in seen:
+            raise ValueError("facility_id must be non-empty and unique within the run")
+        seen.add(facility.facility_id)
+        check_terms(facility.terms, FACILITY_TERM_KEYS, verified)
+        for quote in facility.quotes:
+            if quote.kind not in ("observed", "indicative_talk"):
+                raise ValueError("facility quote kind must be observed or indicative_talk")
+            check_terms(quote.terms, QUOTE_TERM_KEYS, verified)
+
+
+def check_credit_keys(run: Run, verified: dict[str, Source]) -> None:
+    """Classification, private side and facilities under the same rule as metrics: each is backed
+    by an exact value in a pinned quote.
+    """
+    if not run.classification and run.classification_source:
+        raise ValueError("classification_source needs a classification")
+    if run.classification:
+        if run.classification not in ("investment_grade", "high_yield"):
+            raise ValueError("classification must be investment_grade or high_yield")
+        check_quoted_source(
+            "classification", run.classification_source, run.classification, verified
+        )
+    if not run.private_side and run.private_side_source:
+        raise ValueError("private_side_source needs private_side")
+    if run.private_side:
+        check_quoted_source("private_side", run.private_side_source, "private", verified)
+    check_facilities(run, verified)
 
 
 def verify_identity(root: Path, manifest: Manifest, run: Run, run_id: str) -> dict[str, Source]:
@@ -266,6 +373,22 @@ def apply_defaults(root: Path, run: Run, run_id: str) -> None:
         run.handoff_href = pinned_url(run.handoff, digest(read_file(root, run.handoff)))
 
 
+def prefix_sources(run: Run, run_id: str) -> None:
+    """Qualify every source key the run names with its run id, as the catalogue publishes them."""
+    for metric in run.metrics.values():
+        if metric is not None:
+            metric.source = f"{run_id}.{metric.source}"
+    for rating in run.ratings:
+        rating.source = f"{run_id}.{rating.source}"
+    if run.classification_source:
+        run.classification_source = f"{run_id}.{run.classification_source}"
+    if run.private_side_source:
+        run.private_side_source = f"{run_id}.{run.private_side_source}"
+    for facility in run.facilities:
+        for metric in facility_metrics(facility):
+            metric.source = f"{run_id}.{metric.source}"
+
+
 def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Run:
     run = manifest.run.model_copy(deep=True)
     verified = verify_identity(root, manifest, run, run_id)
@@ -275,6 +398,9 @@ def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Ru
     for rating in run.ratings:
         if rating.source not in verified:
             raise ValueError("rating requires pinned source")
+        if rating.scope not in ("", "issuer", "facility"):
+            raise ValueError("rating scope must be issuer, facility or omitted")
+    check_credit_keys(run, verified)
     run.completion = None
     run.checkpoints = None
     if manifest.checklist is not None:
@@ -291,11 +417,7 @@ def admit_run(root: Path, manifest: Manifest, run_id: str, cat: Catalogue) -> Ru
     for key, source in verified.items():
         cat.sources[f"{run_id}.{key}"] = source
         cat._allowed[source.path] = source.sha256
-    for metric in run.metrics.values():
-        if metric is not None:
-            metric.source = f"{run_id}.{metric.source}"
-    for rating in run.ratings:
-        rating.source = f"{run_id}.{rating.source}"
+    prefix_sources(run, run_id)
     if run.identity_source:
         run.identity_source = f"{run_id}.{run.identity_source}"
     if run.sector_source:

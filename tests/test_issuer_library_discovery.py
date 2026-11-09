@@ -13,7 +13,7 @@ from typing import Any
 import pytest
 from issuer_library_support import EVIDENCE, add_delivery, fixture, put, put_json
 
-from issuer_library.discovery import assess_checklist, discover, stated_numbers
+from issuer_library.discovery import assess_checklist, discover, go_quote, stated_numbers
 from issuer_library.model import (
     Artifact,
     Catalogue,
@@ -704,7 +704,7 @@ def set_pointer(doc: Any, pointer: str, value: Any) -> Any:
             assert part.isdigit() and int(part) < len(node), f"bad array index {part!r}"
             node = node[int(part)]
         else:
-            raise AssertionError(f"pointer {pointer} leaves the document at {part!r}")
+            raise TypeError(f"pointer {pointer} leaves the document at {part!r}")
     last = parts[-1]
     if isinstance(node, dict):
         node[last] = value
@@ -712,7 +712,7 @@ def set_pointer(doc: Any, pointer: str, value: Any) -> Any:
         assert last.isdigit() and int(last) < len(node), f"bad array index {last!r}"
         node[int(last)] = value
     else:
-        raise AssertionError(f"pointer {pointer} has no container")
+        raise TypeError(f"pointer {pointer} has no container")
     return doc
 
 
@@ -735,30 +735,42 @@ def is_number(value: Any) -> bool:
     return isinstance(value, int | float) and not isinstance(value, bool)
 
 
-def subset_diff(want: Any, got: Any, where: str) -> str:
-    """The first place served differs from want: every key and element the answer key holds must be
-    present and equal; arrays must have the same length. As in Go, a JSON number is one kind (int
-    and float alike) and a bool, string or null equals only its own kind.
+def subset_leaf_diff(want: Any, got: Any, where: str) -> str:
+    """Leaves: a JSON number is one kind (int and float alike); a bool, string or null equals only
+    its own kind (Python would otherwise equate True with 1).
     """
+    same_kind = (is_number(want) and is_number(got)) or type(want) is type(got)
+    return "" if same_kind and want == got else f"{where}: want {want} got {got}"
+
+
+MISSING = object()
+
+
+def subset_children(want: Any, got: Any, where: str) -> list[tuple[Any, Any, str]] | str:
+    """The (wanted, served, place) pairs under a container, in order, or why it cannot match."""
     if isinstance(want, dict):
         if not isinstance(got, dict):
             return f"{where}: not an object"
-        for key, value in want.items():
-            if key not in got:
-                return f"{where}/{key}: missing"
-            if diff := subset_diff(value, got[key], f"{where}/{key}"):
-                return diff
-    elif isinstance(want, list):
-        if not isinstance(got, list) or len(got) != len(want):
-            return f"{where}: array length differs ({got})"
-        for i, item in enumerate(want):
-            if diff := subset_diff(item, got[i], f"{where}/{i}"):
-                return diff
-    elif is_number(want) and is_number(got):
-        if want != got:
-            return f"{where}: want {want} got {got}"
-    elif type(want) is not type(got) or want != got:
-        return f"{where}: want {want} got {got}"
+        return [(value, got.get(key, MISSING), f"{where}/{key}") for key, value in want.items()]
+    if not isinstance(got, list) or len(got) != len(want):
+        return f"{where}: array length differs ({got})"
+    return [(item, got[i], f"{where}/{i}") for i, item in enumerate(want)]
+
+
+def subset_diff(want: Any, got: Any, where: str) -> str:
+    """The first place served differs from want: every key and element the answer key holds must be
+    present and equal; arrays must have the same length.
+    """
+    if not isinstance(want, dict | list):
+        return subset_leaf_diff(want, got, where)
+    children = subset_children(want, got, where)
+    if isinstance(children, str):
+        return children
+    for value, have, place in children:
+        if have is MISSING:
+            return f"{place}: missing"
+        if diff := subset_diff(value, have, place):
+            return diff
     return ""
 
 
@@ -795,7 +807,7 @@ def test_manifest_admits_answer_key(tmp_path: Path, name: str) -> None:
     facilities = served["facilities"]
     want_facilities = want.get("facilities")
     assert isinstance(facilities, list) and isinstance(want_facilities, list), (
-        f"facilities must be served as an array: {served['facilities']} (answer key {want_facilities})"
+        f"facilities must be served as an array: {facilities} (answer key {want_facilities})"
     )
     assert want_facilities or facilities == []
 
@@ -893,3 +905,17 @@ def test_writer_key_is_admitted_with_its_checklist(tmp_path: Path, key_file: Pat
     assert run.checkpoints is not None
     assert (run.checkpoints.done, run.checkpoints.total) == (done, total)
     assert run.completion == done * 100 // total
+
+
+@pytest.mark.parametrize(
+    ("text", "want"),
+    [
+        ("size_m", '"size_m"'),
+        ('a"b\\c', '"a\\"b\\\\c"'),
+        ("a\nb\x01\x7f", '"a\\nb\\x01\\x7f"'),
+        ("\u00e9\u00a0\u200b", '"\u00e9\\u00a0\\u200b"'),
+        ("\U0001f600\U000e0001", '"\U0001f600\\U000e0001"'),
+    ],
+)
+def test_go_quote_matches_strconv_quote(text: str, want: str) -> None:
+    assert go_quote(text) == want
