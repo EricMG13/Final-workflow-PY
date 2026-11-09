@@ -164,3 +164,115 @@ def test_layout_controls_reach_32px() -> None:
         "#section-nav button",
     ):
         assert any(re.search(r"(^|;)(min-)?height:32px", b) for b in rule(selector)), selector
+
+
+def test_content_table_cards_are_bounded_and_keep_their_header_in_view() -> None:
+    card = re.search(r"(?:^|[}\n])\.table-scroll\{([^}]*)\}", SCREEN)
+    assert card, "no .table-scroll rule"
+    assert "max-height:70vh" in card.group(1) and "overflow:auto" in card.group(1)
+    head = re.search(r"\.table-scroll thead th\{([^}]*)\}", SCREEN)
+    assert head, "no .table-scroll thead th rule"
+    assert "position:sticky" in head.group(1) and "top:0" in head.group(1)
+    assert "background:var(--gray-50)" in head.group(1)
+
+
+def test_the_section_bar_is_sticky_with_its_run_and_module_prefix_at_720px_and_below() -> None:
+    assert re.search(r"\.section-context\{display:none\}", SCREEN)
+    media = "\n".join(re.findall(r"@media\(max-width:720px\)\{(.*)", SCREEN))
+    bar = re.search(r"#section-nav\{[^}]*position:sticky[^}]*\}", media)
+    assert bar, "no sticky #section-nav at 720px"
+    for part in ("top:0", "background:#fff", "border-bottom:1px solid var(--rule)"):
+        assert part in bar.group(0), part
+    assert re.search(r"#section-nav \.section-context\{display:block", media)
+
+
+def test_the_rail_opens_as_an_overlay_for_focus_too_and_stops_animating_under_reduced_motion() -> (
+    None
+):
+    opened = re.findall(r"\.rail\.rail-open[^{}]*\{[^}]*\}", SCREEN)
+    assert any("width:220px" in r for r in opened), "open rail is 220px wide"
+    assert not re.search(r"\.app\{[^}]*margin-left:220px", SCREEN), "the page does not reflow"
+    assert ".rail:focus-within" not in SCREEN, "a mouse click must not leave the rail open"
+    covered = [line for line in SCREEN.split("\n") if re.match(r"\.rail\.rail-open", line)]
+    assert len(covered) >= 4
+    for line in covered:
+        selectors = line[: line.index("{")]
+        for sel in (s for s in selectors.split(",") if ".rail-open" in s):
+            assert sel.replace(".rail-open", ":has(:focus-visible)") in selectors, sel
+    assert re.search(
+        r"\.rail:not\(\.rail-open\)[^{]*\.rail-label|\.rail-label\{[^}]*clip:rect\(0,0,0,0\)",
+        SCREEN,
+    ), "labels are clipped at rest"
+    assert not re.search(r"\.rail-label\{[^}]*display:none", SCREEN)
+    reduced = "".join(re.findall(r"@media\(prefers-reduced-motion:reduce\)\{(.*)\}", SCREEN))
+    assert re.search(r"\.rail\{[^}]*transition:none", reduced)
+    assert re.search(r"\.rail\{[^}]*transition:width", SCREEN)
+
+
+def test_at_720px_the_section_bar_outranks_every_sticky_cell_and_row_labels_are_capped() -> None:
+    start = "@media(max-width:720px){#section-nav{z-index:5}"
+    mobile = SCREEN[SCREEN.rindex(start) :]
+    bar = int(re.search(r"#section-nav\{z-index:(\d+)\}", mobile).group(1))  # type: ignore[union-attr]
+    cells = [int(z) for z in re.findall(r"position:sticky[^}]*z-index:(\d+)", SCREEN)]
+    assert cells
+    assert all(z < bar for z in cells), f"a sticky cell reaches {max(cells)}, bar is {bar}"
+    assert re.search(
+        r"\.cashflow tbody th\[scope=row\]\{[^}]*white-space:normal"
+        r"[^}]*min-width:12rem[^}]*max-width:12rem",
+        mobile,
+    )
+
+
+def test_every_custom_property_screen_css_reads_without_a_fallback_is_defined_in_screen_css() -> (
+    None
+):
+    defined = set(re.findall(r"(--[\w-]+)\s*:", SCREEN))
+    bare = re.findall(r"var\((--[\w-]+)\)", SCREEN)
+    assert sorted(set(bare) - defined) == []
+    assert re.search(r"\.ref\{[^}]*color:var\(--muted\)", SCREEN)
+
+
+def test_the_amber_run_mark_glyph_and_the_amber_strip_text_hold_4_5_to_1_on_their_backgrounds() -> (
+    None
+):
+    def token(name: str) -> str:
+        found = re.search(rf"--{name}:(#[0-9a-f]{{6}})", SCREEN, re.IGNORECASE)
+        assert found, name
+        return found.group(1)
+
+    mark = re.search(
+        r"\.run-mark\[data-state=stopped\]\{background:var\(--([a-z-]+)\);color:var\(--([a-z-]+)\)",
+        SCREEN,
+    )
+    assert mark, "amber mark rule"
+    assert contrast(token(mark.group(2)), token(mark.group(1))) >= 4.5
+    assert contrast(token("amber"), token("amber-bg")) >= 4.5
+
+
+def test_cash_flow_rows_are_32px_labels_hold_12rem_groups_ruled_scenarios_on_quiet() -> None:
+    cell = re.search(r"\.cashflow tbody th,\.cashflow tbody td\{([^}]*)\}", SCREEN)
+    assert cell, "no cash flow cell rule"
+    for part in ("height:32px", "padding-top:5px", "padding-bottom:5px", "line-height:20px"):
+        assert part in cell.group(1), part
+    label = re.search(r"\.cashflow tbody th\[scope=row\]\{([^}]*min-width:12rem[^}]*)\}", SCREEN)
+    assert label, "row labels have no 12rem minimum"
+    assert "white-space:normal" in label.group(1)
+    assert not re.search(r"\.cashflow[^{]*\{[^}]*text-overflow:ellipsis", SCREEN)
+    assert ".cashflow .group-start{border-left:1px solid var(--rule)}" in SCREEN
+    assert ".cashflow td.scenario{background:var(--quiet)}" in SCREEN
+
+
+def test_the_published_model_disclosure_and_cash_flow_region_are_a_quiet_disclosure() -> None:
+    assert re.search(r"\.model-original>summary\{[^}]*cursor:pointer[^}]*min-height:32px", SCREEN)
+
+
+def test_the_run_strip_uses_the_card_radius_a_wide_supporting_line_and_24px_action_targets() -> (
+    None
+):
+    def strip_rule(selector: str) -> str:
+        found = re.search(rf"(?:^|\}}){re.escape(selector)}\{{([^}}]*)\}}", SCREEN, re.MULTILINE)
+        return found.group(1) if found else ""
+
+    assert "border-radius:var(--radius-card)" in strip_rule(".run-strip")
+    assert "max-width:120ch" in strip_rule(".strip-text")
+    assert "min-height:24px" in strip_rule(".strip-actions a")
