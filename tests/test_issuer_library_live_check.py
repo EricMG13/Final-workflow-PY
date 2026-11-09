@@ -315,7 +315,6 @@ def test_forecast_against_outcome_reports_every_disagreement(tmp_path: Path) -> 
     forecast = {"CP-0": "ready", "CP-1": "ready", "CP-2": "will_refuse", "CP-4": "will_refuse"}
     found, did = live_check.outcome_faults(forecast, tmp_path)
     assert found == [
-        "CP-0: forecast ready, run did unconfirmed (CP-0 is the table, not a module under test)",
         "CP-1: forecast ready, run did limited (READY_WITH_LIMITATIONS in CP-0 handoff)",
         "CP-2: forecast will_refuse, run did unconfirmed (accepted, no status stated)",
         "CP-4: forecast will_refuse, run did not_reached (no handoff)",

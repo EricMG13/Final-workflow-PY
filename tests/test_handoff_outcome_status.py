@@ -1,9 +1,11 @@
 """R-SB2-1 answer key: a module's status comes from its own YAML fields, then CP-0's CONDITIONAL."""
 
 import importlib.util
+import json
 import shutil
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -44,7 +46,7 @@ def test_retained_c1_through_live_check_outcome_faults(tmp_path: Path) -> None:
         "CP-1": "limited",
         "CP-4": "limited",
     }
-    assert any(f.startswith("CP-0:") for f in found)
+    assert not any(f.startswith("CP-0:") for f in found)
     assert any(f.startswith("CP-1:") for f in found)
     assert not any(f.startswith("CP-4:") for f in found)
 
@@ -68,6 +70,13 @@ CASES = {
         "",
         "limited",
     ),
+    "l": (handoff(body="Module Status: **Blocked**\n"), "", "will_refuse"),
+    "m": (handoff(body="`Module Status: Blocked`\n"), "", "will_refuse"),
+    "n": (handoff(body="- Module Status: Blocked.\n"), "", "will_refuse"),
+    "o": (handoff(body="**Module Status**: Completed with Limitations\n"), "", "limited"),
+    "p": (handoff(body="| Module Status | Blocked |\n"), "", "unconfirmed"),
+    "q": (handoff(body="Module Status: Blocked pending review\n"), "", "unconfirmed"),
+    "r": (handoff(body="Module Status: completed with limitations\n"), "", "limited"),
     "table-column-never-counts": (
         handoff(body="| x | Module Status |\n|---|---|\n| a | Blocked |\n"),
         "",
@@ -93,3 +102,36 @@ def test_c1_cp4_table_column_does_not_change_the_result() -> None:
     got = handoff_outcome.actual_of("CP-4", own, cp0)
     assert got[0] == "limited"
     assert "Module Status" not in got[1]
+
+
+def test_case_outcomes_reports_cp0_not_testable(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    modules = ["CP-0", "CP-4"]
+    intake = tmp_path / "intake/x"
+    intake.mkdir(parents=True)
+    review = {"modules": modules, "expectations": [{"scope": "CP-4", "outcome": "limited"}]}
+    (intake / "review.json").write_text(json.dumps(review))
+    run = tmp_path / "runs/web-x"
+    run.mkdir(parents=True)
+    for name in modules:
+        shutil.copy(FIXTURES / f"{name}.md", run / f"{name}.md")
+    expected = {
+        "ordered_modules": modules,
+        "counted_total": 0,
+        "modules": {"CP-4": [{"outcome": "limited"}]},
+    }
+    notes: list[tuple[bool, str]] = []
+
+    class Notes:
+        def note(self, ok: bool, what: str, fault: bool = True, kind: str = "check") -> None:
+            notes.append((ok, what))
+
+    monkeypatch.setattr(live_check, "required_outputs", lambda *a, **k: [])
+    args = SimpleNamespace(case_data={"expected-outcomes": expected})
+    live_check.case_outcomes(Notes(), args, tmp_path, {})
+    assert not any("CP-0:" in what for _, what in notes)
+    assert "CP-0: not testable (states no status of its own)\n" in capsys.readouterr().out
+    ok, what = notes[-1]
+    assert ok is True
+    assert what.startswith("forecast confirmed equal for the 1 testable modules")
