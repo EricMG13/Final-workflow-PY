@@ -18,7 +18,7 @@ declaration. The bridge returns the expectations; the app shows them first on th
 requires a separate acceptance of the counted items, which is recorded in the run folder before any
 provider call. No new orchestration layer and no model call before Start.
 
-**Tech Stack:** Python 3.13 (stdlib, pydantic), Go, plain browser JavaScript; jsdom test-only.
+**Tech Stack:** Python 3.13 (stdlib, pydantic), FastAPI server (`src/issuer_library`), plain browser JavaScript; pytest and Playwright.
 
 **Delivery:** two PRs: Stage 1 (Tasks 1-5, Checkpoint A) and Stage 2 (Tasks 6-8, Checkpoint B).
 
@@ -123,7 +123,7 @@ Caps total USD 55, or USD 105 with A-ab.
 
 **Files:** modify `docs/templates/context-form.html`, `docs/templates/README.md`,
 `apps/issuer-library/web/context-embed.js`, `src/deploy_workflow/context.py`,
-`tests/product/test_context.py`, `apps/issuer-library/web/context-embed.test.cjs`,
+`tests/product/test_context.py`, `tests/test_issuer_library_context_embed.py`,
 `apps/issuer-library/validate.py`; regenerate `apps/issuer-library/web/context-form.html` with
 `packaging/sync_assets.py`.
 
@@ -251,10 +251,10 @@ from `data/public-corpus/v1/TDG`; add a dated entry to `VERIFICATION.md`.
 
 ### Task 6: Start requires and records acceptance
 
-**Files:** modify `apps/issuer-library/jobs.go`, `apps/issuer-library/jobs_test.go`,
+**Files:** modify `src/issuer_library/jobs.py`, `tests/test_issuer_library_jobs.py`,
 `apps/issuer-library/engine/bridge.py`, `tests/test_cpos_app.py`.
 
-- [ ] **Go side:**
+- [ ] **Server side:**
   - `startRun`'s request struct gains `accept_limitations` (unknown fields are refused).
   - When `review.json` counts any items and acceptance is false: answer 400, with no claim made.
 - [ ] **`bridge.start`:**
@@ -271,7 +271,7 @@ from `data/public-corpus/v1/TDG`; add a dated entry to `VERIFICATION.md`.
 ### Task 7: Review step shows expectations first
 
 **Files:** modify `apps/issuer-library/web/actions.js`, `apps/issuer-library/web/screen.css`,
-`apps/issuer-library/web/new-run.test.cjs`.
+`tests/test_issuer_library_new_run.py`.
 
 - [ ] The context summary line and Review header show the classification ("Investment grade", "High
       yield" or "Not stated").

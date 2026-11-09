@@ -526,3 +526,37 @@ Checks: `tests/test_nightly_tests.py` 9 passed and `tests/test_quality_gate.py` 
 this change exits 0. Not verified: the workflow has not run. Scheduled runs start once it is on
 `main`; its first run establishes the real known-failure list and duration.
 
+
+## 2026-11-09 — Plan 2 Task 5b fix batch, browser side (SB2, branch `claude/sb2-plan-2-277424`)
+
+Scope: `designs/browser_check.py`, `web/screen.css`, two test files. Task 5b's review-1 Important
+findings (I1 per-run checks dropped; I2 "not exercisable" failing open on live runs) were fixed by
+the WIP copied in #19/#25; a scoped mx-precise re-review approved both (probe
+`task5b_live_not_exercisable_fails.py` exit 0; key `single-run-answer-key.json` byte-identical to
+e84827cc). This PR fixes the S6 B.1 list's browser items: the Library's selected-run head at 390 px
+(a 36-character run id and the nowrap Open run / Open report buttons gave scrollWidth 548; the head
+now wraps), `chart_style` split into the default and `chart_style_single`, `single_main` closes the
+browser in a `finally`, and a unit test of `not_exercisable`'s fail and skip branches.
+Checks: CSS test red on the old rule, green after; probe `p390_library_overflow.py` 548 → 390 (exit
+0) on a fresh fake-engine run; detail actions stay beside the title at 1280/1366/1536 (probe);
+`validate.py browser` 86 passed, 0 failed; `validate.py quick` exit 0; offline rehearsal
+(`live_check --case a-live --rehearse`, fake engine, no provider): both 390-px checks pass in both
+engines; its remaining failures are the fake engine's handoffs stating no status ("unconfirmed",
+lead ruling: leave). Not verified: the `finally` path with a raising `attempt`; any paid run.
+
+## 2026-11-09 — Plan 2: live-check status reader, lead rulings R-SB2-1/1a/1b (SB2, branch `claude/sb2-5b-status`)
+
+Scope: `src/deploy_workflow/handoff_outcome.py`, `designs/live_check.py` (CP-0 reporting only),
+answer-key tests and C1 fixtures. Cause: SB3's paid C1 run (`web-8a674922…`, sol-medium) read CP-4
+as "unconfirmed": the reader knew only CP-0's READY/READY_WITH_LIMITATIONS/BLOCKED, while CP-4's
+method has it write YAML `qa_status`/`committee_status` and a `Module Status:` line, and CP-0's
+method a CONDITIONAL status. Lead rulings (answer keys, written by agents other than the
+implementer): own YAML fields and the `Module Status:` line first, most severe wins; CP-0's table
+only when the module states nothing; CONDITIONAL → will_refuse with no own handoff; CP-0 itself
+"not testable", left out of the live check's faults and count.
+Checks: answer-key tests red then green (80 targeted pass); C1 re-read offline on a copy (no
+provider): CP-4 unconfirmed → limited (`qa_status: Restricted`), CP-1 limited, CP-0 not testable;
+back-test changes only CP-0 rows (cpos-launch-live-001 not_reached → unconfirmed; web-04cd…
+limited → unconfirmed, disagreed → not testable); `validate.py browser` 86/0; quick exit 0;
+quality gate 0; two mx-precise reviews APPROVE. Not verified: a live run's handoffs beyond the C1
+fixtures; combined markups on one `Module Status:` line (read unconfirmed; question with the lead).

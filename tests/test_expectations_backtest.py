@@ -31,3 +31,7 @@ def test_a_module_with_no_handoff_is_read_from_cp0_only_when_cp0_says_blocked() 
         "will_refuse",
         "run stopped here",
     )
+    assert handoff_outcome.actual_of("CP-1", None, "CP-1 READY", refused=True) == (
+        "will_refuse",
+        "run stopped here",
+    )
