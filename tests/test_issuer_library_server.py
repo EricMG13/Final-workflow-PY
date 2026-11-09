@@ -856,7 +856,7 @@ def test_a_run_started_while_the_new_workspace_is_read_refuses_the_switch(
     monkeypatch.setattr(server_module, "discover", start_a_run)
     response = call(client_of(app), "POST", "/api/settings", json.dumps({"workspace": str(other)}))
     assert response.status_code == 409, response.text
-    assert response.json()["detail"] == "Wait for the active run before changing its workspace"
+    assert response.text.strip() == "Wait for the active run before changing its workspace"
     with app.lock:
         assert app.config.workspace == str(root) and app.catalogue.workspace == str(root)
 
