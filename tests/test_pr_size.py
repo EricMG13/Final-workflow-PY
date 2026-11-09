@@ -244,3 +244,15 @@ def test_edited_difference_over_800_fails(tmp_path: Path) -> None:
     repo, base = edited_setup(tmp_path, 401)
     assert pr_size.pr_lines(base, repo) == 802
     assert run(repo, base) == 1
+
+
+def test_edited_path_binary_at_source_keeps_its_range_count(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"code.py": b"bin\x00ary\n"})
+    commit(
+        repo,
+        "new text",
+        {"code.py": lines(1000), "tools/copied-from.txt": listing_text(sha, "edited code.py")},
+    )
+    assert pr_size.pr_lines(base, repo) == 1000
+    assert run(repo, base) == 1

@@ -89,13 +89,16 @@ def _is_excluded(path: str) -> bool:
     return rest != path and "/" not in rest and rest.endswith(ANSWER_KEY_SUFFIX)
 
 
-def _edit_lines(repo: Path, sha: str, path: str) -> int:
-    """Added plus deleted lines of one file, HEAD against the source commit."""
+def _edit_lines(repo: Path, sha: str, path: str) -> int | None:
+    """Added plus deleted lines of one file, HEAD against the source commit.
+
+    None when git reports the file binary (either side), so the caller keeps its range count.
+    """
     out = _git(repo, "diff", "--numstat", "--no-renames", sha, "HEAD", "--", path)
     if not out.strip():
         return 0
     added, deleted, _ = out.decode("utf-8").split("\t", 2)
-    return 0 if added == "-" or deleted == "-" else int(added) + int(deleted)
+    return None if added == "-" or deleted == "-" else int(added) + int(deleted)
 
 
 def pr_lines(base: str, repo: Path) -> int:
@@ -112,10 +115,8 @@ def pr_lines(base: str, repo: Path) -> int:
         added, deleted, path = record.split("\t", 2)
         if path in copied or _is_excluded(path) or added == "-" or deleted == "-":
             continue
-        if path in edited:
-            total += _edit_lines(repo, sha, path)
-        else:
-            total += int(added) + int(deleted)
+        own = _edit_lines(repo, sha, path) if path in edited else None
+        total += int(added) + int(deleted) if own is None else own
     return total
 
 
