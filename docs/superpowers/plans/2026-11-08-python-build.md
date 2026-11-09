@@ -236,7 +236,7 @@ Not ported: upstream changes to `packaging/runtime.py` and `smoke_test.py`, beca
 
 - [ ] **Step 1:** Port the listed cases into the two test files. A case that cannot apply to the Python design (for example Go-only lock ordering) becomes `pytest.mark.skip(reason="not applicable: <why>")`, and the reason is copied into the PR body.
 - [ ] **Step 2: Run** `uv run pytest tests/test_issuer_library_launch.py tests/test_issuer_library_quit.py -q`. Expected: the failures are the not-yet-built behaviour.
-- [ ] **Step 3: Implement** until the ported cases pass. Use `secrets.compare_digest` for every secret comparison and `os.open(..., O_CREAT|O_EXCL)` for request files. On Windows, the state-folder check uses `icacls` output, as the Go `TestWindowsAccessListJudgement` table pins.
+- [ ] **Step 3: Implement** until the ported cases pass. Use `secrets.compare_digest` for every secret comparison and `os.open(..., O_CREAT|O_EXCL)` for request files. On Windows, the state-folder check reads the folder's DACL with `GetNamedSecurityInfoW` (ctypes) and judges it as the Go `TestWindowsAccessListJudgement` table pins.
 - [ ] **Step 4: Run** the two files, `tests/test_issuer_library_server.py`, the quality gate and `validate.py quick`. Expected: exit 0.
 - [ ] **Step 5: Commit** per behaviour (ticket and session; same-site; relaunch and quit). Open PR 1-D.
 
