@@ -24,8 +24,10 @@ from .model import (
     DeliveryRecord,
     DeliveryView,
     FileLink,
+    LaunchedWorkflow,
     Manifest,
     Metric,
+    RecordedIdentity,
     Run,
     Source,
     blank_run,
@@ -359,49 +361,169 @@ def index_run_files(root: Path, folder: str, cat: Catalogue, run: Run) -> None:
         cat.issues.append(f"{folder}: {error}")
 
 
-def verify_delivery(root: Path, folder: str) -> tuple[Artifact, DeliveryView, dict[str, str]]:
-    artifact = Artifact(
-        folder=folder, label=os.path.basename(folder), state="candidate", relationship="direct"
-    )
-    view = DeliveryView()
+def pin_delivery_files(
+    root: Path, folder: str, record: DeliveryRecord, view: DeliveryView
+) -> tuple[str, DeliveryView, dict[str, str]]:
+    """Every file the delivery lists, read and hashed; the first problem as text, else ""."""
     files: dict[str, str] = {}
-    try:
-        record = read_json(root, f"{folder}/delivery.json", DeliveryRecord)
-    except (OSError, ValueError) as error:
-        artifact.issue = describe(error)
-        return artifact, view, files
-    if not record.files.get("report.html") or not record.files.get("view.json"):
-        artifact.issue = "Delivery manifest requires report.html and view.json"
-        return artifact, view, files
     for name, sha256 in record.files.items():
         if not local_path(name):
-            artifact.issue = "Invalid delivery path"
-            return artifact, view, files
+            return "Invalid delivery path", view, files
         try:
             raw = read_file(root, f"{folder}/{name}")
         except (OSError, ValueError):
             raw = None
         if raw is None or digest(raw) != sha256:
-            artifact.issue = f"Missing or changed delivery file: {name}"
-            return artifact, view, files
+            return f"Missing or changed delivery file: {name}", view, files
         if name == "view.json":
             try:
                 view = DeliveryView.model_validate_json(raw)
             except ValueError:
-                artifact.issue = "Invalid delivery identity"
-                return artifact, view, files
+                return "Invalid delivery identity", view, files
         files[f"{folder}/{name}"] = sha256
-    if not view.run.issuer_id or not view.run.issuer_name or not view.run.run_id:
+    return "", view, files
+
+
+def verify_delivery(root: Path, folder: str) -> tuple[Artifact, DeliveryView, dict[str, str]]:
+    artifact = Artifact(
+        folder=folder, label=os.path.basename(folder), state="candidate", relationship="direct"
+    )
+    view = DeliveryView()
+    try:
+        record = read_json(root, f"{folder}/delivery.json", DeliveryRecord)
+    except (OSError, ValueError) as error:
+        artifact.issue = describe(error)
+        return artifact, view, {}
+    # A delivery presents either a report or, lacking one, a published model.
+    page, artifact.kind = "report.html", "report"
+    if not record.files.get(page) and record.files.get("model.html"):
+        page, artifact.kind = "model.html", "model"
+    if not record.files.get(page) or not record.files.get("view.json"):
+        artifact.issue = "Delivery manifest requires report.html and view.json"
+        return artifact, view, {}
+    artifact.issue, view, files = pin_delivery_files(root, folder, record, view)
+    if not artifact.issue and not (view.run.issuer_id and view.run.issuer_name and view.run.run_id):
         artifact.issue = "Missing delivery issuer/run identity"
-        return artifact, view, files
-    if not calendar_date(view.run.as_of):
+    elif not artifact.issue and not calendar_date(view.run.as_of):
         artifact.issue = "Invalid delivery evidence date"
+    if artifact.issue:
         return artifact, view, files
     artifact.available = True
-    artifact.href = pinned_url(f"{folder}/report.html", record.files["report.html"])
+    artifact.href = pinned_url(f"{folder}/{page}", record.files[page])
     if view.mode:
         artifact.state = view.mode
     return artifact, view, files
+
+
+def run_delivery_identity_issue(
+    root: Path, folder: str, run_id: str, run: Run, view: DeliveryView
+) -> str:
+    """Check a delivery kept inside runs/<id>/deliveries against that run; "" when it belongs.
+
+    The launcher names the folder web-<hex> but stamps its deliveries with the run identity
+    recorded in the run's own workflow.json, so either the folder id or the recorded run id is
+    accepted; an issuer recorded by the launcher or admitted from the run manifest must match.
+    """
+    try:
+        recorded = read_json(root, f"{folder}/workflow.json", LaunchedWorkflow).run
+    except (OSError, ValueError):
+        # Unreadable or malformed: fall back to the folder id alone. Fail closed: a type error
+        # rejects the whole record (run_id and issuer_id alike), so none of it may be used.
+        recorded = RecordedIdentity()
+    if view.run.run_id != run_id and (not recorded.run_id or view.run.run_id != recorded.run_id):
+        return "Delivery run identity does not match this run"
+    if recorded.issuer_id and view.run.issuer_id != recorded.issuer_id:
+        return "Delivery issuer does not match run"
+    if run.issuer and run.issuer != "Unclassified" and view.run.issuer_id != run.issuer:
+        return "Delivery issuer does not match run"
+    return ""
+
+
+def declared_as(declared: Artifact, artifact: Artifact) -> Artifact:
+    """A verified delivery under the label and relationship its run manifest declared.
+
+    A declared superseded state is kept.
+    """
+    updated = artifact.model_copy()
+    updated.label = declared.label
+    updated.relationship = declared.relationship
+    if declared.state == "superseded":
+        updated.state = declared.state
+    return updated
+
+
+def admit_run_deliveries(root: Path, folder: str, run: Run, cat: Catalogue) -> None:
+    """A launcher run keeps its verified deliveries inside the run; run files stay unverified."""
+    try:
+        deliveries = folders(root, f"{folder}/deliveries")
+    except (OSError, ValueError):
+        deliveries = []
+    run_id = os.path.basename(folder)
+    for delivered in deliveries:
+        artifact, view, files = verify_delivery(root, delivered)
+        if artifact.available:
+            # A delivery copied in from another run or issuer must not pass for this one.
+            issue = run_delivery_identity_issue(root, folder, run_id, run, view)
+            if issue:
+                artifact.available, artifact.href, artifact.issue = False, "", issue
+        if not artifact.available:
+            cat.issues.append(f"{delivered}: {artifact.issue}")
+            for old in run.artifacts:
+                if old.folder == delivered:
+                    old.issue = artifact.issue
+            continue
+        cat._allowed.update(files)
+        declared = False
+        for position, old in enumerate(run.artifacts):
+            if old.folder == delivered:
+                run.artifacts[position] = declared_as(old, artifact)
+                declared = True
+        if not declared:
+            run.artifacts.append(artifact)
+
+
+def link_deliverable(cat: Catalogue, folder: str, artifact: Artifact, view: DeliveryView) -> bool:
+    """Attach a deliverables/ folder to the runs that declare it or share its run identity."""
+    linked = False
+    for run in cat.real:
+        for position, old in enumerate(run.artifacts):
+            if old.folder != folder:
+                continue
+            updated = declared_as(old, artifact)
+            if artifact.available and view.run.issuer_id != run.issuer:
+                updated.available = False
+                updated.href = ""
+                updated.issue = "Delivery issuer does not match run"
+            run.artifacts[position] = updated
+            if not artifact.available or updated.available:
+                linked = True
+        # A matching run identifier is explicit identity; shared issuer alone is not.
+        if artifact.available and run.id == view.run.run_id and run.issuer == view.run.issuer_id:
+            if not any(item.folder == folder for item in run.artifacts):
+                run.artifacts.append(artifact.model_copy())
+            linked = True
+    return linked
+
+
+def withhold_unverified_completeness(run: Run, cat: Catalogue) -> None:
+    if not run._delivery_claimed:
+        return
+    # The delivery checkpoint is the report bundle: a published model alone does not complete a run.
+    available = any(
+        item.available
+        and item.kind == "report"
+        and item.state != "superseded"
+        and item.relationship != "related"
+        for item in run.artifacts
+    )
+    if available:
+        return
+    run.completion = None
+    run.checkpoints = None
+    run.gaps.append("Checklist delivery checkpoint is unverified: no available direct report.")
+    cat.issues.append(
+        f"{run.id}: completeness withheld until its delivery checkpoint can be verified"
+    )
 
 
 def seed_manifest(seed: Run, seeds: Catalogue) -> Manifest:
@@ -415,6 +537,35 @@ def seed_manifest(seed: Run, seeds: Catalogue) -> Manifest:
     ]
     manifest.sources = {key: seeds.sources.get(key, Source()) for key in keys if key}
     return manifest
+
+
+def unattached_delivery(artifact: Artifact, view: DeliveryView) -> Run:
+    run = blank_run(f"delivery:{os.path.basename(artifact.folder)}")
+    run.title = "Delivery revision"
+    run.workflow = "Delivery"
+    run.artifacts = [artifact.model_copy()]
+    if artifact.available:
+        run.issuer = view.run.issuer_id
+        run.name = view.run.issuer_name
+        run.date = view.run.as_of
+        run.period = view.run.as_of
+        run.summary = (
+            f"Discovered delivery for {view.run.run_id}. Its relationship to analytical "
+            "run folders has not been established; no metrics or completion are inferred."
+        )
+    return run
+
+
+def place_deliverable(root: Path, folder: str, cat: Catalogue) -> None:
+    """A deliverables/ folder verified, pinned and attached to its runs, else a run of its own."""
+    artifact, view, files = verify_delivery(root, folder)
+    linked = link_deliverable(cat, folder, artifact, view)
+    if artifact.available:
+        cat._allowed.update(files)
+    else:
+        cat.issues.append(f"{folder}: {artifact.issue}")
+    if not linked:
+        cat.real.append(unattached_delivery(artifact, view))
 
 
 def discover(workspace: str, seeds: Catalogue) -> Catalogue:
@@ -460,18 +611,7 @@ def discover(workspace: str, seeds: Catalogue) -> Catalogue:
             artifact.href = ""
             artifact.issue = "Delivery folder not found"
         index_run_files(root, folder, cat, run)
-        # A launcher run keeps its verified deliveries inside the run; run files stay unverified.
-        try:
-            deliveries = folders(root, f"{folder}/deliveries")
-        except (OSError, ValueError):
-            deliveries = []
-        for delivered in deliveries:
-            artifact, _, files = verify_delivery(root, delivered)
-            if not artifact.available:
-                cat.issues.append(f"{delivered}: {artifact.issue}")
-                continue
-            cat._allowed.update(files)
-            run.artifacts.append(artifact)
+        admit_run_deliveries(root, folder, run, cat)
         cat.real.append(run)
     try:
         delivery_folders = folders(root, "deliverables")
@@ -479,67 +619,8 @@ def discover(workspace: str, seeds: Catalogue) -> Catalogue:
         cat.issues.append(str(error))
         delivery_folders = []
     for folder in delivery_folders:
-        artifact, view, files = verify_delivery(root, folder)
-        linked = False
-        for run in cat.real:
-            for position, old in enumerate(run.artifacts):
-                if old.folder != folder:
-                    continue
-                updated = artifact.model_copy()
-                updated.label = old.label
-                updated.relationship = old.relationship
-                if old.state == "superseded":
-                    updated.state = old.state
-                if artifact.available and view.run.issuer_id != run.issuer:
-                    updated.available = False
-                    updated.href = ""
-                    updated.issue = "Delivery issuer does not match run"
-                run.artifacts[position] = updated
-                if not artifact.available or updated.available:
-                    linked = True
-            # A matching run identifier is explicit identity; shared issuer alone is not.
-            if (
-                artifact.available
-                and run.id == view.run.run_id
-                and run.issuer == view.run.issuer_id
-            ):
-                if not any(item.folder == folder for item in run.artifacts):
-                    run.artifacts.append(artifact.model_copy())
-                linked = True
-        if artifact.available:
-            cat._allowed.update(files)
-        else:
-            cat.issues.append(f"{folder}: {artifact.issue}")
-        if not linked:
-            run = blank_run(f"delivery:{os.path.basename(folder)}")
-            run.title = "Delivery revision"
-            run.workflow = "Delivery"
-            run.artifacts = [artifact.model_copy()]
-            if artifact.available:
-                run.issuer = view.run.issuer_id
-                run.name = view.run.issuer_name
-                run.date = view.run.as_of
-                run.period = view.run.as_of
-                run.summary = (
-                    f"Discovered delivery for {view.run.run_id}. Its relationship to analytical "
-                    "run folders has not been established; no metrics or completion are inferred."
-                )
-            cat.real.append(run)
+        place_deliverable(root, folder, cat)
     for run in cat.real:
-        if not run._delivery_claimed:
-            continue
-        available = any(
-            item.available and item.state != "superseded" and item.relationship != "related"
-            for item in run.artifacts
-        )
-        if not available:
-            run.completion = None
-            run.checkpoints = None
-            run.gaps.append(
-                "Checklist delivery checkpoint is unverified: no available direct deliverable."
-            )
-            cat.issues.append(
-                f"{run.id}: completeness withheld until its delivery checkpoint can be verified"
-            )
+        withhold_unverified_completeness(run, cat)
     cat.real.sort(key=lambda run: (run.name, run.id))
     return cat
