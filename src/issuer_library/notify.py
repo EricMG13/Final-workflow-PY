@@ -54,19 +54,37 @@ STOP_REASON_WORDS = {
     "ruling": "a provider ruling or pause is in force",
 }
 
-# The fixed PowerShell program for the Windows notice. The text arrives only through the two
-# environment variables and is set as XML text nodes, never concatenated.
-TOAST_SCRIPT = r"""$ErrorActionPreference = 'Stop'
-$null = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
-$null = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime]
-$xml = New-Object Windows.Data.Xml.Dom.XmlDocument
-$xml.LoadXml('<toast><visual><binding template="ToastGeneric"><text/><text/></binding></visual></toast>')
-$texts = $xml.GetElementsByTagName('text')
-$null = $texts.Item(0).AppendChild($xml.CreateTextNode($env:ISSUER_LIBRARY_TOAST_TITLE))
-$null = $texts.Item(1).AppendChild($xml.CreateTextNode($env:ISSUER_LIBRARY_TOAST_BODY))
-$toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
-[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\WindowsPowerShell\v1.0\powershell.exe').Show($toast)
-"""  # noqa: E501 - the script is fixed text, kept byte for byte
+# The fixed PowerShell program for the Windows notice, Go's toastScript byte for byte. The text
+# arrives only through the two environment variables and is set as XML text nodes, never
+# concatenated.
+TOAST_SCRIPT = (
+    r"$ErrorActionPreference = 'Stop'"
+    "\n"
+    r"$null = [Windows.UI.Notifications.ToastNotificationManager, "
+    r"Windows.UI.Notifications, ContentType = WindowsRuntime]"
+    "\n"
+    r"$null = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, "
+    r"ContentType = WindowsRuntime]"
+    "\n"
+    r"$xml = New-Object Windows.Data.Xml.Dom.XmlDocument"
+    "\n"
+    r"$xml.LoadXml('<toast><visual><binding template="
+    r'"ToastGeneric"'
+    r"><text/><text/></binding></visual></toast>')"
+    "\n"
+    r"$texts = $xml.GetElementsByTagName('text')"
+    "\n"
+    r"$null = $texts.Item(0).AppendChild($xml.CreateTextNode($env:ISSUER_LIBRARY_TOAST_TITLE))"
+    "\n"
+    r"$null = $texts.Item(1).AppendChild($xml.CreateTextNode($env:ISSUER_LIBRARY_TOAST_BODY))"
+    "\n"
+    r"$toast = [Windows.UI.Notifications.ToastNotification]::new($xml)"
+    "\n"
+    r"[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("
+    r"'{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\WindowsPowerShell\v1.0\powershell.exe')"
+    r".Show($toast)"
+    "\n"
+)
 
 
 class ToastFailed(subprocess.CalledProcessError, OSError):
@@ -180,32 +198,39 @@ def powershell_path() -> str:
 
 
 def toast(title: str, body: str) -> None:
-    """Show a native notice. Off Windows there is none: say so in the log."""
+    """Show a native notice. Off Windows there is none: say so in the log.
+
+    It raises OSError only: ToastFailed ("exit status N") for a nonzero exit, and a plain OSError,
+    chained to the cause, for a timeout, a NUL in the text or a failed start.
+    """
     if sys.platform != "win32":
         log.info("No tab is open; native run notices are Windows-only (%s)", body)
         return
     # close_fds stays at its default so the child never inherits a worker.lock handle.
-    result = subprocess.run(
-        [
-            powershell_path(),
-            "-NoProfile",
-            "-NonInteractive",
-            "-ExecutionPolicy",
-            "Bypass",
-            "-Command",
-            TOAST_SCRIPT,
-        ],
-        env=dict(
-            entry.partition("=")[::2]
-            for entry in toast_env([f"{k}={v}" for k, v in os.environ.items()], title, body)
-        ),
-        creationflags=WORKER_FLAGS,
-        stdin=subprocess.DEVNULL,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        timeout=TOAST_TIMEOUT,
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            [
+                powershell_path(),
+                "-NoProfile",
+                "-NonInteractive",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                TOAST_SCRIPT,
+            ],
+            env=dict(
+                entry.partition("=")[::2]
+                for entry in toast_env([f"{k}={v}" for k, v in os.environ.items()], title, body)
+            ),
+            creationflags=WORKER_FLAGS,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=TOAST_TIMEOUT,
+            check=False,
+        )
+    except (subprocess.TimeoutExpired, ValueError) as error:
+        raise OSError(f"PowerShell notice failed: {error}") from error
     if result.returncode != 0:
         log.warning("PowerShell toast output: %s", result.stdout.decode("utf-8", "replace"))
         raise ToastFailed(result.returncode, "powershell", result.stdout)
