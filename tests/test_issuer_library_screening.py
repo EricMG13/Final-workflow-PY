@@ -140,9 +140,6 @@ class Library:
     def text(self, element_id: str) -> str:
         return squash(self.screen.text(f"#{element_id}"))
 
-    def count(self) -> str:
-        return self.text("library-count")
-
     def detail(self) -> str:
         return self.text("run-detail")
 
@@ -191,7 +188,7 @@ def test_the_screen_lists_the_59_served_rows_in_served_order_under_7_issuers(
     library: LibraryOpener,
 ) -> None:
     p = library()
-    assert p.count() == "59 of 59 runs · 7 issuers"
+    assert p.text("library-count") == "59 of 59 runs · 7 issuers"
     assert p.ids() == KEY["default_sort"]["served_order"]
     assert sorted(p.ids()) == sorted(ALL)
     nav = js(
@@ -313,7 +310,7 @@ def test_sort_buttons_and_issuer_choices_are_native_buttons_tabbable_named_and_k
     assert p.screen.attr(tdg, "aria-pressed") == "false"
     p.screen.click(tdg)
     assert p.focused("libraryIssuer") == ("TDG", "true")
-    assert p.count() == "13 of 59 runs · 1 issuer"
+    assert p.text("library-count") == "13 of 59 runs · 1 issuer"
     p.screen.click(tdg)
     assert len(p.ids()) == 59, "a second choice releases the issuer"
     p.screen.click('[data-library-nav="reports"]')
@@ -374,7 +371,7 @@ def test_no_match_shows_a_reset_that_works_an_empty_workspace_and_an_unreadable_
 ) -> None:
     p = library()
     p.set("library-query", "no such issuer anywhere")
-    assert p.count() == "0 of 59 runs · 0 issuers"
+    assert p.text("library-count") == "0 of 59 runs · 0 issuers"
     assert "No runs match these filters" in p.text("library-results")
     assert p.screen.hidden("run-detail")
     p.screen.click("#library-empty-reset")
