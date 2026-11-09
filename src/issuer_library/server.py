@@ -11,6 +11,7 @@ import os
 import re
 import stat
 import threading
+import time
 from collections.abc import Callable, Iterator
 from pathlib import Path
 from typing import Any
@@ -43,6 +44,7 @@ from .jobs import (
 )
 from .launch import LAUNCHER_ONLY, Session, cookie_name
 from .model import Catalogue, digest, local_path, read_file
+from .notify import toast
 from .quit import LIBRARY_QUITTING, claim_quit, hold_refreshing
 from .settings import Config, Locations, load_config, save_json
 
@@ -379,6 +381,14 @@ class Application:
         self.session = Session()
         self.reviews = 0
         self.quitting = False
+        # Run notices: the clock and pause are seams so a test can move time.
+        self.now: Callable[[], int] = time.time_ns
+        self.pause: Callable[[float], None] = time.sleep
+        self.notifier: Callable[[str, str], None] = toast
+        self.on_finished: Callable[[str], None] | None = None
+        self.finished = 0
+        self.watched = 0
+        self.saw_finish: set[str] = set()
         # Held for a discovery or workspace change; taken before lock, never while holding it.
         self.refreshing = threading.Lock()
         adopt_jobs_locked(self, self.config.workspace)
