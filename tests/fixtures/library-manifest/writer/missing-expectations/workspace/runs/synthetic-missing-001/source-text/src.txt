@@ -1,0 +1,1 @@
+SYNTHETIC FIXTURE: fictional source text for the missing-expectations case.

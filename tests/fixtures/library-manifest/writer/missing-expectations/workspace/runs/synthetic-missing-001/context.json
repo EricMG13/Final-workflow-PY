@@ -1,0 +1,113 @@
+{
+  "schema": "context/1",
+  "run": {
+    "run_type": "primary",
+    "pathway": "credit_snapshot",
+    "case_kind": "public",
+    "as_of": "2025-06-30",
+    "cutoff": "",
+    "current_period": "h1-2025",
+    "prior_period": "h1-2024",
+    "reporting_currency": "USD"
+  },
+  "identity": {
+    "issuer_name": "Harbor Lane Logistics plc",
+    "issuer_id": "harborlane",
+    "borrower_name": "",
+    "parent_name": "",
+    "guarantors": [],
+    "aliases": [],
+    "listed_equity": false,
+    "ticker": "",
+    "sector": "",
+    "country": "United Kingdom",
+    "sponsor": "",
+    "issue_classification": ""
+  },
+  "deal_terms": [
+    {
+      "facility_id": "",
+      "instrument": "Unnamed facility",
+      "currency": "USD",
+      "size_m": "999",
+      "tenor_years": "",
+      "talk_spread_bps_low": "",
+      "talk_spread_bps_high": "",
+      "talk_oid_low": "",
+      "talk_oid_high": "",
+      "floor_pct": "",
+      "coupon_pct": "",
+      "margin_bps": "",
+      "call_protection": "",
+      "use_of_proceeds": "",
+      "as_of": "",
+      "provider": ""
+    },
+    {
+      "facility_id": "TL-A",
+      "instrument": "Term loan A",
+      "currency": "",
+      "size_m": "200",
+      "tenor_years": "5",
+      "talk_spread_bps_low": "",
+      "talk_spread_bps_high": "",
+      "talk_oid_low": "",
+      "talk_oid_high": "",
+      "floor_pct": "",
+      "coupon_pct": "",
+      "margin_bps": "",
+      "call_protection": "",
+      "use_of_proceeds": "",
+      "as_of": "",
+      "provider": ""
+    },
+    {
+      "facility_id": "TL-B",
+      "instrument": "Term loan B",
+      "currency": "EUR",
+      "size_m": "75",
+      "tenor_years": "",
+      "talk_spread_bps_low": "",
+      "talk_spread_bps_high": "",
+      "talk_oid_low": "",
+      "talk_oid_high": "",
+      "floor_pct": "",
+      "coupon_pct": "",
+      "margin_bps": "",
+      "call_protection": "",
+      "use_of_proceeds": "",
+      "as_of": "2025-05-31",
+      "provider": ""
+    }
+  ],
+  "quotes": [
+    {
+      "facility_id": "NOTE-X",
+      "kind": "indicative",
+      "bid": "",
+      "ask": "",
+      "price": "101.25",
+      "yield_pct": "5.50",
+      "spread_bps": "",
+      "as_of": "2025-06-15",
+      "provider": "Fictional dealer run"
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "scope": "issuer",
+      "rating": "",
+      "outlook": "",
+      "as_of": ""
+    },
+    {
+      "agency": "S&P",
+      "scope": "facility",
+      "rating": "BB-",
+      "outlook": "Stable",
+      "as_of": ""
+    }
+  ],
+  "research_questions": []
+}

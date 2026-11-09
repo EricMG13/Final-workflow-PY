@@ -1,0 +1,50 @@
+{
+  "id": "web-04cd5a5d02ea7d1dea714a8a6632cd21",
+  "issuer": "tdg",
+  "name": "TransDigm Group Incorporated",
+  "currency": "USD",
+  "metrics": {
+    "leverage": {
+      "value": "6.5744",
+      "unit": "x",
+      "period": "FY2024 / 2024-09-30",
+      "basis": "Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145.",
+      "source": "web-04cd5a5d02ea7d1dea714a8a6632cd21.cp1_leverage",
+      "provenance": "calculated"
+    },
+    "net_leverage": {
+      "value": "4.9323",
+      "unit": "x",
+      "period": "FY2024 / 2024-09-30",
+      "basis": "Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145.",
+      "source": "web-04cd5a5d02ea7d1dea714a8a6632cd21.cp1_leverage",
+      "provenance": "calculated"
+    },
+    "coverage": {
+      "value": "3.2927",
+      "unit": "x",
+      "period": "FY2024",
+      "basis": "Issuer EBITDA / cash paid for interest, net; net of interest income, not gross cash interest or legal fixed-charge coverage. Annual pages 71, 123.",
+      "source": "web-04cd5a5d02ea7d1dea714a8a6632cd21.cp1_coverage",
+      "provenance": "calculated"
+    },
+    "cash": {
+      "value": "6261",
+      "unit": "US$m",
+      "period": "2024-09-30",
+      "basis": "Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152.",
+      "source": "web-04cd5a5d02ea7d1dea714a8a6632cd21.cp1_liquidity",
+      "provenance": "calculated"
+    },
+    "undrawn": {
+      "value": "843",
+      "unit": "US$m",
+      "period": "2024-09-30",
+      "basis": "Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152.",
+      "source": "web-04cd5a5d02ea7d1dea714a8a6632cd21.cp1_liquidity",
+      "provenance": "calculated"
+    }
+  },
+  "ratings": [],
+  "facilities": []
+}
