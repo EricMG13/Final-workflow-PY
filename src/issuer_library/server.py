@@ -151,12 +151,12 @@ class Boundary:
         if refusal is not None:
             await refusal(scope, receive, send_marked)
             return
-        if scope["method"] == "HEAD":
-            # net/http answers an authorised HEAD from the GET route with no body; so does this.
+        # net/http answers an authorised HEAD from the GET route with no body; so does this.
+        head = scope["method"] == "HEAD"
+        if head:
             scope = {**scope, "method": "GET"}
-            await self.app(scope, receive, self.without_body(send_marked))
-            return
-        await self.app(scope, receive, send_marked)
+        sender = self.without_body(send_marked) if head else send_marked
+        await self.app(scope, receive, sender)
 
     @staticmethod
     def without_body(send: Send) -> Send:
