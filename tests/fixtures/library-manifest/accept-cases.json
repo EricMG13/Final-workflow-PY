@@ -1,0 +1,44 @@
+[
+  {
+    "name": "run metric provenance user",
+    "fixture": "synthetic",
+    "pointer": "/run/metrics/cash/provenance",
+    "value": "user",
+    "why": "user is an allowed metric provenance"
+  },
+  {
+    "name": "private_side false reads as absent",
+    "fixture": "retained-cp1",
+    "pointer": "/run/private_side",
+    "value": false,
+    "why": "false with no source reads as absent"
+  },
+  {
+    "name": "empty facilities reads as absent",
+    "fixture": "retained-cp1",
+    "pointer": "/run/facilities",
+    "value": [],
+    "why": "no facilities"
+  },
+  {
+    "name": "run metric provenance user",
+    "fixture": "retained-cp1",
+    "pointer": "/run/metrics/cash/provenance",
+    "value": "user",
+    "why": "user is an allowed metric provenance"
+  },
+  {
+    "name": "rating scope absent",
+    "fixture": "synthetic",
+    "pointer": "/run/ratings/0/scope",
+    "value": null,
+    "why": "JSON null decodes to an empty scope, which reads as absent (a missing scope is allowed)"
+  },
+  {
+    "name": "rating scope facility",
+    "fixture": "synthetic",
+    "pointer": "/run/ratings/0/scope",
+    "value": "facility",
+    "why": "facility is an allowed scope"
+  }
+]

@@ -1,0 +1,216 @@
+{
+  "schema": "issuer-library-run/1",
+  "run": {
+    "id": "web-04cd5a5d02ea7d1dea714a8a6632cd21",
+    "issuer": "tdg",
+    "name": "TransDigm Group Incorporated",
+    "identity_source": "ctx_identity",
+    "sector": "Aerospace",
+    "sector_source": "ctx_sector",
+    "workflow": "Credit snapshot",
+    "title": "Credit snapshot as of 2024-09-30",
+    "date": "2024-09-30",
+    "period": "fy-2024",
+    "period_kind": "Annual",
+    "currency": "USD",
+    "summary": "User-launched Credit Snapshot run for TransDigm Group Incorporated as of 2024-09-30, using sol-medium on the selected issuer folder. Automated checks cover handoff structure, issuer and date anchors, source and upstream references and report selectors; analytical accuracy has not been independently reviewed. The HTML Model and calculation JSON are not published by this launcher. Sections not produced: key-findings, capital-structure, strengths-weaknesses, relative-value, portfolio-fit, committee-challenge, what-changed.",
+    "handoff": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+    "gaps": [
+      "HTML Model not published by app runs"
+    ],
+    "artifacts": [],
+    "ratings": [],
+    "facilities": [],
+    "metrics": {
+      "leverage": {
+        "value": "6.5744",
+        "unit": "x",
+        "period": "FY2024 / 2024-09-30",
+        "basis": "Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "net_leverage": {
+        "value": "4.9323",
+        "unit": "x",
+        "period": "FY2024 / 2024-09-30",
+        "basis": "Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "coverage": {
+        "value": "3.2927",
+        "unit": "x",
+        "period": "FY2024",
+        "basis": "Issuer EBITDA / cash paid for interest, net; net of interest income, not gross cash interest or legal fixed-charge coverage. Annual pages 71, 123.",
+        "source": "cp1_coverage",
+        "provenance": "calculated"
+      },
+      "cash": {
+        "value": "6261",
+        "unit": "US$m",
+        "period": "2024-09-30",
+        "basis": "Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152.",
+        "source": "cp1_liquidity",
+        "provenance": "calculated"
+      },
+      "undrawn": {
+        "value": "843",
+        "unit": "US$m",
+        "period": "2024-09-30",
+        "basis": "Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152.",
+        "source": "cp1_liquidity",
+        "provenance": "calculated"
+      }
+    }
+  },
+  "sources": {
+    "ctx_identity": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/context.json",
+      "sha256": "ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984",
+      "line": 14,
+      "quote": "    \"issuer_name\": \"TransDigm Group Incorporated\","
+    },
+    "ctx_sector": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/context.json",
+      "sha256": "ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984",
+      "line": 22,
+      "quote": "    \"sector\": \"Aerospace\","
+    },
+    "cp1_leverage": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 146,
+      "quote": "| FY2024 / 2024-09-30 | 6.5744 | 4.9323 | x | Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145. |"
+    },
+    "cp1_coverage": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 153,
+      "quote": "| FY2024 | 3.2927 | x | Issuer EBITDA / cash paid for interest, net; net of interest income, not gross cash interest or legal fixed-charge coverage. Annual pages 71, 123. |"
+    },
+    "cp1_liquidity": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 160,
+      "quote": "| 2024-09-30 | 6261 | 843 | US$m | Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152. |"
+    },
+    "wf_source_0": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/workflow.json",
+      "sha256": "996b541cc42566037127b63b3a40466c14e5e816372b3baa4c8c9ff58df4ca76",
+      "line": 20,
+      "quote": "      \"sha256\": \"fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6\""
+    },
+    "handoff_CP-0": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-0.md",
+      "sha256": "4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3",
+      "line": 1,
+      "quote": "## Request"
+    },
+    "handoff_CP-1": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 1,
+      "quote": "## Request"
+    },
+    "handoff_CP-1A": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1A.md",
+      "sha256": "07ccccb4746145afa4449b1b450050463782c3069199127ef051670bfceea5b2",
+      "line": 1,
+      "quote": "## Request"
+    },
+    "receipt_report": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/completed-afc2738e193cefa6228ac97d5d92d6f7be5a7dbd250fef576b5b55a074d9352f.json",
+      "sha256": "afc2738e193cefa6228ac97d5d92d6f7be5a7dbd250fef576b5b55a074d9352f",
+      "line": 18,
+      "quote": "  \"report_sha256\": \"7bf8a4821cec15071c9ecd72e2191bfdfca28b060d1747b1b4ac004d53bd3c54\""
+    },
+    "delivery_CP-0": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/deliveries/278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb/delivery.json",
+      "sha256": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c",
+      "line": 8,
+      "quote": "    \"CP-0.md\": \"4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3\","
+    },
+    "delivery_CP-1": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/deliveries/278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb/delivery.json",
+      "sha256": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c",
+      "line": 9,
+      "quote": "    \"CP-1.md\": \"7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a\","
+    },
+    "delivery_CP-1A": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/deliveries/278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb/delivery.json",
+      "sha256": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c",
+      "line": 10,
+      "quote": "    \"CP-1A.md\": \"07ccccb4746145afa4449b1b450050463782c3069199127ef051670bfceea5b2\","
+    },
+    "delivery_report": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/deliveries/278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb/delivery.json",
+      "sha256": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c",
+      "line": 13,
+      "quote": "    \"report.html\": \"7bf8a4821cec15071c9ecd72e2191bfdfca28b060d1747b1b4ac004d53bd3c54\""
+    }
+  },
+  "checklist": {
+    "scope": "App run web-04cd5a5d02ea7d1dea714a8a6632cd21: requested modules and delivery",
+    "requirements": [
+      {
+        "id": "sources",
+        "stage": "sources",
+        "done": true,
+        "evidence": [
+          "wf_source_0"
+        ]
+      },
+      {
+        "id": "analysis-CP-0",
+        "stage": "analysis",
+        "done": true,
+        "evidence": [
+          "handoff_CP-0"
+        ]
+      },
+      {
+        "id": "analysis-CP-1",
+        "stage": "analysis",
+        "done": true,
+        "evidence": [
+          "handoff_CP-1"
+        ]
+      },
+      {
+        "id": "analysis-CP-1A",
+        "stage": "analysis",
+        "done": true,
+        "evidence": [
+          "handoff_CP-1A"
+        ]
+      },
+      {
+        "id": "verification",
+        "stage": "verification",
+        "done": true,
+        "evidence": [
+          "receipt_report"
+        ]
+      },
+      {
+        "id": "downstream",
+        "stage": "downstream",
+        "done": true,
+        "evidence": [
+          "delivery_CP-0",
+          "delivery_CP-1",
+          "delivery_CP-1A"
+        ]
+      },
+      {
+        "id": "delivery",
+        "stage": "delivery",
+        "done": true,
+        "evidence": [
+          "delivery_report"
+        ]
+      }
+    ]
+  }
+}

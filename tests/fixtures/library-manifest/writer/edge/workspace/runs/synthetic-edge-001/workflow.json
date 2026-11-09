@@ -1,0 +1,22 @@
+{
+  "run": {
+    "run_id": "synthetic-edge-001",
+    "issuer_id": "harborlane",
+    "issuer_name": "Harbor Lane Logistics plc",
+    "as_of": "2025-06-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-0",
+      "CP-1",
+      "CP-1A"
+    ]
+  },
+  "sources": {
+    "harbor-lane-h1-2025.txt": {
+      "path": "source-text/harbor-lane-h1-2025.txt",
+      "sha256": "5bb9c782fd4d2da73a59c0e7258c0d263e69b4d9e9b1479e7440a5a30195d2a2"
+    }
+  },
+  "execution": "synthetic"
+}

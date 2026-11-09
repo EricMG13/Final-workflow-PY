@@ -1,9 +1,10 @@
 """Context form, the cases P added to context-embed.test.cjs (final-workflow dd3dfa18).
 
-The Node suite loaded context-form.html in jsdom with stub layout and talked to it with `message`
-events. Here the real page opens in Chromium (ContextForm in test_issuer_library_app.py, which also
-holds the cases the earlier port covered), styles are read with getComputedStyle, and the date
-input is the browser's own. Synthetic data only; nothing reaches a server or a provider.
+The Node suite loaded context-form.html in jsdom with stub layout and talked to it with
+`message` events. Here the real page opens in Chromium (ContextForm in
+issuer_library_browser.py; test_issuer_library_app.py holds the cases the earlier port
+covered), styles are read with getComputedStyle, and the date input is the browser's own.
+Synthetic data only; nothing reaches a server or a provider.
 """
 
 from __future__ import annotations
@@ -15,8 +16,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from issuer_library_browser import ROOT, WEB, until
-from test_issuer_library_app import ContextForm
+from issuer_library_browser import ROOT, WEB, ContextForm, until
 
 pytestmark = pytest.mark.browser
 
@@ -54,10 +54,7 @@ def forms(browser: Any) -> Iterator[Callable[[], ContextForm]]:
 
 
 def send_names(form: ContextForm, names: Any) -> None:
-    form.page.evaluate(
-        f"n=>({SEND})(n)",
-        names,
-    )
+    form.page.evaluate(f"n=>({SEND})(n)", names)
 
 
 def facility(form: ContextForm, values: dict[str, str]) -> None:
@@ -128,10 +125,12 @@ def test_a_saved_classification_and_facility_terms_load_back_into_the_form(
     saved["identity"]["issue_classification"] = "high_yield"
     saved["run"]["run_type"] = "secondary"
     saved["run"]["pathway"] = "relative_value"
-    keys = "facility_id instrument currency size_m tenor_years talk_spread_bps_low"
-    keys += " talk_spread_bps_high"
-    keys += " talk_oid_low talk_oid_high floor_pct coupon_pct margin_bps maturity call_protection"
-    keys += " use_of_proceeds as_of provider"
+    keys = (
+        "facility_id instrument currency size_m tenor_years talk_spread_bps_low "
+        "talk_spread_bps_high talk_oid_low talk_oid_high floor_pct coupon_pct margin_bps "
+        "maturity call_protection "
+        "use_of_proceeds as_of provider"
+    )
     saved["deal_terms"] = [
         dict.fromkeys(keys.split(), "")
         | {"facility_id": "tlb", "instrument": "Term loan B", "currency": "USD", "size_m": "1250"}
@@ -380,19 +379,22 @@ def test_switching_from_primary_to_secondary_blanks_the_hidden_talk_fields_befor
     talk = {"tenor_years": "7", "talk_spread_bps_low": "325", "talk_spread_bps_high": "350"}
     talk |= {"talk_oid_low": "99.0", "talk_oid_high": "99.5"}
     facility(form, {"facility_id": "tlb", "size_m": "1250", "floor_pct": "0.50"} | talk)
+    row = deal(form)
     for key in TALK:
-        assert deal(form)[key] != "", key
+        assert row[key] != "", key
     form.pick("run_type-secondary")
     for key in TALK:
         assert term(form, key, "f.closest('.f').hidden") is True, key
     assert term(form, "size_m", "f.closest('.f').hidden") is False
     result = form.submit()
     assert result["problems"] == []
+    row = result["context"]["deal_terms"][0]
     for key in TALK:
-        assert deal(form)[key] == "", key
-    assert deal(form)["size_m"] == "1250" and deal(form)["floor_pct"] == "0.50"
+        assert row[key] == "", key
+    assert row["size_m"] == "1250" and row["floor_pct"] == "0.50"
     form.pick("run_type-primary")
-    assert deal(form)["tenor_years"] == "7" and deal(form)["talk_oid_high"] == "99.5"
+    row = deal(form)
+    assert row["tenor_years"] == "7" and row["talk_oid_high"] == "99.5"
 
 
 def test_an_invalid_value_in_a_hidden_talk_field_is_not_an_error_on_a_secondary_run(

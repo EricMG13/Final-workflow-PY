@@ -1,0 +1,25 @@
+{
+  "run": {
+    "run_id": "synthetic-hy-001",
+    "issuer_id": "northwind",
+    "issuer_name": "Northwind Fabrication Holdings",
+    "as_of": "2025-06-30",
+    "case_kind": "private",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-0",
+      "CP-1"
+    ]
+  },
+  "sources": {
+    "northwind-q2-2025.txt": {
+      "path": "source-text/northwind-q2-2025.txt",
+      "sha256": "ee97d3dadaecd2d44eeca249079809c88a3516e1041571175508f3a02744dda0"
+    },
+    "northwind-fy2024-annual.txt": {
+      "path": "source-text/northwind-fy2024-annual.txt",
+      "sha256": "d27f1c41c63f11be3747f4f9894d3b5f12fbf0305c397203946227668b90128d"
+    }
+  },
+  "execution": "synthetic"
+}
