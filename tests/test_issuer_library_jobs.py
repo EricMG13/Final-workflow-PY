@@ -681,7 +681,7 @@ def test_run_endpoints_survive_lone_surrogates_and_over_deep_lines(
     # Go reads a lone surrogate escape as U+FFFD and refuses over-deep nesting as an unreadable
     # line; neither fails a request (reviewer probes 5A-adv-1, 5A-adv-2).
     app, root = make_app(tmp_path)
-    client = TestClient(app.asgi, base_url=ORIGIN, raise_server_exceptions=False)
+    client = client_of(app)
     put(root, f"intake/{EVENTS_ID}/status.json", b'{"state":"running"}')
     write_events(root, EVENTS_ID, log)
     for path in (f"/api/runs/events?id={EVENTS_ID}", f"/api/runs/status?id={EVENTS_ID}"):
