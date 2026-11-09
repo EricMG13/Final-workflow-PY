@@ -603,10 +603,11 @@ def test_navigation_focus_targets_remain_visible_on_a_narrow_screen(fixture: Any
     assert screen.active() == "analysis"
 
 
+# plan-4c d877d8ce
 def test_library_return_restores_filters_and_clear_resets_without_changing_context(
     fixture: Any,
 ) -> None:
-    screen = fixture("W-Library/cases")
+    screen = fixture("W-Library/cases?runs=any")
     screen.set_value("#library-query", "Ford")
     screen.go(str(screen.attr("#library-results a.run-link", "href"))[1:])
     assert screen.text(".issuer h1") == "Ford Otosan"
@@ -615,6 +616,8 @@ def test_library_return_restores_filters_and_clear_resets_without_changing_conte
     assert screen.count("#library-results a.run-link") == 1
     screen.click("#library-clear")
     assert screen.eval("document.getElementById('library-query').value") == ""
+    assert screen.eval("document.getElementById('library-runs').value") == "latest"
+    screen.set_value("#library-runs", "any", "change")
     assert (
         screen.count("#library-results a.run-link") == 8
         and screen.eval("current.context") == "ford-otosan-2024"
@@ -629,10 +632,11 @@ def test_library_return_restores_filters_and_clear_resets_without_changing_conte
     assert prevented is True
 
 
+# plan-4c d877d8ce
 def test_literal_search_text_is_escaped_and_short_ids_include_the_delivery_collection(
     fixture: Any,
 ) -> None:
-    screen = fixture("W-Library/cases")
+    screen = fixture("W-Library/cases?runs=any")
     screen.set_value("#library-query", "TDG")
     assert screen.count("#library-results a.run-link") == 6
     bad = '"><img src=x onerror=alert(1)>'

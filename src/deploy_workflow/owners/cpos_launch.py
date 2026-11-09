@@ -934,7 +934,9 @@ def _main_limitation(lines: list[str]) -> str:
 def _row_problem(row: list[str]) -> str:
     if len(row) != len(REGISTER_HEADER):
         return f"needs {len(REGISTER_HEADER)} cells"
-    _, kind, status, rank, _ = row
+    document, kind, status, rank, source = row
+    if not document.strip() or not source.strip():
+        return "Document and Source must both be named"
     if kind not in KIND_RANK:
         return f"Kind `{kind}` is not one of the listed kinds"
     if status not in STATUSES:

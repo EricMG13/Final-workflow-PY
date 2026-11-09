@@ -1,0 +1,2291 @@
+{
+ "_about": "Hand-written 2026-11-08 by a separate agent from the code's author. All issuers are fictional. Each record is in the served /api/catalogue shape. No file is read: every sources[].sha256 is the same fixed 64-hex placeholder, not a hash of real content. Source quotes contain the recorded value (dunmore-001 net_leverage is deliberately empty and its quote says 'not stated').",
+ "real": [
+  {
+   "id": "aldermoor-2023-001",
+   "issuer": "ALDM",
+   "name": "Aldermoor Holdings",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2023-06-30",
+   "period": "FY2023",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Older reported run of the issuer with a newer reported run and a newer stopped run. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "3.80",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "aldermoor-2023-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "3.00",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "aldermoor-2023-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "5.0",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "aldermoor-2023-001.coverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "BB-",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "aldermoor-2023-001.identity",
+   "sector_source": "aldermoor-2023-001.sector",
+   "handoff": "runs/aldermoor-2023-001/CP-1.md",
+   "handoff_href": "/files/runs/aldermoor-2023-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/aldermoor-2023-001-report",
+     "kind": "report",
+     "label": "aldermoor-2023-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/aldermoor-2023-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/aldermoor-2023-001/CP-1.md"
+    }
+   ],
+   "facilities": [],
+   "classification": "high_yield",
+   "classification_source": "aldermoor-2023-001.classification"
+  },
+  {
+   "id": "aldermoor-2024-001",
+   "issuer": "ALDM",
+   "name": "Aldermoor Holdings",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2024-06-30",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Latest reported run of the issuer; net leverage above 4. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "4.60",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "aldermoor-2024-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "4.10",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "aldermoor-2024-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "4.2",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "aldermoor-2024-001.coverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "BB-",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "aldermoor-2024-001.identity",
+   "sector_source": "aldermoor-2024-001.sector",
+   "handoff": "runs/aldermoor-2024-001/CP-1.md",
+   "handoff_href": "/files/runs/aldermoor-2024-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/aldermoor-2024-001-report",
+     "kind": "report",
+     "label": "aldermoor-2024-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/aldermoor-2024-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/aldermoor-2024-001/CP-1.md"
+    }
+   ],
+   "facilities": [],
+   "classification": "high_yield",
+   "classification_source": "aldermoor-2024-001.classification"
+  },
+  {
+   "id": "aldermoor-2025-001",
+   "issuer": "ALDM",
+   "name": "Aldermoor Holdings",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-03-31",
+   "period": "Q1 2025",
+   "period_kind": "Quarterly actual",
+   "currency": "USD",
+   "summary": "Newer stopped run with no report; its net leverage would match below 4x. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "3.90",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "aldermoor-2025-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "2.80",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "aldermoor-2025-001.net_leverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "aldermoor-2025-001.identity",
+   "sector_source": "aldermoor-2025-001.sector",
+   "handoff": "runs/aldermoor-2025-001/CP-1.md",
+   "handoff_href": "/files/runs/aldermoor-2025-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/aldermoor-2025-001/CP-1.md"
+    }
+   ],
+   "facilities": [],
+   "classification": "high_yield",
+   "classification_source": "aldermoor-2025-001.classification"
+  },
+  {
+   "id": "brackenfell-hy-001",
+   "issuer": "BRKN",
+   "name": "Brackenfell Industries",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-06-30",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "High-yield private-side run with one facility holding both talk and margin. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "4.10",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "brackenfell-hy-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "3.45",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "brackenfell-hy-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "2.95",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "brackenfell-hy-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "412",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "brackenfell-hy-001.cash",
+     "provenance": "calculated"
+    },
+    "undrawn": {
+     "value": "150",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Undrawn committed facilities (fictional)",
+     "source": "brackenfell-hy-001.undrawn",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "B",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "brackenfell-hy-001.identity",
+   "sector_source": "brackenfell-hy-001.sector",
+   "handoff": "runs/brackenfell-hy-001/CP-1.md",
+   "handoff_href": "/files/runs/brackenfell-hy-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/brackenfell-hy-001-report",
+     "kind": "report",
+     "label": "brackenfell-hy-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/brackenfell-hy-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/brackenfell-hy-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "TLB",
+     "terms": {
+      "talk_spread_bps_low": {
+       "value": "325",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB talk_spread_bps_low",
+       "source": "brackenfell-hy-001.TLB-talk_spread_bps_low",
+       "provenance": "user"
+      },
+      "talk_spread_bps_high": {
+       "value": "375",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB talk_spread_bps_high",
+       "source": "brackenfell-hy-001.TLB-talk_spread_bps_high",
+       "provenance": "user"
+      },
+      "margin_bps": {
+       "value": "375",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB margin_bps",
+       "source": "brackenfell-hy-001.TLB-margin_bps",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    }
+   ],
+   "classification": "high_yield",
+   "classification_source": "brackenfell-hy-001.classification",
+   "private_side": true,
+   "private_side_source": "brackenfell-hy-001.private-side"
+  },
+  {
+   "id": "cobalt-eur-001",
+   "issuer": "COBL",
+   "name": "Cobalt Chemicals",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Chemicals",
+   "date": "2025-05-15",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "EUR",
+   "summary": "Investment-grade EUR run with a split rating and a negative recorded net leverage. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "1.80",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Senior secured debt / EBITDA (fictional)",
+     "source": "cobalt-eur-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "-0.5",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "cobalt-eur-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "9.1",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "cobalt-eur-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "900",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "cobalt-eur-001.cash",
+     "provenance": "calculated"
+    },
+    "undrawn": {
+     "value": "500",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Undrawn committed facilities (fictional)",
+     "source": "cobalt-eur-001.undrawn",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "BBB-",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    },
+    {
+     "label": "Ba1",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Moody's",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "cobalt-eur-001.identity",
+   "sector_source": "cobalt-eur-001.sector",
+   "handoff": "runs/cobalt-eur-001/CP-1.md",
+   "handoff_href": "/files/runs/cobalt-eur-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/cobalt-eur-001-report",
+     "kind": "report",
+     "label": "cobalt-eur-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/cobalt-eur-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/cobalt-eur-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "TLB-EUR",
+     "terms": {
+      "margin_bps": {
+       "value": "300",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB-EUR margin_bps",
+       "source": "cobalt-eur-001.TLB-EUR-margin_bps",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    }
+   ],
+   "classification": "investment_grade",
+   "classification_source": "cobalt-eur-001.classification"
+  },
+  {
+   "id": "dunmore-001",
+   "issuer": "DUNM",
+   "name": "Dunmore Retail",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Retail",
+   "date": "2025-04-10",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Run with no classification, an empty net leverage value, and an issuer B+ with a facility B3. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "5.20",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "dunmore-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "dunmore-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "2.1",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "dunmore-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "85",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "dunmore-001.cash",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "B+",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    },
+    {
+     "label": "B3",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Moody's",
+     "scope": "facility"
+    }
+   ],
+   "identity_source": "dunmore-001.identity",
+   "sector_source": "dunmore-001.sector",
+   "handoff": "runs/dunmore-001/CP-1.md",
+   "handoff_href": "/files/runs/dunmore-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/dunmore-001-report",
+     "kind": "report",
+     "label": "dunmore-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/dunmore-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/dunmore-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "TLB",
+     "terms": {
+      "talk_spread_bps_low": {
+       "value": "450",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB talk_spread_bps_low",
+       "source": "dunmore-001.TLB-talk_spread_bps_low",
+       "provenance": "user"
+      },
+      "talk_spread_bps_high": {
+       "value": "500",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB talk_spread_bps_high",
+       "source": "dunmore-001.TLB-talk_spread_bps_high",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    }
+   ]
+  },
+  {
+   "id": "elmstead-001",
+   "issuer": "ELMS",
+   "name": "Elmstead Stores",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Retail",
+   "date": "2025-02-20",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Run whose net leverage metric object is absent and whose only rating is NR. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "4.00",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Senior secured debt / EBITDA (fictional)",
+     "source": "elmstead-001.leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "3.3",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "elmstead-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "40",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "elmstead-001.cash",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "NR",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "elmstead-001.identity",
+   "sector_source": "elmstead-001.sector",
+   "handoff": "runs/elmstead-001/CP-1.md",
+   "handoff_href": "/files/runs/elmstead-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/elmstead-001-report",
+     "kind": "report",
+     "label": "elmstead-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/elmstead-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/elmstead-001/CP-1.md"
+    }
+   ],
+   "facilities": [],
+   "classification": "high_yield",
+   "classification_source": "elmstead-001.classification"
+  },
+  {
+   "id": "fairholt-001",
+   "issuer": "FAIR",
+   "name": "Fairholt Logistics",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-01-31",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Net leverage recorded but no leverage; two facilities where F1 has only talk and F2 only margin. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "net_leverage": {
+     "value": "2.50",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "fairholt-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "60",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "fairholt-001.cash",
+     "provenance": "calculated"
+    },
+    "undrawn": {
+     "value": "20",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Undrawn committed facilities (fictional)",
+     "source": "fairholt-001.undrawn",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "WD",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    },
+    {
+     "label": "B",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Fitch",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "fairholt-001.identity",
+   "sector_source": "fairholt-001.sector",
+   "handoff": "runs/fairholt-001/CP-1.md",
+   "handoff_href": "/files/runs/fairholt-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/fairholt-001-report",
+     "kind": "report",
+     "label": "fairholt-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/fairholt-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/fairholt-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "F1",
+     "terms": {
+      "talk_spread_bps_low": {
+       "value": "325",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: F1 talk_spread_bps_low",
+       "source": "fairholt-001.F1-talk_spread_bps_low",
+       "provenance": "user"
+      },
+      "talk_spread_bps_high": {
+       "value": "375",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: F1 talk_spread_bps_high",
+       "source": "fairholt-001.F1-talk_spread_bps_high",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    },
+    {
+     "facility_id": "F2",
+     "terms": {
+      "margin_bps": {
+       "value": "375",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: F2 margin_bps",
+       "source": "fairholt-001.F2-margin_bps",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    }
+   ]
+  },
+  {
+   "id": "garrowby-001",
+   "issuer": "GARR",
+   "name": "Garrowby Retail",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Retail",
+   "date": "2025-06-10",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Selective-default rating with B-; one margin-only facility; undrawn recorded as zero. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs",
+    "CP-4: legal documents not supplied"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "6.00",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "garrowby-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "5.50",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "garrowby-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "1.4",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "garrowby-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "25",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "garrowby-001.cash",
+     "provenance": "calculated"
+    },
+    "undrawn": {
+     "value": "0",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Undrawn committed facilities (fictional)",
+     "source": "garrowby-001.undrawn",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "SD",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    },
+    {
+     "label": "B-",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Fitch",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "garrowby-001.identity",
+   "sector_source": "garrowby-001.sector",
+   "handoff": "runs/garrowby-001/CP-1.md",
+   "handoff_href": "/files/runs/garrowby-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/garrowby-001-report",
+     "kind": "report",
+     "label": "garrowby-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/garrowby-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/garrowby-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "TLB-A",
+     "terms": {
+      "margin_bps": {
+       "value": "375",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB-A margin_bps",
+       "source": "garrowby-001.TLB-A-margin_bps",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    }
+   ],
+   "classification": "high_yield",
+   "classification_source": "garrowby-001.classification"
+  },
+  {
+   "id": "hartley-001",
+   "issuer": "HART",
+   "name": "Hartley Chemicals",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Chemicals",
+   "date": "2025-06-20",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Secondary bond facility with an observed bid and ask and no price; provisional and expected ratings. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "4.90",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Senior secured debt / EBITDA (fictional)",
+     "source": "hartley-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "4.50",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "hartley-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "2.0",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "hartley-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "120",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "hartley-001.cash",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "(P)B2",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Moody's",
+     "scope": "issuer"
+    },
+    {
+     "label": "B+(EXP)",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Fitch",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "hartley-001.identity",
+   "sector_source": "hartley-001.sector",
+   "handoff": "runs/hartley-001/CP-1.md",
+   "handoff_href": "/files/runs/hartley-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/hartley-001-report",
+     "kind": "report",
+     "label": "hartley-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/hartley-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/hartley-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "SSN-2030",
+     "terms": {
+      "coupon_pct": {
+       "value": "7.875",
+       "unit": "%",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: SSN-2030 coupon_pct",
+       "source": "hartley-001.SSN-2030-coupon_pct",
+       "provenance": "user"
+      }
+     },
+     "quotes": [
+      {
+       "kind": "observed",
+       "terms": {
+        "bid": {
+         "value": "98.50",
+         "unit": "% of par",
+         "period": "2025-06-30",
+         "basis": "Deal term entered in run context: SSN-2030-q bid",
+         "source": "hartley-001.SSN-2030-q-bid",
+         "provenance": "user"
+        },
+        "ask": {
+         "value": "99.00",
+         "unit": "% of par",
+         "period": "2025-06-30",
+         "basis": "Deal term entered in run context: SSN-2030-q ask",
+         "source": "hartley-001.SSN-2030-q-ask",
+         "provenance": "user"
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "classification": "high_yield",
+   "classification_source": "hartley-001.classification"
+  },
+  {
+   "id": "ironwood-001",
+   "issuer": "IRON",
+   "name": "Ironwood Chemicals",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Chemicals",
+   "date": "2025-05-30",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Bond facility with two observed quotes; only a facility-scope rating. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "3.20",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / EBITDA As Defined (fictional)",
+     "source": "ironwood-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "2.90",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "ironwood-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "6.0",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "ironwood-001.coverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "B3",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Moody's",
+     "scope": "facility"
+    }
+   ],
+   "identity_source": "ironwood-001.identity",
+   "sector_source": "ironwood-001.sector",
+   "handoff": "runs/ironwood-001/CP-1.md",
+   "handoff_href": "/files/runs/ironwood-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/ironwood-001-report",
+     "kind": "report",
+     "label": "ironwood-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/ironwood-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/ironwood-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "SSN-2031",
+     "terms": {
+      "coupon_pct": {
+       "value": "5.500",
+       "unit": "%",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: SSN-2031 coupon_pct",
+       "source": "ironwood-001.SSN-2031-coupon_pct",
+       "provenance": "user"
+      }
+     },
+     "quotes": [
+      {
+       "kind": "observed",
+       "terms": {
+        "price": {
+         "value": "101.25",
+         "unit": "% of par",
+         "period": "2025-06-30",
+         "basis": "Deal term entered in run context: SSN-2031-q price",
+         "source": "ironwood-001.SSN-2031-q-price",
+         "provenance": "user"
+        },
+        "yield_pct": {
+         "value": "6.10",
+         "unit": "%",
+         "period": "2025-06-30",
+         "basis": "Deal term entered in run context: SSN-2031-q yield_pct",
+         "source": "ironwood-001.SSN-2031-q-yield_pct",
+         "provenance": "user"
+        }
+       }
+      },
+      {
+       "kind": "observed",
+       "terms": {
+        "price": {
+         "value": "99.00",
+         "unit": "% of par",
+         "period": "2025-06-30",
+         "basis": "Deal term entered in run context: SSN-2031-q price",
+         "source": "ironwood-001.SSN-2031-q-price",
+         "provenance": "user"
+        },
+        "yield_pct": {
+         "value": "7.30",
+         "unit": "%",
+         "period": "2025-06-30",
+         "basis": "Deal term entered in run context: SSN-2031-q yield_pct",
+         "source": "ironwood-001.SSN-2031-q-yield_pct",
+         "provenance": "user"
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "classification": "investment_grade",
+   "classification_source": "ironwood-001.classification"
+  },
+  {
+   "id": "jasper-001",
+   "issuer": "JASP",
+   "name": "Jasper Components",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-03-15",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "GBP",
+   "summary": "Same-notch Baa3 and BBB- tie; facility talk with only a low side. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs",
+    "CP-4: legal documents not supplied"
+   ],
+   "metrics": {
+    "leverage": {
+     "value": "4.40",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Senior secured debt / EBITDA (fictional)",
+     "source": "jasper-001.leverage",
+     "provenance": "calculated"
+    },
+    "net_leverage": {
+     "value": "3.90",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "jasper-001.net_leverage",
+     "provenance": "calculated"
+    },
+    "coverage": {
+     "value": "3.0",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "EBITDA / cash interest (fictional)",
+     "source": "jasper-001.coverage",
+     "provenance": "calculated"
+    },
+    "cash": {
+     "value": "210",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Reported closing cash (fictional)",
+     "source": "jasper-001.cash",
+     "provenance": "calculated"
+    },
+    "undrawn": {
+     "value": "75",
+     "unit": "USD m",
+     "period": "FY2024",
+     "basis": "Undrawn committed facilities (fictional)",
+     "source": "jasper-001.undrawn",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "Baa3",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "Moody's",
+     "scope": "issuer"
+    },
+    {
+     "label": "BBB-",
+     "date": "2025-05-01",
+     "source": "",
+     "agency": "S&P",
+     "scope": "issuer"
+    }
+   ],
+   "identity_source": "jasper-001.identity",
+   "sector_source": "jasper-001.sector",
+   "handoff": "runs/jasper-001/CP-1.md",
+   "handoff_href": "/files/runs/jasper-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/jasper-001-report",
+     "kind": "report",
+     "label": "jasper-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/jasper-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/jasper-001/CP-1.md"
+    }
+   ],
+   "facilities": [
+    {
+     "facility_id": "TLB-GBP",
+     "terms": {
+      "talk_spread_bps_low": {
+       "value": "400",
+       "unit": "bps",
+       "period": "2025-06-30",
+       "basis": "Deal term entered in run context: TLB-GBP talk_spread_bps_low",
+       "source": "jasper-001.TLB-GBP-talk_spread_bps_low",
+       "provenance": "user"
+      }
+     },
+     "quotes": []
+    }
+   ],
+   "classification": "investment_grade",
+   "classification_source": "jasper-001.classification"
+  },
+  {
+   "id": "unclassified-a-001",
+   "issuer": "Unclassified",
+   "name": "unclassified-a-001",
+   "title": "Discovered run",
+   "workflow": "Unclassified",
+   "sector": "Unclassified",
+   "date": "",
+   "period": "Not established",
+   "period_kind": "Unclassified",
+   "currency": "",
+   "summary": "Discovered folder with no report. Fictional issuer invented for tests; not a real company.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "",
+   "sector_source": "",
+   "handoff": "",
+   "handoff_href": "",
+   "artifacts": [],
+   "files": [],
+   "facilities": []
+  },
+  {
+   "id": "unclassified-b-001",
+   "issuer": "Unclassified",
+   "name": "unclassified-b-001",
+   "title": "Discovered run",
+   "workflow": "Unclassified",
+   "sector": "Unclassified",
+   "date": "",
+   "period": "Not established",
+   "period_kind": "Unclassified",
+   "currency": "",
+   "summary": "Discovered folder whose only artifact is superseded. Fictional issuer invented for tests; not a real company.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "",
+   "sector_source": "",
+   "handoff": "",
+   "handoff_href": "",
+   "artifacts": [
+    {
+     "folder": "deliverables/unclassified-b-old",
+     "kind": "report",
+     "label": "Superseded report",
+     "state": "superseded",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/unclassified-b-old/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": []
+  },
+  {
+   "id": "kestrel-001",
+   "issuer": "KEST",
+   "name": "Kestrel Chemicals",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Chemicals",
+   "date": "2025-04-30",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Retained-style rating text with no agency or scope fields; no metrics. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [
+    {
+     "label": "S&P BB− · preliminary · Positive",
+     "date": "2025-04-01",
+     "source": ""
+    }
+   ],
+   "identity_source": "kestrel-001.identity",
+   "sector_source": "kestrel-001.sector",
+   "handoff": "runs/kestrel-001/CP-1.md",
+   "handoff_href": "/files/runs/kestrel-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/kestrel-001-report",
+     "kind": "report",
+     "label": "kestrel-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/kestrel-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/kestrel-001/CP-1.md"
+    }
+   ],
+   "facilities": []
+  },
+  {
+   "id": "larkspur-2023-001",
+   "issuer": "LARK",
+   "name": "Larkspur Foods",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Consumer",
+   "date": "2023-12-31",
+   "period": "FY2023",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Tie-on-date issuer group. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "net_leverage": {
+     "value": "3.50",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "larkspur-2023-001.net_leverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "larkspur-2023-001.identity",
+   "sector_source": "larkspur-2023-001.sector",
+   "handoff": "runs/larkspur-2023-001/CP-1.md",
+   "handoff_href": "/files/runs/larkspur-2023-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/larkspur-2023-001-report",
+     "kind": "report",
+     "label": "larkspur-2023-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/larkspur-2023-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/larkspur-2023-001/CP-1.md"
+    }
+   ],
+   "facilities": []
+  },
+  {
+   "id": "larkspur-2024-001",
+   "issuer": "LARK",
+   "name": "Larkspur Foods",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Consumer",
+   "date": "2024-12-31",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Tie-on-date issuer group. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "net_leverage": {
+     "value": "3.20",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "larkspur-2024-001.net_leverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "larkspur-2024-001.identity",
+   "sector_source": "larkspur-2024-001.sector",
+   "handoff": "runs/larkspur-2024-001/CP-1.md",
+   "handoff_href": "/files/runs/larkspur-2024-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/larkspur-2024-001-report",
+     "kind": "report",
+     "label": "larkspur-2024-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/larkspur-2024-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/larkspur-2024-001/CP-1.md"
+    }
+   ],
+   "facilities": []
+  },
+  {
+   "id": "larkspur-2024-002",
+   "issuer": "LARK",
+   "name": "Larkspur Foods",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Consumer",
+   "date": "2024-12-31",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Tie-on-date issuer group. Fictional issuer invented for tests; not a real company.",
+   "gaps": [
+    "HTML Model not published by app runs"
+   ],
+   "metrics": {
+    "net_leverage": {
+     "value": "4.80",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Net debt / EBITDA As Defined (fictional)",
+     "source": "larkspur-2024-002.net_leverage",
+     "provenance": "calculated"
+    }
+   },
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "larkspur-2024-002.identity",
+   "sector_source": "larkspur-2024-002.sector",
+   "handoff": "runs/larkspur-2024-002/CP-1.md",
+   "handoff_href": "/files/runs/larkspur-2024-002/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/larkspur-2024-002-report",
+     "kind": "report",
+     "label": "larkspur-2024-002 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/larkspur-2024-002-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [
+    {
+     "name": "CP-1.md",
+     "href": "/files/runs/larkspur-2024-002/CP-1.md"
+    }
+   ],
+   "facilities": []
+  }
+ ],
+ "sources": {
+  "aldermoor-2023-001.leverage": {
+   "path": "runs/aldermoor-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 3.80x |",
+   "href": "/files/runs/aldermoor-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2023-001.net_leverage": {
+   "path": "runs/aldermoor-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 3.00x |",
+   "href": "/files/runs/aldermoor-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2023-001.coverage": {
+   "path": "runs/aldermoor-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 5.0x |",
+   "href": "/files/runs/aldermoor-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2023-001.identity": {
+   "path": "runs/aldermoor-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Aldermoor Holdings",
+   "href": "/files/runs/aldermoor-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2023-001.sector": {
+   "path": "runs/aldermoor-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Industrials",
+   "href": "/files/runs/aldermoor-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2023-001.classification": {
+   "path": "runs/aldermoor-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/aldermoor-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2024-001.leverage": {
+   "path": "runs/aldermoor-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 4.60x |",
+   "href": "/files/runs/aldermoor-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2024-001.net_leverage": {
+   "path": "runs/aldermoor-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 4.10x |",
+   "href": "/files/runs/aldermoor-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2024-001.coverage": {
+   "path": "runs/aldermoor-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 4.2x |",
+   "href": "/files/runs/aldermoor-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2024-001.identity": {
+   "path": "runs/aldermoor-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Aldermoor Holdings",
+   "href": "/files/runs/aldermoor-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2024-001.sector": {
+   "path": "runs/aldermoor-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Industrials",
+   "href": "/files/runs/aldermoor-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2024-001.classification": {
+   "path": "runs/aldermoor-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/aldermoor-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2025-001.leverage": {
+   "path": "runs/aldermoor-2025-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 3.90x |",
+   "href": "/files/runs/aldermoor-2025-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2025-001.net_leverage": {
+   "path": "runs/aldermoor-2025-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 2.80x |",
+   "href": "/files/runs/aldermoor-2025-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2025-001.identity": {
+   "path": "runs/aldermoor-2025-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Aldermoor Holdings",
+   "href": "/files/runs/aldermoor-2025-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2025-001.sector": {
+   "path": "runs/aldermoor-2025-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Industrials",
+   "href": "/files/runs/aldermoor-2025-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2025-001.classification": {
+   "path": "runs/aldermoor-2025-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/aldermoor-2025-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.TLB-talk_spread_bps_low": {
+   "path": "runs/brackenfell-hy-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB | talk_spread_bps_low | 325 bps |",
+   "href": "/files/runs/brackenfell-hy-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.TLB-talk_spread_bps_high": {
+   "path": "runs/brackenfell-hy-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB | talk_spread_bps_high | 375 bps |",
+   "href": "/files/runs/brackenfell-hy-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.TLB-margin_bps": {
+   "path": "runs/brackenfell-hy-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB | margin_bps | 375 bps |",
+   "href": "/files/runs/brackenfell-hy-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.leverage": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 4.10x |",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.net_leverage": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 3.45x |",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.coverage": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 2.95x |",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.cash": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 412 USD m |",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.undrawn": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 35,
+   "quote": "| Undrawn | 150 USD m |",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.identity": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Brackenfell Industries",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.sector": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Industrials",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.classification": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.private-side": {
+   "path": "runs/brackenfell-hy-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 6,
+   "quote": "Private side: yes",
+   "href": "/files/runs/brackenfell-hy-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.TLB-EUR-margin_bps": {
+   "path": "runs/cobalt-eur-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB-EUR | margin_bps | 300 bps |",
+   "href": "/files/runs/cobalt-eur-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.leverage": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 1.80x |",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.net_leverage": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | -0.5x |",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.coverage": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 9.1x |",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.cash": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 900 USD m |",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.undrawn": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 35,
+   "quote": "| Undrawn | 500 USD m |",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.identity": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Cobalt Chemicals",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.sector": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Chemicals",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.classification": {
+   "path": "runs/cobalt-eur-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: investment_grade",
+   "href": "/files/runs/cobalt-eur-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.TLB-talk_spread_bps_low": {
+   "path": "runs/dunmore-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB | talk_spread_bps_low | 450 bps |",
+   "href": "/files/runs/dunmore-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.TLB-talk_spread_bps_high": {
+   "path": "runs/dunmore-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB | talk_spread_bps_high | 500 bps |",
+   "href": "/files/runs/dunmore-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.leverage": {
+   "path": "runs/dunmore-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 5.20x |",
+   "href": "/files/runs/dunmore-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.net_leverage": {
+   "path": "runs/dunmore-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | not stated |",
+   "href": "/files/runs/dunmore-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.coverage": {
+   "path": "runs/dunmore-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 2.1x |",
+   "href": "/files/runs/dunmore-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.cash": {
+   "path": "runs/dunmore-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 85 USD m |",
+   "href": "/files/runs/dunmore-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.identity": {
+   "path": "runs/dunmore-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Dunmore Retail",
+   "href": "/files/runs/dunmore-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.sector": {
+   "path": "runs/dunmore-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Retail",
+   "href": "/files/runs/dunmore-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.leverage": {
+   "path": "runs/elmstead-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 4.00x |",
+   "href": "/files/runs/elmstead-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.coverage": {
+   "path": "runs/elmstead-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 3.3x |",
+   "href": "/files/runs/elmstead-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.cash": {
+   "path": "runs/elmstead-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 40 USD m |",
+   "href": "/files/runs/elmstead-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.identity": {
+   "path": "runs/elmstead-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Elmstead Stores",
+   "href": "/files/runs/elmstead-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.sector": {
+   "path": "runs/elmstead-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Retail",
+   "href": "/files/runs/elmstead-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.classification": {
+   "path": "runs/elmstead-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/elmstead-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.F1-talk_spread_bps_low": {
+   "path": "runs/fairholt-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| F1 | talk_spread_bps_low | 325 bps |",
+   "href": "/files/runs/fairholt-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.F1-talk_spread_bps_high": {
+   "path": "runs/fairholt-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| F1 | talk_spread_bps_high | 375 bps |",
+   "href": "/files/runs/fairholt-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.F2-margin_bps": {
+   "path": "runs/fairholt-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| F2 | margin_bps | 375 bps |",
+   "href": "/files/runs/fairholt-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.net_leverage": {
+   "path": "runs/fairholt-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 2.50x |",
+   "href": "/files/runs/fairholt-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.cash": {
+   "path": "runs/fairholt-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 60 USD m |",
+   "href": "/files/runs/fairholt-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.undrawn": {
+   "path": "runs/fairholt-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 35,
+   "quote": "| Undrawn | 20 USD m |",
+   "href": "/files/runs/fairholt-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.identity": {
+   "path": "runs/fairholt-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Fairholt Logistics",
+   "href": "/files/runs/fairholt-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.sector": {
+   "path": "runs/fairholt-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Industrials",
+   "href": "/files/runs/fairholt-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.TLB-A-margin_bps": {
+   "path": "runs/garrowby-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB-A | margin_bps | 375 bps |",
+   "href": "/files/runs/garrowby-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.leverage": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 6.00x |",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.net_leverage": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 5.50x |",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.coverage": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 1.4x |",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.cash": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 25 USD m |",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.undrawn": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 35,
+   "quote": "| Undrawn | 0 USD m |",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.identity": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Garrowby Retail",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.sector": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Retail",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "garrowby-001.classification": {
+   "path": "runs/garrowby-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/garrowby-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.SSN-2030-coupon_pct": {
+   "path": "runs/hartley-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| SSN-2030 | coupon_pct | 7.875 % |",
+   "href": "/files/runs/hartley-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.SSN-2030-q-bid": {
+   "path": "runs/hartley-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| SSN-2030-q | bid | 98.50 % of par |",
+   "href": "/files/runs/hartley-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.SSN-2030-q-ask": {
+   "path": "runs/hartley-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| SSN-2030-q | ask | 99.00 % of par |",
+   "href": "/files/runs/hartley-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.leverage": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 4.90x |",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.net_leverage": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 4.50x |",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.coverage": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 2.0x |",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.cash": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 120 USD m |",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.identity": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Hartley Chemicals",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.sector": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Chemicals",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.classification": {
+   "path": "runs/hartley-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: high_yield",
+   "href": "/files/runs/hartley-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.SSN-2031-coupon_pct": {
+   "path": "runs/ironwood-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| SSN-2031 | coupon_pct | 5.500 % |",
+   "href": "/files/runs/ironwood-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.SSN-2031-q-price": {
+   "path": "runs/ironwood-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| SSN-2031-q | price | 99.00 % of par |",
+   "href": "/files/runs/ironwood-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.SSN-2031-q-yield_pct": {
+   "path": "runs/ironwood-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| SSN-2031-q | yield_pct | 7.30 % |",
+   "href": "/files/runs/ironwood-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.leverage": {
+   "path": "runs/ironwood-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 3.20x |",
+   "href": "/files/runs/ironwood-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.net_leverage": {
+   "path": "runs/ironwood-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 2.90x |",
+   "href": "/files/runs/ironwood-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.coverage": {
+   "path": "runs/ironwood-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 6.0x |",
+   "href": "/files/runs/ironwood-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.identity": {
+   "path": "runs/ironwood-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Ironwood Chemicals",
+   "href": "/files/runs/ironwood-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.sector": {
+   "path": "runs/ironwood-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Chemicals",
+   "href": "/files/runs/ironwood-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ironwood-001.classification": {
+   "path": "runs/ironwood-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: investment_grade",
+   "href": "/files/runs/ironwood-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.TLB-GBP-talk_spread_bps_low": {
+   "path": "runs/jasper-001/deal-terms.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 60,
+   "quote": "| TLB-GBP | talk_spread_bps_low | 400 bps |",
+   "href": "/files/runs/jasper-001/deal-terms.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.leverage": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 23,
+   "quote": "| Leverage | 4.40x |",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.net_leverage": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 3.90x |",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.coverage": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 29,
+   "quote": "| Coverage | 3.0x |",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.cash": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 32,
+   "quote": "| Cash | 210 USD m |",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.undrawn": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 35,
+   "quote": "| Undrawn | 75 USD m |",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.identity": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Jasper Components",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.sector": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Industrials",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.classification": {
+   "path": "runs/jasper-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 5,
+   "quote": "Classification: investment_grade",
+   "href": "/files/runs/jasper-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "kestrel-001.identity": {
+   "path": "runs/kestrel-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Kestrel Chemicals",
+   "href": "/files/runs/kestrel-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "kestrel-001.sector": {
+   "path": "runs/kestrel-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Chemicals",
+   "href": "/files/runs/kestrel-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2023-001.net_leverage": {
+   "path": "runs/larkspur-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 3.50x |",
+   "href": "/files/runs/larkspur-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2023-001.identity": {
+   "path": "runs/larkspur-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Larkspur Foods",
+   "href": "/files/runs/larkspur-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2023-001.sector": {
+   "path": "runs/larkspur-2023-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Consumer",
+   "href": "/files/runs/larkspur-2023-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2024-001.net_leverage": {
+   "path": "runs/larkspur-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 3.20x |",
+   "href": "/files/runs/larkspur-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2024-001.identity": {
+   "path": "runs/larkspur-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Larkspur Foods",
+   "href": "/files/runs/larkspur-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2024-001.sector": {
+   "path": "runs/larkspur-2024-001/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Consumer",
+   "href": "/files/runs/larkspur-2024-001/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2024-002.net_leverage": {
+   "path": "runs/larkspur-2024-002/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 26,
+   "quote": "| Net leverage | 4.80x |",
+   "href": "/files/runs/larkspur-2024-002/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2024-002.identity": {
+   "path": "runs/larkspur-2024-002/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 3,
+   "quote": "Issuer: Larkspur Foods",
+   "href": "/files/runs/larkspur-2024-002/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "larkspur-2024-002.sector": {
+   "path": "runs/larkspur-2024-002/CP-1-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 4,
+   "quote": "Sector: Consumer",
+   "href": "/files/runs/larkspur-2024-002/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  }
+ }
+}
