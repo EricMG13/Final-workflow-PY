@@ -361,47 +361,52 @@ def index_run_files(root: Path, folder: str, cat: Catalogue, run: Run) -> None:
         cat.issues.append(f"{folder}: {error}")
 
 
+def pin_delivery_files(
+    root: Path, folder: str, record: DeliveryRecord, view: DeliveryView
+) -> tuple[str, DeliveryView, dict[str, str]]:
+    """Every file the delivery lists, read and hashed; the first problem as text, else ""."""
+    files: dict[str, str] = {}
+    for name, sha256 in record.files.items():
+        if not local_path(name):
+            return "Invalid delivery path", view, files
+        try:
+            raw = read_file(root, f"{folder}/{name}")
+        except (OSError, ValueError):
+            raw = None
+        if raw is None or digest(raw) != sha256:
+            return f"Missing or changed delivery file: {name}", view, files
+        if name == "view.json":
+            try:
+                view = DeliveryView.model_validate_json(raw)
+            except ValueError:
+                return "Invalid delivery identity", view, files
+        files[f"{folder}/{name}"] = sha256
+    return "", view, files
+
+
 def verify_delivery(root: Path, folder: str) -> tuple[Artifact, DeliveryView, dict[str, str]]:
     artifact = Artifact(
         folder=folder, label=os.path.basename(folder), state="candidate", relationship="direct"
     )
     view = DeliveryView()
-    files: dict[str, str] = {}
     try:
         record = read_json(root, f"{folder}/delivery.json", DeliveryRecord)
     except (OSError, ValueError) as error:
         artifact.issue = describe(error)
-        return artifact, view, files
+        return artifact, view, {}
     # A delivery presents either a report or, lacking one, a published model.
     page, artifact.kind = "report.html", "report"
     if not record.files.get(page) and record.files.get("model.html"):
         page, artifact.kind = "model.html", "model"
     if not record.files.get(page) or not record.files.get("view.json"):
         artifact.issue = "Delivery manifest requires report.html and view.json"
-        return artifact, view, files
-    for name, sha256 in record.files.items():
-        if not local_path(name):
-            artifact.issue = "Invalid delivery path"
-            return artifact, view, files
-        try:
-            raw = read_file(root, f"{folder}/{name}")
-        except (OSError, ValueError):
-            raw = None
-        if raw is None or digest(raw) != sha256:
-            artifact.issue = f"Missing or changed delivery file: {name}"
-            return artifact, view, files
-        if name == "view.json":
-            try:
-                view = DeliveryView.model_validate_json(raw)
-            except ValueError:
-                artifact.issue = "Invalid delivery identity"
-                return artifact, view, files
-        files[f"{folder}/{name}"] = sha256
-    if not view.run.issuer_id or not view.run.issuer_name or not view.run.run_id:
+        return artifact, view, {}
+    artifact.issue, view, files = pin_delivery_files(root, folder, record, view)
+    if not artifact.issue and not (view.run.issuer_id and view.run.issuer_name and view.run.run_id):
         artifact.issue = "Missing delivery issuer/run identity"
-        return artifact, view, files
-    if not calendar_date(view.run.as_of):
+    elif not artifact.issue and not calendar_date(view.run.as_of):
         artifact.issue = "Invalid delivery evidence date"
+    if artifact.issue:
         return artifact, view, files
     artifact.available = True
     artifact.href = pinned_url(f"{folder}/{page}", record.files[page])
@@ -532,6 +537,49 @@ def seed_manifest(seed: Run, seeds: Catalogue) -> Manifest:
     return manifest
 
 
+def admit_folder(
+    root: Path, folder: str, seed_by_id: dict[str, Run], seeds: Catalogue, cat: Catalogue
+) -> Run:
+    """One run folder as a run: its manifest, else a surviving legacy summary, else discovered."""
+    run_id = os.path.basename(folder)
+    run = blank_run(run_id)
+    if os.path.lexists(root / folder / "library.json"):
+        try:
+            manifest = read_json(root, f"{folder}/library.json", Manifest)
+            if manifest.schema_ != MANIFEST_SCHEMA:
+                raise ValueError("unsupported run manifest schema")
+            run = admit_run(root, manifest, run_id, cat)
+        except (OSError, ValueError) as error:
+            run = blank_run(run_id)
+            run.gaps.append(f"Run metadata rejected: {describe(error)}")
+            cat.issues.append(f"{folder}: {describe(error)}")
+    elif run_id in seed_by_id:
+        try:
+            run = admit_run(root, seed_manifest(seed_by_id[run_id], seeds), run_id, cat)
+        except (OSError, ValueError) as error:
+            run = blank_run(run_id)
+            run.gaps.append(f"Legacy summary unavailable: {describe(error)}")
+            cat.issues.append(f"{folder}: {describe(error)}")
+    return run
+
+
+def unattached_delivery(artifact: Artifact, view: DeliveryView) -> Run:
+    run = blank_run(f"delivery:{os.path.basename(artifact.folder)}")
+    run.title = "Delivery revision"
+    run.workflow = "Delivery"
+    run.artifacts = [artifact.model_copy()]
+    if artifact.available:
+        run.issuer = view.run.issuer_id
+        run.name = view.run.issuer_name
+        run.date = view.run.as_of
+        run.period = view.run.as_of
+        run.summary = (
+            f"Discovered delivery for {view.run.run_id}. Its relationship to analytical "
+            "run folders has not been established; no metrics or completion are inferred."
+        )
+    return run
+
+
 def discover(workspace: str, seeds: Catalogue) -> Catalogue:
     cat = Catalogue(
         workspace=workspace,
@@ -550,25 +598,7 @@ def discover(workspace: str, seeds: Catalogue) -> Catalogue:
     # Legacy summaries remain useful only when their exact pinned files survive.
     seed_by_id = {run.id: run for run in seeds.real}
     for folder in run_folders:
-        run_id = os.path.basename(folder)
-        run = blank_run(run_id)
-        if os.path.lexists(root / folder / "library.json"):
-            try:
-                manifest = read_json(root, f"{folder}/library.json", Manifest)
-                if manifest.schema_ != MANIFEST_SCHEMA:
-                    raise ValueError("unsupported run manifest schema")
-                run = admit_run(root, manifest, run_id, cat)
-            except (OSError, ValueError) as error:
-                run = blank_run(run_id)
-                run.gaps.append(f"Run metadata rejected: {describe(error)}")
-                cat.issues.append(f"{folder}: {describe(error)}")
-        elif run_id in seed_by_id:
-            try:
-                run = admit_run(root, seed_manifest(seed_by_id[run_id], seeds), run_id, cat)
-            except (OSError, ValueError) as error:
-                run = blank_run(run_id)
-                run.gaps.append(f"Legacy summary unavailable: {describe(error)}")
-                cat.issues.append(f"{folder}: {describe(error)}")
+        run = admit_folder(root, folder, seed_by_id, seeds, cat)
         # Delivery availability is always checked afresh, not inherited from a seed.
         for artifact in run.artifacts:
             artifact.available = False
@@ -590,20 +620,7 @@ def discover(workspace: str, seeds: Catalogue) -> Catalogue:
         else:
             cat.issues.append(f"{folder}: {artifact.issue}")
         if not linked:
-            run = blank_run(f"delivery:{os.path.basename(folder)}")
-            run.title = "Delivery revision"
-            run.workflow = "Delivery"
-            run.artifacts = [artifact.model_copy()]
-            if artifact.available:
-                run.issuer = view.run.issuer_id
-                run.name = view.run.issuer_name
-                run.date = view.run.as_of
-                run.period = view.run.as_of
-                run.summary = (
-                    f"Discovered delivery for {view.run.run_id}. Its relationship to analytical "
-                    "run folders has not been established; no metrics or completion are inferred."
-                )
-            cat.real.append(run)
+            cat.real.append(unattached_delivery(artifact, view))
     for run in cat.real:
         if run._delivery_claimed:
             withhold_unverified_completeness(run, cat)
