@@ -194,12 +194,18 @@ def test_the_report_frame_shows_loading_failure_with_retry_and_loaded(
         "/did not load/.test(document.querySelector('.frame-status').textContent)"
     )
     assert screen.attr(".frame-status a", "href") == report["download"]
-    src = screen.attr("#report-preview", "src")
-    screen.click(".frame-status .frame-retry")
-    assert frame_status(screen) == "Loading report…"
-    assert screen.attr("#report-preview", "src") == src
-    screen.eval("document.getElementById('report-preview').dispatchEvent(new Event('load'))")
-    assert screen.eval("document.querySelector('.frame-status').hidden") is True
+    # Each action and its reads share one task, before the 20 ms frame timeout can fire.
+    retry = screen.eval(
+        "()=>{const d=document,f=d.getElementById('report-preview'),src=f.getAttribute('src');"
+        "d.querySelector('.frame-status .frame-retry').click();"
+        "return [d.querySelector('.frame-status').textContent.replace(/\\s+/g,' ').trim(),"
+        "src,f.getAttribute('src')];}"
+    )
+    assert retry[0] == "Loading report…" and retry[1] == retry[2]
+    assert screen.eval(
+        "()=>{document.getElementById('report-preview').dispatchEvent(new Event('load'));"
+        "return document.querySelector('.frame-status').hidden;}"
+    )
     after_timers(screen, 60)
     assert screen.eval("document.querySelector('.frame-status').hidden") is True
 
