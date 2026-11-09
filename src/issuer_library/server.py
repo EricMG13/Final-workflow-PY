@@ -560,7 +560,8 @@ def build(lib: Application) -> FastAPI:
         try:
             return await run_in_threadpool(lib.apply_settings, await request.body())
         finally:
-            lib.store_cache.clear()  # after the locks are released; the key also names the workspace
+            # After the locks are released; the key also names the workspace.
+            lib.store_cache.clear()
 
     @app.post("/api/quit")
     def quit_library() -> Response:
