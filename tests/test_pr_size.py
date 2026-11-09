@@ -172,3 +172,70 @@ def test_unknown_source_sha_fails(tmp_path: Path) -> None:
     done = result(repo, base)
     assert done.returncode == 1
     assert f"source commit {UNKNOWN_SHA} is not in this repository" in done.stderr
+
+
+def replace_lines(data: bytes, count: int) -> bytes:
+    """Return data with its first `count` lines replaced."""
+    rows = data.splitlines(keepends=True)
+    return b"".join([f"changed {i}\n".encode() for i in range(count)] + rows[count:])
+
+
+def edited_setup(tmp_path: Path, replaced: int) -> tuple[Path, str]:
+    """Base holds a different 1000-line file; source holds 900; HEAD edits the source copy."""
+    repo, base = make_repo(tmp_path, {"vendor/big.txt": lines(1000)[::-1]})
+    source_data = lines(900)
+    sha = make_source(repo, {"vendor/big.txt": source_data})
+    commit(
+        repo,
+        "copy and edit",
+        {
+            "vendor/big.txt": replace_lines(source_data, replaced),
+            "tools/copied-from.txt": listing_text(sha, "edited vendor/big.txt"),
+        },
+    )
+    return repo, base
+
+
+def test_edited_copy_counts_only_its_difference_from_source(tmp_path: Path) -> None:
+    repo, base = edited_setup(tmp_path, 3)
+    assert pr_size.pr_lines(base, repo) == 6
+    assert run(repo, base) == 0
+
+
+def test_edited_path_is_not_a_mismatch(tmp_path: Path) -> None:
+    repo, _ = edited_setup(tmp_path, 3)
+    listing = repo / "tools" / "copied-from.txt"
+    assert pr_size.copied_mismatches(listing, repo) == []
+
+
+def test_edited_path_absent_at_source_is_a_mismatch(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"other.txt": b"x\n"})
+    commit(
+        repo,
+        "new",
+        {
+            "new/file.py": b"x = 1\n",
+            "tools/copied-from.txt": listing_text(sha, "edited new/file.py"),
+        },
+    )
+    listing = repo / "tools" / "copied-from.txt"
+    assert pr_size.copied_mismatches(listing, repo) == ["new/file.py"]
+    done = result(repo, base)
+    assert done.returncode == 1
+    assert "copy mismatch: new/file.py" in done.stdout
+
+
+def test_edited_path_absent_here_is_a_mismatch(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"vendor/f.txt": lines(5)})
+    commit(repo, "list", {"tools/copied-from.txt": listing_text(sha, "edited vendor/f.txt")})
+    listing = repo / "tools" / "copied-from.txt"
+    assert pr_size.copied_mismatches(listing, repo) == ["vendor/f.txt"]
+    assert run(repo, base) == 1
+
+
+def test_edited_difference_over_800_fails(tmp_path: Path) -> None:
+    repo, base = edited_setup(tmp_path, 401)
+    assert pr_size.pr_lines(base, repo) == 802
+    assert run(repo, base) == 1

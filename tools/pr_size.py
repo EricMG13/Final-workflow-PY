@@ -3,8 +3,10 @@
 Files copied byte-identical from a pinned commit of another repository are listed in
 tools/copied-from.txt and do not count toward the PR line cap.
 
-Listing format: first line ``source <40-hex sha>``, then one repo-relative path per line.
-A listing with no non-blank lines means "no copies".
+Listing format: first line ``source <40-hex sha>``, then one repo-relative path per line
+(copied byte-identical, or deleted upstream), or ``edited <path>`` for a file copied from the
+sha and then edited by hand: it counts only its difference from the sha. A listing with no
+non-blank lines means "no copies".
 """
 
 import argparse
@@ -20,6 +22,7 @@ ANSWER_KEY_DIR = "apps/issuer-library/designs/"
 ANSWER_KEY_SUFFIX = "-answer-key.json"
 LOCKFILE = "uv.lock"
 SOURCE_LINE = re.compile(r"source ([0-9a-fA-F]{40})")
+EDITED_PREFIX = "edited "
 
 
 def _git(repo: Path, *args: str) -> bytes:
@@ -27,8 +30,8 @@ def _git(repo: Path, *args: str) -> bytes:
     return done.stdout
 
 
-def _parse_listing(listing: Path) -> tuple[str, list[str]] | None:
-    """Return (sha, paths), or None when the listing is absent or empty."""
+def _parse_listing(listing: Path) -> tuple[str, list[str], list[str]] | None:
+    """Return (sha, copied paths, edited paths), or None when the listing is absent or empty."""
     if not listing.exists():
         return None
     rows = [r.strip() for r in listing.read_text(encoding="utf-8").splitlines() if r.strip()]
@@ -37,7 +40,11 @@ def _parse_listing(listing: Path) -> tuple[str, list[str]] | None:
     match = SOURCE_LINE.fullmatch(rows[0])
     if match is None:
         raise ValueError(f"{listing}: first line must be 'source <40-hex sha>', got {rows[0]!r}")
-    return match.group(1), rows[1:]
+    edited = [
+        r.removeprefix(EDITED_PREFIX).strip() for r in rows[1:] if r.startswith(EDITED_PREFIX)
+    ]
+    copied = [r for r in rows[1:] if not r.startswith(EDITED_PREFIX)]
+    return match.group(1), copied, edited
 
 
 def _exists_at(repo: Path, sha: str, path: str) -> bool:
@@ -52,7 +59,7 @@ def copied_mismatches(listing: Path, repo: Path) -> list[str]:
     parsed = _parse_listing(listing)
     if parsed is None:
         return []
-    sha, paths = parsed
+    sha, paths, edited = parsed
     known = subprocess.run(
         ["git", "cat-file", "-e", f"{sha}^{{commit}}"], cwd=repo, check=False, capture_output=True
     )
@@ -67,6 +74,9 @@ def copied_mismatches(listing: Path, repo: Path) -> list[str]:
                 bad.append(path)
         elif target.exists():
             bad.append(path)
+    for path in edited:
+        if not _exists_at(repo, sha, path) or not (repo / path).is_file():
+            bad.append(path)
     return sorted(set(bad))
 
 
@@ -79,10 +89,21 @@ def _is_excluded(path: str) -> bool:
     return rest != path and "/" not in rest and rest.endswith(ANSWER_KEY_SUFFIX)
 
 
+def _edit_lines(repo: Path, sha: str, path: str) -> int:
+    """Added plus deleted lines of one file, HEAD against the source commit."""
+    out = _git(repo, "diff", "--numstat", "--no-renames", sha, "HEAD", "--", path)
+    if not out.strip():
+        return 0
+    added, deleted, _ = out.decode("utf-8").split("\t", 2)
+    return 0 if added == "-" or deleted == "-" else int(added) + int(deleted)
+
+
 def pr_lines(base: str, repo: Path) -> int:
     """Added plus deleted lines in base...HEAD, minus copies, fixtures and lockfiles."""
     parsed = _parse_listing(repo / LISTING)
-    copied = set(parsed[1]) if parsed else set()
+    sha, copied, edited = (
+        (parsed[0], set(parsed[1]), set(parsed[2])) if parsed else ("", set(), set())
+    )
     out = _git(repo, "diff", "--numstat", "--no-renames", "-z", f"{base}...HEAD")
     total = 0
     for record in out.decode("utf-8").split("\0"):
@@ -91,7 +112,10 @@ def pr_lines(base: str, repo: Path) -> int:
         added, deleted, path = record.split("\t", 2)
         if path in copied or _is_excluded(path) or added == "-" or deleted == "-":
             continue
-        total += int(added) + int(deleted)
+        if path in edited:
+            total += _edit_lines(repo, sha, path)
+        else:
+            total += int(added) + int(deleted)
     return total
 
 
