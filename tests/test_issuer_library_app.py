@@ -1095,12 +1095,32 @@ class ContextForm:
             [element_id, value],
         )
 
+    def pick(self, element_id: str) -> None:
+        self.page.evaluate(
+            "i=>{const c=document.getElementById(i);c.checked=true;"
+            "c.dispatchEvent(new Event('change',{bubbles:true}));}",
+            element_id,
+        )
+
+    def declare(self) -> None:
+        self.pick("issue_classification-high_yield")
+        self.pick("legal_documents-executed")
+
     def submit(self) -> dict[str, Any]:
         value: dict[str, Any] = self.page.evaluate(
             "()=>{window.dispatchEvent(new MessageEvent('message',{source:window,data:{type:'cpos:get-context'}}));"
             "return window.__messages.filter(m=>m.type==='cpos:context').at(-1);}"
         )
         return value
+
+    def load(self, folder: Path, text: str) -> None:
+        """Choose a saved context file and wait until the form reports it loaded."""
+        saved = folder / "context.json"
+        saved.write_text(text, encoding="utf-8")
+        self.page.set_input_files("#load", saved)
+        self.page.wait_for_function(
+            "document.getElementById('loadmsg').textContent.startsWith('Loaded')"
+        )
 
     def close(self) -> None:
         assert self.errors == []
@@ -1122,14 +1142,17 @@ def test_one_required_context_path_retains_all_original_optional_fields(form: Co
     )
     assert form.page.evaluate("document.querySelector('#sec2 details').open") is False
     assert form.page.evaluate("Boolean(document.getElementById('s2-guarantors'))")
-    assert len(form.submit()["problems"]) == 2
+    assert len(form.submit()["problems"]) == 4
     assert form.page.evaluate("document.activeElement.id") == "s2-issuer_name"
     form.set("s2-issuer_name", "Synthetic Émetteur")
     form.set("s3-reporting_currency", "EUR")
+    form.declare()
     result = form.submit()
     assert result["problems"] == []
     assert result["context"]["identity"]["issuer_name"] == "Synthetic Émetteur"
     assert result["context"]["run"]["reporting_currency"] == "EUR"
+    assert result["context"]["identity"]["issue_classification"] == "high_yield"
+    assert result["context"]["attachments"]["legal_documents"] == "executed"
 
 
 def test_context_destinations_use_visible_disclosure_names_instead_of_numbering(
@@ -1152,6 +1175,7 @@ def test_earnings_requirements_and_optional_section_errors_keep_native_validatio
     form: ContextForm,
 ) -> None:
     form.set("s2-issuer_name", "Synthetic earnings")
+    form.declare()
     form.page.evaluate(
         "()=>{const c=document.getElementById('run_type-earnings');c.checked=true;"
         "c.dispatchEvent(new Event('change',{bubbles:true}));}"
@@ -1162,23 +1186,38 @@ def test_earnings_requirements_and_optional_section_errors_keep_native_validatio
     assert form.submit()["problems"] == []
 
 
-def test_loading_a_valid_saved_context_keeps_focus_on_visible_context(
+def test_loading_a_context_from_before_the_classification_existed_asks_for_it(
     form: ContextForm, tmp_path: Path
 ) -> None:
-    saved = tmp_path / "context.json"
-    saved.write_bytes((ROOT / "cases/context/research-minimal.json").read_bytes())
-    form.page.set_input_files("#load", saved)
-    form.page.wait_for_function(
-        "document.getElementById('loadmsg').textContent.startsWith('Loaded')"
-    )
-    assert re.search(
-        r"Loaded context.json", form.page.evaluate("document.getElementById('loadmsg').textContent")
-    )
+    raw = (ROOT / "cases/context/research-minimal.json").read_text(encoding="utf-8")
+    saved = json.loads(raw)
+    assert "issue_classification" not in saved["identity"]
+    form.load(tmp_path, raw)
+    message = form.page.evaluate("document.getElementById('loadmsg').textContent")
+    assert "Loaded context.json" in message
+    assert "issue_classification: not stated in this file" in message
     assert form.page.evaluate("document.activeElement.closest('section').id") == "sec2"
+    assert (
+        form.page.evaluate(
+            "document.querySelectorAll('input[name=\"issue_classification\"]:checked').length"
+        )
+        == 0
+    )
+    assert form.submit()["problems"] == ["Issue classification: required."]
+    assert (
+        form.page.evaluate("document.getElementById('classf').querySelector('.err').textContent")
+        == "required."
+    )
+    form.pick("issue_classification-investment_grade")
     result = form.submit()
     assert result["problems"] == []
     assert result["context"]["identity"]["issuer_name"] == "Northbridge Group"
     assert result["context"]["run"]["as_of"] == "2026-10-31"
+    assert (
+        result["context"]["attachments"]["legal_documents"]
+        == saved["attachments"]["legal_documents"]
+    )
+    assert result["context"]["identity"]["issue_classification"] == "investment_grade"
 
 
 # ---- Retained report renderers inside the sandboxed frame contract. ----
