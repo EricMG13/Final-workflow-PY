@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import threading
 import time
@@ -11,10 +12,20 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-from issuer_library_support import HOST, ORIGIN, POST_HEADERS, client_of, fake_engine, make_app
+from issuer_library_support import (
+    HOST,
+    ORIGIN,
+    POST_HEADERS,
+    client_of,
+    fake_engine,
+    make_app,
+    put,
+)
 
+import issuer_library.events as events_module
 import issuer_library.server as server_module
-from issuer_library.jobs import Engine
+from issuer_library.events import progress
+from issuer_library.jobs import Engine, job_view
 from issuer_library.server import Application
 from issuer_library.settings import save_json
 
@@ -114,7 +125,8 @@ def test_upload_options_are_validated_before_staging(tmp_path: Path) -> None:
     for fields, text in [
         ({"modules": "CP-4 cp-5"}, "CP codes"),
         ({"max_turns": "0"}, "Max turns"),
-        ({"max_turns": "201"}, "Max turns"),
+        # P bounds turns at 1-64 (key/jobs.go:465-471, "Max turns must be between 1 and 64").
+        ({"max_turns": "65"}, "Max turns must be between 1 and 64"),
         ({"max_turns": "x"}, "Max turns"),
     ]:
         response = review_request(client, '["annual.txt"]', **fields)
@@ -356,3 +368,334 @@ def test_save_json_waits_for_a_file_held_open(
     save_json(name, {"state": "interrupted"})
     assert held["count"] == 2 and json.loads(name.read_bytes()) == {"state": "interrupted"}
     assert [path.name for path in tmp_path.iterdir()] == ["status.json"], "temporary file left"
+
+
+# --- sub-task 5A: run events, progress from the event log, run-list recency, turn bound ---
+# Ported from key/jobs_test.go (final-workflow P dd3dfa18); expected values are the Go ones.
+
+EVENTS_ID = "web-" + "c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0"
+
+# Hand-written log: CP-0 accepted after one turn; CP-1 on its second turn.
+EVENT_LINES = """{"at":"2026-11-07T10:00:00Z","event":"module_started","module":"CP-0"}
+{"at":"2026-11-07T10:00:01Z","event":"turn","module":"CP-0","turn":1,"max_turns":32,"spent_usd":"0","held_usd":"1.50","cap_usd":"10"}
+{"at":"2026-11-07T10:00:02Z","event":"module_accepted","module":"CP-0"}
+{"at":"2026-11-07T10:00:03Z","event":"module_started","module":"CP-1"}
+{"at":"2026-11-07T10:00:04Z","event":"turn","module":"CP-1","turn":1,"max_turns":32,"spent_usd":"0.40","held_usd":"1.50","cap_usd":"10"}
+{"at":"2026-11-07T10:00:05Z","event":"turn","module":"CP-1","turn":2,"max_turns":32,"spent_usd":"0.85","held_usd":"1.60","cap_usd":"10"}
+"""
+ACTIVITY_LINES = """{"at":"2026-11-08T09:00:00Z","event":"module_started","module":"CP-0"}
+{"at":"2026-11-08T09:00:01Z","event":"turn","module":"CP-0","turn":1,"max_turns":24,"spent_usd":"0.00","held_usd":"5.73","cap_usd":"10"}
+{"at":"2026-11-08T09:00:02Z","event":"draft_rejected","module":"CP-0","writes_left":2}
+{"at":"2026-11-08T09:00:03Z","event":"module_accepted","module":"CP-0"}
+{"at":"2026-11-08T09:00:04Z","event":"delivery_started"}
+{"at":"2026-11-08T09:00:05Z","event":"delivered"}
+"""
+
+
+def write_events(root: Path, job_id: str, text: str) -> None:
+    put(root, f"runs/{job_id}/events.jsonl", text.encode())
+
+
+def write_job(root: Path, job_id: str, state: str, when: float) -> None:
+    put(root, f"intake/{job_id}/status.json", json.dumps({"state": state}).encode())
+    os.utime(root / "intake" / job_id / "status.json", (when, when))
+
+
+def listed_jobs(client: TestClient) -> list[str]:
+    response = client.get("/api/runs/list")
+    assert response.status_code == 200, response.text
+    return [row["id"] for row in response.json()]
+
+
+def get_events(client: TestClient) -> Any:
+    return client.get(f"/api/runs/events?id={EVENTS_ID}")
+
+
+def test_job_view_carries_the_first_event_time_as_started_at(tmp_path: Path) -> None:
+    put(tmp_path, f"intake/{EVENTS_ID}/status.json", b'{"state":"stopped"}')
+    view = job_view(str(tmp_path), EVENTS_ID)
+    assert view is not None and "started_at" not in view, "a run with no log invented a time"
+    write_events(tmp_path, EVENTS_ID, EVENT_LINES)
+    view = job_view(str(tmp_path), EVENTS_ID)
+    assert view is not None and view["started_at"] == "2026-11-07T10:00:00Z"
+    write_events(tmp_path, EVENTS_ID, '{"event":"module_started","module":"CP-0"}\n')
+    view = job_view(str(tmp_path), EVENTS_ID)
+    assert view is not None and view.get("started_at") is None
+
+
+def test_run_progress_folds_events(tmp_path: Path) -> None:
+    folder = tmp_path / "runs" / EVENTS_ID
+    rejected = (
+        '{"at":"2026-11-07T10:00:06Z","event":"draft_rejected","module":"CP-1","writes_left":2}\n'
+    )
+    write_events(tmp_path, EVENTS_ID, EVENT_LINES + rejected)
+    assert progress(folder) == {
+        "module": "CP-1",
+        "step": "repairing",
+        "turn": 2,
+        "max_turns": 32,
+        "spent_usd": "0.85",
+        "held_usd": "1.60",
+        "cap_usd": "10",
+        "accepted": 1,
+    }
+    accepted = '{"at":"x","event":"module_accepted","module":"CP-1"}\n'
+    delivering = '{"at":"x","event":"delivery_started"}\n'
+    write_events(tmp_path, EVENTS_ID, EVENT_LINES + accepted + delivering)
+    got = progress(folder)
+    assert got is not None and got["step"] == "delivering" and got["accepted"] == 2
+    stopped = '{"at":"x","event":"stopped","reason":"budget"}\n'
+    write_events(tmp_path, EVENTS_ID, EVENT_LINES + stopped)
+    got = progress(folder)
+    assert got is not None
+    assert (got["step"], got["turn"], got["stopped_during"]) == ("stopped", 2, "running")
+    other = '{"at":"x","event":"stopped","reason":"other"}\n'
+    write_events(tmp_path, EVENTS_ID, EVENT_LINES + accepted + delivering + other)
+    got = progress(folder)
+    assert got is not None
+    assert (got["step"], got["stopped_during"], got["accepted"]) == ("stopped", "delivering", 2)
+    write_events(tmp_path, EVENTS_ID, '{"at":"x","event":"module_started","module":"CP-0"}\n')
+    got = progress(folder)
+    assert got is not None and (got["step"], got["accepted"]) == ("started", 0)
+
+
+def test_run_progress_ignores_a_truncated_last_line(tmp_path: Path) -> None:
+    write_events(tmp_path, EVENTS_ID, EVENT_LINES + '{"at":"2026-11-07T10:00:06Z","event":"tur')
+    got = progress(tmp_path / "runs" / EVENTS_ID)
+    assert got is not None, "truncated tail lost the progress"
+    assert (got["turn"], got["step"], got["accepted"]) == (2, "running", 1)
+
+
+def test_run_progress_falls_back_to_progress_json(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    folder = tmp_path / "runs" / EVENTS_ID
+    assert progress(folder) is None, "progress from nothing"
+    want = {"module": "CP-1", "step": "started", "spent_usd": "0.10"}
+    put(tmp_path, f"runs/{EVENTS_ID}/progress.json", json.dumps(want).encode())
+    assert progress(folder) == want, "retained fallback"
+    # An empty log (run started, no module dispatched yet) has no progress; progress.json serves.
+    write_events(tmp_path, EVENTS_ID, "")
+    assert progress(folder) == want, "empty log"
+    # A corrupt earlier line skips the whole log (documented fail-open, logged once).
+    write_events(tmp_path, EVENTS_ID, "not json\n" + EVENT_LINES)
+    with caplog.at_level(logging.WARNING, logger="issuer_library"):
+        assert progress(folder) == want, "corrupt earlier line"
+    warnings = [record for record in caplog.records if "unreadable line" in record.getMessage()]
+    assert len(warnings) == 1 and EVENTS_ID in warnings[0].getMessage()
+
+
+def test_run_progress_is_absent_with_neither_file(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    write_job(root, EVENTS_ID, "running", time.time())
+    response = client.get(f"/api/runs/status?id={EVENTS_ID}")
+    assert response.status_code == 200, response.text
+    assert "progress" not in response.json(), "progress invented"
+
+
+def test_progress_of_a_cut_log_is_marked_incomplete(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    head = '{"at":"2026-11-07T10:00:00Z","event":"module_started","module":"CP-0"}\n'
+    tail = (
+        '{"at":"2026-11-07T10:00:02Z","event":"module_accepted","module":"CP-0"}\n'
+        '{"at":"2026-11-07T10:00:05Z","event":"stopped","reason":"budget"}\n'
+    )
+    write_events(tmp_path, EVENTS_ID, head + tail)
+    folder = tmp_path / "runs" / EVENTS_ID
+    whole = progress(folder)
+    assert whole is not None and "incomplete" not in whole and whole["accepted"] == 1
+    monkeypatch.setattr(events_module, "EVENTS_LIMIT", len(head) + 10)
+    cut = progress(folder)
+    assert cut is not None and cut["incomplete"] is True, "cut log carries no incomplete mark"
+
+
+def test_run_events_endpoint_lists_every_event_with_its_fields(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    write_job(root, EVENTS_ID, "running", time.time())
+    write_events(root, EVENTS_ID, ACTIVITY_LINES)
+    response = get_events(client)
+    body = response.json()
+    assert response.status_code == 200 and len(body["events"]) == 6 and body["complete"], body
+    events = body["events"]
+    assert events[0]["at"] == "2026-11-08T09:00:00Z" and events[0]["event"] == "module_started"
+    assert events[1]["held_usd"] == "5.73" and events[1]["turn"] == 1
+    assert events[1]["max_turns"] == 24
+    assert events[2]["writes_left"] == 2
+    assert events[5]["event"] == "delivered"
+
+
+def test_run_events_endpoint_drops_a_truncated_last_line(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    write_job(root, EVENTS_ID, "running", time.time())
+    kept = ACTIVITY_LINES[: ACTIVITY_LINES.rstrip("\n").rfind("\n") + 1]
+    write_events(root, EVENTS_ID, kept + '{"event":"tur')
+    response = get_events(client)
+    body = response.json()
+    assert response.status_code == 200 and len(body["events"]) == 5 and not body["complete"]
+
+
+def test_run_events_endpoint_without_a_log_is_an_empty_list(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    assert get_events(client).status_code == 404, "neither file"
+    write_job(root, EVENTS_ID, "running", time.time())
+    response = get_events(client)
+    assert response.status_code == 200
+    assert response.json() == {"events": [], "complete": True}
+
+
+def test_run_events_stops_at_the_read_limit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(events_module, "EVENTS_LIMIT", 300)
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    write_job(root, EVENTS_ID, "running", time.time())
+    write_events(root, EVENTS_ID, ACTIVITY_LINES)
+    response = get_events(client)
+    body = response.json()
+    assert response.status_code == 200 and not body["complete"], response.text
+    assert 0 < len(body["events"]) < 6, response.text
+
+
+def test_run_events_refuses_a_bad_id_and_reports_an_unreadable_log(tmp_path: Path) -> None:
+    # Added for the Go routing (key/jobs.go:371-405): bad id is 404; a log that cannot be read
+    # (here a directory) is 500 "Run events are unreadable".
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    assert client.get("/api/runs/events?id=nope").status_code == 404
+    (root / "runs" / EVENTS_ID / "events.jsonl").mkdir(parents=True)
+    response = get_events(client)
+    assert response.status_code == 500 and "Run events are unreadable" in response.text
+
+
+def test_run_event_fields_follow_the_go_struct_decoding(tmp_path: Path) -> None:
+    # Added: Go json.Unmarshal into runEvent (key/jobs.go:161-172). Unknown keys drop, null
+    # decodes to an empty event, writes_left 0 stays, a float turn makes the line unreadable.
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    write_job(root, EVENTS_ID, "running", time.time())
+    write_events(
+        root,
+        EVENTS_ID,
+        '{"event":"turn","turn":3,"extra":1,"reason":null,"writes_left":0}\nnull\n'
+        '{"event":"turn","turn":1.5}\n{"event":"x"}\n',
+    )
+    body = get_events(client).json()
+    assert body == {
+        "events": [{"event": "turn", "turn": 3, "writes_left": 0}, {"event": ""}],
+        "complete": False,
+    }
+
+
+def test_review_refuses_more_turns_than_the_loop_allows(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    app.engine = fake_engine(tmp_path)
+    client = client_of(app)
+    assert review_request(client, '["a.txt"]', max_turns="65").status_code == 400
+    assert review_request(client, '["a.txt"]', max_turns="64").status_code == 200
+
+
+def test_run_list_follows_recency_and_always_keeps_active_jobs(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    now = time.time()
+    # Ids sort opposite to age: the newest jobs have the smallest ids.
+    for i in range(40):
+        write_job(root, f"web-{0x100 + i:032x}", "complete", now - (i + 1) * 3600)
+    newest = "web-" + "0" * 31 + "1"
+    write_job(root, newest, "running", now)
+    old_running = "web-" + "f" * 32
+    write_job(root, old_running, "running", now - 500 * 3600)
+    draft = "web-" + "a" * 32
+    write_job(root, draft, "reviewed", now)
+    ids = listed_jobs(client)
+    assert len(ids) == 30, f"{len(ids)} rows, want the 30 cap: {ids}"
+    assert ids[0] == newest, "the just-started job must lead the list"
+    assert old_running in ids, "a running job must be listed even when its status file is old"
+    assert draft not in ids, "a reviewed-only draft is not a run"
+    # 28 finished jobs fill the remaining places: the 28 newest by write time.
+    for i in range(28):
+        assert f"web-{0x100 + i:032x}" in ids, f"finished job {i} (newer than the cut) missing"
+    # key/jobs_test.go:661-663: an older finished job must not displace a newer one.
+    assert f"web-{0x100 + 28:032x}" not in ids, "an older finished job displaced a newer one"
+
+
+def test_review_run_list_many_stale_active_jobs_exceed_the_cap(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    now = time.time()
+    for i in range(35):
+        write_job(root, f"web-{0x200 + i:032x}", "running", now - (100 + i) * 3600)
+    for i in range(5):
+        write_job(root, f"web-{0x300 + i:032x}", "running", now - (200 + i) * 3600)
+    for i in range(10):
+        write_job(root, f"web-{0x400 + i:032x}", "complete", now - i * 60)
+    ids = listed_jobs(client)
+    assert len(ids) == 40, f"{len(ids)} rows, want all 40 active jobs"
+    for i, job_id in enumerate(ids):
+        want = f"web-{0x200 + i:032x}" if i < 35 else f"web-{0x300 + i - 35:032x}"
+        assert job_id == want, f"row {i} is {job_id}, want {want} (newest first)"
+
+
+def test_review_run_list_equal_times_and_unreadable_status(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    when = 1793966400.0  # 2026-11-06T12:00:00Z (key/jobs_test.go:800)
+    for i in range(33):
+        write_job(root, f"web-{0x500 + i:032x}", "complete", when)
+    bad = {"web-" + "e" * 32: b"{not json", "web-" + "d" * 32: b""}
+    for job_id, raw in bad.items():
+        put(root, f"intake/{job_id}/status.json", raw)
+    put(root, "intake/web-" + "c" * 32 + "/status.json/inner", b'{"state":"running"}')
+    put(root, "intake/web-" + "b" * 32, b'{"state":"running"}')
+    put(root, "intake/notes/status.json", b'{"state":"running"}')
+    first, second = listed_jobs(client), listed_jobs(client)
+    assert len(first) == 30 and first == second, f"{len(first)} rows: {first}"
+    for i, job_id in enumerate(first):
+        assert job_id == f"web-{0x500 + 32 - i:032x}", f"row {i} is {job_id}"
+
+
+@pytest.mark.parametrize(
+    "log",
+    [
+        '{"event":"stopped","reason":"\\udcff"}\n',
+        '{"event":"module_started","module":"CP-\\ud800"}\n',
+        '{"event":"turn","x":' + "[" * 1500 + "]" * 1500 + "}\n",
+        '{"event":"turn"}\n{"x":' + "[" * 1500,
+        '{"event":"turn"}\n{"x":' + "[" * 20000 + '\n{"event":"turn"}\n',
+        "[" * 200000 + "\n",
+    ],
+)
+def test_run_endpoints_survive_lone_surrogates_and_over_deep_lines(
+    tmp_path: Path, log: str
+) -> None:
+    # Go reads a lone surrogate escape as U+FFFD and refuses over-deep nesting as an unreadable
+    # line; neither fails a request (reviewer probes 5A-adv-1, 5A-adv-2).
+    app, root = make_app(tmp_path)
+    client = TestClient(app.asgi, base_url=ORIGIN, raise_server_exceptions=False)
+    put(root, f"intake/{EVENTS_ID}/status.json", b'{"state":"running"}')
+    write_events(root, EVENTS_ID, log)
+    for path in (f"/api/runs/events?id={EVENTS_ID}", f"/api/runs/status?id={EVENTS_ID}"):
+        assert client.get(path).status_code == 200, path
+    assert client.get("/api/runs/list").status_code == 200
+
+
+def test_run_list_decodes_status_like_the_go_struct(tmp_path: Path) -> None:
+    # key/jobs.go:315-325: struct{State string}: missing or null state is "", "State" matches
+    # case-insensitively, a non-string state is a decode error (skipped).
+    app, root = make_app(tmp_path)
+    cases = {
+        "web-" + "1" * 32: b"{}",
+        "web-" + "2" * 32: b'{"state":null,"message":"m"}',
+        "web-" + "3" * 32: b'{"State":"running"}',
+        "web-" + "4" * 32: b'{"state":5}',
+    }
+    for job_id, raw in cases.items():
+        put(root, f"intake/{job_id}/status.json", raw)
+    listed = listed_jobs(client_of(app))
+    assert sorted(listed) == sorted(j for j in cases if j[4] in "123"), listed

@@ -32,6 +32,7 @@ from .jobs import (
     local_engine,
     recent_jobs,
     review_run,
+    run_events,
     start_run,
 )
 from .launch import LAUNCHER_ONLY, Session, cookie_name
@@ -394,6 +395,14 @@ class Application:
         return serve_bytes(request, raw, headers)
 
 
+def events_route(app: FastAPI, lib: Application) -> None:
+    @app.get("/api/runs/events")
+    def runs_events(request: Request) -> Response:
+        with lib.lock:
+            workspace = lib.config.workspace
+        return run_events(workspace, request.query_params.get("id", ""))
+
+
 def build(lib: Application) -> FastAPI:
     """Routes over the application; every handler keeps the Go server's status codes and texts."""
     app = FastAPI(openapi_url=None, docs_url=None, redoc_url=None)
@@ -441,6 +450,8 @@ def build(lib: Application) -> FastAPI:
         with lib.lock:
             workspace = lib.config.workspace
         return job_status(workspace, request.query_params.get("id", ""))
+
+    events_route(app, lib)
 
     @app.post("/api/runs/review")
     async def runs_review(request: Request) -> Response:
