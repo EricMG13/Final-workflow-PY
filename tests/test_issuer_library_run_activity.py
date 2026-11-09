@@ -14,7 +14,16 @@ from collections.abc import Callable, Iterator
 from typing import Any, NamedTuple
 
 import pytest
-from issuer_library_browser import Reply, Screen, json_reply, open_app, text_reply, until
+from issuer_library_browser import (
+    EMPTY_WORKSPACE,
+    Reply,
+    Screen,
+    json_reply,
+    open_app,
+    release,
+    text_reply,
+    until,
+)
 
 pytestmark = pytest.mark.browser
 
@@ -22,7 +31,6 @@ ID = "web-" + "b" * 32
 MODULES = ["CP-0", "CP-1"]
 DONE = "!document.getElementById('content').textContent.includes('Loading run activity')"
 RETAINED = "No live progress is recorded for this run in this workspace."
-BUDGET_CAP = "Recorded spend: USD 9.90 of a USD 10 cap"
 
 
 class Failure(NamedTuple):
@@ -71,7 +79,7 @@ def log(events: list[dict[str, Any]], complete: bool = True) -> dict[str, Any]:
 def answer(value: Any) -> Reply:
     if isinstance(value, Failure):
         return text_reply(value.message, value.status)
-    return value if callable(value) else json_reply(value)
+    return json_reply(value)
 
 
 def run_store(key: str, modules: dict[str, Any]) -> dict[str, Any]:
@@ -85,10 +93,6 @@ def run_store(key: str, modules: dict[str, Any]) -> dict[str, Any]:
         "first": None,
     }
     return {"runs": {key: run}, "outputs": {}, "inputs": {}, "pins": {}}
-
-
-def workspace(reports: list[dict[str, Any]]) -> dict[str, Any]:
-    return {"reports": reports, "models": [], "visuals": []}
 
 
 OpenRun = Callable[..., Screen]
@@ -113,30 +117,19 @@ def activity(browser: Any) -> Iterator[OpenRun]:
             browser,
             f"CP-OS/activity?c={key}",
             store=run_store(key, modules or {}),
-            workspace=workspace(reports or []),
+            workspace={**EMPTY_WORKSPACE, "reports": reports or []},
             api=api,
         )
         opened.append(screen)
         until(screen.page, DONE)
         return screen
 
-    try:
-        yield open_activity
-    finally:
-        try:
-            for screen in opened:
-                assert screen.errors == []
-        finally:
-            for screen in opened:
-                screen.close()
+    yield open_activity
+    release(opened)
 
 
 def rows(screen: Screen) -> list[str]:
     return [t.strip() for t in screen.texts(".activity-log tbody tr")]
-
-
-def content(screen: Screen) -> str:
-    return screen.text("#content")
 
 
 def test_the_run_activity_page_lists_each_event_in_order_with_its_text(activity: OpenRun) -> None:
@@ -183,7 +176,7 @@ def test_a_stopped_run_leads_with_its_stop_sentence(activity: OpenRun) -> None:
     paragraphs = [t.strip() for t in p.texts("#run-activity p")]
     assert paragraphs[0].startswith(budget), paragraphs[0]
     assert rows(p) == ["8 November 2026 · 09:00:00" + budget]
-    assert paragraphs[1] == BUDGET_CAP
+    assert paragraphs[1] == "Recorded spend: USD 9.90 of a USD 10 cap"
 
 
 def test_an_incomplete_log_says_so(activity: OpenRun) -> None:
@@ -224,7 +217,7 @@ def test_a_404_for_the_live_record_shows_the_retained_record_view_never_the_raw_
     activity: OpenRun,
 ) -> None:
     p = activity(live=Failure("404 page not found\n", 404), events=log([]))
-    text = content(p)
+    text = p.content()
     assert re.search(r"Retained record · ", text)
     assert re.search(re.escape(RETAINED), text)
     assert not re.search(r"404|page not found|Could not load", text)
@@ -240,7 +233,7 @@ def test_a_404_status_with_a_recorded_event_log_shows_the_retained_heading_the_l
             "spent_usd": "2.40", "held_usd": "1.00", "cap_usd": "10"}  # fmt: skip
     missing = Failure("404 page not found\n", 404)
     p = activity(live=missing, events=log([EVENTS[0], EVENTS[1], turn]))
-    text = content(p)
+    text = p.content()
     assert re.search(r"Retained record · ", text)
     assert not re.search(re.escape(RETAINED), text)
     assert p.count(".activity-log tbody tr") == 3
@@ -248,9 +241,9 @@ def test_a_404_status_with_a_recorded_event_log_shows_the_retained_heading_the_l
     assert re.search(r"Last recorded spend: USD 2\.40", text)
     assert not re.search(r"404|page not found", text)
     none = activity(live=Failure("404", 404), events=log([]))
-    assert re.search(re.escape(RETAINED), content(none))
+    assert re.search(re.escape(RETAINED), none.content())
     lost = activity(live=Failure("404", 404), events=Failure("boom", 500))
-    assert re.search(re.escape(RETAINED), content(lost))
+    assert re.search(re.escape(RETAINED), lost.content())
 
 
 def test_a_404_landing_after_the_reader_left_run_activity_neither_throws_nor_writes_on_new_page(
@@ -259,17 +252,18 @@ def test_a_404_landing_after_the_reader_left_run_activity_neither_throws_nor_wri
     pending: list[Any] = []
     answered = (
         "const f=window.fetch;window.__answered=0;window.fetch=(u,o)=>{const p=f(u,o);"
-        "if(String(u).startsWith('/api/runs/status'))p.then(r=>r.clone().text())"
+        "if(String(u).startsWith('/api/runs/'))p.then(r=>r.clone().text())"
         ".then(()=>setTimeout(()=>{window.__answered++},0));return p;};"
     )
     screen = open_app(
         browser,
         f"CP-OS/activity?c={ID}",
-        store=run_store(ID, {}),
-        workspace=workspace([]),
         api={"/api/runs/status": pending.append, "/api/runs/events": answer(log([]))},
+        store=run_store(ID, {}),
         init=answered,
     )
+    events = "window.__calls.filter(c=>c.url.startsWith('/api/runs/events')).length"
+    after = "new Promise(resolve=>setTimeout(resolve,0))"
     try:
         for _ in range(250):
             if pending:
@@ -281,16 +275,20 @@ def test_a_404_landing_after_the_reader_left_run_activity_neither_throws_nor_wri
         until(screen.page, "current.module==='W-Library'")
         pending[0].fulfill(status=404, body="404 page not found", content_type="text/plain")
         until(screen.page, "window.__answered>0")
+        screen.page.evaluate(after)
+        if screen.page.evaluate(events):
+            until(screen.page, "window.__answered>1")
+        screen.page.evaluate(after)
         assert screen.errors == []
-        assert "Live progress and spend are recorded only" not in content(screen)
+        assert "Live progress and spend are recorded only" not in screen.content()
     finally:
         screen.close()
 
 
 def test_a_404_on_the_events_request_alone_is_also_the_retained_record(activity: OpenRun) -> None:
     p = activity(events=Failure("404 page not found", 404))
-    assert re.search(re.escape(RETAINED), content(p))
-    assert not re.search(r"404", content(p))
+    assert re.search(re.escape(RETAINED), p.content())
+    assert not re.search(r"404", p.content())
 
 
 def test_the_log_sits_in_the_bordered_content_table_card_and_only_the_summary_line_is_live(
@@ -328,19 +326,17 @@ def test_a_stopped_app_run_offers_resume_this_run_through_new_runs_resume_route_
 
 def test_a_retained_run_keeps_the_retained_record_text(activity: OpenRun) -> None:
     p = activity(key="tdg-002")
-    assert re.search(re.escape(RETAINED), content(p))
+    assert re.search(re.escape(RETAINED), p.content())
     assert not p.exists("#run-activity")
-    requested = [
-        c["url"] for c in p.calls() if c["url"].startswith(("/api/runs/status", "/api/runs/events"))
-    ]
-    assert requested == []
+    boot = ["/api/catalogue", "/api/runs/list?notify=0", "/api/workspace"]
+    assert sorted(c["url"] for c in p.calls()) == boot, "the page asks for nothing but boot's reads"
 
 
 def test_final_2_the_retained_record_sentence_makes_no_claim_about_cost(activity: OpenRun) -> None:
     missing = Failure("404 page not found", 404)
     p = activity(live=missing, events=missing)
-    assert re.search(re.escape(RETAINED), content(p))
-    assert not re.search(r"No live progress or cost", content(p))
+    assert re.search(re.escape(RETAINED), p.content())
+    assert not re.search(r"No live progress or cost", p.content())
 
 
 def test_final_4_the_activity_log_card_is_a_named_region(activity: OpenRun) -> None:
