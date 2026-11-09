@@ -19,7 +19,9 @@ from deploy_vii.downstream_readiness import (
     canonical_downstream_readiness,
 )
 from deploy_vii.financial_contracts import FinancialReview
+from deploy_vii.financial_model import ModelBasis
 from deploy_vii.financial_periods import PeriodValue, _id
+from deploy_vii.model.dates import fiscal_year_number
 from deploy_vii.model_interface import (
     SCHEMAS,
     ModelInterface,
@@ -302,24 +304,43 @@ def _normalizations(tables: _Tables, report: DownstreamReport) -> None:
         )
 
 
+def _stub_column(kind: str | None, year: int | None, own_year: int | None, sign: int) -> int:
+    """T4.8 column of one operand (S13 C06): 0 Full-Year Component, 1 Current Stub, 2 Prior-Year
+    Stub. A full year is the full-year component; a prior-year YTD, or a stub of an earlier
+    fiscal year than the construction's own, is the prior-year stub; a stub of the
+    construction's fiscal year is the current stub, whatever its sign (Q4 = FY - 9M YTD of the
+    same year). Where either fiscal year is unknown the sign decides, as for LTM = FY + YTD -
+    PYTD."""
+    if kind == "FY":
+        return 0
+    if kind == "PYTD":
+        return 2
+    if year is not None and own_year is not None:
+        return 2 if year < own_year else 1
+    return 2 if sign < 0 else 1
+
+
 def _constructed(tables: _Tables, history: StatementHistoryReport) -> None:
     constructions = {c.construction_id: c for c in history.constructions}
     periods = {p.period_id: p for p in history.periods}
     graph = {c.computation_id: c for c in history.computations}
     for row in history.values:
         construction = constructions[row.construction_id]
+        own_year = fiscal_year_number(construction.fiscal_year)
         parts: list[list[str]] = [[], [], []]
         for operand in row.operands:
             ref = operand.reference
             node = constructions.get(ref.reference or "")
             period = periods.get(ref.reference or "")
+            source = node or period
             kind = node.kind if node else period.period_type if period else None
+            year = fiscal_year_number(source.fiscal_year) if source else None
             value = graph[operand.computation_id].value.amount
             text = (
                 f"{ref.coefficient:+d} * {ref.reference or 'missing'}: "
                 f"{value if value is not None else 'null'}; {operand.computation_id}"
             )
-            parts[2 if ref.coefficient < 0 else 0 if kind == "FY" else 1].append(text)
+            parts[_stub_column(kind, year, own_year, ref.coefficient)].append(text)
         formula = (
             "Exact-period source observation only; no nonmonetary period arithmetic"
             if row.quantity_kind != "monetary"
@@ -508,8 +529,10 @@ def _calculations(
     values = {v.value_id: v for v in kpis.values}
     bases = {b.basis_id: b for b in kpis.bases}
     for metric_row in kpis.kpis:
-        basis = bases[metric_row.display_basis_id]
-        period = basis.label + f" ({basis.start_date} to {basis.end_date})"
+        # The operands' basis: a trailing ratio in a quarter column is a rolling four-quarter
+        # figure; an incomplete window has no start date (null), never the quarter's own.
+        basis = bases[metric_row.period_basis_id]
+        period = f"{basis.label} ({_span(basis)})"
         legs: list[_Cell] = []
         operand_refs: list[str] = []
         for leg in (metric_row.numerator, metric_row.denominator):
@@ -573,6 +596,11 @@ def _calculations(
         )
 
 
+def _span(basis: ModelBasis) -> str:
+    """`start to end` of a basis, a missing date as `null` (an incomplete trailing window)."""
+    return f"{basis.start_date or 'null'} to {basis.end_date or 'null'}"
+
+
 def _category(key: str) -> str:
     if key.endswith("_growth"):
         return "Growth"
@@ -600,6 +628,7 @@ def _dashboard(tables: _Tables, report: DownstreamReport) -> None:
     kpis = report.inputs.narrative.inputs.ledger.kpis
     if not kpis:
         return
+    by_id = {b.basis_id: b for b in kpis.bases}
     bases = tuple(b for b in kpis.bases if b.basis_id in {k.display_basis_id for k in kpis.kpis})
     tables.schemas["T4.10"] = (
         "KPI Dashboard",
@@ -611,6 +640,8 @@ def _dashboard(tables: _Tables, report: DownstreamReport) -> None:
         cells = []
         for basis in bases:
             metric = rows[basis.basis_id]
+            # A trailing ratio in a quarter column states its rolling four-quarter period.
+            period = by_id[metric.period_basis_id]
             cells.append(
                 replace(
                     _value(
@@ -622,7 +653,7 @@ def _dashboard(tables: _Tables, report: DownstreamReport) -> None:
                         metric.calculation_id,
                         metric.formula,
                     ),
-                    period=f"{basis.label}: {basis.start_date} to {basis.end_date}",
+                    period=f"{period.label}: {_span(period)}",
                 )
             )
         _row(
@@ -736,7 +767,31 @@ def _decisions(tables: _Tables, report: DownstreamReport) -> None:
     )
 
 
-def canonical_tables(
+def _projection_gap_rows(tables: _Tables) -> None:
+    """One T4.12 WARN row per gap of the cumulative ledger. Projection gaps are additional to the
+    immutable upstream ledger and are appended once, without recursively turning absent metadata
+    in the gap table into more gaps: a gap of a T4.12 row (a gap with no periods writes
+    field_2=None) is not itself a gap to register."""
+    for gap in tuple(tables.gaps):
+        if gap.table_id == "T4.12":
+            continue
+        _row(
+            tables,
+            "T4.12",
+            _id("projection-gap", gap.table_id, gap.row_id, gap.field),
+            "See referenced row",
+            (
+                f"{gap.table_id}/{gap.row_id}/{gap.field}: {gap.reason}",
+                gap.field,
+                "See referenced row",
+                "Review source/analysis completeness",
+                "WARN",
+                "Resolve or retain the explicit limitation",
+            ),
+        )
+
+
+def canonical_tables(  # noqa: PLR0913 - pre-existing
     pack: PreparedPack,
     context: SourceContextReview,
     financial: FinancialReview,
@@ -784,7 +839,7 @@ def canonical_tables(
             "missing_metric_ids": _join(model.missing_metric_ids),
             "conflict_refs": _join(model.conflict_refs),
             "explanation": _join((*model.actions, *model.blocking_gap_ids))
-            or "Selected historical quarters pass their input gate; HTML Model publication is separate",
+            or "Selected historical quarters pass their input gate; HTML Model publication is separate",  # noqa: E501 - pre-existing
         },
         references=frozenset({"missing_metric_ids", "conflict_refs"}),
     )
@@ -805,23 +860,7 @@ def canonical_tables(
         for f in statements.facts
         if f.status != "known"
     )
-    # Projection gaps are additional to the immutable upstream ledger. Append once,
-    # without recursively turning absent metadata in the gap table into more gaps.
-    for gap in tuple(tables.gaps):
-        _row(
-            tables,
-            "T4.12",
-            _id("projection-gap", gap.table_id, gap.row_id, gap.field),
-            "See referenced row",
-            (
-                f"{gap.table_id}/{gap.row_id}/{gap.field}: {gap.reason}",
-                gap.field,
-                "See referenced row",
-                "Review source/analysis completeness",
-                "WARN",
-                "Resolve or retain the explicit limitation",
-            ),
-        )
+    _projection_gap_rows(tables)
     layouts = []
     for layout in tables.layouts():
         if layout.table_id == "model-readiness":

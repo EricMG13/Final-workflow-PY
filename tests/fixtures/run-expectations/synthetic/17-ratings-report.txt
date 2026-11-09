@@ -1,0 +1,9 @@
+SYNTHETIC FIXTURE - not issuer evidence
+RATING ACTION
+
+Example Ratings affirms Harbor Freight Systems, Inc. Corporate Family Rating at B2; outlook stable.
+Rating rationale: leverage of 5.8x and adequate liquidity.
+=== PAGE ===
+Rating drivers and sensitivities
+=== PAGE ===
+Instrument ratings: Senior Secured Term Loan B rated B1

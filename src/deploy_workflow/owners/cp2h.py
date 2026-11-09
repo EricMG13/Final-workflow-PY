@@ -38,7 +38,6 @@ from deploy_vii import prose
 from deploy_vii.business_context import (
     Category,
     Confidence,
-    Severity,
     prohibited_issues,
     referencable,
     spelled,
@@ -77,6 +76,7 @@ from deploy_vii.live.submission import Submitted
 from deploy_vii.live.tools import Seen, unread_citation_issues
 from deploy_vii.model._cells import CONTEXT
 from deploy_vii.preparation import PreparedPack
+from deploy_vii.quotes import normalise as quote_text
 from deploy_vii.readiness import citation_issues, shape_issues
 from deploy_vii.report_view import fact_spelling, figure_unit
 from deploy_workflow.context import (
@@ -89,7 +89,14 @@ from deploy_workflow.context import (
 from deploy_workflow.context_cites import ContextTextError, cite_all, context_text
 from deploy_workflow.owners.blank import is_blank, one_per_page
 from deploy_workflow.owners.cp1a import probe_one_step
-from deploy_workflow.owners.cp2g import cp2g_reader, fy_periods, fy_span_period, require_calendar
+from deploy_workflow.owners.cp2g import SynthesisGap as Cp2gGap
+from deploy_workflow.owners.cp2g import (
+    cp2g_reader,
+    fy_periods,
+    fy_span_period,
+    require_calendar,
+    stale_issues,
+)
 from deploy_workflow.owners.period_basis import (
     DEFAULT_BASIS,
     PeriodBasis,
@@ -129,6 +136,7 @@ def _row_period(basis: PeriodBasis) -> dict[str, str]:
 # --- the submission schema (lease "Submission schema"; reference and judgment only) -----------
 
 View = Literal["Downgrade pressure", "Stable", "Upgrade potential", "Not assessable"]
+UPGRADE_VIEW = "Upgrade potential"
 
 
 class AgencyView(Contract):
@@ -148,14 +156,11 @@ class Overall(Contract):
     limitation: str | None
 
 
-class SynthesisGap(Contract):
+class SynthesisGap(Cp2gGap):
     """As the CP-2G `SynthesisGap`."""
 
-    gap: str
-    why_it_matters: str
-    affected_analysis: str
-    severity: Severity
-    action: str
+    # The fields are CP-2G's (S07-cp2-gh-C03); the docstring stays this module's own, since it is
+    # the gap row's description in the step's response schema.
 
 
 class TriggerSubmission(Contract):
@@ -447,14 +452,28 @@ def _context_row(i: int, r: Rating) -> RegisterRow:
 
 def context_register(ratings: Sequence[Rating]) -> tuple[RegisterRow, ...]:
     """The register from the context's ratings rows, in context order. Refusals, in this order:
-    no row, an agency twice (`Rating register not found`), a rating not on the agency's scale
-    (`Rating not on the scale: <agency> <rating>`); an agency without a scale is off-scale
-    whatever its rating, an unrated rating needs only a scaled agency."""
+    no row (`Rating register not found`), an agency in more than one row (the first such agency
+    named with its rows' scopes: the register holds one row per agency, S07-cp2-gh-A06), a
+    rating not on the agency's scale (`Rating not on the scale: <agency> <rating>`); an agency
+    without a scale is off-scale whatever its rating, an unrated rating needs only a scaled
+    agency."""
     if not ratings:
         raise SourceIssue(REGISTER_NOT_FOUND)
-    agencies = [r.agency for r in ratings]
-    if len(set(agencies)) != len(agencies):
-        raise SourceIssue(REGISTER_NOT_FOUND)
+    for agency in dict.fromkeys(r.agency for r in ratings):
+        scopes = [r.scope for r in ratings if r.agency == agency]
+        if len(scopes) > 1:
+            raise SourceIssue(
+                clipped(
+                    (
+                        "Context ratings name ",
+                        _plain(agency),
+                        (
+                            f" in more than one row ({', '.join(scopes)}); the register takes "
+                            "one row per agency, ratings not used"
+                        ),
+                    )
+                )
+            )
     for r in ratings:
         scale = COMBINED_SCALE.get(r.agency)
         if scale is None or (r.rating not in UNRATED and r.rating not in scale):
@@ -1278,8 +1297,11 @@ class _Test:
         )
 
 
-def _current(b: _Book, up: TriggerUpstream, test: _Test) -> tuple[Decimal | None, bool | None]:
-    """T2R.4: the base-year actual (an own copy of CP-2G a25), headroom, status and CP-1 check."""
+def _current(
+    b: _Book, up: TriggerUpstream, test: _Test, cp1_ratios: Mapping[str, Fact]
+) -> tuple[Decimal | None, bool | None]:
+    """T2R.4: the base-year actual (an own copy of CP-2G a25), headroom, status and CP-1 check.
+    `cp1_ratios` is `select_cp1` of the upstream, selected once per compose."""
     row, field = test.row, test.metric.field
     at = ("T2R.4", row)
     actual_id = f"T2R.4.{row}.actual"
@@ -1331,7 +1353,7 @@ def _current(b: _Book, up: TriggerUpstream, test: _Test) -> tuple[Decimal | None
             status=status,
         )
         b.missing_text((*at, "status"), "Status", reason, status=status)
-    cp1 = select_cp1(up.cp1_facts, up.basis)[test.metric.cp1_metric]
+    cp1 = cp1_ratios[test.metric.cp1_metric]
     if a25.status == "known" and cp1.status == "known" and cp1.amount is not None:
         check = "Reconciled to CP-1" if a25.amount == cp1.amount else "Differs from CP-1"
         b.text((*at, "check"), "Check", check, derives=(actual_id, f"cp1:{test.metric.cp1_metric}"))
@@ -1439,12 +1461,22 @@ def _timing(
     b.row("T2R.6", row, desc, ("trigger", "base_first", "down_first"))
 
 
+def _folded(text: str) -> str:
+    """`text` compared without case or white-space differences ("Stable" and "stable " agree)."""
+    return " ".join(text.casefold().split())
+
+
 def _outlook_match(
     b: _Book, at: tuple[str, str], pair: tuple[RegisterRow, RegisterRow], ids: tuple[str, str]
 ) -> None:
     """T2R.8's outlook cell for two rated agencies. A context row with no outlook is `Not stated`
-    and cannot be compared: the cell is not applicable and names the first such agency."""
-    unstated = next((x for x in pair if x.source == "context" and x.outlook == NOT_STATED), None)
+    and cannot be compared: the cell is not applicable and names the first such agency. Context
+    outlooks are free text, so two outlooks are compared folded (S07-cp2-gh-A07); T2R.2 shows
+    each as published."""
+    unstated = next(
+        (x for x in pair if x.source == "context" and _folded(x.outlook) == _folded(NOT_STATED)),
+        None,
+    )
     if unstated is not None:
         b.missing_text(
             (*at, "outlook_match"),
@@ -1456,9 +1488,32 @@ def _outlook_match(
     b.text(
         (*at, "outlook_match"),
         "Outlooks",
-        "Same" if pair[0].outlook == pair[1].outlook else "Different",
+        "Same" if _folded(pair[0].outlook) == _folded(pair[1].outlook) else "Different",
         derives=(f"T2R.2.{ids[0]}.outlook", f"T2R.2.{ids[1]}.outlook"),
     )
+
+
+def _rated_object(r: RegisterRow) -> str:
+    """What the row rates: the page register's instrument, or the context row's rating scope."""
+    return _folded((r.scope or "") if r.source == "context" else r.instrument)
+
+
+def _scope_mismatch(ra: RegisterRow, rb: RegisterRow) -> str | None:
+    """Why two rated pairs are not on one footing (issuer BB against secured notes Ba1), or None."""
+    if _rated_object(ra) == _rated_object(rb):
+        return None
+    return (
+        f"{ra.agency} and {rb.agency} rate different instruments or scopes, so no notch "
+        "comparison is made"
+    )
+
+
+def _not_compared(b: _Book, at: tuple[str, str], period: str, why: str) -> None:
+    b.unsettled(
+        (*at, "notches"), "Notches apart", NOTCH_UNIT, why, period=period, status="not_applicable"
+    )
+    b.missing_text((*at, "lower_rated"), "Lower rated", why, status="not_applicable")
+    b.missing_text((*at, "outlook_match"), "Outlooks", why, status="not_applicable")
 
 
 def _divergence(b: _Book, source: RatingsSource, rows: Mapping[str, str]) -> list[str]:
@@ -1487,16 +1542,9 @@ def _divergence(b: _Book, source: RatingsSource, rows: Mapping[str, str]) -> lis
                 f"{possessive(who.agency)} rating is {who.rating.lower()}, "
                 "so no notch comparison is made"
             )
-            b.unsettled(
-                (*at, "notches"),
-                "Notches apart",
-                NOTCH_UNIT,
-                why,
-                period=period,
-                status="not_applicable",
-            )
-            b.missing_text((*at, "lower_rated"), "Lower rated", why, status="not_applicable")
-            b.missing_text((*at, "outlook_match"), "Outlooks", why, status="not_applicable")
+            _not_compared(b, at, period, why)
+        elif (mismatch := _scope_mismatch(ra, rb)) is not None:
+            _not_compared(b, at, period, mismatch)
         else:
             positions = (f"T2R.2.{ia}.position", f"T2R.2.{ib}.position")
             b.number(
@@ -1670,8 +1718,9 @@ def _compose(
     agency_rows = _agency_register(b, source, citations)
     tests = tuple(_Test(row, t, METRICS[t.metric]) for row, t in _trigger_terms(b, source))
     outcomes: dict[str, TriggerOutcome] = {}
+    cp1_ratios = select_cp1(up.cp1_facts, up.basis)
     for test in tests:
-        fy25, reached = _current(b, up, test)
+        fy25, reached = _current(b, up, test, cp1_ratios)
         cases = {case: _forward(b, up, test, case) for case in CASES}
         _timing(b, up, test, cases)
         outcomes[test.row] = TriggerOutcome(test.row, fy25, reached, cases["base"], cases["down"])
@@ -1779,12 +1828,77 @@ def _limitation(path: str, text: str | None, names: Sequence[str]) -> list[str]:
     ]
 
 
+def _reached(outcome: TriggerOutcome) -> bool:
+    """A trigger reached in the current year or in a forecast year of either case."""
+    hits = (outcome.fy25_reached, *outcome.base.hits, *outcome.down.hits)
+    return any(hit is True for hit in hits)
+
+
+def _direction_issues(path: str, view: AgencyView, mechanics: _Mechanics) -> list[str]:
+    """S07-A04: `Upgrade potential` needs a published upgrade trigger of the agency, and cannot
+    stand when only its downgrade triggers are reached (the computed outcomes, not the analyst,
+    say which triggers are in reach)."""
+    if view.view != UPGRADE_VIEW:
+        return []
+    outcomes = {o.row: o for o in mechanics.outcomes}
+    reached = {"Upgrade": False, "Downgrade": False}
+    published = False
+    for test in mechanics.tests:
+        if test.term.agency != view.agency:
+            continue
+        published |= test.term.direction == "Upgrade"
+        reached[test.term.direction] |= _reached(outcomes[test.row])
+    if not published:
+        return [f"{path}.view: {UPGRADE_VIEW} needs a published upgrade trigger of {view.agency}"]
+    if reached["Downgrade"] and not reached["Upgrade"]:
+        only = f"only {view.agency}'s downgrade triggers are reached"
+        return [f"{path}.view: {UPGRADE_VIEW} contradicts the computed outcomes: {only}"]
+    return []
+
+
+@dataclass(frozen=True)
+class _ViewBasis:
+    """What a view is checked against: the computed mechanics and, per context register agency,
+    the (source, locator) of its own context lines."""
+
+    mechanics: _Mechanics
+    own_lines: Mapping[str, frozenset[tuple[str, str]]]
+
+
+def _view_basis(
+    mechanics: _Mechanics, source: RatingsSource, citations: Sequence[RowCitations]
+) -> _ViewBasis:
+    own = {
+        row.agency: frozenset((c.source_id, c.locator) for c in cited.values())
+        for row, cited in zip(source.register, citations, strict=False)
+    }
+    return _ViewBasis(mechanics, own)
+
+
+def _own_evidence_issues(path: str, view: AgencyView, basis: _ViewBasis) -> list[str]:
+    """S07-A04: a view cites at least one line of its own agency: a quote that names the agency
+    (its page register or terms line) or one of its context register lines. Both are read as the
+    citation rule reads a quote (`quotes.normalise`: a curly apostrophe may be written ASCII)."""
+    name = quote_text(view.agency).casefold()
+    lines = basis.own_lines.get(view.agency, frozenset())
+    if any(
+        name in quote_text(c.quote).casefold() or (c.source_id, c.locator) in lines
+        for c in view.evidence
+    ):
+        return []
+    return [f"{path}.evidence: cite at least one register or terms line of {view.agency}"]
+
+
 def _view_issues(
-    sub: TriggerSubmission, source: RatingsSource, bound: Mapping[str, Fact], pack: PackScope
+    sub: TriggerSubmission,
+    source: RatingsSource,
+    bound: Mapping[str, Fact],
+    pack: PackScope,
+    basis: _ViewBasis,
 ) -> list[str]:
     """Views in register order (unknown agencies last, each by submission index): the agency,
-    the confidence rule, the rationale, the evidence, the limitation; then each register agency
-    without a view."""
+    the confidence rule, the direction against the computed outcomes, the rationale, the
+    evidence, the limitation; then each register agency without a view."""
     order = {r.agency: n for n, r in enumerate(source.register)}
     ranked = sorted(
         enumerate(sub.views), key=lambda iv: (order.get(iv[1].agency, len(order)), iv[0])
@@ -1802,7 +1916,10 @@ def _view_issues(
         seen.add(v.agency)
         if v.confidence == "High":
             issues.append(f"{path}.confidence: {HIGH}")
+        if v.agency in order:
+            issues += _direction_issues(path, v, basis.mechanics)
         issues += _prose(f"{path}.rationale", v.rationale, bound, pack.names, claim=True)
+        before = len(issues)
         for j, citation in enumerate(v.evidence):
             where = f"{path}.evidence[{j}]"
             if is_blank(citation.quote):  # round 13 addendum 3: before the page-occurrence check
@@ -1811,6 +1928,8 @@ def _view_issues(
             issues += (
                 clipped((where, ": ", x)) for x in citation_issues((citation,), pack.sources)
             )
+        if v.agency in order and len(issues) == before:
+            issues += _own_evidence_issues(path, v, basis)
         issues += _limitation(f"{path}.limitation", v.limitation, pack.names)
     issues += (
         clipped(("views: no view for agency ", r.agency))
@@ -1850,23 +1969,6 @@ def _gap_issues(
                 if run.kind != "text" and run.text in bound and run.text in gaps
             )
     return issues
-
-
-def stale_issues(*, bound: Sequence[Input], current: Sequence[Input] | str) -> tuple[str, ...]:
-    """Every bound upstream that changed, in the `cp2_synthesis._stale_issues` form."""
-    if isinstance(current, str):
-        return (clipped(("Stale inputs: ", current)),)
-    was = {item.input_id: item for item in bound}
-    now = {item.input_id: item for item in current}
-
-    def state(item: Input | None) -> str:
-        return "absent" if item is None else f"{item.status} {item.sha256[:12]}"
-
-    return tuple(
-        f"Stale input {key}: bound {state(was.get(key))}, current {state(now.get(key))}"
-        for key in dict.fromkeys((*was, *now))
-        if was.get(key) != now.get(key)
-    )
 
 
 def ratings_source(pack: PackScope) -> Source:
@@ -1976,25 +2078,41 @@ def validate(inputs: TriggerInputs) -> tuple[str, ...]:
     staleness. Shape issues come from `payload_issues`.
     Tool-use rules (cited page read) are Stage 2.
     """
+    return _validated(inputs)[1]
+
+
+# The parsed register a validation read: the agency source, its parse and the context citations
+# (`register_source`), handed to the composer so it is not read twice (S07-cp2-gh-C02).
+_Register = tuple[Source, RatingsSource, tuple[RowCitations, ...]]
+
+
+def _validated(inputs: TriggerInputs) -> tuple[_Register | None, tuple[str, ...]]:
+    """`validate`'s issues and, when there are none, the register they were found over."""
     up, sub = inputs.upstream, inputs.submission
     stale = stale_issues(bound=up.bound, current=up.current)
     if stale:
-        return stale
+        return None, stale
     if up.basis_refusal is not None:
-        return (up.basis_refusal,)
+        return None, (up.basis_refusal,)
     try:
         ratings, source, citations = register_source(inputs.pack)
     except SourceIssue as issue:
-        return (str(issue),)
-    book, _ = _compose(ratings, source, up, None, citations)
+        return None, (str(issue),)
+    book, mechanics = _compose(ratings, source, up, None, citations)
     bound = _bound(book, up)
     names = inputs.pack.names
-    issues = [
-        *_view_issues(sub, source, bound, inputs.pack),
-        *_overall_issues(sub, bound, names),
-        *_gap_issues(sub, bound, names),
-    ]
-    return tuple(dict.fromkeys(issues))
+    issues = tuple(
+        dict.fromkeys(
+            [
+                *_view_issues(
+                    sub, source, bound, inputs.pack, _view_basis(mechanics, source, citations)
+                ),
+                *_overall_issues(sub, bound, names),
+                *_gap_issues(sub, bound, names),
+            ]
+        )
+    )
+    return (None if issues else (ratings, source, citations)), issues
 
 
 def _parsed(payload: str) -> tuple[TriggerSubmission | None, tuple[str, ...]]:
@@ -2231,11 +2349,16 @@ def _own_limitations(
 def compute(inputs: TriggerInputs) -> TriggerReport:
     """The lease's tables, references, claims and own limitations of one valid submission;
     raises ValueError on any issue."""
-    issues = validate(inputs)
-    if issues:
+    register, issues = _validated(inputs)
+    if register is None:
         raise ValueError("; ".join(bounded_issues(issues)))
+    return _computed(inputs, register)
+
+
+def _computed(inputs: TriggerInputs, register: _Register) -> TriggerReport:
+    """`compute` over the register `_validated` accepted (no second validation or parse)."""
     up, sub = inputs.upstream, inputs.submission
-    ratings, source, citations = register_source(inputs.pack)
+    ratings, source, citations = register
     book, mechanics = _compose(ratings, source, up, sub, citations)
     views = _register_order(sub.views, source)
     cp1_ids = tuple(f.fact_id for f in select_cp1(up.cp1_facts, up.basis).values())
@@ -2407,12 +2530,22 @@ def validate_triggers(
     bound upstream changed, then an agency source that does not parse alone, else the content
     issues in their pinned order; empty when it composes. A refused period basis, currency or
     context follows staleness and is the single issue, before CP-1 is read on any basis."""
+    return _checked(pack, submission, upstream)[1]
+
+
+def _checked(
+    pack: PreparedPack, submission: TriggerSubmission, upstream: Upstream
+) -> tuple[tuple[TriggerInputs, _Register] | None, tuple[str, ...]]:
+    """`validate_triggers`' issues and, when there are none, the inputs and register they were
+    found over, so a caller composes without validating again (S07-cp2-gh-C02)."""
     stale = stale_issues(bound=upstream.bound, current=upstream.current)
     if stale:
-        return stale
+        return None, stale
     if upstream.basis_refusal is not None:
-        return (upstream.basis_refusal,)
-    return validate(_inputs(pack, submission, upstream))
+        return None, (upstream.basis_refusal,)
+    inputs = _inputs(pack, submission, upstream)
+    register, issues = _validated(inputs)
+    return (None if register is None else (inputs, register)), issues
 
 
 class RatingTriggersReport(Contract):
@@ -2495,11 +2628,17 @@ def rating_triggers(
     *, pack: PreparedPack, submission: TriggerSubmission, upstream: Upstream
 ) -> RatingTriggersReport:
     """The composed report of a valid submission; raises ValueError on any issue."""
-    issues = validate_triggers(pack=pack, submission=submission, upstream=upstream)
-    if issues:
+    checked, issues = _checked(pack, submission, upstream)
+    if checked is None:
         raise ValueError("; ".join(bounded_issues(issues)))
-    inputs = _inputs(pack, submission, upstream)
-    result = compute(inputs)
+    return _report(pack, submission, *checked)
+
+
+def _report(
+    pack: PreparedPack, submission: TriggerSubmission, inputs: TriggerInputs, register: _Register
+) -> RatingTriggersReport:
+    """The report of inputs and a register `_checked` accepted."""
+    result = _computed(inputs, register)
     up = inputs.upstream
     lineage = {f"cp1:{m}": f for m, f in select_cp1(up.cp1_facts, up.basis).items()}
     lineage |= {f"cp2g:{f.fact_id}": f for f in up.cp2g.facts}
@@ -2728,11 +2867,10 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     if submission is None:
         return StepValidation(issues=shape)
     upstream = cp2h_upstream(store=store, attempt=attempt)
-    issues = validate_triggers(pack=pack, submission=submission, upstream=upstream)
-    if issues:
+    checked, issues = _checked(pack, submission, upstream)
+    if checked is None:
         return StepValidation(issues=issues)
-    report = rating_triggers(pack=pack, submission=submission, upstream=upstream)
-    return StepValidation(output=report.model_dump_json())
+    return StepValidation(output=_report(pack, submission, *checked).model_dump_json())
 
 
 ENTRY_VALIDATOR = _validate_step

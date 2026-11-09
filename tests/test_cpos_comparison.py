@@ -5,6 +5,7 @@ import json
 import shutil
 import sys
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -145,6 +146,53 @@ def test_bad_comparison_inputs_refuse_before_dispatch(tmp_path: Path, fault: str
         data["execution"] = "paid-provider"
     path.write_text(json.dumps(data))
     with pytest.raises(ValueError):
+        cpos.run_comparison(
+            path, tmp_path / "state", execute=lambda t: pytest.fail("dispatched"), check=check
+        )
+    assert not (tmp_path / "state").exists()
+
+
+def test_same_delivery_as_prior_and_current_refuses_before_dispatch(tmp_path: Path):
+    # S01-A03: before the fix the same delivery.json pinned as prior and current published a
+    # "checked" self-comparison. A copy of it elsewhere has the same receipt bytes, so it is the
+    # same delivery too. Expected, by hand: cp8_same_delivery, no dispatch, no state written.
+    path = job(tmp_path, copies=True)
+    data = json.loads(path.read_bytes())
+    data["prior"] = pin(tmp_path / "current" / "delivery.json")
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="cp8_same_delivery"):
+        cpos.run_comparison(
+            path, tmp_path / "state", execute=lambda t: pytest.fail("dispatched"), check=check
+        )
+    assert not (tmp_path / "state").exists()
+
+
+def test_prior_delivery_dated_after_the_current_one_refuses_before_dispatch(tmp_path: Path):
+    # S01-A03: the prior bundle's View is re-dated 2025-03-31 (re-rendered and re-pinned, so it
+    # is a consistent bundle), after the current bundle's 2024-09-30. Expected, by hand:
+    # cp8_order, no dispatch, no state written.
+    from datetime import date
+
+    from deploy_vii.contracts import View
+    from deploy_vii.render import render
+    from deploy_vii.report_view import ReportView
+
+    path = job(tmp_path, copies=True)
+    folder = tmp_path / "prior"
+    view = View.model_validate_json((folder / "view.json").read_bytes())
+    later = {"as_of": date(2025, 3, 31)}
+    view = view.model_copy(update={"run": view.run.model_copy(update=later)})
+    report = ReportView.model_validate_json((folder / "report-view.json").read_bytes())
+    (folder / "view.json").write_text(view.model_dump_json(indent=2))
+    (folder / "report.html").write_text(render(view, report))
+    receipt = json.loads((folder / "delivery.json").read_bytes())
+    for name in receipt["files"]:
+        receipt["files"][name] = hashlib.sha256((folder / name).read_bytes()).hexdigest()
+    (folder / "delivery.json").write_text(json.dumps(receipt))
+    data = json.loads(path.read_bytes())
+    data["prior"] = pin(folder / "delivery.json")
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="cp8_order"):
         cpos.run_comparison(
             path, tmp_path / "state", execute=lambda t: pytest.fail("dispatched"), check=check
         )
@@ -423,3 +471,35 @@ def test_cli_comparison_replay_requires_explicit_mode_and_pinned_answer(
     assert Path(capsys.readouterr().out.strip()).is_file()
     (completion,) = state.glob("completed-*.json")
     assert json.loads(completion.read_bytes())["execution"] == "retained-response-replay"
+
+
+def test_comparison_pair_rules_by_hand() -> None:
+    """Review of S01-A03. Expected, by hand: two different deliveries dated the same day or prior
+    earlier pass; the same receipt hash is cp8_same_delivery; a prior dated after the current is
+    cp8_order; a foreign issuer is cp8_issuer before either; a current date other than the
+    requested one is cp8_as_of."""
+    from datetime import date
+    from types import SimpleNamespace as NS
+
+    def view(as_of: date, issuer: str = "tdg") -> Any:
+        return NS(run=NS(issuer_id=issuer, issuer_name="TDG", as_of=as_of))
+
+    def plan(prior: str, current: str) -> Any:
+        return NS(
+            run=NS(issuer_id="tdg", issuer_name="TDG", as_of=date(2024, 9, 30)),
+            prior=NS(sha256=prior),
+            current=NS(sha256=current),
+        )
+
+    day, earlier, later = date(2024, 9, 30), date(2024, 6, 30), date(2025, 3, 31)
+    check_pair = cpos._check_comparison_pair
+    assert check_pair(plan("a", "b"), view(day), view(day)) is None
+    assert check_pair(plan("a", "b"), view(earlier), view(day)) is None
+    with pytest.raises(ValueError, match="cp8_same_delivery"):
+        check_pair(plan("a", "a"), view(day), view(day))
+    with pytest.raises(ValueError, match="cp8_order"):
+        check_pair(plan("a", "b"), view(later), view(day))
+    with pytest.raises(ValueError, match="cp8_issuer"):
+        check_pair(plan("a", "a"), view(day, "other"), view(day))
+    with pytest.raises(ValueError, match="cp8_as_of"):
+        check_pair(plan("a", "b"), view(earlier), view(earlier))

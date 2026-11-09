@@ -17,6 +17,7 @@ from deploy_vii.live.prompts import DELIMITERS, PromptError, block
 from deploy_workflow.context import RunContext
 
 __all__ = [
+    "LESS_THAN_LOOKALIKES",
     "FenceError",
     "UntrustedItem",
     "cp0_run_context_block",
@@ -54,6 +55,14 @@ class UntrustedItem:
     text: str
 
 
+# Characters that read as ``<`` to a model (S02-A02): those NFKD folds to one, the confusables
+# it leaves alone (U+02C2, U+2039, U+1438, U+276E, U+3008, U+16B2) and the two forms NFKD maps to
+# U+3008 (U+2329, U+FE3F). The JSON escape in ``prompts.compose`` takes the same set, so a quoted
+# lookalike in a JSON body is escaped, not refused, and is refused in raw text; the set must hold
+# every character ``_normalised`` reads as ``<``.
+LESS_THAN_LOOKALIKES = "<≮﹤＜\u02c2\u2039\u1438\u276e\u3008\u2329\ufe3f\u16b2"
+_FOLD_TO_LESS_THAN = str.maketrans(dict.fromkeys(LESS_THAN_LOOKALIKES, "<"))
+
 # Invisible but not Unicode Cf/Mn/Me: the Hangul fillers render as nothing (default-ignorable).
 _FILLERS = frozenset("\u115f\u1160\u3164\uffa0")
 
@@ -62,13 +71,15 @@ def _normalised(body: str) -> str:
     """The copy detection runs on (never emitted): NFKD folds compatibility forms of ``<`` and
     splits a composed ``<`` + combining mark (U+226E is ``<`` + U+0338); format characters (Cf),
     combining marks (Mn, Me: U+034F, variation selectors U+FE00-FE0F, U+E0100...) and the Hangul
-    fillers, which would split a marker visually, are removed."""
+    fillers, which would split a marker visually, are removed; ``LESS_THAN_LOOKALIKES`` that NFKD
+    leaves alone are then read as ``<``."""
     decomposed = unicodedata.normalize("NFKD", body)
-    return "".join(
+    kept = "".join(
         c
         for c in decomposed
         if unicodedata.category(c) not in ("Cf", "Mn", "Me") and c not in _FILLERS
     )
+    return kept.translate(_FOLD_TO_LESS_THAN)
 
 
 def _refuse_markers(label: str, body: str) -> None:

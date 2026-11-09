@@ -93,17 +93,50 @@ def test_agency_without_scale_refused_even_when_unrated() -> None:
     assert str(raised.value) == "Rating not on the scale: Other Withdrawn"
 
 
+DUPLICATE = (
+    "Context ratings name {} in more than one row ({}); the register takes one row per agency, "
+    "ratings not used"
+)
+
+
 def test_duplicate_agency_refused() -> None:
+    """S07-cp2-gh-A06: an issuer and a facility row of S&P name the agency and both scopes, not
+    `Rating register not found` (the register is present)."""
     with pytest.raises(cp2h.SourceIssue) as raised:
         cp2h.context_register(_context("context-duplicate-agency.json"))
-    assert str(raised.value) == _refusal("duplicate_agency") == cp2h.REGISTER_NOT_FOUND
+    assert str(raised.value) == _refusal("duplicate_agency")
+    assert str(raised.value) == DUPLICATE.format("S&P", "issuer, facility")
+    assert str(raised.value) != cp2h.REGISTER_NOT_FOUND
 
 
 def test_duplicate_is_refused_before_off_scale() -> None:
     rows = [_rating("Other", "A"), _rating("S&P", "BB"), _rating("S&P", "BB-")]
     with pytest.raises(cp2h.SourceIssue) as raised:
         cp2h.context_register(rows)
-    assert str(raised.value) == cp2h.REGISTER_NOT_FOUND
+    assert str(raised.value) == DUPLICATE.format("S&P", "issuer, issuer")
+
+
+def test_issuer_and_facility_rows_with_another_agency_name_the_duplicate() -> None:
+    """The finding's case: S&P issuer BB and facility BB+, Moody's issuer Ba2; the first agency in
+    more than one row is named, scopes in context order."""
+    rows = [
+        Rating(agency="S&P", scope="issuer", rating="BB", outlook="Stable", as_of="2025-11-01"),
+        Rating(
+            agency="Moody's", scope="issuer", rating="Ba2", outlook="Stable", as_of="2025-11-01"
+        ),
+        Rating(agency="S&P", scope="facility", rating="BB+", outlook="Stable", as_of="2025-11-01"),
+    ]
+    with pytest.raises(cp2h.SourceIssue) as raised:
+        cp2h.context_register(rows)
+    assert str(raised.value) == DUPLICATE.format("S&P", "issuer, facility")
+
+
+def test_a_duplicate_agency_name_is_quoted_plain() -> None:
+    """An agency is user text: a line break in it is spelled as its escape (`_plain`)."""
+    rows = [_rating("A\nB", "BB"), _rating("A\nB", "BB")]
+    with pytest.raises(cp2h.SourceIssue) as raised:
+        cp2h.context_register(rows)
+    assert str(raised.value) == DUPLICATE.format("A\\u000aB", "issuer, issuer")
 
 
 def test_empty_ratings_refused() -> None:

@@ -39,8 +39,8 @@
   --rb-font-text: 'Red Hat Text', system-ui, sans-serif;
   --rb-font-mono: 'Red Hat Mono', ui-monospace, monospace;
   --rb-fs-page: 20px; --rb-fs-call: 16px; --rb-fs-issuer: 15px;
-  --rb-fs-body: 13.5px; --rb-fs-table: 12px; --rb-fs-label: 11px;
-  --rb-fs-micro: 10.5px; --rb-lh-body: 1.5; --rb-lh-table: 1.45;
+  --rb-fs-body: 13px; --rb-fs-table: 12px; --rb-fs-label: 11px;
+  --rb-fs-micro: 11px; --rb-lh-body: 1.5; --rb-lh-table: 1.45;
   /* space */
   --rb-s-1: 4px; --rb-s-2: 6px; --rb-s-3: 8px; --rb-s-4: 10px;
   --rb-s-5: 12px; --rb-s-6: 18px; --rb-s-7: 24px;
@@ -254,6 +254,9 @@ legend{padding:0;font-weight:600;margin-bottom:var(--rb-s-3)}
   <div class="grid">
     <div class="f"><label for="s2-issuer_name">Issuer (company name)</label><input type="text" id="s2-issuer_name" placeholder="e.g. Northbridge Group" data-k="issuer_name" aria-describedby="s2-issuer_name-h"><p class="help" id="s2-issuer_name-h">The marketing or group name. May differ from the borrower. Plain text.</p></div>
     <div class="f"><label for="s2-issuer_id">Issuer ID</label><input type="text" id="s2-issuer_id" placeholder="e.g. northbridge-group" data-k="issuer_id" aria-describedby="s2-issuer_id-h"><p class="help" id="s2-issuer_id-h">Filled from the name; lowercase letters, digits, hyphens. Edit if you want.</p></div>
+  </div>
+  <fieldset id="classf"><legend>Issue classification</legend><div data-cards="issue_classification"></div><p class="help" id="classf-h">Classify by the debt this run analyses; for split-rated or unrated issuers use your firm's convention. The workflow's methods are written for high-yield and leveraged-loan credit.</p></fieldset>
+  <div class="grid">
     <div class="f"><label for="s2-borrower_name">Borrower (legal entity)</label><input type="text" id="s2-borrower_name" placeholder="e.g. Northbridge Holdings LLC" data-k="borrower_name" aria-describedby="s2-borrower_name-h"><p class="help" id="s2-borrower_name-h">The entity that signs the credit agreement. Left blank, CP-1 looks for it in the filings and records a gap if not found.</p></div>
     <div class="f"><label for="s2-parent_name">Parent</label><input type="text" id="s2-parent_name" placeholder="e.g. Northbridge Topco Ltd" data-k="parent_name" aria-describedby="s2-parent_name-h"><p class="help" id="s2-parent_name-h">Plain text; the ultimate parent, if different.</p></div>
     <div class="f"><label for="s2-guarantors">Guarantors</label><textarea id="s2-guarantors" rows="3" placeholder="e.g. Northbridge Opco LLC&#10;Northbridge IP LLC" data-k="guarantors" aria-describedby="s2-guarantors-h"></textarea><p class="help" id="s2-guarantors-h">One name per line, so a name may contain a comma.</p></div>
@@ -274,7 +277,7 @@ legend{padding:0;font-weight:600;margin-bottom:var(--rb-s-3)}
   <p class="stepline"></p>
   <p class="intro">Set the as-of date, reporting periods and currency the run is anchored to.</p>
   <div class="grid">
-    <div class="f"><label for="s3-as_of">As-of date</label><input type="date" id="s3-as_of" data-k="as_of" aria-describedby="s3-as_of-h"><p class="help" id="s3-as_of-h">Sources and quotes dated after this are refused. Format YYYY-MM-DD, for example 2026-10-31.</p></div>
+    <div class="f"><label for="s3-as_of">As-of date</label><input type="date" id="s3-as_of" data-k="as_of" aria-describedby="s3-as_of-h"><p class="help" id="s3-as_of-h">Sources and quotes dated after this are refused. Choose the date; it is saved as YYYY-MM-DD.</p></div>
     <div class="f"><label for="s3-cutoff">Research cutoff</label><input type="date" id="s3-cutoff" data-k="cutoff" aria-describedby="s3-cutoff-h"><p class="help" id="s3-cutoff-h">Research items published after this are refused; not after the as-of date. Optional.</p></div>
     <div class="f"><label for="s3-current_period">Current period</label><input type="text" id="s3-current_period" placeholder="e.g. q3-2026" data-k="current_period" aria-describedby="s3-current_period-h"><p class="help" id="s3-current_period-h">For example q3-2026 or fy-2025. Required for Earnings update. Format q3-2026, h1-2026 or fy-2025. On an Earnings update: quarters or fiscal years, same kind.</p></div>
     <div class="f"><label for="s3-prior_period">Prior period</label><input type="text" id="s3-prior_period" placeholder="e.g. q2-2026" data-k="prior_period" aria-describedby="s3-prior_period-h"><p class="help" id="s3-prior_period-h">Must be earlier than the current period (same kind: quarter, half or year). On an Earnings update: quarters or fiscal years, same kind.</p></div>
@@ -283,11 +286,11 @@ legend{padding:0;font-weight:600;margin-bottom:var(--rb-s-3)}
 </section>
 
 <section class="sec" id="sec4" data-n="4">
-  <h2 tabindex="-1"><span class="n"></span> <span class="nm">Deal terms and price talk</span></h2>
+  <h2 tabindex="-1"><span class="n"></span> <span class="nm">Deal terms</span></h2>
   <p class="stepline"></p>
-  <p class="intro">Enter the terms and price talk of each facility in the new issue.</p>
+  <p class="intro">Enter the terms of each facility. A Primary (new issue) run needs at least one; for other runs it is optional. Tenor and price talk are for a Primary run only.</p>
   <p class="muted">One row per facility. Money is in millions of the stated currency.</p>
-  <p class="exrow"><span class="tag">Example</span>tlb-2031 · Term loan B · USD · size 1250 · 7 years · talk spread 325 to 350 bps · OID 99.0 to 99.5 · floor 0.50% · 101 soft call, 6 months · Refinance 2027 term loan · Lead arranger</p>
+  <p class="exrow"><span class="tag">Example</span>tlb-2031 · Term loan B · USD · size 1250 · 7 years · talk spread 325 to 350 bps · OID 99.0 to 99.5 · floor 0.50% · coupon 8.25% · margin 350 bps · matures 2031-06-30 · 101 soft call, 6 months · Refinance 2027 term loan · Lead arranger</p>
   <div id="rows-deal"></div>
   <button type="button" class="btn sm" id="add-deal" data-add="deal" data-label="Facility rows">Add facility</button>
 </section>
@@ -476,8 +479,8 @@ const PATH_LABEL = {credit_snapshot:'Credit Snapshot', earnings_update:'Earnings
 
 const OPTIONS = {
   run_type: [
-    {v:'primary', label:'Primary (new issue)', text:'Deal terms and price talk expected. Talk alone caps relative-value confidence below High. Legal documents are usually drafts; CP-4 accepts only executed or filed documents today (draft mode Planned). Default pathway: Credit Snapshot. Shows section 4.'},
-    {v:'secondary', label:'Secondary (trading)', text:'Observed quotes expected. Without them CP-3 relative value states Insufficient Information. Default pathway: Relative Value. Shows section 5.'},
+    {v:'primary', label:'Primary (new issue)', text:'Deal terms and price talk expected. Talk alone caps relative-value confidence below High. Legal documents are usually drafts; declare them in section 9 (drafts make the CP-4 review Provisional). Default pathway: Credit Snapshot. Shows section 4.'},
+    {v:'secondary', label:'Secondary (trading)', text:'Observed quotes expected. Without them CP-3 relative value states Insufficient Information. Facility rows are optional. Default pathway: Relative Value. Shows section 5.'},
     {v:'research', label:'Research', def:true, text:'No market inputs needed. Relative-value and portfolio sections show gaps where quotes or holdings are absent. Default pathway: Credit Snapshot.'},
     {v:'earnings', label:'Earnings update', text:'Current and prior periods required; CP-1B compares them. Default pathway: Earnings Update.'}
   ],
@@ -512,10 +515,14 @@ const OPTIONS = {
     {v:'model', label:'Let the analyst model choose', def:true, planned:true, text:'Labelled analyst assumption.'},
     {v:'user', label:'Use my values', planned:true, text:'Labelled user-supplied assumption. A rationale is required.'}
   ],
+  issue_classification: [
+    {v:'investment_grade', label:'Investment grade', text:'The debt this run analyses is rated or treated as investment grade.'},
+    {v:'high_yield', label:'High yield', text:'The debt this run analyses is rated or treated as high yield or leveraged.'}
+  ],
   legal_documents: [
-    {v:'executed', label:'Executed or filed', def:true, text:'Executed or filed documents.'},
-    {v:'draft', label:'Drafts only', planned:true, text:'CP-4 refuses them today (draft mode Planned).'},
-    {v:'none', label:'None', text:'No legal documents: CP-4 has no sources.'}
+    {v:'executed', label:'Executed or filed', text:'Executed or filed documents: CP-4 reads them as final terms.'},
+    {v:'draft', label:'Drafts only', text:'Drafts: CP-4 still runs and marks its review Provisional (partial evidence).'},
+    {v:'none', label:'None', text:'No legal documents: CP-4 has no sources and is expected to refuse.'}
   ],
   deal_kind: [
     {v:'observed', label:'Observed', def:true, text:'A quote seen in the market.'},
@@ -542,8 +549,8 @@ function cards(name, k, opts, hideDefaultTags) {
       (o.text ? `<span class="imp">${o.text}</span>` : '') + `</span></label>`;
   }).join('') + '</div>';
 }
-function F(id, k, label, attrs, help) {
-  return `<div class="f"><label for="${id}">${label}</label><input type="text" id="${id}" data-k="${k}" ${attrs || ''}${help ? ` aria-describedby="${id}-h"` : ''}>` +
+function F(id, k, label, attrs, help, cls) {
+  return `<div class="f${cls ? ' ' + cls : ''}"><label for="${id}">${label}</label><input type="text" id="${id}" data-k="${k}" ${attrs || ''}${help ? ` aria-describedby="${id}-h"` : ''}>` +
     (help ? `<p class="help" id="${id}-h">${help}</p>` : '') + '</div>';
 }
 function D(id, k, label, help) {
@@ -565,9 +572,10 @@ const ROWS = {
   deal: {box:'rows-deal', title:'Facility', max:20, make() {
     const p = 'd' + (++uid);
     return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + S(p+'b','instrument','Instrument',INSTRUMENTS) +
-      F(p+'c','currency','Currency','value="USD" maxlength="3"' + P('e.g. USD'),'Three uppercase letters.') + F(p+'d','size_m','Size (m)',NP('e.g. 1250'),'Millions of the stated currency.') + F(p+'e','tenor_years','Tenor (years)',NP('e.g. 7'),'Years.') +
-      F(p+'f','talk_spread_bps_low','Talk spread low (bps)',NP('e.g. 325'),'Basis points over the reference rate.') + F(p+'g','talk_spread_bps_high','Talk spread high (bps)',NP('e.g. 350'),'Basis points over the reference rate.') +
-      F(p+'h','talk_oid_low','Talk OID low',NP('e.g. 99.0'),'Price per 100.') + F(p+'i','talk_oid_high','Talk OID high',NP('e.g. 99.5'),'Price per 100.') + F(p+'j','floor_pct','Floor (%)',NP('e.g. 0.50'),'Percent.') +
+      F(p+'c','currency','Currency','value="USD" maxlength="3"' + P('e.g. USD'),'Three uppercase letters.') + F(p+'d','size_m','Size (m)',NP('e.g. 1250'),'Millions of the stated currency.') + F(p+'e','tenor_years','Tenor (years)',NP('e.g. 7'),'Years.','pf') +
+      F(p+'f','talk_spread_bps_low','Talk spread low (bps)',NP('e.g. 325'),'Basis points over the reference rate.','pf') + F(p+'g','talk_spread_bps_high','Talk spread high (bps)',NP('e.g. 350'),'Basis points over the reference rate.','pf') +
+      F(p+'h','talk_oid_low','Talk OID low',NP('e.g. 99.0'),'Price per 100.','pf') + F(p+'i','talk_oid_high','Talk OID high',NP('e.g. 99.5'),'Price per 100.','pf') + F(p+'j','floor_pct','Floor (%)',NP('e.g. 0.50'),'Percent.') +
+      F(p+'o','coupon_pct','Coupon (%)',NP('e.g. 8.25'),'Percent, a plain number. Optional.') + F(p+'p','margin_bps','Margin (bps)',NP('e.g. 350'),'Basis points, a plain number. Optional.') + D(p+'q','maturity','Maturity','Maturity date, YYYY-MM-DD. Optional.') +
       F(p+'k','call_protection','Call protection',P('e.g. 101 soft call, 6 months'),'Plain text.') + F(p+'l','use_of_proceeds','Use of proceeds',P('e.g. Refinance 2027 term loan'),'Plain text.') +
       D(p+'m','as_of','As-of','Date of the talk, YYYY-MM-DD; not after the run as-of date.') + F(p+'n','provider','Provider',P('e.g. Lead arranger'),'Who gave the talk.') + '</div>');
   }},
@@ -721,7 +729,9 @@ function le(scope, a, b, msg) {
 const rowsOf = id => [...$(id).children];
 const N0 = {t:'num', min:0};
 const DEAL_SPEC = [['facility_id'],['instrument'],['currency',{t:'cur'}],['size_m',N0],['tenor_years',N0],['talk_spread_bps_low',N0],['talk_spread_bps_high',N0],
-  ['talk_oid_low',N0],['talk_oid_high',N0],['floor_pct',N0],['call_protection'],['use_of_proceeds'],['as_of',{t:'date',after:true}],['provider']];
+  ['talk_oid_low',N0],['talk_oid_high',N0],['floor_pct',N0],['coupon_pct',N0],['margin_bps',N0],['maturity',{t:'date'}],['call_protection'],['use_of_proceeds'],['as_of',{t:'date',after:true}],['provider']];
+// Shown and read for a Primary run only; build() writes "" for them on any other run type.
+const PRIMARY_ONLY = ['tenor_years','talk_spread_bps_low','talk_spread_bps_high','talk_oid_low','talk_oid_high'];
 const QUOTE_SPEC = [['facility_id'],['kind'],['bid',N0],['ask',N0],['price',N0],['yield_pct',N0],['spread_bps',N0],['as_of',{t:'date',req:true,after:true}],['provider',{req:true}]];
 const RATING_SPEC = [['agency',{req:true}],['scope'],['rating',{req:true}],['outlook'],['as_of',{t:'date',after:true}]];
 
@@ -748,18 +758,20 @@ function build() {
 
   const listed = getV(s2, 'listed_equity') === 'yes';
   const identity = {
-    issuer_name: fld(s2, 'issuer_name', {req:true}), issuer_id: fld(s2, 'issuer_id', {t:'slug', req:true}), borrower_name: fld(s2, 'borrower_name'),
+    issuer_name: fld(s2, 'issuer_name', {req:true}), issuer_id: fld(s2, 'issuer_id', {t:'slug', req:true}), issue_classification: fld(s2, 'issue_classification', {req:true}), borrower_name: fld(s2, 'borrower_name'),
     parent_name: fld(s2, 'parent_name'), guarantors: fld(s2, 'guarantors', {t:'lines'}), aliases: fld(s2, 'aliases', {t:'lines'}),
     listed_equity: listed, ticker: listed ? fld(s2, 'ticker') : '', sector: fld(s2, 'sector'), country: fld(s2, 'country'), sponsor: fld(s2, 'sponsor')
   };
 
   const primary = run_type === 'primary';
   if (primary && !$('rows-deal').children.length) bad($('add-deal'), 'add at least one facility row.');
-  const deal_terms = !primary ? [] : rowsOf('rows-deal').map(r => {
-    const o = readSpec(r, DEAL_SPEC);
-    le(r, 'talk_spread_bps_low', 'talk_spread_bps_high', 'low must not exceed high.');
-    le(r, 'talk_oid_low', 'talk_oid_high', 'low must not exceed high.');
-    return o;
+  const deal_terms = rowsOf('rows-deal').map(r => {
+    const o = readSpec(r, DEAL_SPEC.filter(([k]) => primary || !PRIMARY_ONLY.includes(k)));
+    if (primary) {
+      le(r, 'talk_spread_bps_low', 'talk_spread_bps_high', 'low must not exceed high.');
+      le(r, 'talk_oid_low', 'talk_oid_high', 'low must not exceed high.');
+    }
+    return Object.fromEntries(DEAL_SPEC.map(([k]) => [k, k in o ? o[k] : '']));
   });
   const quotes = rowsOf('rows-quote').map(r => {
     const o = readSpec(r, QUOTE_SPEC);
@@ -804,7 +816,7 @@ function build() {
 
   const s9 = $('sec9');
   const attachments = {portfolio_workbook: getV(s9, 'portfolio_workbook'), prior_case: getV(s9, 'prior_case'),
-    management_bridge: getV(s9, 'management_bridge'), legal_documents: getV(s9, 'legal_documents')};
+    management_bridge: getV(s9, 'management_bridge'), legal_documents: fld(s9, 'legal_documents', {req:true})};
   const research_questions = rowsOf('rows-q').map(r => readSpec(r, [['text',{req:true}],['focus_module']]));
   return {schema:'context/1', run, identity, deal_terms, quotes, ratings, valuation, assumptions, attachments, research_questions};
 }
@@ -872,17 +884,18 @@ function go(id) {
 }
 /* ---- Steps: one section at a time, gated on the steps before it ---- */
 const STEP_SHORT = {1:'Run type', 2:'Issuer', 3:'Dates', 4:'Deal terms', 5:'Quotes', 6:'Ratings', 7:'Valuation', 8:'Assumptions', 9:'Attachments', 10:'Questions', 11:'Review'};
-const OPT_STEPS = new Set([5, 6, 8, 9, 10]);
+const OPT_STEPS = new Set([5, 6, 8, 10]);
 let cur = 1;
 const visited = new Set([1]);
 let tried = {};
-const seqFor = rt => [1, 2, 3].concat(rt === 'primary' ? [4] : [], [5, 6, 7, 8, 9, 10, 11]);
+const seqFor = rt => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 const stepBad = n => errs.some(e => +e.sec === n);
-function optionalStep(n, o) { return OPT_STEPS.has(n) || (n === 7 && !['issuer_trading', 'user_multiple'].includes(o.valuation.basis)); }
+const facilitiesOptional = (n, o) => n === 4 && o.run.run_type !== 'primary';
+function optionalStep(n, o) { return OPT_STEPS.has(n) || facilitiesOptional(n, o) || (n === 7 && !['issuer_trading', 'user_multiple'].includes(o.valuation.basis)); }
 function entered(n, o) {
   const a = o.attachments;
   return {4: o.deal_terms.length > 0, 5: o.quotes.length > 0, 6: o.ratings.length > 0, 8: Object.values(o.assumptions).some(Boolean),
-    9: a.portfolio_workbook || a.prior_case || a.management_bridge || a.legal_documents !== 'executed', 10: o.research_questions.length > 0}[n] || false;
+    9: true, 10: o.research_questions.length > 0}[n] || false;
 }
 function stepState(n, sq, o) {
   if (n === cur) return {word:'Current', locked:false};
@@ -896,9 +909,10 @@ function stepLine(n, o) {
   const earn = o.run.run_type === 'earnings';
   switch (n) {
     case 1: return '3 required choices, all pre-selected';
-    case 2: return '2 required fields';
+    case 2: return '3 required fields';
     case 3: return earn ? '4 required fields' : '2 required fields';
-    case 4: return 'Required: at least one facility row';
+    case 4: return o.run.run_type === 'primary' ? 'Required: at least one facility row' : 'Optional step: you can skip it';
+    case 9: return 'Required: say which legal documents you have';
     case 5: return o.run.run_type === 'secondary' ? 'Recommended: without quotes CP-3 states Insufficient Information' : 'Optional step: you can skip it';
     case 7: return optionalStep(7, o) ? 'Defaults need nothing; fields appear only where your choice needs them' : 'Required: the fields for your chosen basis';
     case 11: return 'Nothing to fill in here';
@@ -941,7 +955,7 @@ function renderNav(sq, o) {
   $('back').hidden = i === 0;
   nx.hidden = cur === 11;
   $('nextlive').hidden = cur === 11;
-  nx.textContent = sq[i + 1] === 11 ? 'Review' : (OPT_STEPS.has(cur) && !entered(cur, o)) ? 'Skip' : 'Next';
+  nx.textContent = sq[i + 1] === 11 ? 'Review' : ((OPT_STEPS.has(cur) || facilitiesOptional(cur, o)) && !entered(cur, o)) ? 'Skip' : 'Next';
   const mine = errs.filter(e => +e.sec === cur);
   const req = mine.filter(e => e.short === 'required.' || e.short.startsWith('add ')).length, oth = mine.length - req;
   const text = !mine.length ? 'Ready' : [req && `${req} required field${req > 1 ? 's' : ''} left`, oth && `${oth} to correct`].filter(Boolean).join(', ');
@@ -973,7 +987,7 @@ function tagFor(el, c) {
   switch (n) {
     case 1: return REQ;
     case 2:
-      if (k === 'issuer_name' || k === 'issuer_id') return REQ;
+      if (k === 'issuer_name' || k === 'issuer_id' || k === 'issue_classification') return REQ;
       if (k === 'borrower_name' || k === 'sector') return REC;
       return k === 'ticker' ? ['rec', 'Recommended when listed'] : OPT;
     case 3:
@@ -992,6 +1006,7 @@ function tagFor(el, c) {
       if (row && row.parentNode.id === 'rows-prec') return ['target', 'ev_m', 'ebitda_m', 'source'].includes(k) ? REQ : OPT;
       return OPT;
     case 8: return (k === 'mode' || k === 'hedge_ratio_pct') ? OPT : ['req', 'Required when you pin values'];
+    case 9: return k === 'legal_documents' ? REQ : OPT;
     case 10: return k === 'text' ? REQ : OPT;
     default: return OPT;
   }
@@ -1074,8 +1089,8 @@ function panel(o) {
 
   if (!o.identity.issuer_name) add('blocked', 'CP-0 cannot confirm the issuer: issuer name is missing.');
   if (has('CP-8') && !att.prior_case) add('blocked', 'CP-8 is blocked: it needs the prior decision.');
-  if (has('CP-4') && att.legal_documents === 'draft') add('blocked', 'CP-4 refuses drafts: it accepts only executed or filed documents today.');
   if (has('CP-4') && att.legal_documents === 'none') add('blocked', 'CP-4 has no sources: no legal documents.');
+  if (has('CP-4') && att.legal_documents === 'draft') add('limited', 'CP-4 reviews drafts as Provisional: draft documents are partial evidence.');
 
   if (has('CP-3')) {
     if (observed) add('ok', 'CP-3 has observed quotes for relative value.');
@@ -1092,7 +1107,6 @@ function panel(o) {
   const planned = [];
   if (has('CP-2D') && o.run.reporting_currency && o.run.reporting_currency !== 'USD') planned.push('non-USD currency');
   if (has('CP-1C') && v.peer_source === 'cp_dr_public') planned.push('CP-DR public peer sourcing and CP-1C EV/EBITDA');
-  if (has('CP-4') && att.legal_documents === 'draft') planned.push('CP-4 draft-document mode');
   if (has('CP-2A') && o.assumptions.cp2a || has('CP-2D') && o.assumptions.cp2d || has('CP-2E') && o.assumptions.cp2e || has('CP-3C') && o.assumptions.cp3c || has('CP-3D') && o.assumptions.cp3d || has('CP-4C') && o.assumptions.cp4c) planned.push('pinned assumptions');
   if (has('CP-2H') && o.ratings.length) planned.push('real agency names in CP-2H');
   if (o.research_questions.length) planned.push('CP-DR user questions');
@@ -1124,6 +1138,7 @@ function vis() {
   if (!idTouched) $('s2-issuer_id').value = slug($('s2-issuer_name').value);
   const listed = getV(s2, 'listed_equity');
   $('tickerf').hidden = listed !== 'yes';
+  $('rows-deal').querySelectorAll('.pf').forEach(f => { f.hidden = rt !== 'primary'; });
   $('sec3').querySelector('#ccynote').textContent = getV($('sec3'), 'reporting_currency') && getV($('sec3'), 'reporting_currency') !== 'USD' ? 'CP-2D liquidity treats non-USD facilities as Not calculable today (USD fixed).' : '';
   const trading = [...els(s7, 'basis')].find(x => x.value === 'issuer_trading');
   trading.disabled = listed !== 'yes';
@@ -1273,6 +1288,9 @@ function fill(o) {
   setV(s1, 'case_kind', txt(run.case_kind), 'run.case_kind', warn);
   for (const k of ['as_of','cutoff','current_period','prior_period','reporting_currency']) if (k === 'as_of' || txt(run[k]) !== '') setV(s3, k, txt(run[k]), 'run.' + k, warn);
   for (const k of ['issuer_name','issuer_id','borrower_name','parent_name','ticker','sector','country','sponsor']) setV(s2, k, txt(id[k]), 'identity.' + k, warn);
+  // A file written before the classification existed leaves it unchosen; the form then asks for it.
+  if (txt(id.issue_classification) !== '') setV(s2, 'issue_classification', txt(id.issue_classification), 'identity.issue_classification', warn);
+  else warn.push('identity.issue_classification: not stated in this file; choose one');
   setV(s2, 'guarantors', id.guarantors.map(txt).join('\n'), 'identity.guarantors', warn);
   setV(s2, 'aliases', id.aliases.map(txt).join('\n'), 'identity.aliases', warn);
   setV(s2, 'listed_equity', id.listed_equity === true ? 'yes' : 'no', 'identity.listed_equity', warn);
@@ -1286,7 +1304,7 @@ function fill(o) {
   setV(s7, 'basis', txt(v.basis), 'valuation.basis', warn);
   basisTouched = getV(s7, 'basis') !== BASIS_DEFAULT[getV(s2, 'listed_equity')];
   if (getV(s7, 'basis') === 'issuer_trading' && getV(s2, 'listed_equity') !== 'yes') warn.push('valuation.basis: issuer_trading needs identity.listed_equity true; reset to auto');
-  if (o.deal_terms.length && getV(s1, 'run_type') !== 'primary') warn.push('deal_terms: section 4 is shown only for Primary, so these rows will not be written');
+  if (getV(s1, 'run_type') !== 'primary' && o.deal_terms.some(r => PRIMARY_ONLY.some(k => txt(r[k]) !== ''))) warn.push('deal_terms: tenor and price talk are shown for Primary only, so they will not be written');
   for (const k of keysOf($('im'))) if (k in v.issuer_market) setV($('im'), k, txt(v.issuer_market[k]), 'valuation.issuer_market.' + k, warn);
   for (const k of keysOf($('um'))) {
     const src = k === 'ebitda_basis' ? 'basis' : k;

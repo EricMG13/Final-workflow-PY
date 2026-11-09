@@ -4,7 +4,6 @@ Model residuals never enter these comparisons. Shared source observations are
 identified explicitly so a construction cannot certify itself as independent.
 """
 
-from datetime import timedelta
 from decimal import Decimal, localcontext
 from itertools import pairwise
 from typing import Literal
@@ -16,6 +15,7 @@ from deploy_vii.financial_contracts import (
     CashMovementBridge,
     FinancialBook,
     FinancialReview,
+    opening_day,
 )
 from deploy_vii.financial_periods import (
     HistoricalReport,
@@ -37,7 +37,7 @@ from deploy_vii.financial_reconciliation import (
     _statement_check,
     cash_scope,
 )
-from deploy_vii.model._cells import CONTEXT
+from deploy_vii.model._cells import CONTEXT, half_unit
 from deploy_vii.model.dates import fiscal_year_number
 from deploy_vii.model.history import FLOW_METRICS
 from deploy_vii.preparation import PreparedPack
@@ -104,7 +104,7 @@ def _cell(row: HistoricalValue | None, label: str, sign: Literal[-1, 1] = 1) -> 
     )
 
 
-def _compare(
+def _compare(  # noqa: PLR0913 - existing signature, unchanged here
     node: PeriodConstruction,
     kind: CheckType,
     metric: str,
@@ -115,7 +115,12 @@ def _compare(
     blocker: str | None = None,
     warning: str | None = None,
     context: tuple[Citation, ...] = (),
+    printed: tuple[Decimal | None, ...] | None = None,
 ) -> PeriodCheck:
+    """`printed`: the parts' figures as printed where they are not the part
+    amounts (a currency conversion's places are the rate's, not the issuer's),
+    None for one that was not printed; the tolerance is half a unit in the
+    finest place among the reported figure and these."""
     origins = {oid for part in parts for oid in part.observation_ids}
     shared = tuple(oid for oid in reported.observation_ids if oid in origins)
     with localcontext(CONTEXT):
@@ -124,10 +129,13 @@ def _compare(
             if parts and all(p.amount is not None for p in parts) and not blocker
             else None
         )
+        # The finest place among the figures printed: parsing drops trailing zeros.
+        figures = (
+            reported.amount,
+            *(tuple(p.amount for p in parts) if printed is None else printed),
+        )
         tolerance = (
-            Decimal("0.5").scaleb(int(reported.amount.as_tuple().exponent))
-            if reported.amount is not None
-            else None
+            half_unit(a for a in figures if a is not None) if reported.amount is not None else None
         )
         difference = (
             calculated - reported.amount
@@ -276,11 +284,7 @@ def _period_cash(
     any contributing source uses a bridge, every contribution must be assessed
     and its cash check must pass before the constructed check can agree.
     """
-    opening = (
-        node.start_date - timedelta(days=1)
-        if node.start_date and node.start_date.toordinal() > 1
-        else None
-    )
+    opening = opening_day(node.start_date)
     sources = _source_periods(report, node)
     assessments = {b.period_id: b for b in book.cash_movement_bridges}
     adjusted = any(pid in assessments for pid, _ in sources)
@@ -342,6 +346,14 @@ def _bridges(
 
     def series(prefix: str, ids: tuple[str, ...]) -> tuple[PeriodTerm, ...]:
         return tuple(_cell(rows.get((node.construction_id, prefix + key)), key) for key in ids)
+
+    def printed(prefix: str, ids: tuple[str, ...]) -> tuple[Decimal | None, ...]:
+        """The series' figures, None for one converted from another currency."""
+        values = (rows.get((node.construction_id, prefix + key)) for key in ids)
+        return tuple(
+            None if row is None or row.value.normalization_ids else row.value.amount
+            for row in values
+        )
 
     periods = {p.period_id: p for p in book.periods}
     source_periods = _source_periods(report, node)
@@ -422,6 +434,7 @@ def _bridges(
             series("fac:", debt),
             "closing non-lease facility carrying values including debt adjustments",
             context=tuple(c for row in book.facilities for c in row.terms_citations),
+            printed=printed("fac:", debt),
         ),
         _cfo(book, report, node, account("cfo_ncfo")),
         _period_ncf(book, report, node, account("net_cash_change")),
@@ -522,9 +535,15 @@ def _stated(
 
 
 def reconcile_periods(
-    pack: PreparedPack, review: FinancialReview, book_id: str
+    pack: PreparedPack,
+    review: FinancialReview,
+    book_id: str,
+    *,
+    historical: HistoricalReport | None = None,
 ) -> PeriodReconciliationReport:
-    historical = historical_report(pack, review, book_id)
+    """The period reconciliation of one book. `historical` is the book's `historical_report`,
+    when the caller already built it from this pack and review."""
+    historical = historical or historical_report(pack, review, book_id)
     review = FinancialReview.model_validate_json(review.model_dump_json())
     book = next(b for b in review.books if b.book_id == book_id)
     rows = {(v.construction_id, v.series_key): v for v in historical.values}
@@ -538,11 +557,15 @@ def reconcile_periods(
         historical=historical,
         checks=(*checks, *_years(book, historical, rows), *_stated(book, historical, rows)),
         limitations=(
-            "Historical account/source-equation comparisons only; "
-            "no Model readiness or analytical acceptance",
+            (
+                "Historical account/source-equation comparisons only; "
+                "no Model readiness or analytical acceptance"
+            ),
             "Shared observations imply construction agreement, never independent verification",
-            "Only exact-scope sourced audited-FY explanations permit annual WARN; "
-            "no inferred FX or residual-defined proof",
+            (
+                "Only exact-scope sourced audited-FY explanations permit annual WARN; "
+                "no inferred FX or residual-defined proof"
+            ),
             "Mixed expense presentations require an explicitly comparable source bridge",
         ),
     )

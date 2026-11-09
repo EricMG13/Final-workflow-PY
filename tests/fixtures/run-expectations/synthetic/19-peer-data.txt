@@ -1,0 +1,9 @@
+SYNTHETIC FIXTURE - not issuer evidence
+Peer comparables - Harbor Freight Systems, Inc.
+Company,EV ($m),LTM EBITDA ($m),EV/EBITDA,As of
+Peer One,4200,620,6.8x,2025-03-31
+Peer Two,3100,410,7.6x,2025-03-31
+=== PAGE ===
+Peer Three,2750,330,8.3x,2025-03-31
+=== PAGE ===
+

@@ -15,7 +15,8 @@ from deploy_workflow.model.budget import BudgetError as ProducerBudgetError
 from deploy_workflow.model.budget import exact_multiply, exact_subtract, exact_sum
 from deploy_workflow.model.record import CallRecord
 from deploy_workflow.model.redact import KEY_PATTERN
-from deploy_workflow.model_testing.configs import ACCOUNTS, CONFIGS, Provider
+from deploy_workflow.model.turn import Provider
+from deploy_workflow.model_testing.configs import ACCOUNTS, CONFIGS
 from deploy_workflow.model_testing.records import RunMeta
 
 Runs = Sequence[tuple[RunMeta, Sequence[CallRecord]]]

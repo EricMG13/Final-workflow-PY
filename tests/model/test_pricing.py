@@ -127,6 +127,15 @@ def test_copilot_table_rates() -> None:
         Decimal(4),
         Decimal(15),
     )
+    # S03-C04: the entry is derived from _SOL, so every field is pinned to GitHub's listing (the
+    # literals the entry held): a change to _SOL that GitHub does not list fails here.
+    assert (sol.long_cached_read, sol.long_cache_write) == (Decimal("0.20"), Decimal(5))
+    assert (sol.cache_write_5m, sol.cache_write_1h, sol.cache_write_listed) == (None, None, True)
+    assert (sol.max_input_tokens, sol.max_context_tokens, sol.reservation_context_tokens) == (
+        272_000,
+        1_050_000,
+        1_050_000,
+    )
     assert (opus.input, opus.cached_read, opus.cache_write, opus.output) == (
         Decimal(4),
         Decimal("0.20"),

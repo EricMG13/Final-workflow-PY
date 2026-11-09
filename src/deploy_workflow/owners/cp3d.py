@@ -15,7 +15,7 @@ pure.
 
 import re
 import unicodedata
-from collections.abc import Callable, Iterable, Mapping, Sequence
+from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import date
 from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal, localcontext
@@ -24,6 +24,7 @@ from typing import Any, Literal, Protocol, Self
 
 from pydantic import SerializerFunctionWrapHandler, TypeAdapter, ValidationError, model_serializer
 
+from deploy_vii.cp3_relative_value import TALK_MARKERS
 from deploy_vii.contracts import (
     Citation,
     Claim,
@@ -399,17 +400,30 @@ def _talk_label(submission: MarketImpliedSubmission, said: Sequence[str]) -> lis
     )
 
 
+def _quote_dated(
+    submission: MarketImpliedSubmission, o: Observation, context: MarketContext
+) -> tuple[str, date | None]:
+    """Whose quote the observation is and its date: a context row's CP-1 facility and listed
+    date, else (a sheet bid or offer) the instrument and its `as_of_text`; None when undated."""
+    row = o.context_row or ""
+    if row in context.context_dates:
+        return context.context_facilities[row], context.context_dates[row]
+    if o.context_row is None and o.kind in ("bid", "offer") and o.as_of_text:
+        return submission.instrument.name, parse_date(o.as_of_text)
+    return "", None
+
+
 def _stale_lines(submission: MarketImpliedSubmission, context: MarketContext | None) -> list[str]:
-    """One line per context quote more than `STALE_DAYS` whole days before the run as-of (Design 6)."""
+    """One line per bid, offer or context quote more than `STALE_DAYS` whole days before the run
+    as-of (Design 6), whether the context file or a pack sheet quotes it."""
     if context is None:
         return []
     lines: list[str] = []
     for o in submission.observations:
-        row = o.context_row or ""
-        when = context.context_dates.get(row)
+        whose, when = _quote_dated(submission, o, context)
         if when is not None and (days := (context.run_as_of - when).days) > STALE_DAYS:
             lines.append(
-                f"Stale quote: {context.context_facilities[row]} quote dated {when.isoformat()} "
+                f"Stale quote: {whose} quote dated {when.isoformat()} "
                 f"is {days} days before the run as-of {context.run_as_of.isoformat()} "
                 f"(limit {STALE_DAYS})"
             )
@@ -793,24 +807,100 @@ class _Issues:
         return _token_once(value_text, quote) and _whole_on_page(value_text, quote, page)
 
 
+def _label(kind: str, level_text: str) -> re.Pattern[str]:
+    """`<kind> <level>` as the text prints it: the level a whole numeral, not a longer one."""
+    return re.compile(rf"\b{kind}\s+{re.escape(level_text)}(?![0-9])", re.IGNORECASE)
+
+
 def _labelled(kind: str, level_text: str, quote: str) -> bool:
-    words = normalise(quote)  # the text `quoted` matched
     return (
-        re.search(rf"\b{kind}\s+{re.escape(level_text)}(?![0-9])", words, re.IGNORECASE) is not None
-    )
+        _label(kind, level_text).search(normalise(quote)) is not None
+    )  # the text `quoted` matched
+
+
+# Wording that marks a quoted level as talk or as conditional, not an executable bid or offer:
+# CP-3's talk markers (an `observed` row never quotes them) and the conditional-quote phrases.
+FIRM_MARKERS = (*TALK_MARKERS, "subject to", "not firm", "non-firm")
+_FIRM = tuple(
+    (p, re.compile(rf"(?<![A-Za-z]){re.escape(p)}(?![A-Za-z])", re.IGNORECASE))
+    for p in FIRM_MARKERS
+)
+# A full stop, `!` or `?` before a space and a capital that does not follow an initial or an
+# abbreviation: `Dec. 31`, `approx. January 9` and `U.S. Dollar` end no sentence, so a marker or an
+# instrument name past such a full stop stays in the sentence.
+_ABBREVIATIONS = (
+    *("approx", "est", "ca", "no", "nos", "inc", "corp", "co", "ltd", "vs", "st", "mr", "mrs"),
+    *("ms", "dr", "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov"),
+    "dec",
+)
+_NOT_AFTER = ("[a-z]", *_ABBREVIATIONS)  # an initial (`J.`, `e.g.`) or an abbreviation
+_SENTENCE_BREAK = re.compile(
+    "".join(rf"(?<!(?i:\b{word}))" for word in _NOT_AFTER) + r"[.!?](?= [A-Z])"
+)
+
+
+def _sentences(quote: str, page: str) -> list[str]:
+    """The page sentence around each occurrence of the quote, in each reading (`_readings`): from
+    the break before the occurrence to the first break at or after its last character."""
+    found: list[str] = []
+    for needle in _readings(quote):
+        for text in _readings(page):
+            for at in _occurrences(needle, text):
+                breaks = [m.end() for m in _SENTENCE_BREAK.finditer(text) if m.end() <= at]
+                after = _SENTENCE_BREAK.search(text, max(at, at + len(needle) - 1))
+                found.append(text[breaks[-1] if breaks else 0 : after.end() if after else None])
+    return found
+
+
+def _firm_ok(o: Observation, path: str, out: _Issues) -> bool:
+    """Whether a sheet bid or offer is quoted as firm: neither its quote nor the page sentence
+    holding it carries talk or conditional wording (`FIRM_MARKERS`); else the issue."""
+    page = out.context.pages[o.source_id][o.locator]
+    held = " ".join([o.quote, *_sentences(o.quote, page)])
+    markers = [phrase for phrase, pattern in _FIRM if pattern.search(held)]
+    for marker in markers:
+        out.add(f'{path}: {o.kind} is quoted with indicative or conditional wording: "{marker}"')
+    return not markers
+
+
+# A unit or wording right after a labelled level that makes it a yield or spread, not a price in
+# points of par (`bid 6.25%`, `bid 175 bps`, `bid 6.25 yield`); `98.50% of par` is a price.
+_NOT_PRICE = re.compile(
+    r" ?(%|per ?cent\b|bps?\b|basis[ -]points?\b|yield\b|spread\b|discount margin\b"
+    r"|DM\b)(?! of (?:the )?par\b)",
+    re.IGNORECASE,
+)
+
+
+def _priced_ok(o: Observation, path: str, out: _Issues) -> bool:
+    """Whether a sheet bid or offer is a price: in its quote and in the page sentence holding it,
+    no labelled `<kind> <level>` is followed by a percent, basis-point, yield or spread unit
+    (`_NOT_PRICE`); else the issue."""
+    page = out.context.pages[o.source_id][o.locator]
+    priced = re.compile(_label(o.kind, o.level_text).pattern + _NOT_PRICE.pattern, re.IGNORECASE)
+    for text in (normalise(o.quote), *_sentences(o.quote, page)):
+        if unit := priced.search(text):
+            out.add(
+                f"{path}: {o.kind} level_text {o.level_text} is quoted in "
+                f'"{unit.group(1)}", not as a price in points of par'
+            )
+            return False
+    return True
 
 
 def _label_ok(o: Observation, path: str, out: _Issues) -> bool:
-    """Whether the quote labels the level as the observation's kind (ruling 6b C1); else the issue."""
+    """Whether the quote labels the level as the observation's kind (ruling 6b C1) and, for a bid
+    or offer, quotes it as firm (`_firm_ok`) and as a price (`_priced_ok`); else the issue."""
     lt = o.level_text
     if o.kind == "indicative_talk":
         if _labelled("(?:bid|offer)", lt, o.quote):
             out.add(f"{path}: indicative_talk level_text {lt} is a bid or offer level in the quote")
             return False
-    elif not _labelled(o.kind, lt, o.quote):
+        return True
+    if not _labelled(o.kind, lt, o.quote):
         out.add(f"{path}: {o.kind} level_text {lt} is not labelled {o.kind} in the quote")
         return False
-    return True
+    return _firm_ok(o, path, out) and _priced_ok(o, path, out)
 
 
 def _observation_level(o: Observation, path: str, out: _Issues) -> Decimal | None:
@@ -858,6 +948,12 @@ def _observation_date(o: Observation, path: str, out: _Issues) -> date | None:
     unlisted = o.context_row is None  # a listed row's date is Python's: not looked for in its quote
     if parsed is None or (unlisted and o.as_of_text not in normalise(o.quote)):
         out.add(f"{path}: as_of_text {o.as_of_text} does not occur in the quote")
+        return None
+    if parsed > out.context.run_as_of:  # look-ahead evidence: never a quote of this run
+        out.add(
+            f"{path}: as_of_text {o.as_of_text} is after the run as-of "
+            f"{out.context.run_as_of.isoformat()}"
+        )
         return None
     return parsed
 
@@ -934,6 +1030,50 @@ def _check_facilities(sub: MarketImpliedSubmission, out: _Issues) -> None:
             out.add(PAIR_ISSUE.format(i=i, j=j))
 
 
+_QUOTED_LEVEL = re.compile(r"\b(?:bid|offer)\s+[0-9]", re.IGNORECASE)
+_BID_LABEL = re.compile(r"\bbid\s+[0-9]", re.IGNORECASE)
+_OFFER_LABEL = re.compile(r"\boffer\s+[0-9]", re.IGNORECASE)
+UNBOUND = (
+    "{path}: the {kind} quote is not bound to the instrument {name}: its sentence does not name "
+    "it and it is not the only bid or offer quotation on the instrument's page"
+)
+
+
+def _one_quotation(sentence: str) -> bool:
+    """The sentence labels at most one bid and one offer level: one instrument's quotation."""
+    return len(_BID_LABEL.findall(sentence)) <= 1 and len(_OFFER_LABEL.findall(sentence)) <= 1
+
+
+def _bound(o: Observation, instrument: Instrument, page: str) -> bool:
+    """Whether a sheet bid or offer is the instrument's, judged on the sentence that labels the
+    level (`<kind> <level>`), not on the whole quote: that sentence of the quote, or the page
+    sentence holding it, names the instrument and is one instrument's quotation (`_one_quotation`:
+    a sheet that rows several instruments' levels in one sentence names them all); or the
+    observation sits on the page of `instrument.quote`, whose only sentence labelling a bid or
+    offer level is one instrument's quotation (a single-instrument sheet)."""
+    label = _label(o.kind, o.level_text)
+    own = [x for x in _SENTENCE_BREAK.split(normalise(o.quote)) if label.search(x)]
+    held = [*own, *(text for x in own for text in _sentences(x, page))]
+    if any(_name_occurs(instrument.name, text) and _one_quotation(text) for text in held):
+        return True
+    if (o.source_id, o.locator) != (instrument.quote.source_id, instrument.quote.locator):
+        return False
+    labelled = [x for x in _SENTENCE_BREAK.split(normalise(page)) if _QUOTED_LEVEL.search(x)]
+    return len(labelled) == 1 and _one_quotation(labelled[0])
+
+
+def _check_bound(sub: MarketImpliedSubmission, out: _Issues, valid: Collection[str]) -> None:
+    """S08-cp3-A02: every sheet bid or offer of a `valid` kind (its own rules passed) is bound to
+    the instrument (`_bound`). Python-built context rows are bound to their CP-1 facility."""
+    for i, o in enumerate(sub.observations):
+        if o.context_row is not None or o.kind not in ("bid", "offer") or o.kind not in valid:
+            continue
+        page = out.context.pages.get(o.source_id, {}).get(o.locator)
+        if page is not None and quoted(o.quote, page) and not _bound(o, sub.instrument, page):
+            name = sub.instrument.name
+            out.add(UNBOUND.format(path=f"observations[{i}]", kind=o.kind, name=name))
+
+
 def _check_observations(sub: MarketImpliedSubmission, out: _Issues) -> date | None:
     """Observation rules; returns the quotation date (bid's, else offer's) when one is valid."""
     if bool(sub.observations) == bool(sub.market_absence):
@@ -947,6 +1087,7 @@ def _check_observations(sub: MarketImpliedSubmission, out: _Issues) -> date | No
     for i, submitted in enumerate(sub.observations):
         _check_observation(f"observations[{i}]", submitted, out, levels, dates)
     _check_facilities(sub, out)
+    _check_bound(sub, out, levels)
     if "bid" in levels and "offer" in levels:
         if levels["bid"] > levels["offer"]:
             out.add("observations: bid exceeds offer")
@@ -974,6 +1115,48 @@ def _check_quoted_numeral(
         out.add(f"{key}: {label} {text} {_SHAPE}")
         return None
     return Decimal(text)
+
+
+# The first rate unit printed after a figure, before the next digit or the end of its sentence.
+_RATE_UNIT = re.compile(
+    r"^[^0-9]*?(?:(?P<percent>%|(?<![A-Za-z])per ?cent\b)"
+    r"|(?P<bp>(?<![A-Za-z])(?:bps?|basis[ -]points?)\b))",
+    re.IGNORECASE,
+)
+_BASIS_POINTS = ("basis points", "bp")
+_PERCENT = ("percent", "percent")
+_SENTENCE_END = re.compile(r"[.!?](?: |$)")
+
+
+def _tails(value_text: str, quote: QuoteRef, page: str) -> list[str]:
+    """The text right after the figure: in the quote, or, where the figure ends the quote, on the
+    page right after each occurrence of the quote (in each reading)."""
+    tails: list[str] = []
+    for needle in _readings(quote.quote):
+        for m in _tokens(value_text, needle):
+            if needle[m.end() :].strip():
+                tails.append(needle[m.end() :])
+                continue
+            for text in _readings(page):
+                tails += [text[at + len(needle) :] for at in _occurrences(needle, text)]
+    return tails
+
+
+def _unit_of(tail: str) -> str | None:
+    """The first rate unit (`percent` or `bp`) in the tail after a figure, before the next digit
+    or the end of the sentence; None when there is none."""
+    end = _SENTENCE_END.search(tail)
+    m = _RATE_UNIT.match(tail[: end.start() if end else None])
+    return None if m is None else m.lastgroup
+
+
+def _unit_ok(subject: str, text: str, quote: QuoteRef, unit: tuple[str, str], out: _Issues) -> None:
+    """Records the issue unless the figure is printed in the field's unit (basis points for the
+    margin, percent for the reference level) wherever it is quoted; a missing unit is refused."""
+    page = out.context.pages[quote.source_id][quote.locator]
+    tails = _tails(text, quote, page)
+    if not tails or any(_unit_of(tail) != unit[1] for tail in tails):
+        out.add(f"{subject} {text} is not quoted in {unit[0]}")
 
 
 def _check_maturity(term: MaturityTerm, quotation: date | None, out: _Issues) -> None:
@@ -1004,11 +1187,7 @@ def _check_terms(terms: Terms, quotation: date | None, out: _Issues) -> None:
         if term_absence is not None:
             out.analyst_text(f"{key}.absence.reason", term_absence.reason)
             out.analyst_text(f"{key}.absence.follow_up", term_absence.follow_up)
-    margin = terms.margin
-    if bool(margin.bps_text) == bool(margin.absence):
-        out.add("margin: exactly one of bps_text and absence is required")
-    elif margin.bps_text:
-        _check_quoted_numeral("margin", "bps_text", margin.bps_text, margin.quote, out)
+    _check_margin(terms.margin, out)
     amort = terms.amortisation
     if bool(amort.value_text) == bool(amort.absence):
         out.add("amortisation: exactly one of value_text and absence is required")
@@ -1018,7 +1197,19 @@ def _check_terms(terms: Terms, quotation: date | None, out: _Issues) -> None:
         )
         if value is not None and value != 0:
             out.add("amortisation: the simple margin convention requires zero amortisation")
-    rr = terms.reference_rate
+    _check_reference_rate(terms.reference_rate, out)
+
+
+def _check_margin(margin: MarginTerm, out: _Issues) -> None:
+    if bool(margin.bps_text) == bool(margin.absence):
+        out.add("margin: exactly one of bps_text and absence is required")
+    elif margin.bps_text:
+        bps = _check_quoted_numeral("margin", "bps_text", margin.bps_text, margin.quote, out)
+        if bps is not None and margin.quote is not None:  # 0 bp is a value: `is not None`
+            _unit_ok("margin: bps_text", margin.bps_text, margin.quote, _BASIS_POINTS, out)
+
+
+def _check_reference_rate(rr: ReferenceRate, out: _Issues) -> None:
     out.analyst_text("reference_rate.name", rr.name)  # ruling 6e item 3
     if out.ref_on_page(rr.quote, "reference_rate.quote") and not _name_occurs(
         rr.name, rr.quote.quote
@@ -1035,6 +1226,8 @@ def _check_terms(terms: Terms, quotation: date | None, out: _Issues) -> None:
             out.add(f"reference_rate: level percent_text {pt} {_NO_LEADING_ZERO}")
         elif not _NUMERAL.match(pt):
             out.add(f"reference_rate: level percent_text {pt} {_SHAPE}")
+        else:
+            _unit_ok("reference_rate: level percent_text", pt, q, _PERCENT, out)
     if rr.absence is not None:
         out.analyst_text("reference_rate.absence.reason", rr.absence.reason)
         out.analyst_text("reference_rate.absence.follow_up", rr.absence.follow_up)

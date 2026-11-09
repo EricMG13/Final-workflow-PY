@@ -1,0 +1,9 @@
+SYNTHETIC FIXTURE - not issuer evidence
+PORTFOLIO HOLDINGS
+
+Fund: Example Credit Opportunities - positions as of 2025-05-31
+Position,Face ($m),Price,Sector,Rating
+Harbor Freight Systems 7.250% 2031,25.0,98.7,Industrials,B2
+Cedar Point Logistics TLB 2030,15.0,99.4,Transportation,B1
+=== PAGE ===
+

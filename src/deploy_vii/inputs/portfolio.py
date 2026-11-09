@@ -86,7 +86,7 @@ TOTAL = re.compile(r"\b(?:sub)?total\b")
 # Columns whose numbers are percent of NAV, always or on a `% NAV` Compliance_Monitor row. A
 # numeric cell Excel shows as a percentage stores the fraction (2.5 % is stored 0.025).
 PCT_COLUMNS = frozenset({"pct_nav", "limit_pct_nav", "headroom_pct_nav"})
-PCT_NAV_ROW_COLUMNS = frozenset({"limit", "current_value", "headroom"})
+PCT_NAV_ROW_COLUMNS = frozenset({"limit", "current_value", "headroom", "value"})
 PERCENT_FORMATS = frozenset({"builtin:9", "builtin:10"})  # 0% and 0.00%
 LITERAL = re.compile(r'"[^"]*"|\\.')  # quoted text or an escaped character in a format code
 
@@ -138,6 +138,8 @@ RULE_FIX: Mapping[str, str] = {
     ),
     "watch": "enter Pass: Watch is for headroom under 10 % of the limit",
     "percent": "format the cell as General and enter 2.5 for 2.5 % NAV",
+    "negative": "enter the share of NAV as a number of at least 0; a short position is not a share",
+    "hidden": "unhide the sheet, row or column, or delete it: hidden cells are not read as data",
     "error_cell": "enter the real value in place of the error, or leave an optional cell empty",
     "boolean_cell": "enter text or a plain number, not TRUE or FALSE",
 }
@@ -713,6 +715,8 @@ def load_table(
     if not any(span.text.strip() for span in grid.values()):
         findings.add(sheet.name, "A1", f"sheet {sheet.name} is empty", sheet.fixes()[1])
         return None
+    if hidden_findings(sheet, grid, findings):
+        return None
     header = header_problem(sheet, grid)
     if header is not None:
         findings.add(sheet.name, *header, sheet.header_fix())
@@ -730,6 +734,24 @@ def load_table(
     rows = [parse_row(sheet, grid, number, findings) for number in numbers]
     key_findings(sheet, rows, findings)
     return Table(sheet, rows)
+
+
+def hidden_findings(sheet: Sheet, grid: Mapping[tuple[int, int], Span], findings: Findings) -> bool:
+    """Refuse hidden content, which is a stale or filtered row a reader of the workbook does not
+    see: one issue for a hidden sheet, else one per row holding a hidden cell. True if any."""
+    filled = [(cell, span) for cell, span in grid.items() if span.text.strip()]
+    hidden = [cell for cell, span in filled if span.hidden]
+    if not hidden:
+        return False
+    if len(hidden) == len(filled):
+        message = f"sheet {sheet.name} is hidden"
+        findings.add(sheet.name, "A1", message, RULE_FIX["hidden"])
+        return True
+    for row in sorted({row for _, row in hidden}):
+        column = min(column for column, found in hidden if found == row)
+        message = f"row {row} holds hidden cells"
+        findings.add(sheet.name, f"{cell_letters(column)}{row}", message, RULE_FIX["hidden"])
+    return True
 
 
 def header_problem(sheet: Sheet, grid: Mapping[tuple[int, int], Span]) -> tuple[str, str] | None:
@@ -818,7 +840,7 @@ def percent_findings(
 ) -> None:
     """Refuse percent-formatted numbers in percent columns: one issue per cell, and the value
     is dropped so no rule computes with a fraction."""
-    pct_nav_row = row.raw.get("limit_unit") == PCT_NAV
+    pct_nav_row = PCT_NAV in (row.raw.get("limit_unit"), row.raw.get("unit"))
     for index, column in enumerate(sheet.columns, 1):
         name = column.name
         span = grid.get((index, row.number))
@@ -848,11 +870,14 @@ def parse_date(name: str, value: str) -> tuple[date, tuple[str, str] | None]:
     return date.min, (f"{name} '{echo(value)}' is {kind} an ISO date YYYY-MM-DD", DATE_FIX)
 
 
-def parse_value(column: Column, value: str) -> tuple[Value, tuple[str, str] | None]:
+def parse_value(column: Column, value: str) -> tuple[Value, tuple[str, str] | None]:  # noqa: PLR0911 - nine returns at base, unchanged
     """A non-empty stored lexeme as its typed value, or the (problem, fix) it fails with."""
     name, shown = column.name, echo(value)
     if column.kind == "number":
-        return parse_number(name, value)
+        number, problem = parse_number(name, value)
+        if problem is None and name == "pct_nav" and number < 0:
+            problem = (f"{name} '{shown}' is negative", RULE_FIX["negative"])
+        return number, problem
     if column.kind in ("count", "rank"):
         least = 0 if column.kind == "count" else 1
         number, problem = parse_number(name, value)

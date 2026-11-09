@@ -21,13 +21,15 @@ entry naming a row the unit does not have (`no_such_row`), a row-map entry that 
 (`bad_row_map_entry`), a row the contract refuses (`refused_by_contract`), a row number the unit
 repeats (`repeated_row_number`), a row whose caption names another statement than the unit's
 (`other_statement`, R23.22; the caller supplies these). "Flagged" (R23.13) means a flag that casts doubt on the values,
-`label_ends_numeric` or `more_values_than_header_years`; `footnote_marker` is informational (the
+`label_ends_numeric`, `more_values_than_header_years` or `ambiguous_separator`;
+`footnote_marker` is informational (the
 marker is already dropped and the values are clean), so a row whose only flag it is is composed.
 
 Before composing (R23.4) the totals the row map identifies are checked per mapped column, in
-Decimal. If a check fails nothing is composed for the unit and the issue names the check, the
-column and both sums. Where the rows are not identified the unit is composed and
-`Composition.checks_not_applied` says which check was not applied and why.
+Decimal. A CFS row the row map says is `outflow_magnitude` enters the check as -abs(cell), as
+the book reads it (`financial_reconciliation`). If a check fails nothing is composed for the unit
+and the issue names the check, the column and both sums. Where the rows are not identified the
+unit is composed and `Composition.checks_not_applied` says which check was not applied and why.
 
 A unit on a page read by OCR (`ocr=True`, R23.23) is composed only when at least one check was
 applied, none was left unapplied and none failed. Otherwise every row it would have composed is
@@ -44,7 +46,7 @@ Pure: no I/O, no model call, no global state.
 
 import re
 from collections.abc import Collection, Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from decimal import Decimal
 from itertools import pairwise
 from types import MappingProxyType
@@ -213,34 +215,81 @@ def resolve_typed_row(
 
 def _header_scale(context: str, shares: bool) -> str | None:
     """Resolve an explicit header's family-specific scale, refusing conflicting cues."""
-    share_clause = re.search(
-        r"\bshares?\s+(not\s+)?in\s+(thousands?|millions?|units?)\b", context
-    )
+    share_clause = re.search(r"\bshares?\s+(not\s+)?in\s+(thousands?|millions?|units?)\b", context)
     if shares and share_clause:
         return "UNITS" if share_clause[1] else share_clause[2].upper().rstrip("S") + "S"
-    if shares and re.search(r"\bexcept\s+(?:for\s+)?shares?\b", context):
-        return "UNITS"
+    if shares and (excepted := _shares_excepted(context)) is not None:
+        # an except clause that also scales them is ambiguous: refuse rather than guess
+        return "UNITS" if excepted else None
     # A per-share exception alone does not except share counts from the monetary scale.
-    text = context if share_clause is None else context[:share_clause.start()] + context[share_clause.end():]
+    text = (
+        context
+        if share_clause is None
+        else context[: share_clause.start()] + context[share_clause.end() :]
+    )
     scales = {
-        name for name, pattern in (
+        name
+        for name, pattern in (
             ("UNITS", r"\bunits?\b"),
             ("THOUSANDS", r"\bthousands?\b|\b000s\b"),
             ("MILLIONS", r"\bmillions?\b"),
-        ) if re.search(pattern, text)
+        )
+        if re.search(pattern, text)
     }
     return next(iter(scales)) if len(scales) == 1 else None
 
 
+_EXCEPT_CLAUSE = re.compile(r"\bexcept\s+(?:for\s+)?([^;()|]{0,80}?)(?=[;()|]|\s{2,}|$)")
+_PER_SHARE = re.compile(r"\bper[\s-]+(?:(?:common|ordinary)\s+)?shares?\b")
+_ITEM_GAP = re.compile(r"\s*(?:,|&|/|\band\b|\bor\b)\s*")
+# An item of an except clause that begins with a share count: "share data", "number of shares",
+# "share counts in millions". A share word that does not begin an item ("per share data shares
+# outstanding", the column heading joined after the clause) names no share count; neither do share
+# price, capital, premium and value.
+_SHARE_ITEM = re.compile(
+    r"(?:the\s+)?(?:(?:weighted[\s-]average|average|total|basic|diluted)\s+)*(?:number\s+of\s+)?"
+    r"(?:(?:common|ordinary)\s+)?shares?\b(?!\s+(?:price|capital|premium|value)\b)"
+)
+
+
+def _shares_excepted(context: str) -> bool | None:
+    """True when an "except ..." clause names share counts as one of its items ("except share
+    data", "except per share and share data", "... and number of shares", "... and share
+    counts"); False when that clause also names a scale ("... and share counts in millions");
+    else None, and share counts take the monetary scale. A per-share item alone names no share
+    count, and neither does a share word that is not an item of its own."""
+    for clause in _EXCEPT_CLAUSE.findall(context):
+        items = _ITEM_GAP.split(_PER_SHARE.sub(" ", clause).strip())
+        if any(_SHARE_ITEM.match(item) for item in items):
+            return re.search(r"thousand|million|billion|\b000s\b", clause) is None
+    return None
+
+
+# A bare "$" names no currency. Only a USD book reads it as its own: on any other book, a dollar
+# sign that does not say which dollar could be a US dollar amount (S11-A06).
+_BARE_DOLLAR = re.compile(r"(?<![A-Za-z$])\$")
+
+
 def _currency_matches(book_currency: str, text: str) -> bool:
+    """Whether the stated currency of a header or row text is the book's. A word, an ISO code or a
+    prefixed symbol ("US$", "C$", "CA$", "A$", "EUR", "€", "£") states a currency; a bare "$"
+    states none, and with nothing else stated it verifies only a USD book."""
     declared = {
-        code for code, pattern in (
+        code
+        for code, pattern in (
             ("EUR", r"€|\beuros?\b|\bEUR\b"),
             ("GBP", r"£|\bpounds?\b|\bGBP\b"),
-            ("USD", r"\bUSD\b|\bU\.?S\.?\s+dollars?\b"),
-            ("CAD", r"\bCAD\b|\bCanadian\s+dollars?\b"),
-        ) if re.search(pattern, text, re.IGNORECASE)
+            (
+                "USD",
+                r"\bUSD\b|\bU\.?S\.?\s+dollars?\b|\bUnited\s+States\s+dollars?\b|\bU\.?S\.?\s?\$",
+            ),
+            ("CAD", r"\bCAD\b|\bCanadian\s+dollars?\b|\bC(?:A)?\$"),
+            ("AUD", r"\bAUD\b|\bAustralian\s+dollars?\b|\bA\$"),
+        )
+        if re.search(pattern, text, re.IGNORECASE)
     }
+    if book_currency and not declared and _BARE_DOLLAR.search(text):
+        return book_currency == "USD"
     return not declared or declared == {book_currency}
 
 
@@ -641,6 +690,15 @@ def _sums(
     return issues
 
 
+def _as_read(judgment: RowJudgment, row: ExtractedLine) -> ExtractedLine:
+    """The row with each cell as the book reads it: -abs(cell) under `outflow_magnitude` (the
+    prompts' sign rule and `financial_reconciliation`), unchanged when `signed`; a nil stays nil."""
+    if judgment.sign_convention != "outflow_magnitude":
+        return row
+    values = tuple(None if v is None else v.copy_abs().copy_negate() for v in row.values)
+    return replace(row, values=values)
+
+
 def _checks(
     kind: Kind,
     rows: Sequence[tuple[RowJudgment, ExtractedLine]],
@@ -687,6 +745,7 @@ def _checks(
             both = (TOTAL_ASSETS, TOTAL_LIABILITIES_AND_EQUITY)
             skipped.append((BS_PRINTED_TOTAL, _why_missing(found, both)))
     elif kind == "CFS":
+        rows = [(judgment, _as_read(judgment, row)) for judgment, row in rows]
         found = _identified(rows, (OPERATING, INVESTING, FINANCING, FX_EFFECT, NET_CHANGE))
         needed = (OPERATING, INVESTING, FINANCING, NET_CHANGE)
         parts = [_only(found, item) for item in needed]

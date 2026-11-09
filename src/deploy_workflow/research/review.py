@@ -7,6 +7,7 @@ family never count as independent, ``not_found`` is ``missing`` with a limitatio
 holds no figure and no banned word. The owner step and the model call are O7b-1c.
 """
 
+import unicodedata
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Annotated, Any, Final, Literal, Self
@@ -172,24 +173,38 @@ def _independent_list_issues(qid: str, claim: Claim) -> list[ReviewIssue]:
     return issues
 
 
+def family_key(label: str) -> str:
+    """A family label as compared: NFKC, invisible format characters (zero-width space) removed,
+    whitespace collapsed, case folded, so spelling variants of one outlet are one family."""
+    text = unicodedata.normalize("NFKC", label)
+    text = "".join(ch for ch in text if unicodedata.category(ch) != "Cf")
+    return " ".join(text.split()).casefold()
+
+
 def _family_issues(
-    qid: str, items: Sequence[str], family_of: Mapping[str, str]
+    qid: str, items: Sequence[str], family_of: Mapping[str, tuple[str, str]]
 ) -> list[ReviewIssue]:
+    """``family_of`` maps an item to (family key, content hash): one family or one content hash is
+    one source, so neither counts twice."""
     issues: list[ReviewIssue] = []
     for i, first in enumerate(items):
         for second in items[i + 1 :]:
-            family = family_of.get(first)
-            if family is not None and family == family_of.get(second):
-                issues.append(
-                    ReviewIssue(
-                        qid,
-                        f"families not independent: {first} and {second} share family {family}",
-                    )
-                )
+            a, b = family_of.get(first), family_of.get(second)
+            if a is None or b is None:
+                continue
+            if a[0] == b[0]:
+                why = f"share family {a[0]}"
+            elif a[1] == b[1]:
+                why = "hold identical content"
+            else:
+                continue
+            issues.append(ReviewIssue(qid, f"families not independent: {first} and {second} {why}"))
     return issues
 
 
-def _independence_issues(answer: Answer, family_of: Mapping[str, str]) -> list[ReviewIssue]:
+def _independence_issues(
+    answer: Answer, family_of: Mapping[str, tuple[str, str]]
+) -> list[ReviewIssue]:
     issues: list[ReviewIssue] = []
     for claim in answer.claims:
         issues += _claim_id_issues(answer.question_id, claim)
@@ -301,7 +316,7 @@ def research_issues(
 ) -> tuple[ReviewIssue, ...]:
     """Every failed check of ``submission`` against the locked brief, the accepted evidence and the
     held sources (``ev-*`` and pack). Empty when the submission holds; never raises for content."""
-    family_of = {item.item_id: item.family for item in evidence}
+    family_of = {item.item_id: (family_key(item.family), item.sha256) for item in evidence}
     held = tuple(sources)
     issues: list[ReviewIssue] = []
     wanted = [q.question_id for q in brief.questions]

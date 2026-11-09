@@ -32,7 +32,7 @@ from cp2h_context_support import (
     scope_of,
 )
 
-from deploy_vii.contracts import Citation, Run, Span
+from deploy_vii.contracts import Citation, Fact, Run, Span
 from deploy_vii.preparation import PreparedPack, SourceRequest, prepare_source
 from deploy_vii.readiness import citation_issues
 from deploy_workflow import host
@@ -157,6 +157,46 @@ def test_both_outlooks_unstated_names_the_first_in_pair_order() -> None:
 
 def _cite(field: str) -> Citation:
     return Citation(source_id="context", source_sha256="0" * 64, locator="line:1", quote=field)
+
+
+def _outlook_match(first: str, second: str) -> Fact:
+    register = cp2h.context_register(
+        [rating("S&P", "BB", outlook=first), rating("Moody's", "Ba2", outlook=second)]
+    )
+    source = cp2h.RatingsSource(register, (), cp2h.PUBLICATION_NOT_STATED, "2026-01-10")
+    book = cp2h._Book("0" * 64)
+    citations = [{k: _cite(k) for k in cp2h._CITED_ROW} for _ in register]
+    rows = cp2h._agency_register(book, source, citations)
+    cp2h._divergence(book, source, rows)
+    return book.by_id["T2R.8.p01.outlook_match"].fact
+
+
+@pytest.mark.parametrize(
+    ("first", "second", "match"),
+    [
+        ("Stable", "stable ", "Same"),  # S07-cp2-gh-A07: case and a trailing space
+        ("Stable", "STABLE", "Same"),
+        ("Negative  watch", " negative watch", "Same"),  # inner and leading white space
+        ("Stable", "Negative", "Different"),
+        ("Stable", "Stable/Negative", "Different"),
+    ],
+)
+def test_outlooks_are_compared_without_case_or_white_space(
+    first: str, second: str, match: str
+) -> None:
+    """BB (S&P) and Ba2 (Moody's) both sit at position 12, so the outlook cell is compared."""
+    fact = _outlook_match(first, second)
+    assert (fact.status, fact.text) == ("known", match)
+
+
+def test_a_literal_not_stated_outlook_in_any_case_is_unstated() -> None:
+    fact = _outlook_match("not stated ", "Stable")
+    assert (fact.status, fact.limitation) == ("not_applicable", "An outlook is not stated for S&P")
+
+
+def test_t2r2_keeps_each_outlook_as_published() -> None:
+    register = cp2h.context_register([rating("Moody's", "Ba2", outlook="stable ")])
+    assert register[0].outlook == "stable "
 
 
 def test_a_page_register_with_the_same_outlooks_still_compares() -> None:

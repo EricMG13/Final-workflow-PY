@@ -422,8 +422,9 @@ def canonical_gaps(
         )
     # Retain a source-stage ledger when the Model adapter cannot accept the inputs.
     calculation_issues: tuple[str, ...] = ()
+    regs = None
     try:
-        kernel_registers(pack, financial, book.book_id)
+        regs = kernel_registers(pack, financial, book.book_id)
     except ValueError as error:
         calculation_issues = (str(error),)
     kpis = None
@@ -447,8 +448,10 @@ def canonical_gaps(
                 )
             )
     else:
-        kpis = canonical_kpis(pack, financial, book.book_id)
-        reconciliation = reconcile_periods(pack, financial, book.book_id)
+        kpis = canonical_kpis(pack, financial, book.book_id, regs=regs)
+        reconciliation = reconcile_periods(
+            pack, financial, book.book_id, historical=kpis.historical
+        )
         details.extend(
             _calculation_gaps(
                 kpis,
@@ -495,10 +498,14 @@ def canonical_gaps(
         period_reconciliation=reconciliation,
         gaps=gaps,
         limitations=(
-            "Cumulative implemented-register gaps only; narrative "
-            "and full consumer readiness remain separate",
-            "Generated calculations and absence of a gap do not "
-            "establish analytical or Module acceptance",
+            (
+                "Cumulative implemented-register gaps only; narrative "
+                "and full consumer readiness remain separate"
+            ),
+            (
+                "Generated calculations and absence of a gap do not "
+                "establish analytical or Module acceptance"
+            ),
         ),
     )
 

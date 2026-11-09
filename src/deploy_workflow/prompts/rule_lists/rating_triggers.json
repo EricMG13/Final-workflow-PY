@@ -17,12 +17,14 @@
   },
   {
    "id": "rating_triggers.2",
-   "statement": "Give exactly one view for each agency in `register.agencies` of the module context, its `agency` written exactly, and none for another agency or twice.",
+   "statement": "Give exactly one view for each agency in `register.agencies` of the module context, its `agency` written exactly, and none for another agency or twice. A view of Upgrade potential needs an upgrade trigger published for that agency in `triggers`, and is refused when only that agency's downgrade triggers are reached; every view cites at least one quote that names its own agency (for a context row, a line of that agency's own row).",
    "checks": [
     "oracle:cp2h:v01",
     "oracle:cp2h:v02",
     "oracle:cp2h:v03",
-    "fn:deploy_workflow.owners.cp2h:_view_issues"
+    "fn:deploy_workflow.owners.cp2h:_view_issues",
+    "fn:deploy_workflow.owners.cp2h:_direction_issues",
+    "fn:deploy_workflow.owners.cp2h:_own_evidence_issues"
    ]
   },
   {
@@ -35,7 +37,7 @@
   },
   {
    "id": "rating_triggers.4",
-   "statement": "Every `rationale` and gap field is nonblank prose with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in the module context (`cp1_facts`, the `triggers` thresholds or the `cp2g` rows), closed and non-empty, and never a reference to a value that is not settled. A `limitation` is plain text: no figure and no reference. Write no peer ranking, instrument recommendation or recovery conclusion, no rating call (`will be downgraded`, `will be upgraded`, `will downgrade`, `will upgrade`, `is certain to be`, `our rating`, `we rate`, `shadow rating`, `implied rating`) and no probability weighting (`probability-weighted`, `expected value` and similar).",
+   "statement": "Every `rationale` and gap field is nonblank prose with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in the module context (`cp1_facts`, the `triggers` thresholds or the `cp2g` rows), closed and non-empty, and never a reference to a value that is not settled. A `limitation` is plain text: no figure and no reference. Write no peer ranking, instrument recommendation or recovery conclusion, no rating call (`will be downgraded`, `will be upgraded`, `will downgrade`, `will upgrade`, `is certain to be`, `our rating`, `we rate`, `shadow rating`, `implied rating`) and no probability weighting (`probability-weighted`, `expected value` and similar). A fiscal-year label (`FY2025`, `fiscal 2025`) written up to the next `.`, `;` or `:` beside a `{ref|unit}` must be a year of the period of a figure referenced there.",
    "checks": [
     "oracle:cp2h:v04",
     "oracle:cp2h:v05",

@@ -27,7 +27,7 @@ import hashlib
 import json
 import tempfile
 from collections.abc import Iterator, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from types import MappingProxyType
 from typing import Any, Literal
@@ -158,6 +158,8 @@ class ReplayPlan:
     replayed: tuple[str, ...]
     live: tuple[str, ...]
     unreplayable: tuple[tuple[str, str], ...] = ()
+    # The authenticated read of the earlier run made when planning; `replay_module` reuses it.
+    retained: "_Earlier | None" = field(default=None, compare=False, repr=False)
 
 
 # ------------------------------------------------------------------ the earlier run, read only
@@ -346,6 +348,7 @@ def _plan(retained: _Earlier, planned: tuple[str, ...], repaired: frozenset[str]
         tuple(m for m in analytical if m not in live),
         tuple(m for m in analytical if m in live),
         tuple(why),
+        retained,
     )
 
 
@@ -606,12 +609,21 @@ def journal_unreplayable(plan: ReplayPlan, execution: Path) -> None:
 
 
 def replay_module(
-    workflow: OwnerWorkflow, earlier: Path, module_id: str, *, execution: Path
+    workflow: OwnerWorkflow,
+    earlier: Path,
+    module_id: str,
+    *,
+    execution: Path,
+    retained: "_Earlier | None" = None,
 ) -> None:
     """Replay the active module's steps from the earlier run directory ``earlier``, in order,
     until the module settles. ``execution`` is the new run's execution directory (where the
-    ``replays`` and ``faults`` records go). The caller has checked the pack (``check_replay``)."""
-    retained = _Earlier(earlier)
+    ``replays`` and ``faults`` records go). The caller has checked the pack (``check_replay``);
+    ``retained`` is the plan's already authenticated read of ``earlier`` (read afresh if None)."""
+    if retained is None:
+        retained = _Earlier(earlier)
+    elif retained.directory != earlier:
+        raise ReplayRefused(f"the plan's read is of {retained.directory}, not of {earlier}")
     check_same_pack(retained.store.pack(retained.snapshot), Execution(execution).pack())
     attempt = _settled_attempt(retained.snapshot, module_id)
     if attempt is None:

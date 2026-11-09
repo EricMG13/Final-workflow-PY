@@ -2083,9 +2083,7 @@
         }
       ],
       "preference": {
-        "ordering": [
-          "term-loan"
-        ],
+        "ordering": [],
         "rationale": "With no market evidence the relative value of the instrument is not assessed, although the CP-2 view is unchanged.",
         "basis": {
           "cp2_refs": [

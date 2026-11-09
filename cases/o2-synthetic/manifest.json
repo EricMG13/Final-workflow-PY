@@ -116,12 +116,12 @@
   },
   "cp1_tool_loop": {
     "file": "cp1-financials.json",
-    "sha256": "96c9f7691a7b45a531e9cb6f8d5885cab158e67a1693daf9511137b4c794b9eb",
+    "sha256": "b689a68f29e73852def7b8d2f70e86b5d11214297d2c61240d7a6e1e3226be6f",
     "source_function": "tests/test_financial_workflow.py financials(pack); reads: financial_reads(workflow)",
     "mapping_rule": "financials(o2 pack) with each citation's page:N replaced by the line:K of the prepared pack whose span holds the quote (quotes.quoted), searched only inside the lines of that page of the frozen source (cases/financial/manifest.json), exactly one match required; source_sha256 replaced by the pack's file-bytes hash; no value, id, status or number changed",
     "tool_calls": "o2 image of financial_reads: extract_statements over the derived statement units, read_pages over the lines of source pages 1 and 5, the same search_pack",
     "not_re_cut": "narrative, readiness and quality: computed from the run's read inputs as tests/s1a_runs.py drive_cp1 does",
-    "citations_recut": 636,
+    "citations_recut": 651,
     "ambiguous_line_matches": [],
     "script": "cases/o2-synthetic/builder/cp1_financials.py"
   }

@@ -34,14 +34,32 @@ SIGN_NORMALISED = "sign normalised"
 # A derived period whose components are not distinct, contiguous and its
 # exact span; or an LTM whose fiscal year does not meet its YTD and PYTD.
 UNSPANNED = "components do not span the period"
+# The source locator of a facility figure converted from another currency
+# (`financial_adapter`): its decimal places are the rate's, not the issuer's.
+CONVERTED = "facility-normalization"
 ABSENT = Cell(None, "NOT_SOURCED")  # no row, or a key the frame has no cell for
 
 
-def beyond_rounding(stated: Decimal, host: Decimal) -> bool:
+def half_unit(amounts: Iterable[Decimal]) -> Decimal:
+    """Half a unit in the finest last place any of `amounts` is written to,
+    and never more than half a unit (0.5). A figure's own exponent is not its
+    printed precision: a JSON parse drops trailing zeros (`1234.0` reads as
+    `1234`) and an exponent form (`1.2E+3`) shows none, so the finest place
+    among the figures compared stands in for it; a coarser tolerance is never
+    inferred."""
+    exponent = min((int(amount.as_tuple().exponent) for amount in amounts), default=0)
+    return Decimal("0.5").scaleb(min(exponent, 0))
+
+
+def beyond_rounding(
+    stated: Decimal, host: Decimal, printed: Iterable[Decimal] | None = None
+) -> bool:
     """Whether `host` differs from `stated` by more than half a unit in the
-    last place `stated` was written to."""
-    decimals = -int(stated.as_tuple().exponent)
-    return abs(stated - host) > Decimal("0.5").scaleb(-decimals)
+    finest last place among `stated` and `printed` (`half_unit`); `printed`
+    are the printed figures `host` is built from, `host` itself by default
+    (a sum is written to its finest part's place)."""
+    places = (host,) if printed is None else tuple(printed)
+    return abs(stated - host) > half_unit((stated, *places))
 
 
 def no_negative_zero(value: Decimal) -> Decimal:

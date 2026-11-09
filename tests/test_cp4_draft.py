@@ -8,6 +8,7 @@ expected value) and, for the executed-only guard, `cases/cp4-owner/expected.json
 import dataclasses
 import importlib
 import json
+import re
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
@@ -135,17 +136,22 @@ def test_a_quote_of_an_issuer_source_keeps_the_frozen_refusal_text() -> None:
     want = NOT_LEGAL.format(path="capacity[3]", source_id="identity", authority="issuer")
     assert want in issues
     assert not any("legal-draft" in line for line in issues)
-    assert "draft source" not in want
+    assert "draft-documents run, draft source" in want
 
 
-def test_the_frozen_q2_wording_is_byte_identical_in_the_source() -> None:
+def test_the_row_issue_wording_is_byte_identical_in_the_source() -> None:
+    # Re-pinned by ruling S09-cp4-cp5-C04: LEGAL_AUTHORITIES admits draft, so the text that said
+    # "executed or filed" misled a repair turn; it now names what is accepted (the phrase of
+    # live/context.py and methods/cp4.md). The oracle text (NOT_LEGAL) is checked in the test above.
     text = Path(cp4_legal.__file__).read_text(encoding="utf-8")
+    text = re.sub(r'"\s*\n\s*f?"', "", text)  # adjacent string literals read as one message
     assert (
-        '                f"{path}: {source_id} is not an executed or filed source (CP-0 authority "\n'
-        "                f\"{upstream.authority.get(source_id, 'none')}, or the source is not ready)\"\n"
+        "{path}: {source_id} is not an executed, filed or, on a draft-documents run, draft source "
+        "(CP-0 authority {upstream.authority.get(source_id, 'none')}, or the source is not ready)"
     ) in text
     assert (
-        '            issues.append(f"{path}: {row.source_id} is not an executed or filed source")\n'
+        "{path}: {row.source_id} is not an executed, filed or, on a draft-documents run, "
+        "draft source"
     ) in text
 
 

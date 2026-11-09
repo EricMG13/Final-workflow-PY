@@ -52,6 +52,7 @@ from deploy_vii.registry import (
     within_attempt_repair,
 )
 from deploy_workflow.platform_io import locks as fcntl
+from deploy_workflow.platform_io import replace as replace_file
 
 Validator = Callable[[Module], tuple[str, ...]]
 SCHEMA = "execution/5"
@@ -220,6 +221,19 @@ class NotAuthorized(ValueError):
         super().__init__("CP-0 has not authorized this consumer's source readiness")
         self.module_id = module_id
         self.commands = commands
+
+
+class HeadRestored(ValueError):
+    """`begin` found the module's stale head back on an input set it settled on: that settled
+    result is the head again and no ticket was opened (no new attempt, nothing to send).
+
+    A ValueError like every other refusal here, so a caller that only knows how to run a fresh
+    ticket fails closed instead of driving a finished one. `attempt` is the earlier finished
+    attempt whose result was restored."""
+
+    def __init__(self, attempt: Attempt) -> None:
+        super().__init__("Input set is settled; its settled result is the head again")
+        self.attempt = attempt
 
 
 # Settled modules whose facts a consumer may reference without requiring them (CP-1A cites
@@ -524,7 +538,7 @@ def _atomic_write(path: Path, raw: bytes) -> None:
             stream.write(raw)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, path)
+        replace_file(temporary, path)  # waits out Windows refusing a file a reader has open
     finally:
         Path(temporary).unlink(missing_ok=True)
 
@@ -662,6 +676,11 @@ class Execution:
         _atomic_write(self.directory / "current", (digest + "\n").encode("ascii"))
 
     def begin(self, module_id: str) -> Attempt:
+        """Open a ticket for the module's current inputs.
+
+        An input set that already settled is refused. When the module's head is stale and its
+        inputs returned to a set it settled on, that earlier settled result becomes the head
+        again under the lock, no attempt is opened, and `HeadRestored` (a refusal) says so."""
         module_id = canonical(module_id)
         with self._locked():
             snapshot = self.read()
@@ -674,6 +693,8 @@ class Execution:
                 if item.module_id == module_id and item.inputs == inputs
             ]
             if previous and (len(previous) >= 2 or not previous[-1].issues):
+                if self._restore_stale_head(snapshot, previous[-1]):
+                    raise HeadRestored(previous[-1])
                 raise ValueError("Input set is settled or its one repair has been consumed")
             attempt = Attempt(
                 ticket_id=str(uuid4()),
@@ -692,6 +713,20 @@ class Execution:
                 )
             )
             return attempt
+
+    def _restore_stale_head(self, snapshot: ExecutionSnapshot, settled: Attempt) -> bool:
+        """Caller holds the execution lock. Make the settled result of exactly the current inputs
+        the module's head again when that head is stale; False when there is nothing to restore."""
+        head = next((h for h in snapshot.heads if h.module_id == settled.module_id), None)
+        if head is None or head.status != "stale" or settled.result_sha256 is None:
+            return False
+        result = self.result(settled.result_sha256)
+        # A step module's result also binds its retained step submissions beyond the begin inputs.
+        if result.status == "rejected" or any(i not in result.inputs for i in settled.inputs):
+            return False
+        same = head.result_sha256 == settled.result_sha256  # keep the qualification it earned
+        self._save_finished(snapshot, settled, result, head.qualification if same else None)
+        return True
 
     def finish(
         self,

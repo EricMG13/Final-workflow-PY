@@ -8,6 +8,7 @@ Packs are the R3 pack (or the S1 pack for `context-only`) plus a `context` sourc
 """
 
 import copy
+import dataclasses
 import json
 import re
 from collections.abc import Sequence
@@ -865,3 +866,93 @@ def test_duplicate_context_row_ids_in_a_basis_compose_once() -> None:
     assert result.report is not None
     claim = next(c for c in result.report.claims if c.claim_id == "T3.1.i01")
     assert len(claim.citations) == len(set(claim.citations)) == 7
+
+
+# --- review fix S08-cp3-A07/C04: a cited context row is the instrument's own facility -----------
+
+
+def _two_facility_inputs() -> CP3Inputs:
+    """The observed-and-talk case with its context quotes re-tagged to a second CP-1 facility
+    `notes-2031` (T4.18 lists it beside term-loan), and a second instrument row for it. The
+    term-loan instrument keeps citing c01 and c02, which are now the notes' quotes."""
+    raw = context_bytes("observed-and-talk").replace(
+        b'"facility_id": "term-loan"', b'"facility_id": "notes-2031"'
+    )
+    pack = pack_for("observed-and-talk", context_source("observed-and-talk", raw))
+    literal = copy.deepcopy(SUBS["cases"]["observed-and-talk"])
+    notes = copy.deepcopy(literal["instruments"][0])
+    notes.update(
+        facility_id="notes-2031",
+        market_observation="none",
+        basis={"cp2_refs": ["T2.11.r01"], "quotes": [], "context_rows": []},
+        limitation=None,
+    )
+    literal["instruments"].append(notes)
+    literal["preference"]["ordering"] = ["term-loan", "notes-2031"]
+    inputs = inputs_for("observed-and-talk", pack, literal)
+    extra = tuple(
+        Fact(
+            fact_id=f"T4.18.notes-2031.fy2025.{field}",
+            label=field,
+            table_id="T4.18",
+            row_id="notes-2031.fy2025",
+            field=field,
+            text=text,
+        )
+        for field, text in (("facility_id", "notes-2031"), ("facility_name", "Northbridge Notes"))
+    )
+    cp1 = inputs.cp1.model_copy(update={"facts": (*inputs.cp1.facts, *extra)})
+    bound = tuple(
+        Input(input_id=i.input_id, sha256=cp1.content_hash(), status=i.status)
+        if i.input_id == "CP-1"
+        else i
+        for i in inputs.bound
+    )
+    return dataclasses.replace(inputs, cp1=cp1, bound=bound, current=bound)
+
+
+def test_s08_a07_another_facilitys_context_row_is_refused_as_an_instruments_basis() -> None:
+    """S08-cp3-A07/C04: c01 and c02 quote notes-2031; the term-loan row (instruments[0]) may not
+    cite them as its market basis. The preference's basis is the issuer's and is not bound to
+    one facility, so it carries no such issue."""
+    inputs = _two_facility_inputs()
+    assert compute(inputs).issues == (
+        (
+            "instruments[0].basis.context_rows[0]: context row c01 quotes facility notes-2031, "
+            "not term-loan"
+        ),
+        (
+            "instruments[0].basis.context_rows[1]: context row c02 quotes facility notes-2031, "
+            "not term-loan"
+        ),
+    )
+    # The same rows cited by the notes-2031 instrument are its own and compose.
+    submission = inputs.submission
+    term_loan, notes = submission.instruments
+    swapped = (
+        term_loan.model_copy(
+            update={
+                "market_observation": "none",
+                "basis": notes.basis,
+                "limitation": "No market level for the term loan",
+            }
+        ),
+        notes.model_copy(
+            update={
+                "market_observation": term_loan.market_observation,
+                "basis": term_loan.basis,
+                "limitation": term_loan.limitation,
+            }
+        ),
+    )
+    result = compute(
+        dataclasses.replace(
+            inputs, submission=submission.model_copy(update={"instruments": swapped})
+        )
+    )
+    assert result.issues == ()
+    assert result.report is not None
+    facts = result.report.facts
+    basis = {f.row_id: f.text or "" for f in facts if f.table_id == "T3.1" and f.field == "basis"}
+    assert "context c01" in basis["i02"]
+    assert "context c01" not in basis["i01"]

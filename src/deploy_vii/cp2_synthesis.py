@@ -247,6 +247,11 @@ class Signal:
         return f"CP-1A judges CP-2 {self.status}"
 
     @property
+    def critical(self) -> bool:
+        """A Critical CP-1A row: only a gaps row of severity Critical restates it (S06-A06)."""
+        return self.source != "downstream_readiness"
+
+    @property
     def restatement(self) -> str:
         if self.source == "gaps_ledger":
             what = f"the Critical CP-1A gap {self.ref}"
@@ -254,7 +259,8 @@ class Signal:
             what = f"the Critical CP-1A disclosure item {self.ref}"
         else:
             what = f"CP-1A's {self.status} readiness of CP-2 ({self.ref})"
-        return f"gaps: restate {what} in a gaps row that cites it"
+        row = "a gaps row of severity Critical" if self.critical else "a gaps row"
+        return f"gaps: restate {what} in {row} that cites it"
 
     @property
     def limitation(self) -> str:
@@ -453,9 +459,14 @@ def _propagation_issues(submission: CreditSynthesisSubmission, upstream: Upstrea
     reasons = list(dict.fromkeys((*blocked, *(item.reason for item in signals))))
     if reasons and submission.assessment.confidence == "High":
         issues.append(f"assessment.confidence: capped below High because {'; '.join(reasons)}")
+    # S06-A06: a Critical CP-1A row is restated only by a Critical gaps row, so CP-2 cannot
+    # downgrade it (its own limitation reads "Gap (<severity>): ...").
     restated = {ref for gap in submission.gaps for ref in gap.cp1a_refs}
+    critical = {r for gap in submission.gaps if gap.severity == "Critical" for r in gap.cp1a_refs}
     issues.extend(
-        item.restatement for item in signals if item.ref is not None and item.ref not in restated
+        item.restatement
+        for item in signals
+        if item.ref is not None and item.ref not in (critical if item.critical else restated)
     )
     return issues
 
@@ -600,6 +611,11 @@ class _Composer:
 
     def limit(self, limitation: str | None) -> Cell:
         return Cell(self.text(limitation) if limitation else NONE_STATED)
+
+    def stored(self, limitation: str | None) -> str | None:
+        """A claim's limitation as stored: spelled like its table cell (`text`), never with raw
+        `{ref|unit}` braces (S06-cp2-ade-C03, S10-cp6-cp8-cpl10-C04); None stays None."""
+        return None if limitation is None else self.text(limitation)
 
     def basis(self, row: SynthesisRow) -> Cell:
         """Python's basis cell: each cited CP-1A row with its label, in catalogue (register)
@@ -824,6 +840,14 @@ def credit_synthesis(
     issues = validate_credit_synthesis(pack, submission, upstream)
     if issues:
         raise ValueError("; ".join(issues))
+    return _composed(pack, submission, upstream)
+
+
+def _composed(
+    pack: PreparedPack, submission: CreditSynthesisSubmission, upstream: Upstream
+) -> CreditSynthesisReport:
+    """`credit_synthesis` of a submission `validate_credit_synthesis` already accepted (one
+    validation per step, S06-cp2-ade-C06)."""
     pack = PreparedPack.model_validate_json(pack.model_dump_json())
     submission = CreditSynthesisSubmission.model_validate_json(submission.model_dump_json())
     out = _Composer(prose.bind(referencable(upstream.cp1.facts)), upstream.catalogue)
@@ -834,6 +858,8 @@ def credit_synthesis(
     out.limitations.extend(item.limitation for item in upstream.signals if item.limits)
     for compose in (_assessment, _sides, _findings, _risks_and_gaps):
         compose(submission, out)
+    # Spelled before the references are carried; the T2.1 cell already referenced its figures.
+    assessment_limitation = out.stored(submission.assessment.limitation)
     referenced = [
         fact.model_copy(
             update={"table_id": CP1_REFERENCES, "row_id": f"ref{index:02d}", "field": "value"}
@@ -859,13 +885,14 @@ def credit_synthesis(
             )
         )
     # Claims are the model's run text as written; their references resolve against the carried
-    # CP-1 facts (`prose_issues` in `execution.candidate_issues`).
+    # CP-1 facts (`prose_issues` in `execution.candidate_issues`). A limitation is plain stored
+    # text, so it is spelled.
     claims = (
         Claim(
             claim_id="T2.1.assessment",
             text=submission.assessment.rationale,
             citations=(),
-            limitation=submission.assessment.limitation,
+            limitation=assessment_limitation,
         ),
         *(
             Claim(claim_id=f"T2.10.kf{index:02d}", text=finding.text, citations=())
@@ -917,7 +944,7 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     issues = validate_credit_synthesis(pack, submission, upstream)
     if issues:
         return StepValidation(issues=issues)
-    return StepValidation(output=credit_synthesis(pack, submission, upstream).model_dump_json())
+    return StepValidation(output=_composed(pack, submission, upstream).model_dump_json())
 
 
 def submit_cp2_step(store: Execution, ticket_id: str, step_id: str, payload: str) -> Attempt:

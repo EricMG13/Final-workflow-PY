@@ -1152,7 +1152,9 @@ def test_a_refusal_after_the_first_write_stops_the_run_under_its_own_name(
         found = real(*args)
         path = audit(copy, "calls")[0]  # torn after the check, before the replay reads it
         path.write_text(path.read_text() + " ")
-        return found
+        # The plan's own read was authenticated before the tear; without it the replay reads the
+        # torn directory again (S01-C07), which is the refusal after the first write tested here.
+        return dataclasses.replace(found, retained=None)
 
     monkeypatch.setattr(rp, "check_replay", check_then_tear)
     outcome = rerun_public(tmp_path / "rerun", copy)

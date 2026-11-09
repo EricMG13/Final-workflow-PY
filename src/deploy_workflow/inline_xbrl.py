@@ -10,6 +10,9 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal, localcontext
 from html.parser import HTMLParser
+from typing import Any
+
+from deploy_workflow.html_text import decode_html
 
 
 @dataclass(frozen=True)
@@ -71,12 +74,12 @@ class Document:
 
 
 class _Parser(HTMLParser):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.stack: list[str] = []
-        self.context: dict | None = None
-        self.unit: dict | None = None
-        self.active_facts: list[dict] = []
+        self.context: dict[str, Any] | None = None
+        self.unit: dict[str, Any] | None = None
+        self.active_facts: list[dict[str, Any]] = []
         self.contexts: dict[str, Context] = {}
         self.units: dict[str, tuple[str, ...]] = {}
         self.facts: list[Fact] = []
@@ -125,15 +128,19 @@ class _Parser(HTMLParser):
             for fact in self.active_facts:
                 fact["text"].append(data)
 
-    def handle_endtag(self, tag):
+    def handle_endtag(self, tag: str) -> None:
         local = tag.split(":")[-1]
         if local == "context" and self.context is not None:
             c = self.context
-            value = Context(c["id"], c.get("identifier", "").strip(), c.get("scheme", ""),
+            value = Context(
+                c["id"],
+                c.get("identifier", "").strip(),
+                c.get("scheme", ""),
                 date.fromisoformat(c["startdate"].strip()) if c.get("startdate") else None,
                 date.fromisoformat(c["enddate"].strip()) if c.get("enddate") else None,
                 date.fromisoformat(c["instant"].strip()) if c.get("instant") else None,
-                c["dimensional"])
+                c["dimensional"],
+            )
             if value.context_id in self.contexts:
                 raise ValueError("duplicate source context id")
             self.contexts[value.context_id] = value
@@ -147,28 +154,46 @@ class _Parser(HTMLParser):
         if tag == "ix:nonfraction" and self.active_facts:
             f = self.active_facts.pop()
             a = f["attrs"]
-            identifier = a.get("id", "")
-            if not identifier or identifier in self.ids:
-                raise ValueError("missing or duplicate inline fact id")
-            self.ids.add(identifier)
-            self.facts.append(Fact(identifier, a.get("name", ""), a.get("contextref", ""),
-                a.get("unitref", ""), "".join(f["text"]).strip(), int(a.get("scale", "0")),
-                a.get("sign") == "-", a.get("xsi:nil", "false") in {"true", "1"},
-                a.get("format", ""), f["table"], f["row"]))
+            # The id attribute is optional in Inline XBRL 1.1; a fact without one keeps "".
+            identifier = a.get("id") or ""
+            if identifier in self.ids:
+                raise ValueError("duplicate inline fact id")
+            if identifier:
+                self.ids.add(identifier)
+            self.facts.append(
+                Fact(
+                    identifier,
+                    a.get("name", ""),
+                    a.get("contextref", ""),
+                    a.get("unitref", ""),
+                    "".join(f["text"]).strip(),
+                    int(a.get("scale", "0")),
+                    a.get("sign") == "-",
+                    a.get("xsi:nil", "false") in {"true", "1"},
+                    a.get("format", ""),
+                    f["table"],
+                    f["row"],
+                )
+            )
         if tag == "table" and self.tables:
             self.tables.pop()
         if tag in self.stack:
-            del self.stack[len(self.stack) - 1 - self.stack[::-1].index(tag):]
+            del self.stack[len(self.stack) - 1 - self.stack[::-1].index(tag) :]
 
 
 def parse(raw: bytes) -> Document:
-    # SEC filings in the pinned corpus explicitly declare UTF-8.
+    """Raises ``ValueError`` (``UndecodableHtml`` included) for a document it cannot read."""
+    # Decoded exactly as convert_html decodes the same bytes (UTF-8, or a declared
+    # windows-1252 / iso-8859-1 / ascii charset), so both read the same text.
+    text, _ = decode_html(raw)
     parser = _Parser()
-    parser.feed(raw.decode("utf-8-sig", errors="strict"))
+    parser.feed(text)
     parser.close()
     if parser.context is not None or parser.active_facts or parser.unit is not None:
         raise ValueError("unfinished inline-XBRL structure")
-    return Document(hashlib.sha256(raw).hexdigest(), parser.contexts, parser.units, tuple(parser.facts))
+    return Document(
+        hashlib.sha256(raw).hexdigest(), parser.contexts, parser.units, tuple(parser.facts)
+    )
 
 
 def period_lines(document: Document) -> tuple[str, ...]:

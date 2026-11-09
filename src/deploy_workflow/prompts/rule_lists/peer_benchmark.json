@@ -15,12 +15,12 @@
     "oracle:cp1c:r03",
     "oracle:cp1c:r10",
     "fn:deploy_workflow.owners.cp1c:_assessment_set_issues",
-    "fn:deploy_workflow.owners.cp1c:calculation_issues"
+    "fn:deploy_workflow.owners.cp1c:_calculation"
    ]
   },
   {
    "id": "peer_benchmark.3",
-   "statement": "Every assessment lists `evidence`, and a Partly comparable assessment states its `limitation`. `overall.confidence` is never High, because the peer figures are desk-supplied and unaudited.",
+   "statement": "Every assessment lists `evidence`, and a Partly comparable assessment states its `limitation`. `overall.confidence` is never High, because the peer figures are desk-supplied and unaudited. A peer whose `period_end` is more than 12 months before the end of CP-1's LTM period is never Comparable: assess it Partly comparable with its `limitation`, or Not comparable.",
    "checks": [
     "oracle:cp1c:r04",
     "oracle:cp1c:r05",
@@ -30,7 +30,7 @@
   },
   {
    "id": "peer_benchmark.4",
-   "statement": "Each `rationale` is nonblank run text with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in `cp1_facts`, closed and non-empty; a reference that resolves to no fact, or to a fact whose value is a gap, is refused. State no instrument recommendation or recovery conclusion in any text field (`rationale`, `limitation` and gap fields), and leave none blank: a blank `limitation` (of an assessment, when given, or of `overall`) or gap field (`gap`, `why_it_matters`, `affected_analysis`, `action`) is refused.",
+   "statement": "Each `rationale` is nonblank run text with no bare figure (digits only inside a period or filing label); a figure appears only as `{ref|unit}` with a `ref` and `unit` listed in `cp1_facts`, closed and non-empty; a reference that resolves to no fact, or to a fact whose value is a gap, is refused. State no instrument recommendation or recovery conclusion in any text field (`rationale`, `limitation` and gap fields), and leave none blank: a blank `limitation` (of an assessment, when given, or of `overall`) or gap field (`gap`, `why_it_matters`, `affected_analysis`, `action`) is refused. A fiscal-year label (`FY2025`, `fiscal 2025`) written up to the next `.`, `;` or `:` beside a `{ref|unit}` must be a year of the period of a figure referenced there.",
    "checks": [
     "oracle:cp1c:r06",
     "oracle:cp1c:r09",

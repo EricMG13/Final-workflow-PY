@@ -14,7 +14,12 @@ from prompt_support import EXISTING, spec_of
 from deploy_vii.business_context import cp1_context_facts
 from deploy_vii.contracts import Fact
 from deploy_vii.execution import Execution, head_of
-from deploy_vii.live.context import declared_sources, module_context, readable_sources
+from deploy_vii.live.context import (
+    declared_sources,
+    module_context,
+    readable_sources,
+    session_scope,
+)
 from deploy_vii.live.prompts import STEP_CONTRACTS, PromptError
 from deploy_vii.preparation import PreparedPack
 from deploy_workflow import host
@@ -307,3 +312,31 @@ def test_h2_cp3_rule_5_names_only_the_market_scope(tmp_path: Path, listed_source
     )
     system = prompt_factory(pack, store)(binding, spec_of("relative_value"), ())[0].text
     assert "declared sources: market." in system
+
+
+@pytest.mark.parametrize(
+    ("module", "step_id", "expected"),
+    [
+        ("CP-3", "relative_value", ("market",)),  # its market scope only
+        ("CP-1A", "business_context", ("identity", "financial", "business", "market")),  # all
+    ],
+)
+def test_session_scope_is_the_declared_sources_that_are_readable(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    module: str,
+    step_id: str,
+    expected: tuple[str, ...],
+) -> None:
+    """S14-C06: `session_scope` over the already-built pack gives what host computed before (the
+    declared sources that are readable, each list built on its own), with no pack read. Expected
+    by hand from the stage-1 pack (identity, financial, business, market, all ready)."""
+    store, pack, attempt = seeded_store(tmp_path, module, module)
+    ids = tuple(s.source_id for s in pack.sources)
+    declared = set(declared_sources(store, attempt, step_id, ids))
+    readable = set(readable_sources(store, attempt, step_id))
+    assert tuple(i for i in ids if i in declared and i in readable) == expected
+    reads: list[object] = []
+    monkeypatch.setattr(store, "pack", lambda *args: reads.append(args) or pack)
+    assert session_scope(store, attempt, step_id, pack) == expected
+    assert reads == []

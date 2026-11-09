@@ -1,0 +1,8 @@
+SYNTHETIC FIXTURE - not issuer evidence
+Bond quotes as of 2025-05-30 - Harbor Freight Systems, Inc.
+CUSIP,Instrument,Bid,Ask,Yield,Spread (bps)
+12345AB1,7.250% Senior Secured Notes due 2031,98.50,99.25,7.55,345
+=== PAGE ===
+12345AB2,Term Loan B,99.10,99.60,,375
+=== PAGE ===
+

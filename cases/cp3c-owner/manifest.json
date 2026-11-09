@@ -363,7 +363,7 @@
     {
       "fixture_id": "fixture_zero_ebitda",
       "kind": "composer-level unit fixture, not a pack run",
-      "construction": "adjusted EBITDA 0 (a known zero): leverage-type ratios are not_applicable, interest cover is a known 0"
+      "construction": "adjusted EBITDA 0 (a known zero): leverage-type ratios, interest cover and pro forma interest cover are not_applicable (ruling S08-cp3-C08)"
     },
     {
       "fixture_id": "fixture_zero_step_up",

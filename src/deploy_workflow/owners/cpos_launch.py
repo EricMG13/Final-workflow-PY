@@ -18,15 +18,17 @@ import re
 import sys
 import tempfile
 import textwrap
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from types import MappingProxyType
+from typing import Any
 
 from deploy_vii.contracts import PATHWAY_MODULES, Run
 from deploy_vii.live.prompts import STEP_CONTRACTS
-from deploy_vii.registry import plan
+from deploy_vii.registry import modules, plan
 from deploy_vii.report_view import _spec_of, pathways
 from deploy_workflow.context import CONTEXT_SOURCE_ID, load_context
 from deploy_workflow.handoff_delivery import (
@@ -53,7 +55,14 @@ from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.handoff import Check, _pages
 from deploy_workflow.model.pricing import price_of, request_reservation_usd
 from deploy_workflow.model_testing.configs import CONFIGS
-from deploy_workflow.owners.cpos import HandoffPlan, HandoffTask, run_live_handoffs, with_notes
+from deploy_workflow.owners.cpos import (
+    HandoffPlan,
+    HandoffTask,
+    RetainedHandoff,
+    _checked_handoff,
+    run_live_handoffs,
+    with_notes,
+)
 from deploy_workflow.reader_summary import (
     BOTTOM_LINE_WORDS,
     CONFIDENCE,
@@ -62,6 +71,7 @@ from deploy_workflow.reader_summary import (
     MAX_FINDINGS,
     reader_issues,
 )
+from deploy_workflow.run_expectations import Item, edges_for, expectations, guess_kind
 from deploy_workflow.workflow import _put
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -71,6 +81,8 @@ SOURCE_SUFFIXES = frozenset(
     {".pdf", ".htm", ".html", ".txt", ".md", ".xlsx", ".csv", ".json", ".jsonl"}
 )
 NOT_ANALYTICAL = frozenset({"CP-MODEL", "CP-8"})  # In the presets; each has its own route.
+FIRST_PAGES = 3  # Pages of each source kept for the offline document guess (page 1 is the cover).
+Cover = tuple[str, tuple[str, ...]]  # A source's file name and its first pages.
 MAX_OUTPUT_TOKENS = 32000  # What the retained live campaigns ran with.
 
 _SKILLS = "docs/reuse/selected-methods/skills/"
@@ -237,6 +249,18 @@ class LaunchRefused(ValueError):
 
 
 @dataclass(frozen=True)
+class Accepted:
+    """A stopped run's accepted answer as CP-OS recorded it: the response bytes, the recorded
+    request it answered (run, instructions, source and upstream hashes) and the model selection
+    (provider, model, effort) the stopped run was reviewed with; None when unknown."""
+
+    response: bytes
+    request: Mapping[str, Any]
+    model: tuple[str, str, str] | None
+    problem: str = ""  # Why this module's record cannot be replayed, when it cannot.
+
+
+@dataclass(frozen=True)
 class Prepared:
     directory: Path
     manifest: Path
@@ -246,6 +270,10 @@ class Prepared:
     ignored: tuple[str, ...]  # Files in the folder that no module can read.
     omitted: tuple[str, ...]  # Pathway report sections this run does not produce.
     hold: Decimal  # What one call of the largest module counts against the cap while in flight.
+    retained_modules: tuple[str, ...] = ()  # Replayed from a stopped run; no model call.
+    retained_stop: tuple[str, str] = ("", "")  # The module the replay stopped before, and why.
+    documents: tuple[dict[str, Any], ...] = ()  # Each pinned source's guessed kind (offline).
+    expectations: tuple[Item, ...] = ()  # What the run is expected to do (offline forecast).
 
 
 def _sha(raw: bytes) -> str:
@@ -275,8 +303,9 @@ def _html_page_rows(name: str, raw: bytes) -> bytes:
 
 def _issuer_files(
     folder: Path, context: Path, directory: Path
-) -> tuple[dict[str, HandoffInput], dict[str, bytes], tuple[str, ...]]:
-    """Every readable file in ``folder``, the converted texts to write, and the files left out. A
+) -> tuple[dict[str, HandoffInput], dict[str, bytes], tuple[str, ...], dict[str, Cover]]:
+    """Every readable file in ``folder``, the converted texts to write, the files left out and each
+    pinned source's name and first pages (for the offline document guess). A
     file a module could not read stops the launch here, because the same failure during a run
     would come after the module was marked as started and could not be resumed."""
     if not folder.is_dir():
@@ -284,6 +313,8 @@ def _issuer_files(
     pinned: dict[str, HandoffInput] = {}
     converted: dict[str, bytes] = {}
     ignored: list[str] = []
+    origins: dict[str, str] = {}
+    covers: dict[str, Cover] = {}
     for path in sorted(folder.rglob("*")):
         name = path.relative_to(folder).as_posix()
         parts = path.relative_to(folder).parts
@@ -298,6 +329,12 @@ def _issuer_files(
         raw = path.read_bytes()
         is_html = path.suffix.lower() in HTML_SUFFIXES
         key = f"{name}.jsonl" if is_html else name
+        if key in origins:  # An HTML filing's text is pinned as `<name>.jsonl`, a real file name.
+            raise LaunchRefused(
+                f"--sources: {origins[key]} and {name} would both be source {key}; "
+                "rename or remove one"
+            )
+        origins[key] = name
         try:
             readable = _html_page_rows(name, raw) if is_html else raw
             pages = _pages(key, readable)
@@ -305,6 +342,7 @@ def _issuer_files(
             raise LaunchRefused(f"--sources: cannot read {name}: {error}") from error
         if not any(page.strip() for page in pages):
             raise LaunchRefused(f"--sources: {name} has no extractable text (scanned image?)")
+        covers[key] = (name, tuple(pages[:FIRST_PAGES]))
         if is_html:
             converted[f"source-text/{key}"] = readable
             pinned[key] = HandoffInput(path=f"source-text/{key}", sha256=_sha(readable))
@@ -312,7 +350,7 @@ def _issuer_files(
             pinned[key] = HandoffInput(path=os.path.relpath(path, directory), sha256=_sha(raw))
     if not pinned:
         raise LaunchRefused(f"--sources {folder}: no readable issuer file")
-    return pinned, converted, tuple(ignored)
+    return pinned, converted, tuple(ignored), covers
 
 
 # Fixed so any run's charts can be read without issuer-specific row selectors.
@@ -384,6 +422,45 @@ def chart_issues(text: str, route: MarkdownRoute) -> tuple[str, ...]:
     return tuple(issues)
 
 
+# The lines the report states above the call, front-most first: the Reader summary's first table
+# (instructed by READER_SECTION_RULES) of each module that is in the run, and CP-6's instructed
+# `Final Action Bias:` paragraph. Nothing is read that no instruction asks the module to write.
+FRONT_TITLES = {
+    "CP-6": "Committee decision",
+    "CP-5": "Evidence validation",
+    "CP-2": "Fundamental credit",
+    "CP-0": "Source readiness",
+}
+READER_SUMMARY_HEADER = "Bottom line | Confidence | Main limitation"
+
+
+def _front_routes(ordered: tuple[str, ...]) -> tuple[MarkdownRoute, ...]:
+    routes = [
+        MarkdownRoute(
+            module_id=module_id,
+            heading="Reader summary",
+            kind="table",
+            block_id="front",
+            table_header=READER_SUMMARY_HEADER,
+            label=title,
+        )
+        for module_id, title in FRONT_TITLES.items()
+        if module_id in ordered
+    ]
+    if "CP-6" in ordered:
+        routes.append(
+            MarkdownRoute(
+                module_id="CP-6",
+                heading="Action Bias Determination",
+                kind="prose",
+                block_id="front",
+                prefix="Final Action Bias:",
+                label="Committee action bias",
+            )
+        )
+    return tuple(routes)
+
+
 def _layout(
     run: Run, ordered: tuple[str, ...], aliases: tuple[str, ...], config: str
 ) -> tuple[MarkdownLayout, tuple[str, ...]]:
@@ -425,6 +502,7 @@ def _layout(
         scope=scope,
         title=f"{run.issuer_name} — {preset.title}",
         issuer_aliases=aliases,
+        front=_front_routes(ordered),
     )
     return layout, tuple(omitted)
 
@@ -458,7 +536,14 @@ def _selector(route: MarkdownRoute) -> str:
     return f"- `### {route.heading}`: {what}"
 
 
-def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> bytes:
+def _instructions(
+    run: Run,
+    module: str,
+    routes: Sequence[MarkdownRoute],
+    *,
+    run_type: str,  # Plan 3 (Primary scope) reads these two; no instruction byte uses them yet.
+    legal_documents: str,
+) -> bytes:
     selectors = "\n".join(_selector(r) for r in routes if r.module_id == module)
     sections = [(path, (ROOT / path).read_text(encoding="utf-8")) for path in METHODS[module]]
     if module == "CP-1":
@@ -503,7 +588,82 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
     ).encode()
 
 
-def prepare(
+@dataclass(frozen=True)
+class _Now:
+    """What this run will ask: the facts a stopped run's answer is compared with."""
+
+    config: str
+    run: Run
+    ordered: tuple[str, ...]
+    texts: Mapping[str, bytes]
+    sources: Mapping[str, bytes]
+    layout: MarkdownLayout
+
+
+def _mismatch(
+    record: Accepted | None, module: str, now: _Now, kept: Mapping[str, bytes], position: int
+) -> str:
+    """Why a stopped run's answer cannot stand for this run's module, or "" when it can."""
+    if record is None:
+        return "the stopped run did not reach it"
+    if record.problem:
+        return record.problem
+    if record.model is None:
+        return "the stopped run's model setting could not be read"
+    chosen = CONFIGS[now.config]
+    asked = record.request
+    upstream = {prior: _sha(kept[prior]) for prior in now.ordered[:position]}
+    differences = (
+        (
+            record.model != (chosen.provider, chosen.model, chosen.effort),
+            "the stopped run used a different model setting",
+        ),
+        (
+            asked.get("run") != now.run.model_dump(mode="json"),
+            "the run's identity or scope changed",
+        ),
+        (
+            asked.get("sources") != {k: _sha(v) for k, v in now.sources.items()},
+            "its sources or context changed since the stopped run",
+        ),
+        (asked.get("handoffs") != upstream, "the modules before it differ from the stopped run's"),
+        (
+            asked.get("instructions") != now.texts[module].decode(),
+            "its instructions changed since the stopped run",
+        ),
+    )
+    if why := next((reason for differs, reason in differences if differs), ""):
+        return why
+    task = HandoffTask(
+        now.run,
+        module,
+        now.texts[module],
+        MappingProxyType(dict(now.sources)),
+        MappingProxyType({prior: kept[prior] for prior in upstream}),
+        1,
+        (),
+    )
+    refused = _checked_handoff(task, record.response, checker(now.layout))
+    return "the current checks no longer accept it" if refused else ""
+
+
+def _retained_prefix(
+    now: _Now, retained: Mapping[str, Accepted]
+) -> tuple[dict[str, Accepted], tuple[str, str]]:
+    """The longest prefix of the plan whose answers still stand, and where and why it ended.
+    CP-OS needs the whole upstream chain, so the first module that fails ends it."""
+    kept: dict[str, Accepted] = {}
+    for position, module in enumerate(now.ordered):
+        why = _mismatch(
+            retained.get(module), module, now, {m: r.response for m, r in kept.items()}, position
+        )
+        if why:
+            return kept, (module, why)
+        kept[module] = retained[module]
+    return kept, ("", "")
+
+
+def prepare(  # noqa: PLR0913 - one keyword per run setting; retained is the resume input
     context: Path,
     sources: Path,
     out: Path | None,
@@ -511,8 +671,13 @@ def prepare(
     config: str,
     cap: Decimal | str,
     modules: Sequence[str] | None = None,
+    retained: Mapping[str, Accepted] | None = None,
 ) -> Prepared:
-    """Check everything and write the manifest and instructions; a refusal writes nothing."""
+    """Check everything and write the manifest and instructions; a refusal writes nothing.
+
+    `retained` holds a stopped run's accepted answers. The longest prefix of the plan whose
+    answers still match this run's sources, instructions and model, and pass the current
+    checker, is pinned for replay; the first module that fails ends it and is named."""
     context_path = Path(context).expanduser().resolve()
     folder = Path(sources).expanduser().resolve()
     raw_context = context_path.read_bytes()
@@ -537,10 +702,33 @@ def prepare(
     directory = (ROOT / "runs" / run.run_id if out is None else Path(out)).expanduser().resolve()
     if directory.is_relative_to(folder):
         raise LaunchRefused(f"--out {directory}: must be outside the issuer folder")
-    pinned, converted, ignored = _issuer_files(folder, context_path, directory)
+    pinned, converted, ignored, covers = _issuer_files(folder, context_path, directory)
     aliases = tuple(a for a in settings.identity.aliases if a.strip())
     layout, omitted = _layout(run, ordered, aliases, config)
-    texts = {m: _instructions(run, m, layout.routes) for m in ordered}
+    texts = {
+        m: _instructions(
+            run,
+            m,
+            layout.routes,
+            run_type=settings.run.run_type,
+            legal_documents=settings.attachments.legal_documents,
+        )
+        for m in ordered
+    }
+    guesses = {key: guess_kind(name, pages) for key, (name, pages) in covers.items()}
+    items = expectations(
+        ordered, tuple(guesses.values()), settings, edges_for(ordered), omitted=omitted
+    )
+    documents = tuple(
+        {
+            "source": key,
+            "kind": g.kind,
+            "signal": g.signal,
+            "executed": g.executed,
+            "period_end": g.period_end,
+        }
+        for key, g in guesses.items()
+    )
     request = HandoffPlan(
         run=run,
         sources={
@@ -558,6 +746,27 @@ def prepare(
         max_attempts=1,
         provider_cap_usd=Decimal(cap),
     )
+    source_bytes = {
+        name: converted[spec.path]
+        if spec.path in converted
+        else Path(os.path.normpath(directory / spec.path)).read_bytes()
+        for name, spec in request.sources.items()
+    }
+    now = _Now(config, run, ordered, texts, source_bytes, layout)
+    kept, stop = _retained_prefix(now, retained or {})
+    request = request.model_copy(
+        update={
+            "retained_handoffs": {
+                m: RetainedHandoff(
+                    path=f"retained/{m}.md",
+                    sha256=_sha(kept[m].response),
+                    source_hashes=dict(kept[m].request["sources"]),
+                    upstream=dict(kept[m].request["handoffs"]),
+                )
+                for m in kept
+            }
+        }
+    )
     # The loop's own bound for the first call of the largest module; later calls hold more.
     hold = request_reservation_usd(
         price_of(config), max(map(len, texts.values())) + 4096, MAX_OUTPUT_TOKENS
@@ -572,8 +781,44 @@ def prepare(
         _put(directory / relative, content)
     for module, text in texts.items():
         _put(directory / "instructions" / f"{module}.md", text)
+    for module, record in kept.items():
+        _put(directory / "retained" / f"{module}.md", record.response)
     _put(manifest, raw)
-    return Prepared(directory, manifest, request, layout, ordered, ignored, omitted, hold)
+    return Prepared(
+        directory,
+        manifest,
+        request,
+        layout,
+        ordered,
+        ignored,
+        omitted,
+        hold,
+        tuple(kept),
+        stop,
+        documents,
+        tuple(items),
+    )
+
+
+def without_for(ordered: Sequence[str], items: Sequence[Item]) -> dict[str, list[str]]:
+    """For each declaration-based Will refuse module: itself and, transitively, every ordered module
+    that requires it (a registry required dependency; optional and restricted consumers stay), in
+    run order. An inherited Will refuse offers nothing: its producer does."""
+    required = {m.module_id: set(m.required) for m in modules()}
+    result: dict[str, list[str]] = {}
+    for item in items:
+        if item["outcome"] != "will_refuse" or item["inherited_from"] or item["scope"] == "run":
+            continue
+        removed = {item["scope"]}
+        grew = True
+        while grew:
+            grew = False
+            for module in ordered:
+                if module not in removed and required.get(module, set()) & removed:
+                    removed.add(module)
+                    grew = True
+        result[item["scope"]] = [m for m in ordered if m in removed]
+    return result
 
 
 def checker(layout: MarkdownLayout) -> Check:
@@ -605,6 +850,7 @@ def checker(layout: MarkdownLayout) -> Check:
                     update={
                         "blocks": tuple(dict.fromkeys(r.block_id for r in routes)),
                         "routes": routes,
+                        "front": tuple(r for r in layout.front if r.module_id == task.module_id),
                     }
                 )
                 with tempfile.TemporaryDirectory() as temporary:

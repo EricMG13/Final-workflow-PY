@@ -519,6 +519,16 @@ def _ratio(num: Num, den: Num, not_meaningful: str) -> Num:
     return Gap(not_meaningful, applicable=False) if den <= 0 else _r4(num / den)
 
 
+def _cover(ebitda: Num, interest: Num) -> Num:
+    """adjusted EBITDA / interest (ruling C-2). Ruling S08-cp3-C08: a cover that would be published
+    over an adjusted EBITDA <= 0 is not meaningful, as every ratio over adjusted EBITDA is; an
+    operand's gap (missing stays missing) and a not-meaningful interest keep their own reason."""
+    cover = _ratio(ebitda, interest, NM_INTEREST)
+    if isinstance(cover, Gap) or isinstance(ebitda, Gap) or ebitda > 0:
+        return cover
+    return Gap(NM_EBITDA, applicable=False)
+
+
 # --- the composer (lease "Method"; every value a Decimal or a Gap) -----------------------------
 
 
@@ -823,7 +833,12 @@ def compose_refinancing(*, operands: Operands, step_up_bps: int | None) -> Refin
         ]
         step: Num = Gap(REASON_STEP_UP) if step_up_bps is None else Decimal(step_up_bps)
         added = _repriced(payable, step)
-        pro_forma = _total((paid, added))
+        # S08-A09/C05: CP-1 stores cash interest as a negative outflow, so a positive stored
+        # value (net interest received, or a sign anomaly) gives paid < 0. Its cover is not
+        # meaningful, and a step-up netted against it is not a pro forma cost: both pro forma
+        # values carry the same not-meaningful reason.
+        nm_paid = not isinstance(paid, Gap) and paid < 0
+        pro_forma = Gap(NM_INTEREST, applicable=False) if nm_paid else _total((paid, added))
         undated = none or _first(*(f.maturity_date for f in ordered), *extra)
         return Refinancing(
             operands=o,
@@ -844,8 +859,8 @@ def compose_refinancing(*, operands: Operands, step_up_bps: int | None) -> Refin
             cash_interest_paid=paid,
             added_interest=added,
             pro_forma_interest=pro_forma,
-            interest_cover=_ratio(ebitda, paid, NM_INTEREST),
-            pro_forma_interest_cover=_ratio(ebitda, pro_forma, NM_INTEREST),
+            interest_cover=_cover(ebitda, paid),
+            pro_forma_interest_cover=_cover(ebitda, pro_forma),
             junior_claims=junior,
             junior_over_ebitda=_ratio(junior, ebitda, NM_EBITDA),
         )
@@ -921,6 +936,18 @@ def _millions_read(cp1: Cp1Operands, cp2d: Cp2dOperands) -> list[tuple[str, Cp1F
     ]
 
 
+def _own_currencies(cp1: Cp1Operands) -> dict[str, str]:
+    """The facility-currency amounts among `_millions_read`, by name: a T4.18 annual_amortisation
+    is written in its row's own stated currency (CP-2D `_facility_of`; ruling A5), so it is held
+    to that currency, not the reporting one, and says nothing about the reporting currency. A
+    facility that states no currency is absent (its amortisation is held to the reporting one)."""
+    return {
+        f"{t.facility_id}.annual_amortisation": t.currency
+        for t in cp1.facilities
+        if t.currency is not None and not is_blank(t.currency)
+    }
+
+
 def _cash_currency(cash: Cp1Fact) -> str:
     if cash.currency is None or is_blank(cash.currency):
         raise ValueError("CP-3C cash_closing: currency is not set")
@@ -938,8 +965,11 @@ def reporting_currency(
     raise, never a stamped default."""
     if cp1.cash_closing.status == "known":
         return _cash_currency(cp1.cash_closing)
-    for _, fact in _millions_read(cp1, cp2d):
+    own = _own_currencies(cp1)
+    for name, fact in _millions_read(cp1, cp2d):
         stated = fact.currency
+        if name in own:  # a facility's own-currency amount (S08-cp3-C01)
+            continue
         if fact.status == "known" and fact.unit == _MILLIONS and stated and not is_blank(stated):
             return stated
     raise ValueError(UNSOURCED_CURRENCY.format(unit=unit))
@@ -953,9 +983,12 @@ def check_currency(
     unit: str = DEFAULT_BASIS.money_unit,
 ) -> None:
     """Round 13 item 5 (R1 L2): the reporting currency is CP-1 T4.10 ``cash_closing``'s own
-    currency, which must be set, and every known MILLIONS fact CP-3C reads states the same one.
-    A cash_closing that is not known states none: the currency is then the one the known
-    money facts state, and an unsourced one raises (``reporting_currency``)."""
+    currency, which must be set, and every known MILLIONS fact CP-3C reads states the same one,
+    except a facility's annual_amortisation, which states the facility's own currency
+    (``_own_currencies``; S08-cp3-C01: a facility in another currency reaches ``_facility``'s FX
+    gap instead of raising here). A cash_closing that is not known states none: the currency is
+    then the one the known money facts state, and an unsourced one raises
+    (``reporting_currency``)."""
     cash = cp1.cash_closing
     if cash.status == "known":
         if _cash_currency(cash) != currency:
@@ -964,9 +997,11 @@ def check_currency(
             )
     else:
         reporting_currency(cp1=cp1, cp2d=cp2d, unit=unit)
+    own = _own_currencies(cp1)
     for name, fact in _millions_read(cp1, cp2d):
-        if fact.status == "known" and fact.unit == _MILLIONS and fact.currency != currency:
-            raise ValueError(f"CP-3C {name}: currency {fact.currency!r} is not {currency!r}")
+        expected = own.get(name, currency)
+        if fact.status == "known" and fact.unit == _MILLIONS and fact.currency != expected:
+            raise ValueError(f"CP-3C {name}: currency {fact.currency!r} is not {expected!r}")
 
 
 def _facility(

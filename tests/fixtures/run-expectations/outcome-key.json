@@ -1,0 +1,2624 @@
+{
+ "schema": "outcome-key/1",
+ "note": "synthetic scenarios; hand-written. Outcomes are per scope; every requested module not listed under expected.modules is Ready. Counted = counted for acceptance (Will refuse, Gap, Limited, Check); Information and inherited rows are not counted. Row fields: rule (short id), outcome, counted, optional detail, section, inherited (true) and inherited_from (the direct producers whose effective outcome is non-Ready, in module order; compare as a set). Assumptions the plan leaves open, applied consistently: (1) only Will refuse and Limited propagate; Gap and Check never do; (2) propagation is transitive through effective outcomes (a consumer inherits from each direct producer's effective outcome), one inherited row per consumer; (3) the CP-1 chart-strip row (id CP-1:chart-strip-usd, propagates false) does not propagate; (4) one section-omitted row per omitted report section, from _layout observed offline at write time (omitted: credit_snapshot what-changed; earnings_update company-profile, portfolio-fit, what-changed; relative_value yield-against-maturity, what-changed; covenant_refinancing none; distressed_restructuring liquidity-runway, portfolio-fit, what-changed; portfolio_decision what-changed). Module lists are the launcher's ordered lists: PATHWAY_MODULES minus CP-MODEL and CP-8, ordered by deploy_vii.registry.plan. Clean scenarios declare legal documents executed (with an executed agreement) only where CP-4 is in the pathway, give peers (user_list) where CP-1C is, ratings where CP-2H is, an observed quote where CP-3 or CP-3D is, and a portfolio workbook with a portfolio file for portfolio_decision. Wording of Will refuse and Run-without is open (A-live). Portfolio workbook declared false: Gap on CP-6 (scenario rule-portfolio-workbook-false; justification in its note).",
+ "scenarios": [
+  {
+   "id": "rf1-draft-declared",
+   "focus": "1",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "draft",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-4": [
+      {
+       "rule": "cp4-declared-draft-or-primary-no-executed-agreement",
+       "outcome": "Limited",
+       "counted": true,
+       "detail": "Provisional"
+      },
+      {
+       "rule": "cp4-declared-draft-none-recognised",
+       "outcome": "Check",
+       "counted": true,
+       "detail": "no draft recognised"
+      }
+     ],
+     "CP-3C": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4"
+       ]
+      }
+     ],
+     "CP-5": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4",
+        "CP-3C"
+       ]
+      }
+     ]
+    },
+    "counted_total": 2,
+    "without": []
+   },
+   "note": "Declaration drives: Limited (Provisional) plus a Check; never Will refuse. Inheritance assumes transitive propagation of Limited (see report); CP-3C and CP-5 rows are information."
+  },
+  {
+   "id": "rf2-10k-names-credit-agreement",
+   "focus": "2",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "TDG_2024-09-30_10-K.htm",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-4": [
+      {
+       "rule": "cp4-declared-executed-none-recognised",
+       "outcome": "Check",
+       "counted": true
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "The 10-K's exhibit index naming the credit agreement does not make it one: classed financial_report; CP-4 Check; no Run-without offer. A Check never propagates."
+  },
+  {
+   "id": "rf3a-preliminary-statements-executed",
+   "focus": "3",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-prelim-statements.txt",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "'PRELIMINARY STATEMENTS' is not a draft mark: CP-4 Ready, nothing counted."
+  },
+  {
+   "id": "rf3b-unmarked-edgar-exhibit",
+   "focus": "3",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "EX-10.1-credit-agreement.htm",
+     "kind": "credit_agreement",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-4": [
+      {
+       "rule": "cp4-declared-executed-none-recognised",
+       "outcome": "Check",
+       "counted": true
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Unmarked EDGAR exhibit: executed is None, so the declared-executed Check fires."
+  },
+  {
+   "id": "rf4-amendment-alone",
+   "focus": "4",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "amendment-no-3.pdf",
+     "kind": "amendment",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-4": [
+      {
+       "rule": "cp4-only-amendment",
+       "outcome": "Limited",
+       "counted": true,
+       "detail": "base agreement not recognised"
+      },
+      {
+       "rule": "cp4-declared-executed-none-recognised",
+       "outcome": "Check",
+       "counted": true
+      }
+     ],
+     "CP-3C": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4"
+       ]
+      }
+     ],
+     "CP-5": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4",
+        "CP-3C"
+       ]
+      }
+     ]
+    },
+    "counted_total": 2,
+    "without": []
+   },
+   "note": "Never Ready. The Check also fires because no document is recognised as executed (the amendment has executed None); whether an executed amendment would satisfy the declaration is not tested here."
+  },
+  {
+   "id": "rf5-non-usd-issuer",
+   "focus": "5",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "EUR",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "AR2024_Group_Consolidated_Financial_Statements_en.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-1": [
+      {
+       "rule": "chart-strip-usd",
+       "outcome": "Limited",
+       "counted": true,
+       "id": "CP-1:chart-strip-usd",
+       "propagates": false,
+       "detail": "chart strip is US$m only; no USD labels invented"
+      }
+     ],
+     "CP-2D": [
+      {
+       "rule": "cp2d-non-usd",
+       "outcome": "Limited",
+       "counted": true
+      }
+     ],
+     "CP-3C": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-2D"
+       ]
+      }
+     ],
+     "CP-5": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-2D",
+        "CP-3C"
+       ]
+      }
+     ]
+    },
+    "counted_total": 2,
+    "without": []
+   },
+   "note": "The CP-1 row is the chart strip only (id CP-1:chart-strip-usd, propagates false): it does not propagate to CP-1's consumers (coordinator ruling). Declared USD labels must not be invented."
+  },
+  {
+   "id": "rf6-investment-grade",
+   "focus": "6",
+   "origin": "synthetic",
+   "pathway": "credit_snapshot",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "investment_grade",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "ig-method-fit",
+      "outcome": "Information",
+      "counted": false,
+      "detail": "methods and persona are written for high-yield and leveraged-loan credit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "One run-level information item; no per-module rows; not counted. Wording from plan-context."
+  },
+  {
+   "id": "a-live-legal-none-will-refuse",
+   "focus": "A-live",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-4": [
+      {
+       "rule": "cp4-declared-none",
+       "outcome": "Will refuse",
+       "counted": true,
+       "detail": "wording open"
+      }
+     ],
+     "CP-3C": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4"
+       ]
+      }
+     ],
+     "CP-5": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4",
+        "CP-3C"
+       ]
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": [
+     {
+      "module": "CP-4",
+      "removes": [
+       "CP-4"
+      ]
+     }
+    ]
+   },
+   "note": "Outcome class only; exact Will refuse wording and the Run-without text are open (set from A-live). Nothing in this pathway requires CP-4, so Run-without removes only CP-4. Consumers get Limited (restrict edges), not Will refuse."
+  },
+  {
+   "id": "rule-cp1c-peer-source-none",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-1C": [
+      {
+       "rule": "cp1c-no-peer-source",
+       "outcome": "Gap",
+       "counted": true
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Gap does not propagate (assumption, see report)."
+  },
+  {
+   "id": "rule-cp3-cp3d-no-quotes-no-talk",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-3": [
+      {
+       "rule": "cp3-no-quotes-no-talk",
+       "outcome": "Gap",
+       "counted": true
+      }
+     ],
+     "CP-3D": [
+      {
+       "rule": "cp3d-no-quotes",
+       "outcome": "Gap",
+       "counted": true
+      }
+     ]
+    },
+    "counted_total": 2,
+    "without": []
+   },
+   "note": "Gap does not propagate (assumption)."
+  },
+  {
+   "id": "rule-cp3-talk-only-primary",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": true,
+    "ratings": 0,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-2": [
+      {
+       "rule": "cp2-primary-no-cp1d",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "pro forma base row"
+      }
+     ],
+     "CP-3": [
+      {
+       "rule": "cp3-talk-no-observed-quote",
+       "outcome": "Limited",
+       "counted": true
+      }
+     ],
+     "CP-3D": [
+      {
+       "rule": "cp3d-no-quotes",
+       "outcome": "Gap",
+       "counted": true
+      }
+     ],
+     "CP-5": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-3"
+       ]
+      }
+     ]
+    },
+    "counted_total": 3,
+    "without": []
+   },
+   "note": "Talk present, no observed quote and no quotes file: CP-3 Limited; CP-3D Gap (no quotes in the context). CP-3 consumes CP-3D optionally but Gap does not propagate (assumption)."
+  },
+  {
+   "id": "rule-cp2h-no-ratings",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "distressed_restructuring",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-1C",
+    "CP-2A",
+    "CP-4",
+    "CP-2",
+    "CP-2G",
+    "CP-2H",
+    "CP-4C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "liquidity-runway"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-2H": [
+      {
+       "rule": "cp2h-no-ratings",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "method: Insufficient Information"
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Gap does not propagate (assumption)."
+  },
+  {
+   "id": "rule-nothing-recognised-financials",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "earnings_update",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1B",
+    "CP-1D",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "treasury-2024.csv",
+     "kind": "unrecognised",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "company-profile"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     },
+     {
+      "rule": "run-financials-management-claims",
+      "outcome": "Check",
+      "counted": true,
+      "detail": "financials are management claims"
+     }
+    ],
+    "modules": {
+     "CP-1": [
+      {
+       "rule": "cp1-no-financial-report-recognised",
+       "outcome": "Check",
+       "counted": true
+      }
+     ]
+    },
+    "counted_total": 2,
+    "without": []
+   },
+   "note": "No financial report, earnings release or offering document with financial pages recognised: CP-1 Check and the run-level Check."
+  },
+  {
+   "id": "rule-portfolio-workbook-false",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "portfolio_decision",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-6": [
+      {
+       "rule": "portfolio-workbook-false",
+       "outcome": "Gap",
+       "counted": true
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Scope CP-6 (coordinator ruling: the module whose method reads the workbook). Justification: docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md line 343, 'REF_CP-6A_Portfolio_Debate_Inputs.xlsx is the live consolidated portfolio reference' (CP-6 absorbs CP-6A; METHODS maps CP-6 to that SKILL.md; CP-5 and CP-3 methods name no workbook). Gap does not propagate."
+  },
+  {
+   "id": "rule-cp4-final-offering-memorandum",
+   "focus": "rule",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "offering-memorandum.pdf",
+     "kind": "offering_memorandum",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-4": [
+      {
+       "rule": "cp4-governing-terms-rest-on-final-om",
+       "outcome": "Limited",
+       "counted": true,
+       "detail": "summary, not the governing document"
+      },
+      {
+       "rule": "cp4-declared-executed-none-recognised",
+       "outcome": "Check",
+       "counted": true
+      }
+     ],
+     "CP-3C": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4"
+       ]
+      }
+     ],
+     "CP-5": [
+      {
+       "rule": "inherited",
+       "outcome": "Limited",
+       "counted": false,
+       "inherited": true,
+       "inherited_from": [
+        "CP-4",
+        "CP-3C"
+       ]
+      }
+     ]
+    },
+    "counted_total": 2,
+    "without": []
+   },
+   "note": "The Check fires too because no document is recognised as executed."
+  },
+  {
+   "id": "clean-credit_snapshot-primary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "credit_snapshot",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-2": [
+      {
+       "rule": "cp2-primary-no-cp1d",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "pro forma base row"
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
+  },
+  {
+   "id": "clean-credit_snapshot-secondary",
+   "focus": "7",
+   "origin": "synthetic",
+   "pathway": "credit_snapshot",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-credit_snapshot-research",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "credit_snapshot",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-credit_snapshot-earnings",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "credit_snapshot",
+   "run_type": "earnings",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-earnings_update-primary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "earnings_update",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1B",
+    "CP-1D",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "q4-earnings-release.pdf",
+     "kind": "earnings_release",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "company-profile"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. No CP-2 in this pathway, so the Primary CP-2 rule does not apply."
+  },
+  {
+   "id": "clean-earnings_update-secondary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "earnings_update",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1B",
+    "CP-1D",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "q4-earnings-release.pdf",
+     "kind": "earnings_release",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "company-profile"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-earnings_update-research",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "earnings_update",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1B",
+    "CP-1D",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "q4-earnings-release.pdf",
+     "kind": "earnings_release",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "company-profile"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-earnings_update-earnings",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "earnings_update",
+   "run_type": "earnings",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1B",
+    "CP-1D",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "q4-earnings-release.pdf",
+     "kind": "earnings_release",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "company-profile"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-relative_value-primary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-2": [
+      {
+       "rule": "cp2-primary-no-cp1d",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "pro forma base row"
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
+  },
+  {
+   "id": "clean-relative_value-secondary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-relative_value-research",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-relative_value-earnings",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "relative_value",
+   "run_type": "earnings",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-3D",
+    "CP-1C",
+    "CP-2",
+    "CP-2D",
+    "CP-3C",
+    "CP-3",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "yield-against-maturity"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-covenant_refinancing-primary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {
+     "CP-2": [
+      {
+       "rule": "cp2-primary-no-cp1d",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "pro forma base row"
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption). This pathway omits no report section."
+  },
+  {
+   "id": "clean-covenant_refinancing-secondary",
+   "focus": "7",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
+  },
+  {
+   "id": "clean-covenant_refinancing-research",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
+  },
+  {
+   "id": "clean-covenant_refinancing-earnings",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "covenant_refinancing",
+   "run_type": "earnings",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
+  },
+  {
+   "id": "clean-distressed_restructuring-primary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "distressed_restructuring",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-1C",
+    "CP-2A",
+    "CP-4",
+    "CP-2",
+    "CP-2G",
+    "CP-2H",
+    "CP-4C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": false,
+    "ratings": 1,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "liquidity-runway"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-2": [
+      {
+       "rule": "cp2-primary-no-cp1d",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "pro forma base row"
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
+  },
+  {
+   "id": "clean-distressed_restructuring-secondary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "distressed_restructuring",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-1C",
+    "CP-2A",
+    "CP-4",
+    "CP-2",
+    "CP-2G",
+    "CP-2H",
+    "CP-4C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": false,
+    "ratings": 1,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "liquidity-runway"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-distressed_restructuring-research",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "distressed_restructuring",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-1C",
+    "CP-2A",
+    "CP-4",
+    "CP-2",
+    "CP-2G",
+    "CP-2H",
+    "CP-4C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": false,
+    "ratings": 1,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "liquidity-runway"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-distressed_restructuring-earnings",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "distressed_restructuring",
+   "run_type": "earnings",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-1C",
+    "CP-2A",
+    "CP-4",
+    "CP-2",
+    "CP-2G",
+    "CP-2H",
+    "CP-4C",
+    "CP-5"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "executed",
+    "management_bridge": false,
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "peer_source": "user_list",
+    "quotes": [],
+    "talk": false,
+    "ratings": 1,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "credit-agreement-executed.pdf",
+     "kind": "credit_agreement",
+     "executed": true
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "liquidity-runway"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "portfolio-fit"
+     },
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-portfolio_decision-primary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "portfolio_decision",
+   "run_type": "primary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": true,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 1
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "portfolio.xlsx",
+     "kind": "portfolio",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {
+     "CP-2": [
+      {
+       "rule": "cp2-primary-no-cp1d",
+       "outcome": "Gap",
+       "counted": true,
+       "detail": "pro forma base row"
+      }
+     ]
+    },
+    "counted_total": 1,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
+  },
+  {
+   "id": "clean-portfolio_decision-secondary",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "portfolio_decision",
+   "run_type": "secondary",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": true,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "portfolio.xlsx",
+     "kind": "portfolio",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-portfolio_decision-research",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "portfolio_decision",
+   "run_type": "research",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": true,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "portfolio.xlsx",
+     "kind": "portfolio",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  },
+  {
+   "id": "clean-portfolio_decision-earnings",
+   "focus": "grid",
+   "origin": "synthetic",
+   "pathway": "portfolio_decision",
+   "run_type": "earnings",
+   "modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-3",
+    "CP-5",
+    "CP-6"
+   ],
+   "context": {
+    "issue_classification": "high_yield",
+    "reporting_currency": "USD",
+    "legal_documents": "none",
+    "management_bridge": false,
+    "portfolio_workbook": true,
+    "prior_case": false,
+    "peer_source": "none",
+    "quotes": [
+     {
+      "kind": "observed"
+     }
+    ],
+    "talk": false,
+    "ratings": 0,
+    "deal_terms": 0
+   },
+   "documents": [
+    {
+     "name": "annual-report-10-K.pdf",
+     "kind": "financial_report",
+     "executed": null
+    },
+    {
+     "name": "portfolio.xlsx",
+     "kind": "portfolio",
+     "executed": null
+    }
+   ],
+   "expected": {
+    "run": [
+     {
+      "rule": "section-omitted",
+      "outcome": "Information",
+      "counted": false,
+      "section": "what-changed"
+     }
+    ],
+    "modules": {},
+    "counted_total": 0,
+    "without": []
+   },
+   "note": "Clean: everything declared is recognised or not needed."
+  }
+ ]
+}

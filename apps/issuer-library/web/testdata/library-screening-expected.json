@@ -1,0 +1,464 @@
+{
+  "_about": "Hand-written answer key for Library screening (Plan 1, L0). Values read from raw served data only; no app JS executed. Not to be edited by implementers.",
+  "_captured": "2026-11-08, live workspace; the served catalogue changes as run folders are added, so tests must pin a fixture copy of these rows, not the live workspace.",
+  "row_count": {
+    "value": 59,
+    "plan_figure": 59,
+    "matches_plan": true,
+    "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\""
+  },
+  "issuer_count": {
+    "value": 7,
+    "rule": "distinct exact strings of field `issuer`, case-sensitive, with the literal 'Unclassified' counted as one value",
+    "issuers": [
+      "ARCC",
+      "CRC",
+      "ERSTE",
+      "FROTO",
+      "LMI",
+      "TDG",
+      "Unclassified"
+    ],
+    "rows_per_issuer": {
+      "ARCC": 5,
+      "CRC": 1,
+      "ERSTE": 1,
+      "FROTO": 1,
+      "LMI": 1,
+      "TDG": 13,
+      "Unclassified": 37
+    },
+    "issuers_excluding_unclassified": 6,
+    "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\""
+  },
+  "run_folder_rows": {
+    "count": 44,
+    "plan_figure": 44,
+    "ids": [
+      "ford-otosan-2024-001",
+      "lmi-2014-001",
+      "tdg-001",
+      "tdg-002",
+      "tdg-003",
+      "tdg-004",
+      "tdg-guidance-001",
+      "arcc-2024-001",
+      "arcc-lite-2024-001",
+      "arcc-market-2024-001",
+      "arcc-selection-2024-001",
+      "berkshire-capital-2008-2017-001",
+      "cpos-arcc-rv-001",
+      "cpos-ford-funding-2024-001",
+      "cpos-ford-ratings-2024-001",
+      "cpos-launch-cp2-reader-001",
+      "cpos-launch-live-001",
+      "cpos-launch-live-002",
+      "cpos-lqd-portfolio-001",
+      "cpos-sol-medium-20261105",
+      "cpos-sol-remaining-20261105",
+      "cpos-tdg-assurance-001",
+      "cpos-tdg-comparison-001",
+      "cpos-tdg-earnings-001",
+      "cpos-tdg-forecast-001",
+      "cpos-tdg-fresh-001",
+      "cpos-tdg-host-001",
+      "cpos-tdg-macro-esg-001",
+      "cpos-tdg-model-001",
+      "cpos-tdg-quality-001",
+      "cpos-tdg-reader-comparison-001",
+      "cpos-tdg-snapshot-001",
+      "crc-liquidity-2020-001",
+      "enel-final-terms-research-001",
+      "enel-sdg-2021-001",
+      "erste-parse-2024-001",
+      "frontier-2020-001",
+      "lqd-debate-001",
+      "lqd-portfolio-001",
+      "tdg-model-001",
+      "tdg-peers-2024-001",
+      "tdg-run-comparison-001",
+      "tdg-valuation-2025-001",
+      "web-04cd5a5d02ea7d1dea714a8a6632cd21"
+    ],
+    "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\"; rule: id does not start with 'delivery:'"
+  },
+  "delivery_rows": {
+    "count": 15,
+    "plan_figure": 15,
+    "ids": [
+      "delivery:arcc-fy2024-lite-1",
+      "delivery:arcc-fy2024-rv-1",
+      "delivery:lqd-arcc-debate-1",
+      "delivery:lqd-arcc-debate-2",
+      "delivery:lqd-arcc-portfolio-1",
+      "delivery:crc-2020-liquidity-1",
+      "delivery:erste-source-intake-1",
+      "delivery:tdg-fy2024-snapshot-4",
+      "delivery:tdg-fy2024-snapshot-5",
+      "delivery:tdg-fy2024-snapshot-6",
+      "delivery:tdg-fy2024-snapshot-7",
+      "delivery:tdg-model-1",
+      "delivery:tdg-model-2",
+      "delivery:tdg-model-3",
+      "delivery:tdg-fy2025-valuation-1"
+    ],
+    "published_models": [
+      "delivery:tdg-model-1",
+      "delivery:tdg-model-2",
+      "delivery:tdg-model-3"
+    ],
+    "note": "A run folder named tdg-model-001 also exists; it is a run folder, not a delivery row.",
+    "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\"; rule: id starts with 'delivery:'"
+  },
+  "with_metrics": {
+    "count": 4,
+    "plan_figure": 4,
+    "rule": "metrics has at least one non-null value; tdg-001, tdg-004 and lmi-2014-001 carry the six metric keys but all null, so they are excluded",
+    "rows": [
+      {
+        "id": "ford-otosan-2024-001",
+        "issuer": "FROTO",
+        "sector": "Automotive",
+        "workflow": "Ratings review",
+        "date": "2024-04-11",
+        "period": "CY2023",
+        "period_kind": "Annual actual",
+        "metrics_present": {
+          "cashflow": {
+            "value": "16425",
+            "unit": "TRY m",
+            "basis": "S&P free operating cash flow (FOCF)",
+            "period": "CY2023",
+            "source_key": "ford-otosan-2024-001.ford-cashflow",
+            "source_path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+            "source_line": 31,
+            "source_quote": "| FOCF | 16,425 | 8,611 | 8,834 |"
+          },
+          "coverage": {
+            "value": "8.2",
+            "unit": "x",
+            "basis": "S&P EBITDA interest coverage",
+            "period": "CY2023",
+            "source_key": "ford-otosan-2024-001.ford-coverage",
+            "source_path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+            "source_line": 38,
+            "source_quote": "| Source EBITDA interest coverage | 8.2x | 6.7x | 6.1x |"
+          },
+          "ebitda": {
+            "value": "48214",
+            "unit": "TRY m",
+            "basis": "S&P adjusted EBITDA",
+            "period": "CY2023",
+            "source_key": "ford-otosan-2024-001.ford-ebitda",
+            "source_path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+            "source_line": 26,
+            "source_quote": "| S&P adjusted EBITDA | 48,214 | 57,370 | 72,052 |"
+          },
+          "leverage": {
+            "value": "1.6",
+            "unit": "x",
+            "basis": "S&P adjusted gross debt / EBITDA",
+            "period": "CY2023",
+            "source_key": "ford-otosan-2024-001.ford-leverage",
+            "source_path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+            "source_line": 35,
+            "source_quote": "| Source debt/EBITDA | 1.6x | 2.2x | 2.0x |"
+          },
+          "revenue": {
+            "value": "411906",
+            "unit": "TRY m",
+            "basis": "Agency-supplied revenue",
+            "period": "CY2023",
+            "source_key": "ford-otosan-2024-001.ford-revenue",
+            "source_path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+            "source_line": 22,
+            "source_quote": "| Revenue | 411,906 | 742,742 | 1,056,981 |"
+          }
+        },
+        "metrics_null": [
+          "cash"
+        ]
+      },
+      {
+        "id": "tdg-002",
+        "issuer": "TDG",
+        "sector": "Aerospace & defense",
+        "workflow": "Credit review",
+        "date": "2024-09-30",
+        "period": "FY2024",
+        "period_kind": "Annual actual",
+        "metrics_present": {
+          "cash": {
+            "value": "6261",
+            "unit": "USD m",
+            "basis": "Reported closing cash; access unverified",
+            "period": "FY2024",
+            "source_key": "tdg-002.tdg-cash",
+            "source_path": "runs/tdg-002/CP-1-attempt-2.md",
+            "source_line": 254,
+            "source_quote": "| Cash closing | 6,261 | 3,472 | 3,001 | Reported, PDF 109 |"
+          },
+          "cashflow": {
+            "value": "1880",
+            "unit": "USD m",
+            "basis": "Operating cash less capex proxy",
+            "period": "FY2024",
+            "source_key": "tdg-002.tdg-cashflow",
+            "source_path": "runs/tdg-002/CP-1-attempt-2.md",
+            "source_line": 253,
+            "source_quote": "| Operating cash less capex | 1,880 | 1,236 | 829 | Calculated; simple subtraction only |"
+          },
+          "coverage": {
+            "value": "3.60",
+            "unit": "x",
+            "basis": "EBITDA As Defined / cash interest",
+            "period": "FY2024",
+            "source_key": "tdg-002.tdg-base",
+            "source_path": "runs/tdg-002/CP-2A-attempt-1.md",
+            "source_line": 32,
+            "source_quote": "| Base | 4,173.00 | 1,158.00 | 1,880.00 | 5.96x | 4.46x | 3.60x | 7.56% |"
+          },
+          "ebitda": {
+            "value": "4173",
+            "unit": "USD m",
+            "basis": "Issuer EBITDA As Defined",
+            "period": "FY2024",
+            "source_key": "tdg-002.tdg-ebitda",
+            "source_path": "runs/tdg-002/CP-1-attempt-2.md",
+            "source_line": 255,
+            "source_quote": "| EBITDA As Defined, total company | 4,173 | 3,395 | 2,646 | Non-GAAP issuer metric, PDF 142 |"
+          },
+          "leverage": {
+            "value": "5.96",
+            "unit": "x",
+            "basis": "Total carrying debt / EBITDA As Defined",
+            "period": "FY2024",
+            "source_key": "tdg-002.tdg-base",
+            "source_path": "runs/tdg-002/CP-2A-attempt-1.md",
+            "source_line": 32,
+            "source_quote": "| Base | 4,173.00 | 1,158.00 | 1,880.00 | 5.96x | 4.46x | 3.60x | 7.56% |"
+          },
+          "revenue": {
+            "value": "7940",
+            "unit": "USD m",
+            "basis": "Reported net sales",
+            "period": "FY2024",
+            "source_key": "tdg-002.tdg-revenue",
+            "source_path": "runs/tdg-002/CP-1-attempt-2.md",
+            "source_line": 246,
+            "source_quote": "| Net sales | 7,940 | 6,585 | 5,429 | Reported, PDF 106 |"
+          }
+        },
+        "metrics_null": []
+      },
+      {
+        "id": "tdg-003",
+        "issuer": "TDG",
+        "sector": "Aerospace & defense",
+        "workflow": "Earnings update",
+        "date": "2024-12-28",
+        "period": "Fiscal Q1 2025",
+        "period_kind": "Quarterly actual",
+        "metrics_present": {
+          "cash": {
+            "value": "2459",
+            "unit": "USD m",
+            "basis": "Reported closing cash; access unverified",
+            "period": "Fiscal Q1 2025",
+            "source_key": "tdg-003.q-cash",
+            "source_path": "runs/tdg-003/CP-1B-attempt-1.md",
+            "source_line": 86,
+            "source_quote": "| Closing cash | 4135 | 2459 | -1676 | -40.53% | Quarter-end instants; not unrestricted cash |"
+          },
+          "cashflow": {
+            "value": "710",
+            "unit": "USD m",
+            "basis": "Operating cash less capex proxy",
+            "period": "Fiscal Q1 2025",
+            "source_key": "tdg-003.q-cashflow",
+            "source_path": "runs/tdg-003/CP-1B-attempt-1.md",
+            "source_line": 84,
+            "source_quote": "| OCF minus capex proxy | 600 | 710 | 110 | 18.33% | Calculated; not issuer FCF |"
+          },
+          "ebitda": {
+            "value": "1061",
+            "unit": "USD m",
+            "basis": "Issuer EBITDA As Defined",
+            "period": "Fiscal Q1 2025",
+            "source_key": "tdg-003.q-ebitda",
+            "source_path": "runs/tdg-003/CP-1B-attempt-1.md",
+            "source_line": 77,
+            "source_quote": "| EBITDA As Defined | 912 | 1061 | 149 | 16.34% | Signed issuer adjustments |"
+          },
+          "revenue": {
+            "value": "2006",
+            "unit": "USD m",
+            "basis": "Reported sales",
+            "period": "Fiscal Q1 2025",
+            "source_key": "tdg-003.q-revenue",
+            "source_path": "runs/tdg-003/CP-1B-attempt-1.md",
+            "source_line": 71,
+            "source_quote": "| Revenue | 1789 | 2006 | 217 | 12.13% | Reported sales |"
+          }
+        },
+        "metrics_null": [
+          "coverage",
+          "leverage"
+        ]
+      },
+      {
+        "id": "tdg-guidance-001",
+        "issuer": "TDG",
+        "sector": "Aerospace & defense",
+        "workflow": "Guidance research",
+        "date": "2024-11-07",
+        "period": "FY2025 guidance",
+        "period_kind": "Management guidance",
+        "metrics_present": {
+          "ebitda": {
+            "value": "4685",
+            "unit": "USD m",
+            "basis": "Guidance midpoint EBITDA As Defined",
+            "period": "FY2025 guidance",
+            "source_key": "tdg-guidance-001.tdg-guidance",
+            "source_path": "runs/tdg-guidance-001/CP-DR-attempt-1.md",
+            "source_line": 58,
+            "source_quote": "| C4 midpoint adjustment bridge | E2 Table 6, lines 367–372 | Acquisition adjustments 30 + stock/deferred compensation 180 − Other 4 = 206; As Defined 4,685. |"
+          }
+        },
+        "metrics_null": [
+          "cash",
+          "cashflow",
+          "coverage",
+          "leverage",
+          "revenue"
+        ]
+      }
+    ],
+    "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\" fields metrics, and `sources` map for path/line/quote"
+  },
+  "completion_non_null": {
+    "ids": [],
+    "plan_figure": "none",
+    "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\" field completion (null in all 59)"
+  },
+  "filter_cases": {
+    "semantics": "examples/issuer-library/README.md and test_logic.cjs: blank bound ignored; missing/non-numeric value never satisfies a set numeric bound; min is inclusive (value < bound fails); basis is exact string match on metrics.leverage.basis; search is case-insensitive substring over name, issuer, id, title, sector, workflow.",
+    "a_leverage_min": {
+      "filters": {
+        "leverageMin": "1.6"
+      },
+      "reason": "1.6 is the smallest leverage among with_metrics rows (ford 1.6, tdg-002 5.96; tdg-003 and tdg-guidance-001 have null leverage)",
+      "expected_ids": [
+        "ford-otosan-2024-001",
+        "tdg-002"
+      ]
+    },
+    "b_leverage_basis": {
+      "filters": {
+        "basis": "Total carrying debt / EBITDA As Defined"
+      },
+      "reason": "only tdg-002 has this basis; ford's basis is 'S&P adjusted gross debt / EBITDA'",
+      "expected_ids": [
+        "tdg-002"
+      ],
+      "other_basis_case": {
+        "filters": {
+          "basis": "S&P adjusted gross debt / EBITDA"
+        },
+        "expected_ids": [
+          "ford-otosan-2024-001"
+        ]
+      }
+    },
+    "c_search_issuer_name": {
+      "filters": {
+        "search": "Ford Otosan"
+      },
+      "reason": "'ford otosan' occurs only in name/title fields of one row; the shorter 'ford' would also match cpos-ford-funding-2024-001 and cpos-ford-ratings-2024-001 via id",
+      "expected_ids": [
+        "ford-otosan-2024-001"
+      ],
+      "source": "GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\""
+    }
+  },
+  "default_sort": {
+    "key": null,
+    "direction": "asc",
+    "meaning": "example app.js starts with sortKey '' and direction 'asc'; with no key it does not call sortRuns and shows rows in served catalogue order. Clicking a header sorts by that key ascending first, a second click descends.",
+    "served_order": [
+      "delivery:arcc-fy2024-lite-1",
+      "delivery:arcc-fy2024-rv-1",
+      "delivery:lqd-arcc-debate-1",
+      "delivery:lqd-arcc-debate-2",
+      "delivery:lqd-arcc-portfolio-1",
+      "delivery:crc-2020-liquidity-1",
+      "delivery:erste-source-intake-1",
+      "ford-otosan-2024-001",
+      "lmi-2014-001",
+      "tdg-001",
+      "tdg-002",
+      "tdg-003",
+      "tdg-004",
+      "tdg-guidance-001",
+      "delivery:tdg-fy2024-snapshot-4",
+      "delivery:tdg-fy2024-snapshot-5",
+      "delivery:tdg-fy2024-snapshot-6",
+      "delivery:tdg-fy2024-snapshot-7",
+      "delivery:tdg-model-1",
+      "delivery:tdg-model-2",
+      "delivery:tdg-model-3",
+      "delivery:tdg-fy2025-valuation-1",
+      "arcc-2024-001",
+      "arcc-lite-2024-001",
+      "arcc-market-2024-001",
+      "arcc-selection-2024-001",
+      "berkshire-capital-2008-2017-001",
+      "cpos-arcc-rv-001",
+      "cpos-ford-funding-2024-001",
+      "cpos-ford-ratings-2024-001",
+      "cpos-launch-cp2-reader-001",
+      "cpos-launch-live-001",
+      "cpos-launch-live-002",
+      "cpos-lqd-portfolio-001",
+      "cpos-sol-medium-20261105",
+      "cpos-sol-remaining-20261105",
+      "cpos-tdg-assurance-001",
+      "cpos-tdg-comparison-001",
+      "cpos-tdg-earnings-001",
+      "cpos-tdg-forecast-001",
+      "cpos-tdg-fresh-001",
+      "cpos-tdg-host-001",
+      "cpos-tdg-macro-esg-001",
+      "cpos-tdg-model-001",
+      "cpos-tdg-quality-001",
+      "cpos-tdg-reader-comparison-001",
+      "cpos-tdg-snapshot-001",
+      "crc-liquidity-2020-001",
+      "enel-final-terms-research-001",
+      "enel-sdg-2021-001",
+      "erste-parse-2024-001",
+      "frontier-2020-001",
+      "lqd-debate-001",
+      "lqd-portfolio-001",
+      "tdg-model-001",
+      "tdg-peers-2024-001",
+      "tdg-run-comparison-001",
+      "tdg-valuation-2025-001",
+      "web-04cd5a5d02ea7d1dea714a8a6632cd21"
+    ],
+    "source": "examples/issuer-library/app.js lines 8, 179, 196; order from GET /api/catalogue (Go app, apps/issuer-library/discovery.go, workspace = repo root), field \"real\""
+  },
+  "sort_leverage_desc_missing_last": {
+    "key": "leverage",
+    "direction": "desc",
+    "first_4_ids": [
+      "tdg-002",
+      "ford-otosan-2024-001",
+      "arcc-2024-001",
+      "arcc-lite-2024-001"
+    ],
+    "reason": "5.96 then 1.6; the other 57 rows have null leverage and tie, ordered by id via localeCompare, smallest first: 'arcc-2024-001' (digit sorts before letter) then 'arcc-lite-2024-001'; no id sorts before 'arcc'",
+    "source": "examples/issuer-library/test_logic.cjs sort test; logic.js tie-break by id"
+  }
+}

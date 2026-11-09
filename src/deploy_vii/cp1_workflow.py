@@ -35,6 +35,7 @@ from deploy_vii.execution import (
     Attempt,
     Execution,
     ExecutionSnapshot,
+    Head,
     Qualification,
     StepValidation,
     current_inputs,
@@ -532,6 +533,20 @@ def _recheck_handoff(
             )
 
 
+def _promoted(store: Execution, snapshot: ExecutionSnapshot) -> tuple[Head, Attempt, CP1Handoff]:
+    """The CP-1 head, the attempt that settled it and the handoff its `quality` step retained;
+    ValueError when the head is not accepted or restricted or was not promoted through one."""
+    head = next((h for h in snapshot.heads if h.module_id == "CP-1"), None)
+    if head is None or head.status not in ("accepted", "restricted"):
+        raise ValueError("CP-1 has no accepted or restricted head")
+    attempt = next((a for a in snapshot.attempts if a.result_sha256 == head.result_sha256), None)
+    quality = len(CP1_STEPS)
+    step = attempt.steps[quality] if attempt and len(attempt.steps) > quality else None
+    if attempt is None or step is None or step.step_id != "quality" or step.output_sha256 is None:
+        raise ValueError("CP-1 head was not promoted through a verified handoff")
+    return head, attempt, CP1Handoff.model_validate_json(store.step_output(step.output_sha256))
+
+
 def write_cp1_envelope(store: Execution, destination: Path) -> Path:
     """Write the promoted CP-1 head's canonical envelope, verified before any file is written:
     the handoff renders again as its promotion recorded it (`_recheck_handoff`), then the head's
@@ -541,15 +556,7 @@ def write_cp1_envelope(store: Execution, destination: Path) -> Path:
     `complete.json` (`cp1-envelope/1`). An existing directory is refused.
     """
     snapshot = store.read()
-    head = next((h for h in snapshot.heads if h.module_id == "CP-1"), None)
-    if head is None or head.status not in ("accepted", "restricted"):
-        raise ValueError("CP-1 has no accepted or restricted head")
-    attempt = next((a for a in snapshot.attempts if a.result_sha256 == head.result_sha256), None)
-    quality = len(CP1_STEPS)
-    step = attempt.steps[quality] if attempt and len(attempt.steps) > quality else None
-    if attempt is None or step is None or step.step_id != "quality" or step.output_sha256 is None:
-        raise ValueError("CP-1 head was not promoted through a verified handoff")
-    handoff = CP1Handoff.model_validate_json(store.step_output(step.output_sha256))
+    head, attempt, handoff = _promoted(store, snapshot)
     _recheck_handoff(store, snapshot, attempt, handoff)
     envelope = Envelope(
         run=snapshot.run,
@@ -599,18 +606,24 @@ _EXPORTED_FILES = ("envelope.md", "envelope.json")
 
 
 def cp1_binding_issues(
-    envelope: Envelope, receipt: dict[str, object], snapshot: ExecutionSnapshot
+    envelope: Envelope,
+    receipt: dict[str, object],
+    snapshot: ExecutionSnapshot,
+    promoted: tuple[Attempt, CP1Handoff],
 ) -> tuple[str, ...]:
     """What ties a verified envelope to the journal that promoted it.
 
     `read_envelope` checks the Markdown only against its own sidecar, so a consistently
     rewritten pair passes it. The pair is genuine only when its module is the CP-1 head's
-    settled blob, built on the journal's run and prepared pack, with the head's status, and
-    when the receipt records the same hashes, QA report and statuses.
+    settled blob, built on the journal's run and prepared pack, with the head's status; when
+    its registers hash, gap limitations, QA report and journal inputs are those the promoted
+    attempt (`promoted`: the attempt and its retained handoff) recorded; and when the receipt
+    records the same hashes, QA report and statuses.
     """
     head = next((h for h in snapshot.heads if h.module_id == "CP-1"), None)
     if head is None or head.status not in ("accepted", "restricted"):
         return ("CP-1 has no accepted or restricted head in the journal",)
+    attempt, handoff = promoted
     issues: list[str] = []
     if envelope.run != snapshot.run:
         issues.append("Envelope run differs from the journal's run")
@@ -620,15 +633,27 @@ def cp1_binding_issues(
         issues.append("Envelope module is not the CP-1 head's settled module")
     if envelope.module.status != head.status:
         issues.append("Envelope status differs from the CP-1 head")
+    quality = handoff.quality.content_hash()
+    found_quality = None if envelope.quality is None else envelope.quality.content_hash()
+    recorded = (
+        ("registers hash", envelope.registers_sha256, handoff.registers_sha256),
+        ("gap limitations", envelope.gap_limitations, handoff.gap_limitations),
+        ("QA report", found_quality, quality),
+        ("journal inputs", envelope.journal, attempt.inputs),
+    )
+    issues.extend(
+        f"Envelope differs from the promoted handoff: {name}"
+        for name, found, want in recorded
+        if found != want
+    )
     qualification = (
         None if head.qualification is None else head.qualification.model_dump(mode="json")
     )
-    quality = None if envelope.quality is None else envelope.quality.content_hash()
     expected: dict[str, object] = {
         "schema_version": "cp1-envelope/1",
         "module_sha256": head.result_sha256,
         "pack_sha256": snapshot.pack_sha256,
-        "registers_sha256": envelope.registers_sha256,
+        "registers_sha256": handoff.registers_sha256,
         "quality_report_sha256": quality,
         "status": head.status,
         "qualification": qualification,
@@ -668,6 +693,11 @@ def read_cp1_envelope(store: Execution, directory: Path) -> Envelope:
         envelope = read_envelope(raw["envelope.md"], raw["envelope.json"])
     except EnvelopeError as error:
         raise EnvelopeRefused(error.issues) from error
-    if issues := list(cp1_binding_issues(envelope, receipt, store.read())):
+    snapshot = store.read()
+    try:
+        _, attempt, handoff = _promoted(store, snapshot)
+    except ValueError as error:
+        raise EnvelopeRefused((str(error),)) from error
+    if issues := list(cp1_binding_issues(envelope, receipt, snapshot, (attempt, handoff))):
         raise EnvelopeRefused(tuple(issues))
     return envelope

@@ -1,0 +1,6 @@
+Refactoring sweep of the 2026-11-08 update (PRs #31-#43), per docs/sweeps/refactoring/CONTRACT.md.
+Start 0619a9be (tree e965191d), range e1a24112..0619a9be, branch claude/sweep-prepare-c802ee.
+Repair confirmed defects (causal test first) and reduce measured debt in functions changed in the range; no spend, no new dependencies, no push.
+Bounds: 2 Sonnet fix rounds per item, 12 items, 6 h launch time, diff <= 800 lines.
+Done when every register row is dispositioned and the contract's gates exit 0 on the final tree, with one VERIFICATION.md entry.
+Resume from artifacts/sweeps/refactoring/progress.md and register.md after checking identities.

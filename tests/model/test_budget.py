@@ -443,3 +443,32 @@ def test_stop_kind_names_the_unknown_and_the_crash_left_stop(tmp_path: Path) -> 
     _reserve(c, "x", "0.1")
     assert c.stop_kind is None  # in flight in its own run
     assert Budget(D("1"), tmp_path / "crash").stop_kind == "crash_left"
+
+
+def test_budget_works_where_a_directory_cannot_be_opened(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Windows refuses os.open on a directory (PermissionError) and platform_io skips the
+    directory fsync there; the budget must use that primitive, not open the directory itself."""
+    from deploy_workflow import platform_io
+
+    class _Nt:
+        name = "nt"
+
+        def __getattr__(self, attr: str) -> object:
+            return getattr(os, attr)
+
+    real_open = os.open
+
+    def windows_open(path: object, *args: object, **kwargs: object) -> int:
+        if os.path.isdir(path):  # type: ignore[arg-type]
+            raise PermissionError(13, "Permission denied", str(path))
+        return real_open(path, *args, **kwargs)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(platform_io, "os", _Nt())
+    monkeypatch.setattr(os, "open", windows_open)
+    budget = Budget(D("1"), tmp_path)
+    _reserve(budget, "a", "0.1")
+    budget.settle("a", D("0.05"))
+    assert (budget.reserved, budget.spent) == (D(0), D("0.05"))
+    assert budget.stop_reason is None

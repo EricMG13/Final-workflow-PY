@@ -446,3 +446,33 @@ def test_the_real_worst_case_record_bound_holds_for_escaped_characters(tmp_path)
     assert len(out["issues"]) == MAX_ISSUES * 2
     stored = _largest(fin._audit(w._store, "submissions", "x").parent)
     assert LIMIT < stored <= WORST_CASE
+
+
+def test_a_ruled_submit_walks_the_rules_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    # S14-C05: a CP-3 submit whose rules find an issue walks them once (was twice: once to choose
+    # the path, once inside the journal's validator). Expected by hand: the stage's issue, then
+    # the rule's new one ("stage issue" is not repeated).
+    from deploy_vii.execution import StepValidation
+    from deploy_vii.live import submission
+
+    walks: list[str] = []
+
+    def rules(payload: str) -> tuple[str, ...]:
+        walks.append(payload)
+        return ("Unread page: S1 page:3", "stage issue")
+
+    class Store:
+        def submit_step(self, *args: object) -> object:
+            return args[-1](None, None)  # the journal runs the validator
+
+    def stage(*_: object) -> StepValidation:
+        return StepValidation(output="{}", issues=("stage issue",))
+
+    monkeypatch.setitem(submission.RULED_ENTRIES, "CP-3", stage)
+    step_id = next(s for s, st in STEPS.items() if st.module_id == "CP-3")
+    store: Execution = Store()  # type: ignore[assignment]
+    out = submission.submit_model_payload(store, "t", step_id, "{}", rules=rules)
+    assert walks == ["{}"]
+    assert out.journal == StepValidation(
+        output="{}", issues=("stage issue", "Unread page: S1 page:3")
+    )

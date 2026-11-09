@@ -6,9 +6,10 @@ import copy
 import dataclasses
 import json
 import re
+import subprocess
 from decimal import Decimal
 from pathlib import Path
-from typing import Any
+from typing import Any, get_args
 
 import pytest
 
@@ -21,6 +22,9 @@ from deploy_workflow.context import (
     SLUG,
     SNUM,
     ContextRefused,
+    DealTerm,
+    Identity,
+    LegalDocuments,
     RunContext,
     amount,
     load_context,
@@ -193,7 +197,6 @@ INVALID_CASES: list[tuple[dict[str, Any], str, str]] = [
     ({"identity.issuer_id": "bgs\n"}, "identity.issuer_id", "lowercase"),
     ({"identity.issuer_id": ""}, "identity.issuer_id", "required"),
     ({"identity.ticker": "ACM"}, "identity.ticker", "unlisted"),
-    ({"deal_terms": [DEAL]}, "deal_terms", "primary run only"),
     ({"run.run_type": "primary"}, "deal_terms", "at least one"),
     (
         {**PRIMARY, "deal_terms[0].talk_spread_bps_low": "400"},
@@ -971,3 +974,250 @@ def test_a_question_text_a_dossier_cell_cannot_hold_is_refused_here(name: str) -
     with pytest.raises(ContextRefused) as caught:
         load_context(json.dumps(obj).encode())
     assert list(caught.value.problems) == want["problems"]
+
+
+# ---------------------------------------------------------------- Plan 2 Task 1: classification,
+# facility terms for every run type, and older-file compatibility.
+
+
+def _dump(ctx: RunContext) -> dict[str, Any]:
+    return {"schema": SCHEMA, **ctx.model_dump(mode="json")}
+
+
+def _context_files() -> list[Path]:
+    out = subprocess.run(
+        ["git", "ls-files", "-z", "--", "cases"], cwd=REPO, capture_output=True, check=True
+    ).stdout.split(b"\0")
+    found = []
+    for name in sorted(n.decode() for n in out if n.endswith(b".json")):
+        try:
+            obj = json.loads((REPO / name).read_bytes())
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and obj.get("schema") == SCHEMA:
+            found.append(REPO / name)
+    return found
+
+
+def test_every_older_context_file_loads_and_dumps_unchanged() -> None:
+    """Review Focus 8: a file written before the new fields loads with them not stated and dumps
+    the same values and the same key order
+    in the sections that gained fields. Only files the reader already refused may refuse."""
+    files = _context_files()
+    assert len(files) >= 70
+    loaded = 0
+    for path in files:
+        raw = path.read_bytes()
+        try:
+            ctx = load_context(raw)
+        except ContextRefused:
+            continue
+        loaded += 1
+        assert ctx.identity.issue_classification == "", path
+        assert all(d.coupon_pct == d.margin_bps == d.maturity == "" for d in ctx.deal_terms), path
+        written, dumped = json.loads(raw), _dump(ctx)
+        assert dumped == written, path
+        # run.cutoff has always dumped last; the sections that gained fields keep their order.
+        assert list(dumped["identity"]) == list(written["identity"]), path
+        for was, now in zip(written["deal_terms"], dumped["deal_terms"], strict=True):
+            assert list(now) == list(was), path
+    assert loaded >= 70
+
+
+def test_older_files_that_refuse_do_not_refuse_for_the_new_fields() -> None:
+    for path in _context_files():
+        try:
+            load_context(path.read_bytes())
+        except ContextRefused as exc:
+            assert not any("issue_classification" in p or "coupon" in p for p in exc.problems)
+
+
+def test_empty_new_fields_are_omitted_on_dump() -> None:
+    ctx = load_context(json.dumps(with_changes({**PRIMARY})).encode())
+    dumped = ctx.model_dump(mode="json")
+    assert "issue_classification" not in dumped["identity"]
+    assert {"coupon_pct", "margin_bps", "maturity"}.isdisjoint(dumped["deal_terms"][0])
+    explicit = with_changes({"identity.issue_classification": ""})
+    assert "issue_classification" not in load_context(
+        json.dumps(explicit).encode()
+    ).identity.model_dump(mode="json")
+
+
+@pytest.mark.parametrize("value", ["investment_grade", "high_yield"])
+def test_issue_classification_round_trips(value: str) -> None:
+    obj = with_changes({"identity.issue_classification": value})
+    ctx = load_context(json.dumps(obj).encode())
+    assert ctx.identity.issue_classification == value
+    assert _dump(ctx)["identity"]["issue_classification"] == value
+    assert list(_dump(ctx)["identity"])[:3] == ["issuer_name", "issuer_id", "issue_classification"]
+
+
+FACILITY_TERMS = {"coupon_pct": "8.25", "margin_bps": "350", "maturity": "2031-06-30"}
+
+
+def test_facility_terms_round_trip_on_every_run_type() -> None:
+    for run_type in ("primary", "secondary", "research", "earnings"):
+        changes: dict[str, Any] = {
+            "run.run_type": run_type,
+            "deal_terms": [row(DEAL, **FACILITY_TERMS)],
+        }
+        if run_type == "earnings":
+            changes |= {"run.current_period": "q3-2026", "run.prior_period": "q2-2026"}
+        obj = with_changes(changes)
+        ctx = load_context(json.dumps(obj).encode())
+        assert _dump(ctx) == obj, run_type
+        assert (ctx.deal_terms[0].coupon_pct, ctx.deal_terms[0].maturity) == ("8.25", "2031-06-30")
+
+
+def test_secondary_context_with_facility_rows_loads() -> None:
+    obj = with_changes({"run.run_type": "secondary", "deal_terms": [row(DEAL, **FACILITY_TERMS)]})
+    assert load_context(json.dumps(obj).encode()).deal_terms[0].facility_id == "tlb"
+
+
+def test_zero_is_a_supplied_facility_term() -> None:
+    obj = with_changes({"deal_terms": [row(DEAL, coupon_pct="0", margin_bps="0")]})
+    ctx = load_context(json.dumps(obj).encode())
+    assert amount(ctx.deal_terms[0].coupon_pct) == Decimal(0)
+    assert _dump(ctx)["deal_terms"][0]["margin_bps"] == "0"
+
+
+@pytest.mark.parametrize(
+    ("changes", "path", "message"),
+    [
+        (
+            {"identity.issue_classification": "junk"},
+            "identity.issue_classification",
+            "Input should be",
+        ),
+        (
+            {"identity.issue_classification": "High yield"},
+            "identity.issue_classification",
+            "Input should be",
+        ),
+        (
+            {"deal_terms": [row(DEAL, coupon_pct="8.25%")]},
+            "deal_terms[0].coupon_pct",
+            "plain number",
+        ),
+        ({"deal_terms": [row(DEAL, coupon_pct="-1")]}, "deal_terms[0].coupon_pct", "plain number"),
+        ({"deal_terms": [row(DEAL, coupon_pct="8,5")]}, "deal_terms[0].coupon_pct", "thousands"),
+        (
+            {"deal_terms": [row(DEAL, margin_bps="350bps")]},
+            "deal_terms[0].margin_bps",
+            "plain number",
+        ),
+        (
+            {"deal_terms": [row(DEAL, margin_bps="+350")]},
+            "deal_terms[0].margin_bps",
+            "plain number",
+        ),
+        (
+            {"deal_terms": [row(DEAL, maturity="2031-13-01")]},
+            "deal_terms[0].maturity",
+            "YYYY-MM-DD",
+        ),
+        (
+            {"deal_terms": [row(DEAL, maturity="30/06/2031")]},
+            "deal_terms[0].maturity",
+            "YYYY-MM-DD",
+        ),
+        (
+            {"deal_terms": [row(DEAL, maturity="2031-06-30\n")]},
+            "deal_terms[0].maturity",
+            "YYYY-MM-DD",
+        ),
+        (
+            {"run.run_type": "secondary", "deal_terms": [row(DEAL, size_m="1,250")]},
+            "deal_terms[0].size_m",
+            "thousands",
+        ),
+        (
+            {"run.run_type": "research", "deal_terms": [row(DEAL, currency="usd")]},
+            "deal_terms[0].currency",
+            "uppercase",
+        ),
+    ],
+)
+def test_new_and_moved_facility_rules_refuse(
+    changes: dict[str, Any], path: str, message: str
+) -> None:
+    with pytest.raises(ContextRefused) as caught:
+        load_context(json.dumps(with_changes(changes)).encode())
+    assert any(p.startswith(path) and message in p for p in caught.value.problems), (
+        caught.value.problems
+    )
+
+
+def test_non_primary_rows_are_counted_against_the_row_maximum() -> None:
+    obj = with_changes({"run.run_type": "secondary", "deal_terms": [DEAL] * 21})
+    with pytest.raises(ContextRefused) as caught:
+        load_context(json.dumps(obj).encode())
+    assert any("at most 20 rows" in p for p in caught.value.problems)
+
+
+def test_primary_still_needs_one_facility_row() -> None:
+    with pytest.raises(ContextRefused) as caught:
+        load_context(json.dumps(with_changes({"run.run_type": "primary"})).encode())
+    assert any(p.startswith("deal_terms:") and "at least one" in p for p in caught.value.problems)
+
+
+# -- form and reader parity for the new fields (the form's build() is the normative rule set)
+
+
+def _build_object_keys(html: str, name: str) -> list[str]:
+    block = re.search(rf"const {name} = \{{(.*?)\n  \}};", html, re.DOTALL)
+    assert block is not None, name
+    return re.findall(r"(\w+): (?:fld|getV|listed|\w+)", block[1])
+
+
+def test_form_deal_spec_names_every_reader_field_in_order() -> None:
+    html = FORM.read_text("utf-8")
+    spec = re.search(r"const DEAL_SPEC = \[(.*?)\];", html, re.DOTALL)
+    assert spec is not None
+    names = re.findall(r"\['(\w+)'", spec[1])
+    assert names == list(DealTerm.model_fields)
+
+
+def test_form_rules_for_the_new_facility_fields_equal_the_reader() -> None:
+    html = FORM.read_text("utf-8")
+    assert "['coupon_pct',N0],['margin_bps',N0],['maturity',{t:'date'}]" in html.replace("\n  ", "")
+    # coupon and margin are plain non-negative numbers (NUM, low 0); maturity is a date with no
+    # as-of ceiling, so a future date is allowed.
+    ok = with_changes({"deal_terms": [row(DEAL, maturity="2099-12-31")]})
+    load_context(json.dumps(ok).encode())
+
+
+def test_form_identity_object_names_every_reader_field() -> None:
+    html = FORM.read_text("utf-8")
+    block = re.search(r"const identity = \{(.*?)\n  \};", html, re.DOTALL)
+    assert block is not None
+    names = re.findall(r"(\w+): (?=fld|listed|getV)", block[1])
+    assert names == list(Identity.model_fields)
+
+
+def test_form_classification_and_legal_choices_equal_the_reader() -> None:
+    html = FORM.read_text("utf-8")
+    for key, literal in (
+        ("issue_classification", Identity.model_fields["issue_classification"].annotation),
+        ("legal_documents", LegalDocuments),
+    ):
+        block = re.search(rf"\b{key}: \[(.*?)\n  \]", html, re.DOTALL)
+        assert block is not None, key
+        values = re.findall(r"\{v:'(\w+)'", block[1])
+        assert set(values) == set(get_args(literal)) - {""}, key
+        assert "def:true" not in block[1].replace(" ", ""), f"{key} must not be preselected"
+
+
+def test_form_requires_the_two_declarations_and_drops_the_old_card_text() -> None:
+    html = FORM.read_text("utf-8")
+    assert "fld(s2, 'issue_classification', {req:true})" in html
+    assert "fld(s9, 'legal_documents', {req:true})" in html
+    assert "CP-4 refuses them today" not in html
+    assert "draft mode Planned" not in html
+    assert "draft-document mode" not in html
+    assert "CP-4 refuses drafts" not in html
+    assert (
+        "Classify by the debt this run analyses; for split-rated or unrated issuers use your "
+        "firm's convention. The workflow's methods are written for high-yield and "
+        "leveraged-loan credit."
+    ) in html

@@ -31,7 +31,6 @@ SHEET = "rv_quotes"
 MEDIA_TYPE: Final[Literal["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]] = (
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
-TEMPLATE = "docs/templates/rv-quotes.template.xlsx"
 COLUMNS = (
     "provider",
     "as_of",
@@ -51,6 +50,11 @@ LETTERS = tuple(chr(ord("A") + index) for index in range(len(COLUMNS)))
 LEVELS = ("price", "yield_pct", "spread_bps", "bid", "ask")
 QUOTE_KINDS = ("observed", "indicative_talk")
 KEY = ("facility_id", "as_of", "provider", "quote_kind")
+# Key parts compared case- and space-folded (`folded`): "Dealer A" and "dealer  a" are one provider,
+# "TLB-2030" and "tlb-2030" one facility (S08-cp3-A11). as_of and quote_kind are exact lexemes.
+FOLDED_KEY = frozenset({"facility_id", "provider"})
+# The header row the template contract holds, spelled out (S08-cp3-A12: no template file ships).
+HEADER_ROW = f"{', '.join(COLUMNS)} (A1 to {LETTERS[-1]}1, nothing after {LETTERS[-1]}1)"
 # Every column but the free-text note and the levels (at least one level is required).
 REQUIRED = ("provider", "as_of", "issuer", "facility_id", "instrument", "quote_kind", "currency")
 FIX: Mapping[str, str] = {
@@ -68,6 +72,7 @@ FIX: Mapping[str, str] = {
         "(no %, units, spaces or thousands separators)"
     ),
     "levels": "enter at least one of price, yield_pct, spread_bps, bid or ask",
+    "price": "enter the price as a number above zero, or leave price empty when there is none",
     "bid_ask": "check the quote: bid must not exceed ask",
     "issuer_provider": (
         "name the third party that supplied the quote, or leave the issuer's own levels "
@@ -78,13 +83,10 @@ FIX: Mapping[str, str] = {
         "repeated value"
     ),
     "formula": "replace the formula with its value (Paste Special, Values)",
-    "header": (
-        f"set row 1 to exactly: {', '.join(COLUMNS)} (A1 to {LETTERS[-1]}1, nothing after "
-        f"{LETTERS[-1]}1)"
-    ),
+    "header": f"set row 1 to exactly: {HEADER_ROW}",
     "rows": "add one row per quote, starting in row 2",
-    "empty": f"copy the header row from {TEMPLATE} and add one row per quote",
-    "sheet": f"name the quote sheet {SHEET}, as in {TEMPLATE}",
+    "empty": f"set row 1 to exactly: {HEADER_ROW}, then add one row per quote from row 2",
+    "sheet": f"name the quote sheet {SHEET}",
     "workbook": "save the file as an Excel Workbook (.xlsx) and validate again",
     "damaged": (
         "save the file again as an Excel Workbook (.xlsx) and validate again; prepare would "
@@ -97,7 +99,9 @@ ECHO = 80  # characters of a cell value a message quotes
 DAMAGED = (zlib.error, EOFError, RuntimeError)
 # Native XLSX coordinates: bound the lexeme before integer/column arithmetic.
 ADDRESS = re.compile(r"([A-Z]{1,3})([1-9][0-9]{0,6})")
-NUMBER = re.compile(r"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$")
+# A plain decimal with at most a two-digit exponent (as `portfolio.NUMBER`): `Decimal` reads every
+# such lexeme, where "1e9999999999999999999999" raised InvalidOperation (S08-cp3-A10).
+NUMBER = re.compile(r"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,2})?$")
 ISO_DATE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
 SERIAL = re.compile(r"^[0-9]+(?:\.[0-9]+)?$")
 IDENTIFIER = re.compile(r"^[A-Za-z0-9_-]+$")
@@ -312,7 +316,9 @@ def row_findings(
             flagged.add(name)
             findings.append((f"{LETTERS[COLUMNS.index(name)]}{row}", *found))
     findings += level_findings(values, flagged, row)
-    key = None if flagged & set(KEY) else tuple(values[name] for name in KEY)
+    key = None
+    if not flagged & set(KEY):
+        key = tuple(folded(values[name]) if name in FOLDED_KEY else values[name] for name in KEY)
     return findings, key
 
 
@@ -340,6 +346,9 @@ def column_problem(name: str, values: Mapping[str, str]) -> tuple[str, str] | No
         problem = f"currency '{echo(value)}' is not a three-letter ISO 4217 code"
     elif name in LEVELS and value and not NUMBER.match(value):
         problem = f"{name} '{echo(value)}' is not a number"
+    elif name == "price" and value and Decimal(value) <= 0:
+        # A price is a level above zero; 0 is often a blank exported as zero (S08-cp3-A11).
+        return f"price '{echo(value)}' is not above zero", FIX["price"]
     if problem is None:
         return None
     return problem, FIX["number"] if name in LEVELS else FIX[name]

@@ -14,7 +14,7 @@
   },
   {
    "id": "earnings_quality.2",
-   "statement": "Give a `Partly supported` assessment exactly one of `accepted_fraction` or `accepted_basis`: the fraction a decimal string above 0 and below 1 with at most two places, the basis a cited quote holding exactly one amount that is above 0 and below the add-back's proposed amount. For any other achievability both are null.",
+   "statement": "Give a `Partly supported` assessment exactly one of `accepted_fraction` or `accepted_basis`: the fraction a decimal string above 0 and below 1 with at most two places, the basis a cited quote holding exactly one amount that is above 0 and below the add-back's proposed amount and is written as a bare figure or in the bridge's currency and millions (not a percentage, count, basis-point figure, multiple, other scale or other currency, nor followed on the page by a word that gives it another unit). For any other achievability both are null.",
    "checks": [
     "oracle:cp1d:r03",
     "oracle:cp1d:r04",
@@ -38,7 +38,7 @@
   },
   {
    "id": "earnings_quality.4",
-   "statement": "Each `rationale` is run text with no bare figure (digits only inside a period or filing label); a figure appears only as a reference in that fact's unit, and never as a reference to a gap. An assessment `rationale` references module facts only (as `{T1D.x.y.z|unit}`, for example a listed `claimed_ref`), and a CP-1 reference is refused there; only `overall.rationale` may reference a fact of `cp1_facts`.",
+   "statement": "Each `rationale` is run text with no bare figure (digits only inside a period or filing label); a figure appears only as a reference in that fact's unit, and never as a reference to a gap. An assessment `rationale` references module facts only (as `{T1D.x.y.z|unit}`, for example a listed `claimed_ref`), and a CP-1 reference is refused there; only `overall.rationale` may reference a fact of `cp1_facts`. A fiscal-year label (`FY2025`, `fiscal 2025`) written up to the next `.`, `;` or `:` beside a `{ref|unit}` must be a year of the period of a figure referenced there.",
    "checks": [
     "oracle:cp1d:r09",
     "fn:deploy_workflow.owners.cp1d:_model_text_issues",

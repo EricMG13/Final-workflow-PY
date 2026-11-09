@@ -44,7 +44,7 @@ from deploy_workflow.model.providers import (
     effort_for,
     parse,
 )
-from deploy_workflow.model.redact import Redactor
+from deploy_workflow.model.redact import Redactor, home_paths
 from deploy_workflow.model.reply_classes import (
     ADAPTER_CLOSED,
     ADAPTER_ERROR,
@@ -77,6 +77,7 @@ from deploy_workflow.model.turn import (
 
 REJECT = "reject"  # the one permission verdict: ``real_client`` maps it to the SDK's reject result
 _ABSOLUTE_PATH = re.compile(r"(?:[A-Za-z]:)?[\\/](?:[^\s\\/:()'\"<>]+[\\/])+[^\s\\/:()'\"<>]*")
+_SEGMENT = r"[^\s\\/:()'\"<>.,;]"  # a path-name character that cannot end a sentence
 _PROFILE_VARIABLES = (
     "USERPROFILE", "HOME", "APPDATA", "LOCALAPPDATA", "ProgramFiles", "ProgramFiles(x86)",
 )  # fmt: skip
@@ -404,7 +405,21 @@ def _paths_in(text: str, paths: list[str]) -> str:
     if not forms:
         return text
     pattern = "|".join(re.escape(f) for f in sorted(forms, key=len, reverse=True))
-    return re.sub(pattern, "<path>", text, flags=re.IGNORECASE)
+    # whole segments only: "/home/jan" is not replaced inside "/home/janet" or "/home/jan.doe";
+    # a sentence's closing "." or "," after the path does not count as part of it
+    whole = f"(?:{pattern})(?:(?<=[\\\\/])|(?!\\.?{_SEGMENT}))"
+    return re.sub(whole, "<path>", text, flags=re.IGNORECASE)
+
+
+def _home_free(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """The records with the text of each ``session.error`` free of home directories: the runtime's
+    error names local files (``redact.home_paths``). Every other event is kept as observed."""
+    return [
+        {**r, "data": {k: home_paths(v) if isinstance(v, str) else v for k, v in r["data"].items()}}
+        if r["type"] == SESSION_ERROR
+        else r
+        for r in records
+    ]
 
 
 class CopilotAdapter:
@@ -807,7 +822,7 @@ class CopilotAdapter:
         timeout: str | None,
         redactor: Redactor,
     ) -> AdapterReply:
-        body = dump_json(records).encode("utf-8")
+        body = dump_json(_home_free(records)).encode("utf-8")
         raw = redactor.bytes_(body)
         if timeout is not None:
             assert state.session is not None
@@ -837,10 +852,17 @@ class CopilotAdapter:
         self._release(call.digest)
         if wrong is None:
             return self._ok(call, outcome, raw, finished)
+        message = f"the reply was refused: {wrong}"
+        if outcome.usage == Usage() and outcome.billed_usd is None:
+            # no counts and no charge: which charge was paid is unknown, as in the other paths
+            return AdapterReply(
+                "sent_unknown", None, raw, 200, wrong, None, call.started, finished,
+                message=message,
+            )  # fmt: skip
         return AdapterReply(
             "sent_usage", None, raw, 200, wrong, None, call.started, finished,
             outcome.usage, outcome.billed_usd,
-            message=f"the reply was refused: {wrong}",
+            message=message,
         )  # fmt: skip
 
     @staticmethod

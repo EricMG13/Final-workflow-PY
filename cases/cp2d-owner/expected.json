@@ -134,6 +134,7 @@
         "Minimum cash is an analyst assumption, not a source figure.",
         "Months until cash reaches minimum cash use run-rate cash flow alone and exclude maturities and amortisation; the maturity wall and funding gap tables show their effect."
       ],
+      "analyst_limitations": [],
       "tables": {
         "T2E.1": {
           "title": "Liquidity sources and uses",
@@ -721,6 +722,34 @@
         [
           "Funding gap",
           "Analyst Interpretation"
+        ],
+        [
+          "Minimum cash rationale",
+          "A cash cushion of this size is held as an analyst assumption for operating needs and is not a source figure."
+        ],
+        [
+          "Liquidity runway assessment",
+          "Cash is the only liquidity source because there is no revolving credit facility, so the runway rests on operating cash flow covering capital spending and distributions."
+        ],
+        [
+          "Liquidity runway credit implication",
+          "Distributions absorb the free cash flow the business generates, leaving little internal capacity to build a liquidity cushion or reduce debt early."
+        ],
+        [
+          "Maturity wall assessment",
+          "The single term loan is the whole debt stack and falls due on one date after the horizon assessed, so no repayment is scheduled inside it."
+        ],
+        [
+          "Maturity wall credit implication",
+          "Debt service inside the horizon is limited to interest, because no principal falls due before the horizon ends."
+        ],
+        [
+          "Funding gap assessment",
+          "Cash alone covers the assumed minimum cash with room to spare, so no external funding need is identified inside the horizon."
+        ],
+        [
+          "Funding gap credit implication",
+          "The absence of committed undrawn funding means any shortfall beyond the horizon would depend on lender consent, so headroom should be monitored each period."
         ]
       ],
       "T2E.7_rows": [
@@ -838,6 +867,7 @@
         "Months until cash reaches minimum cash use run-rate cash flow alone and exclude maturities and amortisation; the maturity wall and funding gap tables show their effect.",
         "Cash interest stays in the run-rate cash flow after the maturity date; interest on a repaid facility is not removed, which is conservative."
       ],
+      "analyst_limitations": [],
       "tables": {
         "T2E.1": {
           "title": "Liquidity sources and uses",
@@ -1425,6 +1455,34 @@
         [
           "Funding gap",
           "Analyst Interpretation"
+        ],
+        [
+          "Minimum cash rationale",
+          "A cash cushion of this size is held as an analyst assumption for operating needs and is not a source figure."
+        ],
+        [
+          "Liquidity runway assessment",
+          "Cash is the only liquidity source because there is no revolving credit facility, so the runway rests on operating cash flow covering capital spending and distributions."
+        ],
+        [
+          "Liquidity runway credit implication",
+          "Distributions absorb the free cash flow the business generates, leaving no internal capacity to repay principal at maturity."
+        ],
+        [
+          "Maturity wall assessment",
+          "The single term loan is the whole debt stack and falls due inside the horizon assessed, as one payment of the full principal."
+        ],
+        [
+          "Maturity wall credit implication",
+          "A single bullet maturity concentrates repayment risk on one date and requires resources the issuer does not hold today."
+        ],
+        [
+          "Funding gap assessment",
+          "Resources at the horizon end fall short of the assumed minimum cash once the term loan falls due, so an external funding need is identified."
+        ],
+        [
+          "Funding gap credit implication",
+          "The shortfall equals the amount that must be raised or extended, and no committed undrawn facility exists to absorb it."
         ]
       ],
       "T2E.7_rows": [
@@ -1548,7 +1606,11 @@
       "own_limitations": [
         "Run-rate basis: the twelve months to 31 Dec 2025 are held flat over the horizon; no forecast, growth, seasonality or new borrowing is assumed.",
         "Minimum cash was not assessed, so headroom and funding gap are not calculated.",
-        "Months until cash reaches minimum cash use run-rate cash flow alone and exclude maturities and amortisation; the maturity wall and funding gap tables show their effect."
+        "Months until cash reaches minimum cash use run-rate cash flow alone and exclude maturities and amortisation; the maturity wall and funding gap tables show their effect.",
+        "Funding gap: The minimum operating cash level is not stated in the pack sources; headroom and funding gap are not calculated."
+      ],
+      "analyst_limitations": [
+        "Funding gap: The minimum operating cash level is not stated in the pack sources; headroom and funding gap are not calculated."
       ],
       "tables": {
         "T2E.1": {
@@ -2141,6 +2203,42 @@
         [
           "Funding gap",
           "Insufficient Information"
+        ],
+        [
+          "Minimum cash not assessed: reason",
+          "No minimum cash covenant or liquidity policy is stated in any pack source."
+        ],
+        [
+          "Minimum cash not assessed: follow-up",
+          "Obtain the issuer's treasury policy or any minimum liquidity undertaking before sizing the funding gap."
+        ],
+        [
+          "Liquidity runway assessment",
+          "Cash is the only liquidity source because there is no revolving credit facility, so the runway rests on operating cash flow covering capital spending and distributions."
+        ],
+        [
+          "Liquidity runway credit implication",
+          "Distributions absorb the free cash flow the business generates, leaving little internal capacity to build a liquidity cushion or reduce debt early."
+        ],
+        [
+          "Maturity wall assessment",
+          "The single term loan is the whole debt stack and falls due on one date after the horizon assessed, so no repayment is scheduled inside it."
+        ],
+        [
+          "Maturity wall credit implication",
+          "Debt service inside the horizon is limited to interest, because no principal falls due before the horizon ends."
+        ],
+        [
+          "Funding gap assessment",
+          "No minimum cash level is stated in the sources, so the funding need cannot be sized."
+        ],
+        [
+          "Funding gap credit implication",
+          "Without a minimum cash level the headroom and any funding gap stay unquantified, which weakens the liquidity view."
+        ],
+        [
+          "Funding gap limitation",
+          "The minimum operating cash level is not stated in the pack sources; headroom and funding gap are not calculated."
         ]
       ],
       "T2E.7_rows": [
@@ -2155,6 +2253,10 @@
         [
           "Runway basis",
           "Limitation"
+        ],
+        [
+          "Funding gap assessment",
+          "Gap"
         ]
       ],
       "claims": [

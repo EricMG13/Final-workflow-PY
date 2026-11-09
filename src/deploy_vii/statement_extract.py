@@ -40,10 +40,14 @@ Rules (docs/development/live-runner.md, "Statement extraction"):
   other (`Net revenues  2025  1998`), so `headers` never holds a returned data line.
 - `omitted` lists, in page order, each candidate line the rules did not return as data: a
   non-blank line of two or more whitespace-separated tokens (after the pipe rewrite) whose
-  last token is a numeric cell and which holds a letter or digit (a row of only nil dashes and
-  pipes is a separator), that is neither a returned data line, a returned header line
-  nor a header-shaped line ending in a bare four-digit year (a second table's period row). A
-  lone token (a page number) is never a candidate.
+  last token is a numeric cell, or a printed number the cell rules do not read (a leading ASCII
+  or Unicode minus `-1,234` `\u221245`, a percent `12.5%`, a decimal comma or dotted thousands
+  `1.234,5`; a last lone `)` or `%` is read with the token before it, so `(250 )` and
+  `12.5 %` count), and which holds a letter or digit (a row of only nil dashes and pipes is a
+  separator), that is neither a returned data line, a returned header line nor a
+  header-shaped line ending in a four-digit year (`2025`, `31,2025`: a second table's period
+  row). A lone token (a page number) is never a candidate. Such numbers are never read as
+  values here.
 
 Flags (task 8.10b, review risks 1-2) inform the model and never drop a line:
 
@@ -51,8 +55,12 @@ Flags (task 8.10b, review risks 1-2) inform the model and never drop a line:
   lines hold four-digit years (counted over all header lines; none counted when the headers
   name no year). A footnote marker `(1)` two spaces before the values reads as a value of -1.
 - `label_ends_numeric`: the label's last token is a numeric cell (`1,234`, `$5`, `(12)`, a nil
-  dash). Two numbers one space apart are one text cell, so the scan stops there and they stay
+  dash, a split `(12 )`) or a minus-signed number (`-120`, `\u2212120`), which stops the scan.
+  Two numbers one space apart are one text cell, so the scan stops there and they stay
   in the label; a label ending in a year (`Balance, January 1, 2023`) is flagged too.
+- `ambiguous_separator`: a value is printed with one dot and exactly three digits after it
+  (`1.234`) on a page whose data lines also print a whole number: the dot may be a thousands
+  separator (1,234), so the value read (1.234) may be a thousand times too small.
 - `footnote_marker`: the header lines hold N > 0 four-digit years and the line has N + 1 raw
   values whose first is `(n)`, or a bare `n` when a header line has a cell that is the word Note or
   Notes on its own, starting left of the leftmost year column (one or two digits, no `$`), and
@@ -91,8 +99,18 @@ _NUMERIC_CELL = re.compile(
     rf"(?P<dollar>[$\u00a3\u20ac] ?)?(?P<raw>\((?:{_NUMBER})\)|(?:{_NUMBER})|{_NIL})"
 )
 _CELL = re.compile(r"\S+(?: \S+)*")
+# A printed number the cell rules do not read: a leading ASCII or Unicode minus (`-1,234`,
+# `\u221245`), a percent (`12.5%`), a decimal comma or dotted thousands (`1.234,5`, `1.234.567`).
+_DIGITS = r"[-\u2212]?[$\u00a3\u20ac]?\d(?:[\d,.]*\d)?"
+_UNREAD_NUMBER = re.compile(rf"[-\u2212+]?[$\u00a3\u20ac]?(?:\({_DIGITS}\)|{_DIGITS})%?")
+_MINUS_NUMBER = re.compile(r"[-\u2212][$\u00a3\u20ac]?\d(?:[\d,.]*\d)?")
+# A dot followed by exactly three digits (`1.234`): a decimal point, or a thousands separator
+# (a leading group never starts with zero: `0.123` is a decimal).
+_DOT_THREE = re.compile(r"\(?[1-9]\d{0,2}\.\d{3}\)?")
+_INTEGER = re.compile(r"\(?\d{1,3}(?:,\d{3})*\)?|\(?\d+\)?")
 _YEAR = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
 _BARE_YEAR = re.compile(r"(?:19|20)\d{2}")
+_YEAR_END = re.compile(r"(?<![\d$\u00a3\u20ac])(?:19|20)\d{2}$")
 _WORD = re.compile(r"[A-Za-z]+")
 _PIPE = re.compile(r"[ \t]*\|[ \t]*")
 _MONTH_NAMES = (
@@ -121,10 +139,13 @@ _STATEMENT_TITLE = re.compile(
     r"\b(?:balance sheets?|income statements?|cash flow statements?|statements?\s+of)\b",
     re.IGNORECASE,
 )
-LineFlag = Literal["more_values_than_header_years", "label_ends_numeric", "footnote_marker"]
+LineFlag = Literal[
+    "more_values_than_header_years", "label_ends_numeric", "footnote_marker", "ambiguous_separator"
+]
 MORE_VALUES_THAN_HEADER_YEARS: LineFlag = "more_values_than_header_years"
 LABEL_ENDS_NUMERIC: LineFlag = "label_ends_numeric"
 FOOTNOTE_MARKER: LineFlag = "footnote_marker"
+AMBIGUOUS_SEPARATOR: LineFlag = "ambiguous_separator"
 
 
 @dataclass(frozen=True)
@@ -391,22 +412,34 @@ def _header_indexes(lines: Sequence[str], first: int) -> tuple[int, ...]:
     return tuple(reversed(block))
 
 
+def _joined(tokens: list[str]) -> list[str]:
+    """`tokens` with a last lone `)` or `%` joined to the token before it: a split parenthesis
+    `(250 )` or a spaced percent `12.5 %` printed as one value."""
+    if len(tokens) >= 3 and tokens[-1] in {")", "%"}:
+        return [*tokens[:-2], tokens[-2] + tokens[-1]]
+    return tokens
+
+
 def _is_omitted_candidate(line: str) -> bool:
-    tokens = (_PIPE.sub("  ", line) if "|" in line else line).split()
+    tokens = _joined((_PIPE.sub("  ", line) if "|" in line else line).split())
     if not any(c.isalnum() for c in line):
         return False  # a separator row of nil dashes and pipes
-    if len(tokens) < 2 or not _NUMERIC_CELL.fullmatch(tokens[-1]):
+    last = tokens[-1] if len(tokens) >= 2 else ""
+    if not (_NUMERIC_CELL.fullmatch(last) or _UNREAD_NUMBER.fullmatch(last)):
         return False
-    # A second table's period row (`June 30, 2026 | December 31, 2025`) is not a lost value.
-    return not (_is_header(line) and _BARE_YEAR.fullmatch(tokens[-1]))
+    # A second table's period row (`June 30, 2026 | December 31,2025`) is not a lost value.
+    return not (_is_header(line) and _YEAR_END.search(last))
 
 
 def _label_ends_numeric(label: str) -> bool:
-    tokens = label.split()
-    return bool(tokens) and _NUMERIC_CELL.fullmatch(tokens[-1]) is not None
+    tokens = _joined(label.split())
+    return bool(tokens) and (
+        _NUMERIC_CELL.fullmatch(tokens[-1]) is not None
+        or _MINUS_NUMBER.fullmatch(tokens[-1]) is not None
+    )
 
 
-def _flags(line: ExtractedLine, years: int, footnote: bool) -> tuple[LineFlag, ...]:
+def _flags(line: ExtractedLine, years: int, footnote: bool, integers: bool) -> tuple[LineFlag, ...]:
     flags: list[LineFlag] = []
     if years and len(line.raw_values) > years:
         flags.append(MORE_VALUES_THAN_HEADER_YEARS)
@@ -414,6 +447,8 @@ def _flags(line: ExtractedLine, years: int, footnote: bool) -> tuple[LineFlag, .
         flags.append(LABEL_ENDS_NUMERIC)
     if footnote:
         flags.append(FOOTNOTE_MARKER)
+    if integers and any(_DOT_THREE.fullmatch(raw) for raw in line.raw_values):
+        flags.append(AMBIGUOUS_SEPARATOR)
     return tuple(flags)
 
 
@@ -505,6 +540,8 @@ def extract_statement_lines(
         index for index, raw_line in enumerate(lines) if _is_period_header(raw_line)
     )
     years = sum(len(_YEAR.findall(header)) for header in headers)
+    # Any value printed as a whole number makes a `1.234` beside it ambiguous.
+    integers = any(_INTEGER.fullmatch(raw) for line in found for raw in line.raw_values)
     flagged: list[ExtractedLine] = []
     year_column = _year_column(headers)
     note_header = year_column is not None and any(
@@ -556,7 +593,7 @@ def extract_statement_lines(
                 values=printed.values[1:],
                 currency_values=printed.currency_values[1:],
             )
-        flagged.append(replace(data, flags=_flags(data, years, footnote)))
+        flagged.append(replace(data, flags=_flags(data, years, footnote, integers)))
     bounded: list[ExtractedLine] = []
     for flagged_line in flagged:
         row_cells = _cells(lines[flagged_line.line_no - 1])
@@ -569,7 +606,6 @@ def extract_statement_lines(
                 ),
             )
         )
-    flagged = bounded
     kept = {line.line_no - 1 for line in found}.union(header_at)
     omitted = tuple(
         OmittedLine(line_no=index + 1, text=text)
@@ -579,7 +615,7 @@ def extract_statement_lines(
     return ExtractedTable(
         locator=locator,
         headers=headers,
-        lines=tuple(flagged),
+        lines=tuple(bounded),
         source_id=source_id,
         omitted=omitted,
         source_lines=tuple(

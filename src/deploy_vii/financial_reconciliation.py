@@ -16,6 +16,7 @@ from pydantic import model_validator
 from deploy_vii.audit_basis import annual_warning
 from deploy_vii.contracts import Citation, Contract, Hash, Identifier, Text
 from deploy_vii.facility_fx import FacilityNormalization, normalize_facilities
+from deploy_vii.financial_adapter import facility_issued_after
 from deploy_vii.financial_contracts import (
     AuditBasisExplanation,
     BalanceMovementBridge,
@@ -25,13 +26,14 @@ from deploy_vii.financial_contracts import (
     FinancialReview,
     Observation,
     StatementIdentity,
+    opening_day,
 )
 from deploy_vii.financial_validation import validate_financial_review
-from deploy_vii.model._cells import CONTEXT
+from deploy_vii.model._cells import CONTEXT, half_unit
 from deploy_vii.model.dates import fiscal_year_number
 from deploy_vii.model.history import FLOW_METRICS
 from deploy_vii.preparation import PreparedPack
-from deploy_vii.statement_validation import account_outflow, effective_accounts
+from deploy_vii.statement_validation import account_outflow, metric_accounts
 
 CheckType = Literal[
     "SEGMENT_REVENUE",
@@ -135,7 +137,13 @@ def _term(
     )
 
 
-def _check(
+def _printed(term: ReconciliationTerm) -> Decimal | None:
+    """The term's figure as the issuer printed it: a converted facility's own
+    amount, whose decimal places are the issuer's, not the conversion's."""
+    return term.original_amount if term.normalization else term.amount
+
+
+def _check(  # noqa: PLR0913 - existing signature, unchanged here
     period: FinancialPeriod,
     kind: CheckType,
     metric: str,
@@ -159,9 +167,9 @@ def _check(
         if blocker:
             calculated = None
         stated = reported.amount
-        tolerance = (
-            None if stated is None else Decimal("0.5").scaleb(int(stated.as_tuple().exponent))
-        )
+        # The finest place among the figures printed: parsing drops trailing zeros.
+        printed = (stated, *map(_printed, components))
+        tolerance = None if stated is None else half_unit(a for a in printed if a is not None)
         difference = None if stated is None or calculated is None else calculated - stated
         status: Literal["PASS", "WARN", "BLOCK"] = "BLOCK"
         explanation = blocker or "Missing reported value or complete independent components"
@@ -194,14 +202,7 @@ def _check(
 def _account(
     book: FinancialBook, period_id: str, metric: str, *, sign: Literal[-1, 1] = 1
 ) -> ReconciliationTerm:
-    value = next(
-        (
-            r.value
-            for r in effective_accounts(book)
-            if r.period_id == period_id and r.metric_id == metric
-        ),
-        None,
-    )
+    value = next((r.value for r in metric_accounts(book, metric) if r.period_id == period_id), None)
     return _term(metric, value, coefficient=sign, outflow=account_outflow(book, period_id, metric))
 
 
@@ -209,9 +210,7 @@ def _balance(
     book: FinancialBook, day: date | None, metric: str, *, sign: Literal[-1, 1] = 1
 ) -> ReconciliationTerm:
     ids = {p.period_id for p in book.periods if day is not None and p.end_date == day}
-    rows = [
-        r.value for r in effective_accounts(book) if r.period_id in ids and r.metric_id == metric
-    ]
+    rows = [r.value for r in metric_accounts(book, metric) if r.period_id in ids]
     conflict = next((v for v in rows if v.status == "conflicting"), None)
     value = conflict or next((v for v in rows if v.amount is not None), next(iter(rows), None))
     return _term(metric, value, coefficient=sign)
@@ -315,6 +314,19 @@ def _debt(
         }:
             continue
         values = values_by_id.get(fid, [])
+        issued = None if values else facility_issued_after(book, fid, period.end_date)
+        if issued is not None:
+            # Not yet issued at this date and no row of its own: zero, as the adapter reads it.
+            terms.append(
+                ReconciliationTerm(
+                    label=fid,
+                    observation_id=None,
+                    original_amount=None,
+                    amount=Decimal(0),
+                    citations=issued.issuance_citations,
+                )
+            )
+            continue
         value = next((v for v in values if v.status == "conflicting"), None)
         value = value or next((v for v in values if v.amount is not None), next(iter(values), None))
         if template.currency != book.currency:
@@ -520,11 +532,7 @@ def cash_scope(bridge: CashMovementBridge | None) -> tuple[str, ...]:
 
 
 def _cash_movement(book: FinancialBook, period: FinancialPeriod) -> Reconciliation:
-    opening = (
-        period.start_date - timedelta(days=1)
-        if period.start_date and period.start_date.toordinal() > 1
-        else None
-    )
+    opening = opening_day(period.start_date)
     bridge = next((b for b in book.cash_movement_bridges if b.period_id == period.period_id), None)
     lines = {r.line_id: r for r in book.statement_lines if r.period_id == period.period_id}
     adjustments = tuple(
@@ -615,11 +623,7 @@ def _balance_movements(book: FinancialBook, period: FinancialPeriod) -> tuple[Re
         for movement in book.balance_movements
         if movement.period_id == period.period_id
     }
-    opening_date = (
-        period.start_date - timedelta(days=1)
-        if period.start_date and period.start_date.toordinal() > 1
-        else None
-    )
+    opening_date = opening_day(period.start_date)
     items = tuple(dict.fromkeys(("total_equity", *bridges)))
     reconciliations = []
     for item in items:

@@ -1,0 +1,15 @@
+# Rules the quality gate (tools/quality_gate.py) applies to changed code only.
+# Extends the repository configuration; `ruff check` without this file is unchanged.
+extend = "../pyproject.toml"
+
+[lint]
+# Readability: line length (E501, at the repo's 100 columns). Complexity and
+# maintainability: McCabe (C901) and the pylint design limits (returns 6,
+# branches 12, arguments 5, statements 50, the ruff defaults).
+extend-select = ["E501", "C90", "PLR0911", "PLR0912", "PLR0913", "PLR0915"]
+# Here those codes are enabled, so a noqa for one that no longer fires is stale (RUF100).
+external = []
+
+[lint.mccabe]
+# pydantic-ai's limit. Ruff's default is 10; 180 existing functions exceed it.
+max-complexity = 15

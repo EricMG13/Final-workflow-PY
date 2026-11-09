@@ -96,7 +96,7 @@ def _trace_fact_id(identity: str) -> str:
     )
 
 
-def _passage(
+def _passage(  # noqa: PLR0913 - pre-existing
     passage: Passage,
     issuer_name: str,
     catalogue: dict[str, EvidenceRecord],
@@ -118,7 +118,7 @@ def _passage(
         if isinstance(part, ProsePart):
             fragments.append(part.text)
         elif isinstance(part, IssuerPart):
-            fragments.append(issuer_name)
+            fragments.append(prose.run_name(issuer_name) if chips else issuer_name)
         elif isinstance(part, EvidencePart):
             record = catalogue[part.evidence_id]
             marker = _trace_fact_id(record.evidence_id) if chips else labels[record.evidence_id]

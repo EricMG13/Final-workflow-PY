@@ -896,15 +896,22 @@ def test_a_key_shaped_source_path_is_redacted_in_run_json(args: dict[str, Any]) 
 def test_a_double_fault_does_not_chain_the_raw_fault_into_the_escaping_error(
     args: dict[str, Any], monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """The mapped fault carries a key; writing ``run.json`` then fails (a leftover temp file).
-    The error that escapes must not hold the raw fault as its context."""
+    """The mapped fault carries a key; writing ``run.json`` then fails (its rename is refused; a
+    leftover temp file no longer fails it, S01-C04). The error that escapes must not hold the raw
+    fault as its context."""
+    real_replace = os.replace
+
+    def refuse_run_json(source: Any, target: Any) -> None:
+        if Path(target).name == "run.json":
+            raise PermissionError(13, "Permission denied")
+        real_replace(source, target)
 
     def prepare(request: object, sources: object, out: object) -> NoReturn:
-        (args["run_dir"] / "run.json.tmp").write_bytes(b"")
+        monkeypatch.setattr(rp.os, "replace", refuse_run_json)
         raise ValueError(f"cannot prepare with {SECRET}")
 
     monkeypatch.setattr(run_inputs_module, "prepare", prepare)
-    with pytest.raises(FileExistsError) as escaped:
+    with pytest.raises(PermissionError) as escaped:
         run_pathway(**args)
     text = "".join(traceback.format_exception(escaped.value))
     assert SECRET not in text
@@ -1047,6 +1054,34 @@ def test_a_fresh_run_creates_cap_json_once(killed: dict[str, Any]) -> None:
     assert json.loads((run_dir / "cap.json").read_text()) == recorded
 
 
+def test_a_killed_through_run_records_through_and_is_not_resumed_past_it(
+    args: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """S01-C01: `through` was not recorded, and `through` with `resume` is refused, so the only
+    resume of a killed `through="CP-0"` run walked the whole remaining plan and published. Expected,
+    by hand: cap.json records {"cap_usd", "mode": "offline", "through": "CP-0"}; a plain resume is
+    ResumeRefused naming CP-0, before any model call or new record (calls.jsonl unchanged, no
+    run.json); restating `through` on the resume stays UnknownThrough."""
+    scripted_complete(monkeypatch, [read_s1()])
+    real = Budget.reserve
+    kill_at_reserve(monkeypatch, 2)
+    with pytest.raises(Kill):
+        run_pathway(**args, through="CP-0")
+    monkeypatch.setattr(Budget, "reserve", real)
+    run_dir: Path = args["run_dir"]
+    recorded = {"cap_usd": money_text(CAP), "mode": "offline", "through": "CP-0"}
+    assert json.loads((run_dir / "cap.json").read_text()) == recorded
+    calls = (run_dir / "calls.jsonl").read_bytes()
+    sent = scripted_complete(monkeypatch, [])
+    with pytest.raises(rp.ResumeRefused, match="begun to stop after CP-0"):
+        run_pathway(**args, resume=True)
+    with pytest.raises(rp.UnknownThrough):
+        run_pathway(**args, through="CP-0", resume=True)
+    assert sent == []
+    assert (run_dir / "calls.jsonl").read_bytes() == calls
+    assert not (run_dir / "run.json").exists()
+
+
 def test_resume_continues_call_index_and_digest_and_counts_the_spend_once(
     killed: dict[str, Any], monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -1078,6 +1113,46 @@ def test_resume_continues_call_index_and_digest_and_counts_the_spend_once(
     ]
     assert len(markers) == 2
     assert run_json(run_dir)["stopped_reason"] == outcome.stopped_reason
+
+
+def test_a_run_json_temp_left_by_a_dead_writer_does_not_wedge_the_resume(
+    killed: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """S01-C04: `run.json.tmp` was created with O_EXCL and never removed, so one left by a write
+    killed before `os.replace` made every later `run.json` write raise FileExistsError. Expected,
+    by hand: the resume records its stop (`ProviderRejected`) in a complete `run.json` and no
+    `run.json.tmp` remains; the stale fragment is not read."""
+    run_dir: Path = killed["run_dir"]
+    (run_dir / "run.json.tmp").write_bytes(b"{partial")
+    scripted_complete(monkeypatch, [pack_helpers.failed("sent_known", "ProviderRejected", 400)])
+    outcome = run_pathway(**killed, resume=True)
+    assert outcome.outcome == "stopped"
+    assert run_json(run_dir)["stopped_reason"] == outcome.stopped_reason
+    assert outcome.stopped_reason is not None
+    assert outcome.stopped_reason.startswith("ProviderRejected")
+    assert not (run_dir / "run.json.tmp").exists()
+
+
+def test_a_failed_run_json_write_removes_its_temp_file(
+    killed: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A write that fails between creating the temp file and the rename (EIO on fsync here) leaves
+    neither `run.json` nor `run.json.tmp`. Expected, by hand: the OSError propagates (the run
+    stays resumable: no `run.json`), and the directory holds no `run.json.tmp` afterwards."""
+    run_dir: Path = killed["run_dir"]
+    scripted_complete(monkeypatch, [pack_helpers.failed("sent_known", "ProviderRejected", 400)])
+    real_replace = os.replace
+
+    def failing_replace(source: Any, target: Any) -> None:
+        if Path(target).name == "run.json":
+            raise OSError(5, "Input/output error")
+        real_replace(source, target)
+
+    monkeypatch.setattr(rp.os, "replace", failing_replace)
+    with pytest.raises(OSError, match="Input/output error"):
+        run_pathway(**killed, resume=True)
+    assert not (run_dir / "run.json").exists()
+    assert not (run_dir / "run.json.tmp").exists()
 
 
 def test_a_reservation_left_by_a_crash_stops_the_resume_and_sends_nothing(
@@ -1893,3 +1968,45 @@ def test_through_cp1_settles_cp0_and_cp1_and_a_rerun_freezes_cp0(tmp_path: Path)
     statuses = {h.module_id: h.status for h in Execution(run_dir2 / "execution").read().heads}
     assert statuses == {"CP-0": "restricted", "CP-1": "blocked"}
     assert seen and "submit_source_readiness" not in seen  # CP-0 sent no request
+
+
+@pytest.mark.parametrize(
+    ("recorded", "refused"),
+    [
+        ({"cap_usd": "5", "mode": "offline"}, None),  # an older or ordinary file: resumable
+        ({"cap_usd": "5", "mode": "live", "through": "CP-1"}, "begun to stop after CP-1"),
+        ({"cap_usd": "5", "mode": "live", "replayed_from_run": "r0"}, "rerun after repair of r0"),
+        (
+            {"cap_usd": "5", "mode": "live", "through": "CP-1", "replayed_from_run": "r0"},
+            "rerun after repair of r0",
+        ),
+    ],
+)
+def test_resume_refusal_reads_both_cap_json_keys(
+    tmp_path: Path, recorded: dict[str, str], refused: str | None
+) -> None:
+    """Review of S01-C01. Expected, by hand: only a file naming `replayed_from_run` or `through`
+    is refused (the rerun's reason first); one with neither, as every older file, passes; an
+    unreadable file is left to `_check_identity`."""
+    (tmp_path / "cap.json").write_text(json.dumps(recorded))
+    if refused is None:
+        rp._refuse_unresumable(tmp_path)
+    else:
+        with pytest.raises(rp.ResumeRefused, match=refused):
+            rp._refuse_unresumable(tmp_path)
+    (tmp_path / "cap.json").write_text("[1")
+    rp._refuse_unresumable(tmp_path)
+
+
+def test_a_planted_run_json_tmp_link_is_replaced_not_followed(tmp_path: Path) -> None:
+    """Review of S01-C04. `run.json.tmp` is a link to a file outside the run. Expected, by hand: the
+    outside file keeps its bytes, `run.json` holds the new bytes, and no temp remains."""
+    outside = tmp_path / "outside"
+    outside.write_bytes(b"precious")
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    (run_dir / "run.json.tmp").symlink_to(outside)
+    rp._replace_run_json(run_dir, b"{}\n")
+    assert outside.read_bytes() == b"precious"
+    assert (run_dir / "run.json").read_bytes() == b"{}\n"
+    assert sorted(p.name for p in run_dir.iterdir()) == ["run.json"]

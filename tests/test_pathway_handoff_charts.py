@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from deploy_vii.contracts import View
+from deploy_vii.display import format_value
 from deploy_vii.report_view import ReportView
 from deploy_workflow.handoff_delivery import MarkdownRoute, delivery_files
 from deploy_workflow.markdown_delivery import _numeric_observations, literal_module
@@ -141,9 +142,15 @@ def test_model_and_full_chart_strip_reuse_exact_handoff_values(tmp_path):
     )
 
 
-def numeric(raw_value="0", label="FY2025", **changes):
-    raw = f"# CP-4 TDG\n## Request\nTDG.\n## Sources\nSynthetic.\n## Findings\n### Wall\n| Period | Principal USDm |\n|---|---|\n| {label} | {raw_value} |\n## Calculations\nNone.\n## Gaps\nTest.\n## Next module\nDelivery.\n".encode()
-    module, _, _ = literal_module("CP-4", raw)
+def numeric_raw(raw_value="0", label="FY2025"):
+    head = "# CP-4 TDG\n## Request\nTDG.\n## Sources\nSynthetic.\n## Findings\n### Wall\n"
+    table = f"| Period | Principal USDm |\n|---|---|\n| {label} | {raw_value} |\n"
+    tail = "## Calculations\nNone.\n## Gaps\nTest.\n## Next module\nDelivery.\n"
+    return (head + table + tail).encode()
+
+
+def numeric(raw_value="0", label="FY2025", raw=None, **changes):
+    module, _, _ = literal_module("CP-4", raw or numeric_raw(raw_value, label))
     route = MarkdownRoute.model_validate_json(
         json.dumps(
             {
@@ -171,6 +178,37 @@ def test_explicit_chart_cells_preserve_signed_exact_values_and_gaps(value, expec
     fact = next(f for f in module.facts if f.fact_id == points[0].fact_id)
     assert fact.amount == (None if expected is None else Decimal(expected))
     assert fact.citations[0].quote.endswith("| " + value + " |")
+
+
+@pytest.mark.parametrize(
+    ("value", "unit", "shown"),
+    [
+        # Hand-derived: places = digits after the point in the source token; a "%" token is a
+        # fraction, so two of its places are the percent scaling (0.0725 -> 7.25%).
+        ("0.004", "US$m", "0.004"),
+        ("150", "US$m", "150"),
+        ("1,234.5", "US$m", "1,234.5"),
+        ("(0.30)", "US$m", "(0.30)"),
+        ("0.125", "x", "0.125x"),
+        ("12.3456", "x", "12.3456x"),
+        ("0.0725", "%", "7.25%"),
+        ("0.004", "%", "0.4%"),
+        ("0.12", "%", "12%"),
+    ],
+)
+def test_chart_cell_is_shown_to_the_places_the_source_token_was_written(value, unit, shown):
+    block, figure, column = {
+        "US$m": ("maturity-wall", "S.4", "Principal USDm"),
+        "x": ("metric-strip", "S.1", "Principal USDm"),
+        "%": ("yield-against-maturity", "RV.1", "Principal_fraction"),
+    }[unit]
+    raw = numeric_raw(value).replace(b"Principal USDm", column.encode())
+    module, _, points = numeric(
+        value, chart_unit=unit, block_id=block, figure_id=figure, value_columns=[column], raw=raw
+    )
+    fact = next(f for f in module.facts if f.fact_id == points[0].fact_id)
+    unit_class = {"US$m": "amount", "x": "multiple", "%": "percent"}[unit]
+    assert format_value(fact.amount, unit_class, "known", decimals=fact.decimals) == shown
 
 
 @pytest.mark.parametrize("value", ["NaN", "Infinity", "1e99", "12,34", "1%", "1x", "0 USD"])
@@ -305,3 +343,22 @@ def test_current_live_pair_yields_use_exact_rounded_fractions_without_repricing(
             orientation="period-rows",
             chart_unit="%",
         )
+
+
+@pytest.mark.parametrize("before", [True, False])
+def test_coverage_lists_the_chart_block_whichever_route_comes_first(tmp_path, before):
+    manifest = job(tmp_path)
+    data = json.loads(manifest.read_text())
+    routes = data["layout"]["routes"]
+    index = next(i for i, r in enumerate(routes) if r["module_id"] == "CP-4")
+    extra = {
+        "module_id": "CP-4",
+        "heading": "Maturity",
+        "kind": "table",
+        "block_id": "company-profile",
+    }
+    routes.insert(index if before else index + 1, extra)
+    manifest.write_text(json.dumps(data))
+    entries = json.loads(delivery_files(manifest)["coverage.json"])["modules"]["CP-4"]
+    table = next(e for e in entries if e["kind"] == "table")
+    assert sorted(table["blocks"]) == ["company-profile", "model-chart-strip"]

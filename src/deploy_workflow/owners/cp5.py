@@ -32,14 +32,14 @@ from deploy_vii.cp5_integrity import (
     FactProjection,
     IntegrityReport,
     IntegritySubmission,
+    PythonChecks,
     ReviewScope,
     _validate_step,
     context_block,
     cp5_module,
-    integrity_review,
     python_checks,
+    review_outcome,
     review_scope,
-    validate_integrity,
 )
 from deploy_vii.execution import Attempt, Execution, ExecutionSnapshot, StepValidation
 from deploy_vii.live.context import integrity_projection
@@ -78,10 +78,8 @@ class CP5Result:
 
 def compute(inputs: CP5Inputs) -> CP5Result:
     """Validate and compose one CP-5 review over the supplied scope (no I/O)."""
-    issues = validate_integrity(inputs.scope, inputs.submission)
-    if issues:
-        return CP5Result(issues=issues, report=None)
-    return CP5Result(issues=(), report=integrity_review(inputs.scope, inputs.submission))
+    issues, report = review_outcome(inputs.scope, inputs.submission)
+    return CP5Result(issues=issues, report=report)
 
 
 def candidate(result: CP5Result, inputs: CP5Inputs, attempt: int) -> Module:
@@ -91,10 +89,10 @@ def candidate(result: CP5Result, inputs: CP5Inputs, attempt: int) -> Module:
     return cp5_module(result.report, inputs.scope.inputs, attempt)
 
 
-def owner_projection(scope: ReviewScope) -> FactProjection:
+def owner_projection(scope: ReviewScope, checks: PythonChecks | None = None) -> FactProjection:
     """`P` of the owner view: the `integrity_projection` facts of the CP-1 head, and every fact
     of every other head (so a claim with no figure and no citation still shows its cells)."""
-    trimmed = integrity_projection(scope)
+    trimmed = integrity_projection(scope, checks)
 
     def project(head: Module) -> Sequence[Fact]:
         return trimmed(head) if head.module_id == PROJECTED_MODULE else head.facts
@@ -113,7 +111,8 @@ def view_body(scope: ReviewScope) -> tuple[str, str]:
     can carry a quote fragment). Compact JSON, digest over its UTF-8 bytes."""
     if scope.issues:
         raise WorkflowError("identity_mismatch")
-    block = context_block(scope, facts=owner_projection(scope))
+    checks = python_checks(scope)
+    block = context_block(scope, facts=owner_projection(scope, checks), checks=checks)
     for module in cast(list[dict[str, Any]], block["modules"]):
         for claim in module["claims"]:
             claim["citations"] = [
@@ -122,7 +121,7 @@ def view_body(scope: ReviewScope) -> tuple[str, str]:
             ]
             claim["python_findings"] = [mark.split(": ", 1)[0] for mark in claim["python_findings"]]
     block["python_findings"] = [
-        f"{KIND_LABEL[finding.kind]}: {finding.where}" for finding in python_checks(scope).findings
+        f"{KIND_LABEL[finding.kind]}: {finding.where}" for finding in checks.findings
     ]
     body = json.dumps(block, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
     return hashlib.sha256(body.encode()).hexdigest(), body

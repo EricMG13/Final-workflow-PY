@@ -118,6 +118,7 @@ def _fact(entry: MappingEntry, *, traced: bool = True, **kw: Any) -> Fact:
         base["citations"] = _cite()
     if kw.get("amount") is not None:
         base["unit"] = "USD"
+        base["currency"] = "USD"
     if kw.get("status", "known") != "known":
         base["limitation"] = "not available"
     base.update(kw)
@@ -500,6 +501,22 @@ def test_unit_class_must_agree_with_golden() -> None:
     assert money_as_pct.facts[0].outcome == "mismatch"
 
 
+def test_currency_must_agree_with_golden() -> None:
+    # Golden IHRT_BILLIONS is USD 5236876 thousands = 5,236,876,000 units. The same amount in
+    # USD matches; EUR, JPY and a missing currency are different quantities: mismatch with a
+    # currency reason naming what the fact carried.
+    amount = Decimal(IHRT_UNITS)
+    ok, _, _ = _one(IHRT_BILLIONS, IHRT, amount=amount, currency="USD")
+    assert ok.facts[0].outcome == "match"
+    for cur, shown in (("EUR", "EUR"), ("JPY", "JPY"), (None, "none"), ("usd", "usd")):
+        bad, _, _ = _one(IHRT_BILLIONS, IHRT, amount=amount, currency=cur)
+        assert bad.facts[0].outcome == "mismatch", cur
+        assert bad.facts[0].observed == f"currency {shown} is not the golden's USD"
+    # A percent golden names no currency: a fact without one still matches.
+    pct, _, _ = _one(IHRT_PCT, IHRT, amount=Decimal("0.922"), unit="PERCENT", currency=None)
+    assert pct.facts[0].outcome == "match"
+
+
 def test_duplicate_locator_is_mismatch() -> None:
     case = _case(IHRT, IHRT_BILLIONS)
     entry = _entry(IHRT_BILLIONS, "CP-2")
@@ -777,6 +794,7 @@ def _row(
                 period=period,
                 amount=value,
                 unit="USD",
+                currency="USD",
                 citations=_cite(),
             )
         )
@@ -882,6 +900,7 @@ def _metric_row(row: str, metric: str, pid: str, value: Decimal | None = None) -
                 period=pid,
                 amount=value,
                 unit="USD",
+                currency="USD",
                 citations=_cite(),
             )
         )
@@ -1003,3 +1022,31 @@ def test_period_ref_ignores_period_rows_of_another_table() -> None:
     ]
     facts = foreign + _metric_row("r01", "revenue", "P7", Decimal(IHRT_UNITS))
     assert _ref_score(facts).facts[0].outcome == "missing_in_output"
+
+
+def test_currency_rule_reaches_printed_conflict_evidence_and_spares_unitless_goldens() -> None:
+    # review S03S14m. A USD golden's printed evidence "$175 million" equals 175,000,000 units:
+    # a USD fact with that amount matches it, the same amount in EUR does not (a conflicting
+    # golden can then never be conflict_ok on a wrong-currency figure). A unitless golden (NATL
+    # share 0.375, unit None) names no currency, so a fact carrying one still matches.
+    from deploy_workflow.model_testing import scoring
+
+    golden = {"value_type": "decimal", "scale": "units", "unit": "USD"}
+
+    def fact(currency: str | None) -> Fact:
+        return Fact(
+            fact_id="x",
+            label="x",
+            amount=Decimal(175000000),
+            unit="USD",
+            currency=currency,
+            period="2025-06-30",
+        )
+
+    assert scoring._printed_matches("$175 million", fact("USD"), golden)
+    assert not scoring._printed_matches("$175 million", fact("EUR"), golden)
+    assert not scoring._printed_matches("$175 million", fact(None), golden)
+    ok, _, _ = _one(
+        NATL_SHARE, NATL, amount=Decimal("0.375"), unit="decimal_fraction", currency="EUR"
+    )
+    assert ok.facts[0].outcome == "match"

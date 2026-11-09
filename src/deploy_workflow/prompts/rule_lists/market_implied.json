@@ -12,7 +12,7 @@
   },
   {
    "id": "market_implied.2",
-   "statement": "Each quoted observation cites a page of a third_party source that holds its quote. `level_text` is a decimal numeral above 0 and at most 200, with no leading zero and at most four decimal places, occurring in the quote, and for a bid or offer labelled with that kind in the quote; an `indicative_talk` level is never one the quote labels bid or offer. A bid or offer needs `as_of_text` as a Month D, YYYY date occurring in the quote; `as_of_text` of indicative_talk may be null.",
+   "statement": "Each quoted observation cites a page of a third_party source that holds its quote. `level_text` is a decimal numeral above 0 and at most 200, with no leading zero and at most four decimal places, occurring in the quote, and for a bid or offer labelled with that kind in the quote; an `indicative_talk` level is never one the quote labels bid or offer. A bid or offer needs `as_of_text` as a Month D, YYYY date occurring in the quote; `as_of_text` of indicative_talk may be null. A bid or offer is a firm price in points of par: the quote, or the page sentence holding it, names the instrument (or it is the only quotation on the instrument's page); it carries no talk or conditional wording (talk, indicative, guidance, whisper, IPT, proposed or expected pricing, subject to, not firm, non-firm); its level is not followed by %, bp, basis points, yield, spread or DM unless \"of par\" follows; and its `as_of_text` is not after the run's as-of (a quote more than 30 days older is reported stale).",
    "checks": [
     "oracle:cp3d:level_not_in_quote",
     "oracle:cp3d:level_not_numeric",
@@ -24,7 +24,10 @@
     "fn:deploy_workflow.owners.cp3d:_observation_level",
     "fn:deploy_workflow.owners.cp3d:_label_ok",
     "fn:deploy_workflow.owners.cp3d:_observation_date",
-    "fn:deploy_workflow.owners.cp3d:_Issues.on_page"
+    "fn:deploy_workflow.owners.cp3d:_Issues.on_page",
+    "fn:deploy_workflow.owners.cp3d:_check_bound",
+    "fn:deploy_workflow.owners.cp3d:_firm_ok",
+    "fn:deploy_workflow.owners.cp3d:_priced_ok"
    ]
   },
   {
@@ -41,7 +44,7 @@
   },
   {
    "id": "market_implied.4",
-   "statement": "`instrument.name` occurs in `instrument.quote`. `terms.maturity` gives exactly one of `date_text` (a Month D, YYYY date occurring in its quote, after the quotation date) and `absence`. `terms.margin` and `terms.amortisation` each give exactly one of their text (`bps_text`, `value_text`, a numeral of at most three integer digits and four decimals, no leading zero, occurring once in its own quote) and `absence`, and the amortisation value is zero. `terms.reference_rate.name` occurs in its quote, and it gives exactly one of `level` (its `percent_text` occurring in the level's own quote, with no leading zero and at most three integer digits and four decimals) and `absence`.",
+   "statement": "`instrument.name` occurs in `instrument.quote`. `terms.maturity` gives exactly one of `date_text` (a Month D, YYYY date occurring in its quote, after the quotation date) and `absence`. `terms.margin` and `terms.amortisation` each give exactly one of their text (`bps_text`, `value_text`, a numeral of at most three integer digits and four decimals, no leading zero, occurring once in its own quote) and `absence`, and the amortisation value is zero. `terms.reference_rate.name` occurs in its quote, and it gives exactly one of `level` (its `percent_text` occurring in the level's own quote, with no leading zero and at most three integer digits and four decimals) and `absence`. The margin's `bps_text` is followed in its quote by a basis-point unit (bp, bps, basis points) and the reference level's `percent_text` by a percent unit (%, percent, per cent).",
    "checks": [
     "oracle:cp3d:maturity_before_quotation",
     "oracle:cp3d:margin_not_in_quote",
@@ -50,7 +53,10 @@
     "oracle:cp3d:amortisation_nonzero",
     "fn:deploy_workflow.owners.cp3d:_check_maturity",
     "fn:deploy_workflow.owners.cp3d:_check_quoted_numeral",
-    "fn:deploy_workflow.owners.cp3d:_check_terms"
+    "fn:deploy_workflow.owners.cp3d:_check_terms",
+    "fn:deploy_workflow.owners.cp3d:_check_margin",
+    "fn:deploy_workflow.owners.cp3d:_check_reference_rate",
+    "fn:deploy_workflow.owners.cp3d:_unit_ok"
    ]
   },
   {

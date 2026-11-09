@@ -879,13 +879,15 @@ def test_letter_after_a_run_is_still_read(line: str) -> None:
 )
 def test_round_5_item_12_readings_noted_in_the_method(line: str) -> None:
     """Rulings round 5 item 12: the right side of a run never makes an identifier, and a decimal
-    run is never an ordinal, so `1.5-Q` and a wrapped `1.5-` then `nd` read 1.5 and compose."""
+    run is never an ordinal, so `1.5-Q` and a wrapped `1.5-` then `nd` read 1.5 (one whole run,
+    steps 5 and 6 pass). S05-cp0-cp1-A01: `-Q` is no millions or USD mark, so the figure is not
+    a bridge-currency million amount and the unit rule, checked after step 6, refuses it."""
     inputs = stage1._a01_on_page1(line)
     accepted = inputs.submission.assessments[0].accepted_basis
     assert accepted is not None
     assert cp1d._one_whole_run(line) is True
     assert cp1d._basis_amounts(accepted, inputs.sources) == ["1.5"]
-    assert cp1d.validation_issues(inputs) == ()
+    assert cp1d.validation_issues(inputs) == (f"{stage1.NOT_MONEY}{stage1.A01_LABEL}",)
 
 
 def test_method_note_exists_and_names_each_limit() -> None:
