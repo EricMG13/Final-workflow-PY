@@ -4,7 +4,8 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
 
 1. The module's own handoff is read first. Its evidence is exact `key: value` lines in the
    handoff's leading `---` front-matter block (prose never counts), a line that starts with the
-   label `Module Status:` (optionally bold; a table column of that name never counts), plus a
+   label `Module Status:` (bold, backticks, a list marker and a final period
+   allowed; case-insensitive; a table row never counts), plus a
    status word after the module id (below). The most severe value wins:
    will_refuse > limited > ready.
 
@@ -71,13 +72,22 @@ def front_matter(text: str) -> list[tuple[str, str]]:
 
 
 MODULE_STATUS = {
-    "Blocked": "will_refuse",
-    "Completed with Limitations": "limited",
-    "Completed": "ready",
+    "blocked": "will_refuse",
+    "completed with limitations": "limited",
+    "completed": "ready",
 }
-MODULE_STATUS_LINE = re.compile(
-    r"^[ \t]*(?:\*\*)?Module Status:(?:\*\*)?[ \t]*(.*?)[ \t*]*$", re.MULTILINE
-)
+
+
+def module_status(line: str) -> str | None:
+    """The status phrase of a `Module Status:` line, or None. Markup that does not change the
+    words is dropped: ** around the label or value, backticks, a list marker, one final period."""
+    line = line.strip().replace("**", "").strip("`").strip()
+    line = re.sub(r"^[-*][ \t]+", "", line)
+    label, sep, value = line.partition(":")
+    if not sep or label.strip() != "Module Status":
+        return None
+    value = value.strip().strip("`").strip().removesuffix(".").strip().lower()
+    return value if value in MODULE_STATUS else None
 
 
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
@@ -95,11 +105,9 @@ def own_status(module: str, own: str) -> tuple[str, str] | None:
         for pair in front_matter(own)
         if pair in FIELDS
     ]
-    found += [
-        (MODULE_STATUS[m[1]], f"Module Status: {m[1]} in {name}")
-        for m in MODULE_STATUS_LINE.finditer(own)
-        if m[1] in MODULE_STATUS
-    ]
+    for line in own.splitlines():
+        if not line.lstrip().startswith("|") and (phrase := module_status(line)):
+            found.append((MODULE_STATUS[phrase], f"Module Status: {phrase} in {name}"))
     if word := status_word(module, own, tuple(STATUS)):
         found.append((STATUS[word], f"{word} in {name}"))
     # ready only when nothing limited or will_refuse is present: max by severity gives that.

@@ -116,7 +116,8 @@ def outcome_faults(
     forecast: dict[str, str], run: Path, refused: str = ""
 ) -> tuple[list[str], dict[str, str]]:
     """Every module whose outcome is not confirmed equal to its forecast; and what each one did.
-    `refused` names the module the run stopped at. Unconfirmed and not-reached are findings."""
+    `refused` names the module the run stopped at. Unconfirmed and not-reached are findings,
+    except CP-0: it is the table, not a module under test, so it is never a finding."""
     found, did = [], {}
     cp0 = (run / "CP-0.md").read_text() if (run / "CP-0.md").exists() else ""
     for module, wanted in forecast.items():
@@ -124,7 +125,7 @@ def outcome_faults(
         own = handoff.read_text() if handoff.exists() else None
         actual, how = handoff_outcome["actual_of"](module, own, cp0, refused=module == refused)
         did[module] = f"{actual} ({how})"
-        if handoff_outcome["verdict"](wanted, actual) != "agreed":
+        if module != "CP-0" and handoff_outcome["verdict"](wanted, actual) != "agreed":
             found.append(f"{module}: forecast {wanted}, run did {actual} ({how})")
     return found, did
 
@@ -237,7 +238,10 @@ def case_outcomes(
     summary["outcomes"] = did
     for line in found:
         bc.note(False, f"forecast vs outcome: {line}", kind="forecast")
-    bc.note(not found, f"forecast confirmed equal for {len(shown)} modules: {did}")
+    if "CP-0" in shown:
+        print("CP-0: not testable (states no status of its own)", flush=True)
+    testable = len(shown) - ("CP-0" in shown)
+    bc.note(not found, f"forecast confirmed equal for the {testable} testable modules: {did}")
     for line in required_outputs(args, ws, run, review, stopped):
         bc.note(False, f"required output: {line}", kind="outputs")
 
