@@ -1,0 +1,1 @@
+Reconstructed context (not a context the user entered): declarations inferred from the retained campaign case. Indenture dated May 13, 2024 (EX-4.1) and FY2024 10-K, retained in runs/arcc-2024-001: CP-0, CP-1, CP-4. Used only by tools/expectations_backtest.py.

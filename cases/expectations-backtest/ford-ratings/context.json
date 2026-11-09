@@ -1,0 +1,70 @@
+{
+  "schema": "context/1",
+  "run": {
+    "run_type": "secondary",
+    "pathway": "distressed_restructuring",
+    "case_kind": "public",
+    "as_of": "2024-04-11",
+    "current_period": "fy-2024",
+    "prior_period": "fy-2023",
+    "reporting_currency": "TRY"
+  },
+  "identity": {
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "issuer_id": "ford-otosan",
+    "borrower_name": "",
+    "parent_name": "",
+    "guarantors": [],
+    "aliases": [],
+    "listed_equity": false,
+    "ticker": "",
+    "sector": "",
+    "country": "",
+    "sponsor": ""
+  },
+  "deal_terms": [],
+  "quotes": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "scope": "issuer",
+      "rating": "BB+",
+      "outlook": "Stable",
+      "as_of": "2024-04-11"
+    }
+  ],
+  "valuation": {
+    "peer_source": "none",
+    "basis": "auto",
+    "issuer_market": {
+      "market_cap_m": "",
+      "net_debt_m": "",
+      "ev_m": "",
+      "ebitda_basis": "LTM",
+      "as_of": "",
+      "source": ""
+    },
+    "peers": [],
+    "precedents": [],
+    "user_multiple": {
+      "value": "",
+      "basis": "LTM",
+      "rationale": ""
+    }
+  },
+  "assumptions": {
+    "cp2a": null,
+    "cp2d": null,
+    "cp2e": null,
+    "cp3c": null,
+    "cp3d": null,
+    "cp4c": null
+  },
+  "attachments": {
+    "portfolio_workbook": false,
+    "prior_case": false,
+    "management_bridge": false,
+    "legal_documents": "none"
+  },
+  "research_questions": []
+}
