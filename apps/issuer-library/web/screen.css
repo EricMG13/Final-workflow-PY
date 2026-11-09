@@ -146,9 +146,10 @@ main{min-width:0;min-height:0;display:flex;flex-direction:column}#module-head{pa
 .library-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
 .library-filters label{display:flex;flex-direction:column;gap:4px;font-size:var(--fs-compact);font-weight:600;color:var(--text-tertiary)}
 .library-filters select,.library-filters input{font-size:var(--fs-control);font-weight:400}
-#metric-filters{margin-top:14px}
-#metric-filters summary{cursor:pointer;font-weight:600;margin-bottom:12px}
+#library-filters details{margin-top:14px}
+#library-filters summary{cursor:pointer;font-weight:600;margin-bottom:12px}
 #library-count{font-size:var(--fs-control);color:var(--text-tertiary);margin-bottom:8px}
+.library-coverage{font-size:var(--fs-compact);color:var(--text-tertiary);margin-bottom:8px}.library-coverage p{margin:2px 0}.hidden-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.facility h4,.facility h5{margin:12px 0 6px}
 .library-table{width:100%;border-collapse:collapse;font-size:var(--fs-control);line-height:20px}
 .library-table th,.library-table td{padding:12px 16px;border-bottom:1px solid var(--border-secondary);text-align:left;vertical-align:top;color:var(--text-primary)}
 .library-table th{font-size:var(--fs-compact);font-weight:600;color:var(--text-tertiary);white-space:nowrap}
@@ -171,6 +172,7 @@ main{min-width:0;min-height:0;display:flex;flex-direction:column}#module-head{pa
 .metric-item p{font-size:var(--fs-compact);color:var(--text-tertiary)}
 .artifact-list{margin:0;padding-left:20px}.artifact-list li{overflow-wrap:anywhere}.artifact-list small{display:block;color:var(--text-tertiary)}
 .source-details{margin-top:14px}.source-details summary{cursor:pointer;font-weight:600}.source-details>div{margin-top:10px;padding:8px 10px;border-left:3px solid var(--gray-300);overflow-wrap:anywhere}.source-details blockquote{margin:6px 0;font:var(--fs-compact)/1.5 'Red Hat Mono',monospace;white-space:pre-wrap}
+@media(max-width:720px){.library-filters,.metric-grid,.detail-layout{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:900px){.library-screen{grid-template-columns:minmax(0,1fr)}.library-nav{position:static;flex-direction:row;flex-wrap:wrap}.search-row{flex-wrap:wrap}.library-search{max-width:none;flex-basis:100%}.page-actions{margin-top:12px}}
 /* Run header and underline tabs, after Untitled UI React (MIT): one title line, then tabs. */
 .issuer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;background:#fff;border-radius:var(--radius-card) var(--radius-card) 0 0}

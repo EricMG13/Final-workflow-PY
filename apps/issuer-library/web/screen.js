@@ -52,9 +52,9 @@ const evidence = new Map();
 const lastSection = new Map(), lastFile = new Map();
 const readingPositions = new Map(), expandedGroups = new Map();
 // Screening state, kept while the reader is on another screen. Filter names are LibraryLogic's.
-const LIBRARY_DEFAULTS = {search:'',sector:'',workflow:'',completion:'',availability:'',basis:'',period:'',leverageMin:'',leverageMax:'',coverageMin:'',coverageMax:'',issuer:''};
+const LIBRARY_DEFAULTS = {search:'',sector:'',workflow:'',completion:'',availability:'',basis:'',period:'',leverageMin:'',leverageMax:'',coverageMin:'',coverageMax:'',issuer:'',runs:'latest',classification:'',currency:'',ratingBelow:'',ratingAbove:'',ratingScope:'issuer',netLeverageMin:'',netLeverageMax:'',cashMin:'',cashMax:'',undrawnMin:'',undrawnMax:'',talkMin:'',talkMax:'',marginMin:'',marginMax:'',couponMin:'',couponMax:'',priceMin:'',priceMax:'',yieldMin:'',yieldMax:'',limitation:''};
 const libraryFilters = {...LIBRARY_DEFAULTS};
-const libraryState = {selected:'',sortKey:'',direction:'asc'};
+const libraryState = {selected:'',sortKey:'',direction:'asc',hidden:''};
 let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll = 0;
 installDestinations();
 const appDestinations=new Set(['W-Library','W-NewRun','W-Settings','W-Help']); // These need no selected run.
@@ -350,17 +350,44 @@ function moduleBody({module,context,output}) {
 let cancelReportFrame=null;
 // A number box with text it cannot read is 'invalid', which excludes every run rather than being ignored.
 function readLibraryFilters() {
+  const before=JSON.stringify(libraryFilters);
   $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{libraryFilters[control.dataset.libraryFilter]=control.validity?.badInput?'invalid':control.value;});
-  updateLibrary();
+  if(JSON.stringify(libraryFilters)!==before)updateLibrary(); // a change event after the input event adds nothing and must not swallow the click that blurred the box
+}
+// The Library route keeps its filter state in the query. Only a known key with a valid value is applied (a select key one of its options, a number key a finite number, search up to 200 characters); anything else is dropped.
+const LIBRARY_QUERY_KEYS=[...Object.keys(LIBRARY_DEFAULTS),'sort','dir'];
+const libraryNumber=value=>/^-?(\d+(\.\d+)?|\.\d+)([eE][-+]?\d+)?$/.test(value)&&Number.isFinite(Number(value));
+function readLibraryHash() {
+  const query=location.hash.split('?')[1];
+  if(!query)return false;
+  const choices=libraryChoices(),before=JSON.stringify([libraryFilters,libraryState]);
+  for(const [key,value] of new URLSearchParams(query)) {
+    if(key==='sort'){if(LIBRARY_COLUMNS.some(([column])=>column===value))libraryState.sortKey=value;}
+    else if(key==='dir'){if(value==='asc'||value==='desc')libraryState.direction=value;}
+    else if(!Object.hasOwn(LIBRARY_DEFAULTS,key))continue;
+    else if(key==='search'){if(value.length<=200)libraryFilters.search=value;}
+    else if(Object.hasOwn(choices,key)){if(choices[key].some(([option])=>option===value||key==='issuer'&&LibraryLogic.issuerKey(option)===LibraryLogic.issuerKey(value)))libraryFilters[key]=value;}
+    else if(libraryNumber(value))libraryFilters[key]=value;
+  }
+  return before!==JSON.stringify([libraryFilters,libraryState]);
+}
+// Written with replaceState so typing does not re-render the route; defaults are left out.
+function writeLibraryHash() {
+  const [path,query='']=location.hash.slice(1).split('?'),params=new URLSearchParams(query);
+  for(const key of LIBRARY_QUERY_KEYS)params.delete(key);
+  for(const [key,value] of Object.entries(libraryFilters))if(value!==LIBRARY_DEFAULTS[key]&&value!=='invalid')params.set(key,value);
+  if(libraryState.sortKey){params.set('sort',libraryState.sortKey);params.set('dir',libraryState.direction);}
+  const hash=`#${path}${params.size?`?${params}`:''}`;
+  if(hash!==location.hash)history.replaceState(null,'',hash);
 }
 function resetLibrary() {
   Object.assign(libraryFilters,LIBRARY_DEFAULTS);
-  Object.assign(libraryState,{selected:'',sortKey:'',direction:'asc'});
+  Object.assign(libraryState,{selected:'',sortKey:'',direction:'asc',hidden:''});
   updateLibrary(true);
 }
 // Clicks inside the Library screen; true when one was handled.
 function libraryClick(target) {
-  const choose=target.closest('[data-library-select]'),sort=target.closest('[data-library-sort]'),nav=target.closest('[data-library-nav],[data-library-issuer]'),source=target.closest('[data-library-source]');
+  const choose=target.closest('[data-library-select]'),sort=target.closest('[data-library-sort]'),nav=target.closest('[data-library-nav],[data-library-issuer]'),source=target.closest('[data-library-source]'),hide=target.closest('[data-library-hidden]'),back=target.closest('[data-library-back]');
   if(choose) {
     libraryState.selected=choose.dataset.librarySelect;updateLibrary();
     $('run-detail').focus({preventScroll:true});$('run-detail').scrollIntoView({block:'start'});
@@ -372,9 +399,14 @@ function libraryClick(target) {
     const {libraryNav:kind,libraryIssuer:issuer}=nav.dataset;
     if(kind==='all')resetLibrary();
     else if(kind==='reports')Object.assign(libraryFilters,{issuer:'',availability:'report'});
-    else libraryFilters.issuer=libraryFilters.issuer===issuer?'':issuer;
+    else libraryFilters.issuer=LibraryLogic.issuerKey(libraryFilters.issuer)===LibraryLogic.issuerKey(issuer)?'':issuer;
     updateLibrary(true);
     [...$('library-nav').querySelectorAll('button')].find(b=>b.dataset.libraryNav===kind&&b.dataset.libraryIssuer===issuer).focus();
+  } else if(hide) {
+    libraryState.hidden=hide.dataset.libraryHidden;updateLibrary();$('library-hidden-title').focus();
+  } else if(back) {
+    const group=libraryState.hidden;libraryState.hidden='';updateLibrary();
+    $('library-coverage').querySelector(`[data-library-hidden="${group}"]`)?.focus();
   } else if(source) {
     $('metric-sources').open=true;
     const block=$(`source-${source.dataset.librarySource}`);block.focus({preventScroll:true});block.scrollIntoView({block:'center'});
@@ -400,7 +432,7 @@ function contextPrefix({module,context}) {
 }
 function renderRoute() {
   const next=parseRoute(), previous=current,changed=!current||next.module!==current.module||next.output!==current.output||next.section!==current.section||next.context!==current.context;
-  const focused=document.activeElement,focusId=focused?.id,focusHref=focused?.getAttribute('href');
+  const focused=document.activeElement,focusId=focused?.id,focusHref=focused?.getAttribute('href'),hashed=next.module==='W-Library'&&readLibraryHash();
   if(changed&&previous)readingPositions.set(`${previous.context}:${previous.output||previous.module}:${previous.section}`,$('content').scrollTop);
   current=next; lastSection.set(next.context+':'+next.module,next.section);
   if(next.file)lastFile.set(`${next.context}:${next.module}`,next.file);else lastFile.delete(`${next.context}:${next.module}`);
@@ -465,6 +497,8 @@ function renderRoute() {
       if(returnTrigger?.isConnected)returnTrigger.focus({preventScroll:true});else $('analysis').focus({preventScroll:true});
     }
   }
+  if(hashed&&!changed)updateLibrary(true);
+  if(next.module==='W-Library')writeLibraryHash();
   const named=contexts[next.context]?`${contexts[next.context].title}, ${contexts[next.context].run}, `:'';
   $('announcement').textContent=`${named}${moduleNames[next.module]}, ${namedText(navigationSections(next.module,next.context,next.output).find(s=>s[0]===next.section)[1])}${next.evidence?', evidence open':''}`;
 }
