@@ -192,6 +192,15 @@ def bounded_receive(receive: Receive, limit: int) -> Receive:
     return inner
 
 
+def last_body_close(html: bytes) -> int:
+    """Offset of the final "</body>" in html, len(html) when there is none.
+
+    bytes.lower() folds ASCII only and keeps the length, so the offset indexes the original
+    bytes; Unicode lower-casing would change lengths (U+0130, Kelvin sign, invalid UTF-8)."""
+    found = html.lower().rfind(b"</body>")
+    return len(html) if found < 0 else found
+
+
 def attachment(filename: str) -> str:
     if filename.isascii():
         return 'attachment; filename="' + filename.replace('"', '\\"') + '"'
@@ -462,9 +471,7 @@ class Application:
         style = (self.web / "report-adapter.css").read_bytes()
         brand = (self.web / "brand.css").read_bytes()
         script = (self.web / "report-adapter.js").read_bytes()
-        position = original.lower().rfind(b"</body>")
-        if position < 0:
-            position = len(original)
+        position = last_body_close(original)
         return b"".join(
             [
                 original[:position],

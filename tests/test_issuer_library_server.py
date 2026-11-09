@@ -29,6 +29,7 @@ from issuer_library_support import (
 
 import issuer_library.server as server_module
 from issuer_library.jobs import Engine
+from issuer_library.launch import cookie_name
 from issuer_library.model import Catalogue, digest
 from issuer_library.server import Application
 from issuer_library.settings import Config, Locations, load_config, save_json
@@ -512,3 +513,244 @@ def test_an_entry_that_vanishes_during_the_walk_is_recorded_missing(
     lines = server_module.tree_files(tmp_path, "runs")
     assert "runs/case-a/status.json.tmp\tmissing" in lines
     assert any(line.startswith("runs/case-a/CP-0.md\t1\t") for line in lines)
+
+
+def test_report_presentation_splices_before_the_final_body_tag_in_the_original_bytes(
+    tmp_path: Path,
+) -> None:
+    app, _ = make_app(tmp_path)
+    tail = "<script>render()</script>\n<!-- font licence -->\n</BODY></html>"
+    invalid = b"<html><body><p>" + b"\xff" * 40 + ("</p>" + tail).encode()
+    turkish = "Türkiye İş Bankası " * 6
+    cases = {
+        "ascii": ("<html><body><p>Issuer</p>" + tail).encode(),
+        "turkish I": ("<html><body><p>" + turkish + "</p>" + tail).encode(),
+        "kelvin": ("<html><body><p>300 K</p>" + tail).encode(),
+        "U+023A": ("<html><body><p>" + "Ⱥ" * 40 + "</p>" + tail).encode(),
+        "invalid utf8": invalid,
+        "mixed case": b"<html><body><p>x</p></BoDy></html>",
+        "early body": "</body><p>İİİİİ</p>".encode(),
+        "no body": "<p>İİ ".encode() + b"\xff\xff plain fragment</p>",
+    }
+    for label, original in cases.items():
+        out = app.report_presentation(original)
+        start = out.find(b"<style data-library-presentation>")
+        end = out.rfind(b"</script>") + len(b"</script>")
+        want = len(original)
+        for i in range(len(original) - 7, -1, -1):
+            if original[i : i + 7].decode("latin-1").lower() == "</body>" and original[i] == 0x3C:
+                want = i
+                break
+        assert start == want, f"{label}: block at {start}, want {want}"
+        assert out[:start] == original[:want], label
+        assert out[end:] == original[want:], label
+
+
+BODY_CLOSE_CASES = [
+    ("", -1),
+    ("</body", -1),
+    ("</body>", 0),
+    ("x</BODY>", 1),
+    ("<p>İ</bOdY></html>", 5),
+    ("</body ></html>", -1),
+    ("</body\n></html>", -1),
+    ("<</body>>", 1),
+    ("</body></body>", 7),
+    ("\xff\xff\xff</body>\xff", 3),
+    ("</bödy></html>", -1),
+    ("</Kody></html>", -1),
+    ("<body>x</bodyx></html>", -1),
+    ("<body>x</bod></html>", -1),
+]
+
+
+@pytest.mark.parametrize(("html", "expected"), BODY_CLOSE_CASES)
+def test_review_last_body_close_boundaries(tmp_path: Path, html: str, expected: int) -> None:
+    # Go cases are Go strings: "\xff" there is one raw byte, and the other runes are UTF-8.
+    raw = html.encode("latin-1") if "\xff" in html else html.encode()
+    want = len(raw) if expected < 0 else expected
+    assert server_module.last_body_close(raw) == want
+    app, _ = make_app(tmp_path)
+    out = app.report_presentation(raw)
+    start = out.find(b"<style data-library-presentation>")
+    block = len(out) - len(raw)
+    assert start == want
+    assert out[:start] + out[start + block :] == raw
+
+
+def test_review_last_body_close_matches_an_ascii_lowered_oracle() -> None:
+    def oracle(html: bytes) -> int:
+        low = bytes(c + 32 if 65 <= c <= 90 else c for c in html)
+        found = low.rfind(b"</body>")
+        return found if found >= 0 else len(html)
+
+    alphabet = ["<", "/", "b", "B", "o", "O", "d", "D", "y", "Y", ">", " ", "</body>", "</BODY>"]
+    alphabet += ["</bOdY", "İ", "K", "Ⱥ", "\xff", "\xc4"]
+    pieces = [
+        piece.encode() if piece not in ("\xff", "\xc4") else piece.encode("latin-1")
+        for piece in alphabet
+    ]
+    state = 1
+    mask = (1 << 64) - 1
+
+    def following(n: int) -> int:
+        nonlocal state
+        state ^= (state << 13) & mask
+        state ^= state >> 7
+        state ^= (state << 17) & mask
+        return state % n
+
+    for _ in range(50000):
+        html = b"".join(pieces[following(len(pieces))] for _ in range(following(12)))
+        assert server_module.last_body_close(html) == oracle(html), html
+
+
+def test_review_embedded_glyph_report_over_http(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    report = (
+        ("<!doctype html><html><body><p>" + "Ⱥ" * 40).encode()
+        + b"\xff\xfe "
+        + "İstanbul</p><script>render()</script>\n<!-- font licence -->\n</body></html>".encode()
+    )
+    view = (
+        b'{"run":{"run_id":"case-a","issuer_id":"EX","issuer_name":"Example Industries",'
+        b'"as_of":"2024-12-31"}}'
+    )
+    put(root, "deliverables/glyph/report.html", report)
+    put(root, "deliverables/glyph/view.json", view)
+    put_json(
+        root,
+        "deliverables/glyph/delivery.json",
+        {"files": {"report.html": digest(report), "view.json": digest(view)}},
+    )
+    assert call(client, "POST", "/api/refresh", "{}").status_code == 200
+    href = ""
+    for run in app.catalogue.real:
+        for artifact in run.artifacts:
+            if artifact.folder == "deliverables/glyph" and artifact.available:
+                href = artifact.href
+    assert href, f"glyph delivery not available: {app.catalogue.issues}"
+    shown = client.get(href + "&embedded=1")
+    body = shown.content
+    at = body.find(b"<style data-library-presentation>")
+    assert shown.status_code == 200 and at >= 0, (shown.status_code, at)
+    assert body.endswith(b"</script></body></html>"), body[-40:]
+    assert body.startswith(report[: report.rfind(b"</body>")])
+    csp = shown.headers["content-security-policy"]
+    assert csp.startswith("sandbox allow-scripts allow-downloads;"), csp
+    assert "connect-src 'none'" in csp and csp.endswith(f"frame-ancestors {ORIGIN}"), csp
+    saved = client.get(href + "&download=1")
+    assert saved.content == report
+    assert saved.headers["content-security-policy"].endswith("frame-ancestors 'none'")
+
+
+@pytest.mark.parametrize(
+    ("label", "content", "ok"),
+    [
+        ("bom", b"\xef\xbb\xbf{W}", True),
+        ("plain", b"{W}", True),
+        ("bom-only", b"\xef\xbb\xbf", False),
+        ("double-bom", b"\xef\xbb\xbf\xef\xbb\xbf{W}", False),
+        ("bom-then-garbage", b"\xef\xbb\xbf{", False),
+        ("bom-relative", b'\xef\xbb\xbf{"workspace": "relative"}', False),
+        ("utf16-bom", b"\xff\xfe{W}", False),
+    ],
+)
+@pytest.mark.parametrize("managed", [True, False])
+def test_settings_accept_one_leading_byte_order_mark(
+    tmp_path: Path, label: str, content: bytes, ok: bool, managed: bool
+) -> None:
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    valid = json.dumps({"workspace": str(workspace)}).encode()
+    loc = Locations(
+        state=tmp_path / "state", documents=tmp_path / "documents", policy=tmp_path / "policy.json"
+    )
+    loc.state.mkdir()
+    (loc.policy if managed else loc.state / "settings.json").write_bytes(
+        content.replace(b"{W}", valid)
+    )
+    if not ok:
+        with pytest.raises((ValueError, OSError)):
+            load_config(loc)
+        return
+    config, locked = load_config(loc)
+    assert (config.workspace, locked) == (str(workspace), managed), label
+
+
+def stalled_request(app: Application, method: str, endpoint: str):
+    """Run one request through the ASGI app in its own thread; its send blocks on the first body."""
+    import asyncio
+
+    path, _, query = endpoint.partition("?")
+    scope = {
+        "type": "http",
+        "asgi": {"version": "3.0"},
+        "http_version": "1.1",
+        "method": method,
+        "scheme": "http",
+        "path": path,
+        "raw_path": path.encode(),
+        "query_string": query.encode(),
+        "root_path": "",
+        "server": ("127.0.0.1", 54321),
+        "client": ("127.0.0.1", 50000),
+        "headers": [
+            (b"host", HOST.encode()),
+            (b"cookie", f"{cookie_name(HOST)}={app.session.cookie}".encode()),
+            (b"x-issuer-library", b"1"),
+            (b"content-type", b"application/json"),
+        ],
+    }
+    writing, release, served = threading.Event(), threading.Event(), threading.Event()
+    sent = [False]
+
+    async def receive() -> dict[str, object]:
+        if sent[0]:
+            return {"type": "http.disconnect"}
+        sent[0] = True
+        return {"type": "http.request", "body": b"{}", "more_body": False}
+
+    async def send(message: dict[str, object]) -> None:
+        if message["type"] == "http.response.body":
+            writing.set()
+            await asyncio.get_running_loop().run_in_executor(None, release.wait)
+
+    def run() -> None:
+        try:
+            asyncio.run(app.asgi(scope, receive, send))  # type: ignore[arg-type]
+        finally:
+            served.set()
+
+    thread = threading.Thread(target=run)
+    thread.start()
+    return writing, release, served, thread
+
+
+def test_stalled_client_does_not_hold_the_catalogue_lock(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    put(root, "runs/case-a/big.txt", b"a" * (1 << 20))
+    call(client, "POST", "/api/refresh", "{}")
+    pinned = app.catalogue.real[0].artifacts[0].href
+    for method, endpoint in [
+        ("GET", "/files/runs/case-a/big.txt"),
+        ("GET", pinned + "&embedded=1"),
+        ("GET", "/api/catalogue"),
+        ("POST", "/api/refresh"),
+    ]:
+        writing, release, served, thread = stalled_request(app, method, endpoint)
+        try:
+            for _ in range(200):
+                if writing.wait(0.05) or served.is_set():
+                    break
+            assert writing.is_set(), f"{method} {endpoint} finished without writing"
+            got = app.lock.acquire(timeout=2)
+            assert got, (
+                f"{method} {endpoint}: the catalogue lock is held while the response is written"
+            )
+            app.lock.release()
+        finally:
+            release.set()
+            thread.join(10)
