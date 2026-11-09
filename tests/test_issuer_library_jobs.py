@@ -1086,7 +1086,7 @@ else:
  deadline=time.time()+60
  while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
 """
-QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
+QUITTING = "Credit OS is quitting for a new launch; use the window that launch opens."
 
 
 def held_engine(tmp_path: Path, engine: Engine) -> Engine:

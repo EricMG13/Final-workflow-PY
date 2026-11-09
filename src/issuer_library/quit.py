@@ -45,7 +45,7 @@ quit_stale = 20.0
 BUSY_ANSWER = re.compile(r"busy: [0-9]{1,6} runs?, [0-9]{1,6} reviews?")
 
 # Refuses a review or Start once the library has agreed to quit for a relaunch.
-LIBRARY_QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
+LIBRARY_QUITTING = "Credit OS is quitting for a new launch; use the window that launch opens."
 
 # Windows well-known SIDs, as stored: revision 1, the number of sub-authorities, the 6-byte
 # identifier authority (big endian), then each sub-authority (little endian).

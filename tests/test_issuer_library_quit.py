@@ -911,5 +911,5 @@ def test_a_refresh_or_settings_request_after_an_idle_quit_is_refused_not_blocked
         thread.start()
         thread.join(timeout=5)
         assert not thread.is_alive(), f"{endpoint} is blocked on the held refreshing lock"
-        want = "Issuer Library is quitting for a new launch; use the window that launch opens.\n"
+        want = "Credit OS is quitting for a new launch; use the window that launch opens.\n"
         assert replies == [(503, want)], endpoint
