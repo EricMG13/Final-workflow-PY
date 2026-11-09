@@ -21,6 +21,7 @@ from issuer_library_support import (
     call,
     client_of,
     fake_engine,
+    locations,
     make_app,
     put,
 )
@@ -1056,3 +1057,236 @@ def test_events_read_of_a_fifo_is_refused_without_blocking(tmp_path: Path) -> No
     worker.start()
     worker.join(3)
     assert outcome == ["refused", "empty"]
+
+
+HELD_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+else:
+ deadline=time.time()+60
+ while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
+"""
+QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
+
+
+def held_engine(tmp_path: Path, engine: Engine) -> Engine:
+    """A worker that runs until <job>/release exists, then exits without a final status."""
+    root = tmp_path / "held"
+    shutil.copytree(engine.root, root)
+    (root / "bridge.py").write_text(HELD_BRIDGE)
+    return Engine(root=root, python=engine.python)
+
+
+def missing_python(tmp_path: Path, engine: Engine) -> Engine:
+    return Engine(root=engine.root, python=str(tmp_path / "no-such-python"))
+
+
+def state_of(folder: Path) -> dict[str, Any]:
+    value: dict[str, Any] = json.loads((folder / "status.json").read_bytes())
+    return value
+
+
+def restarted(tmp_path: Path, root: Path) -> Application:
+    return Application(locations(tmp_path / "second"), str(root), HOST)
+
+
+def start_job(client: TestClient, job_id: str) -> Any:
+    return call(client, "POST", "/api/runs/start", start_payload(job_id))
+
+
+def test_failed_spawn_releases_the_start_claim_but_a_started_worker_keeps_it(
+    tmp_path: Path,
+) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    good = app.engine
+    app.engine = missing_python(tmp_path, good)
+    first = start_job(client, job_id)
+    assert first.status_code == 503 and "no model call was made" in first.text
+    assert not (folder / "start.claim").exists(), "claim survived a spawn that never ran"
+    status = client.get(f"/api/runs/status?id={job_id}").json()
+    assert status["state"] == "failed" and "can be tried again" in status["message"]
+    app.engine = good
+    assert start_job(client, job_id).status_code == 202
+    assert start_job(client, job_id).status_code == 409
+    wait_idle(app)
+    assert (folder / "synthetic-starts.txt").read_text() == "one\n"
+    again = start_job(client, job_id)
+    assert again.status_code == 409 and "already been started" in again.text
+
+
+def test_unsavable_start_status_releases_the_start_claim(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    (folder / "status.json").unlink()
+    put(folder, "status.json/blocker", b"")
+    assert start_job(client, job_id).status_code == 500
+    assert not (folder / "synthetic-starts.txt").exists(), "a worker ran"
+    assert not (folder / "start.claim").exists(), "claim survived"
+    shutil.rmtree(folder / "status.json")
+    put(folder, "status.json", b'{"state":"reviewed"}')
+    assert start_job(client, job_id).status_code == 202
+    wait_idle(app)
+
+
+def test_review_concurrent_starts_around_a_failed_spawn(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    good = app.engine
+    app.engine = missing_python(tmp_path, good)
+
+    def codes() -> dict[int, int]:
+        seen: dict[int, int] = {}
+
+        def one() -> None:
+            code = start_job(client, job_id).status_code
+            seen[code] = seen.get(code, 0) + 1
+
+        threads = [threading.Thread(target=one) for _ in range(8)]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
+        return seen
+
+    assert codes() == {503: 8}
+    assert not (folder / "start.claim").exists(), "claim left behind"
+    with app.lock:
+        app.engine = good
+    assert codes() == {202: 1, 409: 7}
+    wait_idle(app)
+    assert (folder / "synthetic-starts.txt").read_text() == "one\n"
+
+
+def test_review_worker_that_started_and_failed_keeps_the_claim(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    (app.engine.root / "bridge.py").write_text("import sys\nsys.exit(3)\n")
+    assert start_job(client, job_id).status_code == 202
+    wait_idle(app)
+    assert (root / "intake" / job_id / "start.claim").exists(), "claim released after a worker"
+    again = start_job(client, job_id)
+    assert again.status_code == 409 and "already been started" in again.text
+    assert client.get(f"/api/runs/status?id={job_id}").json()["state"] == "interrupted"
+
+
+def test_a_quitting_app_refuses_start_before_any_claim(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    app.quitting = True
+    response = start_job(client, job_id)
+    assert response.status_code == 503 and QUITTING in response.text
+    folder = root / "intake" / job_id
+    assert not (folder / "start.claim").exists() and not (folder / "synthetic-starts.txt").exists()
+
+
+def test_restart_settles_a_running_job_whose_worker_is_gone(tmp_path: Path) -> None:
+    _, root = make_app(tmp_path)
+    jobs = {
+        "unlocked": "running",
+        "no-lock": "running",
+        "complete": "complete",
+        "reviewed": "reviewed",
+    }
+    folders = {}
+    for number, (setup, state) in enumerate(jobs.items(), start=1):
+        job_id = f"web-{number:032x}"
+        folders[setup] = root / "intake" / job_id
+        write_job(root, job_id, state, time.time())
+        if setup != "no-lock":
+            put(root, f"intake/{job_id}/worker.lock", b"")
+    second = restarted(tmp_path, root)
+    want = {"unlocked": "interrupted", "no-lock": "interrupted"} | {
+        name: name for name in ("complete", "reviewed")
+    }
+    for setup, folder in folders.items():
+        assert state_of(folder)["state"] == want[setup], setup
+    assert "no automatic paid retry was made" in state_of(folders["unlocked"])["message"]
+    assert "no automatic paid retry was made" in state_of(folders["no-lock"])["message"]
+    assert second.active_jobs == set()
+
+
+def test_restart_with_a_live_worker_keeps_its_job_active_until_it_ends(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
+    first, root, client, job_id = reviewed(tmp_path)
+    first.engine = held_engine(tmp_path, first.engine)
+    folder = root / "intake" / job_id
+    try:
+        assert start_job(client, job_id).status_code == 202
+        second = restarted(tmp_path, root)
+        second.engine = first.engine
+        other = client_of(second)
+        assert state_of(folder)["state"] == "running", "a live worker's job was settled"
+        staged = review_request(other, '["annual.txt"]').json()["id"]
+        assert start_job(other, staged).status_code == 409
+        raw = json.dumps({"workspace": str(tmp_path)})
+        assert call(other, "POST", "/api/settings", raw).status_code == 409
+        (folder / "release").write_bytes(b"")
+        wait_idle(second)
+        wait_idle(first)
+        assert state_of(folder)["state"] == "interrupted"
+    finally:
+        for job in root.glob("intake/web-*"):
+            (job / "release").write_bytes(b"")
+
+
+def test_start_with_an_uncreatable_worker_lock_is_retryable(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    lock = folder / "worker.lock"
+    link_or_skip(lock, lock)  # opening it fails with a loop, never a lock
+    first = start_job(client, job_id)
+    assert first.status_code == 500 and "Start can be tried again" in first.text
+    assert not (folder / "start.claim").exists(), "the start claim was kept"
+    assert not (folder / "synthetic-starts.txt").exists(), "a worker started without its lock"
+    assert state_of(folder)["state"] != "running"
+    assert app.active_jobs == set()
+    lock.unlink()
+    assert start_job(client, job_id).status_code == 202
+    wait_idle(app)
+
+
+def test_restart_leaves_a_job_whose_lock_cannot_be_checked_as_it_is(tmp_path: Path) -> None:
+    _, root = make_app(tmp_path)
+    job_id = f"web-{9:032x}"
+    write_job(root, job_id, "running", time.time())
+    lock = root / "intake" / job_id / "worker.lock"
+    link_or_skip(lock, lock)
+    second = restarted(tmp_path, root)
+    assert state_of(root / "intake" / job_id)["state"] == "running"
+    assert second.active_jobs == set()
+
+
+def run_main(monkeypatch: pytest.MonkeyPatch, state: Path) -> tuple[int, list[str]]:
+    import issuer_library.__main__ as entry
+
+    shown: list[str] = []
+    argv = ["issuer-library", "--state-dir", str(state), "--no-browser", "--port", "80"]
+    monkeypatch.setattr(sys, "argv", argv)
+    monkeypatch.setattr(entry, "show_error", shown.append)
+    return entry.main(), shown
+
+
+def test_run_records_its_error_in_the_log_before_closing_it(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root = logging.getLogger()
+    monkeypatch.setattr(root, "handlers", [])
+    try:
+        code, shown = run_main(monkeypatch, tmp_path)
+    finally:
+        for handler in list(root.handlers):
+            handler.close()
+            root.removeHandler(handler)
+    assert code == 1 and "port must be between" in shown[0]
+    assert "port must be between 1024 and 65535" in (tmp_path / "library.log").read_text()
+
+
+@pytest.mark.skip(
+    reason="not applicable: Go's log.SetOutput swap has no Python equivalent; the root logger's"
+    " file handler is not a process-wide writer that is closed when run() returns"
+)
+def test_log_output_no_longer_points_at_the_closed_library_log() -> None:
+    raise AssertionError
