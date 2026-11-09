@@ -357,7 +357,12 @@ def events_route(app: FastAPI, lib: Application) -> None:
 def resume_route(app: FastAPI, lib: Application) -> None:
     @app.post("/api/runs/resume")
     async def runs_resume(request: Request) -> Response:
-        return await run_in_threadpool(resume_run, lib, await request.body())
+        body = b""
+        async for chunk in request.stream():  # Stop reading once the body is past the limit.
+            body += chunk
+            if len(body) > REQUEST_LIMIT:
+                break
+        return await run_in_threadpool(resume_run, lib, body)
 
 
 def build(lib: Application) -> FastAPI:

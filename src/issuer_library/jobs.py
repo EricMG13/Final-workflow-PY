@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import errno
 import functools
 import importlib.util
 import json
@@ -13,6 +14,7 @@ import stat
 import subprocess
 import sys
 import threading
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
@@ -193,7 +195,7 @@ def recent_candidate(workspace: str, name: str) -> tuple[int, str, bool] | None:
     file = Path(workspace) / "intake" / name / "status.json"
     try:
         written = file.stat().st_mtime_ns
-        state = events.state_of(events.loads(file.read_bytes()))
+        state = events.state_of(file.read_bytes())
     except (OSError, ValueError):
         return None
     if state is None or state == "reviewed":
@@ -417,37 +419,75 @@ def resume_request(raw: bytes) -> dict[str, Any]:
     return request
 
 
+def go_list(value: Any, convert: Callable[[Any], Any]) -> list[Any]:
+    """A slice field as Go decodes it: null is empty, any other non-array raises ValueError."""
+    if value is None:
+        return []
+    if not isinstance(value, list):
+        raise events.GoDecodeError("not an array")
+    return [convert(item) for item in value]
+
+
+def recorded_source(item: Any) -> dict[str, str]:
+    if item is not None and not isinstance(item, dict):
+        raise events.GoDecodeError("not an object")
+    record = item or {}
+    return {key: events.go_text(record.get(key)) for key in ("path", "sha256")}
+
+
 def recorded_job(raw: bytes) -> dict[str, Any] | None:
-    """A stopped run's job.json as Go decodes it into NewJob: a wrong field type is a failure."""
+    """A stopped run's job.json as Go decodes it into NewJob; None where Go's decode fails."""
     try:
-        job = json.loads(raw)
+        job = events.go_record(raw)
+        for key in ("id", "workspace", "config", "cap_usd", "resume_of"):
+            events.go_text(job.get(key))
+        if (turns := job.get("max_turns")) is not None and not events.is_int(turns):
+            raise events.GoDecodeError("max_turns is not an integer")
+        return {
+            "config": events.go_text(job.get("config")),
+            "modules": go_list(job.get("modules"), events.go_text),
+            "sources": go_list(job.get("sources"), recorded_source),
+        }
     except ValueError:
         return None
-    if not isinstance(job, dict):
+
+
+def stopped_run_state(raw: bytes) -> str | None:
+    """status.json as Go decodes it into JobStatus: its state, None where the decode fails."""
+    try:
+        record = events.go_record(raw)
+        for key in ("message", "id"):
+            events.go_text(record.get(key))
+        return events.go_text(record.get("state"))
+    except ValueError:
         return None
-    text_keys = ("id", "workspace", "config", "cap_usd")
-    modules, sources = job.get("modules") or [], job.get("sources") or []
-    turns = job.get("max_turns")
-    if (
-        any(not isinstance(job.get(key, ""), str | None) for key in text_keys)
-        or not isinstance(modules, list)
-        or not all(isinstance(module, str) for module in modules)
-        or (turns is not None and type(turns) is not int)
-        or not isinstance(sources, list)
-    ):
-        return None
-    kept: list[dict[str, str]] = []
-    for source in sources:
-        source = source or {}
-        pair = (
-            (source.get("path") or "", source.get("sha256") or "")
-            if isinstance(source, dict)
-            else None
-        )
-        if pair is None or not all(isinstance(part, str) for part in pair):
-            return None
-        kept.append({"path": pair[0], "sha256": pair[1]})
-    return {"config": job.get("config") or "", "modules": modules, "sources": kept}
+
+
+# Directories are walked by descriptor, each opened relative to its parent without following a
+# link, so a link swapped in after a check is refused where it is used (as Go's os.Root does).
+# Windows has no dir_fd for os.open: there only an lstat check made just before use stands in.
+FD_WALK = hasattr(os, "O_NOFOLLOW") and os.open in os.supports_dir_fd
+GONE = (errno.ENOENT, errno.ELOOP, errno.ENOTDIR, errno.EINVAL, errno.ENXIO, errno.ENAMETOOLONG)
+DIR_FLAGS = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+
+
+def walk_dirs(parent: int, parts: list[str], mode: int | None) -> int:
+    """Open parts below the directory parent (created with mode when given); the caller closes."""
+    handle = os.dup(parent)
+    try:
+        for part in parts:
+            if mode is not None:
+                try:
+                    os.mkdir(part, mode, dir_fd=handle)
+                except FileExistsError:
+                    pass
+            child = os.open(part, DIR_FLAGS | os.O_NOFOLLOW, dir_fd=handle)
+            os.close(handle)
+            handle = child
+    except BaseException:
+        os.close(handle)
+        raise
+    return handle
 
 
 def mkdir_all_in(root: Path, name: str, mode: int = 0o700) -> None:
@@ -455,22 +495,27 @@ def mkdir_all_in(root: Path, name: str, mode: int = 0o700) -> None:
 
     ValueError stands for fs.ErrInvalid; an existing non-directory or link raises OSError.
     """
-    parts = name.split("/")
-    if name != "." and (
-        not name or name.startswith("/") or any(p in ("", ".", "..") for p in parts)
-    ):
+    parts = [] if name == "." else name.split("/")
+    if name != "." and (name.startswith("/") or any(part in ("", ".", "..") for part in parts)):
         raise ValueError(f"invalid path: {name!r}")
-    for position in range(len(parts) if name != "." else 0):
-        directory = root.joinpath(*parts[: position + 1])
-        try:
-            directory.mkdir(mode=mode)
-        except FileExistsError:
-            if not stat.S_ISDIR(directory.lstat().st_mode):
-                raise NotADirectoryError(str(directory)) from None
+    if not FD_WALK:
+        for position in range(len(parts)):
+            directory = root.joinpath(*parts[: position + 1])
+            try:
+                directory.mkdir(mode=mode)
+            except FileExistsError:
+                if not stat.S_ISDIR(directory.lstat().st_mode):
+                    raise NotADirectoryError(str(directory)) from None
+        return
+    handle = os.open(root, DIR_FLAGS)
+    try:
+        os.close(walk_dirs(handle, parts, mode))
+    finally:
+        os.close(handle)
 
 
 def is_plain_file(base: Path, name: str) -> bool:
-    """name under base is a regular file reached through no symbolic link."""
+    """name under base is a regular file reached through no symbolic link (the lstat stand-in)."""
     current = base
     try:
         for part in name.split("/"):
@@ -482,13 +527,60 @@ def is_plain_file(base: Path, name: str) -> bool:
         return False
 
 
-def copy_input(old: Path, name: str, root: Path, target: str) -> None:
-    """Stream one stopped-run file into the new job: a new 0600 file, the source never followed."""
-    source = os.open(old / name, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
-    with os.fdopen(source, "rb") as reader:
-        handle = os.open(root / target, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-        with os.fdopen(handle, "wb") as writer:
-            shutil.copyfileobj(reader, writer)
+def source_names(job: dict[str, Any]) -> list[str]:
+    names = ["context.json"]
+    for source in job["sources"]:
+        if not valid_source_path(source["path"]):
+            raise HTTPException(409, INPUTS_GONE)
+        names.append(f"sources/{source['path']}")
+    return names
+
+
+def copy_names(old: int, new: int, names: list[str]) -> None:
+    """Stream each file from the stopped run (a regular file, no link) into the new job."""
+    for name in names:
+        *folders, leaf = name.split("/")
+        try:
+            parent = walk_dirs(old, folders, None)
+            try:
+                source = os.open(leaf, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+            finally:
+                os.close(parent)
+            if not stat.S_ISREG(os.fstat(source).st_mode):
+                os.close(source)
+                raise OSError(errno.EINVAL, "not a regular file")
+        except OSError as error:
+            # Missing, linked or not a regular file: gone (409). Anything else (say, permission)
+            # is a copy failure, as Go's Lstat succeeds there and the open fails.
+            if error.errno in GONE:
+                raise HTTPException(409, INPUTS_GONE) from error
+            raise HTTPException(500, COPY_FAILED) from error
+        with os.fdopen(source, "rb") as reader:
+            try:
+                parent = walk_dirs(new, folders, 0o700)
+                try:
+                    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+                    target = os.open(leaf, flags, 0o600, dir_fd=parent)
+                finally:
+                    os.close(parent)
+                with os.fdopen(target, "wb") as writer:
+                    shutil.copyfileobj(reader, writer)
+            except OSError as error:
+                raise HTTPException(500, COPY_FAILED) from error
+
+
+def copy_by_path(old: Path, new: Path, names: list[str]) -> None:
+    """The lstat stand-in for platforms without dir_fd: check, then copy by path."""
+    for name in names:
+        if not is_plain_file(old, name):
+            raise HTTPException(409, INPUTS_GONE)
+        try:
+            target = new / name
+            mkdir_all_in(new, str(Path(name).parent.as_posix()))
+            with (old / name).open("rb") as reader, target.open("xb") as writer:
+                shutil.copyfileobj(reader, writer)
+        except OSError as error:
+            raise HTTPException(500, COPY_FAILED) from error
 
 
 def copy_resume_inputs(root: Path, old_id: str, job: dict[str, Any]) -> None:
@@ -496,24 +588,37 @@ def copy_resume_inputs(root: Path, old_id: str, job: dict[str, Any]) -> None:
     old = root / "intake" / old_id
     if not old.is_dir():
         raise HTTPException(409, INPUTS_GONE)
-    relative = f"intake/{job['id']}"
-    try:
-        (root / relative).mkdir(mode=0o700)
-    except OSError as error:
-        raise HTTPException(400, "The workspace is not writable") from error
-    names = ["context.json"]
-    for source in job["sources"]:
-        if not valid_source_path(source["path"]):
-            raise HTTPException(409, INPUTS_GONE)
-        names.append(f"sources/{source['path']}")
-    for name in names:
-        if not is_plain_file(old, name):
-            raise HTTPException(409, INPUTS_GONE)
+    new = root / "intake" / job["id"]
+    if not FD_WALK:
         try:
-            mkdir_all_in(root, str(Path(f"{relative}/{name}").parent.as_posix()))
-            copy_input(old, name, root, f"{relative}/{name}")
+            new.mkdir(mode=0o700)
         except OSError as error:
-            raise HTTPException(500, COPY_FAILED) from error
+            raise HTTPException(400, "The workspace is not writable") from error
+        copy_by_path(old, new, source_names(job))
+        return
+    base = os.open(root, DIR_FLAGS)
+    try:
+        try:
+            intake = walk_dirs(base, ["intake"], None)
+            try:
+                os.mkdir(job["id"], 0o700, dir_fd=intake)
+                folder = os.open(job["id"], DIR_FLAGS | os.O_NOFOLLOW, dir_fd=intake)
+            finally:
+                os.close(intake)
+        except OSError as error:
+            raise HTTPException(400, "The workspace is not writable") from error
+        try:
+            holder = os.open(old, DIR_FLAGS)
+        except OSError as error:
+            os.close(folder)
+            raise HTTPException(409, INPUTS_GONE) from error
+        try:
+            copy_names(holder, folder, source_names(job))
+        finally:
+            os.close(holder)
+            os.close(folder)
+    finally:
+        os.close(base)
 
 
 def resume_run(lib: Application, raw: bytes) -> Response:
@@ -523,12 +628,11 @@ def resume_run(lib: Application, raw: bytes) -> Response:
         workspace = lib.config.workspace
     root = Path(workspace)
     old = root / "intake" / request["id"]
-    status = read_object(old / "status.json")
-    if (
-        status is None
-        or status.get("state") not in RESUMABLE
-        or not all(isinstance(status.get(key, ""), str | None) for key in ("message", "id"))
-    ):
+    try:
+        state = stopped_run_state((old / "status.json").read_bytes())
+    except OSError:
+        state = None
+    if state not in RESUMABLE:
         raise HTTPException(409, "Only a stopped, failed or interrupted run can be resumed")
     try:
         recorded = recorded_job((old / "job.json").read_bytes())

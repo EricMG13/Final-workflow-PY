@@ -26,9 +26,10 @@ from issuer_library_support import (
 )
 
 import issuer_library.events as events_module
+import issuer_library.jobs as jobs_module
 import issuer_library.server as server_module
 from issuer_library.events import progress
-from issuer_library.jobs import Engine, job_view, mkdir_all_in
+from issuer_library.jobs import Engine, job_view, mkdir_all_in, recorded_job
 from issuer_library.server import Application
 from issuer_library.settings import save_json
 
@@ -743,6 +744,13 @@ def stopped_run(tmp_path: Path) -> tuple[Application, Path, TestClient, str]:
     raise AssertionError("the synthetic run did not stop")
 
 
+def link_or_skip(link: Path, target: Path) -> None:
+    try:
+        link.symlink_to(target)
+    except OSError as error:
+        pytest.skip(f"symlinks unavailable: {error}")
+
+
 def resume_body(job_id: str, **fields: Any) -> str:
     return json.dumps({"id": job_id, "cap_usd": "12.00", "max_turns": 9, **fields})
 
@@ -821,7 +829,7 @@ def test_resume_copies_only_the_listed_regular_files(tmp_path: Path) -> None:
     _, root, client, job_id = stopped_run(tmp_path)
     (root / "outside.txt").write_text("secret")
     sources = root / "intake" / job_id / "sources"
-    (sources / "link.txt").symlink_to(root / "outside.txt")
+    link_or_skip(sources / "link.txt", root / "outside.txt")
     (sources / "unlisted.txt").write_text("late")
     response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
     assert response.status_code == 200, response.text
@@ -834,7 +842,7 @@ def test_resume_refuses_a_listed_source_that_is_now_a_link(tmp_path: Path) -> No
     (root / "outside.txt").write_text("secret")
     listed = root / "intake" / job_id / "sources" / "annual.txt"
     listed.unlink()
-    listed.symlink_to(root / "outside.txt")
+    link_or_skip(listed, root / "outside.txt")
     response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
     assert response.status_code == 409 and "no longer in the workspace" in response.text
     assert len(intake_entries(root)) == 1, "a refused resume left an intake folder"
@@ -857,7 +865,160 @@ def test_mkdir_all_in_refuses_files_and_escapes(tmp_path: Path) -> None:
     for name in ("../outside", "/abs", "a/../../b", ""):
         with pytest.raises(ValueError):
             mkdir_all_in(root, name, 0o700)
-    (root / "link").symlink_to(outside)
+    link_or_skip(root / "link", outside)
     with pytest.raises(OSError):
         mkdir_all_in(root, "link/escaped", 0o700)
     assert not (outside / "escaped").exists(), "a directory was created outside the root"
+
+
+def test_resume_reads_no_link_swapped_in_after_the_check(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (outside / "annual.txt").write_text("secret")
+    checked = jobs_module.is_plain_file
+
+    def check_then_swap(base: Path, name: str) -> bool:
+        ok = checked(base, name)
+        if name == "sources/annual.txt":
+            shutil.rmtree(base / "sources")
+            link_or_skip(base / "sources", outside)
+        return ok
+
+    monkeypatch.setattr(jobs_module, "is_plain_file", check_then_swap)
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code in (200, 409), response.text
+    copies = (root / "intake").glob("web-*/sources/annual.txt")
+    assert [p for p in copies if job_id not in str(p) and p.read_bytes() == b"secret"] == []
+
+
+@pytest.mark.parametrize("inside", [False, True])
+def test_resume_refuses_a_linked_intake_folder(tmp_path: Path, inside: bool) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    moved = (root if inside else tmp_path / "elsewhere") / "intake-real"
+    moved.parent.mkdir(exist_ok=True)
+    (root / "intake").rename(moved)
+    link_or_skip(root / "intake", moved)
+    before = sorted(p.name for p in moved.iterdir())
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 400 and "The workspace is not writable" in response.text
+    assert sorted(p.name for p in moved.iterdir()) == before, "a folder was created"
+
+
+@pytest.mark.parametrize(
+    "job",
+    [
+        b'{"sources":[{"path":"a.txt","sha256":0}]}',
+        b'{"sources":[{"path":"a.txt","sha256":false}]}',
+        b'{"modules":false}',
+        b'{"modules":{}}',
+        b'{"sources":0}',
+        b'{"resume_of":5}',
+        b'{"max_turns":9.0}',
+        b'{"extra":NaN}',
+        b'{"extra":' + b"[" * 20000 + b"]" * 20000 + b"}",
+    ],
+)
+def test_recorded_job_refuses_what_go_unmarshal_refuses(job: bytes) -> None:
+    assert recorded_job(job) is None
+
+
+def test_recorded_job_decodes_as_go_unmarshal_does() -> None:
+    raw = b'{"CONFIG":"a","config":null,"Config":"b","modules":[null,"CP-4"],"sources":[null]}'
+    assert recorded_job(raw) == {
+        "config": "b",
+        "modules": ["", "CP-4"],
+        "sources": [{"path": "", "sha256": ""}],
+    }
+    assert recorded_job(b"null") == {"config": "", "modules": [], "sources": []}
+    assert recorded_job(rb'{"config":"\udc80"}') == {
+        "config": "\ufffd",
+        "modules": [],
+        "sources": [],
+    }
+    assert recorded_job(b'{"config":"\xff"}')["config"] == "\ufffd"
+
+
+@pytest.mark.parametrize(
+    ("status", "resumes"),
+    [
+        (b'{"State":"stopped"}', True),
+        (b'{"state":"stopped","State":"running"}', False),
+        (b'{"state":"running","STATE":"stopped"}', True),
+        (b'{"state":"stopped","message":5}', False),
+        (b'{"state":"stopped","Message":5}', False),
+        (b'{"state":"stopped","id":5}', False),
+        (b'{"state":"stopped","x":NaN}', False),
+        (b'{"state":"stopped","message":"\xff"}', True),
+        (b"null", False),
+        (b'{"state":"stopped","x":' + b"[" * 20000 + b"]" * 20000 + b"}", False),
+    ],
+)
+def test_resume_reads_the_stopped_status_as_go_unmarshal_does(
+    tmp_path: Path, status: bytes, resumes: bool
+) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    (root / "intake" / job_id / "status.json").write_bytes(status)
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == (200 if resumes else 409), response.text
+
+
+def test_run_list_reads_the_status_state_as_go_does(tmp_path: Path) -> None:
+    _, root, client, job_id = stopped_run(tmp_path)
+    status = root / "intake" / job_id / "status.json"
+    status.write_bytes(b'{"state":"stopped","STATE":"reviewed"}')  # The last match wins.
+    assert client.get("/api/runs/list").json() == []
+
+
+def test_resume_reads_at_most_one_byte_past_the_limit(tmp_path: Path) -> None:
+    _, _, client, job_id = stopped_run(tmp_path)
+    big = resume_body(job_id, cap_usd="1" * (jobs_module.REQUEST_LIMIT + 1))
+    response = call(client, "POST", "/api/runs/resume", big)
+    assert response.status_code == 400
+    assert "Choose a stopped run, a maximum spend and 1–64 turns" in response.text
+
+
+def linked_log(tmp_path: Path, name: str, raw: bytes) -> Path:
+    folder = tmp_path / "run"
+    folder.mkdir()
+    (tmp_path / "outside").write_bytes(raw)
+    link_or_skip(folder / name, tmp_path / "outside")
+    return folder
+
+
+def test_events_reads_refuse_a_linked_log_or_progress(tmp_path: Path) -> None:
+    line = b'{"at":"2026-11-07T10:00:00Z","event":"module_started","module":"LEAK"}\n'
+    folder = linked_log(tmp_path, "events.jsonl", line)
+    with pytest.raises(OSError) as error:
+        events_module.read_events(folder)
+    assert not isinstance(error.value, FileNotFoundError)
+    assert events_module.progress(folder) is None and events_module.started(folder) == ""
+    (folder / "progress.json").write_bytes(b'{"step":"started","module":"OLD"}')
+    assert events_module.progress(folder) == {"step": "started", "module": "OLD"}
+    (folder / "events.jsonl").unlink()
+    (folder / "progress.json").unlink()
+    (tmp_path / "outside").write_bytes(b'{"step":"started","module":"LEAK"}')
+    link_or_skip(folder / "progress.json", tmp_path / "outside")
+    assert events_module.progress(folder) is None
+
+
+def test_events_read_of_a_fifo_is_refused_without_blocking(tmp_path: Path) -> None:
+    folder = tmp_path / "run"
+    folder.mkdir()
+    os.mkfifo(folder / "events.jsonl")
+    outcome: list[str] = []
+
+    def read() -> None:
+        try:
+            events_module.read_events(folder)
+            outcome.append("read")
+        except OSError:
+            outcome.append("refused")
+        outcome.append(events_module.started(folder) or "empty")
+
+    worker = threading.Thread(target=read, daemon=True)
+    worker.start()
+    worker.join(3)
+    assert outcome == ["refused", "empty"]

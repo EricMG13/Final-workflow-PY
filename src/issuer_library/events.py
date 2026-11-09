@@ -8,10 +8,13 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
+import stat
 from dataclasses import dataclass, field
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, BinaryIO
 
 log = logging.getLogger("issuer_library")
 
@@ -21,6 +24,7 @@ TEXT_FIELDS = ("at", "module", "spent_usd", "held_usd", "cap_usd", "reason")
 NUMBER_FIELDS = ("turn", "max_turns")
 INT64 = 1 << 63
 LONE_SURROGATE = re.compile("[\ud800-\udfff]")
+SURROGATE_ESCAPE = re.compile(r"\\u[dD][89a-fA-F]")
 STEPS = {
     "module_started": "started",
     "turn": "running",
@@ -43,6 +47,10 @@ class EventLog:
     cut: bool = False
 
 
+class GoDecodeError(ValueError):
+    """Text or a value json.Unmarshal into the Go struct would refuse."""
+
+
 def refuse_constant(name: str) -> Any:
     raise ValueError(f"not JSON: {name}")
 
@@ -58,28 +66,53 @@ def scrub(value: Any) -> Any:
     return value
 
 
-def loads(raw: bytes) -> Any:
+def loads(raw: bytes, pairs: Callable[[list[tuple[str, Any]]], Any] | None = None) -> Any:
     """JSON from bytes as Go reads it. Raises ValueError for text Go refuses, including nesting
     deeper than the parser's recursion limit."""
     try:
-        return scrub(json.loads(raw.decode("utf-8", "replace"), parse_constant=refuse_constant))
+        text = raw.decode("utf-8", "replace")
+        value = json.loads(text, parse_constant=refuse_constant, object_pairs_hook=pairs)
+        # scrub recurses, so a text with no surrogate escape (the usual case) skips it.
+        return (
+            scrub(value) if SURROGATE_ESCAPE.search(text) or LONE_SURROGATE.search(text) else value
+        )
     except RecursionError as error:
         raise ValueError("nested too deeply") from error
 
 
-def state_of(status: Any) -> str | None:
-    """The `state` of a decoded status.json as Go's struct{State string} reads it: missing or
-    null is "", the key matches without regard to case (exact case first), a non-string value
-    (or a non-object) is a decode error, None here."""
-    if status is None:
-        return ""
-    if not isinstance(status, dict):
-        return None
-    key = "state" if "state" in status else next((k for k in status if k.lower() == "state"), "")
-    value = status.get(key)
+def last_match(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """An object's members keyed in lower case; of keys equal without case, the last wins."""
+    return {key.lower(): value for key, value in pairs}
+
+
+def go_record(raw: bytes) -> dict[str, Any]:
+    """The members json.Unmarshal reads into a struct, keys in lower case (also in nested
+    objects). null is the empty struct; any other non-object raises ValueError."""
+    value = loads(raw, last_match)
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise GoDecodeError("not an object")
+    return value
+
+
+def go_text(value: Any) -> str:
+    """A string field as Go decodes it: null is "", any other non-string raises ValueError."""
     if value is None:
         return ""
-    return value if isinstance(value, str) else None
+    if not isinstance(value, str):
+        raise GoDecodeError("not a string")
+    return value
+
+
+def state_of(raw: bytes) -> str | None:
+    """The `state` of a status.json as Go's struct{State string} reads it: missing or null is "",
+    the key matches without regard to case (the last match wins), a non-string value or a
+    non-object is a decode error, None here."""
+    try:
+        return go_text(go_record(raw).get("state"))
+    except ValueError:
+        return None
 
 
 def is_int(value: Any) -> bool:
@@ -135,9 +168,29 @@ def parse_events(raw: bytes) -> EventLog:
     return record
 
 
+def open_regular(path: Path) -> BinaryIO:
+    """Open a regular file for reading without following a link and without blocking on a FIFO.
+
+    Deliberately stricter than Go's os.Open. FileNotFoundError when it is missing; any other
+    OSError when it is a link or not a regular file. Without O_NOFOLLOW (Windows) an lstat check
+    stands in for it.
+    """
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    if not nofollow and not stat.S_ISREG(path.lstat().st_mode):
+        raise OSError(f"not a regular file: {path.name}")
+    fd = os.open(path, os.O_RDONLY | nofollow | getattr(os, "O_NONBLOCK", 0))
+    try:
+        if not stat.S_ISREG(os.fstat(fd).st_mode):
+            raise OSError(f"not a regular file: {path.name}")
+        return os.fdopen(fd, "rb")
+    except BaseException:
+        os.close(fd)
+        raise
+
+
 def read_log(folder: Path) -> EventLog:
     """Raises FileNotFoundError for a missing log and OSError for any other read failure."""
-    with (folder / "events.jsonl").open("rb") as stream:
+    with open_regular(folder / "events.jsonl") as stream:
         raw = stream.read(EVENTS_LIMIT)
     record = parse_events(raw)
     record.cut = len(raw) >= EVENTS_LIMIT
@@ -172,7 +225,8 @@ def fold(events: list[dict[str, Any]]) -> dict[str, Any]:
 
 def retained_progress(folder: Path) -> dict[str, Any] | None:
     try:
-        value = loads((folder / "progress.json").read_bytes())
+        with open_regular(folder / "progress.json") as stream:
+            value = loads(stream.read())
     except (OSError, ValueError):
         return None
     return value if isinstance(value, dict) else None
@@ -211,7 +265,7 @@ def progress(folder: Path) -> dict[str, Any] | None:
 def started(folder: Path) -> str:
     """The time of the run's first event, or "" when there is no log or its first line has none."""
     try:
-        with (folder / "events.jsonl").open("rb") as stream:
+        with open_regular(folder / "events.jsonl") as stream:
             head = stream.read(FIRST_LINE_LIMIT)
     except OSError:
         return ""
