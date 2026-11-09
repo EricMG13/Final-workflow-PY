@@ -30,8 +30,10 @@ BROWSER_TESTS = (
     "tests/test_issuer_library_reader.py",
     "tests/test_issuer_library_run_activity.py",
     "tests/test_issuer_library_run_spend.py",
+    "tests/test_issuer_library_run_watch.py",
     "tests/test_issuer_library_screening.py",
     "tests/test_issuer_library_screens.py",
+    "tests/test_issuer_library_workspace.py",
 )
 PYTHON_TESTS = (
     "tests/test_issuer_library_css.py",
