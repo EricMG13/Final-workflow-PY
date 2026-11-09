@@ -288,6 +288,20 @@ def library_counts(page: Any, name: str) -> None:
     )
 
 
+def any_run(page: Any) -> None:
+    """Choose Any run where the Library has a Runs control (it defaults to Latest)."""
+    # ponytail: presence guard until #36's Runs control is on main;
+    # 1-U removes this guard and ports 4C's unguarded lines.
+    if page.locator("#library-runs").count():
+        page.select_option("#library-runs", "any")
+
+
+def reset_library(page: Any) -> None:
+    """Reset returns Runs to Latest; Plan 1 steps compare every row, so choose Any run."""
+    page.click("#library-clear")
+    any_run(page)
+
+
 def library_screening(page: Any, name: str, port: int) -> None:
     """A filter and a sort change the rows; a detail opens; Open run and Open report stay in app."""
     cases = KEY["filter_cases"]
@@ -296,14 +310,14 @@ def library_screening(page: Any, name: str, port: int) -> None:
         row_ids(page) == cases["c_search_issuer_name"]["expected_ids"],
         f"{name}: a search narrows the rows to the key's",
     )
-    page.click("#library-clear")
+    reset_library(page)
     page.click("#metric-filters summary")
     page.fill("#library-leverageMin", cases["a_leverage_min"]["filters"]["leverageMin"])
     note(
         sorted(row_ids(page)) == sorted(cases["a_leverage_min"]["expected_ids"]),
         f"{name}: a leverage minimum keeps the key's rows",
     )
-    page.click("#library-clear")
+    reset_library(page)
     sort = page.locator("[data-library-sort='leverage']")
     sort.focus()
     page.keyboard.press("Enter")
@@ -318,7 +332,7 @@ def library_screening(page: Any, name: str, port: int) -> None:
         len(row_ids(page)) == KEY["issuer_count"]["rows_per_issuer"]["TDG"],
         f"{name}: the keyboard chooses an issuer",
     )
-    page.click("#library-clear")
+    reset_library(page)
     page.click("[data-library-select='tdg-002']")
     detail = page.locator("#run-detail")
     note(
@@ -335,14 +349,14 @@ def library_detail_links(page: Any, name: str, port: int, run: str) -> None:
     detail.locator("a:has-text('Open report')").click()
     page.wait_for_selector("#report-preview")
     note("W-Reports" in page.url, f"{name}: Open report opens the report inside the app")
-    page.goto(f"http://127.0.0.1:{port}/#W-Library/cases")
+    page.goto(f"http://127.0.0.1:{port}/#W-Library/cases?runs=any")
     page.reload()
     page.wait_for_selector("#library-results tbody tr")
     page.click(f"[data-library-select='{run}']")
     page.locator("#run-detail a:has-text('Open run')").click()
     page.wait_for_selector(".summary-lead")
     note("W-Overview" in page.url, f"{name}: Open run reaches the Overview")
-    page.goto(f"http://127.0.0.1:{port}/#W-Library/cases")
+    page.goto(f"http://127.0.0.1:{port}/#W-Library/cases?runs=any")
     page.reload()
     page.wait_for_selector("#library-results tbody tr")
 
@@ -377,6 +391,7 @@ def follow_built_from(page: Any, name: str) -> None:
 def library_and_report(page: Any, name: str, port: int) -> None:
     page.goto(f"http://127.0.0.1:{port}/")
     page.wait_for_selector("#library-results tbody tr", timeout=30000)
+    any_run(page)  # Plan 1's checks compare every row
     want = sum(p.is_dir() for p in (R / "runs").iterdir())
     # Each run folder in the store has one Overview link; delivery rows sit beside them.
     note(
@@ -806,6 +821,7 @@ def new_run(  # noqa: PLR0915, RUF100
     page.set_viewport_size(size)
     page.click(".rail a[data-place='Issuer library']")
     page.wait_for_selector("#library-results tbody tr")
+    any_run(page)  # Latest could hide the new run
     # The catalogue names a run by its folder; only the store knows its issuer.
     find = "(issuer) => Object.keys(contexts).find(k => contexts[k].issuer === issuer)"
     key = page.evaluate(find, ISSUER)
