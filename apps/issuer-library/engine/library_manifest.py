@@ -98,6 +98,7 @@ class _Delivery(NamedTuple):
 def _read(root: Path, rel: str) -> bytes | None:
     """The file's bytes, or None when it is absent; a link or non-regular file is refused."""
     try:
+        # A test that replaces `os.open` fails this check and takes the fallback below.
         if os.open in os.supports_dir_fd:
             return _read_pinned(root, Path(rel))
         # ponytail: no dir_fd (Windows): folders are checked then opened by path, so a link
@@ -557,6 +558,18 @@ def _close(fds: list[int]) -> None:
         os.close(fd)
 
 
+def _close_if_unowned(fd: int, ours: os.stat_result) -> None:
+    """Close `fd` after a failed `os.fdopen` only if it is still our temp file: when the file
+    layer had taken it, that layer already closed it and a second close would raise EBADF over
+    the original error (or close a descriptor number reused since)."""
+    try:
+        now = os.fstat(fd)
+    except OSError:  # EBADF: already closed by the file layer.
+        return
+    if (now.st_dev, now.st_ino) == (ours.st_dev, ours.st_ino):
+        os.close(fd)
+
+
 def _publish(workspace: Path, run_id: str, text: str) -> None:
     """Write `library.json` through folder fds; a link swapped in after `build` is not followed."""
     fds = _walk(workspace, ("runs", run_id))
@@ -567,18 +580,22 @@ def _publish(workspace: Path, run_id: str, text: str) -> None:
         flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
         handle = os.open(temp, flags, 0o600, dir_fd=run_fd)
         made = True
+        ours = os.fstat(handle)
         try:
             out = os.fdopen(handle, "w", encoding="utf-8", newline="")
         except BaseException:
-            os.close(handle)
+            _close_if_unowned(handle, ours)
             raise
         with out:
             out.write(text)
         os.replace(temp, "library.json", src_dir_fd=run_fd, dst_dir_fd=run_fd)
         made = False
-    except BaseException:
+    except BaseException as err:
         if made:
-            os.unlink(temp, dir_fd=fds[-1])
+            try:
+                os.unlink(temp, dir_fd=fds[-1])
+            except OSError as cleanup:
+                err.add_note(f"temp file {temp} was not removed: {cleanup}")
         raise
     finally:
         _close(fds)
@@ -588,6 +605,7 @@ def write(workspace: Path, run_id: str) -> Path:
     """Write `build(...)` to `runs/<run_id>/library.json` atomically and return the path."""
     text = json.dumps(build(workspace, run_id), indent=2, ensure_ascii=False) + "\n"
     target = workspace / "runs" / run_id / "library.json"
+    # A test that replaces `os.open` fails this membership test and runs the by-path fallback.
     if os.open not in os.supports_dir_fd:
         # ponytail: no dir_fd (Windows), so the folder path is not pinned; a link swapped in
         # between build() and this write can redirect library.json. Ceiling: the POSIX path above.
