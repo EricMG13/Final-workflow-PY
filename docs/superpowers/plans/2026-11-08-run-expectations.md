@@ -118,6 +118,11 @@ rule: an exact value in its pinned quote):
   [{"kind": "observed", "terms": {<Quote field>: Metric}}]}]`. Term keys are the context field
   names above; each Metric (`value`, `unit`, `period`, `basis`, `source`) has `provenance: "user"`.
 - Metric `provenance` adds `user` to `cited`, `calculated`, `synthetic`.
+- `run.ratings[]` items gain `agency` and `scope` (`issuer` | `facility`), copied from the context
+  rating; `label` is the context `rating` exactly as entered; `source` pins its `"rating": "…"`
+  line. Admitted under the existing rating rule (pinned source only), and a `scope` other than
+  `issuer` or `facility` is rejected. Retained ratings without `agency`/`scope` stay admitted; the
+  issuer-scope rating filter counts them as not recorded.
 - `run.metrics` keys: `leverage`, `net_leverage`, `coverage`, `cash`, `undrawn` (CP-1 chart rows,
   provenance `calculated`) and, on Primary runs, `leverage_pro_forma` and `leverage_as_marketed`,
   read from CP-2's `### Pro forma leverage` rows `Pro forma, excluding unrealised add-backs` and
