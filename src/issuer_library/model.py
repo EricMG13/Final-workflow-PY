@@ -11,6 +11,8 @@ from urllib.parse import quote
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 
+# The one size limit for a delivered or uploaded file. The store states the same 64 MiB as
+# MODEL_FILE_LIMIT (engine/store.py); change the two together.
 MAX_FILE = 64 << 20
 # What url.PathEscape keeps in one path segment.
 SEGMENT_SAFE = "$&+:=@"
@@ -60,6 +62,7 @@ class Counts(Record):
 
 class Artifact(Record):
     folder: str = ""
+    kind: str = ""
     label: str = ""
     state: str = ""
     relationship: str = ""
@@ -141,6 +144,17 @@ class DeliveryRun(Record):
 class DeliveryView(Record):
     run: DeliveryRun = DeliveryRun()
     mode: str = ""
+
+
+class RecordedIdentity(Record):
+    run_id: str = ""
+    issuer_id: str = ""
+
+
+class LaunchedWorkflow(Record):
+    """The launcher's workflow.json: only the identity it recorded for the run."""
+
+    run: RecordedIdentity = RecordedIdentity()
 
 
 class DeliveryRecord(Record):
