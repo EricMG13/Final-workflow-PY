@@ -34,11 +34,15 @@ def actual_of(
 ) -> tuple[str, str]:
     """The module's class and how it was read. `own` is None when it has no accepted handoff;
     `refused` says the run stopped at this module."""
-    if own is None:
-        return ("will_refuse", "run stopped here") if refused else ("not_reached", "no handoff")
     pattern = re.compile(
         rf"\b{re.escape(module)}\b(?:(?!CP-)[^\n]){{0,70}}?\b({'|'.join(STATUS)})\b"
     )
+    if own is None:
+        # Only BLOCKED in CP-0 is evidence for a module with no handoff; READY there is not.
+        found = pattern.search(cp0)
+        if found and found[1] == "BLOCKED":
+            return "will_refuse", "BLOCKED in CP-0 handoff"
+        return ("will_refuse", "run stopped here") if refused else ("not_reached", "no handoff")
     for name, text in ((f"{module} handoff", own), ("CP-0 handoff", cp0)):
         if found := pattern.search(text):
             return STATUS[found[1]], f"{found[1]} in {name}"

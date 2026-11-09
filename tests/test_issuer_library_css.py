@@ -276,3 +276,9 @@ def test_the_run_strip_uses_the_card_radius_a_wide_supporting_line_and_24px_acti
     assert "border-radius:var(--radius-card)" in strip_rule(".run-strip")
     assert "max-width:120ch" in strip_rule(".strip-text")
     assert "min-height:24px" in strip_rule(".strip-actions a")
+
+
+def test_a_run_detail_with_a_64_character_deliverable_name_wraps_instead_of_widening_the_page() -> (
+    None
+):
+    assert re.search(r"\.artifact-list li\{[^}]*overflow-wrap:anywhere", SCREEN)
