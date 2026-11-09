@@ -1,0 +1,99 @@
+{
+  "schema": "issuer-library-run/1",
+  "run": {
+    "id": "web-04cd5a5d02ea7d1dea714a8a6632cd21",
+    "issuer": "tdg",
+    "name": "TransDigm Group Incorporated",
+    "title": "TransDigm Group credit snapshot FY2024 (retained model output)",
+    "workflow": "Credit snapshot",
+    "sector": "Aerospace",
+    "date": "2024-09-30",
+    "period": "FY2024",
+    "period_kind": "Annual",
+    "currency": "USD",
+    "summary": "Retained model output (web-04cd..., TDG FY2024); chart metrics pinned to CP-1 chart rows.",
+    "gaps": [
+      "HTML Model not published by app runs"
+    ],
+    "metrics": {
+      "leverage": {
+        "value": "6.5744",
+        "unit": "x",
+        "period": "FY2024 / 2024-09-30",
+        "basis": "Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "net_leverage": {
+        "value": "4.9323",
+        "unit": "x",
+        "period": "FY2024 / 2024-09-30",
+        "basis": "Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "coverage": {
+        "value": "3.2927",
+        "unit": "x",
+        "period": "FY2024",
+        "basis": "Issuer EBITDA / cash paid for interest, net; net of interest income, not gross cash interest or legal fixed-charge coverage. Annual pages 71, 123.",
+        "source": "cp1_coverage",
+        "provenance": "calculated"
+      },
+      "cash": {
+        "value": "6261",
+        "unit": "US$m",
+        "period": "2024-09-30",
+        "basis": "Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152.",
+        "source": "cp1_liquidity",
+        "provenance": "calculated"
+      },
+      "undrawn": {
+        "value": "843",
+        "unit": "US$m",
+        "period": "2024-09-30",
+        "basis": "Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152.",
+        "source": "cp1_liquidity",
+        "provenance": "calculated"
+      }
+    },
+    "ratings": [],
+    "identity_source": "ctx_identity",
+    "sector_source": "ctx_sector",
+    "handoff": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+    "artifacts": []
+  },
+  "sources": {
+    "cp1_leverage": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 146,
+      "quote": "| FY2024 / 2024-09-30 | 6.5744 | 4.9323 | x | Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145. |"
+    },
+    "cp1_coverage": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 153,
+      "quote": "| FY2024 | 3.2927 | x | Issuer EBITDA / cash paid for interest, net; net of interest income, not gross cash interest or legal fixed-charge coverage. Annual pages 71, 123. |"
+    },
+    "cp1_liquidity": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-1.md",
+      "sha256": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+      "line": 160,
+      "quote": "| 2024-09-30 | 6261 | 843 | US$m | Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152. |"
+    },
+    "ctx_identity": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/inputs/ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984",
+      "sha256": "ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984",
+      "line": 14,
+      "quote": "    \"issuer_name\": \"TransDigm Group Incorporated\","
+    },
+    "ctx_sector": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/inputs/ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984",
+      "sha256": "ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984",
+      "line": 22,
+      "quote": "    \"sector\": \"Aerospace\","
+    }
+  },
+  "checklist": null
+}

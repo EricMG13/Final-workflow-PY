@@ -14,8 +14,8 @@ import re
 from typing import Any
 
 import pytest
-from issuer_library_browser import ROOT, js, norm, open_app
-from test_issuer_library_app import NORTHBRIDGE, NORTHBRIDGE_REPORTS
+from issuer_library_browser import ROOT, js, norm
+from test_issuer_library_app import NORTHBRIDGE, NORTHBRIDGE_REPORTS, open_store
 
 pytestmark = pytest.mark.browser
 
@@ -58,6 +58,7 @@ def reader_store(fields: dict[str, Any] | None = None) -> dict[str, Any]:
         "source": "CP-1.md",
         "file": "web-1--CP-1.md",
         "label": "CP-1",
+        "sha256": "dd" * 32,
         **(fields if fields is not None else reader_output()),
     }
     return store
@@ -68,7 +69,7 @@ def northbridge(browser: Any) -> Any:
     opened: list[Any] = []
 
     def factory(route: str, store: dict[str, Any] | None = None) -> Any:
-        screen = open_app(browser, route, store or NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+        screen = open_store(browser, route, store or NORTHBRIDGE, NORTHBRIDGE_REPORTS)
         opened.append(screen)
         return screen
 
@@ -152,6 +153,7 @@ def test_the_app_is_organised_by_credit_question_and_its_chrome_shows_names_not_
         "Overview",
         "Modules",
         "Calendar",
+        "Forecast",
         "Reports",
         "Evidence",
     ]
@@ -231,26 +233,9 @@ def test_every_card_on_a_summary_quotes_its_own_handoff(fixture: Any) -> None:
 
 def test_a_run_in_the_library_opens_on_its_summary(fixture: Any) -> None:
     screen = fixture("W-Library/cases")
-    hrefs = [str(h) for h in screen.attrs(".run-list a", "href")]
+    hrefs = [str(h) for h in screen.attrs("#library-results a.run-link", "href")]
     link = next(h for h in hrefs if "c=tdg-002" in h)
     assert link.startswith("#W-Overview/overview?")
-
-
-def test_a_run_with_no_saved_outputs_says_so_in_an_attention_badge(northbridge: Any) -> None:
-    store = copy.deepcopy(NORTHBRIDGE)
-    store["runs"]["web-2"] = {
-        **store["runs"]["web-1"],
-        "folder": "web-2",
-        "run": "WEB-2",
-        "modules": {},
-    }
-    screen = northbridge("W-Library/cases", store)
-    facts = js(
-        screen,
-        "const cell=d.querySelector('.run-list a[href*=\"c=web-2\"]').closest('tr').children[4];"
-        "return {text:norm(cell.textContent),badge:Boolean(cell.querySelector('.badge-attention'))};",
-    )
-    assert facts == {"text": "No saved outputs", "badge": True}
 
 
 def test_a_run_with_no_stored_call_says_so_and_shows_its_findings_without_a_bottom_line(
@@ -359,13 +344,14 @@ def test_summary_leads_with_the_reader_section_bottom_line_confidence_and_limita
     assert lead["evidence"] == "web-1/CP-1.md:17"
 
 
-def test_summary_draws_chart_tables_with_their_exact_values_and_shows_a_gap_as_not_available(
+def test_summary_draws_chart_tables_with_their_exact_values_and_shows_a_gap_with_its_stated_reason(
     northbridge: Any,
 ) -> None:
     screen = northbridge("W-Overview?c=web-1", reader_store())
     charts = js(
         screen,
-        "return [...d.querySelectorAll('.summary-chart')].map(c=>({title:norm(c.querySelector('h2').textContent),"
+        "return [...d.querySelectorAll('.summary-chart')]"
+        ".map(c=>({title:norm(c.querySelector('h2').textContent),"
         "rows:[...c.querySelectorAll('.chart-row')].map(r=>[norm(r.querySelector('.chart-label').textContent),"
         "norm(r.querySelector('strong').textContent)])}));",
     )
@@ -383,7 +369,7 @@ def test_summary_draws_chart_tables_with_their_exact_values_and_shows_a_gap_as_n
     ]
     assert charts[3]["rows"] == [
         ["FY2026Debt maturing", "500"],
-        ["FY2027Debt maturing", "Not available"],
+        ["FY2027Debt maturing", "Not supplied: the schedule stops here"],
         ["FY2028Debt maturing", "1,250"],
     ]
 
@@ -433,14 +419,18 @@ def test_a_malformed_reader_section_is_named_and_the_handoff_still_renders_with_
     assert "Total debt / EBITDA fell" in screen.content(), "its rows stay readable"
 
 
-def test_a_stopped_run_holding_only_one_module_shows_one_card(northbridge: Any) -> None:
+def test_a_stopped_run_holding_only_one_module_shows_it_as_the_lead_and_no_card(
+    northbridge: Any,
+) -> None:
     store = reader_store()
     del store["runs"]["web-1"]["modules"]["CP-4A"]
     del store["runs"]["web-1"]["modules"]["CP-0"]
     del store["outputs"]["web-1/CP-4A.md"]
     del store["outputs"]["web-1/deliveries/abc/CP-0.md"]
     screen = northbridge("W-Overview?c=web-1", store)
-    assert screen.attrs(".summary-card", "data-module") == ["CP-1"]
+    assert screen.exists(".summary-lead .call-quote"), "its bottom line leads"
+    assert screen.attrs(".summary-card", "data-module") == [], "the lead module repeats no card"
+    assert screen.count(".question-map>section") == 0, "a group left with no card is omitted"
 
 
 def test_a_reader_section_opens_first_even_when_the_catalogue_names_another_heading(

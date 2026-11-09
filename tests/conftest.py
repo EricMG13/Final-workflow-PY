@@ -7,7 +7,7 @@ from collections.abc import Iterator
 from typing import Any
 
 import pytest
-from issuer_library_browser import Screen, design_store, open_app
+from issuer_library_browser import Screen, catalogue_reply, design_store, open_app
 
 
 @pytest.fixture(scope="session")
@@ -38,7 +38,14 @@ def fixture(browser: Any, design: tuple[dict[str, Any], dict[str, Any]]) -> Iter
     def factory(
         hash_route: str = "CP-1/performance", viewport: tuple[int, int] = (1280, 600)
     ) -> Screen:
-        screen = open_app(browser, hash_route, design[0], design[1], viewport=viewport)
+        screen = open_app(
+            browser,
+            hash_route,
+            design[0],
+            {"models": [], **design[1]},
+            api={"/api/catalogue": catalogue_reply(design[0])},
+            viewport=viewport,
+        )
         opened.append(screen)
         return screen
 
