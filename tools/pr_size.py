@@ -1,7 +1,8 @@
 """PR size and copy check.
 
 Files copied byte-identical from a pinned commit of another repository are listed in
-tools/copied-from.txt and do not count toward the PR line cap.
+tools/copied-from.txt and do not count toward the PR line cap. The check measures HEAD (the
+listing and the files are read from commits), not the working tree.
 
 Listing format: first line ``source <40-hex sha>``, then one repo-relative path per line
 (copied byte-identical, or deleted upstream), or ``edited <path>`` for a file copied from the
@@ -11,6 +12,7 @@ non-blank lines means "no copies".
 
 import argparse
 import re
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -30,16 +32,14 @@ def _git(repo: Path, *args: str) -> bytes:
     return done.stdout
 
 
-def _parse_listing(listing: Path) -> tuple[str, list[str], list[str]] | None:
-    """Return (sha, copied paths, edited paths), or None when the listing is absent or empty."""
-    if not listing.exists():
-        return None
-    rows = [r.strip() for r in listing.read_text(encoding="utf-8").splitlines() if r.strip()]
+def _parse_listing(text: str, name: str) -> tuple[str, list[str], list[str]] | None:
+    """Return (sha, copied paths, edited paths), or None when the listing is empty."""
+    rows = [r.strip() for r in text.splitlines() if r.strip()]
     if not rows:
         return None
     match = SOURCE_LINE.fullmatch(rows[0])
     if match is None:
-        raise ValueError(f"{listing}: first line must be 'source <40-hex sha>', got {rows[0]!r}")
+        raise ValueError(f"{name}: first line must be 'source <40-hex sha>', got {rows[0]!r}")
     edited = [
         r.removeprefix(EDITED_PREFIX).strip() for r in rows[1:] if r.startswith(EDITED_PREFIX)
     ]
@@ -47,16 +47,40 @@ def _parse_listing(listing: Path) -> tuple[str, list[str], list[str]] | None:
     return match.group(1), copied, edited
 
 
-def _exists_at(repo: Path, sha: str, path: str) -> bool:
-    done = subprocess.run(
-        ["git", "cat-file", "-e", f"{sha}:{path}"], cwd=repo, check=False, capture_output=True
-    )
-    return done.returncode == 0
+def _entries(repo: Path, rev: str, paths: list[str]) -> dict[str, tuple[str, str, str]]:
+    """(mode, type, object id) of each path that exists at rev; one git call."""
+    if not paths:
+        return {}
+    out = _git(repo, "ls-tree", "-z", rev, "--", *paths).decode("utf-8")
+    found: dict[str, tuple[str, str, str]] = {}
+    for record in out.split("\0"):
+        if record:
+            meta, name = record.split("\t", 1)
+            mode, kind, oid = meta.split(" ")
+            found[name] = (mode, kind, oid)
+    return found
+
+
+def _read_listing(repo: Path, listing: Path) -> tuple[str, list[str], list[str]] | None:
+    """The listing as committed at HEAD; None when HEAD has no such file or it is empty."""
+    try:
+        name = listing.resolve().relative_to(repo.resolve()).as_posix()
+    except ValueError:
+        raise ValueError(f"{listing}: the listing must be a path inside {repo}") from None
+    if name not in _entries(repo, "HEAD", [name]):
+        return None
+    return _parse_listing(_git(repo, "show", f"HEAD:{name}").decode("utf-8"), name)
 
 
 def copied_mismatches(listing: Path, repo: Path) -> list[str]:
-    """Listed paths whose bytes differ from the source commit (or are missing/extra)."""
-    parsed = _parse_listing(listing)
+    """Listed paths whose committed entry at HEAD differs from the source commit's.
+
+    Both the listing and every path are read from HEAD, not the working tree, so this checks
+    the same committed state as ``pr_lines``. ``listing`` must name a path inside ``repo``.
+    A plain path matches when mode, type and object id are equal; a path absent at the source
+    must be absent at HEAD; an edited path must be a blob at both; a tree is a mismatch.
+    """
+    parsed = _read_listing(repo, listing)
     if parsed is None:
         return []
     sha, paths, edited = parsed
@@ -65,17 +89,18 @@ def copied_mismatches(listing: Path, repo: Path) -> list[str]:
     )
     if known.returncode != 0:
         raise ValueError(f"source commit {sha} is not in this repository; fetch it first")
+    names = sorted({*paths, *edited})
+    there = _entries(repo, sha, names)
+    here = _entries(repo, "HEAD", names)
     bad: list[str] = []
     for path in paths:
-        target = repo / path
-        if _exists_at(repo, sha, path):
-            expected = _git(repo, "show", f"{sha}:{path}")
-            if not target.is_file() or target.read_bytes() != expected:
+        if path in there:
+            if there[path][1] != "blob" or here.get(path) != there[path]:
                 bad.append(path)
-        elif target.exists():
+        elif path in here:
             bad.append(path)
     for path in edited:
-        if not _exists_at(repo, sha, path) or not (repo / path).is_file():
+        if there.get(path, ("", "", ""))[1] != "blob" or here.get(path, ("", "", ""))[1] != "blob":
             bad.append(path)
     return sorted(set(bad))
 
@@ -103,7 +128,7 @@ def _edit_lines(repo: Path, sha: str, path: str) -> int | None:
 
 def pr_lines(base: str, repo: Path) -> int:
     """Added plus deleted lines in base...HEAD, minus copies, fixtures and lockfiles."""
-    parsed = _parse_listing(repo / LISTING)
+    parsed = _read_listing(repo, repo / LISTING)
     sha, copied, edited = (
         (parsed[0], set(parsed[1]), set(parsed[2])) if parsed else ("", set(), set())
     )
@@ -131,6 +156,10 @@ def main(argv: list[str] | None = None) -> int:
         total = pr_lines(args.base, repo)
     except ValueError as err:
         print(err, file=sys.stderr)
+        return 1
+    except subprocess.CalledProcessError as err:
+        detail = err.stderr.decode("utf-8", "replace").strip() if err.stderr else ""
+        print(f"git failed: {shlex.join(map(str, err.cmd))}: {detail}", file=sys.stderr)
         return 1
     print(f"counted lines: {total} (limit {LIMIT})")
     for path in mismatches:

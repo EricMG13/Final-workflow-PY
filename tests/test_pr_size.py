@@ -256,3 +256,37 @@ def test_edited_path_binary_at_source_keeps_its_range_count(tmp_path: Path) -> N
     )
     assert pr_size.pr_lines(base, repo) == 1000
     assert run(repo, base) == 1
+
+
+def test_unknown_base_fails_with_a_message(tmp_path: Path) -> None:
+    repo, _ = make_repo(tmp_path)
+    done = result(repo, "nonexistent-ref")
+    assert done.returncode == 1
+    assert "git failed" in done.stderr
+    assert "nonexistent-ref" in done.stderr
+    assert "Traceback" not in done.stderr
+
+
+def test_dirty_working_tree_does_not_change_the_result(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    data = lines(900)
+    sha = make_source(repo, {"vendor/big.txt": data})
+    commit(
+        repo,
+        "copy",
+        {"vendor/big.txt": data, "tools/copied-from.txt": listing_text(sha, "vendor/big.txt")},
+    )
+    write(repo, {"vendor/big.txt": b"dirty\n", "tools/copied-from.txt": listing_text(sha, "x.txt")})
+    assert pr_size.copied_mismatches(repo / "tools" / "copied-from.txt", repo) == []
+    assert pr_size.pr_lines(base, repo) == 0
+    assert run(repo, base) == 0
+
+
+def test_a_listed_directory_is_a_mismatch(tmp_path: Path) -> None:
+    repo, base = make_repo(tmp_path)
+    sha = make_source(repo, {"vendor/a.txt": b"a\n"})
+    commit(
+        repo, "copy", {"vendor/a.txt": b"a\n", "tools/copied-from.txt": listing_text(sha, "vendor")}
+    )
+    assert pr_size.copied_mismatches(repo / "tools" / "copied-from.txt", repo) == ["vendor"]
+    assert run(repo, base) == 1
