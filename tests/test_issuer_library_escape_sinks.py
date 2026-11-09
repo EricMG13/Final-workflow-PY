@@ -1,4 +1,4 @@
-"""Chart renderers escape handoff values and output ids: escape-sinks.test.cjs at final-workflow dd3dfa18.
+"""Chart renderers escape handoff values and output ids: escape-sinks.test.cjs at dd3dfa18.
 
 The Node suite lifted functions into a bare vm context. Here a synthetic workspace holding the
 hostile values is served to the real page, and its own globals (trendChart, comparisonChart,
@@ -142,7 +142,7 @@ def test_the_pinned_cp_1_bar_chart_escapes_the_cell_value_the_period_label_and_t
     page: Any,
 ) -> None:
     html: str = page.evaluate("id=>trendChart(id,'Net sales')", CHART_ID)
-    # The source footer's own icon is the one <img> the page draws; the injected one must not appear.
+    # The source footer's own icon is the one <img> the page draws, not the injected one.
     assert "<img src=q" not in html, html
     assert re.findall(r"<img[^>]*>", html) == ['<img src="icons/file-text.svg" alt="">']
     assert '"><b>' not in html, html
@@ -188,7 +188,9 @@ def test_a_report_id_from_a_folder_name_stays_inside_its_href_and_routes_back_to
     page: Any,
 ) -> None:
     cases = {
-        'r"><img src=q onerror=1>': "#W-Reports/r%22%3E%3Cimg%20src%3Dq%20onerror%3D1%3E?c=acme-001",
+        'r"><img src=q onerror=1>': (
+            "#W-Reports/r%22%3E%3Cimg%20src%3Dq%20onerror%3D1%3E?c=acme-001"
+        ),
         "TDG report 2024": "#W-Reports/TDG%20report%202024?c=acme-001",
         "a?b#c&d'": "#W-Reports/a%3Fb%23c%26d'?c=acme-001",
         "100% build": "#W-Reports/100%25%20build?c=acme-001",

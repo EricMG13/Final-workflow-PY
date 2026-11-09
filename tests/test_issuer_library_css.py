@@ -209,9 +209,7 @@ def test_the_rail_opens_as_an_overlay_for_focus_too_and_stops_animating_under_re
     assert re.search(r"\.rail\{[^}]*transition:width", SCREEN)
 
 
-def test_at_720px_and_below_the_section_bar_outranks_every_sticky_cell_and_row_labels_are_capped() -> (
-    None
-):
+def test_at_720px_the_section_bar_outranks_every_sticky_cell_and_row_labels_are_capped() -> None:
     start = "@media(max-width:720px){#section-nav{z-index:5}"
     mobile = SCREEN[SCREEN.rindex(start) :]
     bar = int(re.search(r"#section-nav\{z-index:(\d+)\}", mobile).group(1))  # type: ignore[union-attr]
@@ -219,7 +217,8 @@ def test_at_720px_and_below_the_section_bar_outranks_every_sticky_cell_and_row_l
     assert cells
     assert all(z < bar for z in cells), f"a sticky cell reaches {max(cells)}, bar is {bar}"
     assert re.search(
-        r"\.cashflow tbody th\[scope=row\]\{[^}]*white-space:normal[^}]*min-width:12rem[^}]*max-width:12rem",
+        r"\.cashflow tbody th\[scope=row\]\{[^}]*white-space:normal"
+        r"[^}]*min-width:12rem[^}]*max-width:12rem",
         mobile,
     )
 
@@ -250,9 +249,7 @@ def test_the_amber_run_mark_glyph_and_the_amber_strip_text_hold_4_5_to_1_on_thei
     assert contrast(token("amber"), token("amber-bg")) >= 4.5
 
 
-def test_cash_flow_rows_are_32px_row_labels_hold_12rem_groups_are_ruled_scenarios_sit_on_quiet() -> (
-    None
-):
+def test_cash_flow_rows_are_32px_labels_hold_12rem_groups_ruled_scenarios_on_quiet() -> None:
     cell = re.search(r"\.cashflow tbody th,\.cashflow tbody td\{([^}]*)\}", SCREEN)
     assert cell, "no cash flow cell rule"
     for part in ("height:32px", "padding-top:5px", "padding-bottom:5px", "line-height:20px"):

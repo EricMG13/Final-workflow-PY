@@ -16,42 +16,23 @@ from issuer_library_browser import Screen, open_app
 pytestmark = pytest.mark.browser
 
 
-def run(
-    run_id: str,
-    name: str,
-    issuer: str,
-    sector: str,
-    workflow: str,
-    date: str,
-    period_kind: str,
-    completion: int | None,
-    artifacts: list[dict[str, Any]],
-    metrics: dict[str, Any],
-) -> dict[str, Any]:
-    return {
-        "id": run_id,
-        "name": name,
-        "issuer": issuer,
-        "sector": sector,
-        "workflow": workflow,
-        "date": date,
-        "period_kind": period_kind,
-        "completion": completion,
-        "artifacts": artifacts,
-        "metrics": metrics,
-    }
+def row(run_id: str, **fields: Any) -> dict[str, Any]:
+    return {"id": run_id, **fields}
 
 
 ROWS = [
-    run("missing", "Zeta", "Z", "Energy", "Legal", "2024-01-01", "Actual", None, [],
-        {"leverage": None, "coverage": None}),
-    run("zero", "Alpha", "A", "Energy", "Credit", "2024-02-01", "Actual", 0, [],
-        {"leverage": {"value": "0", "basis": "Gross"}, "coverage": {"value": "0"}}),
-    run("gross", "Beta", "B", "Auto", "Credit", "2023-01-01", "Actual", 75,
-        [{"available": True, "state": "candidate"}],
-        {"leverage": {"value": "5.96", "basis": "Gross"}, "coverage": {"value": "3.60"}}),
-    run("net", "Gamma", "G", "Auto", "Credit", "2022-01-01", "Forecast", 100, [],
-        {"leverage": {"value": "2.2", "basis": "Net"}, "coverage": {"value": "4.5"}}),
+    row("missing", name="Zeta", issuer="Z", sector="Energy", workflow="Legal", date="2024-01-01",
+        period_kind="Actual", completion=None, artifacts=[],
+        metrics={"leverage": None, "coverage": None}),
+    row("zero", name="Alpha", issuer="A", sector="Energy", workflow="Credit", date="2024-02-01",
+        period_kind="Actual", completion=0, artifacts=[],
+        metrics={"leverage": {"value": "0", "basis": "Gross"}, "coverage": {"value": "0"}}),
+    row("gross", name="Beta", issuer="B", sector="Auto", workflow="Credit", date="2023-01-01",
+        period_kind="Actual", completion=75, artifacts=[{"available": True, "state": "candidate"}],
+        metrics={"leverage": {"value": "5.96", "basis": "Gross"}, "coverage": {"value": "3.60"}}),
+    row("net", name="Gamma", issuer="G", sector="Auto", workflow="Credit", date="2022-01-01",
+        period_kind="Forecast", completion=100, artifacts=[],
+        metrics={"leverage": {"value": "2.2", "basis": "Net"}, "coverage": {"value": "4.5"}}),
 ]  # fmt: skip
 
 
