@@ -369,6 +369,8 @@ class Application:
         self.catalogue = Catalogue()
         self.store_cache = StoreCache()
         self.catalogue = self.build_catalogue(self.config.workspace)
+        # Counts catalogue installs (under lock) so a slower discovery cannot replace a newer one.
+        self.generation = 0
         # The ticket's lifetime counts from when the library is ready, after its first discovery.
         self.session = Session()
         self.reviews = 0
@@ -398,6 +400,7 @@ class Application:
         __main__.py and jobs.py finish_job, which another session owns and a later task moves to
         refresh()."""
         self.catalogue = self.build_catalogue(self.config.workspace)
+        self.generation += 1
 
     def refresh(self) -> Response:
         """Rediscover without the catalogue lock; requests see the previous catalogue meanwhile
@@ -405,9 +408,14 @@ class Application:
         with self.refresh_slot():
             with self.lock:
                 workspace = self.config.workspace
+                generation = self.generation
             catalogue = self.build_catalogue(workspace)
             with self.lock:
-                self.catalogue = catalogue
+                # A run-finish path installs through refresh_locked() without refreshing; keep
+                # its newer catalogue rather than swap this older discovery over it.
+                if self.generation == generation:
+                    self.catalogue = catalogue
+                    self.generation += 1
                 return self.catalogue_locked()
 
     def catalogue_locked(self) -> Response:
@@ -432,7 +440,6 @@ class Application:
                     raise HTTPException(
                         409, "Wait for the active run before changing its workspace"
                     )
-                # Review-in-flight refusal belongs here (S3), before the folder check.
             if self.locked:
                 raise HTTPException(403, "Workspace is managed by IT")
             try:
@@ -448,12 +455,16 @@ class Application:
             if not os.path.isabs(config.workspace):
                 raise HTTPException(400, "Enter an absolute workspace folder")
             config.workspace = os.path.normpath(config.workspace)
+            # Review-in-flight refusal (S3) belongs here, before the folder check.
             if not os.path.isdir(config.workspace):
                 raise HTTPException(400, "The workspace folder is unavailable")
             catalogue = self.build_catalogue(config.workspace)
             with self.lock:
                 if self.active_jobs:
-                    raise HTTPException(409, "A run started while the new workspace was being read")
+                    # A run started while the new workspace was being read.
+                    raise HTTPException(
+                        409, "Wait for the active run before changing its workspace"
+                    )
                 # Review-in-flight refusal (S3) belongs here, at the commit.
                 try:
                     save_json(self.loc.state / "settings.json", config)
@@ -461,6 +472,7 @@ class Application:
                     raise HTTPException(500, "Could not save settings") from error
                 self.config = config
                 self.catalogue = catalogue
+                self.generation += 1
                 adopt_jobs_locked(self, config.workspace)
                 return self.catalogue_locked()
 

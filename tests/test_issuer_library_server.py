@@ -837,3 +837,61 @@ def test_workspace_switch_during_a_refresh_keeps_the_new_workspace(
     )
     gone = call(client_of(app), "GET", "/files/runs/case-a/CP-0.md")
     assert gone.status_code == 404, f"old workspace file still admitted: {gone.status_code}"
+
+
+def test_a_run_started_while_the_new_workspace_is_read_refuses_the_switch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    app, root = make_app(tmp_path)
+    other = tmp_path / "other"
+    put(other, "runs/other/CP-0.md", b"other")
+    saved = server_module.discover
+
+    def start_a_run(folder: str, seeds: Catalogue) -> Catalogue:
+        if os.path.normpath(folder) == str(other):
+            with app.lock:
+                app.active_jobs.add("late")
+        return saved(folder, seeds)
+
+    monkeypatch.setattr(server_module, "discover", start_a_run)
+    response = call(client_of(app), "POST", "/api/settings", json.dumps({"workspace": str(other)}))
+    assert response.status_code == 409, response.text
+    assert response.json()["detail"] == "Wait for the active run before changing its workspace"
+    with app.lock:
+        assert app.config.workspace == str(root) and app.catalogue.workspace == str(root)
+
+
+def test_a_refresh_does_not_replace_a_newer_catalogue_with_its_older_one(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A run-finish path installs through refresh_locked() without refreshing; a refresh that
+    began discovering earlier must not swap its older result over it."""
+    app, root = make_app(tmp_path)
+    saved = server_module.discover
+    entered, release = threading.Event(), threading.Event()
+    first = threading.Event()
+
+    def hold(folder: str, seeds: Catalogue) -> Catalogue:
+        result = saved(folder, seeds)  # the snapshot is taken before the hold
+        if not first.is_set():
+            first.set()
+            entered.set()
+            assert release.wait(10), "the blocked discovery was never released"
+        return result
+
+    monkeypatch.setattr(server_module, "discover", hold)
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        try:
+            done = pool.submit(call, client_of(app), "POST", "/api/refresh", "{}")
+            assert entered.wait(10), "the refresh never discovered"
+            put(root, "runs/finished/CP-0.md", b"finished")
+            with app.lock:
+                app.refresh_locked()
+                assert len(app.catalogue.real) == 2
+        finally:
+            release.set()
+        response = done.result(timeout=10)
+    assert response.status_code == 200, response.text
+    assert len(Catalogue.model_validate_json(response.content).real) == 2
+    with app.lock:
+        assert len(app.catalogue.real) == 2, "the older discovery replaced the newer catalogue"
