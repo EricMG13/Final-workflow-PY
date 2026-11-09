@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from issuer_library.model import Run
 from issuer_library_browser import (
     WEB,
     Library,
@@ -44,6 +45,12 @@ CATALOGUE = load("screening-catalogue.json")
 CASES = load("filter-cases.json")
 SORT_CASES = load("sort-cases.json")
 TOTAL = len(CATALOGUE["real"])
+# What /api/catalogue serves: every run through the production model, so the keys Go omitted
+# (omitempty) arrive as Python's zero values. Nothing here is typed by hand.
+SERVED = {
+    **CATALOGUE,
+    "real": [json.loads(Run.model_validate(run).model_dump_json()) for run in CATALOGUE["real"]],
+}
 
 
 def by_name(name: str) -> dict[str, Any]:
@@ -178,9 +185,10 @@ def library(browser: Any) -> Iterator[LibraryOpener]:
     release(opened)
 
 
-@pytest.mark.parametrize("case", CASES, ids=[f"{c['focus']}: {c['name']}" for c in CASES])
-def test_filter_case_through_the_controls(library: LibraryOpener, case: dict[str, Any]) -> None:
-    p = library()
+def check_filter_case(
+    library: LibraryOpener, case: dict[str, Any], data: dict[str, Any] = CATALOGUE
+) -> None:
+    p = library(data=data)
     p.through(case["filters"])
     assert sorted(p.ids()) == case["expected_ids"]
     coverage = case.get("coverage") or {}
@@ -198,6 +206,64 @@ def test_filter_case_through_the_controls(library: LibraryOpener, case: dict[str
             assert sorted(p.ids()) == case["expected_ids"], (
                 "Back to results restores the matching rows"
             )
+
+
+@pytest.mark.parametrize("case", CASES, ids=[f"{c['focus']}: {c['name']}" for c in CASES])
+def test_filter_case_through_the_controls(library: LibraryOpener, case: dict[str, Any]) -> None:
+    check_filter_case(library, case)
+
+
+@pytest.mark.parametrize("case", CASES, ids=[f"served: {c['focus']}: {c['name']}" for c in CASES])
+def test_filter_case_through_the_controls_over_python_served_runs(
+    library: LibraryOpener, case: dict[str, Any]
+) -> None:
+    check_filter_case(library, case, SERVED)
+
+
+def run_of(data: dict[str, Any], run_id: str) -> dict[str, Any]:
+    run: dict[str, Any] = next(r for r in data["real"] if r["id"] == run_id)
+    return run
+
+
+def test_the_served_catalogue_carries_zero_values_where_the_key_omits_keys() -> None:
+    omitted, served = run_of(CATALOGUE, "dunmore-001"), run_of(SERVED, "dunmore-001")
+    assert "private_side" not in omitted and "classification" not in omitted
+    assert served["private_side"] is False and served["classification"] == ""
+    assert served["classification_source"] == "" and served["private_side_source"] == ""
+    rating = run_of(SERVED, "kestrel-001")["ratings"][0]
+    assert rating["agency"] == "" and rating["scope"] == ""
+    assert "agency" not in run_of(CATALOGUE, "kestrel-001")["ratings"][0]
+    assert "scope" not in run_of(CATALOGUE, "kestrel-001")["ratings"][0]
+
+
+def test_private_side_false_served_by_python_shows_no_private_side_label(
+    library: LibraryOpener,
+) -> None:
+    p = library(data=SERVED)
+    assert "Private-side" not in p.row("dunmore-001")
+    assert "Private-side" in p.row("brackenfell-hy-001")
+    p.click('[data-library-select="dunmore-001"]')
+    assert "Private-side" not in p.detail()
+    p.click('[data-library-select="brackenfell-hy-001"]')
+    assert "Private-side · Yes" in p.detail()
+
+
+def test_rows_and_detail_render_alike_for_key_shaped_and_python_served_runs(
+    library: LibraryOpener,
+) -> None:
+    def shown(data: dict[str, Any]) -> dict[str, tuple[str, str]]:
+        p = library(data=data)
+        p.set("library-runs", "any")
+        out: dict[str, tuple[str, str]] = {}
+        for run_id in sorted(p.ids()):
+            p.click(f'[data-library-select="{run_id}"]')
+            out[run_id] = (p.row(run_id), p.detail())
+        return out
+
+    key, served = shown(CATALOGUE), shown(SERVED)
+    assert len(key) == TOTAL
+    for run_id, rendered in key.items():
+        assert served[run_id] == rendered, run_id
 
 
 def test_rf17_show_them_lists_rows_that_carry_no_net_leverage_figure_none_that_carry_one(
