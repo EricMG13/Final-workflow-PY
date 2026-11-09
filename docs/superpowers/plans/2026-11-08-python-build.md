@@ -78,7 +78,7 @@ Phase 2 may run alongside Phase B because their files are separate. Nothing reac
 
 ### Shared names
 
-- `tools/copied-from.txt`: first line `source <40-hex final-workflow sha>`, then one repo-relative path per line for a file copied byte-identical, or deleted upstream (a listed path absent at the sha must be absent here). A line `edited <path>` marks a file copied from the sha and then edited by hand: it is not a mismatch, and its counted lines are its `git diff --numstat` against `<sha>:<path>`, replacing its `<base>...HEAD` count. (Amended 2026-11-09, lead ruling for Task 1.3.)
+- `tools/copied-from.txt`: first line `source <40-hex final-workflow sha>`, then one repo-relative path per line for a file copied byte-identical, or deleted upstream (a listed path absent at the sha must be absent here). A line `edited <path>` marks a file copied from the sha and then edited by hand: it is not a mismatch, and its counted lines are its `git diff --numstat` against `<sha>:<path>`, replacing its `<base>...HEAD` count. The listing file itself is not counted. (Amended 2026-11-09, lead ruling for Task 1.3.)
 - `src/issuer_library/version.py`: `def app_version() -> str`. It returns the text of the `VERSION` file beside the package root when present (written by the build as `<YYYY.MM.DD>-<12-hex sha>`), otherwise `"dev"`.
 - **Shared-workspace files** (§7.2):
   - `shared.json` is `{"unc": "\\\\server\\share\\CreditOS\\workspace"}`.
