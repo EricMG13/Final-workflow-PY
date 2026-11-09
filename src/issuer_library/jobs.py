@@ -20,6 +20,7 @@ from typing import TYPE_CHECKING, Any
 from fastapi import HTTPException, Response
 from starlette.datastructures import FormData, UploadFile
 
+from . import events
 from .desktop import WORKER_FLAGS
 from .model import digest
 from .settings import save_json
@@ -35,6 +36,7 @@ UPLOAD_LIMIT = 512 << 20
 UPLOAD_MESSAGE = "Upload is too large or malformed (512 MiB total maximum)"
 REQUEST_LIMIT = 8192
 DEFAULT_TURNS = 32  # The launcher's default.
+MAX_TURNS = 64  # What the CP-OS loop allows.
 WORKER_OPTIONS = ("-I", "-B", "-X", "utf8")
 WINDOWS_RESERVED = {"CON", "PRN", "AUX", "NUL"} | {
     f"{device}{number}" for device in ("COM", "LPT") for number in "123456789"
@@ -165,31 +167,69 @@ def job_view(workspace: str, job_id: str) -> dict[str, Any] | None:
         for key in ("issuer", "pathway", "as_of", "modules", "module_details"):
             if key in review:
                 status[key] = review[key]
-    progress = read_object(Path(workspace) / "runs" / job_id / "progress.json")
-    if progress is not None:
+    folder = Path(workspace) / "runs" / job_id
+    if (progress := events.progress(folder)) is not None:
         status["progress"] = progress
+    if started := events.started(folder):
+        status["started_at"] = started
     status["id"] = job_id
     status["run_available"] = run_available(workspace, job_id)
     return status
 
 
-def recent_jobs(workspace: str) -> list[dict[str, Any]]:
-    """The newest 30 intake folders that hold a readable status beyond review."""
+def recent_candidate(workspace: str, name: str) -> tuple[int, str, bool] | None:
+    """(write time ns, id, running) of an intake folder that holds a run's status, else None."""
+    if not JOB_ID.fullmatch(name):
+        return None
+    file = Path(workspace) / "intake" / name / "status.json"
     try:
-        names = sorted(os.listdir(Path(workspace) / "intake"))
+        written = file.stat().st_mtime_ns
+        status = json.loads(file.read_bytes())
+    except (OSError, ValueError):
+        return None
+    state = status.get("state") if isinstance(status, dict) else None
+    if not isinstance(state, str) or state == "reviewed":
+        return None
+    return written, name, state == "running"
+
+
+def recent_jobs(workspace: str, limit: int = 30) -> list[dict[str, Any]]:
+    """Every running job plus the most recently written others, newest first, up to limit rows.
+
+    Job ids are random, so recency is the modification time of status.json, never the folder
+    name; ties fall back to the id, descending. Reviewed-only drafts are not runs.
+    """
+    try:
+        names = os.listdir(Path(workspace) / "intake")
     except OSError:
         names = []
+    found = [item for name in names if (item := recent_candidate(workspace, name))]
+    found.sort(reverse=True)
+    room = limit - sum(1 for _, _, running in found if running)  # Places left for finished jobs.
     recent: list[dict[str, Any]] = []
-    for job_id in reversed(names):
-        if len(recent) == 30:
-            break
-        if not JOB_ID.fullmatch(job_id):
-            continue
-        status = job_view(workspace, job_id)
-        if status is None or status.get("state") == "reviewed":
-            continue
-        recent.append(status)
+    for _, name, running in found:
+        if not running:
+            if room <= 0:
+                continue
+            room -= 1
+        if (status := job_view(workspace, name)) is not None:
+            recent.append(status)
     return recent
+
+
+def run_events(workspace: str, job_id: str) -> Response:
+    """The run's events; [] when it has no log yet, 404 when it has neither log nor status."""
+    if not JOB_ID.fullmatch(job_id):
+        raise HTTPException(404, "Not Found")
+    try:
+        listed, complete = events.read_events(Path(workspace) / "runs" / job_id)
+    except FileNotFoundError as error:
+        if not (Path(workspace) / "intake" / job_id / "status.json").exists():
+            raise HTTPException(404, "Not Found") from error
+        listed, complete = [], True
+    except OSError as error:
+        raise HTTPException(500, "Run events are unreadable") from error
+    return json_response({"events": listed, "complete": complete})
 
 
 def job_status(workspace: str, job_id: str) -> Response:
@@ -215,8 +255,8 @@ def create(path: Path, raw: bytes) -> None:
         stream.write(raw)
 
 
-def review_run(lib: Application, form: FormData) -> Response:
-    """Stage the upload under intake/<id>, then ask the engine to review it offline."""
+def review_form(form: FormData) -> tuple[list[str], list[UploadFile], str, list[str], int]:
+    """The upload's source paths, files, context, module codes and turn bound, validated."""
     try:
         paths = json.loads(text(form, "source_paths"))
     except ValueError:
@@ -240,8 +280,73 @@ def review_run(lib: Application, form: FormData) -> Response:
             max_turns = int(turns)
         except ValueError:
             max_turns = 0
-        if not 1 <= max_turns <= 200:
-            raise HTTPException(400, "Max turns must be between 1 and 200")
+        if not 1 <= max_turns <= MAX_TURNS:
+            raise HTTPException(400, f"Max turns must be between 1 and {MAX_TURNS}")
+    return paths, files, context, modules, max_turns
+
+
+def stage_sources(folder: Path, paths: list[str], files: list[UploadFile]) -> list[dict[str, str]]:
+    """Keep every chosen file under sources/, so the launcher itself reports unreadable ones."""
+    sources: list[dict[str, str]] = []
+    for name, upload in zip(paths, files, strict=True):
+        if (upload.size or 0) > SOURCE_LIMIT:
+            raise HTTPException(400, f"Files must be up to 64 MiB each: {name}")
+        try:
+            upload.file.seek(0)
+            raw = upload.file.read(SOURCE_LIMIT + 1)
+        except OSError as error:
+            raise HTTPException(400, "Source upload could not be read") from error
+        if len(raw) > SOURCE_LIMIT:
+            raise HTTPException(400, f"Source upload is too large or unreadable: {name}")
+        target = folder / "sources" / name
+        try:
+            os.makedirs(target.parent, mode=0o700, exist_ok=True)
+        except OSError as error:
+            raise HTTPException(500, "Could not retain source") from error
+        try:
+            create(target, raw)
+        except FileExistsError as error:
+            raise HTTPException(400, f"Could not retain source: {name}") from error
+        except OSError as error:
+            raise HTTPException(500, "Could not retain source") from error
+        sources.append({"path": name, "sha256": digest(raw)})
+    return sources
+
+
+def review_staged(lib: Application, folder: Path, job: dict[str, Any]) -> tuple[bytes, bool]:
+    """Ask the engine to review the staged job; (its answer, whether the review passed)."""
+    try:
+        save_json(folder / "job.json", job)
+    except OSError as error:
+        raise HTTPException(500, "Could not save run request") from error
+    try:
+        result = lib.engine.review(folder)
+    except RuntimeError as error:
+        raise HTTPException(503, str(error)) from error
+    review = json.loads(result)
+    if not isinstance(review, dict) or not isinstance(review.get("ok"), bool):
+        raise HTTPException(500, "Invalid validation response")
+    if not review["ok"]:
+        return result, False
+    try:
+        save_json(folder / "review.json", review)
+    except OSError as error:
+        raise HTTPException(500, "Could not retain review") from error
+    status = {
+        "state": "reviewed",
+        "message": "Reviewed; no model call has been made.",
+        "id": job["id"],
+    }
+    try:
+        save_json(folder / "status.json", status)
+    except OSError as error:
+        raise HTTPException(500, "Could not retain run status") from error
+    return result, True
+
+
+def review_run(lib: Application, form: FormData) -> Response:
+    """Stage the upload under intake/<id>, then ask the engine to review it offline."""
+    paths, files, context, modules, max_turns = review_form(form)
     with lib.lock:
         workspace = lib.config.workspace
     job: dict[str, Any] = {
@@ -269,55 +374,8 @@ def review_run(lib: Application, form: FormData) -> Response:
             create(folder / "context.json", context.encode())
         except OSError as error:
             raise HTTPException(500, "Could not retain context") from error
-        # Every chosen file is kept, so the launcher itself reports the ones no module can read.
-        for name, upload in zip(paths, files, strict=True):
-            if (upload.size or 0) > SOURCE_LIMIT:
-                raise HTTPException(400, f"Files must be up to 64 MiB each: {name}")
-            try:
-                upload.file.seek(0)
-                raw = upload.file.read(SOURCE_LIMIT + 1)
-            except OSError as error:
-                raise HTTPException(400, "Source upload could not be read") from error
-            if len(raw) > SOURCE_LIMIT:
-                raise HTTPException(400, f"Source upload is too large or unreadable: {name}")
-            target = folder / "sources" / name
-            try:
-                os.makedirs(target.parent, mode=0o700, exist_ok=True)
-            except OSError as error:
-                raise HTTPException(500, "Could not retain source") from error
-            try:
-                create(target, raw)
-            except FileExistsError as error:
-                raise HTTPException(400, f"Could not retain source: {name}") from error
-            except OSError as error:
-                raise HTTPException(500, "Could not retain source") from error
-            job["sources"].append({"path": name, "sha256": digest(raw)})
-        try:
-            save_json(folder / "job.json", job)
-        except OSError as error:
-            raise HTTPException(500, "Could not save run request") from error
-        try:
-            result = lib.engine.review(folder)
-        except RuntimeError as error:
-            raise HTTPException(503, str(error)) from error
-        review = json.loads(result)
-        if not isinstance(review, dict) or not isinstance(review.get("ok"), bool):
-            raise HTTPException(500, "Invalid validation response")
-        if review["ok"]:
-            try:
-                save_json(folder / "review.json", review)
-            except OSError as error:
-                raise HTTPException(500, "Could not retain review") from error
-            status = {
-                "state": "reviewed",
-                "message": "Reviewed; no model call has been made.",
-                "id": job["id"],
-            }
-            try:
-                save_json(folder / "status.json", status)
-            except OSError as error:
-                raise HTTPException(500, "Could not retain run status") from error
-            valid = True
+        job["sources"] = stage_sources(folder, paths, files)
+        result, valid = review_staged(lib, folder, job)
     finally:
         if not valid:
             shutil.rmtree(folder, ignore_errors=True)
