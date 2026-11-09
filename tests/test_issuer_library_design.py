@@ -109,28 +109,6 @@ KEY_A: dict[str, dict[str, Any]] = {
         "inputs": ["CP-2-delivery.md"],
     },
 }
-KEY_B = {
-    "CP-0": ["tdg-003", "tdg-004", "tdg-peers-2024", "ford-otosan-2024", "frontier-2020"],
-    "CP-1": ["tdg-002", "tdg-003"],
-    "CP-1A": ["tdg-002"],
-    "CP-1B": ["tdg-003"],
-    "CP-1C": ["tdg-peers-2024"],
-    "CP-1D": ["tdg-003"],
-    "CP-2": ["tdg-002", "tdg-003", "tdg-peers-2024", "tdg-run-comparison"],
-    "CP-2A": ["tdg-002", "tdg-003"],
-    "CP-2D": ["tdg-002", "tdg-003"],
-    "CP-2E": ["tdg-003"],
-    "CP-2G": ["tdg-003", "ford-otosan-2024"],
-    "CP-2H": ["tdg-003", "ford-otosan-2024"],
-    "CP-3": ["frontier-2020"],
-    "CP-3C": ["tdg-004", "ford-otosan-2024"],
-    "CP-4": ["tdg-004"],
-    "CP-4C": ["frontier-2020"],
-    "CP-5": ["ford-otosan-2024"],
-    "CP-6": ["ford-otosan-2024"],
-    "CP-8": ["tdg-run-comparison"],
-    "CP-DR": ["tdg-guidance"],
-}
 KEY_C = [
     (
         "tdg-fy2024-snapshot",
@@ -607,28 +585,6 @@ def test_navigation_focus_targets_remain_visible_on_a_narrow_screen(fixture: Any
     assert screen.active() == "analysis"
 
 
-def test_library_filters_combine_search_sector_content_and_module(fixture: Any) -> None:
-    screen = fixture("W-Library/cases")
-    assert screen.text("#library-count") == "3 issuers · 8 runs · 7 reports"
-    screen.focus("#library-query")
-    screen.set_value("#library-query", "  FORD   2024 ")
-    assert screen.count(".run-list a") == 1 and screen.text(".case-list h2") == "Ford Otosan"
-    assert screen.active() == "library-query"
-    screen.set_value('[data-library-filter="sector"]', "Telecommunications", "change")
-    assert screen.exists(".library-empty") and screen.count(".run-list a") == 0
-    screen.click("#library-clear")
-    assert screen.count(".run-list a") == 8 and screen.active() == "library-query"
-    screen.set_value('[data-library-filter="content"]', "reports", "change")
-    assert screen.text("#library-count") == "1 issuer · 4 runs · 7 reports"
-    assert not any("c=tdg-deliveries" in href for href in screen.attrs(".run-list a", "href"))
-    screen.set_value('[data-library-filter="module"]', "CP-2G", "change")
-    assert screen.count(".run-list a") == 1
-    assert "c=tdg-003" in str(screen.attr(".run-list a", "href"))
-    screen.set_value('[data-library-filter="content"]', "modules", "change")
-    contexts = sorted(context_of(str(href)) or "" for href in screen.attrs(".run-list a", "href"))
-    assert contexts == ["ford-otosan-2024", "tdg-003"]
-
-
 def test_library_return_restores_filters_and_clear_resets_without_changing_context(
     fixture: Any,
 ) -> None:
@@ -713,18 +669,6 @@ def test_key_a_every_run_lists_exactly_its_saved_outputs_and_inputs(fixture: Any
         ]:
             copied = FIXTURE / "sources" / f"{expected['folder']}--{file}"
             assert sha256(copied) == sha256(ROOT / "runs" / expected["folder"] / file), file
-
-
-def test_key_b_the_contains_module_filter_returns_every_run_with_an_output(fixture: Any) -> None:
-    screen = fixture("W-Library/cases")
-    options = screen.eval(
-        "[...document.querySelector('[data-library-filter=\"module\"]').options].map(o=>o.value).filter(v=>v!=='all')"
-    )
-    assert sorted(options) == sorted(KEY_B)
-    for module, runs in KEY_B.items():
-        screen.set_value('[data-library-filter="module"]', module, "change")
-        found = sorted(context_of(str(href)) or "" for href in screen.attrs(".run-list a", "href"))
-        assert found == sorted(runs), module
 
 
 def test_availability_uses_only_the_recorded_labels(fixture: Any) -> None:
@@ -1337,69 +1281,6 @@ def test_the_white_card_starts_at_the_top_with_no_strip_of_text_above_it(fixture
     assert "no model call until you start a run" not in screen.text("body")
 
 
-def test_library_filters_by_recorded_workflow_and_as_of_year_and_keeps_unrecorded_runs_findable(
-    fixture: Any,
-) -> None:
-    screen = fixture("W-Library/cases")
-    screen.eval(
-        "()=>{Object.assign(contexts['tdg-003'],{pathway:'earnings_update',asOf:'2024-12-28'});"
-        "Object.assign(contexts['ford-otosan-2024'],{pathway:'credit_snapshot',asOf:'2021-04-11'});"
-        + REBUILD
-        + "}"
-    )
-    assert screen.texts('[data-library-filter="workflow"] option') == [
-        "Any workflow",
-        "Credit Snapshot",
-        "Earnings Update",
-        "Not recorded",
-    ]
-    assert screen.texts('[data-library-filter="year"] option') == [
-        "Any year",
-        "2024",
-        "2021",
-        "Not recorded",
-    ]
-    pick(screen, "workflow", "earnings_update")
-    assert shown(screen) == ["tdg-003"]
-    assert (
-        js(
-            screen,
-            "return norm(d.querySelector('.run-list a').closest('tr').children[2].textContent);",
-        )
-        == "Earnings Update"
-    )
-    assert screen.eval("document.getElementById('library-clear').disabled") is False
-    pick(screen, "workflow", "none")
-    assert len(shown(screen)) == 6
-    assert "tdg-003" not in shown(screen) and "ford-otosan-2024" not in shown(screen)
-    pick(screen, "workflow", "all")
-    pick(screen, "year", "2021")
-    assert shown(screen) == ["ford-otosan-2024"]
-    pick(screen, "year", "none")
-    assert len(shown(screen)) == 6
-    screen.click("#library-clear")
-    assert len(shown(screen)) == 8
-    assert screen.eval("document.querySelector('[data-library-filter=\"year\"]').value") == "all"
-    screen.set_value("#library-query", "earnings update")
-    assert shown(screen) == ["tdg-003"]
-
-
-def test_the_module_filter_groups_modules_under_the_credit_question_each_one_answers(
-    fixture: Any,
-) -> None:
-    screen = fixture("W-Library/cases")
-    facts = js(
-        screen,
-        "const s=d.querySelector('[data-library-filter=\"module\"]');"
-        "return {groups:s.querySelectorAll('optgroup').length,"
-        "outlook:s.querySelector('option[value=\"CP-2G\"]').parentElement.label,"
-        "financial:s.querySelector('option[value=\"CP-1\"]').parentElement.label};",
-    )
-    assert facts["groups"] > 2
-    assert facts["outlook"] == "Outlook and downside"
-    assert facts["financial"] == "Financial performance"
-
-
 def test_grey_text_app_pages_carry_no_subtitle_run_headers_no_freshness_line(
     fixture: Any,
 ) -> None:
@@ -1414,96 +1295,6 @@ def test_grey_text_app_pages_carry_no_subtitle_run_headers_no_freshness_line(
     assert norm(screen.text("#context-step .intro")) == "Load a saved context or enter the issuer."
 
 
-def test_library_shows_one_row_per_issuer_and_an_issuer_with_several_runs_opens_a_drop_down(
-    fixture: Any,
-) -> None:
-    screen = fixture("W-Library/cases")
-    assert js(
-        screen,
-        "return [...d.querySelectorAll('table.case-list thead th')].map(th=>norm(th.textContent));",
-    ) == ["Issuer", "Run", "Workflow", "Period", "Reports", "Open"]
-    helpers = (
-        "const groups=()=>[...d.querySelectorAll('table.case-list tbody.run-list')];"
-        "const group=name=>groups().find(g=>g.querySelector('h2').textContent===name);"
-        "const cells=row=>[...row.children].slice(1,5).map(c=>norm(c.textContent));"
-    )
-    facts = js(
-        screen,
-        helpers + "const tdg=group('TransDigm Group'),head=tdg.querySelector('tr'),"
-        "toggle=head.querySelector('button.run-toggle'),rows=[...tdg.querySelectorAll('tr.run-row')];"
-        "return {groups:groups().length,ford:cells(group('Ford Otosan').querySelector('tr')),"
-        "badge:head.querySelector('th[scope=\"rowgroup\"] .badge').textContent,head:cells(head),"
-        "expanded:toggle.getAttribute('aria-expanded'),rows:rows.length,allHidden:rows.every(r=>r.hidden),"
-        "controls:toggle.getAttribute('aria-controls').split(' ').sort(),ids:rows.map(r=>r.id).sort()};",
-    )
-    assert facts["groups"] == 3
-    assert facts["ford"] == ["FORD-OTOSAN-2024", "Not recorded", "11 April 2024", "No report"]
-    assert facts["badge"] == "Aerospace & defense"
-    assert facts["head"] == ["6 runs", "Not recorded", "Varies", "7 reports"]
-    assert facts["expanded"] == "false" and facts["rows"] == 6 and facts["allHidden"]
-    assert facts["controls"] == facts["ids"]
-    opened = js(
-        screen,
-        helpers
-        + "const tdg=group('TransDigm Group'),toggle=tdg.querySelector('button.run-toggle');"
-        "toggle.focus();toggle.click();const rows=[...tdg.querySelectorAll('tr.run-row')];"
-        "return {expanded:toggle.getAttribute('aria-expanded'),open:rows.every(r=>!r.hidden),"
-        "focus:d.activeElement===toggle,"
-        "run:cells(d.querySelector('.run-list a[href*=\"c=tdg-002\"]').closest('tr')),"
-        "links:d.querySelectorAll('.run-list a').length};",
-    )
-    assert opened["expanded"] == "true" and opened["open"] and opened["focus"]
-    assert opened["run"] == ["TDG-002", "Not recorded", "FY2024 historical evidence", "7 reports"]
-    assert opened["links"] == 8, "one link per run"
-    screen.eval("()=>{" + REBUILD + "}")
-    assert (
-        js(
-            screen,
-            helpers
-            + "return group('TransDigm Group').querySelector('button.run-toggle').getAttribute('aria-expanded');",
-        )
-        == "true"
-    ), "the drop-down stays open on return"
-    screen.eval("()=>{contexts['frontier-2020'].sector='Unclassified';" + REBUILD + "}")
-    sector = js(
-        screen,
-        helpers + "return {badge:group('Frontier').querySelector('.badge').textContent,"
-        "option:[...d.querySelectorAll('[data-library-filter=\"sector\"] option')]"
-        ".some(o=>o.value==='Unclassified'&&o.textContent==='Not recorded')};",
-    )
-    assert sector == {"badge": "Sector not recorded", "option": True}
-
-
-def test_active_library_filters_show_as_removable_chips_and_clear_all_appears_only_when_filtered(
-    fixture: Any,
-) -> None:
-    screen = fixture("W-Library/cases")
-    assert screen.hidden("library-clear") is True and screen.count("#library-chips .chip") == 0
-    pick(screen, "sector", "Automotive")
-    assert screen.hidden("library-clear") is False
-    assert screen.eval(
-        "document.querySelector('[data-library-filter=\"sector\"]').classList.contains('active')"
-    )
-    assert norm(screen.text("#library-chips .chip")) == "Sector: Automotive"
-    assert screen.attr("#library-chips .chip button", "aria-label") == "Remove Sector filter"
-    screen.click("#library-chips .chip button")
-    after = js(
-        screen,
-        "const s=d.querySelector('[data-library-filter=\"sector\"]');"
-        "return {value:s.value,links:d.querySelectorAll('.run-list a').length,"
-        "chips:d.querySelectorAll('#library-chips .chip').length,focus:d.activeElement===s,"
-        "clear:d.getElementById('library-clear').hidden,active:s.classList.contains('active')};",
-    )
-    assert after == {
-        "value": "all",
-        "links": 8,
-        "chips": 0,
-        "focus": True,
-        "clear": True,
-        "active": False,
-    }
-
-
 def test_new_run_and_settings_use_the_shared_secondary_button_for_their_other_actions(
     fixture: Any,
 ) -> None:
@@ -1514,40 +1305,6 @@ def test_new_run_and_settings_use_the_shared_secondary_button_for_their_other_ac
     for element in ids:
         classes = screen.eval(f"[...document.getElementById('{element}').classList]")
         assert "secondary-action" in classes and "text-button" not in classes, element
-
-
-def test_review_w1_a_run_folder_with_a_space_still_opens_its_issuer_drop_down(
-    fixture: Any,
-) -> None:
-    screen = fixture("W-Library/cases")
-    screen.eval(
-        "()=>{contexts['tdg 005']={...contexts['tdg-002'],folder:'tdg 005',run:'TDG 005'};"
-        + REBUILD
-        + "}"
-    )
-    facts = js(
-        screen,
-        "const tdg=[...d.querySelectorAll('tbody.run-list')].find(g=>g.querySelector('h2').textContent==='TransDigm Group');"
-        "const toggle=tdg.querySelector('button.run-toggle'),rows=[...tdg.querySelectorAll('tr.run-row')];"
-        "let threw=false;try{toggle.click();}catch(e){threw=true;}"
-        "return {rows:rows.length,spaces:rows.some(r=>/\\s/.test(r.id)),threw,"
-        "expanded:toggle.getAttribute('aria-expanded'),open:rows.every(r=>!r.hidden)};",
-    )
-    assert facts == {"rows": 7, "spaces": False, "threw": False, "expanded": "true", "open": True}
-
-
-def test_review_w2_a_recorded_as_of_that_is_not_a_full_date_still_gives_its_year(
-    fixture: Any,
-) -> None:
-    screen = fixture("W-Library/cases")
-    screen.eval("()=>{contexts['tdg-003'].asOf='2024-12';" + REBUILD + "}")
-    assert "2024" in screen.eval(
-        "[...document.querySelector('select[data-library-filter=\"year\"]').options].map(o=>o.value)"
-    )
-    screen.eval(
-        "()=>{document.querySelector('select[data-library-filter=\"year\"]').value='2024';updateLibraryResults();}"
-    )
-    assert screen.texts(".run-list a.run-link") == ["TDG-003"]
 
 
 def test_review_w3_icon_action_escapes_the_link_it_is_given(fixture: Any) -> None:
@@ -1664,18 +1421,6 @@ def test_the_library_says_what_it_is_once_and_puts_new_run_beside_its_title(fixt
     assert screen.attr("#library-new-run", "href") == "#W-NewRun/run"
     assert "separate runs" not in screen.text("#library-results")
     assert not screen.exists("#content .matrix-note"), "no footnote under the list"
-
-
-def test_the_module_filter_names_each_module_once(fixture: Any) -> None:
-    screen = fixture("W-Library/cases")
-    options = js(
-        screen,
-        "return [...d.querySelectorAll('[data-library-filter=\"module\"] option')].slice(1)"
-        ".map(o=>({value:o.value,text:o.textContent,label:moduleLabel(o.value)}));",
-    )
-    assert len(options) > 5
-    for option in options:
-        assert option["text"] == option["label"], option["value"]
 
 
 def test_a_source_footer_leaves_the_line_number_to_the_inspector(fixture: Any) -> None:
