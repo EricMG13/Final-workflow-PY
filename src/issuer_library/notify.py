@@ -174,7 +174,7 @@ def finish_notice(folder: Path) -> tuple[str, str] | None:
     words = STOP_REASON_WORDS.get(reason) if isinstance(reason, str) else None
     if words is not None and state != "complete" and words != state:
         text += f": {words}"
-    return "Issuer Library", text
+    return "Credit OS", text
 
 
 def system_directory() -> str:

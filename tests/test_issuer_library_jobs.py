@@ -1086,7 +1086,7 @@ else:
  deadline=time.time()+60
  while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
 """
-QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
+QUITTING = "Credit OS is quitting for a new launch; use the window that launch opens."
 
 
 def held_engine(tmp_path: Path, engine: Engine) -> Engine:
@@ -1999,7 +1999,7 @@ def test_a_finished_run_notifies_natively_only_when_no_tab_watches(
     assert done.wait(10), "finish_job did not return"
     assert len(calls) == want, calls
     if want == 1:
-        assert calls[0] == ("Issuer Library", "Run stopped")
+        assert calls[0] == ("Credit OS", "Run stopped")
 
 
 @pytest.mark.parametrize(

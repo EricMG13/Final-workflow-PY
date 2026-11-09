@@ -58,6 +58,6 @@ def open_browser(url: str) -> None:
 def show_error(message: str) -> None:
     if os.name == "nt":
         windll = ctypes.windll  # type: ignore[attr-defined]
-        windll.user32.MessageBoxW(None, message, "Issuer Library", 0x10)
+        windll.user32.MessageBoxW(None, message, "Credit OS", 0x10)
         return
     print(message, file=sys.stderr)

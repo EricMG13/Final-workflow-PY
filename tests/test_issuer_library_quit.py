@@ -42,7 +42,7 @@ from issuer_library.server import Application
 
 WINDOWS = sys.platform == "win32"
 SRC = Path(quit_module.__file__).resolve().parents[1]
-BUSY = "Issuer Library is busy ({}); wait for it to finish, then start it again."
+BUSY = "Credit OS is busy ({}); wait for it to finish, then start it again."
 
 
 @pytest.fixture
@@ -118,7 +118,7 @@ def test_only_a_fresh_well_formed_busy_answer_is_shown(tmp_path: Path) -> None:
         assert quit_module.read_quit_answer(answer) == text.strip().strip('"'), text
     for text in [
         '"busy: 1 run, 0 reviews; open http://x"',
-        '"Issuer Library is busy"',
+        '"Credit OS is busy"',
         "busy: 1 run, 0 reviews",
         '"busy: 1 run, 0 reviews' + " " * 300 + '"',
     ]:
@@ -440,7 +440,7 @@ def test_relaunch_asks_an_idle_library_to_quit_and_opens_a_fresh_link(tmp_path: 
 
 def test_relaunch_is_told_a_run_keeps_the_library_busy(tmp_path: Path) -> None:
     """S18 ruling 1 with a run in flight (a job an earlier instance left running, whose worker
-    still holds its lock). Expected by hand: the relaunch returns exactly "Issuer Library is busy
+    still holds its lock). Expected by hand: the relaunch returns exactly "Credit OS is busy
     (1 run, 0 reviews); wait for it to finish, then start it again.", the instance keeps running
     with its session, and no quit file is left. Once the worker ends, a relaunch quits the idle
     instance and opens a fresh link."""
@@ -482,7 +482,7 @@ def test_relaunch_is_told_a_run_keeps_the_library_busy(tmp_path: Path) -> None:
                 assert first.returncode == 0, f"first instance: {first.returncode}"
                 break
             reason = (tmp_path / f"stderr-again-{attempt}.txt").read_text()
-            not_busy = not reason.startswith("Issuer Library is busy (")
+            not_busy = not reason.startswith("Credit OS is busy (")
             assert not (attempt > 100 or process.returncode == 0 or not_busy), reason
             time.sleep(0.02)
             attempt += 1
@@ -624,8 +624,10 @@ def test_a_state_folder_other_users_can_write_is_refused(tmp_path: Path) -> None
             with pytest.raises(ValueError) as relaunch:
                 quit_module.ask_to_quit(state, 1)
             assert (
-                "this launch does not ask it to quit: other users can write to the state folder "
-                f"{state}. Quit the running library" in str(relaunch.value)
+                str(relaunch.value)
+                == "Credit OS is already running, and this launch does not ask it to quit: "
+                f"other users can write to the state folder {state}. Quit the running library "
+                "(Settings > Quit library, or end Credit OS in Task Manager), then start it again."
             ) and absent(request), f"{mode:o}: relaunch {relaunch.value}, request placed"
         for mode in (0o700, 0o750, 0o755):
             os.chmod(state, mode)
@@ -911,5 +913,5 @@ def test_a_refresh_or_settings_request_after_an_idle_quit_is_refused_not_blocked
         thread.start()
         thread.join(timeout=5)
         assert not thread.is_alive(), f"{endpoint} is blocked on the held refreshing lock"
-        want = "Issuer Library is quitting for a new launch; use the window that launch opens.\n"
+        want = "Credit OS is quitting for a new launch; use the window that launch opens.\n"
         assert replies == [(503, want)], endpoint

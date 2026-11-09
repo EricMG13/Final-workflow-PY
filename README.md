@@ -1,17 +1,17 @@
 # Final Workflow (Python variant)
 
-This repository is the Python variant of `EricMG13/final-workflow`. The Issuer Library
+This repository is the Python variant of `EricMG13/final-workflow`. Credit OS
 server is FastAPI on uvicorn (`src/issuer_library`), and its browser checks use pytest with
 Playwright. The original repository keeps the Go server and the Node test harness.
 
-**The Issuer Library is the application.** It is a local browser app for finding dated issuer
+**Credit OS is the application.** It is a local browser app for finding dated issuer
 runs, screening them, reading their module outputs and reports, and preparing and starting new
 CP-OS runs. Everything else in this repository is the engine behind it, the design work for it,
 or a record of how it was built.
 
 ```
 Issuer source files → CP-OS runs the analytical modules → Markdown handoffs →
-separate delivery process → reports shown in the Issuer Library
+separate delivery process → reports shown in Credit OS
 ```
 
 Excel files are analytical inputs only; no deliverable is an Excel workbook.
@@ -67,7 +67,7 @@ invents missing content. Completion means populated deliverables built from the 
 and checked against them. A paid run is always an explicit, budgeted action; the build, tests and
 browsing never call a provider.
 
-The Issuer Library's New run drives the same launcher as the command line below.
+Credit OS's New run drives the same launcher as the command line below.
 
 ## Start a run from a context file and issuer folder
 

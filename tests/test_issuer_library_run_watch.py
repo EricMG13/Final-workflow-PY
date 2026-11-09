@@ -210,7 +210,7 @@ def test_a_run_that_finishes_while_the_library_is_open_notifies_once_with_the_ru
     p.watch()
     assert p.built() == [
         {
-            "title": "Issuer Library",
+            "title": "Credit OS",
             "options": {"body": "Northbridge Group run complete", "tag": ID},
         }
     ]
@@ -229,7 +229,7 @@ def test_the_title_carries_the_run_mark_on_every_route_and_clears_with_no_job(
         ("W-Help/help", "Help"),
     ):
         p.s.go(hash_route)
-        assert p.title() == f"● 2/4 · {name} · Issuer Library", hash_route
+        assert p.title() == f"● 2/4 · {name} · Credit OS", hash_route
     assert not p.s.hidden("run-mark")
     assert p.s.text("#run-mark") == "●"
     assert p.s.attr("#run-mark", "aria-hidden") == "true"
@@ -238,10 +238,10 @@ def test_the_title_carries_the_run_mark_on_every_route_and_clears_with_no_job(
     assert p.s.attr(RAIL, "aria-label") == "Run activity — run running"
     assert p.s.attr(RAIL, "href") == f"#CP-OS/activity?c={ID}"
     p.poll(job(state="stopped", reason="budget"))
-    assert p.title() == "! Help · Issuer Library"
+    assert p.title() == "! Help · Credit OS"
     assert p.s.attr(RAIL, "aria-label") == "Run activity — run stopped"
     p.poll(job(state="complete"))
-    assert p.title() == "✓ Help · Issuer Library"
+    assert p.title() == "✓ Help · Credit OS"
     p.poll()
     # a finished job leaves the list; the page keeps describing the run it saw finish
     assert p.mark() == "✓ "
@@ -251,7 +251,7 @@ def test_no_job_at_all_leaves_the_title_unmarked(page: OpenWatch) -> None:
     p = page([])
     p.s.go("W-Help/help")
     assert p.mark() == ""
-    assert p.title() == "Help · Issuer Library"
+    assert p.title() == "Help · Credit OS"
 
 
 def test_a_job_without_modules_shows_the_mark_without_a_count(page: OpenWatch) -> None:

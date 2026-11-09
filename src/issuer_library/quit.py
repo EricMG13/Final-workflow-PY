@@ -45,7 +45,7 @@ quit_stale = 20.0
 BUSY_ANSWER = re.compile(r"busy: [0-9]{1,6} runs?, [0-9]{1,6} reviews?")
 
 # Refuses a review or Start once the library has agreed to quit for a relaunch.
-LIBRARY_QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
+LIBRARY_QUITTING = "Credit OS is quitting for a new launch; use the window that launch opens."
 
 # Windows well-known SIDs, as stored: revision 1, the number of sub-authorities, the 6-byte
 # identifier authority (big endian), then each sub-authority (little endian).
@@ -128,9 +128,9 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
         private_folder(state)
     except OSError as error:
         raise ValueError(
-            f"Issuer Library is already running, and this launch does not ask it to quit: "
-            f"{error}. Quit the running library (Settings > Quit library, or end Issuer "
-            "Library in Task Manager), then start it again."
+            f"Credit OS is already running, and this launch does not ask it to quit: "
+            f"{error}. Quit the running library (Settings > Quit library, or end Credit OS "
+            "in Task Manager), then start it again."
         ) from error
     request, answer = state / QUIT_REQUEST, state / QUIT_ANSWER
     discard(answer)  # An answer to an earlier launch is not this launch's.
@@ -148,7 +148,7 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
             if status is not None:
                 discard(answer)
                 raise ValueError(
-                    f"Issuer Library is busy ({status.removeprefix('busy: ')}); "
+                    f"Credit OS is busy ({status.removeprefix('busy: ')}); "
                     "wait for it to finish, then start it again."
                 )
             if time.monotonic() > deadline:
