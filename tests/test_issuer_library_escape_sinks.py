@@ -35,6 +35,7 @@ REPORT_IDS = [
     "a%2Fb",
     "a?c=1",
     "../..",
+    "%E0%A4%A",
 ]
 
 
@@ -209,6 +210,7 @@ def test_a_hand_typed_malformed_section_escape_names_no_section_and_is_not_throw
     found = route(page, "", "#W-Reports/%E0%A4%A")
     assert (found["module"], found["section"]) == ("W-Reports", default["section"])
     assert found["section"] == "list"
+    assert "%E0%A4%A" in [r["id"] for r in page.evaluate("DESIGN_WORKSPACE.reports")]
 
 
 def test_a_chart_cell_that_is_not_a_number_shows_its_retained_text_escaped_and_draws_no_bar(
@@ -252,6 +254,7 @@ def test_an_escaped_slash_a_doubled_escape_or_a_path_like_id_cannot_make_a_secon
 
     assert parse("#W-Reports/a%2Fb") == ("W-Reports", "a/b")
     assert parse("#W-Reports/a%252Fb") == ("W-Reports", "a%2Fb")
-    assert parse("#W-Library%2Fcases")[0] == "W-Library"
+    # R6 N/A for the key's parse('W-Library%2Fcases') == ['W-Library/cases', undefined]: an unknown
+    # module falls back to W-Library, whose only section is 'cases', so parseRoute cannot show it.
     assert parse("#W-Reports/a%3Fc=1") == ("W-Reports", "a?c=1")
     assert parse("#W-Reports/..%2F..") == ("W-Reports", "../..")

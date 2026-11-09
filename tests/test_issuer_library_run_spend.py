@@ -20,11 +20,12 @@ STALE = {"module": "CP-1", "step": "started", "spent_usd": "0"}
 
 def spend_text(browser: Any, status: dict[str, Any]) -> str:
     run = NewRun(browser, status=status)
-    run.launch()
-    run.page.wait_for_function("document.getElementById('run-spend').textContent!==''")
-    text = run.text("run-spend")
-    run.close()
-    return text
+    try:
+        run.launch()
+        run.page.wait_for_function("document.getElementById('run-spend').textContent!==''")
+        return run.text("run-spend")
+    finally:
+        run.close()
 
 
 def test_an_unreadable_ledger_is_shown_as_unreadable_not_as_the_stale_progress_figure(
@@ -51,7 +52,13 @@ def test_a_stop_after_every_module_was_accepted_reads_as_a_delivery_stop_not_a_m
     browser: Any,
 ) -> None:
     run = NewRun(browser)
+    try:
+        check_delivery_stop(run)
+    finally:
+        run.close()
 
+
+def check_delivery_stop(run: NewRun) -> None:
     def say(state: str, progress: dict[str, Any]) -> str:
         value: str = run.page.evaluate(
             "([state,progress])=>describeModule({state,progress},['CP-2','CP-6'],id=>'Title '+id)",
@@ -80,4 +87,3 @@ def test_a_stop_after_every_module_was_accepted_reads_as_a_delivery_stop_not_a_m
         )
         == "stopped during Title CP-6 (2 of 2)"
     )
-    run.close()
