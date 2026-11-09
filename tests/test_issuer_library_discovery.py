@@ -433,7 +433,7 @@ def find_artifact(cat: Catalogue, folder: str) -> Artifact | None:
 
 
 def deliver(root: Path, run: str, *specs: tuple[str, str, str]) -> list[str]:
-    """Verified deliveries (folder, view run id, view issuer) placed inside a run, as a copy would."""
+    """Verified deliveries (folder, view run id, issuer) placed inside a run, as a copy would."""
     placed = []
     for folder, run_id, issuer in specs:
         add_delivery(root, folder, run_id, issuer)
