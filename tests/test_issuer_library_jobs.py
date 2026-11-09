@@ -972,6 +972,9 @@ def test_recorded_job_decodes_as_go_unmarshal_does() -> None:
         "sources": [],
     }
     assert recorded_job(b'{"config":"\xff"}')["config"] == "\ufffd"
+    assert (
+        events_module.state_of(b'{"state":"stopped","STATE":"reviewed","State":null}') == "reviewed"
+    )
 
 
 @pytest.mark.parametrize(
