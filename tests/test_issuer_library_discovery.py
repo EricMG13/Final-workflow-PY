@@ -450,8 +450,9 @@ def attached(cat: Catalogue, run_id: str, folder: str) -> bool:
     )
 
 
-def complete_checklist(root: Path) -> None:
+def complete_checklist(root: Path, *declared: Artifact) -> None:
     manifest = fixture(root)
+    manifest.run.artifacts = list(declared)
     done = [{**item, "done": True, "evidence": ["check"]} for item in CHECKLIST["requirements"]]
     manifest.checklist = Checklist.model_validate({**CHECKLIST, "requirements": done})
     put_json(root, "runs/case-a/library.json", manifest)
@@ -551,7 +552,10 @@ def test_review_run_delivery_identity_adversarial(tmp_path: Path) -> None:
         tmp_path, "web-3", ("none-own", "web-3", "EX"), ("none-other", "ex-run", "EX")
     )
     # web-4: a CP-8 comparison plan recorded as workflow.json; an issuer differing in case is not.
-    plan = b'{"run":{"run_id":"tdg-cp8-comparison","issuer_id":"TDG"},"prior":{"path":"p"}}'
+    plan = (
+        b'{"run":{"run_id":"tdg-cp8-comparison","issuer_id":"TDG"},'
+        b'"prior":{"path":"p","sha256":"x"}}'
+    )
     put(tmp_path, "runs/web-4/workflow.json", plan)
     cp8, cp8_case = deliver(
         tmp_path,
@@ -561,7 +565,7 @@ def test_review_run_delivery_identity_adversarial(tmp_path: Path) -> None:
     )
     # case-a has an admitted manifest (issuer EX): another issuer or another run is refused.
     case_issuer, case_run = deliver(
-        tmp_path, "case-a", ("other-issuer", "case-a", "ex"), ("other-run", "web-3", "EX")
+        tmp_path, "case-a", ("case-other-issuer", "case-a", "ex"), ("case-other-run", "web-3", "EX")
     )
     cat = discover(str(tmp_path), Catalogue())
     for run_id, folder, ok in [
@@ -614,3 +618,27 @@ def test_a_published_model_alone_does_not_restore_a_runs_completeness(tmp_path: 
     run = run_named(discover(str(tmp_path), Catalogue()), "case-a")
     assert run.completion is None, "a model-only delivery restored completeness"
     assert any("no available direct report" in gap for gap in run.gaps)
+
+
+@pytest.mark.parametrize(
+    ("declared", "completion", "kind"),
+    [
+        (None, 100, "report"),  # both pages listed: the report wins and completes the run
+        (Artifact(folder="deliverables/r", label="Old", state="superseded"), None, "report"),
+        (Artifact(folder="deliverables/r", label="Rel", relationship="related"), None, "report"),
+    ],
+)
+def test_the_delivery_checkpoint_counts_only_a_current_direct_report(
+    tmp_path: Path, declared: Artifact | None, completion: int | None, kind: str
+) -> None:
+    complete_checklist(tmp_path, *([declared] if declared else []))
+    add_delivery(tmp_path, "r", "case-a", "EX")
+    model = b"<!doctype html><title>Model</title>"
+    put(tmp_path, "deliverables/r/model.html", model)
+    record = json.loads((tmp_path / "deliverables/r/delivery.json").read_bytes())
+    record["files"]["model.html"] = digest(model)
+    put_json(tmp_path, "deliverables/r/delivery.json", record)
+    cat = discover(str(tmp_path), Catalogue())
+    artifact = find_artifact(cat, "deliverables/r")
+    assert artifact is not None and artifact.available and artifact.kind == kind
+    assert run_named(cat, "case-a").completion == completion

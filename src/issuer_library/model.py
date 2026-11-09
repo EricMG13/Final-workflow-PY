@@ -62,10 +62,10 @@ class Counts(Record):
 
 class Artifact(Record):
     folder: str = ""
+    kind: str = ""
     label: str = ""
     state: str = ""
     relationship: str = ""
-    kind: str = ""
     available: bool = False
     href: str = ""
     issue: str = ""
