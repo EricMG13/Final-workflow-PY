@@ -23,6 +23,7 @@ from issuer_library_browser import (
     ContextForm,
     Reply,
     catalogue_reply,
+    held,
     json_reply,
     open_app,
     pageerrors,
@@ -635,7 +636,11 @@ def test_a_failed_run_offers_nothing_to_open(new_run: Any) -> None:
 
 
 def test_context_height_messages_are_source_checked_and_bounded(new_run: Any) -> None:
-    run = new_run()
+    # The real form posts its own height; hold it so the frame runs no script (jsdom never did).
+    run = new_run(route="W-Library/cases")
+    run.page.route("**/context-form.html", held)
+    run.screen.go("W-NewRun/run")
+    assert run.page.evaluate("document.getElementById('context-editor').contentWindow!==null")
 
     def send(editor: bool, height: float) -> str:
         value: str = run.page.evaluate(
