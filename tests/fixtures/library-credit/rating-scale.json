@@ -1,0 +1,761 @@
+{
+ "description": "Rating-scale answer key for Plan 4 Task 13 (Issuer Library credit screening), hand-written 2026-11-08 by a separate agent from the code's author. Rank 1 is best; higher rank is lower quality; D is last. Threshold 'X/Y' names one scale row; 'or_below' means rank >= the row's rank. Default scope is issuer. Text is matched as entered (case-sensitive, no trimming).",
+ "scale": [
+  {
+   "rank": 1,
+   "sp_fitch": "AAA",
+   "moodys": "Aaa",
+   "approximate": false
+  },
+  {
+   "rank": 2,
+   "sp_fitch": "AA+",
+   "moodys": "Aa1",
+   "approximate": false
+  },
+  {
+   "rank": 3,
+   "sp_fitch": "AA",
+   "moodys": "Aa2",
+   "approximate": false
+  },
+  {
+   "rank": 4,
+   "sp_fitch": "AA-",
+   "moodys": "Aa3",
+   "approximate": false
+  },
+  {
+   "rank": 5,
+   "sp_fitch": "A+",
+   "moodys": "A1",
+   "approximate": false
+  },
+  {
+   "rank": 6,
+   "sp_fitch": "A",
+   "moodys": "A2",
+   "approximate": false
+  },
+  {
+   "rank": 7,
+   "sp_fitch": "A-",
+   "moodys": "A3",
+   "approximate": false
+  },
+  {
+   "rank": 8,
+   "sp_fitch": "BBB+",
+   "moodys": "Baa1",
+   "approximate": false
+  },
+  {
+   "rank": 9,
+   "sp_fitch": "BBB",
+   "moodys": "Baa2",
+   "approximate": false
+  },
+  {
+   "rank": 10,
+   "sp_fitch": "BBB-",
+   "moodys": "Baa3",
+   "approximate": false
+  },
+  {
+   "rank": 11,
+   "sp_fitch": "BB+",
+   "moodys": "Ba1",
+   "approximate": false
+  },
+  {
+   "rank": 12,
+   "sp_fitch": "BB",
+   "moodys": "Ba2",
+   "approximate": false
+  },
+  {
+   "rank": 13,
+   "sp_fitch": "BB-",
+   "moodys": "Ba3",
+   "approximate": false
+  },
+  {
+   "rank": 14,
+   "sp_fitch": "B+",
+   "moodys": "B1",
+   "approximate": false
+  },
+  {
+   "rank": 15,
+   "sp_fitch": "B",
+   "moodys": "B2",
+   "approximate": false
+  },
+  {
+   "rank": 16,
+   "sp_fitch": "B-",
+   "moodys": "B3",
+   "approximate": false
+  },
+  {
+   "rank": 17,
+   "sp_fitch": "CCC+",
+   "moodys": "Caa1",
+   "approximate": false
+  },
+  {
+   "rank": 18,
+   "sp_fitch": "CCC",
+   "moodys": "Caa2",
+   "approximate": false
+  },
+  {
+   "rank": 19,
+   "sp_fitch": "CCC-",
+   "moodys": "Caa3",
+   "approximate": false
+  },
+  {
+   "rank": 20,
+   "sp_fitch": "CC",
+   "moodys": "Ca",
+   "approximate": true
+  },
+  {
+   "rank": 21,
+   "sp_fitch": "C",
+   "moodys": "C",
+   "approximate": true
+  },
+  {
+   "rank": 22,
+   "sp_fitch": "D",
+   "moodys": null,
+   "approximate": true
+  }
+ ],
+ "placement_cases": [
+  {
+   "text": "AAA",
+   "rank": 1,
+   "places_as": "AAA",
+   "kept_text": "AAA"
+  },
+  {
+   "text": "Aaa",
+   "rank": 1,
+   "places_as": "Aaa",
+   "kept_text": "Aaa"
+  },
+  {
+   "text": "AA+",
+   "rank": 2,
+   "places_as": "AA+",
+   "kept_text": "AA+"
+  },
+  {
+   "text": "Aa1",
+   "rank": 2,
+   "places_as": "Aa1",
+   "kept_text": "Aa1"
+  },
+  {
+   "text": "AA",
+   "rank": 3,
+   "places_as": "AA",
+   "kept_text": "AA"
+  },
+  {
+   "text": "Aa2",
+   "rank": 3,
+   "places_as": "Aa2",
+   "kept_text": "Aa2"
+  },
+  {
+   "text": "AA-",
+   "rank": 4,
+   "places_as": "AA-",
+   "kept_text": "AA-"
+  },
+  {
+   "text": "Aa3",
+   "rank": 4,
+   "places_as": "Aa3",
+   "kept_text": "Aa3"
+  },
+  {
+   "text": "A+",
+   "rank": 5,
+   "places_as": "A+",
+   "kept_text": "A+"
+  },
+  {
+   "text": "A1",
+   "rank": 5,
+   "places_as": "A1",
+   "kept_text": "A1"
+  },
+  {
+   "text": "A",
+   "rank": 6,
+   "places_as": "A",
+   "kept_text": "A"
+  },
+  {
+   "text": "A2",
+   "rank": 6,
+   "places_as": "A2",
+   "kept_text": "A2"
+  },
+  {
+   "text": "A-",
+   "rank": 7,
+   "places_as": "A-",
+   "kept_text": "A-"
+  },
+  {
+   "text": "A3",
+   "rank": 7,
+   "places_as": "A3",
+   "kept_text": "A3"
+  },
+  {
+   "text": "BBB+",
+   "rank": 8,
+   "places_as": "BBB+",
+   "kept_text": "BBB+"
+  },
+  {
+   "text": "Baa1",
+   "rank": 8,
+   "places_as": "Baa1",
+   "kept_text": "Baa1"
+  },
+  {
+   "text": "BBB",
+   "rank": 9,
+   "places_as": "BBB",
+   "kept_text": "BBB"
+  },
+  {
+   "text": "Baa2",
+   "rank": 9,
+   "places_as": "Baa2",
+   "kept_text": "Baa2"
+  },
+  {
+   "text": "BBB-",
+   "rank": 10,
+   "places_as": "BBB-",
+   "kept_text": "BBB-"
+  },
+  {
+   "text": "Baa3",
+   "rank": 10,
+   "places_as": "Baa3",
+   "kept_text": "Baa3"
+  },
+  {
+   "text": "BB+",
+   "rank": 11,
+   "places_as": "BB+",
+   "kept_text": "BB+"
+  },
+  {
+   "text": "Ba1",
+   "rank": 11,
+   "places_as": "Ba1",
+   "kept_text": "Ba1"
+  },
+  {
+   "text": "BB",
+   "rank": 12,
+   "places_as": "BB",
+   "kept_text": "BB"
+  },
+  {
+   "text": "Ba2",
+   "rank": 12,
+   "places_as": "Ba2",
+   "kept_text": "Ba2"
+  },
+  {
+   "text": "BB-",
+   "rank": 13,
+   "places_as": "BB-",
+   "kept_text": "BB-"
+  },
+  {
+   "text": "Ba3",
+   "rank": 13,
+   "places_as": "Ba3",
+   "kept_text": "Ba3"
+  },
+  {
+   "text": "B+",
+   "rank": 14,
+   "places_as": "B+",
+   "kept_text": "B+"
+  },
+  {
+   "text": "B1",
+   "rank": 14,
+   "places_as": "B1",
+   "kept_text": "B1"
+  },
+  {
+   "text": "B",
+   "rank": 15,
+   "places_as": "B",
+   "kept_text": "B"
+  },
+  {
+   "text": "B2",
+   "rank": 15,
+   "places_as": "B2",
+   "kept_text": "B2"
+  },
+  {
+   "text": "B-",
+   "rank": 16,
+   "places_as": "B-",
+   "kept_text": "B-"
+  },
+  {
+   "text": "B3",
+   "rank": 16,
+   "places_as": "B3",
+   "kept_text": "B3"
+  },
+  {
+   "text": "CCC+",
+   "rank": 17,
+   "places_as": "CCC+",
+   "kept_text": "CCC+"
+  },
+  {
+   "text": "Caa1",
+   "rank": 17,
+   "places_as": "Caa1",
+   "kept_text": "Caa1"
+  },
+  {
+   "text": "CCC",
+   "rank": 18,
+   "places_as": "CCC",
+   "kept_text": "CCC"
+  },
+  {
+   "text": "Caa2",
+   "rank": 18,
+   "places_as": "Caa2",
+   "kept_text": "Caa2"
+  },
+  {
+   "text": "CCC-",
+   "rank": 19,
+   "places_as": "CCC-",
+   "kept_text": "CCC-"
+  },
+  {
+   "text": "Caa3",
+   "rank": 19,
+   "places_as": "Caa3",
+   "kept_text": "Caa3"
+  },
+  {
+   "text": "CC",
+   "rank": 20,
+   "places_as": "CC",
+   "kept_text": "CC"
+  },
+  {
+   "text": "Ca",
+   "rank": 20,
+   "places_as": "Ca",
+   "kept_text": "Ca"
+  },
+  {
+   "text": "C",
+   "rank": 21,
+   "places_as": "C",
+   "kept_text": "C"
+  },
+  {
+   "text": "D",
+   "rank": 22,
+   "places_as": "D",
+   "kept_text": "D"
+  },
+  {
+   "text": "(P)B2",
+   "rank": 15,
+   "places_as": "B2",
+   "kept_text": "(P)B2"
+  },
+  {
+   "text": "(P)Baa3",
+   "rank": 10,
+   "places_as": "Baa3",
+   "kept_text": "(P)Baa3"
+  },
+  {
+   "text": "B+(EXP)",
+   "rank": 14,
+   "places_as": "B+",
+   "kept_text": "B+(EXP)"
+  },
+  {
+   "text": "BBB-(EXP)",
+   "rank": 10,
+   "places_as": "BBB-",
+   "kept_text": "BBB-(EXP)"
+  },
+  {
+   "text": "SD",
+   "rank": 22,
+   "places_as": "D",
+   "kept_text": "SD",
+   "why": "S&P selective default places as D."
+  },
+  {
+   "text": "RD",
+   "rank": 22,
+   "places_as": "D",
+   "kept_text": "RD",
+   "why": "Fitch restricted default places as D."
+  },
+  {
+   "text": "Caa3/LD",
+   "rank": 22,
+   "places_as": "D",
+   "kept_text": "Caa3/LD",
+   "why": "Moody's /LD suffix means limited default; places as D, not as Caa3."
+  },
+  {
+   "text": "B2/LD",
+   "rank": 22,
+   "places_as": "D",
+   "kept_text": "B2/LD",
+   "why": "Same /LD rule for any base symbol."
+  },
+  {
+   "text": "NR",
+   "rank": null,
+   "off_scale": true
+  },
+  {
+   "text": "WD",
+   "rank": null,
+   "off_scale": true
+  },
+  {
+   "text": "WR",
+   "rank": null,
+   "off_scale": true
+  },
+  {
+   "text": "",
+   "rank": null,
+   "off_scale": true
+  },
+  {
+   "text": "B+ ",
+   "rank": null,
+   "off_scale": true,
+   "why": "Judgment: text is matched exactly as entered, with no trimming, so a trailing space is not a scale symbol and is off scale. Normalising entries is the job of the entry/import layer, not of the scale."
+  },
+  {
+   "text": "bb+",
+   "rank": null,
+   "off_scale": true,
+   "why": "Judgment: matching is case-sensitive; scale symbols are written exactly as the agencies print them, so lower-case is off scale."
+  }
+ ],
+ "lowest_cases": [
+  {
+   "name": "BBB-/Ba1 split",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "BBB-"
+    },
+    {
+     "agency": "Moody's",
+     "scope": "issuer",
+     "label": "Ba1"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": "Ba1",
+   "matches": [
+    {
+     "threshold": "BB+/Ba1",
+     "or_below": true
+    },
+    {
+     "threshold": "BBB-/Baa3",
+     "or_below": true
+    }
+   ],
+   "does_not_match": [
+    {
+     "threshold": "BB/Ba2",
+     "or_below": true
+    },
+    {
+     "threshold": "D",
+     "or_below": true
+    }
+   ]
+  },
+  {
+   "name": "issuer B+ with facility B3, issuer scope",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "B+"
+    },
+    {
+     "agency": "Moody's",
+     "scope": "facility",
+     "label": "B3"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": "B+",
+   "matches": [
+    {
+     "threshold": "BB-/Ba3",
+     "or_below": true
+    },
+    {
+     "threshold": "B+/B1",
+     "or_below": true
+    }
+   ],
+   "does_not_match": [
+    {
+     "threshold": "B/B2",
+     "or_below": true
+    }
+   ]
+  },
+  {
+   "name": "issuer B+ with facility B3, any scope",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "B+"
+    },
+    {
+     "agency": "Moody's",
+     "scope": "facility",
+     "label": "B3"
+    }
+   ],
+   "scope": "any",
+   "lowest": "B3",
+   "matches": [
+    {
+     "threshold": "B/B2",
+     "or_below": true
+    },
+    {
+     "threshold": "B-/B3",
+     "or_below": true
+    }
+   ],
+   "does_not_match": [
+    {
+     "threshold": "CCC+/Caa1",
+     "or_below": true
+    }
+   ]
+  },
+  {
+   "name": "facility only, issuer scope (default)",
+   "ratings": [
+    {
+     "agency": "Moody's",
+     "scope": "facility",
+     "label": "B3"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": null,
+   "matches": [],
+   "does_not_match": [
+    {
+     "threshold": "B-/B3",
+     "or_below": true
+    },
+    {
+     "threshold": "D",
+     "or_below": true
+    }
+   ],
+   "why": "Judgment: with no issuer-scope rating the issuer scope has no lowest rating; facility ratings are not borrowed."
+  },
+  {
+   "name": "only NR",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "NR"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": null,
+   "matches": [],
+   "does_not_match": [
+    {
+     "threshold": "BB+/Ba1",
+     "or_below": true
+    },
+    {
+     "threshold": "D",
+     "or_below": true
+    }
+   ]
+  },
+  {
+   "name": "WD plus B",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "WD"
+    },
+    {
+     "agency": "Fitch",
+     "scope": "issuer",
+     "label": "B"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": "B",
+   "matches": [
+    {
+     "threshold": "B/B2",
+     "or_below": true
+    }
+   ],
+   "does_not_match": [
+    {
+     "threshold": "B-/B3",
+     "or_below": true
+    }
+   ]
+  },
+  {
+   "name": "(P)B2 plus B+(EXP)",
+   "ratings": [
+    {
+     "agency": "Moody's",
+     "scope": "issuer",
+     "label": "(P)B2"
+    },
+    {
+     "agency": "Fitch",
+     "scope": "issuer",
+     "label": "B+(EXP)"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": "(P)B2",
+   "matches": [
+    {
+     "threshold": "B/B2",
+     "or_below": true
+    }
+   ],
+   "does_not_match": [
+    {
+     "threshold": "B-/B3",
+     "or_below": true
+    }
+   ],
+   "why": "B2 (rank 15) is below B+ (rank 14); the kept text is (P)B2."
+  },
+  {
+   "name": "SD plus B-",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "SD"
+    },
+    {
+     "agency": "Fitch",
+     "scope": "issuer",
+     "label": "B-"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": "SD",
+   "matches": [
+    {
+     "threshold": "D",
+     "or_below": true
+    },
+    {
+     "threshold": "CCC-/Caa3",
+     "or_below": true
+    }
+   ],
+   "does_not_match": []
+  },
+  {
+   "name": "no ratings",
+   "ratings": [],
+   "scope": "issuer",
+   "lowest": null,
+   "matches": [],
+   "does_not_match": [
+    {
+     "threshold": "BB+/Ba1",
+     "or_below": true
+    },
+    {
+     "threshold": "D",
+     "or_below": true
+    }
+   ]
+  },
+  {
+   "name": "same-notch tie BBB- and Baa3",
+   "ratings": [
+    {
+     "agency": "S&P",
+     "scope": "issuer",
+     "label": "BBB-"
+    },
+    {
+     "agency": "Moody's",
+     "scope": "issuer",
+     "label": "Baa3"
+    }
+   ],
+   "scope": "issuer",
+   "lowest": "BBB-",
+   "matches": [
+    {
+     "threshold": "BBB-/Baa3",
+     "or_below": true
+    }
+   ],
+   "does_not_match": [
+    {
+     "threshold": "BB+/Ba1",
+     "or_below": true
+    }
+   ],
+   "why": "Judgment: equal notches tie; the first rating as entered is reported."
+  }
+ ]
+}

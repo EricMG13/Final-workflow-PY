@@ -1,0 +1,108 @@
+[
+ {
+  "name": "net leverage ascending, any",
+  "filters": {
+   "runs": "any"
+  },
+  "key": "net_leverage",
+  "direction": "asc",
+  "expected_ids": [
+   "fairholt-001",
+   "aldermoor-2025-001",
+   "ironwood-001",
+   "aldermoor-2023-001",
+   "larkspur-2024-001",
+   "brackenfell-hy-001",
+   "larkspur-2023-001",
+   "jasper-001",
+   "aldermoor-2024-001",
+   "hartley-001",
+   "larkspur-2024-002",
+   "garrowby-001",
+   "cobalt-eur-001",
+   "dunmore-001",
+   "elmstead-001",
+   "kestrel-001",
+   "unclassified-a-001",
+   "unclassified-b-001"
+  ],
+  "why": "Values low to high: 2.50,2.80,2.90,3.00,3.45,3.90,4.10,4.50,5.50. Negative (cobalt), empty (dunmore), absent (elmstead) and Unclassified rows sort last, by id."
+ },
+ {
+  "name": "net leverage descending, any",
+  "filters": {
+   "runs": "any"
+  },
+  "key": "net_leverage",
+  "direction": "desc",
+  "expected_ids": [
+   "garrowby-001",
+   "larkspur-2024-002",
+   "hartley-001",
+   "aldermoor-2024-001",
+   "jasper-001",
+   "larkspur-2023-001",
+   "brackenfell-hy-001",
+   "larkspur-2024-001",
+   "aldermoor-2023-001",
+   "ironwood-001",
+   "aldermoor-2025-001",
+   "fairholt-001",
+   "cobalt-eur-001",
+   "dunmore-001",
+   "elmstead-001",
+   "kestrel-001",
+   "unclassified-a-001",
+   "unclassified-b-001"
+  ],
+  "why": "High to low; missing, negative and off-scale rows still sort last, by id ascending."
+ },
+ {
+  "name": "rating ascending (best first), any",
+  "filters": {
+   "runs": "any"
+  },
+  "key": "rating",
+  "direction": "asc",
+  "expected_ids": [
+   "jasper-001",
+   "cobalt-eur-001",
+   "aldermoor-2023-001",
+   "aldermoor-2024-001",
+   "dunmore-001",
+   "brackenfell-hy-001",
+   "fairholt-001",
+   "hartley-001",
+   "garrowby-001",
+   "aldermoor-2025-001",
+   "elmstead-001",
+   "ironwood-001",
+   "kestrel-001",
+   "larkspur-2023-001",
+   "larkspur-2024-001",
+   "larkspur-2024-002",
+   "unclassified-a-001",
+   "unclassified-b-001"
+  ],
+  "why": "Issuer-scope lowest rank: jasper 10, cobalt 11, aldermoor-2023/2024 13 (tie by id), dunmore 14, brackenfell/fairholt/hartley 15 (tie by id), garrowby 22. No issuer on-scale rating (aldermoor-2025, elmstead NR, ironwood facility-only, Unclassified) last by id."
+ },
+ {
+  "name": "rating descending (worst first), high yield only, any",
+  "filters": {
+   "runs": "any",
+   "classification": "high_yield"
+  },
+  "key": "rating",
+  "direction": "desc",
+  "expected_ids": [
+   "garrowby-001",
+   "brackenfell-hy-001",
+   "hartley-001",
+   "aldermoor-2023-001",
+   "aldermoor-2024-001",
+   "aldermoor-2025-001",
+   "elmstead-001"
+  ],
+  "why": "High-yield rows 1,2,3,4,7,9,10: garrowby 22, brackenfell/hartley 15 (tie by id), aldermoor-2023/2024 13 (tie by id), then no-rating aldermoor-2025 and elmstead last by id."
+ }
+]

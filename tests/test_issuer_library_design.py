@@ -629,10 +629,11 @@ def test_library_filters_combine_search_sector_content_and_module(fixture: Any) 
     assert contexts == ["ford-otosan-2024", "tdg-003"]
 
 
+# plan-4c d877d8ce
 def test_library_return_restores_filters_and_clear_resets_without_changing_context(
     fixture: Any,
 ) -> None:
-    screen = fixture("W-Library/cases")
+    screen = fixture("W-Library/cases?runs=any")
     screen.set_value("#library-query", "Ford")
     screen.go(str(screen.attr(".run-list a", "href"))[1:])
     assert screen.text(".issuer h1") == "Ford Otosan"
@@ -641,6 +642,8 @@ def test_library_return_restores_filters_and_clear_resets_without_changing_conte
     assert screen.count(".run-list a") == 1
     screen.click("#library-clear")
     assert screen.eval("document.getElementById('library-query').value") == ""
+    assert screen.eval("document.getElementById('library-runs').value") == "latest"
+    screen.set_value("#library-runs", "any", "change")
     assert screen.count(".run-list a") == 8 and screen.eval("current.context") == "ford-otosan-2024"
     screen.focus("#analysis")
     screen.eval("document.dispatchEvent(new KeyboardEvent('keydown',{key:'/',bubbles:true}))")
@@ -652,10 +655,11 @@ def test_library_return_restores_filters_and_clear_resets_without_changing_conte
     assert prevented is True
 
 
+# plan-4c d877d8ce
 def test_literal_search_text_is_escaped_and_short_ids_include_the_delivery_collection(
     fixture: Any,
 ) -> None:
-    screen = fixture("W-Library/cases")
+    screen = fixture("W-Library/cases?runs=any")
     screen.set_value("#library-query", "TDG")
     assert screen.count(".run-list a") == 6
     bad = '"><img src=x onerror=alert(1)>'

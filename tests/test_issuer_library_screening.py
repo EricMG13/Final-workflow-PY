@@ -60,17 +60,20 @@ def ids(rows: list[dict[str, Any]]) -> list[str]:
     return [r["id"] for r in rows]
 
 
+# plan-4c d877d8ce
 def test_missing_values_never_become_zero(screen: Screen) -> None:
     number_of = "v=>LibraryLogic.numberOf(v)"
     assert screen.page.evaluate(number_of, None) is None
     assert screen.page.evaluate(number_of, {"value": ""}) is None
     assert screen.page.evaluate(number_of, {"value": "NaN"}) is None
     assert screen.page.evaluate(number_of, {"value": "0"}) == 0
-    assert ids(logic(screen, "filterRuns", {"leverageMax": "0"})) == ["zero"]
+    assert ids(logic(screen, "filterRuns", {"runs": "any", "leverageMax": "0"})) == ["zero"]
 
 
+# plan-4c d877d8ce
 def test_combined_filters_retain_basis_and_period_identity(screen: Screen) -> None:
     combined = {
+        "runs": "any",
         "sector": "Auto",
         "basis": "Gross",
         "leverageMin": "4",
@@ -78,16 +81,19 @@ def test_combined_filters_retain_basis_and_period_identity(screen: Screen) -> No
         "period": "Actual",
     }
     assert ids(logic(screen, "filterRuns", combined)) == ["gross"]
-    net = {"sector": "Auto", "basis": "Net", "leverageMin": "4"}
+    net = {"runs": "any", "sector": "Auto", "basis": "Net", "leverageMin": "4"}
     assert len(logic(screen, "filterRuns", net)) == 0
 
 
+# plan-4c d877d8ce
 def test_unknown_completeness_zero_score_and_invalid_threshold_stay_distinct(
     screen: Screen,
 ) -> None:
-    assert ids(logic(screen, "filterRuns", {"completion": "unassessed"})) == ["missing"]
-    assert ids(logic(screen, "filterRuns", {"completion": "75"})) == ["gross", "net"]
-    assert len(logic(screen, "filterRuns", {"leverageMin": "bad"})) == 0
+    assert ids(logic(screen, "filterRuns", {"runs": "any", "completion": "unassessed"})) == [
+        "missing"
+    ]
+    assert ids(logic(screen, "filterRuns", {"runs": "any", "completion": "75"})) == ["gross", "net"]
+    assert len(logic(screen, "filterRuns", {"runs": "any", "leverageMin": "bad"})) == 0
 
 
 def test_numeric_sort_keeps_missing_last_in_both_directions_without_mutating_input(
@@ -105,9 +111,22 @@ def test_numeric_sort_keeps_missing_last_in_both_directions_without_mutating_inp
     assert order[0] == order[1] and order[1][0] == "missing"
 
 
+# plan-4c d877d8ce
 def test_search_and_report_availability_are_conjunctive(screen: Screen) -> None:
-    assert len(logic(screen, "filterRuns", {"search": "beta", "availability": "report"})) == 1
-    assert len(logic(screen, "filterRuns", {"search": "alpha", "availability": "report"})) == 0
+    assert (
+        len(
+            logic(screen, "filterRuns", {"runs": "any", "search": "beta", "availability": "report"})
+        )
+        == 1
+    )
+    assert (
+        len(
+            logic(
+                screen, "filterRuns", {"runs": "any", "search": "alpha", "availability": "report"}
+            )
+        )
+        == 0
+    )
 
 
 PINNED = json.loads((WEB / "testdata/catalogue-2026-11-08.json").read_text(encoding="utf-8"))
@@ -173,7 +192,7 @@ def library(browser: Any) -> Iterator[LibraryOpener]:
         app = {"workspace": "", "policy_locked": False, "issues": [], "problem": problem}
         screen = open_app(
             browser,
-            "W-Library/cases",
+            "W-Library/cases?runs=any",  # plan-4c d877d8ce
             app=app,
             api={"/api/catalogue": json_reply(reply)},
         )
@@ -293,6 +312,7 @@ def test_sorting_missing_last_descending_after_ascending_the_key_order_the_heade
     assert p.screen.eval(focused), "the sort button keeps focus"
 
 
+# plan-4c d877d8ce
 def test_sort_buttons_and_issuer_choices_are_native_buttons_tabbable_named_and_keep_focus(
     library: LibraryOpener,
 ) -> None:
@@ -316,6 +336,7 @@ def test_sort_buttons_and_issuer_choices_are_native_buttons_tabbable_named_and_k
     p.screen.click('[data-library-nav="reports"]')
     assert p.focused("libraryNav") == ("reports", "true")
     p.screen.click('[data-library-nav="all"]')
+    p.set("library-runs", "any")  # a reset returns Runs to its Latest default
     assert len(p.ids()) == 59
 
 
@@ -342,6 +363,7 @@ def test_selecting_a_row_opens_its_detail_with_the_key_values_and_bases_one_run_
     assert p.screen.count("#library-results tr.selected") == 1
 
 
+# plan-4c d877d8ce
 def test_view_source_moves_to_the_source_block_reset_returns_filters_sort_and_selection(
     library: LibraryOpener,
 ) -> None:
@@ -355,17 +377,21 @@ def test_view_source_moves_to_the_source_block_reset_returns_filters_sort_and_se
     p.screen.click('[data-library-issuer="TDG"]')
     assert p.ids() == ["tdg-002"]
     p.screen.click("#library-clear")
+    assert p.screen.eval("document.getElementById('library-runs').value") == "latest"
+    p.set("library-runs", "any")  # a reset returns Runs to its Latest default
     assert p.ids() == KEY["default_sort"]["served_order"]
     values = p.screen.eval(
         "[...document.querySelectorAll('#library-filters [data-library-filter]')]"
-        ".map(e=>[e.id,e.value])"
+        ".map(e=>[e.id,e.value,e.dataset.libraryFilter])"
     )
     assert values
-    assert [v for v in values if v[1] != ""] == []
+    default = {"runs": "any", "ratingScope": "issuer"}
+    assert [v for v in values if v[1] != default.get(v[2], "")] == []
     assert p.aria_sort("leverage") == "none"
     assert p.screen.active() == "library-query"
 
 
+# plan-4c d877d8ce
 def test_no_match_shows_a_reset_that_works_an_empty_workspace_and_an_unreadable_one_each_say_so(
     library: LibraryOpener,
 ) -> None:
@@ -375,6 +401,7 @@ def test_no_match_shows_a_reset_that_works_an_empty_workspace_and_an_unreadable_
     assert "No runs match these filters" in p.text("library-results")
     assert p.screen.hidden("run-detail")
     p.screen.click("#library-empty-reset")
+    p.set("library-runs", "any")  # a reset returns Runs to its Latest default
     assert len(p.ids()) == 59
     none = library({"real": [], "sources": {}})
     assert "No runs in this workspace yet" in none.text("library-results")

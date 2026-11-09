@@ -1,0 +1,403 @@
+{
+ "_about": "Hand-written 2026-11-08 answer key for R-29 (case-folded issuer grouping). Records use the served /api/catalogue shape; TransDigm Group Incorporated is a real name, all else fictional, no metrics. sha256 values are a fixed placeholder. Expected values were derived by hand from the brief's rules, not from code. Optional case field `only` is a list of run ids: the test restricts the catalogue to those runs (keeping catalogue order) before screening and applying the case filters. Cases without `only` use all runs.",
+ "runs": [
+  {
+   "id": "tdg-retained-2024",
+   "issuer": "TDG",
+   "name": "TransDigm Group Incorporated",
+   "title": "Retained credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2024-09-30",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "tdg-retained-2024.identity",
+   "sector_source": "tdg-retained-2024.sector",
+   "handoff": "runs/tdg-retained-2024/CP-1.md",
+   "handoff_href": "/files/runs/tdg-retained-2024/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/tdg-retained-2024-report",
+     "kind": "report",
+     "label": "tdg-retained-2024 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/tdg-retained-2024-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  },
+  {
+   "id": "tdg-app-2024q4",
+   "issuer": "tdg",
+   "name": "TransDigm Group Incorporated",
+   "title": "App run Q4 2024",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2024-12-15",
+   "period": "FY2024",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "tdg-app-2024q4.identity",
+   "sector_source": "tdg-app-2024q4.sector",
+   "handoff": "runs/tdg-app-2024q4/CP-1.md",
+   "handoff_href": "/files/runs/tdg-app-2024q4/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/tdg-app-2024q4-report",
+     "kind": "report",
+     "label": "tdg-app-2024q4 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/tdg-app-2024q4-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  },
+  {
+   "id": "aldm-2025-001",
+   "issuer": "ALDM",
+   "name": "Aldermoor Holdings",
+   "title": "Credit review",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-03-31",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "aldm-2025-001.identity",
+   "sector_source": "aldm-2025-001.sector",
+   "handoff": "runs/aldm-2025-001/CP-1.md",
+   "handoff_href": "/files/runs/aldm-2025-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/aldm-2025-001-report",
+     "kind": "report",
+     "label": "aldm-2025-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/aldm-2025-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  },
+  {
+   "id": "tdg-app-2025q1",
+   "issuer": "tdg",
+   "name": "TransDigm Group Incorporated",
+   "title": "App run Q1",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-02-04",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "tdg-app-2025q1.identity",
+   "sector_source": "tdg-app-2025q1.sector",
+   "handoff": "runs/tdg-app-2025q1/CP-1.md",
+   "handoff_href": "/files/runs/tdg-app-2025q1/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/tdg-app-2025q1-report",
+     "kind": "report",
+     "label": "tdg-app-2025q1 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/tdg-app-2025q1-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  },
+  {
+   "id": "tdg-app-2025q2",
+   "issuer": "tdg",
+   "name": "TransDigm Group Incorporated",
+   "title": "App run Q2 (no report)",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-08-08",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "tdg-app-2025q2.identity",
+   "sector_source": "tdg-app-2025q2.sector",
+   "handoff": "runs/tdg-app-2025q2/CP-1.md",
+   "handoff_href": "/files/runs/tdg-app-2025q2/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  },
+  {
+   "id": "tdg-retained-tie",
+   "issuer": "TDG",
+   "name": "TransDigm Group Incorporated",
+   "title": "Retained run tied with app Q1",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-02-04",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "tdg-retained-tie.identity",
+   "sector_source": "tdg-retained-tie.sector",
+   "handoff": "runs/tdg-retained-tie/CP-1.md",
+   "handoff_href": "/files/runs/tdg-retained-tie/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/tdg-retained-tie-report",
+     "kind": "report",
+     "label": "tdg-retained-tie report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/tdg-retained-tie-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  },
+  {
+   "id": "unclassified-001",
+   "issuer": "Unclassified",
+   "name": "Unclassified Fixture Issuer",
+   "title": "Unclassified reported run",
+   "workflow": "Credit review",
+   "sector": "Industrials",
+   "date": "2025-01-01",
+   "period": "FY2025",
+   "period_kind": "Annual actual",
+   "currency": "USD",
+   "summary": "Fixture record for issuer case-folding; no metrics.",
+   "gaps": [],
+   "metrics": {},
+   "completion": null,
+   "checkpoints": null,
+   "ratings": [],
+   "identity_source": "unclassified-001.identity",
+   "sector_source": "unclassified-001.sector",
+   "handoff": "runs/unclassified-001/CP-1.md",
+   "handoff_href": "/files/runs/unclassified-001/CP-1.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "artifacts": [
+    {
+     "folder": "deliverables/unclassified-001-report",
+     "kind": "report",
+     "label": "unclassified-001 report",
+     "state": "candidate",
+     "relationship": "direct",
+     "available": true,
+     "href": "/files/deliverables/unclassified-001-report/report.html?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+     "issue": ""
+    }
+   ],
+   "files": [],
+   "facilities": [],
+   "classification": null,
+   "classification_source": ""
+  }
+ ],
+ "cases": [
+  {
+   "name": "default latest, no filters",
+   "filters": {},
+   "expected_ids": [
+    "aldm-2025-001",
+    "tdg-app-2025q1",
+    "tdg-app-2025q2",
+    "tdg-retained-tie",
+    "unclassified-001"
+   ],
+   "expected_not_screened": [
+    "tdg-app-2025q2"
+   ],
+   "why": "R-29 groups TDG and tdg as one key. Reported TDG-group dates: 2024-09-30, 2025-02-04 (app q1), 2025-02-04 (retained tie); latest 2025-02-04 and the tie keeps both. tdg-retained-2024 is another reported run, excluded. tdg-app-2025q2 has no report and is dated after 2025-02-04, so it stays as not screened. ALDM has one reported run. Unclassified is its own group and stays, screened. tdg-app-2024q4 (2024-12-15, reported) is older than the latest, so excluded."
+  },
+  {
+   "name": "runs any, no filters",
+   "filters": {
+    "runs": "any"
+   },
+   "expected_ids": [
+    "tdg-retained-2024",
+    "tdg-app-2024q4",
+    "aldm-2025-001",
+    "tdg-app-2025q1",
+    "tdg-app-2025q2",
+    "tdg-retained-tie",
+    "unclassified-001"
+   ],
+   "expected_not_screened": [],
+   "why": "Under Any every run is screened on its own values; nothing is excluded or tagged not screened."
+  },
+  {
+   "name": "issuer TDG, latest",
+   "filters": {
+    "issuer": "TDG"
+   },
+   "expected_ids": [
+    "tdg-app-2025q1",
+    "tdg-app-2025q2",
+    "tdg-retained-tie"
+   ],
+   "expected_not_screened": [
+    "tdg-app-2025q2"
+   ],
+   "why": "The issuer filter matches every run whose issuer folds to 'tdg' (retained TDG and app tdg); Latest then keeps the 2025-02-04 tie, drops the 2024 run, and lists q2 as not screened."
+  },
+  {
+   "name": "issuer tdg, latest",
+   "filters": {
+    "issuer": "tdg"
+   },
+   "expected_ids": [
+    "tdg-app-2025q1",
+    "tdg-app-2025q2",
+    "tdg-retained-tie"
+   ],
+   "expected_not_screened": [
+    "tdg-app-2025q2"
+   ],
+   "why": "Same key as TDG after folding, so same result as the TDG filter."
+  },
+  {
+   "name": "issuer Tdg, any",
+   "filters": {
+    "issuer": "Tdg",
+    "runs": "any"
+   },
+   "expected_ids": [
+    "tdg-retained-2024",
+    "tdg-app-2024q4",
+    "tdg-app-2025q1",
+    "tdg-app-2025q2",
+    "tdg-retained-tie"
+   ],
+   "expected_not_screened": [],
+   "why": "'Tdg' folds to 'tdg' and matches all five TDG/tdg runs; under Any nothing is excluded or tagged not screened."
+  },
+  {
+   "name": "mixed group: retained older, app newer",
+   "only": [
+    "tdg-retained-2024",
+    "tdg-app-2025q1"
+   ],
+   "filters": {},
+   "expected_ids": [
+    "tdg-app-2025q1"
+   ],
+   "expected_not_screened": [],
+   "why": "Only these two runs exist. TDG and tdg fold to one group; reported dates 2024-09-30 and 2025-02-04; Latest keeps only 2025-02-04 (tdg-app-2025q1). Without folding both would be their own group's latest and both would stay."
+  },
+  {
+   "name": "mixed group: app older, retained wins",
+   "only": [
+    "tdg-app-2024q4",
+    "tdg-retained-tie"
+   ],
+   "filters": {},
+   "expected_ids": [
+    "tdg-retained-tie"
+   ],
+   "expected_not_screened": [],
+   "why": "One folded group; reported dates 2024-12-15 (app tdg) and 2025-02-04 (retained TDG). Latest is 2025-02-04, so the retained run wins and the older app run is excluded. Without folding both would stay."
+  },
+  {
+   "name": "mixed group: newer unreported app run",
+   "only": [
+    "tdg-retained-2024",
+    "tdg-app-2025q2"
+   ],
+   "filters": {},
+   "expected_ids": [
+    "tdg-retained-2024",
+    "tdg-app-2025q2"
+   ],
+   "expected_not_screened": [
+    "tdg-app-2025q2"
+   ],
+   "why": "One folded group; the only reported run is retained 2024-09-30 (screened). The app run is unreported and dated 2025-08-08, after the screened date, so it stays as not screened. Without folding q2 would be a group with no reported run, still not screened, but the retained run's group would be separate; the result is the same ids, so this case checks the tag only."
+  }
+ ],
+ "nav": {
+  "issuers": [
+   {
+    "label": "TransDigm Group Incorporated",
+    "count": 5,
+    "monogram_from": "TDG"
+   },
+   {
+    "label": "Aldermoor Holdings",
+    "count": 1,
+    "monogram_from": "ALDM"
+   },
+   {
+    "label": "Unclassified Fixture Issuer",
+    "count": 1,
+    "monogram_from": "Unclassified"
+   }
+  ],
+  "count_line_issuers": 3,
+  "_note": "Entries in order of first appearance of the folded key in catalogue order (tdg, aldm, unclassified). TDG label is the run name (one name in group); monogram_from is the issuer as recorded on the group's first run (TDG), first 3 characters shown. count_line_issuers is for runs:any with no filters: 3 folded keys."
+ }
+}

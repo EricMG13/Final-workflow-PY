@@ -130,10 +130,11 @@ LIST_ROWS = (
 )
 
 
+# plan-4c d877d8ce
 def test_library_lists_every_catalogue_row_run_folders_open_overview_delivery_rows_open_report(
     show: Opener,
 ) -> None:
-    screen = show("W-Library/cases")
+    screen = show("W-Library/cases?runs=any")
     counts = f"{EXPECTED['row_count']['value']} of {EXPECTED['row_count']['value']} runs"
     assert (
         squash(screen.text("#library-count"))
@@ -153,8 +154,9 @@ def test_library_lists_every_catalogue_row_run_folders_open_overview_delivery_ro
         assert re.match(r"#W-(Reports|Forecast)/", href), f"{run_id}: {href!r}"
 
 
+# plan-4c d877d8ce
 def test_library_search_finds_every_run_of_the_issuer_searched(show: Opener) -> None:
-    screen = show("W-Library/cases")
+    screen = show("W-Library/cases?runs=any")
     for query, want in KEY["library"]["search"].items():
         search(screen, query)
         assert sorted(screen.eval(RUN_KEYS)) == sorted(want), f'search "{query}"'
@@ -170,12 +172,13 @@ def test_library_search_finds_every_run_of_the_issuer_searched(show: Opener) -> 
     assert row_ids(screen) == case["expected_ids"]
 
 
+# plan-4c d877d8ce
 def test_a_metric_with_more_than_20_decimals_is_shown_as_served_and_does_not_blank_the_other_rows(
     show: Opener,
 ) -> None:
     forged, long = copy.deepcopy(PINNED), "1." + "0" * 100 + "1"
     next(r for r in forged["real"] if r["id"] == "tdg-002")["metrics"]["ebitda"]["value"] = long
-    screen = show("W-Library/cases", catalogue=forged)
+    screen = show("W-Library/cases?runs=any", catalogue=forged)
     assert len(row_ids(screen)) == len(forged["real"])
     screen.click('[data-library-select="tdg-002"]')
     assert long in squash(screen.text("#run-detail"))
@@ -762,6 +765,42 @@ def test_catalogue_text_with_markup_renders_no_element_of_its_own(show: Opener) 
     assert HOSTILE in squash(screen.text("#run-detail")), "shown as text"
 
 
+# plan-4c d877d8ce
+def test_view_source_on_a_library_figure_opens_the_pinned_line_in_the_evidence_inspector(
+    show: Opener,
+) -> None:
+    """View source opens the pinned line if the joined run holds the file, else Sources."""
+    catalogue = copy.deepcopy(PINNED)
+    run = next(r for r in catalogue["real"] if r["id"] == "tdg-002")
+    probe_screen = show("W-Library/cases?runs=any")
+    held_key = probe_screen.eval("[...evidence.keys()].find(k=>k.startsWith('tdg-002/'))")
+    file, _, line = held_key.rpartition(":")
+    leverage, coverage = run["metrics"]["leverage"]["source"], run["metrics"]["cash"]["source"]
+    catalogue["sources"][leverage] = {
+        **catalogue["sources"][leverage],
+        "path": f"runs/{file}",
+        "line": int(line),
+    }
+    catalogue["sources"][coverage] = {
+        **catalogue["sources"][coverage],
+        "path": "runs/tdg-002/not-held.md",
+        "line": 1,
+    }
+    screen = show("W-Library/cases?runs=any", catalogue=catalogue)
+    screen.click('[data-library-select="tdg-002"]')
+    hrefs = [h or "" for h in screen.attrs("#run-detail a.tertiary-action", "href")]
+    link = next(
+        (h for h in hrefs if parse_qs(h.split("?", 1)[1]).get("e", [None])[0] == held_key), None
+    )
+    assert link, "the figure pinned to a held file links to its line"
+    assert screen.exists(f'#run-detail [data-library-source="{coverage}"]'), (
+        "a file the run does not hold keeps the Sources entry"
+    )
+    screen.go(link[1:])
+    until(screen.page, f"current.evidence===({json.dumps(held_key)})")
+    assert screen.eval("current.evidence") == held_key, "the inspector route names the pinned line"
+
+
 def test_a_report_id_with_markup_renders_no_element_of_its_own(show: Opener, forged: Store) -> None:
     forged["reports"][0]["id"] = HOSTILE
     for hash_route in [
@@ -918,6 +957,40 @@ def test_help_explains_run_notices_resuming_and_na_nm_in_the_cash_flow_model(sho
     for pattern in [r"n\.a\. means not available", r"Why cells show n\.a\.", r"never zero"]:
         assert re.search(pattern, na), pattern
     assert re.search(r"n\.m\. means not modelled", na)
+
+
+# plan-4c d877d8ce
+def test_help_states_the_credit_and_market_screening_rules(show: Opener) -> None:
+    body = probe(
+        show("W-Help/help"),
+        "const head=qa('.help-copy h2').find(h=>t(h)==='Screening credit and market data');"
+        "if(!head)return null;let body='';"
+        "for(let n=head.nextElementSibling;n&&n.tagName==='P';n=n.nextElementSibling)"
+        "body+=t(n)+' ';"
+        "return body;",
+    )
+    assert body is not None, "section"
+    phrases = [
+        r"pinned line",
+        r"definitions differ",
+        r"never satisfies a minimum or maximum",
+        r"how many it hid",
+        r"runs tied on that date all stay in",
+        r"not screened",
+        r"not older than the issuer\u2019s latest reported run",
+        r"(?i)in the run detail",
+        r"or at facility scope",
+        r"\(P\) and \(EXP\)",
+        r"within one facility",
+        r"negative spread-talk side is treated as missing",
+        r"bid without an ask, or an ask without a bid, gives no price range",
+        r"Private-side tag appears only",
+        r"as entered",
+        r"verified checklist",
+    ]
+    for phrase in phrases:
+        assert re.search(phrase, body), phrase
+    assert len(re.split(r"\s+", body)) <= 340
 
 
 def test_an_other_models_row_opens_the_model_under_the_run_it_was_published_for(
