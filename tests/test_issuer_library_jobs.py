@@ -621,6 +621,8 @@ def test_run_list_follows_recency_and_always_keeps_active_jobs(tmp_path: Path) -
     # 28 finished jobs fill the remaining places: the 28 newest by write time.
     for i in range(28):
         assert f"web-{0x100 + i:032x}" in ids, f"finished job {i} (newer than the cut) missing"
+    # key/jobs_test.go:661-663: an older finished job must not displace a newer one.
+    assert f"web-{0x100 + 28:032x}" not in ids, "an older finished job displaced a newer one"
 
 
 def test_review_run_list_many_stale_active_jobs_exceed_the_cap(tmp_path: Path) -> None:
@@ -643,7 +645,7 @@ def test_review_run_list_many_stale_active_jobs_exceed_the_cap(tmp_path: Path) -
 def test_review_run_list_equal_times_and_unreadable_status(tmp_path: Path) -> None:
     app, root = make_app(tmp_path)
     client = client_of(app)
-    when = 1794052800.0  # 2026-11-06T12:00:00Z
+    when = 1793966400.0  # 2026-11-06T12:00:00Z (key/jobs_test.go:800)
     for i in range(33):
         write_job(root, f"web-{0x500 + i:032x}", "complete", when)
     bad = {"web-" + "e" * 32: b"{not json", "web-" + "d" * 32: b""}
@@ -656,3 +658,44 @@ def test_review_run_list_equal_times_and_unreadable_status(tmp_path: Path) -> No
     assert len(first) == 30 and first == second, f"{len(first)} rows: {first}"
     for i, job_id in enumerate(first):
         assert job_id == f"web-{0x500 + 32 - i:032x}", f"row {i} is {job_id}"
+
+
+@pytest.mark.parametrize(
+    "log",
+    [
+        '{"event":"stopped","reason":"\\udcff"}\n',
+        '{"event":"module_started","module":"CP-\\ud800"}\n',
+        '{"event":"turn","x":' + "[" * 1500 + "]" * 1500 + "}\n",
+        '{"event":"turn"}\n{"x":' + "[" * 1500,
+        '{"event":"turn"}\n{"x":' + "[" * 20000 + '\n{"event":"turn"}\n',
+        "[" * 200000 + "\n",
+    ],
+)
+def test_run_endpoints_survive_lone_surrogates_and_over_deep_lines(
+    tmp_path: Path, log: str
+) -> None:
+    # Go reads a lone surrogate escape as U+FFFD and refuses over-deep nesting as an unreadable
+    # line; neither fails a request (reviewer probes 5A-adv-1, 5A-adv-2).
+    app, root = make_app(tmp_path)
+    client = TestClient(app.asgi, base_url=ORIGIN, raise_server_exceptions=False)
+    put(root, f"intake/{EVENTS_ID}/status.json", b'{"state":"running"}')
+    write_events(root, EVENTS_ID, log)
+    for path in (f"/api/runs/events?id={EVENTS_ID}", f"/api/runs/status?id={EVENTS_ID}"):
+        assert client.get(path).status_code == 200, path
+    assert client.get("/api/runs/list").status_code == 200
+
+
+def test_run_list_decodes_status_like_the_go_struct(tmp_path: Path) -> None:
+    # key/jobs.go:315-325: struct{State string}: missing or null state is "", "State" matches
+    # case-insensitively, a non-string state is a decode error (skipped).
+    app, root = make_app(tmp_path)
+    cases = {
+        "web-" + "1" * 32: b"{}",
+        "web-" + "2" * 32: b'{"state":null,"message":"m"}',
+        "web-" + "3" * 32: b'{"State":"running"}',
+        "web-" + "4" * 32: b'{"state":5}',
+    }
+    for job_id, raw in cases.items():
+        put(root, f"intake/{job_id}/status.json", raw)
+    listed = listed_jobs(client_of(app))
+    assert sorted(listed) == sorted(j for j in cases if j[4] in "123"), listed

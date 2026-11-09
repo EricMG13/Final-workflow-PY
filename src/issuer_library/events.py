@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,7 @@ FIRST_LINE_LIMIT = 8192
 TEXT_FIELDS = ("at", "module", "spent_usd", "held_usd", "cap_usd", "reason")
 NUMBER_FIELDS = ("turn", "max_turns")
 INT64 = 1 << 63
+LONE_SURROGATE = re.compile("[\ud800-\udfff]")
 STEPS = {
     "module_started": "started",
     "turn": "running",
@@ -43,6 +45,41 @@ class EventLog:
 
 def refuse_constant(name: str) -> Any:
     raise ValueError(f"not JSON: {name}")
+
+
+def scrub(value: Any) -> Any:
+    """Lone surrogates, which Go's decoder turns into U+FFFD, replaced the same way."""
+    if isinstance(value, str):
+        return LONE_SURROGATE.sub("\ufffd", value)
+    if isinstance(value, list):
+        return [scrub(item) for item in value]
+    if isinstance(value, dict):
+        return {scrub(key): scrub(item) for key, item in value.items()}
+    return value
+
+
+def loads(raw: bytes) -> Any:
+    """JSON from bytes as Go reads it. Raises ValueError for text Go refuses, including nesting
+    deeper than the parser's recursion limit."""
+    try:
+        return scrub(json.loads(raw.decode("utf-8", "replace"), parse_constant=refuse_constant))
+    except RecursionError as error:
+        raise ValueError("nested too deeply") from error
+
+
+def state_of(status: Any) -> str | None:
+    """The `state` of a decoded status.json as Go's struct{State string} reads it: missing or
+    null is "", the key matches without regard to case (exact case first), a non-string value
+    (or a non-object) is a decode error, None here."""
+    if status is None:
+        return ""
+    if not isinstance(status, dict):
+        return None
+    key = "state" if "state" in status else next((k for k in status if k.lower() == "state"), "")
+    value = status.get(key)
+    if value is None:
+        return ""
+    return value if isinstance(value, str) else None
 
 
 def is_int(value: Any) -> bool:
@@ -72,7 +109,7 @@ def event_fields(value: dict[str, Any]) -> dict[str, Any] | None:
 def decode_event(line: bytes) -> dict[str, Any] | None:
     """One log line as its event, or None when Go's json.Unmarshal would refuse it."""
     try:
-        value = json.loads(line.decode("utf-8", "replace"), parse_constant=refuse_constant)
+        value = loads(line)
     except ValueError:
         return None
     if value is None:
@@ -135,7 +172,7 @@ def fold(events: list[dict[str, Any]]) -> dict[str, Any]:
 
 def retained_progress(folder: Path) -> dict[str, Any] | None:
     try:
-        value = json.loads((folder / "progress.json").read_bytes())
+        value = loads((folder / "progress.json").read_bytes())
     except (OSError, ValueError):
         return None
     return value if isinstance(value, dict) else None

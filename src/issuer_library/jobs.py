@@ -184,11 +184,10 @@ def recent_candidate(workspace: str, name: str) -> tuple[int, str, bool] | None:
     file = Path(workspace) / "intake" / name / "status.json"
     try:
         written = file.stat().st_mtime_ns
-        status = json.loads(file.read_bytes())
+        state = events.state_of(events.loads(file.read_bytes()))
     except (OSError, ValueError):
         return None
-    state = status.get("state") if isinstance(status, dict) else None
-    if not isinstance(state, str) or state == "reviewed":
+    if state is None or state == "reviewed":
         return None
     return written, name, state == "running"
 
