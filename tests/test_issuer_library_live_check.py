@@ -451,3 +451,66 @@ def test_case_outcomes_names_a_missing_review_and_a_counted_total_mismatch(tmp_p
     bc = _Bc()
     live_check.case_outcomes(bc, _case_args(tmp_path, 0), ws, summary)
     assert any("review counts 1 items, frozen 0" in what for ok, what in bc.notes if not ok)
+
+
+def _bc(calls: list) -> SimpleNamespace:
+    def attempt(name, browser, action) -> None:
+        calls.append(name)
+        action()
+
+    return SimpleNamespace(
+        NOT_APPLICABLE="not applicable: repo-store key",
+        FAULTS=SimpleNamespace(add=lambda *a, **k: None, items=[]),
+        NOT_EXERCISABLE=["chromium: Run activity events: not exercisable on this fixture: x"],
+        engine_options=lambda: {"chromium": {}, "firefox": {"executable_path": "f"}},
+        SignedBrowser=lambda raw: SimpleNamespace(close=lambda: calls.append("closed")),
+        attempt=attempt,
+        single_run_walk=lambda browser, name, port, ws: calls.append(f"walk {name} {port}"),
+    )
+
+
+def test_a_case_run_is_followed_by_the_single_run_walk_in_each_engine(tmp_path: Path) -> None:
+    calls: list = []
+    launched = []
+    driver = SimpleNamespace(
+        chromium=SimpleNamespace(launch=lambda **o: launched.append(("chromium", o))),
+        firefox=SimpleNamespace(launch=lambda **o: launched.append(("firefox", o))),
+    )
+    summary: dict = {"run_id": "web-1"}
+    live_check.single_run_walks(_bc(calls), driver, tmp_path, summary)
+    assert calls == [
+        "chromium-single-run",
+        f"walk chromium {live_check.PORT}",
+        "closed",
+        "firefox-single-run",
+        f"walk firefox {live_check.PORT}",
+        "closed",
+    ]
+    assert launched == [("chromium", {}), ("firefox", {"executable_path": "f"})]
+    walk = summary["real_workspace_walk"]
+    assert walk["repo_store_counts"] == "not applicable: repo-store key"
+    assert "not exercisable on this fixture" in walk["not_exercisable"][0]
+
+
+def test_an_incomplete_run_records_the_walk_as_not_run(tmp_path: Path) -> None:
+    calls: list = []
+    summary: dict = {"run_id": None}
+    live_check.single_run_walks(_bc(calls), SimpleNamespace(), tmp_path, summary)
+    assert calls == [] and summary["real_workspace_walk"] == "not run: the run did not complete"
+
+
+def test_a_walk_that_could_not_exercise_a_check_is_a_fault_outside_the_fixture(tmp_path) -> None:
+    calls: list = []
+    bc = _bc(calls)
+    faults: list = []
+    bc.FAULTS = SimpleNamespace(add=lambda *a, **k: faults.append(a), items=faults)
+    live_check.single_run_walks(
+        bc,
+        SimpleNamespace(
+            chromium=SimpleNamespace(launch=lambda **o: None),
+            firefox=SimpleNamespace(launch=lambda **o: None),
+        ),
+        tmp_path,
+        {"run_id": "web-1"},
+    )
+    assert faults and faults[0][1] == "missing" and "not exercisable" in faults[0][2]
