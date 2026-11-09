@@ -17,7 +17,8 @@ from collections.abc import Callable, Iterator
 from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor
 from concurrent.futures import wait as futures_wait
 from pathlib import Path
-from typing import Any
+from types import SimpleNamespace
+from typing import Any, cast
 
 import httpx
 import pytest
@@ -43,6 +44,7 @@ from starlette.datastructures import FormData, UploadFile
 import issuer_library.events as events_module
 import issuer_library.jobs as jobs_module
 import issuer_library.server as server_module
+from issuer_library import notify
 from issuer_library.events import progress
 from issuer_library.jobs import Engine, job_view, mkdir_all_in, recorded_job
 from issuer_library.launch import cookie_name
@@ -1899,6 +1901,239 @@ def test_a_quitting_app_refuses_resume_before_counting_or_copying(tmp_path: Path
     response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
     assert response.status_code == 503 and QUITTING in response.text
     assert in_flight(app) == 0 and intake_entries(root) == before
+
+
+# Sub-task 5E: one native notice per finished run when no tab watches (Go jobs_test.go 1879-2290).
+ORIGIN_NS = 1_794_139_200_000_000_000  # 2026-11-08T12:00:00Z, as in the Go tests.
+SECOND_NS = 1_000_000_000
+HOLD_FILE_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
+else:
+ while (folder/'hold').exists(): time.sleep(.02)
+ (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'synthetic'}))
+"""
+EXIT_GATE_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
+else:
+ (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'synthetic'}))
+ while (folder/'exit-gate').exists(): time.sleep(.02)
+"""
+
+
+class FakeClock:
+    """A settable clock in integer nanoseconds, safe for the threads that read it."""
+
+    def __init__(self) -> None:
+        self.value = ORIGIN_NS
+        self.mutex = threading.Lock()
+
+    def read(self) -> int:
+        with self.mutex:
+            return self.value
+
+    def add(self, seconds: float) -> None:
+        with self.mutex:
+            self.value += int(seconds * SECOND_NS)
+
+
+def bridge_engine(tmp_path: Path, bridge: str) -> Engine:
+    root = tmp_path / "bridge-engine"
+    root.mkdir()
+    (root / "bridge.py").write_text(bridge)
+    (root / "store.py").write_text(FAKE_STORE)
+    return Engine(root=root, python=sys.executable)
+
+
+def finished_folder(root: Path, job_id: str) -> Path:
+    """The folder of a run whose worker wrote its final stopped status (Go finishedFolder)."""
+    folder = root / "intake" / job_id
+    folder.mkdir(parents=True)
+    (folder / "status.json").write_text('{"state":"stopped","message":"synthetic"}')
+    return folder
+
+
+def clocked_app(tmp_path: Path) -> tuple[Application, Path, FakeClock, list[tuple[str, str]]]:
+    app, root = make_app(tmp_path)
+    clock = FakeClock()
+    notices: list[tuple[str, str]] = []
+    app.now = clock.read
+    app.notifier = lambda title, body: notices.append((title, body))
+    return app, root, clock, notices
+
+
+@pytest.mark.parametrize(
+    ("poll_first", "poll_after", "want"),
+    [(True, True, 0), (False, False, 1), (True, False, 1)],
+    ids=[
+        "A poll after the finish gives no native notice",
+        "No poll at all gives one native notice",
+        "A poll only before the finish gives one native notice",
+    ],
+)
+def test_a_finished_run_notifies_natively_only_when_no_tab_watches(
+    tmp_path: Path, poll_first: bool, poll_after: bool, want: int
+) -> None:
+    app, root, clock, calls = clocked_app(tmp_path)
+    app.engine = bridge_engine(tmp_path, HOLD_FILE_BRIDGE)
+    client = client_of(app)
+    pauses: list[int] = []
+
+    def pause(seconds: float) -> None:
+        pauses.append(1)  # Only the finish_job thread calls pause.
+        clock.add(seconds)
+        if poll_after and len(pauses) == 3:
+            client.get("/api/runs/list")
+
+    done = threading.Event()
+    app.pause = pause
+    app.on_finished = lambda _id: done.set()
+    job_id = review_request(client, '["annual.txt"]').json()["id"]
+    hold = root / "intake" / job_id / "hold"
+    hold.write_bytes(b"")
+    assert call(client, "POST", "/api/runs/start", start_payload(job_id)).status_code == 202
+    if poll_first:
+        assert client.get("/api/runs/list").status_code == 200
+    clock.add(1)  # Time passes between that poll and the finish.
+    hold.unlink()
+    assert done.wait(10), "finish_job did not return"
+    assert len(calls) == want, calls
+    if want == 1:
+        assert calls[0] == ("Issuer Library", "Run stopped")
+
+
+@pytest.mark.parametrize(
+    ("query", "polls", "want"),
+    [
+        ("", True, 0),  # A notifying tab saw the final state before the finish was recorded.
+        ("?notify=0", True, 1),  # A tab without notice permission saw it: the native notice.
+        ("", False, 1),  # No tab polled.
+    ],
+)
+def test_one_notice_per_finished_run(tmp_path: Path, query: str, polls: bool, want: int) -> None:
+    job_id = "web-" + "d1" * 16
+    app, root, clock, notices = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    app.pause = clock.add
+    app.active_jobs = {job_id}  # The run's finish_job is pending.
+    if polls:
+        assert client_of(app).get("/api/runs/list" + query).status_code == 200
+    clock.add(1)  # Teardown and wait: the finish is recorded after the poll.
+    jobs_module.finish_job(app, folder, job_id)
+    assert len(notices) == want
+
+
+@pytest.mark.parametrize(("query", "want"), [("", 0), ("?notify=0", 1), ("?notify=1", 0)])
+def test_a_poll_from_a_tab_that_cannot_notify_does_not_count_as_watching(
+    tmp_path: Path, query: str, want: int
+) -> None:
+    job_id = "web-" + "d2" * 16
+    app, root, clock, notices = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    client = client_of(app)
+    polled: list[bool] = []
+
+    def pause(seconds: float) -> None:
+        clock.add(seconds)
+        if not polled:  # The tab's poll lands while finish_job waits, after the finish.
+            polled.append(True)
+            client.get("/api/runs/list" + query)
+
+    app.pause = pause
+    jobs_module.finish_job(app, folder, job_id)
+    assert len(notices) == want
+
+
+def test_a_poll_between_final_status_and_finish_gives_no_native_notice(tmp_path: Path) -> None:
+    app, root, clock, notices = clocked_app(tmp_path)
+    app.engine = bridge_engine(tmp_path, EXIT_GATE_BRIDGE)
+    app.pause = clock.add
+    done = threading.Event()
+    app.on_finished = lambda _id: done.set()
+    client = client_of(app)
+    job_id = review_request(client, '["annual.txt"]').json()["id"]
+    folder = root / "intake" / job_id
+    gate = folder / "exit-gate"
+    gate.write_bytes(b"")
+    assert call(client, "POST", "/api/runs/start", start_payload(job_id)).status_code == 202
+    for _ in range(200):
+        if '"stopped"' in (folder / "status.json").read_text():
+            break
+        time.sleep(0.025)
+    else:
+        raise AssertionError("worker never wrote its final status")
+    client.get("/api/runs/list")
+    gate.unlink()
+    assert done.wait(15), "finish_job did not return"
+    assert notices == []
+
+
+def test_a_poll_of_a_failed_start_leaves_no_mark_for_the_retry(tmp_path: Path) -> None:
+    job_id = "web-" + "d3" * 16
+    app, root, clock, notices = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)  # Stopped, standing for failed: no finish pending.
+    app.pause = clock.add
+    assert client_of(app).get("/api/runs/list").status_code == 200
+    assert app.saw_finish == set(), "a run with no pending finish was marked"
+    clock.add(1)
+    app.active_jobs = {job_id}  # The retry started.
+    jobs_module.finish_job(app, folder, job_id)
+    assert len(notices) == 1
+
+
+def test_a_same_tick_poll_after_the_mark_was_taken_counts_as_watching(tmp_path: Path) -> None:
+    job_id = "web-" + "d4" * 16
+    app, root, clock, notices = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    client = client_of(app)
+    app.active_jobs = {job_id}
+    polled: list[bool] = []
+
+    def pause(seconds: float) -> None:
+        if not polled:
+            polled.append(True)
+            client.get("/api/runs/list")  # The clock has not moved since finished was set.
+        clock.add(seconds)
+
+    app.pause = pause
+    jobs_module.finish_job(app, folder, job_id)
+    assert notices == []
+
+
+def test_the_first_notify_value_decides_whether_a_poll_counts(tmp_path: Path) -> None:
+    # Go's Query().Get takes the first value: notify=0&notify=1 is a tab that cannot notify.
+    for query, want in (("notify=0&notify=1", 1), ("notify=1&notify=0", 0)):
+        job_id = "web-" + "e7" * 16
+        app, root, clock, notices = clocked_app(tmp_path / str(want))
+        folder = finished_folder(root, job_id)
+        app.pause = clock.add
+        app.active_jobs = {job_id}
+        assert client_of(app).get("/api/runs/list?" + query).status_code == 200
+        clock.add(1)
+        jobs_module.finish_job(app, folder, job_id)
+        assert len(notices) == want, query
+
+
+def test_a_nul_in_the_notice_text_is_logged_not_raised(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    exe = tmp_path / "WindowsPowerShell" / "v1.0" / "powershell.exe"
+    exe.parent.mkdir(parents=True)
+    exe.symlink_to("/usr/bin/true")
+    monkeypatch.setattr(notify, "sys", SimpleNamespace(platform="win32"))
+    monkeypatch.setattr(notify, "system_directory", lambda: str(tmp_path))
+    (tmp_path / "job").mkdir()
+    (tmp_path / "job" / "status.json").write_text('{"state":"stopped"}')
+    (tmp_path / "job" / "review.json").write_text('{"issuer":"A\\u0000B"}')
+    lib = SimpleNamespace(notifier=notify.toast)
+    with caplog.at_level("WARNING", logger="issuer_library"):
+        jobs_module.notice_finish(cast(Any, lib), tmp_path / "job", "web-x")
+    assert any("Run web-x: native notice failed" in r.getMessage() for r in caplog.records)
 
 
 posix_only = pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock and FIFO semantics")
