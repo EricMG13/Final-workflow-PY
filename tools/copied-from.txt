@@ -353,6 +353,8 @@ tests/test_handoff_loop.py
 tests/test_inline_xbrl_staging.py
 tests/test_issuer_library_faults.py
 tests/test_issuer_library_flow_check.py
+tests/test_issuer_library_gates.py
+tests/test_issuer_library_store.py
 tests/test_issuer_name_in_claim_text.py
 tests/test_line_locators.py
 tests/test_markdown_delivery_sections.py
@@ -426,6 +428,7 @@ tests/test_statement_validation_index.py
 tests/test_stdin_utf8_transport.py
 tests/test_trailing_period.py
 tests/test_validation_once.py
+tests/test_verification_record.py
 tools/__init__.py
 tools/nightly_shard.py
 tools/nightly_tests.py
