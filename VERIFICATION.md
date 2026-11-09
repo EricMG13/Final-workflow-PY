@@ -545,13 +545,13 @@ this change exits 0. Not verified: the workflow has not run. Scheduled runs star
   - `VERSION` sits beside `src/`, which is where `app_version()` reads it; in the repository it is absent and gives `dev`.
 - **Deviation 2, `bridge.py` (lead ruling R-S8-1):** the review/start worker runs `bridge.py` under `-I`. It now also puts the release's `lib/` on `sys.path` when that folder exists (one statement after line 24). `tools/copied-from.txt` marks the file `edited`.
 - **Deviation 3, `load_config` (2.2):** the plan's `load_config(loc, defaults)` became `Locations.defaults`, because `server.py` calls `load_config(loc)`. The order is: policy (locked), then the user's file, then the package default (not locked), then `Documents/FinalWorkflow`. `--defaults` sets it, and `start.py` passes `<package root>/default-workspace.json`.
-- **Checks on 2-A** (head HEAD_2A):
+- **Checks on 2-A** (code head c2865d92; the record commits are docs only):
   - `tests/test_packaging.py` and `tests/test_network_check.py`: 12 passed. The build is real: `uv export`, real wheel downloads and the SHA-256 checks.
   - The worker test resolves `pydantic`, `pydantic_core` and `copilot` from the release's `lib/` under `-I`. It failed before the `bridge.py` line, when they came from the venv.
-  - quality_gate 0, pr_size 0 (509), validate quick QUICK_2A, browser BROWSER_2A.
+  - quality_gate 0, pr_size 0 (509), validate quick 0 (610 browser / 1503 python passed), browser 0 (86/0).
 - **Checks on 2-B** (head c6661237):
   - `tests/test_issuer_library_settings.py` plus the server, launch and quit suites: 99 passed, 2 skipped (the skips were already there).
-  - quality_gate 0, pr_size 0 (113), validate quick QUICK_2B, browser 0 (86/0).
+  - quality_gate 0, pr_size 0 (113), validate quick 0 (610 browser / 1503 python passed), browser 0 (86/0).
 - **Reviews:** `mx-precise` per task: both spec ✅ and quality Approved.
   - 2.1's two Lows were fixed in c2865d92: `build.py` loaded `runtime.py` with a lasting `sys.path` change, and the launcher echoes dropped their quotes.
   - Probes `t21_hash_probe.py` (tampered cache, hash missing from the export, version mismatch) and `t21_wheel_contents_probe.py` exit 0.
