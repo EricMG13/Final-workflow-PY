@@ -1,4 +1,4 @@
-"""Start the library on a stable loopback port, or open the instance that is already running."""
+"""Start the library on a stable loopback port and open its one-time launch link."""
 
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ from pathlib import Path
 import uvicorn
 
 from .desktop import open_browser, platform_locations, show_error
+from .launch import ALREADY_RUNNING, launch_link
 from .model import digest
 from .server import APPLICATION, Application
 
@@ -50,6 +51,26 @@ def rotate_log(path: Path) -> None:
             os.replace(path, path.with_name("library.log.previous"))
     except OSError:
         pass
+
+
+def announce(link: str, address: str, browse: bool) -> None:
+    """Tell the person how to reach the library: open the launch link, or print it with
+    --no-browser. The link (it holds the one-time ticket) never reaches the log."""
+    if not browse:
+        print("Issuer Library:", link, flush=True)
+        return
+
+    def open_link() -> None:
+        try:
+            open_browser(link)
+        except OSError as error:
+            log.warning("Open browser: %s", error)
+            show_error(
+                f"Open this link in your browser within 2 minutes; it works once:\n{link}\n{error}"
+            )
+
+    threading.Thread(target=open_link, daemon=True).start()
+    print("Issuer Library:", address, flush=True)
 
 
 def run(argv: list[str] | None = None) -> int:
@@ -86,13 +107,9 @@ def run(argv: list[str] | None = None) -> int:
     except OSError as error:
         listener.close()
         if running_instance(address, digest(str(loc.state).encode())):
-            if arguments.workspace:
-                raise ValueError(
-                    "library is already running; change its workspace in Settings or quit it first"
-                ) from error
-            if not arguments.no_browser:
-                open_browser(address)
-            return 0
+            # Its session secret is in its memory only, so this launch cannot sign a browser in
+            # to it (the relaunch quit request lands in Task 1.4b).
+            raise ValueError(ALREADY_RUNNING) from error
         raise ValueError(f"local port is occupied by another application: {error}") from error
     listener.listen(128)
     app = Application(loc, arguments.workspace, host)
@@ -122,17 +139,11 @@ def run(argv: list[str] | None = None) -> int:
                 app.refresh_locked()
 
     threading.Thread(target=rediscover, daemon=True).start()
-    if not arguments.no_browser:
-
-        def browse() -> None:
-            try:
-                open_browser(address)
-            except OSError as error:
-                log.warning("Open browser: %s", error)
-                show_error(f"Open {address} in your browser.\n{error}")
-
-        threading.Thread(target=browse, daemon=True).start()
-    print("Issuer Library:", address)
+    announce(
+        link=launch_link(host, app.session.ticket()),
+        address=address,
+        browse=not arguments.no_browser,
+    )
     log.info("Listening at %s", address)
     server.run(sockets=[listener])
     return 0
