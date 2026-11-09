@@ -1828,9 +1828,6 @@ def test_two_reviews_in_flight_refuse_the_switch_until_both_end(tmp_path: Path) 
         release_reviews(root, 0)
 
 
-@pytest.mark.skip(
-    reason="deferred: needs Task 1.6 C11 (discovery outside Application.lock); S4 un-skips"
-)
 def test_a_review_started_during_a_switch_refuses_it_at_commit(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -1859,9 +1856,6 @@ def test_a_review_started_during_a_switch_refuses_it_at_commit(
         release_reviews(root, 0)
 
 
-@pytest.mark.skip(
-    reason="deferred: needs Task 1.6 C11 (discovery outside Application.lock); S4 un-skips"
-)
 def test_start_during_a_workspace_switch_refuses_the_switch(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
