@@ -1330,6 +1330,7 @@ def test_settle_and_adopt_read_the_status_as_go_decodes_it(
 def test_watch_worker_logs_an_uncheckable_lock_once(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
 ) -> None:
+    app, _ = make_app(tmp_path)
     calls = {"n": 0}
 
     def alive(path: Path) -> bool:
@@ -1342,5 +1343,5 @@ def test_watch_worker_logs_an_uncheckable_lock_once(
     monkeypatch.setattr(jobs_module, "worker_alive", alive)
     monkeypatch.setattr(jobs_module, "finish_job", lambda lib, folder, job_id: None)
     with caplog.at_level(logging.WARNING, logger="issuer_library"):
-        jobs_module.watch_worker(None, "web-" + "a" * 32, tmp_path)  # type: ignore[arg-type]
-    assert calls["n"] == 50 and len(caplog.records) <= 2
+        jobs_module.watch_worker(app, "web-" + "a" * 32, tmp_path)
+    assert calls["n"] == 50 and len(caplog.records) == 1
