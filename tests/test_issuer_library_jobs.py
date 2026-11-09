@@ -1899,3 +1899,145 @@ def test_a_quitting_app_refuses_resume_before_counting_or_copying(tmp_path: Path
     response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
     assert response.status_code == 503 and QUITTING in response.text
     assert in_flight(app) == 0 and intake_entries(root) == before
+
+
+posix_only = pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock and FIFO semantics")
+RUNNING = b'{"state":"running"}'
+
+
+def running_job(root: Path, number: int) -> Path:
+    job_id = f"web-{number:032x}"
+    write_job(root, job_id, "running", time.time())
+    return root / "intake" / job_id
+
+
+def adoption_warnings(caplog: pytest.LogCaptureFixture) -> list[str]:
+    return [r.getMessage() for r in caplog.records if r.levelno >= logging.WARNING]
+
+
+def test_a_status_link_is_not_read_or_overwritten_by_adoption(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    target = tmp_path / "outside.json"
+    target.write_bytes(RUNNING)
+    folder = root / "intake" / f"web-{1:032x}"
+    folder.mkdir(parents=True)
+    link_or_skip(folder / "status.json", target)
+    assert jobs_module.job_state(folder) is None
+    with app.lock:
+        jobs_module.adopt_jobs_locked(app, str(root))
+    assert target.read_bytes() == RUNNING
+    assert (folder / "status.json").is_symlink()
+    assert app.active_jobs == set()
+
+
+@posix_only
+def test_a_worker_lock_link_cannot_be_checked_and_leaves_the_job_alone(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    import fcntl
+
+    app, root = make_app(tmp_path)
+    folder = running_job(root, 2)
+    before = (folder / "status.json").read_bytes()
+    target = tmp_path / "held.lock"
+    target.write_bytes(b"")
+    link_or_skip(folder / "worker.lock", target)
+    holder = os.open(target, os.O_RDWR)
+    try:
+        fcntl.flock(holder, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        with pytest.raises(OSError):
+            jobs_module.worker_alive(folder / "worker.lock")
+        with caplog.at_level(logging.WARNING, logger="issuer_library"), app.lock:
+            jobs_module.adopt_jobs_locked(app, str(root))
+    finally:
+        os.close(holder)
+    assert (folder / "status.json").read_bytes() == before
+    assert app.active_jobs == set()
+    assert any("cannot be checked" in message for message in adoption_warnings(caplog))
+
+
+@posix_only
+@pytest.mark.parametrize("existing", [True, False])
+def test_hold_worker_lock_refuses_a_link_and_touches_nothing(
+    tmp_path: Path, existing: bool
+) -> None:
+    import fcntl
+
+    target = tmp_path / "elsewhere.lock"
+    if existing:
+        target.write_bytes(b"")
+    link_or_skip(tmp_path / "worker.lock", target)
+    with pytest.raises(OSError):
+        jobs_module.hold_worker_lock(tmp_path / "worker.lock")
+    if not existing:
+        assert not target.exists()
+        return
+    descriptor = os.open(target, os.O_RDWR)
+    try:
+        fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    finally:
+        os.close(descriptor)
+
+
+@posix_only
+def test_a_status_fifo_does_not_hang_startup(tmp_path: Path) -> None:
+    _, root = make_app(tmp_path)
+    folder = root / "intake" / f"web-{4:032x}"
+    folder.mkdir(parents=True)
+    os.mkfifo(folder / "status.json")
+    built: list[Application] = []
+    thread = threading.Thread(target=lambda: built.append(restarted(tmp_path, root)), daemon=True)
+    thread.start()
+    thread.join(5)
+    assert not thread.is_alive(), "Application() blocked on a status.json FIFO"
+    assert built[0].active_jobs == set()
+
+
+@posix_only
+def test_a_worker_lock_fifo_raises_without_blocking(tmp_path: Path) -> None:
+    folder = tmp_path / "job"
+    folder.mkdir()
+    os.mkfifo(folder / "worker.lock")
+    outcome: list[BaseException | None] = []
+
+    def check() -> None:
+        try:
+            jobs_module.worker_alive(folder / "worker.lock")
+            outcome.append(None)
+        except OSError as error:
+            outcome.append(error)
+
+    thread = threading.Thread(target=check, daemon=True)
+    thread.start()
+    thread.join(5)
+    assert not thread.is_alive(), "worker_alive blocked on a FIFO"
+    assert isinstance(outcome[0], OSError)
+
+
+def test_adoption_logs_a_refused_status_but_not_a_missing_or_settled_one(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    app, root = make_app(tmp_path)
+    refused = root / "intake" / f"web-{5:032x}"
+    refused.mkdir(parents=True)
+    link_or_skip(refused / "status.json", tmp_path / "nowhere.json")
+    (root / "intake" / f"web-{6:032x}").mkdir()
+    write_job(root, f"web-{7:032x}", "done", time.time())
+    with caplog.at_level(logging.WARNING, logger="issuer_library"), app.lock:
+        jobs_module.adopt_jobs_locked(app, str(root))
+    messages = adoption_warnings(caplog)
+    assert len(messages) == 1 and refused.name in messages[0]
+
+
+def test_adoption_logs_an_intake_folder_that_cannot_be_listed(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    app, _ = make_app(tmp_path)
+    with caplog.at_level(logging.WARNING, logger="issuer_library"), app.lock:
+        jobs_module.adopt_jobs_locked(app, str(tmp_path / "fresh"))
+    assert adoption_warnings(caplog) == []  # A missing intake folder is normal.
+    (tmp_path / "file").write_bytes(b"")
+    with caplog.at_level(logging.WARNING, logger="issuer_library"), app.lock:
+        jobs_module.adopt_jobs_locked(app, str(tmp_path / "file" / "x"))
+    messages = adoption_warnings(caplog)
+    assert len(messages) == 1 and "intake" in messages[0]
