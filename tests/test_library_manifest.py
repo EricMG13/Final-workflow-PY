@@ -4,7 +4,13 @@ import copy
 import importlib.util
 import json
 import os
+import re
 import shutil
+import signal
+import socket
+import stat
+import subprocess
+import sys
 import threading
 from pathlib import Path
 
@@ -98,7 +104,7 @@ def test_write_bytes_and_no_temp_file(case, tmp_path):
 def test_write_failure_leaves_nothing(tmp_path, monkeypatch):
     root, run_id = workspace("synthetic", tmp_path)
 
-    def boom(*_):
+    def boom(*_, **__):
         raise OSError("probe")
 
     monkeypatch.setattr(lm.os, "replace", boom)
@@ -273,3 +279,288 @@ def test_non_string_module_name_is_refused(tmp_path):
     edit(root, run_id, "workflow.json", add)
     with pytest.raises(lm.ManifestError, match="not a plain name"):
         lm.build(root, run_id)
+
+
+def test_write_refuses_a_run_folder_swapped_for_a_link_after_build(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    real_build = lm.build
+
+    def build_then_swap(*args):
+        manifest = real_build(*args)
+        shutil.move(str(run_dir(root, run_id)), tmp_path / "moved")
+        run_dir(root, run_id).symlink_to(outside, target_is_directory=True)
+        return manifest
+
+    monkeypatch.setattr(lm, "build", build_then_swap)
+    with pytest.raises(lm.ManifestError, match="link") as err:
+        lm.write(root, run_id)
+    assert "missing" not in str(err.value)
+    assert list(outside.iterdir()) == []
+
+
+@pytest.mark.skipif(os.geteuid() == 0, reason="root ignores file modes")
+def test_unreadable_file_is_a_typed_error_with_its_true_cause(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    path = run_dir(root, run_id) / "context.json"
+    path.chmod(0)
+    try:
+        with pytest.raises(lm.ManifestError, match="cannot be read") as err:
+            lm.build(root, run_id)
+    finally:
+        path.chmod(0o644)
+    assert "not a regular file" not in str(err.value)
+    assert "Permission denied" in str(err.value)
+
+
+def test_run_folder_that_is_a_file_is_a_typed_error(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    shutil.rmtree(run_dir(root, run_id))
+    run_dir(root, run_id).write_text("not a folder")
+    with pytest.raises(lm.ManifestError, match="not a folder") as err:
+        lm.build(root, run_id)
+    assert "missing" not in str(err.value)
+
+
+@pytest.mark.parametrize(
+    "name", ["cp-0", "CP-0 ", "\ud800", "x" * 300, "CP-0\u200b", "CP\u20110", "CP-"]
+)
+def test_module_name_outside_the_code_shape_is_refused(tmp_path, name):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+
+    def add(text):
+        data = json.loads(text)
+        data["run"]["requested_modules"].append(name)
+        return json.dumps(data, indent=2, ensure_ascii=True) + "\n"
+
+    edit(root, run_id, "workflow.json", add)
+    with pytest.raises(lm.ManifestError, match="not a plain name"):
+        lm.build(root, run_id)
+
+
+def test_read_does_not_follow_a_run_folder_swapped_for_a_link_during_build(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    outside = tmp_path / "outside"
+    shutil.copytree(run_dir(root, run_id), outside)
+    context = json.loads((outside / "context.json").read_text(encoding="utf-8"))
+    context["run"]["reporting_currency"] = "OUTSIDE"
+    (outside / "context.json").write_text(json.dumps(context, indent=2) + "\n", encoding="utf-8")
+    real_open = lm.events.open_regular
+    first = []
+
+    def link_during_the_first_open(*args, **kwargs):
+        if first:
+            return real_open(*args, **kwargs)
+        first.append(True)
+        home = run_dir(root, run_id)
+        shutil.move(str(home), tmp_path / "moved")
+        home.symlink_to(outside, target_is_directory=True)
+        try:
+            return real_open(*args, **kwargs)
+        finally:
+            home.unlink()
+            shutil.move(str(tmp_path / "moved"), str(home))
+
+    monkeypatch.setattr(lm.events, "open_regular", link_during_the_first_open)
+    try:
+        manifest = lm.build(root, run_id)
+    except lm.ManifestError:
+        manifest = None
+    assert first, "the swap hook never ran, so this test checked nothing"
+    if manifest is not None:
+        assert manifest["run"]["currency"] != "OUTSIDE"
+
+
+def test_absent_deliveries_folder_still_reads_as_missing_not_an_error(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    shutil.rmtree(run_dir(root, run_id) / "deliveries")
+    assert lm.build(root, run_id)["run"]["id"] == run_id
+
+
+def test_write_refuses_a_workspace_root_that_is_a_link(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    alias = tmp_path / "alias"
+    alias.symlink_to(root, target_is_directory=True)
+    with pytest.raises(lm.ManifestError, match="link"):
+        lm.write(alias, run_id)
+
+
+def test_write_error_paths_name_a_file_run_folder_and_a_missing_one(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path)
+    monkeypatch.setattr(lm, "build", lambda *_: {})
+    shutil.rmtree(run_dir(root, run_id))
+    with pytest.raises(lm.ManifestError, match="missing"):
+        lm.write(root, run_id)
+    run_dir(root, run_id).write_text("x")
+    with pytest.raises(lm.ManifestError, match="not a folder"):
+        lm.write(root, run_id)
+
+
+@pytest.mark.skipif(not hasattr(socket, "AF_UNIX"), reason="no AF_UNIX sockets")
+def test_socket_is_not_a_regular_file(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path)
+    path = run_dir(root, run_id) / "expectations.json"
+    path.unlink()
+    sock = socket.socket(socket.AF_UNIX)
+    try:
+        monkeypatch.chdir(path.parent)  # a socket path is limited to ~100 characters
+        sock.bind(path.name)
+        refused(root, run_id, "not a regular file")
+    finally:
+        sock.close()
+
+
+KILL_CHILD = """
+import importlib.util, os, signal, sys
+from pathlib import Path
+module_path, root, run_id, stage = sys.argv[1:5]
+spec = importlib.util.spec_from_file_location("library_manifest", module_path)
+lm = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(lm)
+real_fdopen, real_replace = os.fdopen, os.replace
+
+
+def die():
+    os.kill(os.getpid(), signal.SIGKILL)
+
+
+class Half:
+    def __init__(self, stream):
+        self.stream = stream
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return self.stream.__exit__(*exc)
+
+    def write(self, text):
+        self.stream.write(text[: len(text) // 2])
+        self.stream.flush()
+        die()
+
+
+def fdopen(fd, mode="r", *args, **kwargs):
+    stream = real_fdopen(fd, mode, *args, **kwargs)
+    return Half(stream) if "w" in mode else stream
+
+
+def replace(*args, **kwargs):
+    die()
+
+
+os.fdopen = fdopen if stage == "mid-write" else real_fdopen
+if stage == "before-replace":
+    os.replace = replace
+lm.write(Path(root), run_id)
+"""
+
+
+@pytest.mark.skipif(
+    not hasattr(signal, "SIGKILL") or os.open not in os.supports_dir_fd,
+    reason="needs SIGKILL and dir_fd",
+)
+@pytest.mark.parametrize("stage", ["mid-write", "before-replace"])
+@pytest.mark.parametrize("had_old", [True, False])
+def test_sigkill_during_write_leaves_the_old_library_json_whole(tmp_path, stage, had_old):
+    root, run_id = workspace("synthetic", tmp_path)
+    target = run_dir(root, run_id) / "library.json"
+    if had_old:
+        target.write_text("OLD", encoding="utf-8")
+    done = subprocess.run(
+        [sys.executable, "-c", KILL_CHILD, str(lm.__file__), str(root), run_id, stage],
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+    assert done.returncode == -signal.SIGKILL, done.stderr
+    if had_old:
+        assert target.read_text(encoding="utf-8") == "OLD"
+    else:
+        assert not target.exists()
+
+
+def test_linked_report_names_its_full_workspace_path(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    deliveries = run_dir(root, run_id) / "deliveries"
+    (first,) = [p for p in deliveries.iterdir() if p.is_dir()]
+    (first / "report.html").rename(tmp_path / "real-report.html")
+    (first / "report.html").symlink_to(tmp_path / "real-report.html")
+    expected = f"runs/{run_id}/deliveries/{first.name}/report.html is a link"
+    refused(root, run_id, re.escape(expected))
+
+
+def test_delivery_copy_is_not_read_through_a_link_swapped_in_after_the_deliveries_listing(
+    tmp_path, monkeypatch
+):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    outside = tmp_path / "outside"
+    shutil.copytree(run_dir(root, run_id), outside)
+    (outside / "deliveries").mkdir(exist_ok=True)
+    (first,) = [p for p in (run_dir(root, run_id) / "deliveries").iterdir() if p.is_dir()]
+    (first / "CP-0.md").unlink()
+    real_down = lm._downstream
+    fired = []
+
+    def swapped(*args):
+        fired.append(True)
+        home = run_dir(root, run_id)
+        shutil.move(str(home), tmp_path / "moved")
+        home.symlink_to(outside, target_is_directory=True)
+        try:
+            return real_down(*args)
+        finally:
+            home.unlink()
+            shutil.move(str(tmp_path / "moved"), str(home))
+
+    monkeypatch.setattr(lm, "_downstream", swapped)
+    try:
+        manifest = lm.build(root, run_id)
+    except lm.ManifestError as err:
+        assert "link" in str(err)
+        manifest = None
+    assert fired, "the swap hook never ran, so this test checked nothing"
+    if manifest is not None:
+        done = {r["id"]: r["done"] for r in manifest["checklist"]["requirements"]}
+        assert done["downstream"] is False
+
+
+def test_linked_folder_refusal_names_the_file_and_the_folder(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path / "ws")
+    elsewhere = tmp_path / "elsewhere"
+    shutil.move(str(run_dir(root, run_id)), elsewhere)
+    run_dir(root, run_id).symlink_to(elsewhere, target_is_directory=True)
+    refused(
+        root,
+        run_id,
+        re.escape(f"runs/{run_id}/context.json is under a link (runs/{run_id})"),
+    )
+
+
+@pytest.mark.skipif(not os.path.isdir("/dev/fd"), reason="needs /dev/fd to count descriptors")
+def test_write_closes_the_temp_descriptor_when_fdopen_fails(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path)
+    before = len(os.listdir("/dev/fd"))
+
+    real_fdopen = os.fdopen
+
+    def boom(fd, mode="r", *args, **kwargs):
+        if "w" in mode:
+            raise RuntimeError("fdopen")
+        return real_fdopen(fd, mode, *args, **kwargs)
+
+    monkeypatch.setattr(lm.os, "fdopen", boom)
+    for _ in range(5):
+        with pytest.raises(RuntimeError, match="fdopen"):
+            lm.write(root, run_id)
+    assert len(os.listdir("/dev/fd")) == before
+    assert [p.name for p in run_dir(root, run_id).glob(".library-*")] == []
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX file modes")
+def test_published_library_json_is_owner_only(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    target = lm.write(root, run_id)
+    assert stat.S_IMODE(os.stat(target).st_mode) == 0o600

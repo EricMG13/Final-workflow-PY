@@ -9,12 +9,14 @@ file without following a link or blocking on a FIFO.
 
 from __future__ import annotations
 
+import errno
 import hashlib
 import json
 import os
 import re
+import secrets
+import stat
 import sys
-import tempfile
 from pathlib import Path
 from typing import Any, NamedTuple
 
@@ -22,6 +24,7 @@ HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
 
+from issuer_library import events
 from issuer_library.events import open_regular
 
 SCHEMA = "issuer-library-run/1"
@@ -66,6 +69,10 @@ class ManifestError(ValueError):
     """A required input of the manifest is missing or malformed."""
 
 
+class _Absent(ManifestError):
+    """A folder on the way to an optional file does not exist."""
+
+
 _Item = tuple[str, "_Doc | None", int | None]
 
 
@@ -81,7 +88,8 @@ class _Row(NamedTuple):
 
 
 class _Delivery(NamedTuple):
-    folder: Path
+    root: Path
+    folder: str
     doc: _Doc
     files: dict[str, str]
     report: _Doc | None
@@ -89,18 +97,36 @@ class _Delivery(NamedTuple):
 
 def _read(root: Path, rel: str) -> bytes | None:
     """The file's bytes, or None when it is absent; a link or non-regular file is refused."""
-    path = root / rel
-    for parent in reversed(Path(rel).parents):
-        if parent.parts and (root / parent).is_symlink():
-            raise ManifestError(f"{rel} is under a link ({parent.as_posix()})")
     try:
-        with open_regular(path) as stream:
+        if os.open in os.supports_dir_fd:
+            return _read_pinned(root, Path(rel))
+        # ponytail: no dir_fd (Windows): folders are checked then opened by path, so a link
+        # swapped in between can be followed. Ceiling: the POSIX path above.
+        for parent in reversed(Path(rel).parents):
+            if parent.parts and (root / parent).is_symlink():
+                raise ManifestError(f"{rel} is under a link ({parent.as_posix()})")
+        with open_regular(root / rel) as stream:
             return stream.read()
+    except _Absent:
+        return None
     except FileNotFoundError:
         return None
     except OSError as err:
-        what = "a link" if path.is_symlink() else "not a regular file"
-        raise ManifestError(f"{rel} is {what}") from err
+        if err.errno in (errno.ELOOP, errno.EMLINK):
+            raise ManifestError(f"{rel} is a link") from err
+        if err.errno in (None, errno.EOPNOTSUPP, errno.ENXIO):  # None: open_regular; others: socket
+            raise ManifestError(f"{rel} is not a regular file") from err
+        raise ManifestError(f"{rel} cannot be read: {err.strerror}") from err
+
+
+def _read_pinned(root: Path, rel: Path) -> bytes:
+    """Read `rel` through folder fds opened one name at a time, so no link is followed."""
+    fds = _walk(root, rel.parts[:-1], rel.as_posix())
+    try:
+        with events.open_regular(Path(rel.name), dir_fd=fds[-1]) as stream:
+            return stream.read()
+    finally:
+        _close(fds)
 
 
 def _doc(root: Path, rel: str) -> _Doc:
@@ -332,8 +358,9 @@ def _deliveries(root: Path, base: str) -> list[_Delivery]:
     out = []
     for path in sorted((root / base / "deliveries").glob("*/delivery.json")):
         doc, data = _load(root, path.relative_to(root).as_posix())
+        folder = path.parent.relative_to(root).as_posix()
         files = _need(data, "files", dict, doc.rel)
-        out.append(_Delivery(path.parent, doc, files, _doc_if(path.parent, "report.html")))
+        out.append(_Delivery(root, folder, doc, files, _doc_if(root, f"{folder}/report.html")))
     return out
 
 
@@ -352,7 +379,7 @@ def _downstream(chosen: _Delivery | None, handoffs: dict[str, _Doc | None]) -> l
     for module, handoff in handoffs.items():
         if chosen is None:
             break
-        copy = _doc_if(chosen.folder, f"{module}.md")
+        copy = _doc_if(chosen.root, f"{chosen.folder}/{module}.md")
         ok = handoff and copy and chosen.files.get(f"{module}.md") == handoff.sha == copy.sha
         line = _line_of(chosen.doc, "files", f"{module}.md") if ok else None
         items.append((f"delivery_{module}", chosen.doc, line))
@@ -415,8 +442,7 @@ def _identity(ctx: Json, sink: _Sink, run: Json) -> Json:
 
 
 def _check_module(name: object) -> None:
-    ok = isinstance(name, str) and name not in ("", ".", "..") and ".." not in name
-    if not ok or Path(str(name)).name != name or "\\" in name or "\0" in name:
+    if not isinstance(name, str) or not re.fullmatch(r"CP-[A-Z0-9]+(?:-[A-Z0-9]+)*", name):
         raise ManifestError(f"workflow: requested module {name!r} is not a plain name")
 
 
@@ -465,16 +491,113 @@ def build(workspace: Path, run_id: str) -> Json:
     return {"schema": SCHEMA, "run": run, "sources": sink.sources, "checklist": checklist}
 
 
+def _is_link(part: str, parent: int | None) -> bool:
+    """macOS reports a link under O_DIRECTORY|O_NOFOLLOW as ENOTDIR; tell the two apart."""
+    try:
+        return stat.S_ISLNK(os.stat(part, dir_fd=parent, follow_symlinks=False).st_mode)
+    except OSError:
+        return False
+
+
+class _Fault(Exception):
+    """Why one folder could not be opened: `kind` is link, folder, missing or `detail` text."""
+
+    def __init__(self, kind: str, detail: str = "") -> None:
+        super().__init__(kind)
+        self.kind, self.detail = kind, detail
+
+
+def _open_dir(part: str, parent: int | None) -> int:
+    """Open one folder name under `parent` without following a link; raise `_Fault`."""
+    try:
+        return os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent)
+    except OSError as err:
+        if err.errno in (errno.ELOOP, errno.EMLINK) or (
+            err.errno in (errno.ENOTDIR, errno.ENOENT) and _is_link(part, parent)
+        ):
+            raise _Fault("link") from err
+        if err.errno == errno.ENOTDIR:
+            raise _Fault("folder") from err
+        if err.errno == errno.ENOENT:
+            raise _Fault("missing") from err
+        raise _Fault("other", err.strerror or "") from err
+
+
+def _refusal(fault: _Fault, shown: str, file: str | None) -> ManifestError:
+    """The typed error for a folder fault, naming the folder and the file being read."""
+    if fault.kind == "link":
+        return ManifestError(f"{file} is under a link ({shown})" if file else f"{shown} is a link")
+    if fault.kind == "folder":
+        return ManifestError(f"{shown} is not a folder")
+    if fault.kind == "missing":
+        return _Absent(f"{shown} is missing")
+    return ManifestError(f"{shown} cannot be opened: {fault.detail}")
+
+
+def _walk(workspace: Path, parts: tuple[str, ...], file: str | None = None) -> list[int]:
+    """Open the workspace root, then each folder name under it; every fd is closed on failure."""
+    fds: list[int] = []
+    shown = str(workspace)
+    try:
+        fds.append(_open_dir(shown, None))
+        for part in parts:
+            shown = f"{shown}/{part}" if len(fds) > 1 else part
+            fds.append(_open_dir(part, fds[-1]))
+    except _Fault as fault:
+        _close(fds)
+        raise _refusal(fault, shown, file) from fault.__cause__
+    except BaseException:
+        _close(fds)
+        raise
+    return fds
+
+
+def _close(fds: list[int]) -> None:
+    for fd in reversed(fds):
+        os.close(fd)
+
+
+def _publish(workspace: Path, run_id: str, text: str) -> None:
+    """Write `library.json` through folder fds; a link swapped in after `build` is not followed."""
+    fds = _walk(workspace, ("runs", run_id))
+    temp = f".library-{secrets.token_hex(8)}.tmp"
+    made = False
+    try:
+        run_fd = fds[-1]
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+        handle = os.open(temp, flags, 0o600, dir_fd=run_fd)
+        made = True
+        try:
+            out = os.fdopen(handle, "w", encoding="utf-8", newline="")
+        except BaseException:
+            os.close(handle)
+            raise
+        with out:
+            out.write(text)
+        os.replace(temp, "library.json", src_dir_fd=run_fd, dst_dir_fd=run_fd)
+        made = False
+    except BaseException:
+        if made:
+            os.unlink(temp, dir_fd=fds[-1])
+        raise
+    finally:
+        _close(fds)
+
+
 def write(workspace: Path, run_id: str) -> Path:
     """Write `build(...)` to `runs/<run_id>/library.json` atomically and return the path."""
     text = json.dumps(build(workspace, run_id), indent=2, ensure_ascii=False) + "\n"
     target = workspace / "runs" / run_id / "library.json"
-    handle, temp = tempfile.mkstemp(dir=target.parent, prefix=".library-", suffix=".tmp")
-    try:
-        with os.fdopen(handle, "w", encoding="utf-8", newline="") as out:
-            out.write(text)
-        os.replace(temp, target)
-    except BaseException:
-        Path(temp).unlink(missing_ok=True)
-        raise
+    if os.open not in os.supports_dir_fd:
+        # ponytail: no dir_fd (Windows), so the folder path is not pinned; a link swapped in
+        # between build() and this write can redirect library.json. Ceiling: the POSIX path above.
+        temp = target.with_name(f".library-{secrets.token_hex(8)}.tmp")
+        try:
+            temp.write_text(text, encoding="utf-8", newline="")
+            os.replace(temp, target)
+        except BaseException:
+            temp.unlink(missing_ok=True)
+            raise
+        return target
+    _publish(workspace, run_id, text)
     return target
