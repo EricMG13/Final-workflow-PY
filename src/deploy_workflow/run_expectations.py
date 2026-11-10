@@ -95,7 +95,7 @@ _CREDIT_QUALIFIER = (
     rf"(?:(?:{_cased('Abl', 'Term Loan', 'Revolving', 'Senior', 'Secured', 'Unsecured')}|"
     rf"{_cased('First', 'Second', 'Third')} {_cased('Lien')}|"
     rf"{_cased('Superpriority', 'Bridge', 'Dip')}|"
-    rf"(?:{_ORDINAL} )?(?-i:Amended and Restated|AMENDED AND RESTATED)) )*"
+    rf"(?:{_ORDINAL} )?(?-i:Amended (?i:and) Restated|AMENDED AND RESTATED)) )*"
 )
 _LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
 # A title ends at its phrase (optional punctuation) or continues only with a recognised tail, so a
@@ -105,7 +105,8 @@ _TAIL = (
     + "|".join(MONTHS)
     + r") \d{1,2}, \d{4}\W*)"
 )
-_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_TAIL})?$")
+_DEFINED_TERM = r"\((?:this|the) [\"“][^\"“”]+[\"”]\)"  # (this "Agreement"), straight or curly.
+_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+{_TAIL})?$")
 _ENDS_AT_PHRASE = frozenset({"credit_agreement", "lender_presentation"})  # Title lines only.
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
@@ -136,7 +137,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "lender_presentation",
-        _rx(rf"(?:{_LENDER_QUALIFIER}lender presentation|lenders['’]? presentation)"),
+        _rx(rf"(?:{_LENDER_QUALIFIER}lender presentation|lenders['’]? presentation)\b"),
     ),
     ("information_memorandum", _rx(r"information memorandum\b")),
     ("term_sheet", _rx(r"term sheet\b|summary of (?:indicative )?terms and conditions\b")),

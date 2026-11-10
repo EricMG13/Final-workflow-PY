@@ -723,5 +723,12 @@ other tails (e.g. `made as of`).
 R-SB2-2a fix round 2 (re-review M/L): title end rule moved out of the patterns into `_hits(..., page=True)`, so the
 file-name fallback is main's rule again (`2014-10-21-8k-credit-agreements.htm` and `...-credit-agreement-joinder.htm`
 stay unrecognised); numeric ordinals match as written. Answer key (31d68dc4, not edited): 5 fix2 tests, 390 passed
-across the four test files after. Back-test (`--out`) origin/main's rule file vs this one: see PR notes.
+across the four test files after. Back-test (`--out`) origin/main's rule file vs this one: byte-identical.
 Not verified: titles `Amended And Restated Credit Agreement` and `CREDIT AGREEMENT (this "Agreement")` (closed lists, INFO).
+
+R-SB2-2a fix 3 (restored narrowings, round-2 Lows): connectives in the qualifier match case-insensitively
+(`Amended And Restated Credit Agreement`; ordinal list stays closed); title end rule accepts a `(this "...")` /
+`(the "...")` defined-term tail (straight or curly quotes) before the recognised tails; `\b` restored on both
+lender-presentation alternatives. Answer key (142ce81b, not edited): 5 fix3 tests red before, 397 passed after
+across the four test files. Back-test (`--out`) origin/main's rule file vs this one: byte-identical (see below).
+Not verified: defined-term tails other than `(this|the "...")`.
