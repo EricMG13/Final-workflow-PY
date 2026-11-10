@@ -6,7 +6,9 @@ listing and the files are read from commits), not the working tree.
 
 Listing format: first line ``source <40-hex sha>``, then one repo-relative path per line
 (copied byte-identical, or deleted upstream), or ``edited <path>`` for a file copied from the
-sha and then edited by hand: it counts only its difference from the sha. A listing with no
+sha and then edited by hand. An edited file that exists at the merge base counts like any other
+file, by its lines changed in merge-base...HEAD (the earlier PR that added it counted its drift);
+one absent at the merge base counts only its whole difference from the sha. A listing with no
 non-blank lines means "no copies".
 """
 
@@ -132,6 +134,9 @@ def pr_lines(base: str, repo: Path) -> int:
     sha, copied, edited = (
         (parsed[0], set(parsed[1]), set(parsed[2])) if parsed else ("", set(), set())
     )
+    if edited:  # keep only the edited paths new in this PR; the rest count by range numstat
+        fork = _git(repo, "merge-base", base, "HEAD").decode("utf-8").strip()
+        edited -= {p for p, e in _entries(repo, fork, sorted(edited)).items() if e[1] == "blob"}
     out = _git(repo, "diff", "--numstat", "--no-renames", "-z", f"{base}...HEAD")
     total = 0
     for record in out.decode("utf-8").split("\0"):
