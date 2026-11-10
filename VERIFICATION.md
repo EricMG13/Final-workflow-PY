@@ -731,6 +731,29 @@ will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `ac
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
 R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
 
+## 2026-11-10 Run lock items 2 and 4: a stale liveness verdict never settles a live job; any spawn exception refuses; POSIX only for item 2 (branch `claude/sb2-run-lock-items24`)
+
+Item 2 (pre-existing): `settle_job` no longer acts on `worker_alive`'s verdict. It takes the worker lock itself
+(`dead_worker_proof`: `O_CREAT` open, `flock` LOCK_NB; a lock it cannot take means a worker, and a missing file is
+created so no start can take the lock meanwhile), reads status.json under it, and before the write checks the held
+inode is still the path's (`lstat` vs `fstat` dev/ino, `st_nlink`). Not proven: `WorkerMayStillRun`, which
+`finish_job` answers by leaving the job active (`watch_worker` and `watch` keep polling) and adoption by watching it.
+Call path kept: `settle_job` <- `finish_job` <- `watch_worker`. Windows: `worker_alive` is re-checked at settle, otherwise unchanged; item 2's race stays open there (`dead_worker_proof` holds nothing).
+Fix round 1 (review M1, M2, L1): a missing run folder or an unopenable lock means nothing to settle (`nothing_to_settle`; the job is finished, status.json left as it is, the unopenable case logged); the lock is flocked on an `O_RDONLY` descriptor so a read-only lock file is still proven dead. On POSIX `launch_worker` unlinks `worker.lock` before `release_lock` on a failed start, which closes the window between the inode check and the write (precondition: the failed start's `failed` write fails and a settle is descheduled between `still_valid()` and `save_json`); Windows keeps release-then-remove and the window stays open there. The inode check (`still_the_path`) is covered by the re-staged M2 key test `test_a_settle_holding_the_inode_about_to_be_unlinked_never_marks_a_live_retry_interrupted`; the race test's `between_release_and_unlink` case also covers it (it fails under a `still_the_path` that is always True).
+Batch (Low/Info, no review round): only a permanent lock-open error gives `nothing_to_settle` (ENOENT, ENOTDIR, EACCES, EPERM, EROFS, ELOOP, EISDIR, ENXIO, EOPNOTSUPP, a non-regular file); any other (EMFILE, ENFILE, ENOMEM, EIO) gives `None`, so a job whose lock holder outlives its worker stays active and a second Start answers 409 (`watch_worker` retries). Key `test_a_transient_lock_open_error_keeps_a_held_lock_job_active`: red on bed959a3 (job left active_jobs), green after; the file with `test_issuer_library_quit.py` 184 passed 2 skipped; the new and settle tests 20/20. Probes exit 0: i24rr_transient_open_error_finishes_held_lock, i24rr_emfile_live_descendant, i24rr_emfile_dead_worker, i24rr_settle_live_holder_planted, i24rr_unlink_first_two_instances, the other i24_* (run_folder_gone, lock_unwritable, residual_write_window, folder_gone, base_exception, created_lock) and `_v2` copies, all t7adv_*, t7rr_worker_alive_bounds, probe_stray_fork, probe_observe.
+M1 end state, accepted: with the run folder present and the lock unopenable for a permanent reason (or a planted non-regular file) the job leaves active jobs, status.json stays `running`, the run list shows `running` and resume answers 409 until the lock is repaired and the app relaunched (`i24rr_unopenable_dead_job_running` exits 1 by design). Writing `interrupted` without lock proof would be unsafe; main did so.
+`i24_held_stale_inode_settle.py` and `i24_settle_holds_unlinked_inode.py` now exit 1 by design (unlink-first removes the gap they stage); the `_v2` copies replace them (exit 0). Round key RED to GREEN: the fix-round-1 key tests red on fd568851, green on bed959a3.
+Info: with unlink-first, a retry that coincides with another instance's settle holding the fresh inode answers 500 "Could not prepare the run lock ... Start can be tried again"; the next retry answers 202.
+Item 4: `launch_worker` catches `Exception` (not `BaseException`) from `engine.start`, logs a warning with the job id and error
+(traceback), and takes the OSError path: claim released, lock removed, status failed, 503 "no model call was made".
+Key (eb5c9b69, another agent): 5 tests red before (2 settle-race, 3 spawn-exception), 161 passed 2 skipped after
+for the file; the 5 tests 20/20. Probes exit 0: t7adv_settle_toctou_preexisting, t7adv_non_oserror_spawn,
+t7adv_stale_inode_adoption/liveness, t7adv_save_failure_stray_fork, t7adv_one_worker_invariant,
+t7adv_removal_path_swaps, t7rr_worker_alive_bounds, probe_stray_fork, probe_observe. t7rr_held_probe_lock_vs_removal
+exits 1 by its literal condition (a probe that holds the old inode does not stop the retry; the probe itself
+holds it and never settles); the test for that case passes because settle re-verifies the inode and declines.
+Not verified: Windows (item 2 open there); the browser and `validate.py` gates.
+
 ## 2026-11-10 Plan 2 Task 6a (start requires and records acceptance; branch `claude/sb2-task6-acceptance`)
 
 Scope: `src/issuer_library/jobs.py` (`start_run`), `apps/issuer-library/engine/bridge.py` (`start`).
@@ -756,7 +779,7 @@ while that fd is open inherits the locked file until exec, so after a failed spa
 `release_lock` when `Engine.start` raised (`remove_failed_run_lock`: FileNotFoundError ignored, other
 OSError logged). Answer key `test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_into_500`
 red (503, 500) then green; `probe_stray_fork.py` and `probe_observe.py` exit 0; the existing `{503: 8}` test unchanged.
-The lock removal does not create a second worker (item 2's settle race remains open for the next PR): it happens only where no process was spawned (the failed spawn
+The lock removal does not create a second worker (item 2's settle race was open here and is closed by the items 2 and 4 entry above it): it happens only where no process was spawned (the failed spawn
 and the status-save failure, both before any worker exists), so no worker holds the old inode. The
 cross-instance guard is `start.claim`, held from before `hold_worker_lock` until after the unlink
 (`launch_worker` is the only caller of `hold_worker_lock`), not `lib.lock`; the next start's `O_CREAT`
@@ -833,3 +856,29 @@ Not verified: defined-term tails other than `(this|the "...")`.
 2026-11-10 Final status-reader batch (R-SB2-1l/1m/1n, blockquote fence, 1k case and heading), `handoff_outcome.py`. Every mention of the id is read and the worst class wins (own handoff and CP-0); an id-then-status match stops at `.`/`;` before a space or line end; CP-0 text is fence-filtered like own handoffs; `> ` prefixes are stripped before the fence rule and a fence opened in a quote ends at the first unquoted line; `Blocked: cp-4` and `## Blocked: CP-4` count (the status-colon-id form counts at line start only, so CP-6 in `Ready: CP-5. Blocked: CP-6.` is not_reached). Every status word in a mention's window is read and the worst wins (`CP-4 READY for drafting but BLOCKED for filing` is will_refuse). The reader is linear: the 1 MB timing tests in the key finish in under 1 s. Key (another agent's): `rf-` and `rf2-` cases in `tests/test_handoff_outcome_status.py`; 212 pass in that file after fix round 2 (the 12 `rf-` red before round 1, 6 `rf2-` red before round 2).
 Final batch fix 2 (re-review H1): the mention window is read in a lookahead (`(?=(...))`) so only the id is consumed and a second mention of the same id inside the window is matched (`CP-4 READY ..., then CP-4 BLOCKED ...` is will_refuse, not ready); window bounds unchanged. Back-test output byte-identical to 3ec114cf.
 R-SB2-1m refinement (reader frozen after this): a `.` ends the mention window's sentence only when followed by whitespace and an uppercase letter, or by the line's end, so `CP-4 (see sec. 3) BLOCKED pending data`, `no. 2`, `3.5x` and `e.g. the` no longer cut the window (will_refuse, as on main); `;` and line end unchanged. The window stops at the next module id in any letter case (`CP-4 READY, cp-5 BLOCKED` is CP-4 ready). Key (another agent's): 7 `rm-` cases red before, `tests/test_handoff_outcome_status.py` 227 pass after; the `rm-`/`rm1-` keys check the abbr-*/lower-cp rows (`probe_pr68_adv.py` prints them with exp=None and does not check them; it exits 0); pr65, 1j, rf, rf2, rf3 probes exit 0. Review L1: the window stop is a module id at a word boundary (`\b(?i:cp-)`), so `CP-4 READY over tcp-5 BLOCKED` stays will_refuse; `rm1-` cases red before, green after. The `\b` stop also closes the pre-existing `SCP-1 BLOCKED` false ready (probe row SCP-in-word). Linear (1 MB timing probes pass). Back-test output byte-identical to 6803f35d's. Known limits, not changed (end-of-phase list): negation inside a mention (`CP-4 READY, not BLOCKED` is will_refuse, conservative); `CP-4 and CP-5 BLOCKED` (CP-4 not read, never ready); `READY for drafting; BLOCKED for filing` (ready, as `;` ends the sentence).
+
+## 2026-11-10 R-SB2-2c qualifier words, any ordinal, version and as-amended tails
+
+`guess_kind` (`run_expectations.py`), lead ruling R-SB2-2c: the credit-agreement qualifier list also takes
+DEBTOR-IN-POSSESSION, SYNDICATED and MULTICURRENCY (Title or UPPER, combining with the other words);
+the ordinal before `Amended and Restated` is a closed grammar (First to Ninety-Ninth as words, hyphenated compounds
+included, or digits; the digit suffix is checked against the number in the fix round below), so `Existing`, `Fiftyish`, `Thirdly` stay unrecognised; title lines may also end
+with `(Execution Version)`, `(Conformed Copy)`, `- Execution Version` or `as amended ...`. INCREMENTAL, EXTENDED,
+JOINDER and Existing/Prior/Amended openers are not added. Answer key (de400e69, not edited): 19 positive tests red
+before (the 9 negatives green), all 28 green after; 425 passed, 1 skipped (paid) across the four target files.
+Probes `main_vs_head` (differences listed in the PR), `r2a_rr_edges`, `r2a_rr3_narrowings`,
+`r2a_rr2_name_and_title_parity`, `r2a_ordinal_and_combinations`, `denylist_residue`, `adv_kinds`,
+`r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0. Back-test (`r2a_rr_backtest`) origin/main's rule file vs
+this one: byte-identical.
+Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.
+
+Fix round (review M1 + L, key 8cf76486 not edited; 13 of 77 `fix1` tests red before, all green after): the `as amended`
+tail is `as amended(?: and restated)?(?:\W*|\s+(?:through|by|to|on|as of|from time to time)\b.*)`, so body sentences
+(`The Credit Agreement, as amended, contains ...`) are no title; a credit-agreement or lender-presentation title line
+never begins (case-insensitively) with The/This/Our/Such/A/An/Under/Pursuant/In/As; numeric ordinals need the matching
+suffix (1st, 22nd, 113th; not 0th, 11st, 1th, 12nd). The `the|this` lead-in stays: it still serves file names, which the
+opener guard does not touch. Cost: bare `The Credit Agreement` / `This Amended and Restated Credit Agreement` title lines,
+accepted on main, are unrecognised (fail-safe, by ruling). Back-test: byte-identical.
+"This" amendment (lead, key 20fb148a not edited; 6 `r_sb2_2c_this_*` red before, green after): a line opening with "This" IS a credit-agreement title when a non-empty recognised tail follows "Credit Agreement" (the tails plus `is entered into as of ...` / `is made as of ...`, after an optional defined term); bare `This Credit Agreement`, a body sentence and every other opener stay not-a-title; lender presentations unchanged. As on main, `This Amended and Restated Credit Agreement` with a tail is a title. Back-test: byte-identical.
+R-SB2-2d (lead, key 6f19d3c1/75a5d8dd not edited; 36 `r_sb2_2d_*` red before): the as-amended tail is closed. After `as amended` (optionally `and restated`) only punctuation/end, or `through|by|to|on|as of|from time to time ...` to line end, at most 80 characters, no comma except one date comma `<Month> <d>, <yyyy>` ending the tail; a "This" opener never takes an as-amended tail. Accepted limit: `This [qualifiers] Credit Agreement dated as of … requires …` stays a title — dated/among tails are open, as on main for the unqualified form.
+Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.

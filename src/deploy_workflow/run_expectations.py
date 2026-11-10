@@ -86,28 +86,50 @@ def _cased(*words: str) -> str:
 # Words that may qualify a title phrase, matched case-sensitively (Title or UPPER) as on main.
 # Positive lists: any other opener ("Joinder In", "Release From", "Existing", "Amended", "Investor")
 # leaves the line unrecognised. Facility words and "[ordinal] Amended and Restated" combine freely.
-_ORDINAL = _cased(
-    *("First", "Second", "Third", "Fourth", "Fifth"),
-    *("Sixth", "Seventh", "Eighth", "Ninth", "Tenth"),
-    *("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
+_ONES = ("First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth")
+_TEENS = ("Tenth", "Eleventh", "Twelfth", "Thirteenth", "Fourteenth")
+_TEENS_2 = ("Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth")
+_TENS = ("Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
+_TENS_TH = tuple(t[:-1] + "ieth" for t in _TENS)  # Twentieth ... Ninetieth.
+_PRE = r"(?:[2-9]|[1-9]\d*[02-9])?"  # Digits before 1/2/3 whose tens digit is not 1 (not 11st).
+# A closed grammar of ordinals: English words up to Ninety-Ninth, or digits whose st/nd/rd/th
+# suffix matches the number (1st, 22nd, 113th; no 0th, 11st or 1th).
+_ORDINAL = (
+    _cased(*_ONES, *_TEENS, *_TEENS_2, *_TENS_TH, *(f"{t}-{o}" for t in _TENS for o in _ONES))
+    + rf"|(?-i:{_PRE}1(?:st|ST)|{_PRE}2(?:nd|ND)|{_PRE}3(?:rd|RD)"
+    r"|(?:[4-9]|[1-9]\d*[04-9]|(?:[1-9]\d*)?1[123])(?:th|TH))"
 )
 _CREDIT_QUALIFIER = (
     rf"(?:(?:{_cased('Abl', 'Term Loan', 'Revolving', 'Senior', 'Secured', 'Unsecured')}|"
+    rf"{_cased('Debtor-In-Possession', 'Syndicated', 'Multicurrency')}|"
     rf"{_cased('First', 'Second', 'Third')} {_cased('Lien')}|"
     rf"{_cased('Superpriority', 'Bridge', 'Dip')}|"
-    rf"(?:{_ORDINAL} )?(?-i:Amended (?i:and) Restated|AMENDED AND RESTATED)) )*"
+    rf"(?:(?:{_ORDINAL}) )?(?-i:Amended (?i:and) Restated|AMENDED AND RESTATED)) )*"
 )
 _LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
 # A title ends at its phrase (optional punctuation) or continues only with a recognised tail, so a
 # body sentence that starts with the phrase ("Credit Agreement borrowings were ...") is no title.
 _TAIL = (
-    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|(?:"
+    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|"
+    r"\((?:execution version|conformed copy)\)|- execution version|(?:"
     + "|".join(MONTHS)
     + r") \d{1,2}, \d{4}\W*)"
 )
+# After "as amended" only punctuation, or a short connective tail with no comma but a closing date.
+_AS_AMENDED = (
+    r"as amended(?: and restated)?"
+    r"(?:\W*|\s+(?=.{0,80}$)(?:through|by|to|on|as of|from time to time)\b"
+    r"(?:[^,]*|[^,]*(?:" + "|".join(MONTHS) + r") \d{1,2}, \d{4}\W*))"
+)
 _DEFINED_TERM = r"\((?:this|the) [\"“][^\"“”]+[\"”]\)"  # (this "Agreement"), straight or curly.
-_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+{_TAIL})?$")
+_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+(?:{_TAIL}|{_AS_AMENDED}))?$")
+# An executed agreement's preamble: "This ... Credit Agreement" is a title with a tail.
+_THIS_TITLE_END = _rx(
+    rf"[.,;:]?(?:\s+{_DEFINED_TERM})?[.,;:]?\s*(?:{_TAIL}|is (?:entered into|made) as of\b.*)"
+)
 _ENDS_AT_PHRASE = frozenset({"credit_agreement", "lender_presentation"})  # Title lines only.
+# A title line never begins with a determiner or preposition: that is a body sentence.
+_NOT_A_TITLE = _rx(r"(?:the|this|our|such|an?|under|pursuant|in|as)\b")
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -121,7 +143,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "credit_agreement",
         _rx(
-            rf"(?:(?:the|this) (?:amended and restated )?|{_CREDIT_QUALIFIER})"
+            rf"(?:(?:the|this) (?:amended and restated )?|(?:this )?{_CREDIT_QUALIFIER})"
             r"credit agreement\b(?! joinder\b)"
         ),
     ),
@@ -222,7 +244,15 @@ def _hits(lines: list[str], *, page: bool = True) -> dict[str, str]:
                 if match and (
                     not page
                     or kind not in _ENDS_AT_PHRASE
-                    or _TITLE_END.fullmatch(candidate, match.end())
+                    or (
+                        _TITLE_END.fullmatch(candidate, match.end())
+                        and not _NOT_A_TITLE.match(candidate)
+                    )
+                    or (
+                        kind == "credit_agreement"
+                        and candidate[:4].lower() == "this"
+                        and _THIS_TITLE_END.fullmatch(candidate, match.end())
+                    )
                 ):
                     found.setdefault(kind, match.group(0))
     text = "\n".join(lines)
