@@ -392,6 +392,8 @@ def test_every_new_control_is_labelled_ids_are_unique_disclosures_report_their_a
     need = [
         "runs", "classification", "currency", "ratingBelow", "ratingAbove", "ratingScope",
         "netLeverageMin", "netLeverageMax", "cashMin", "cashMax", "undrawnMin", "undrawnMax",
+        "leverageProFormaMin", "leverageProFormaMax",
+        "leverageAsMarketedMin", "leverageAsMarketedMax",
         "talkMin", "talkMax", "marginMin", "marginMax", "couponMin", "couponMax",
         "priceMin", "priceMax", "yieldMin", "yieldMax", "limitation",
     ]  # fmt: skip
@@ -627,3 +629,180 @@ def test_the_nav_entry_of_a_case_folded_issuer_is_active_and_toggles_the_filter_
     p.click(entry)
     assert len(p.ids()) == len(key["runs"]), "filter cleared: every run under Any"
     assert p.page.evaluate(state, entry)[0] is False
+
+
+PRO_FORMA = "Pro forma leverage, excluding unrealised add-backs"
+AS_MARKETED = "Leverage as marketed"
+NEW_BOUNDS = [
+    ("leverageProFormaMin", "Pro forma leverage (excl. unrealised add-backs), minimum (x)"),
+    ("leverageProFormaMax", "Pro forma leverage (excl. unrealised add-backs), maximum (x)"),
+    ("leverageAsMarketedMin", "Leverage as marketed, minimum (x)"),
+    ("leverageAsMarketedMax", "Leverage as marketed, maximum (x)"),
+]
+
+
+def detail_item(p: CreditLibrary, label: str) -> dict[str, Any] | None:
+    """The metric item of the selected run's detail whose label is exactly `label`, or None."""
+    found: dict[str, Any] | None = p.page.evaluate(
+        """label=>{const text=el=>el.textContent.replace(/\\s+/g,' ').trim();
+        const items=[...document.querySelectorAll('#run-detail .metric-item')]
+          .filter(i=>text(i.querySelector('.metric-label'))===label);
+        if(items.length>1)throw new Error('label shown twice: '+label);
+        if(!items.length)return null;
+        const i=items[0];
+        return {value:text(i.querySelector('.metric-value')),note:text(i.querySelector('p')),
+          source:[...i.querySelectorAll('[data-library-source]')].map(b=>b.dataset.librarySource)};}""",
+        label,
+    )
+    return found
+
+
+def test_the_pro_forma_bounds_are_labelled_number_boxes_in_the_metric_group_after_the_old_pairs(
+    library: LibraryOpener,
+) -> None:
+    p = library()
+    for key, label in NEW_BOUNDS:
+        info = p.page.evaluate(
+            """k=>{const el=document.getElementById(`library-${k}`);
+            return {label:el.labels[0].textContent.replace(/\\s+/g,' ').trim(),
+              type:el.type,step:el.step,
+              group:el.closest('details').id,filter:el.dataset.libraryFilter};}""",
+            key,
+        )
+        assert info == {
+            "label": label,
+            "type": "number",
+            "step": "any",
+            "group": "metric-filters",
+            "filter": key,
+        }, key
+    order: list[str] = p.page.evaluate(
+        "[...document.querySelectorAll('#metric-filters input[data-library-filter]')]"
+        ".map(i=>i.dataset.libraryFilter)"
+    )
+    last_old = max(order.index(k) for k in ["leverageMax", "coverageMax"])
+    assert all(order.index(key) > last_old for key, _ in NEW_BOUNDS)
+
+
+def test_the_detail_shows_each_pro_forma_row_only_for_a_run_that_has_it(
+    library: LibraryOpener,
+) -> None:
+    p = library()
+    p.click('[data-library-select="jasper-001"]')
+    assert detail_item(p, PRO_FORMA) == {
+        "value": "4.90×",
+        "note": "FY2024 · Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs "
+        "(fictional)",
+        "source": ["jasper-001.leverage_pro_forma"],
+    }
+    assert detail_item(p, AS_MARKETED) == {
+        "value": "3.80×",
+        "note": "FY2024 · Total debt / marketed EBITDA incl. add-backs (fictional)",
+        "source": ["jasper-001.leverage_as_marketed"],
+    }
+    assert detail_item(p, "Leverage") is not None
+    p.click('[data-library-select="fairholt-001"]')
+    assert detail_item(p, PRO_FORMA) is None, "no pro forma figure: no row, not Not established"
+    assert detail_item(p, AS_MARKETED) is not None
+    p.click('[data-library-select="ironwood-001"]')
+    detail = p.detail()
+    assert PRO_FORMA not in detail and AS_MARKETED not in detail
+    assert detail_item(p, "Leverage") is not None
+
+
+def test_a_blank_not_supplied_or_negative_pro_forma_run_shows_a_row_with_a_dash_and_no_number(
+    library: LibraryOpener,
+) -> None:
+    p = library()
+    for run_id in ["dunmore-001", "elmstead-001", "hartley-001"]:
+        p.click(f'[data-library-select="{run_id}"]')
+        item = detail_item(p, PRO_FORMA)
+        assert item is not None, run_id
+        assert item["value"] == ("-0.4×" if run_id == "hartley-001" else "—"), run_id
+
+
+def test_rf18_the_as_marketed_only_run_shows_a_dash_under_leverage_and_is_hidden_by_its_bound(
+    library: LibraryOpener,
+) -> None:
+    p = library()
+    assert p.cell("fairholt-001", "Leverage").startswith("—")
+    assert "3.00" not in p.cell("fairholt-001", "Leverage")
+    assert "×" in p.cell("jasper-001", "Leverage")
+    p.through({"runs": "any", "leverageMin": "3"})
+    assert "fairholt-001" not in p.ids()
+    p.click('[data-library-coverage="leverage"] button')
+    assert p.text("library-results").startswith("Hidden by Leverage: no figure recorded")
+    assert "fairholt-001" in p.ids()
+    assert p.cell("fairholt-001", "Leverage").startswith("—")
+    p.click("#library-results [data-library-back]")
+    p.set("library-leverageMin", "")
+    p.through({"leverageAsMarketedMin": "3"})
+    assert "fairholt-001" in p.ids(), "the as-marketed filter reads leverage_as_marketed"
+    assert [g for g, _ in p.lines()] == ["leverage_as_marketed"]
+
+
+def test_the_pro_forma_coverage_lines_name_the_metric_and_say_recorded_for_n_of_m(
+    library: LibraryOpener,
+) -> None:
+    p = library()
+    p.through({"runs": "any", "leverageProFormaMax": "5", "leverageAsMarketedMin": "3.5"})
+    lines = dict(p.lines())
+    assert lines["leverage_pro_forma"] == (f"Pro forma leverage recorded for 3 of {TOTAL} runs"), (
+        lines
+    )
+    assert lines["leverage_as_marketed"] == (
+        f"Leverage as marketed recorded for 4 of {TOTAL} runs · 1 hidden · Show them"
+    ), lines
+    p.click('[data-library-coverage="leverage_as_marketed"] button')
+    assert p.text("library-results").startswith(
+        "Hidden by Leverage as marketed: no figure recorded"
+    )
+    assert p.ids() == ["aldermoor-2023-001"]
+
+
+def test_the_pro_forma_hidden_list_holds_the_negative_blank_and_not_supplied_runs(
+    library: LibraryOpener,
+) -> None:
+    p = library()
+    p.through({"runs": "any", "leverageProFormaMin": "-1"})
+    p.click('[data-library-coverage="leverage_pro_forma"] button')
+    shown = set(p.ids())
+    assert {"hartley-001", "dunmore-001", "elmstead-001"} <= shown
+    assert not shown & {"aldermoor-2023-001", "brackenfell-hy-001", "jasper-001"}
+
+
+def test_the_pro_forma_bounds_are_read_from_the_address_reload_and_cleared_by_reset(
+    library: LibraryOpener,
+) -> None:
+    query = "runs=any&leverageProFormaMax=5&leverageAsMarketedMin=3.5"
+    p = library(f"W-Library/cases?{query}")
+    assert p.value("library-leverageProFormaMax") == "5"
+    assert p.value("library-leverageAsMarketedMin") == "3.5"
+    assert p.value("library-leverageProFormaMin") == ""
+    assert p.ids() == ["jasper-001"]
+    summaries = [squash(s) for s in p.screen.texts("#library-filters details > summary")]
+    assert any(
+        s.startswith("Credit metrics & period") and s.endswith("· 2 active") for s in summaries
+    )
+    p.set("library-leverageAsMarketedMax", "9")
+    assert p.hash == (
+        "#W-Library/cases?runs=any&leverageProFormaMax=5&leverageAsMarketedMin=3.5"
+        "&leverageAsMarketedMax=9"
+    )
+    p.page.reload()
+    until(p.page, "document.getElementById('library-leverageAsMarketedMax')!==null")
+    assert p.value("library-leverageAsMarketedMax") == "9"
+    assert p.value("library-leverageProFormaMax") == "5"
+    p.click("#library-clear")
+    for key, _ in NEW_BOUNDS:
+        assert p.value(f"library-{key}") == "", key
+    assert p.hash == "#W-Library/cases"
+    assert len(p.ids()) == len(by_name("default filters, latest")["expected_ids"])
+    junk = library("W-Library/cases?leverageProFormaMin=abc&leverageAsMarketedMax=%2B4&runs=any")
+    assert [
+        junk.value(f"library-{k}") for k in ["leverageProFormaMin", "leverageAsMarketedMax"]
+    ] == [
+        "",
+        "",
+    ]
+    assert len(junk.ids()) == TOTAL
