@@ -1417,6 +1417,178 @@ else:
 """
 
 
+def await_text(path: Path) -> None:
+    deadline = time.time() + 5
+    while time.time() < deadline and not (path.exists() and path.read_text()):
+        time.sleep(0.01)
+
+
+def await_settled(app: Application, folder: Path, job_id: str) -> None:
+    """Wait until the job leaves running or the instance stops watching it (at most 3 s)."""
+    deadline = time.time() + 3
+    while time.time() < deadline and state_of(folder)["state"] == "running":
+        with app.lock:
+            if job_id not in app.active_jobs:
+                return
+        time.sleep(0.01)
+
+
+def recording_engines(tmp_path: Path, engine: Engine) -> tuple[Engine, Engine]:
+    """A worker that records its start and runs until release-all exists, and an engine whose
+    interpreter is missing (its spawn fails)."""
+    root = tmp_path / "held-engine"
+    root.mkdir()
+    (root / "bridge.py").write_text(RECORDING_BRIDGE)
+    (root / "store.py").write_text((engine.root / "store.py").read_text())
+    return (
+        Engine(root=root, python=sys.executable),
+        Engine(root=root, python=str(tmp_path / "no-such-python")),
+    )
+
+
+def settle_race_outcome(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, in_gap: bool
+) -> SimpleNamespace:
+    """A second instance's watcher judges a failed start's worker gone and is descheduled before
+    settle_job reads status.json (injected stall); the retry starts a live worker meanwhile.
+
+    With `in_gap` the watcher's verdict is made between the failed start's release_lock and its
+    unlink (the unlink waits for the stalled settle to be reached), otherwise after the unlink.
+    """
+    monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
+    first_app, root, client_a, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    held, missing = recording_engines(tmp_path, first_app.engine)
+    held_root = held.root
+    second_app = restarted(tmp_path, root)
+    second_app.engine = held
+    reached, go = threading.Event(), threading.Event()
+    armed = [False]
+    attempts: list[int] = []
+    real_settle, real_remove = jobs_module.settle_job, jobs_module.remove_failed_run_lock
+
+    def stalling_settle(path: Path) -> None:
+        caller, outer = sys._getframe(1).f_code.co_name, sys._getframe(2).f_code.co_name
+        if armed[0] and (caller, outer) == ("finish_job", "watch_worker"):
+            armed[0] = False
+            reached.set()
+            go.wait(20)
+        real_settle(path)
+
+    def remove_once_the_check_is_stalled(path: Path, job: str) -> None:
+        if in_gap:
+            reached.wait(10)
+        real_remove(path, job)
+
+    class SwitchEngine(Engine):
+        def start(self, folder: Path, lock: Any) -> Any:
+            attempts.append(1)
+            if len(attempts) > 1:
+                return Engine.start(held, folder, lock)
+            with second_app.lock:
+                jobs_module.adopt_jobs_locked(second_app, str(root))
+            assert job_id in second_app.active_jobs, "the other instance did not adopt the job"
+            armed[0] = True
+            return Engine.start(missing, folder, lock)
+
+    first_app.engine = SwitchEngine(root=held_root, python=sys.executable)
+    monkeypatch.setattr(jobs_module, "settle_job", stalling_settle)
+    monkeypatch.setattr(jobs_module, "remove_failed_run_lock", remove_once_the_check_is_stalled)
+    starts = root / "worker-starts.txt"
+    resumed_workers = 0
+    try:
+        first = start_job(client_a, job_id)
+        reached.wait(10)
+        retry = start_job(client_a, job_id)
+        await_text(starts)
+        go.set()
+        await_settled(second_app, folder, job_id)
+        settled = state_of(folder)["state"]
+        alive = jobs_module.worker_alive(folder / "worker.lock")
+        if settled != "running":
+            resumed_workers = resume_and_start_copy(client_of(second_app), root, job_id, starts)
+    finally:
+        go.set()
+        (root / "release-all").write_bytes(b"")
+        drain_apps(first_app, second_app)
+    workers = starts.read_text().count("\n") if starts.exists() else 0
+    return SimpleNamespace(
+        first=first, retry=retry, settled=settled, alive=alive, workers=workers + resumed_workers
+    )
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock semantics")
+@pytest.mark.parametrize(
+    "in_gap", [False, True], ids=["after_unlink", "between_release_and_unlink"]
+)
+def test_another_instances_settle_never_marks_a_live_retry_interrupted(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, in_gap: bool
+) -> None:
+    # Answer key: sb2/probes/t7adv_settle_toctou_preexisting.py (after_unlink) and
+    # t7rr_held_probe_lock_vs_removal.py (between_release_and_unlink: a check that won the
+    # lock on the inode about to be unlinked must not take that inode as proof). Whatever the
+    # retry's answer, a live worker's job is never settled, and no second worker starts.
+    outcome = settle_race_outcome(tmp_path, monkeypatch, in_gap)
+    assert outcome.first.status_code == 503, outcome.first.text
+    if outcome.retry.status_code == 202:
+        assert outcome.alive, "the retry's worker was judged dead"
+        assert outcome.settled == "running", (
+            f"a live worker's job was settled {outcome.settled!r} by the other instance"
+        )
+    assert outcome.workers < 2, "two workers for the same inputs"
+
+
+@pytest.mark.parametrize(
+    "error",
+    [
+        RuntimeError("spawn went wrong"),
+        ValueError("bad spawn value"),
+        subprocess.SubprocessError("bad child data"),
+    ],
+    ids=["RuntimeError", "ValueError", "SubprocessError"],
+)
+def test_a_spawn_that_raises_anything_releases_the_claim_and_fails_the_job(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture, error: Exception
+) -> None:
+    # Answer key: sb2/probes/t7adv_non_oserror_spawn.py and the lead's ruling (item 4): any
+    # exception from engine.start releases the claim, marks the job failed, logs, and answers the
+    # normal refusal (503, "no model call was made"); the next start is not blocked.
+    app, root, _, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    client = TestClient(
+        app.asgi,
+        base_url=ORIGIN,
+        raise_server_exceptions=False,
+        headers={"Cookie": f"{cookie_name(HOST)}={app.session.cookie}"},
+    )
+
+    class RaisingEngine(Engine):
+        def start(self, folder: Path, lock: Any) -> Any:
+            raise error
+
+    good = app.engine
+    app.engine = RaisingEngine(root=good.root, python=good.python)
+    with caplog.at_level(logging.WARNING, logger="issuer_library"):
+        first = start_job(client, job_id)
+    assert first.status_code == 503 and "no model call was made" in first.text, first.text
+    assert not (folder / "start.claim").exists(), "claim kept after a failed spawn"
+    status = state_of(folder)
+    assert status["state"] == "failed" and "can be tried again" in status["message"], status
+    assert not app.active_jobs
+    logged = [
+        record
+        for record in caplog.records
+        if record.levelno >= logging.WARNING
+        and job_id in record.getMessage()
+        and str(error) in record.getMessage() + repr(record.exc_info)
+    ]
+    assert logged, "the spawn error was not logged with the run id"
+    app.engine = good
+    assert start_job(client, job_id).status_code == 202
+    wait_idle(app)
+    assert (folder / "synthetic-starts.txt").read_text() == "one\n"
+
+
 def test_review_worker_that_started_and_failed_keeps_the_claim(tmp_path: Path) -> None:
     app, root, client, job_id = reviewed(tmp_path)
     (app.engine.root / "bridge.py").write_text("import sys\nsys.exit(3)\n")
