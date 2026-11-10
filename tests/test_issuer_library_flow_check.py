@@ -648,6 +648,9 @@ def test_h2_unit_divisors_are_not_figures(tmp_path, monkeypatch, line: str) -> N
         ("x / 10000.0", set()),  # 10000.0 is exactly 10000
         ("x / 100 and 100 outstanding", {"100"}),  # only the divisor occurrence is exempt
         ("x / 10000 and 10000 drawn", {"10000"}),
+        ("Net debt / 100.5m", {"100.5"}),  # a glued unit does not shorten the figure to 100
+        ("Net debt / 1000.25x", {"1000.25"}),
+        ("Net debt \u00f7 10000.7bn", {"10000.7"}),
     ],
 )
 def test_h2_other_divisors_and_plain_figures_stay_flagged(
@@ -690,6 +693,7 @@ def test_standard_names_are_not_figures(tmp_path, monkeypatch, line: str) -> Non
         ("ASC leases, effective 842", {"842"}),
         ("ASC 842 and also 842 drawn", {"842"}),  # the bare occurrence still counts
         ("ASCENT 842", {"842"}),  # a prefix is a whole word
+        ("Adjusted per ASC\n\n1234 total", {"1234"}),  # the prefix does not reach the next line
     ],
 )
 def test_standard_prefix_must_directly_precede_the_number(
@@ -774,3 +778,28 @@ def test_retained_runs_keep_only_the_real_faults() -> None:
             "98400", "77100", "99978", "110050", "116543", "10000", "600", "16800", "21700",
             "33400", "38500",
         }  # fmt: skip
+
+
+def test_e_notation_one_e3_result_is_read_as_1000(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767", handoff="# CP-1\n\n767 x 1000 = 1000\n",
+        calls=[("c1", "sum", ["767"], "1e3")],
+    )  # fmt: skip
+    assert flagged == set()
+
+
+def test_ratio_with_a_unit_dividend_is_not_exempt(tmp_path, monkeypatch) -> None:
+    result = "1.3037809647979139"  # 1000 / 767: the unit is the dividend, so 1000 is no divisor
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767", handoff=f"# CP-1\n\nresult {result}\n",
+        calls=[("c1", "ratio", ["1000", "767"], result)],
+    )  # fmt: skip
+    assert flagged == {result}
+
+
+def test_ratio_divisor_written_1e3_is_the_unit_1000(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767", handoff="# CP-1\n\n767 / 1000 = 0.767\n",
+        calls=[("c1", "ratio", ["767", "1E3"], "0.767")],
+    )  # fmt: skip
+    assert flagged == set()
