@@ -82,6 +82,8 @@ const LibraryLogic = (() => {
       }},
     leverage: metricGroup('leverage', 'leverage'), net_leverage: metricGroup('net_leverage', 'netLeverage'),
     coverage: metricGroup('coverage', 'coverage'), cash: metricGroup('cash', 'cash'), undrawn: metricGroup('undrawn', 'undrawn'),
+    leverage_pro_forma: metricGroup('leverage_pro_forma', 'leverageProForma'),
+    leverage_as_marketed: metricGroup('leverage_as_marketed', 'leverageAsMarketed'),
     talk: facilityGroup('talk'), margin: facilityGroup('margin'), coupon: facilityGroup('coupon'),
     price: facilityGroup('price'), yield: facilityGroup('yield'),
     limitation: {on: f => !!f.limitation, recorded: run => (run.gaps || []).length > 0, pass: (run, f) => (run.gaps || []).includes(f.limitation)}

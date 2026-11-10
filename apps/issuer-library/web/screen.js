@@ -52,7 +52,7 @@ const evidence = new Map();
 const lastSection = new Map(), lastFile = new Map();
 const readingPositions = new Map(), expandedGroups = new Map();
 // Screening state, kept while the reader is on another screen. Filter names are LibraryLogic's.
-const LIBRARY_DEFAULTS = {search:'',sector:'',workflow:'',completion:'',availability:'',basis:'',period:'',leverageMin:'',leverageMax:'',coverageMin:'',coverageMax:'',issuer:'',runs:'latest',classification:'',currency:'',ratingBelow:'',ratingAbove:'',ratingScope:'issuer',netLeverageMin:'',netLeverageMax:'',cashMin:'',cashMax:'',undrawnMin:'',undrawnMax:'',talkMin:'',talkMax:'',marginMin:'',marginMax:'',couponMin:'',couponMax:'',priceMin:'',priceMax:'',yieldMin:'',yieldMax:'',limitation:''};
+const LIBRARY_DEFAULTS = {search:'',sector:'',workflow:'',completion:'',availability:'',basis:'',period:'',leverageMin:'',leverageMax:'',coverageMin:'',coverageMax:'',issuer:'',runs:'latest',classification:'',currency:'',ratingBelow:'',ratingAbove:'',ratingScope:'issuer',netLeverageMin:'',netLeverageMax:'',cashMin:'',cashMax:'',undrawnMin:'',undrawnMax:'',leverageProFormaMin:'',leverageProFormaMax:'',leverageAsMarketedMin:'',leverageAsMarketedMax:'',talkMin:'',talkMax:'',marginMin:'',marginMax:'',couponMin:'',couponMax:'',priceMin:'',priceMax:'',yieldMin:'',yieldMax:'',limitation:''};
 const libraryFilters = {...LIBRARY_DEFAULTS};
 const libraryState = {selected:'',sortKey:'',direction:'asc',hidden:''};
 let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll = 0;
