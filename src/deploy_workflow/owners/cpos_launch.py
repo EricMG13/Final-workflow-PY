@@ -316,7 +316,8 @@ PRO_FORMA_CELL_RULE = (
     "in `1,234`; the minus is the ASCII hyphen `-`, never the Unicode minus `\u2212`; no brackets, "
     "currency symbol, unit suffix, multiple sign or words) or `Not supplied: <reason>` with a "
     "reason that holds at least one letter or digit. Write a plain number such as `1,234`, `-18` "
-    "or `0.5`, with no plus sign and no bare leading point. A `Reporting unit` or `Currency` cell is never blank. "
+    "or `0.5`, with no plus sign and no bare leading point. A `Reporting unit` or `Currency` cell "
+    "is never blank. "
     "Take every figure from the sources and handoffs or from `calculate`; plug nothing and "
     "invent no haircut."
 )
@@ -1221,7 +1222,8 @@ def consumer_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
     return ()
 
 
-# R-L6, R-L8 and R-L16: with commas the first group has 1 to 3 digits and each later group exactly 3;
+# R-L6, R-L8 and R-L16: with commas the first group has 1 to 3 digits and each later group
+# exactly 3;
 # the minus is the ASCII hyphen only; there is no plus sign and no bare leading point.
 NUMBER = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
 AMOUNT = re.compile(f"-?{NUMBER}")
