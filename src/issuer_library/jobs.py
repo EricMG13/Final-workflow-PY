@@ -293,6 +293,10 @@ else:
             except BlockingIOError:
                 yield None
                 return
+            except OSError as error:  # ENOLCK on a network share: nothing is known; watch retries.
+                log.warning("The run lock %s cannot be taken to prove no worker: %s", path, error)
+                yield None
+                return
 
             def still_the_path() -> bool:
                 try:
