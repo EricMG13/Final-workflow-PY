@@ -3278,7 +3278,8 @@ def test_a_lock_error_other_than_contention_keeps_the_job_watched(
     """ENOLCK (a network share) once, at the lock call that proves a worker dead: the watcher
     must survive, the job stay active until the error clears, then settle and leave."""
     monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
-    app, root, _, _ = clocked_app(tmp_path)
+    app, root, clock, _ = clocked_app(tmp_path)
+    app.pause = clock.add  # The tab-watch grace wait runs on the fake clock, not real time.
     job_id = "web-" + "ab" * 16
     folder = root / "intake" / job_id
     folder.mkdir(parents=True)
