@@ -11,7 +11,7 @@ import hashlib
 import html
 import json
 import re
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, replace
 from datetime import date
 from decimal import Context, Decimal
@@ -740,10 +740,10 @@ def status_note(module_id: str, raw: str) -> str | None:
 
 
 def _with_status(
-    note: str | None, bound: tuple[Binding, ...], status_of: Mapping[str, str]
+    note: str | None, module_ids: Iterable[str], status_of: Mapping[str, str]
 ) -> str | None:
     """`note` followed by the status note of each module the block's content comes from."""
-    modules = dict.fromkeys(e.fact_coord.module_id for e in bound)
+    modules = dict.fromkeys(module_ids)
     parts = [note] if note else []
     parts.extend(status_of[m] for m in modules if m in status_of)
     return " · ".join(parts) or None
@@ -1243,6 +1243,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                         full_analysis_route=next(iter(specs.values()))[0],
                         width="full",
                         figures=tuple(figures),
+                        note=_with_status(None, (spec[0] for spec in specs.values()), status_of),
                     )
                 )
                 continue
@@ -1279,6 +1280,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     full_analysis_route=module_id,
                     width="full",
                     figures=(figure,),
+                    note=_with_status(None, [module_id], status_of),
                 )
             )
         elif block_spec.kind == "prose":
@@ -1292,7 +1294,9 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     full_analysis_route=bound[0].fact_coord.module_id,
                     width="full",
                     lines=_prose_lines(bound, view, refs),
-                    note=_with_status(presentation_note, bound, status_of),
+                    note=_with_status(
+                        presentation_note, (e.fact_coord.module_id for e in bound), status_of
+                    ),
                 )
             )
         else:
@@ -1321,7 +1325,9 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     columns=primary.columns,
                     rows=primary.rows,
                     note=_with_status(
-                        _block_note(labels, bound, module_views, metadata), bound, status_of
+                        _block_note(labels, bound, module_views, metadata),
+                        (e.fact_coord.module_id for e in bound),
+                        status_of,
                     ),
                     tab_label=primary.label if tabs else None,
                     tabs=tabs,
