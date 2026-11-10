@@ -257,7 +257,7 @@ tests/model/test_pricing.py
 tests/model/test_providers.py
 tests/model/test_redact.py
 tests/model/test_turn.py
-tests/nightly-known-failures.txt
+edited tests/nightly-known-failures.txt
 tests/prompts/probes/injection_cases.py
 tests/prompts/r_cp4_strip.py
 tests/prompts/r_narr_strip.py
