@@ -9,6 +9,7 @@ file without following a link or blocking on a FIFO.
 
 from __future__ import annotations
 
+import datetime
 import errno
 import hashlib
 import json
@@ -29,7 +30,17 @@ from issuer_library.events import open_regular
 
 SCHEMA = "issuer-library-run/1"
 Json = dict[str, Any]
-_NUMBER = re.compile(r"-?\d[\d,]*(\.\d+)?")
+# Mirrors discovery's WHOLE_NUMBER, non-negative: commas only group exactly three digits.
+_NUMBER = re.compile(r"(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?")
+_DATE = r"(?P<date>[0-9]{4}-[0-9]{2}-[0-9]{2})"
+_KINDS = r"(?P<kind>FY[0-9]{4}|LTM|H[12] [0-9]{4}|9M [0-9]{4}|Q[1-4] [0-9]{4})"
+_RATIO_PERIOD = re.compile(_KINDS + " ended " + _DATE)
+_PERIODS = {
+    "cp1_leverage": _RATIO_PERIOD,
+    "cp1_coverage": _RATIO_PERIOD,
+    "cp1_liquidity": re.compile(_DATE + r"(?P<kind>)"),
+}
+_FORMAT_GAP = "CP-1 chart periods are not in the fixed format"
 _KEY = re.compile(r'^("(?:[^"\\]|\\.)*"):\s*(.*)$')
 _TERM_FIELDS = (
     ("tenor_years", "years"),
@@ -234,53 +245,102 @@ class _Sink:
         return [str(self.pin(key, doc, line)) for key, doc, line in items if doc]
 
 
-def _chosen_row(rows: list[_Row], as_of: str, current_period: str, needs_ltm: bool) -> _Row | None:
-    # R-24: the chart-row rule awaits an owner ruling, so no row is chosen and no metric written.
-    return None
+def _chosen_row(table: str, rows: list[_Row], as_of: str) -> _Row | None:
+    """R-26: the latest row on or before `as_of`; FY beats LTM on a tie; no row when ambiguous."""
+    eligible: list[tuple[str, str, _Row]] = []
+    for row in rows:
+        found = _PERIODS[table].fullmatch(row.cells["Period"])
+        kind = found["kind"] if found else "H1"
+        # Liquidity has no kind and competes as one pool; interim kinds never compete.
+        pool = "fy" if kind.startswith("FY") else "ltm" if kind in ("LTM", "") else ""
+        if found and pool and found["date"] <= as_of:
+            eligible.append((found["date"], pool, row))
+    latest = max((date for date, _, _ in eligible), default="")
+    fy = [r for date, pool, r in eligible if date == latest and pool == "fy"]
+    ltm = [r for date, pool, r in eligible if date == latest and pool == "ltm"]
+    return None if len(fy) > 1 or len(ltm) > 1 else next(iter(fy or ltm), None)
 
 
-def _chart_rows(doc: _Doc) -> dict[str, list[_Row]]:
+def _real_date(text: str) -> bool:
+    try:
+        datetime.date.fromisoformat(text)
+    except ValueError:
+        return False
+    return True
+
+
+def _period_ok(table: str, cell: str) -> bool:
+    found = _PERIODS[table].fullmatch(cell)
+    return found is not None and _real_date(found["date"])
+
+
+def _scan(doc: _Doc) -> tuple[dict[str, list[_Row]], bool]:
+    """Readable chart tables by key, and whether a table was dropped for an off-format Period.
+
+    A table is unreadable when its heading repeats, a row has the wrong cell count (checked
+    first; no gap), or a row with the right count has a Period outside the fixed format (gap).
+    """
     tables: dict[str, list[_Row]] = {}
+    seen: set[str] = set()
+    bad: set[str] = set()
+    off_format = False
     current, header = "", None
     for number, line in enumerate(doc.lines, 1):
         text = line.strip()
         if text.startswith("#"):
             current, header = _HEADINGS.get(text, ""), None
             if current:
+                (bad if current in seen else seen).add(current)
                 tables[current] = []
         elif current and text.startswith("|"):
             cells = [c.strip() for c in text.strip("|").split("|")]
             if header is None:
                 header = cells
-            elif len(cells) == len(header) and not all(re.fullmatch(r":?-+:?", c) for c in cells):
-                tables[current].append(_Row(number, dict(zip(header, cells, strict=True))))
-    return tables
+            elif all(re.fullmatch(r":?-+:?", c) for c in cells):
+                continue
+            elif len(cells) != len(header):
+                bad.add(current)
+            else:
+                row = _Row(number, dict(zip(header, cells, strict=True)))
+                if not _period_ok(current, row.cells.get("Period", "")):
+                    bad.add(current)
+                    off_format = True
+                tables[current].append(row)
+    return {k: v for k, v in tables.items() if k not in bad}, off_format
+
+
+def _chart_rows(doc: _Doc) -> dict[str, list[_Row]]:
+    return _scan(doc)[0]
+
+
+def _number(cell: str) -> bool:
+    return _NUMBER.fullmatch(cell) is not None
 
 
 def _row_metrics(table: str, row: _Row) -> Json:
     _, unit, fields = _TABLES[table]
     period, basis = row.cells.get("Period"), row.cells.get("Basis and limitation")
-    if row.cells.get("Reporting unit") != unit or period is None or basis is None:
+    if row.cells.get("Reporting unit") != unit or not period or not basis:
         return {}
     out: Json = {}
     for name, column in fields:
         cell = row.cells.get(column, "")
-        if _NUMBER.fullmatch(cell) and not cell.startswith("-"):
+        if _number(cell):
             out[name] = {"value": cell.replace(",", ""), "unit": unit, "period": period}
             out[name] |= {"basis": basis, "source": table, "provenance": "calculated"}
     return out
 
 
-def _chart_metrics(doc: _Doc | None, as_of: str, period: str, sink: _Sink) -> Json:
+def _chart_metrics(doc: _Doc | None, as_of: str, sink: _Sink) -> tuple[Json, bool]:
     metrics: Json = {}
-    for table, rows in (_chart_rows(doc) if doc else {}).items():
-        interim = not period.startswith("fy-") and table != "cp1_liquidity"
-        row = _chosen_row(rows, as_of, period, interim)
-        found = _row_metrics(table, row) if doc and row else {}
+    tables, off_format = _scan(doc) if doc else ({}, False)
+    for table, rows in tables.items():
+        row = _chosen_row(table, rows, as_of)
+        found = _row_metrics(table, row) if row else {}
         if found and doc and row:
             sink.pin(table, doc, row.line)
             metrics |= found
-    return metrics
+    return metrics, off_format
 
 
 def _user_terms(sink: _Sink, row: Json, fields: Any, prefix: str, path: tuple[Any, ...]) -> Json:
@@ -478,10 +538,12 @@ def build(workspace: Path, run_id: str) -> Json:
     if handoff := cp1 or next((d for d in handoffs.values() if d), None):
         run["handoff"] = handoff.rel
     published = bool(receipt and receipt[1].get("cp_model_published") is True)
-    run |= {"gaps": _gaps(expectations, published), "artifacts": []}
+    metrics, off_format = _chart_metrics(cp1, as_of, sink)
+    gaps = _gaps(expectations, published) + ([_FORMAT_GAP] if off_format else [])
+    run |= {"gaps": gaps, "artifacts": []}
     run["ratings"] = _ratings(ctx, sink)
     run["facilities"] = _facilities(ctx, sink, ctx_run["reporting_currency"])
-    run["metrics"] = _chart_metrics(cp1, as_of, period, sink)
+    run["metrics"] = metrics
     line = _line_of(wf_doc, "sources", first, "sha256") if first else None
     sources = sink.evidence([("wf_source_0", wf_doc, line)] if first else [])
     scope = f"App run {run_id}: requested modules and delivery"
