@@ -1,5 +1,5 @@
 {
-  "scope": "C3: credit_snapshot plus CP-1D, primary, legal documents draft, 8 Mattress Firm public filings (3 periodic reports recognised as financial reports; presentation, 8-Ks, asset purchase agreement and press release recognised as no agreement); context carries indicative talk (ABL spread 125 to 175 bps) and no quotes",
+  "scope": "C3: credit_snapshot plus CP-1D, primary, legal documents draft, 8 Mattress Firm public filings (3 periodic reports recognised as financial reports; the public lender presentation recognised as a lender presentation after R-SB2-2; 8-Ks, asset purchase agreement and press release recognised as no agreement); context carries indicative talk (ABL spread 125 to 175 bps) and no quotes",
   "ordered_modules": [
     "CP-0",
     "CP-1",
