@@ -111,7 +111,7 @@ def wait_for_replies(page: Any, path: str) -> None:
     """Wait (at most 10 s, then fail naming the path) until every request sent to path has been
     answered and read by the app. No request sent (the click was refused) is nothing to wait for.
     A request the page itself delays before calling fetch (hold_replies, a first-list delay) is not
-    in window.__calls yet, so this returns at once for it; those tests wait on the render instead."""
+    in window.__calls yet, so this returns at once for it; those tests wait on the render."""
     page.wait_for_function(
         "p=>(window.__replied[p]||0)>=window.__calls.filter(c=>c.url.split('?')[0]===p).length",
         arg=path,
