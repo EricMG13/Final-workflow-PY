@@ -704,3 +704,16 @@ Answer key (c281e708, not edited): 27 tests red on the old rule, 201 passed in `
 Probes `denylist_residue`, `adv_kinds`, `r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0.
 Back-test (`expectations_backtest --out`) with origin/main's rule file vs this one on the same tree: identical.
 Not verified: qualifiers on issuer titles outside the key (a new facility word needs adding to the list).
+
+R-SB2-2a fix round 1 (review M1/M2/L1/I1): the `Amended and Restated` ordinal is a closed list (First to Tenth, 1st to
+10th), so `Existing/Prior/Proposed Amended and Restated ...` no longer match; facility words and `[ordinal] Amended and
+Restated` combine in any order (`AMENDED AND RESTATED REVOLVING CREDIT AGREEMENT`, file name included; the file-name
+fallback now drops the extension first); qualifier words are case-sensitive (Title or UPPER), so a lower-case line start
+is no title; a credit-agreement or lender-presentation title line must end at the phrase (optional punctuation) or
+continue only with `dated ...`, `among ...`, `by and among ...`, `between ...` or a bare date, so `Revolving Credit
+Agreement borrowings were ...` is no title. Answer key (3cb7eefb, not edited): 15 fix1 tests red on 94b98f50, 230
+passed in `test_run_expectations` after. Probes `r2a_ordinal_and_combinations`, `denylist_residue`, `adv_kinds`,
+`r2_qualifier_residue`, `r2_qualifier_admits_connectives`, `r2a_info_residue`: exit 0. Back-test (`--out`) with
+origin/main's rule file vs this one on the same tree: byte-identical.
+Not verified: SUPERPRIORITY SECURED DEBTOR-IN-POSSESSION long form (I2, out of scope, stays unrecognised); titles with
+other tails (e.g. `made as of`).

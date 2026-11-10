@@ -11,6 +11,7 @@ import re
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import date
+from pathlib import PurePath
 from typing import Literal, TypedDict
 
 from deploy_vii.registry import dependencies, edge_rule
@@ -67,13 +68,41 @@ def _rx(pattern: str) -> re.Pattern[str]:
     return re.compile(pattern, re.IGNORECASE)
 
 
-# Words that may qualify a title phrase. Positive lists: any other opener ("Joinder In", "Release
-# From", "Existing", "Amended", "Investor") leaves the line unrecognised.
-_CREDIT_QUALIFIER = (
-    r"(?:(?:abl|term loan|revolving|senior|secured|unsecured|(?:first|second|third) lien|"
-    r"superpriority|bridge|dip) )*(?:(?:\w+ )?amended and restated )?"
+MONTHS = (
+    *("january", "february", "march", "april", "may", "june", "july"),
+    *("august", "september", "october", "november", "december"),
 )
-_LENDER_QUALIFIER = r"(?:(?:public|private|bank|syndicate) )?"
+
+
+def _cased(*words: str) -> str:
+    """Case-sensitive alternatives: each word as Title Case or UPPER CASE."""
+    forms = {form for w in words for form in (w.title(), w.upper())}
+    return "(?-i:" + "|".join(sorted(forms, key=len, reverse=True)) + ")"
+
+
+# Words that may qualify a title phrase, matched case-sensitively (Title or UPPER) as on main.
+# Positive lists: any other opener ("Joinder In", "Release From", "Existing", "Amended", "Investor")
+# leaves the line unrecognised. Facility words and "[ordinal] Amended and Restated" combine freely.
+_ORDINAL = _cased(
+    *("First", "Second", "Third", "Fourth", "Fifth"),
+    *("Sixth", "Seventh", "Eighth", "Ninth", "Tenth"),
+    *("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
+)
+_CREDIT_QUALIFIER = (
+    rf"(?:(?:{_cased('Abl', 'Term Loan', 'Revolving', 'Senior', 'Secured', 'Unsecured')}|"
+    rf"{_cased('First', 'Second', 'Third')} {_cased('Lien')}|"
+    rf"{_cased('Superpriority', 'Bridge', 'Dip')}|"
+    rf"(?:{_ORDINAL} )?(?-i:Amended and Restated|AMENDED AND RESTATED)) )*"
+)
+_LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
+# A title ends at its phrase (optional punctuation) or continues only with a recognised tail, so a
+# body sentence that starts with the phrase ("Credit Agreement borrowings were ...") is no title.
+_TAIL = (
+    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|(?:"
+    + "|".join(MONTHS)
+    + r") \d{1,2}, \d{4}\W*)"
+)
+_TITLE_END = rf"\s*[.,;:]?(?:\s+{_TAIL})?$"
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -88,7 +117,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "credit_agreement",
         _rx(
             rf"(?:(?:the|this) (?:amended and restated )?|{_CREDIT_QUALIFIER})"
-            r"credit agreement\b(?! joinder\b)"
+            rf"credit agreement{_TITLE_END}"
         ),
     ),
     ("indenture", _rx(r"(?:(?:the|this) )?(?:(?:\w+ )?supplemental )?indenture\b")),
@@ -103,7 +132,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "lender_presentation",
-        _rx(rf"{_LENDER_QUALIFIER}lender presentation\b|lenders['’]? presentation\b"),
+        _rx(rf"(?:{_LENDER_QUALIFIER}lender presentation|lenders['’]? presentation){_TITLE_END}"),
     ),
     ("information_memorandum", _rx(r"information memorandum\b")),
     ("term_sheet", _rx(r"term sheet\b|summary of (?:indicative )?terms and conditions\b")),
@@ -144,10 +173,6 @@ _CELL = re.compile(r"^[A-Z]+\d+='")  # A workbook page prints cells as A1='text'
 _PREFIX = re.compile(
     r"^(?:L\d+: ?)?(?:ex(?:hibit)?[- ]?\d+(?:\.\d+)* )?", re.IGNORECASE
 )  # captures, EDGAR
-MONTHS = (
-    *("january", "february", "march", "april", "may", "june", "july"),
-    *("august", "september", "october", "november", "december"),
-)
 GERMAN = (
     *("januar", "februar", "märz", "april", "mai", "juni", "juli"),
     *("august", "september", "oktober", "november", "dezember"),
@@ -205,7 +230,7 @@ def _kind(name: str, lines: list[str], pages: Sequence[str]) -> tuple[str, str]:
     for number, page in enumerate(pages, 1):
         if match := INDEX_PHRASE.search(" ".join(page.split())):
             return "financial_report", f"found {match.group(0)!r} on page {number}"
-    spaced = " ".join(re.split(r"[-_.]+", name)).upper()
+    spaced = " ".join(re.split(r"[-_.]+", PurePath(name).stem)).upper()
     named = _hits([_NAME_PREFIX.sub("", spaced)])
     if len(named) == 1:
         ((kind, text),) = named.items()
