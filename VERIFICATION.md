@@ -724,3 +724,4 @@ fence case already held. Key (another agent's): 13 `b1-` cases red before, `test
 Back-test output byte-identical to the parent's. Offline re-read of copies of retained C1 and C1n handoffs
 (`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
 will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `actual_of`); a live run.
+Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.

@@ -46,8 +46,9 @@ whitespace; case-insensitive; `*`, backticks and a leading list marker `- ` or `
 dropped from the cell first; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
 a row of another module never counts, nor is it read as text); in other text it is the first status
 word within 70 characters after the module id (not followed by `.digit`, `-digit` or a letter),
-with no other module id between, and a status word followed by `:` and a list of module ids
-that includes it (`Blocked: CP-1, CP-4 and CP-5`; same id boundary). A `Module
+with no other module id between, and, in CP-0 prose only, a status word (any letter case)
+followed by `:` and a list of module ids that includes it (`Blocked: CP-1, CP-4 and CP-5`; same
+id boundary). A `Module
 Status:` value counts when it begins with a known phrase followed by a period or the line's end
 (the rest of the line is ignored).
 
@@ -152,8 +153,9 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
     """The module's status words: those in any cell of a table row whose first cell is the module id
     alone or id plus a label (markup and list marker dropped); else the first within 70 characters
     after the id, no other module id between (another module's row is not read), and any word
-    followed by `:` and a list of ids that includes the module (`Blocked: CP-1, CP-4`). With `both`
-    the row words and the prose words are all returned."""
+    followed by `:` and a list of ids that includes the module (`Blocked: CP-1, CP-4`; any letter
+    case, and only with `both`, i.e. CP-0 text). With `both` the row words and the prose words are
+    all returned."""
     alt = "|".join(words)
     rows: list[str] = []
     rest: list[str] = []
@@ -177,11 +179,12 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
         rf"\b({alt})[ \t]*:[ \t]*((?:{ident}(?:[ \t]*[,&/][ \t]*|[ \t]+)(?:and[ \t]+)?)*{ident})"
     )
     rows += [found[1]] if found else []
-    rows += [
-        m[1].upper()
-        for m in re.finditer(listed, prose, re.IGNORECASE)
-        if module.upper() in (i.upper() for i in re.findall(ident, m[2]))
-    ]
+    if both:  # the status-colon-id form is read in CP-0 prose only, never in a module's own handoff
+        rows += [
+            m[1].upper()
+            for m in re.finditer(listed, prose, re.IGNORECASE)
+            if module.upper() in (i.upper() for i in re.findall(ident, m[2]))
+        ]
     return rows
 
 
