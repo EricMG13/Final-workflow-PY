@@ -13,7 +13,7 @@ from collections.abc import Callable, Iterator
 from typing import Any
 
 import pytest
-from issuer_library_browser import open_app, release, until
+from issuer_library_browser import json_reply, open_app, release, until
 from test_issuer_library_app import (
     ID,
     ID2,
@@ -534,3 +534,281 @@ def test_fix_3_a_stop_after_the_last_module_was_accepted(new_run: Any) -> None:
     stages = run.stages()
     assert [s["status"] for s in stages[:2]] == ["complete", "complete"]
     assert stages[2]["stopped"] and stages[2]["note"] == "Stopped" and not stages[2]["img"]
+
+
+# PR1 answer key (R-SB2-7): the Review step lists the expected outcomes and, when items are
+# counted, asks for acceptance before Start. Expected values come from Plan 2 Task 7, its
+# "Outcome semantics" and the lead's rulings; the replies below are written by hand.
+CAPTION = (
+    "Expected from your declarations, files and context; CP-0 confirms during the run; "
+    "the model may still find less."
+)
+ROW_KEYS = (
+    "id",
+    "scope",
+    "outcome",
+    "reason",
+    "fix",
+    "basis",
+    "evidence",
+    "counted",
+    "inherited_from",
+)
+START = "/api/runs/start"
+
+
+def expectation(row_id: str, outcome: str, counted: bool, **fields: Any) -> dict[str, Any]:
+    scope = fields.pop("scope", row_id.split(":")[0])
+    row = {
+        "id": row_id, "scope": scope, "outcome": outcome, "counted": counted,
+        "reason": f"reason of {row_id}", "fix": f"fix of {row_id}", "basis": f"basis of {row_id}",
+        "evidence": "per method", "inherited_from": [],
+    }  # fmt: skip
+    return {**row, **fields}
+
+
+# Scrambled on purpose: the page, not the server, puts "This run" first, then modules in order,
+# and an inherited row under its producer (CP-0) rather than with its own scope (CP-1).
+MIXED = [
+    expectation("CP-1:check", "check", True, evidence="observed offline"),
+    expectation("CP-1:ok", "ready", False),
+    expectation("CP-1:from:CP-0", "information", False, inherited_from=["CP-0"]),
+    expectation("CP-1:warn", "limited", True, evidence="observed live"),
+    expectation("run:legal", "gap", True),
+    expectation("CP-1:info", "information", False),
+    expectation("CP-0:z", "will_refuse", True),
+]
+MIXED_COUNTED = ["run:legal", "CP-0:z", "CP-1:check", "CP-1:warn"]
+INFORMATION_ONLY = [expectation("run:what-changed", "information", False)]
+OUTCOME_NAMES = {
+    "CP-0:z": "Will refuse", "run:legal": "Gap", "CP-1:warn": "Limited",
+    "CP-1:check": "Check", "CP-1:info": "Information", "CP-1:ok": "Ready",
+}  # fmt: skip
+EVIDENCE_LABELS = {"CP-1:check": "observed offline", "CP-1:warn": "observed live"}
+ROWS = "#expected-outcomes tr[data-id]"
+ROW_TEXT = (
+    "id=>{const tr=[...document.querySelectorAll('#expected-outcomes tr[data-id]')]"
+    ".find(r=>r.dataset.id===id);return {text:tr.textContent,"
+    "details:[...tr.querySelectorAll('details')].map(d=>({summary:d.querySelector('summary')"
+    "?.textContent,text:d.textContent}))};}"
+)
+BOX = "(()=>{const b=document.getElementById('run-accept');return b?"
+BOX_STATE = (
+    BOX + "{checked:b.checked,type:b.type,disabled:b.disabled,"
+    "label:b.closest('label')?.textContent.trim()}:null})()"
+)
+
+
+def with_expectations(rows: list[dict[str, Any]], counted: list[str]) -> dict[str, Any]:
+    return {**review_reply(True), "expectations": rows, "counted": counted}
+
+
+def prepared(new_run: Any, review: dict[str, Any], **options: Any) -> tuple[NewRun, list[Any]]:
+    """A New run whose Review reply is `review`; every Start body is recorded at the route."""
+    run: NewRun = new_run(**options)
+    bodies: list[Any] = []
+
+    def start(route: Any) -> None:
+        bodies.append(json.loads(route.request.post_data))
+        json_reply({"state": "running", "id": ID})(route)
+
+    run.page.route("**/api/runs/review", json_reply(review))
+    run.page.route(f"**{START}", start)
+    return run, bodies
+
+
+def reviewing(new_run: Any, review: dict[str, Any], **options: Any) -> tuple[NewRun, list[Any]]:
+    run, bodies = prepared(new_run, review, **options)
+    review_it(run)
+    return run, bodies
+
+
+def sent(run: NewRun, bodies: list[Any]) -> list[Any]:
+    """The Start bodies the route has seen, once one has arrived."""
+    for _ in range(100):
+        if bodies:
+            break
+        run.page.wait_for_timeout(20)
+    return bodies
+
+
+def review_it(run: NewRun) -> None:
+    """From the source step: context and folder given, Validate and review, wait for the step."""
+    run.context()
+    run.folder("N/annual.txt")
+    run.click("review-run")
+    until(run.page, "!document.getElementById('review-step').hidden")
+
+
+def row_ids(run: NewRun) -> list[str | None]:
+    return run.screen.attrs(ROWS, "data-id")
+
+
+def accept_box(run: NewRun) -> dict[str, Any] | None:
+    state: dict[str, Any] | None = run.page.evaluate(BOX_STATE)
+    return state
+
+
+def start_enabled(run: NewRun) -> bool:
+    return not run.disabled("start-run")
+
+
+def test_expected_outcomes_open_the_review_step_with_the_caption(new_run: Any) -> None:
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    page = run.page
+    assert page.evaluate("!!document.querySelector('#run-review #expected-outcomes')")
+    before_summary = (
+        "document.querySelector('#expected-outcomes').compareDocumentPosition("
+        "document.querySelector('#run-review .review-summary'))&Node.DOCUMENT_POSITION_FOLLOWING"
+    )
+    assert page.evaluate(before_summary), "the table does not come before the existing summary"
+    text = run.text("expected-outcomes") if run.screen.exists("#expected-outcomes") else ""
+    assert CAPTION in " ".join(text.split())
+    assert "Expected outcomes" in page.evaluate("document.getElementById('run-review').textContent")
+
+
+def test_this_run_rows_come_first_then_modules_in_order_and_inherited_under_the_producer(
+    new_run: Any,
+) -> None:
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    ids = row_ids(run)
+    assert ids[:3] == ["run:legal", "CP-0:z", "CP-1:from:CP-0"], ids
+    assert sorted(ids[3:]) == ["CP-1:check", "CP-1:info", "CP-1:ok", "CP-1:warn"], ids
+
+
+def test_each_row_shows_outcome_name_reason_fix_and_the_why_disclosure(new_run: Any) -> None:
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    for row_id, name in OUTCOME_NAMES.items():
+        row = run.page.evaluate(ROW_TEXT, row_id)
+        for shown in (name, f"reason of {row_id}", f"fix of {row_id}"):
+            assert shown in row["text"], f"{row_id}: {shown!r} not shown"
+        (why,) = row["details"]
+        assert why["summary"] == "Why we expect this", row_id
+        assert f"basis of {row_id}" in why["text"], row_id
+        label = EVIDENCE_LABELS.get(row_id, "per method")
+        assert label in why["text"], f"{row_id}: evidence label {label!r}"
+    assert "Source readiness" in run.page.evaluate(ROW_TEXT, "CP-0:z")["text"], "module title"
+
+
+def test_information_and_inherited_rows_say_not_counted_and_counted_rows_do_not(
+    new_run: Any,
+) -> None:
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    for row in MIXED:
+        text = run.page.evaluate(ROW_TEXT, row["id"])["text"]
+        assert ("Not counted" in text) == (not row["counted"]), f"{row['id']}: {text!r}"
+
+
+def test_the_acceptance_box_counts_the_items_and_start_needs_both_ticks(new_run: Any) -> None:
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    box = accept_box(run)
+    assert box == {"checked": False, "type": "checkbox", "disabled": False,
+                   "label": "I accept these 4 items"}  # fmt: skip
+    assert not start_enabled(run)
+    run.click("run-confirm")
+    assert not start_enabled(run), "Start enabled with only the approval ticked"
+    run.click("run-confirm")
+    run.click("run-accept")
+    assert not start_enabled(run), "Start enabled with only the acceptance ticked"
+    run.click("run-confirm")
+    assert start_enabled(run)
+
+
+def test_start_carries_accept_limitations_true_after_both_ticks(new_run: Any) -> None:
+    run, bodies = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    run.click("run-confirm")
+    run.click("run-accept")
+    run.click("start-run")
+    assert sent(run, bodies) == [
+        {"id": ID, "review_id": "b" * 64, "confirm": True, "accept_limitations": True}
+    ]
+
+
+def test_with_nothing_counted_there_is_no_acceptance_box_and_start_needs_one_tick(
+    new_run: Any,
+) -> None:
+    run, bodies = reviewing(new_run, with_expectations(INFORMATION_ONLY, []))
+    assert accept_box(run) is None and run.screen.count("#run-accept") == 0
+    assert run.screen.count(ROWS) == 1 and "Not counted" in run.text("expected-outcomes")
+    assert not start_enabled(run)
+    run.click("run-confirm")
+    assert start_enabled(run)
+    run.click("start-run")
+    assert sent(run, bodies) == [
+        {"id": ID, "review_id": "b" * 64, "confirm": True, "accept_limitations": False}
+    ]
+
+
+def tick_both(run: NewRun) -> None:
+    run.click("run-confirm")
+    run.click("run-accept")
+    assert start_enabled(run)
+
+
+def assert_both_cleared(run: NewRun) -> None:
+    assert accept_box(run) is not None and not accept_box(run)["checked"]  # type: ignore[index]
+    assert not run.page.evaluate("document.getElementById('run-confirm').checked")
+    run.click("run-confirm")
+    assert not start_enabled(run), "a stale acceptance tick survived"
+
+
+def test_editing_the_folder_and_reviewing_again_clears_the_acceptance_tick(new_run: Any) -> None:
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED))
+    tick_both(run)
+    run.click("revise-run")
+    review_it(run)
+    assert_both_cleared(run)
+
+
+def test_a_resumed_review_clears_the_acceptance_tick(new_run: Any) -> None:
+    review = with_expectations(MIXED, MIXED_COUNTED)
+    run, _ = prepared(new_run, review, rows=[ROW_STOPPED], status=ROW_STOPPED)
+    run.page.route("**/api/runs/resume", json_reply({**review, "id": ID2, "resume_of": ID}))
+    review_it(run)
+    tick_both(run)
+    run.click("revise-run")
+    run.revisit()
+    open_row(run)
+    resume(run, "10.00")
+    assert_both_cleared(run)
+
+
+def test_another_run_clears_the_acceptance_tick(new_run: Any) -> None:
+    done = {"state": "complete", "message": "Done", "run_available": True,
+            "progress": {"module": "CP-1", "step": "delivered"}}  # fmt: skip
+    run, _ = reviewing(new_run, with_expectations(MIXED, MIXED_COUNTED), status=done)
+    tick_both(run)
+    run.click("start-run")
+    until(run.page, "!document.getElementById('another-run').hidden")
+    run.click("another-run")
+    review_it(run)
+    assert_both_cleared(run)
+
+
+HOSTILE_IMG = "<img src=x onerror=window.__pwned=1>"
+HOSTILE_CELL = "</td><script>window.__pwned=1</script>"
+
+
+def test_hostile_review_text_renders_as_literal_text(new_run: Any) -> None:
+    rows = [
+        expectation(
+            f"CP-1:{HOSTILE_IMG}", "gap", True, scope=f"CP-1{HOSTILE_CELL}",
+            reason=f"{HOSTILE_IMG} reason {HOSTILE_CELL}", fix=f"fix {HOSTILE_IMG}{HOSTILE_CELL}",
+            basis=f"basis {HOSTILE_CELL} {HOSTILE_IMG}",
+        ),
+        expectation(f"run:{HOSTILE_CELL}", "check", True, reason=HOSTILE_IMG, fix=HOSTILE_CELL,
+                    basis=HOSTILE_IMG, scope=HOSTILE_IMG),
+    ]  # fmt: skip
+    run, _ = reviewing(new_run, with_expectations(rows, [rows[0]["id"], rows[1]["id"]]))
+    page = run.page
+    assert (
+        page.evaluate("document.querySelectorAll('#run-review img,#run-review script').length") == 0
+    )
+    assert page.evaluate("window.__pwned") is None
+    assert run.screen.count(ROWS) == 2, "an injected cell or row changed the table"
+    assert sorted(row_ids(run)) == sorted(str(r["id"]) for r in rows)  # type: ignore[type-var]
+    shown = page.evaluate("document.getElementById('expected-outcomes').textContent")
+    assert HOSTILE_IMG in shown and HOSTILE_CELL in shown
+    assert "I accept these 2 items" in page.evaluate(
+        "document.getElementById('run-accept').closest('label').textContent"
+    )

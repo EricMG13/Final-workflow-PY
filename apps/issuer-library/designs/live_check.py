@@ -397,8 +397,6 @@ def parse(argv: list[str]) -> argparse.Namespace:
     p.add_argument("--rehearse", action="store_true")
     args = p.parse_args(argv)
     args.case_data = load_case(args.case) if args.case else None
-    if args.accept_limitations:  # no acceptance control before Stage 2 (Task 7): never faked
-        raise Refusal("--accept-limitations: acceptance step not available yet (Stage 2)")
     if (case := args.case_data) and not args.modules:
         args.modules = " ".join(case["case"]["requested_modules"])
     args.config = args.config or (case["case"]["config"] if case else "sol-medium")
@@ -589,6 +587,13 @@ def walk(
     wrong = check_review(page, args)
     if wrong:  # raised, so the attempt keeps the page: screenshot, source and URL
         raise RuntimeError("review screen: " + "; ".join(wrong))
+    if page.locator("#run-accept").count():  # counted items: only the flag may accept them
+        items = page.inner_text("label:has(#run-accept)").strip()
+        if not args.accept_limitations:
+            raise RuntimeError(
+                f"review counts items ({items!r}); rerun with --accept-limitations to accept them"
+            )
+        page.check("#run-accept")
     page.check("#run-confirm")
     if page.is_disabled("#start-run"):
         raise RuntimeError("Start stays disabled after review (provider not configured?); no spend")

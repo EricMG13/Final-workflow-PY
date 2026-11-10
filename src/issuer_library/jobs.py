@@ -930,7 +930,11 @@ def start_run(lib: Application, raw: bytes) -> Response:
         request = json.loads(raw) if len(raw) <= REQUEST_LIMIT else None
     except ValueError:
         request = None
-    if not isinstance(request, dict) or set(request) - {"id", "review_id", "confirm"}:
+    known = {"id", "review_id", "confirm", "accept_limitations"}
+    if not isinstance(request, dict) or set(request) - known:
+        raise HTTPException(400, refusal)
+    # Validated only: nothing is recorded or required of it until the gate that follows.
+    if not isinstance(request.get("accept_limitations", False), bool):
         raise HTTPException(400, refusal)
     job_id, review_id = request.get("id", ""), request.get("review_id", "")
     if (
