@@ -646,13 +646,49 @@ def _front_routes(ordered: tuple[str, ...]) -> tuple[MarkdownRoute, ...]:
     return tuple(routes)
 
 
-def _layout(
-    run: Run, ordered: tuple[str, ...], aliases: tuple[str, ...], config: str
+PRO_FORMA_BLOCK = "pro-forma"
+
+
+def _pro_forma_routes() -> list[MarkdownRoute]:
+    """CP-2's capitalisation table (primary) then leverage table (a tab), whole tables unchanged.
+
+    delivery matches `table_header` against the table's first header cell (its `row_header`).
+    """
+    return [
+        MarkdownRoute(
+            module_id="CP-2",
+            heading=heading,
+            kind="table",
+            block_id=PRO_FORMA_BLOCK,
+            table_header=header[0],
+        )
+        for heading, header in (
+            (CAPITALISATION_HEADING, CAPITALISATION_HEADER),
+            (LEVERAGE_HEADING, LEVERAGE_HEADER),
+        )
+    ]
+
+
+def _layout(  # noqa: PLR0913 - signature fixed by the plan: keywords run_type, legal_documents
+    run: Run,
+    ordered: tuple[str, ...],
+    aliases: tuple[str, ...],
+    config: str,
+    *,
+    run_type: str,
+    legal_documents: str,
 ) -> tuple[MarkdownLayout, tuple[str, ...]]:
+    # legal_documents is accepted for the Shared names signature: the register stays out of the
+    # report, so it changes nothing here.
+    del legal_documents
     preset = next(p for p in pathways() if p.id == run.pathway)
     routes: list[MarkdownRoute] = []
     omitted: list[str] = []
     for block_id in preset.blocks:
+        if block_id == PRO_FORMA_BLOCK:  # Only a Primary run's CP-2 fills it; else not a section.
+            if run_type == "primary" and "CP-2" in ordered:
+                routes += _pro_forma_routes()
+            continue
         spec = _spec_of(block_id)
         owners = BLOCK_OWNERS.get(block_id, spec.producers)
         owner = next((m for m in owners if m in ordered), None)
@@ -895,7 +931,14 @@ def prepare(  # noqa: PLR0913 - one keyword per run setting; retained is the res
         raise LaunchRefused(f"--out {directory}: must be outside the issuer folder")
     pinned, converted, ignored, covers = _issuer_files(folder, context_path, directory)
     aliases = tuple(a for a in settings.identity.aliases if a.strip())
-    layout, omitted = _layout(run, ordered, aliases, config)
+    layout, omitted = _layout(
+        run,
+        ordered,
+        aliases,
+        config,
+        run_type=settings.run.run_type,
+        legal_documents=settings.attachments.legal_documents,
+    )
     texts = {
         m: _instructions(
             run,

@@ -67,7 +67,7 @@ def handoff(leverage=None, liq=None, unit_liq="US$m", extra=""):
 
 def deliver(tmp_path: Path, text: str):
     raw = text.encode()
-    layout, _ = _layout(RUN, ("CP-1",), (), "cfg")
+    layout, _ = _layout(RUN, ("CP-1",), (), "cfg", run_type="secondary", legal_documents="executed")
     (tmp_path / "CP-1.md").write_bytes(raw)
     spec = HandoffInput(path="CP-1.md", sha256=hashlib.sha256(raw).hexdigest())
     files = markdown_files(
@@ -246,7 +246,7 @@ def test_gap_in_another_unit_row_is_still_a_gap_and_matching_unit_publishes(tmp_
 
 def test_table_route_into_a_chart_strip_block_is_refused(tmp_path):
     raw = handoff().encode()
-    layout, _ = _layout(RUN, ("CP-1",), (), "cfg")
+    layout, _ = _layout(RUN, ("CP-1",), (), "cfg", run_type="secondary", legal_documents="executed")
     routes = list(layout.routes)
     routes[0] = routes[0].model_copy(update={"kind": "table", "figure_id": None})
     layout = layout.model_copy(update={"routes": tuple(routes)})

@@ -37,7 +37,7 @@ def case_answer(case: dict, prepared) -> str:
         "sources": {"annual.txt": hashlib.sha256(b"Net sales").hexdigest()},
         "handoffs": {"CP-1": {"sha256": hashlib.sha256(b"# upstream").hexdigest()}},
     }
-    text = answer(context, list(prepared.plan.layout.routes))
+    text = answer(context, [r for r in prepared.plan.layout.routes if r.block_id != "pro-forma"])
     marker = "## Calculations"
     assert marker in text
     return text.replace(marker, case["findings"] + "\n\n" + marker, 1)
