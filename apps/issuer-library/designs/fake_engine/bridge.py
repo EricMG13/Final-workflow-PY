@@ -14,9 +14,16 @@ spec = importlib.util.spec_from_file_location("real_bridge", REAL)
 bridge = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bridge)
 
+from deploy_vii.cp4_legal import DRAFT_LIMITATION
 from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
 from deploy_workflow.model.turn import ToolCall, Turn, Usage
-from deploy_workflow.owners.cpos_launch import OPENING, PRO_FORMA
+from deploy_workflow.owners.cpos_launch import (
+    CONSUMER_SENTENCE,
+    CONSUMERS,
+    OPENING,
+    PRO_FORMA,
+    PROVISIONAL_PARAGRAPH,
+)
 
 calls = []
 
@@ -30,6 +37,16 @@ ACCEPTED = {
     "CP-2": "cp2-full-valid",
 }
 MALFORMED = {"CP-2": "cap-no-cash-row"}
+
+# Task 10: the frozen Provisional cases (rehearsal-key.json names them). CP-4 writes the accepted
+# case whose register has an executed and a draft row, or under FAKE_MALFORMED=CP-4 the rejected
+# unknown-status case; the consumers write the case that labels the limitation Provisional.
+PROVISIONAL_KEY = (
+    Path(os.environ["CHECK_ROOT"]) / "tests/fixtures/primary-provisional/checker-cases.json"
+)
+CP4_CASE = "executed-plus-draft-with-limitation"
+CP4_MALFORMED_CASE = "malformed-unknown-status"
+CONSUMER_CASE = "cp6-upstream-draft-with-word"
 
 
 def key_findings(case_id: str) -> str:
@@ -46,8 +63,30 @@ def pro_forma_findings(module: str, instructions: str) -> str:
     return key_findings((MALFORMED if malformed else ACCEPTED)[module]).strip()
 
 
+def provisional_answer(case_id: str) -> dict[str, Any]:
+    """The frozen key's answer texts for one case, DRAFT_LIMITATION filled in; unknown id raises."""
+    cases = {c["id"]: c for c in json.loads(PROVISIONAL_KEY.read_text(encoding="utf-8"))["cases"]}
+    given = cases[case_id]["answer"]
+    return {
+        k: v.replace("{DRAFT_LIMITATION}", DRAFT_LIMITATION) if v else v for k, v in given.items()
+    }
+
+
+def provisional_answer_for(module: str, instructions: str) -> dict[str, Any] | None:
+    """The key's answer when the instructions carry this module's Provisional text, else None."""
+    if module == "CP-4" and PROVISIONAL_PARAGRAPH in instructions:
+        # FAKE_MALFORMED holds one module id, so CP-2 and CP-4 are never malformed together.
+        malformed = os.environ.get("FAKE_MALFORMED") == module
+        return provisional_answer(CP4_MALFORMED_CASE if malformed else CP4_CASE)
+    if module in CONSUMERS and CONSUMER_SENTENCE in instructions:
+        return provisional_answer(CONSUMER_CASE)
+    return None
+
+
 def handoff_markdown(context: dict[str, Any], plan: dict[str, Any], instructions: str) -> str:
     run = plan["run"]
+    provisional = provisional_answer_for(context["module_id"], instructions)
+    limitation = provisional["main_limitation"] if provisional else "Fake data."
     lines = [
         f"# {context['module_id']}",
         "",
@@ -74,9 +113,15 @@ def handoff_markdown(context: dict[str, Any], plan: dict[str, Any], instructions
         lines += [fixture[charts : fixture.index("## Calculations")]]
     else:
         lines += ["### Reader summary", "", "| Bottom line | Confidence | Main limitation |"]
-        lines += ["| --- | --- | --- |", "| A fake engine finding only. | Low | Fake data. |", ""]
+        lines += [
+            "| --- | --- | --- |",
+            f"| A fake engine finding only. | Low | {limitation} |",
+            "",
+        ]
         lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
         lines += ["| One item was observed. | None. | Low |", ""] + opening
+    if provisional and provisional["findings_text"]:
+        lines += [provisional["findings_text"], ""]
     held = pro_forma_findings(context["module_id"], instructions)
     held_headings = set(re.findall(r"^### (.+)$", held, re.MULTILINE))
     if held:
@@ -84,6 +129,8 @@ def handoff_markdown(context: dict[str, Any], plan: dict[str, Any], instructions
     for route in plan["layout"]["routes"]:
         if route["module_id"] == context["module_id"] and route["heading"] not in held_headings:
             lines += [f"### {route['heading']}", ""]
+            if provisional and provisional["routed_sections_text"]:
+                lines += [provisional["routed_sections_text"], ""]
             if route["kind"] == "chart":
                 continue
             lines += (
@@ -91,6 +138,8 @@ def handoff_markdown(context: dict[str, Any], plan: dict[str, Any], instructions
                 if route["kind"] == "table"
                 else ["A located finding.", ""]
             )
+    if provisional and provisional["register"]:
+        lines += ["### Legal document register", "", provisional["register"], ""]
     for heading in ("Calculations", "Gaps", "Next module"):
         lines += [f"## {heading}", "", "None.", ""]
     return "\n".join(lines)

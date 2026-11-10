@@ -56,6 +56,7 @@ PYTHON_TESTS = (
     "tests/test_cpos_pro_forma.py",
     "tests/test_cpos_pro_forma_delivery.py",
     "tests/test_fake_engine_pro_forma.py",
+    "tests/test_fake_engine_provisional.py",
     "tests/test_reader_summary.py",
     "tests/test_cpos_handoffs.py",
     "tests/test_cpos_comparison.py",
