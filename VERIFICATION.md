@@ -10,6 +10,13 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — Context import load invariant: a loaded file keeps every value or is refused (PR B, branch `claude/sb2-context-invariant`)
+
+- Scope: the context form (`docs/templates/context-form.html`, normative; `apps/issuer-library/web/context-form.html`, same edit byte for byte). One Mac, offline, real Chromium; no provider calls.
+- After `fill(o); vis(); build()` the form compares the file with what `build()` writes, both ways: text trimmed at the ends, blank equals missing, everything else exact including type (booleans, numbers vs strings, null). Any difference refuses the load ("Not loaded. <file>: <path> ... Nothing was changed.", class `bad`, up to 10 paths then "and N more") and restores the form (`saveForm`/`restoreForm`). An exception in the trial also refuses visibly. `closedProblem`, `droppedProblem`, the row-cap note and the listed_equity note are deleted; an empty `run.pathway` no longer counts as touched, so `vis()` cannot throw and the load names `run.pathway`.
+- Gates: roundtrip, embed, live_check and product/test_context tests, 496 passed (answer-key tests unedited, K1's 97 params green); lead probe pr87_roundtrip_hunt: every row OK except `instr_lf_interior` (refused, as ruled); ctxr_edges3 exit 0 (was 1); ctxr_all_contexts over 97 files exit 0 (94 server-accepted all loaded, 3 refused); ctxr_sync_reverts and quality gate: see the PR report.
+- Not verified: a server-accepted multi-line instrument cannot be loaded through the form (accepted limit); a future form row cap below the server's `_MAX_*` would refuse server-valid files (no test pins the two); cases outside the 97 files; the in-app (embedded) load path beyond the roundtrip tests; browsers other than the Chromium the tests drive.
+
 ## 2026-11-10 — Verification record: 2026-11-08 entries archived (SB3, branch `claude/sb3-verification-archive-2`)
 
 - Moved verbatim on main 6ed04ff5 (part 2 of 2, after #85): the 271 lines of the fourteen 2026-11-08 entries, from "Plan 3 Task 9" to "Run activity page", with no other dates. They go to the top of docs/VERIFICATION-ARCHIVE.md, above the 2026-11-07 entries, so it stays newest first; the header line names the move.
