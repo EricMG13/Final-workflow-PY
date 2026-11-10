@@ -165,8 +165,14 @@ def test_a_module_that_reads_ready_gets_no_status_note(tmp_path: Path) -> None:
         assert _digest(blocks[block_id]) == RETAINED[block_id]["whole"]
 
 
-HEAD = "---\nissuer_id: tdg\nmodule_id: {m}\n{status}\n---\n## Request\nScope for **TransDigm Group Incorporated**.\n\n{lead}\n"
-TAIL = "## Sources\nNone.\n## Findings\n### Financials\n| Metric | FY2024 |\n|---|---:|\n| Revenue | 1,200.0 |\n"
+HEAD = (
+    "---\nissuer_id: tdg\nmodule_id: {m}\n{status}\n---\n"
+    "## Request\nScope for **TransDigm Group Incorporated**.\n\n{lead}\n"
+)
+TAIL = (
+    "## Sources\nNone.\n## Findings\n### Financials\n"
+    "| Metric | FY2024 |\n|---|---:|\n| Revenue | 1,200.0 |\n"
+)
 TAIL += "## Calculations\nNone.\n## Gaps\nNone.\n## Next module\nDelivery.\n"
 SYNTHETIC = (  # module, block, front-matter status line, status word the block must carry, lead
     (
