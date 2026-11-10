@@ -717,3 +717,16 @@ also gained an unasked `the|this` lead-in. Now `_QUALIFIER` excludes to/of/and/u
 Reviewer probe `r2_qualifier_admits_connectives.py`: 10 of 10 misclassified before, 0 after (exit 0).
 
 2026-11-10 live_check free port (B.1 fourth PR, cherry-pick of fc08893a onto main cabbe619, no conflicts): `live_check.py` has no fixed `PORT`; `run_walk` starts the server with `bc.serve_free` and passes `args.port` to the walks; per-engine launch failures are recorded as `{name}-single-run` faults. The test `test_the_server_is_started_on_a_free_port_not_a_fixed_one` no longer binds port 53920 (its `serve` fake still fails on any fixed-port call; assertions unchanged). Tests: `tests/test_issuer_library_live_check.py` 54 passed (exit 0); `tools/quality_gate.py` exit 0; `tools/pr_size.py` exit 0. Not verified: a real browser launch failure per engine; `validate.py quick` and `browser` (run by the controller); any live server on a free port.
+
+2026-11-10 Handoff outcome batch (R-SB2-1g/1i/1k and the reader Lows), `handoff_outcome.py`. CP-0 words are
+now classed per module (own handoff or not) and the worst class wins; the row and the prose are both read
+(`CP-4 BLOCKED:` plus `| CP-4 | READY |` is will_refuse); `Blocked: CP-1, CP-4` counts for each id listed
+(1j boundary). Lows: text after a backticked `Module Status` value; the markup strip is one linear pass (a 1 MB
+line is ~0.06 s); front matter is not scanned for fences; lines split on `\n`/`\r\n` only. The blockquote
+fence case already held. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
+134 passed after; with flow_check, backtest and live_check tests 258 passed; lead probe `probe_1j_rows.py` exit 0.
+Back-test output byte-identical to the parent's. Offline re-read of copies of retained C1 and C1n handoffs
+(`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
+will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `actual_of`); a live run.
+Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
+R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
