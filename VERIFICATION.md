@@ -731,5 +731,31 @@ will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `ac
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
 R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
 
+## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
+
+Defect (Low, concurrency): `hold_worker_lock` flocks `worker.lock`; a child forked by another thread
+while that fd is open inherits the locked file until exec, so after a failed spawn the next start's
+`LOCK_NB` failed and answered 500 instead of 503. Fix: `launch_worker` removes `worker.lock` after
+`release_lock` when `Engine.start` raised (`remove_failed_run_lock`: FileNotFoundError ignored, other
+OSError logged). Answer key `test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_into_500`
+red (503, 500) then green; `probe_stray_fork.py` and `probe_observe.py` exit 0; the existing `{503: 8}` test unchanged.
+The lock removal does not create a second worker (item 2's settle race remains open for the next PR): it happens only where no process was spawned (the failed spawn
+and the status-save failure, both before any worker exists), so no worker holds the old inode. The
+cross-instance guard is `start.claim`, held from before `hold_worker_lock` until after the unlink
+(`launch_worker` is the only caller of `hold_worker_lock`), not `lib.lock`; the next start's `O_CREAT`
+makes a fresh inode and locks that; the stray fork holds only the unlinked old one and is not a worker.
+`worker_alive` never judges a job dead from an unlinked inode: after a won flock, `st_nlink == 0` means a
+failed start removed the file, so it reopens the path and rechecks (3 tries, then OSError; a missing path
+is "not alive" as before). A live worker's inode is linked, so its lock is never won on a dead one.
+Success path unchanged (the lock stays for the worker's life).
+Fold-in key tests (save-failure stray fork, stale-inode adoption/watch_worker) red on the pre-fix code, green after; t7adv_stale_inode_adoption/liveness/save_failure_stray_fork exit 1 before, 0 after; items 2/4 probes unchanged (exit 1).
+Flakes (tests only, no sleeps): new_run progress/stages tests wait for `.summary-line` / `#module-stages li`
+before indexing; `test_a_failed_list_fetch_is_retried...` waited a fixed 50 ms after each tick, too short
+under load for the list fetch, so each tick now waits for the text or table it asserts. 20/20 passes each.
+Sweep (CI 42746147348, `...same_hint[interrupted]`): `open_row` clicked `b[0]` of `#recent-jobs tbody th button` 50 ms after the
+visit, before the list fetch had drawn it (`Cannot read properties of undefined (reading 'click')`); it now waits for the row, `launched`
+waits for the first status draw, two other list/timer reads wait too. Forced red (list delayed 400 ms) then green; 10/10 file passes.
+Not verified: other platforms' (Windows) lock-removal order; a worker started on a path where Popen succeeded then failed later.
+
 2026-11-10 Final status-reader batch (R-SB2-1l/1m/1n, blockquote fence, 1k case and heading), `handoff_outcome.py`. Every mention of the id is read and the worst class wins (own handoff and CP-0); an id-then-status match stops at `.`/`;` before a space or line end; CP-0 text is fence-filtered like own handoffs; `> ` prefixes are stripped before the fence rule and a fence opened in a quote ends at the first unquoted line; `Blocked: cp-4` and `## Blocked: CP-4` count (the status-colon-id form counts at line start only, so CP-6 in `Ready: CP-5. Blocked: CP-6.` is not_reached). Every status word in a mention's window is read and the worst wins (`CP-4 READY for drafting but BLOCKED for filing` is will_refuse). The reader is linear: the 1 MB timing tests in the key finish in under 1 s. Key (another agent's): `rf-` and `rf2-` cases in `tests/test_handoff_outcome_status.py`; 212 pass in that file after fix round 2 (the 12 `rf-` red before round 1, 6 `rf2-` red before round 2).
 Final batch fix 2 (re-review H1): the mention window is read in a lookahead (`(?=(...))`) so only the id is consumed and a second mention of the same id inside the window is matched (`CP-4 READY ..., then CP-4 BLOCKED ...` is will_refuse, not ready); window bounds unchanged. Back-test output byte-identical to 3ec114cf.
