@@ -341,3 +341,11 @@ def test_an_accepted_cp2_fence_case_delivers_the_key_block_without_the_fenced_co
     ):
         assert [table.row_header, *table.columns] == key["header"]
         assert [[r.label, *(c.text for c in r.cells)] for r in table.rows] == key["rows"]
+
+
+def test_lone_cr_line_endings_are_read_as_line_breaks():
+    """Delivery's `physical_lines` splits on a lone CR, so the checker must read it too."""
+    case = next(c for c in CASES if c["id"] == "cp2-full-valid")
+    text = findings_text(case).replace("\n", "\r")
+    task = SimpleNamespace(instructions=cpos_launch.PRO_FORMA["CP-2"].encode())
+    assert cpos_launch.pro_forma_issues(task, text) == ()

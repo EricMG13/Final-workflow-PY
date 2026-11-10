@@ -1323,10 +1323,11 @@ def _under(lines: list[str], title: str, level: int) -> list[str]:
 
 
 def _findings(text: str) -> list[str]:
-    """R-L1: the lines under `## Findings`, the only place a pro forma table is read. CRLF is
-    read as LF (R-L13). R-L19: fenced code is not read, so a heading or table in a fence is
-    neither a pro forma table nor a repeat of one (the delivery reads the unfenced text)."""
-    return _under(unfenced(text), "Findings", 2)
+    """R-L1: the lines under `## Findings`, the only place a pro forma table is read. CRLF and a lone
+    CR are read as LF (R-L13; delivery's `physical_lines` also splits on a lone CR). R-L19: fenced
+    code is not read, so a heading or table in a fence is neither a pro forma table nor a repeat
+    of one. Delivery's own fence reader is simpler (see METHODOLOGY-REVIEW.md, R-L19)."""
+    return _under(unfenced(re.sub(r"\r\n?", "\n", text)), "Findings", 2)
 
 
 def _row_cells(row: str) -> list[str]:
