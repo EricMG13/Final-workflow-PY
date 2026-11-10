@@ -665,8 +665,13 @@ def chart_issues(text: str, route: MarkdownRoute) -> tuple[str, ...]:
     """A chart table's cells reach the report as they are, so each must already be chart-ready."""
     heading = f"### {route.heading}"
     lines = text.splitlines()
-    if heading not in lines:
-        return (f"Add `{heading}` inside ## Findings, with its table.",)
+    repeated = sum(line.strip() == heading for line in lines) > 1
+    if repeated or heading not in lines:
+        return (
+            f"`{heading}` appears more than once; keep one, with its table."
+            if repeated
+            else f"Add `{heading}` inside ## Findings, with its table.",
+        )
     rows = []
     for line in lines[lines.index(heading) + 1 :]:
         if line.startswith("#"):

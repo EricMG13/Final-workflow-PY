@@ -1627,3 +1627,96 @@ def test_without_follows_required_dependencies_transitively_and_in_run_order():
     assert result["CP-2A"] == [m for m in ordered if m in expected]
     inherited = Item(**{**refused, "id": "CP-2G:from:CP-2A", "inherited_from": ["CP-2A"]})
     assert without_for(ordered, [inherited]) == {}
+
+
+# A chart heading written twice: the Library manifest writer reads no metric from that chart, so
+# the launcher must refuse it rather than let the report show a chart the Library does not.
+def repeated(name, *, second="### Chart data: {name}", second_body=None, first_row=None):
+    """A hand-written CP-1 whose `name` chart heading occurs twice, and its route."""
+    text, route = one_row(name, "FY2024 ended 2024-12-31" if name != "liquidity" else "2024-12-31")
+    if first_row is not None:
+        text = text.replace(text.splitlines()[-1], first_row)
+    body = text.split("\n\n", 2)[2] if second_body is None else second_body
+    return f"{text}\n{second.format(name=name)}\n\n{body}", route
+
+
+def repeat_issue(name):
+    return f"`### Chart data: {name}` appears more than once; keep one, with its table."
+
+
+@pytest.mark.parametrize("name", ["leverage", "interest cover", "liquidity", "debt maturities"])
+def test_a_chart_heading_twice_with_two_valid_tables_is_refused_once(name):
+    text, route = repeated(name)
+    assert chart_issues(text, route) == (repeat_issue(name),)
+
+
+def test_a_chart_heading_twice_where_the_second_has_no_table_is_refused_once():
+    text, route = repeated("leverage", second_body="Nothing is tabulated here.\n")
+    assert chart_issues(text, route) == (repeat_issue("leverage"),)
+
+
+def test_a_chart_heading_twice_gives_only_the_repeat_when_the_first_table_has_other_issues():
+    bad_row = "| FY2024 | 3.85x | 3.85x | x | |"
+    text, route = repeated("leverage", first_row=bad_row)
+    alone, _ = one_row("leverage", "FY2024", value="3.85x")
+    assert len(chart_issues(alone.replace("Synthetic.", ""), route)) > 1
+    assert chart_issues(text, route) == (repeat_issue("leverage"),)
+
+
+SECOND_HEADINGS = (
+    "### Chart data: {name} ",
+    "### Chart data: {name}\t",
+    "  ### Chart data: {name}",
+    " ### Chart data: {name}  ",
+)
+
+
+@pytest.mark.parametrize("second", SECOND_HEADINGS)
+def test_a_second_heading_the_writer_counts_after_stripping_is_a_repeat(second):
+    # The writer strips each line before matching a chart heading; `heading in lines` would not.
+    text, route = repeated("leverage", second=second)
+    assert chart_issues(text, route) == (repeat_issue("leverage"),)
+
+
+def test_one_repeated_route_is_refused_while_another_in_the_same_text_is_clean():
+    text, leverage = repeated("leverage")
+    cover, interest = one_row("interest cover", "FY2024 ended 2024-12-31")
+    text += "\n" + cover.removeprefix("## Findings\n\n")
+    assert chart_issues(text, leverage) == (repeat_issue("leverage"),)
+    assert chart_issues(text, interest) == ()
+
+
+def test_the_launcher_and_the_manifest_writer_agree_on_a_repeated_chart_heading(tmp_path):
+    import importlib.util
+    import json
+    import shutil
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "library_manifest_agreement", root / "apps/issuer-library/engine/library_manifest.py"
+    )
+    writer = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(writer)
+    case = root / "tests/fixtures/library-manifest/writer/synthetic"
+    shutil.copytree(case / "workspace", tmp_path, dirs_exist_ok=True)
+    (run_id,) = [p.name for p in (tmp_path / "runs").iterdir()]
+    handoff = tmp_path / "runs" / run_id / "CP-1.md"
+    clean = handoff.read_text(encoding="utf-8")
+    route = _chart_route("model-chart-strip", "S.1")
+    expected = json.loads((case / "expected-library.json").read_text())["run"]["metrics"]
+    # Control: the clean handoff is accepted by the launcher and read by the writer.
+    assert chart_issues(clean, route) == ()
+    built = writer.build(tmp_path, run_id)
+    assert {"leverage", "net_leverage", "coverage"} <= set(expected)
+    assert {"leverage", "net_leverage", "coverage"} <= set(built["run"]["metrics"])
+    # The same handoff with the leverage table written again.
+    start = clean.index("### Chart data: leverage")
+    table = clean[start : clean.index("### Chart data: interest cover")]
+    doubled = clean.replace(table, table + table)
+    handoff.write_text(doubled, encoding="utf-8")
+    assert chart_issues(doubled, route) == (repeat_issue("leverage"),)
+    metrics = writer.build(tmp_path, run_id)["run"]["metrics"]
+    assert "leverage" not in metrics
+    assert "net_leverage" not in metrics
+    assert "coverage" in metrics
