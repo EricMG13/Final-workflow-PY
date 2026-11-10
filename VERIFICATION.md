@@ -10,6 +10,12 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 Plan 2 Task 6b (a resume's review names re-runs and shows retained outcomes, branch `claude/sb2-task6b-resume`)
+
+- **Scope:** offline `bridge.review` only; no provider call. A resume's review gains `reruns` (every module the stopped run holds an accepted answer for that is not retained, with the bare `why`, "it follows <stop title>, which runs again", the record's own problem, or "added to this run" when the stopped run has no `instructions/<module>.md` for the stop module) and `retained_outcomes` (`handoff_outcome.actual_of` over the retained answer, with the retained CP-0 text). `expectations` and `counted` drop rows whose scope is a retained module; `without` is `without_for(ordered, remaining rows)`, so a retained module has no entry. A plain review carries both lists empty. The fake-engine bridge needed no edit: it returns the real review.
+- **Key:** `d95aece9` and `47a520a2` (tests only). RED at `d95aece9`: 9 failures (`KeyError: 'reruns'`/`'retained_outcomes'`). GREEN: `tests/test_cpos_app.py` 65 passed; the four-file run 322 passed, 2 skipped; the 31 resume/6b tests pass 3 of 3.
+- **Not verified:** a real stopped run's review in the browser; the `instructions/` test for "added to this run" beyond the fixture; `expectations.json` keeps its six keys (PR2's key).
+
 ## 2026-11-10 — pr_size: an edited copy counts against the merge base when the base holds it (R-PRSIZE-1, branch `sb3-prsize`)
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
