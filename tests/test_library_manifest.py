@@ -1013,3 +1013,79 @@ def test_launcher_period_check_gives_the_same_answers(cell, ratio_valid, liquidi
         )
     assert (check("h", cell, "S.1") == []) is ratio_valid
     assert (check("h", cell, "S.3") == []) is liquidity_valid
+
+
+# ---- R-26 fix round 1: a chart table needs the exact header; non-finite values write no metric --
+
+
+def written_and_discovered(tmp_path, text):
+    """Write the `edge` manifest with CP-1.md = `text`, then run discovery on it."""
+    from issuer_library.discovery import discover
+    from issuer_library.model import Catalogue
+
+    root, run_id = workspace("edge", tmp_path)
+    (root / "runs" / run_id / "CP-1.md").write_text(text, encoding="utf-8")
+    lm.write(root, run_id)
+    cat = discover(str(root), Catalogue())
+    assert not [issue for issue in cat.issues if run_id in issue]
+    (run,) = [r for r in cat.real if r.id == run_id]
+    assert not [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+    return run
+
+
+def only_html_gap(manifest):
+    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
+    assert manifest["run"]["gaps"] == [HTML_GAP]
+
+
+def test_a_liquidity_table_with_the_basis_column_first_is_unreadable(tmp_path):
+    head = (
+        "| Basis and limitation | Period | Cash | Undrawn committed facilities | Reporting unit |"
+    )
+    row = "| gross (see note | 2025-06-30 | 20 | 6 | US$m |"
+    text = chart_text(table(LIQ_HEAD, head, row))
+    manifest, _ = built(tmp_path / "built", text)
+    only_html_gap(manifest)
+    run = written_and_discovered(tmp_path / "written", text)
+    assert run.metrics == {}
+
+
+def test_reordered_leverage_value_columns_are_unreadable(tmp_path):
+    head = (
+        "| Period | Net debt / EBITDA | Total debt / EBITDA | Reporting unit |"
+        " Basis and limitation |"
+    )
+    text = chart_text(table(LEV_HEAD, head, lev("FY2025 ended 2025-06-30")))
+    manifest, _ = built(tmp_path, text)
+    only_html_gap(manifest)
+
+
+def test_an_extra_column_after_the_basis_column_is_unreadable(tmp_path):
+    head = LIQ_COLUMNS[:-1] + " Note |"
+    row = liq("2025-06-30") + " n |"
+    manifest, _ = built(tmp_path, chart_text(table(LIQ_HEAD, head, row)))
+    only_html_gap(manifest)
+
+
+def test_a_table_without_a_period_column_is_unreadable(tmp_path):
+    head = "| Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |"
+    row = "| 20 | 6 | US$m | b |"
+    manifest, _ = built(tmp_path, chart_text(table(LIQ_HEAD, head, row)))
+    only_html_gap(manifest)
+
+
+def test_a_non_finite_value_writes_no_metric_and_its_sibling_stays(tmp_path):
+    text = chart_text(liquidity_table(liq("2025-06-30", cash="9" * 400, undrawn="6")))
+    manifest, _ = built(tmp_path / "built", text)
+    assert shown(manifest) == {"undrawn": ("6", "2025-06-30")}
+    run = written_and_discovered(tmp_path / "written", text)
+    assert sorted(run.metrics) == ["undrawn"]
+
+
+def test_the_standard_header_with_the_same_rows_writes_and_is_admitted(tmp_path):
+    text = chart_text(liquidity_table(liq("2025-06-30", "20", "6", basis="gross (see note)")))
+    manifest, _ = built(tmp_path / "built", text)
+    assert shown(manifest) == {"cash": ("20", "2025-06-30"), "undrawn": ("6", "2025-06-30")}
+    assert manifest["run"]["gaps"] == [HTML_GAP]
+    run = written_and_discovered(tmp_path / "written", text)
+    assert sorted(run.metrics) == ["cash", "undrawn"]
