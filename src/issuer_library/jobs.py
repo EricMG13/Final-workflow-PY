@@ -206,19 +206,26 @@ else:
         return {"pass_fds": (lock,)}
 
     def worker_alive(path: Path) -> bool:
-        """Whether a worker holds the lock; OSError when that cannot be checked."""
-        try:
-            descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
-        except FileNotFoundError:
-            return False
-        refuse_non_regular_descriptor(descriptor, path)
-        try:
-            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            return True
-        finally:
-            os.close(descriptor)
-        return False
+        """Whether a worker holds the lock; OSError when that cannot be checked.
+
+        A lock won on an unlinked inode proves nothing (a failed start removed the file the
+        path named when we opened it), so the path is reopened; a few tries, then OSError.
+        """
+        for _ in range(3):
+            try:
+                descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+            except FileNotFoundError:
+                return False
+            refuse_non_regular_descriptor(descriptor, path)
+            try:
+                fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                if os.fstat(descriptor).st_nlink:
+                    return False
+            except BlockingIOError:
+                return True
+            finally:
+                os.close(descriptor)
+        raise OSError(f"The run lock {path} was replaced repeatedly; its holder is unknown")
 
 
 def local_engine() -> Engine:
@@ -916,6 +923,7 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
         try:
             save_json(folder / "status.json", running)
         except OSError as error:
+            spawn_failed = True  # Nothing was spawned; a stray fork's copy must not block a start.
             raise HTTPException(500, f"Could not retain start state; {NOT_STARTED}") from error
         try:
             return lib.engine.start(folder, lock)

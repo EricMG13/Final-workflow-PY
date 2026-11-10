@@ -722,9 +722,14 @@ while that fd is open inherits the locked file until exec, so after a failed spa
 `release_lock` when `Engine.start` raised (`remove_failed_run_lock`: FileNotFoundError ignored, other
 OSError logged). Answer key `test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_into_500`
 red (503, 500) then green; `probe_stray_fork.py` and `probe_observe.py` exit 0; the existing `{503: 8}` test unchanged.
-Two workers cannot run at once: the removal happens only where no process was spawned, so no worker
-holds the old inode; it runs under `lib.lock`, as does every start, so the next start's `O_CREAT`
+Two workers cannot run at once: the removal happens only where no process was spawned (the failed spawn
+and the status-save failure, both before any worker exists), so no worker holds the old inode. The
+cross-instance guard is `start.claim`, held from before `hold_worker_lock` until after the unlink
+(`launch_worker` is the only caller of `hold_worker_lock`), not `lib.lock`; the next start's `O_CREAT`
 makes a fresh inode and locks that; the stray fork holds only the unlinked old one and is not a worker.
+`worker_alive` never judges a job dead from an unlinked inode: after a won flock, `st_nlink == 0` means a
+failed start removed the file, so it reopens the path and rechecks (3 tries, then OSError; a missing path
+is "not alive" as before). A live worker's inode is linked, so its lock is never won on a dead one.
 Success path unchanged (the lock stays for the worker's life).
 Flakes (tests only, no sleeps): new_run progress/stages tests wait for `.summary-line` / `#module-stages li`
 before indexing; `test_a_failed_list_fetch_is_retried...` waited a fixed 50 ms after each tick, too short
