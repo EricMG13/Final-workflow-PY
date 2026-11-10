@@ -602,9 +602,9 @@ CHART_TABLES: dict[str, tuple[str, tuple[str, ...], str]] = {
 }
 CHART_BLOCKS = frozenset(STRIP_FIGURES) - {"yield-against-maturity"}
 NOT_SUPPLIED = "Not supplied:"
-PLAIN_NUMBER = re.compile(r"-?\d[\d,]*(?:\.\d+)?")
-_PERIOD_DATE = r"(\d{4}-\d{2}-\d{2})"
-_PERIOD_KIND = r"(?:FY\d{4}|LTM|H[12] \d{4}|9M \d{4}|Q[1-4] \d{4})"
+PLAIN_NUMBER = re.compile(r"-?(?:[0-9]+|[0-9]{1,3}(?:,[0-9]{3})+)(?:\.[0-9]+)?")
+_PERIOD_DATE = r"([0-9]{4}-[0-9]{2}-[0-9]{2})"
+_PERIOD_KIND = r"(?:FY[0-9]{4}|LTM|H[12] [0-9]{4}|9M [0-9]{4}|Q[1-4] [0-9]{4})"
 # Figure id -> (Period cell pattern, instruction sentence, issue text). S.4 is free text.
 _PERIOD_ENDED = (
     re.compile(rf"{_PERIOD_KIND} ended {_PERIOD_DATE}"),
