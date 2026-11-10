@@ -37,9 +37,11 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
 
 A CP-0 status is the most severe status word in any cell of a table row whose first cell is the
 module id alone or the id plus a label (id, optional whitespace, then a colon or a dash after
-whitespace; case-insensitive; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
+whitespace; case-insensitive; `*`, backticks and a leading list marker `- ` or `N. ` are
+dropped from the cell first; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
 a row of another module never counts, nor is it read as text); in other text it is the first status
-word within 70 characters after the module id, with no other module id between. A `Module
+word within 70 characters after the module id (not followed by `.digit`, `-digit` or a letter),
+with no other module id between. A `Module
 Status:` value counts when it begins with a known phrase followed by a period or the line's end
 (the rest of the line is ignored).
 
@@ -141,14 +143,17 @@ def unfenced(text: str) -> list[str]:
 
 
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
-    """The module's status word: in a table row whose first cell begins with the module id, the
-    most severe of `words` in any cell; else the first within 70 characters after the id, no
-    other module id between (a row of another module is not read)."""
+    """The module's status word: in a table row whose first cell is the module id alone or id plus
+    a label (markup and list marker dropped), the most severe of `words` in any cell; else the first
+    within 70 characters after the id, no other module id between (another module's row is not
+    read)."""
     alt = "|".join(words)
     rows: list[str] = []
     rest: list[str] = []
     for line in text.split("\n"):
-        first = line.lstrip().startswith("|") and line.split("|")[1].replace("*", "").strip(" `")
+        first = line.lstrip().startswith("|") and re.sub(
+            r"^(?:-|\d+\.)\s+", "", re.sub(r"[*`]", "", line.split("|")[1]).strip()
+        )
         if first and re.match(r"CP-", first, re.IGNORECASE):
             if re.fullmatch(rf"{re.escape(module)}(?:\s*:.*|\s+[-–—].*)?", first, re.IGNORECASE):
                 rows += re.findall(rf"\b({alt})\b", line)
@@ -156,7 +161,7 @@ def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
             rest.append(line)
     if rows:
         return max(rows, key=_WORD_RANK.index)
-    pattern = rf"\b{re.escape(module)}\b(?:(?!CP-)[^\n]){{0,70}}?\b({alt})\b"
+    pattern = rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?:(?!CP-)[^\n]){{0,70}}?\b({alt})\b"
     found = re.search(pattern, "\n".join(rest))
     return found[1] if found else None
 

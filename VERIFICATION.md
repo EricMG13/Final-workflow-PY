@@ -666,3 +666,5 @@ Not verified: a live run after this change; a CP-0 row with CONDITIONAL beside
 READY_WITH_LIMITATIONS (reads unconfirmed; question with the lead).
 R-SB2-1j (branch claude/sb2-c1-harness-b): a CP-0 row is a module's only when its first cell is the id alone or id + (colon | whitespace-dash) + label; `CP-4.1`, `CP-4a`, `CP-40`, `CP-4-1`, `CP-4 (draft)` are not CP-4's and never reach the 70-character window.
 RED 9 failed in test_handoff_outcome_status.py, GREEN 210 passed across the four target files; probe_inline_triple exit 0; probe_status deviates only on the corrected 'CP-4.1 not CP-4' expectation (not_reached) and R-SB2-1i (deferred).
+R-SB2-1j fix round 2 (#56 re-review): Medium `| **`CP-4`** — Legal | CONDITIONAL |` lost its row (inner backtick); Lows `| - CP-4.1 |` / `| 1. CP-4.1 |` read as CP-4 via the prose window, docstring said "begins with". Fix: drop `*`/backticks and a leading list marker from the first cell; prose id not followed by `.digit` or `-digit`; docstring states the 1j rule.
+RED 3 failed (test_1j2 noown cases), GREEN 238 passed across the four target files; probe_1j_rows exit 0.
