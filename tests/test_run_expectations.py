@@ -540,3 +540,45 @@ def test_r_sb2_2_financial_reports_in_the_case_stay_financial_reports(
 ) -> None:
     guess = guess_kind(name, case_pages(name))
     assert (guess.kind, guess.period_end) == ("financial_report", period_end)
+
+
+_FIX1_HEAD = "Exhibit 10.4\nExecution Version\n"
+
+
+@pytest.mark.parametrize(
+    ("name", "pages"),
+    [
+        ("x.htm", [_FIX1_HEAD + "JOINDER TO CREDIT AGREEMENT\n"]),
+        ("x.htm", [_FIX1_HEAD + "CONSENT TO CREDIT AGREEMENT\n"]),
+        ("x.htm", [_FIX1_HEAD + "WAIVER TO CREDIT AGREEMENT\n"]),
+        ("x.htm", [_FIX1_HEAD + "SUPPLEMENT TO CREDIT AGREEMENT\n"]),
+        ("x.htm", [_FIX1_HEAD + "TERMINATION OF CREDIT AGREEMENT\n"]),
+        (
+            "2014-10-21-ex10-4-joinder-to-credit-agreement.htm",
+            ["Execution Version\nJOINDER AGREEMENT\n"],
+        ),
+        ("termination-of-credit-agreement.htm", [""]),
+        ("x.htm", ["Each Credit Agreement contains customary covenants."]),
+        ("x.htm", ["Our New Credit Agreement contains customary covenants."]),
+    ],
+    ids=[
+        "r_sb2_2_fix1_joinder_cover",
+        "r_sb2_2_fix1_consent_cover",
+        "r_sb2_2_fix1_waiver_cover",
+        "r_sb2_2_fix1_supplement_cover",
+        "r_sb2_2_fix1_termination_cover",
+        "r_sb2_2_fix1_joinder_file_name",
+        "r_sb2_2_fix1_termination_file_name",
+        "r_sb2_2_fix1_each_sentence",
+        "r_sb2_2_fix1_our_sentence",
+    ],
+)
+def test_r_sb2_2_fix1_ancillary_instruments_and_openers_are_not_credit_agreements(
+    name: str, pages: list[str]
+) -> None:
+    assert guess_kind(name, pages).kind != "credit_agreement"
+
+
+def test_r_sb2_2_fix1_lender_presentation_sentence_is_not_a_title() -> None:
+    sentence = "The lender presentation is furnished as Exhibit 99.1 to this report."
+    assert guess_kind("x.htm", [sentence]).kind != "lender_presentation"
