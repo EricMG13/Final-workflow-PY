@@ -855,3 +855,26 @@ def test_r_sb2_2a_fix1_end_lender_presentation_bare_date_tail_stays() -> None:
 def test_r_sb2_2a_fix1_end_lender_presentation_sentence_is_not_a_title() -> None:
     page = "Lender Presentation materials were furnished to lenders."
     assert guess_kind("x.pdf", [page]).kind != "lender_presentation"
+
+
+# --- R-SB2-2a fix round 2: file names keep main's rule, numeric ordinals (probe r2a_rr_edges) ---
+@pytest.mark.parametrize(
+    "name",
+    [
+        "abl-credit-agreement-executed.pdf",
+        "abl-credit-agreement-2014-10-20.pdf",
+        "credit-agreement/exhibit.htm",
+    ],
+    ids=[f"r_sb2_2a_fix2_name_{i}" for i in range(3)],
+)
+def test_r_sb2_2a_fix2_file_names_keep_mains_rule(name: str) -> None:
+    assert guess_kind(name, [""]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "title",
+    ["1st Amended and Restated Credit Agreement", "2nd Amended and Restated Credit Agreement"],
+    ids=[f"r_sb2_2a_fix2_ordinal_{i}" for i in range(2)],
+)
+def test_r_sb2_2a_fix2_numeric_ordinal_titles_are_credit_agreements(title: str) -> None:
+    assert guess_kind("x.htm", [_EX + title]).kind == "credit_agreement"
