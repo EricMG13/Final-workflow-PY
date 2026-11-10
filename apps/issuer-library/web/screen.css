@@ -162,7 +162,7 @@ main{min-width:0;min-height:0;display:flex;flex-direction:column}#module-head{pa
 .run-link,.report-link{font-size:var(--fs-compact);font-weight:600}.report-link{white-space:nowrap}.library-table td{font:400 var(--fs-control)/20px 'Red Hat Text',sans-serif}
 .progress-track{display:block;height:6px;margin:4px 0;border-radius:var(--radius-inline);background:var(--gray-200)}.progress-track i{display:block;height:100%;border-radius:var(--radius-inline);background:var(--blue)}
 .library-empty{padding:32px 0;max-width:68ch}.library-empty h2{margin-bottom:10px}.library-empty .primary-action{margin-top:12px}
-.detail-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}.detail-actions{display:flex;gap:12px;flex-wrap:wrap}
+.detail-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}.detail-head>div:first-child{min-width:0;overflow-wrap:anywhere}.detail-actions{display:flex;gap:12px;flex-wrap:wrap}
 .detail-layout{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
 .run-detail h3{margin:16px 0 6px}.gap-list{margin:0;padding-left:20px}
 .completion-box{margin-top:16px;padding:12px 14px;border:1px solid var(--amber-border);border-radius:var(--radius-control);background:var(--amber-bg);color:var(--amber)}.completion-box strong{display:block}

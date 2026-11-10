@@ -21,8 +21,9 @@ Run once after Plan 4's Checkpoint D, on the `main` commit to be released:
    in for CI, and the record says so.
 3. **RC-live:** if code changed after C3, one more whole-pathway run on the release candidate
    (Credit Snapshot, TDG FY2024, cap USD 30), with every required output checked.
-4. The packaged app on Windows: the owner runs `Smoke-test.ps1`, then opens the app in Edge, creates a
-   run up to the Review step, opens a live run's report and the Library filters.
+4. The Phase 2 package on the network drive, started by `Credit OS.cmd` on the work PC: the owner
+   runs `Smoke-test.ps1`, then opens the app in Edge, creates a run up to the Review step,
+   opens a live run's report and the Library filters.
 5. Help and README describe exactly what the beta does, including known limitations: the HTML Model
    and `calculation.json` are not published by app runs; Primary terms are Provisional before
    closing; metrics are Not recorded for older runs.

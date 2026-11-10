@@ -282,3 +282,9 @@ def test_a_run_detail_with_a_64_character_deliverable_name_wraps_instead_of_wide
     None
 ):
     assert re.search(r"\.artifact-list li\{[^}]*overflow-wrap:anywhere", SCREEN)
+
+
+def test_the_run_detail_head_wraps_and_breaks_a_long_run_id_at_390_px() -> None:
+    assert re.search(r"\.detail-head\{[^}]*flex-wrap:wrap", SCREEN)
+    assert re.search(r"\.detail-head>div:first-child\{[^}]*min-width:0", SCREEN)
+    assert re.search(r"\.detail-head>div:first-child\{[^}]*overflow-wrap:anywhere", SCREEN)
