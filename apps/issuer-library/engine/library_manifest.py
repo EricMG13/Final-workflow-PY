@@ -367,6 +367,73 @@ def _chart_metrics(doc: _Doc | None, as_of: str, sink: _Sink) -> tuple[Json, boo
     return metrics, off_format
 
 
+_LEVERAGE_HEADING = "### Pro forma leverage"
+_LEVERAGE_HEADER = [
+    "Basis",
+    "Total debt",
+    "EBITDA",
+    "Total debt / EBITDA",
+    "Reporting unit",
+    "Source",
+]
+_LEVERAGE_ROWS = {
+    "leverage_pro_forma": "Pro forma, excluding unrealised add-backs",
+    "leverage_as_marketed": "As marketed",
+}
+
+
+def _leverage_table(doc: _Doc) -> list[_Row] | None:
+    """The rows of the one `Pro forma leverage` table, or None when it is not readable."""
+    if [line.strip() for line in doc.lines].count(_LEVERAGE_HEADING) != 1:
+        return None
+    start = next(i for i, line in enumerate(doc.lines) if line.strip() == _LEVERAGE_HEADING)
+    rows: list[_Row] = []
+    header: list[str] | None = None
+    for number, line in enumerate(doc.lines[start + 1 :], start + 2):
+        text = line.strip()
+        if text.startswith("#"):
+            break
+        if not text.startswith("|"):
+            continue
+        cells = [c.strip() for c in text.strip("|").split("|")]
+        if header is None:
+            header = cells
+            if cells != _LEVERAGE_HEADER:
+                return None
+        elif all(re.fullmatch(r":?-+:?", c) for c in cells):
+            continue
+        elif len(cells) != len(header):
+            return None
+        else:
+            rows.append(_Row(number, dict(zip(header, cells, strict=True))))
+    return rows if header else None
+
+
+def _pro_forma_metrics(doc: _Doc | None, run_type: object, sink: _Sink) -> Json:
+    """R-C2: `leverage_pro_forma` and `leverage_as_marketed` from CP-2 on a Primary run."""
+    periods = (
+        [line[len("LTM period:") :].strip() for line in doc.lines if line.startswith("LTM period:")]
+        if doc
+        else []
+    )
+    rows = _leverage_table(doc) if doc and run_type == "primary" else None
+    if not doc or rows is None or len(periods) != 1 or not periods[0]:
+        return {}
+    metrics: Json = {}
+    for name, label in _LEVERAGE_ROWS.items():
+        row = _only([r for r in rows if r.cells["Basis"] == label])
+        cell = row.cells["Total debt / EBITDA"] if row else ""
+        if not row or not _number(cell):
+            continue
+        source = f"cp2_{name}"
+        metric = {"value": cell.replace(",", ""), "unit": "x", "period": periods[0]}
+        metric |= {"basis": label, "source": source, "provenance": "calculated"}
+        if found := _readable_metrics({name: metric}, _pin(doc, row.line)):
+            sink.pin(source, doc, row.line)
+            metrics |= found
+    return metrics
+
+
 def _user_terms(sink: _Sink, row: Json, fields: Any, prefix: str, path: tuple[Any, ...]) -> Json:
     terms: Json = {}
     for name, unit in fields:
@@ -580,6 +647,9 @@ def build(workspace: Path, run_id: str) -> Json:
         run["handoff"] = handoff.rel
     published = bool(receipt and receipt[1].get("cp_model_published") is True)
     metrics, off_format = _chart_metrics(cp1, as_of, sink)
+    metrics |= _pro_forma_metrics(
+        _doc_if(workspace, f"{base}/CP-2.md"), ctx_run.get("run_type"), sink
+    )
     run["ratings"] = _ratings(ctx, sink)
     run["facilities"], facility_gaps = _facilities(ctx, sink)
     gaps = _gaps(expectations, published) + ([_FORMAT_GAP] if off_format else []) + facility_gaps
