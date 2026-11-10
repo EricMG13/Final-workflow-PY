@@ -577,3 +577,53 @@ back-test changes only CP-0 rows (cpos-launch-live-001 not_reached → unconfirm
 limited → unconfirmed, disagreed → not testable); `validate.py browser` 86/0; quick exit 0;
 quality gate 0; two mx-precise reviews APPROVE. Not verified: a live run's handoffs beyond the C1
 fixtures; combined markups on one `Module Status:` line (read unconfirmed; question with the lead).
+
+## 2026-11-09 — Phase 2: work-PC package and package default workspace (S8, PRs 2-A and 2-B)
+
+- **Scope:** Plan Tasks 2.1 (PR 2-A, `claude/s8-package-72303f`) and 2.2 (PR 2-B, `claude/s8-default-workspace`). Task 2.3 was skipped, because Phase 0 passed from `\\`. All checks ran on macOS with synthetic inputs. No provider was called, and no Windows step ran.
+- **2.1 — what the package is now:** `build(target)` writes the following:
+  - `target/Credit OS.cmd`. It is the only line naming the version, and it runs `"C:\Program Files\Statestreet\Python313\pythonw.exe" -I -B -X utf8 "%~dp0app\<version>\start.py"`. It gives a plain message when the company Python or the release is missing.
+  - `target/default-workspace.json.example`.
+  - The release `target/app/<YYYY.MM.DD>-<12 hex>/`.
+- **2.1 — wheels and binaries:**
+  - The wheels come from `uv export --locked --no-dev --no-emit-project`, 24 packages today: S0's 14, the Copilot SDK closure (6), pypdf, openpyxl, et-xmlfile and python-multipart.
+  - Each wheel's URL and SHA-256 come from `uv.lock`. The SHA-256 must also be one of the export's hashes, and the download is checked against it.
+  - The embeddable runtime, `._pth`, arm64 and the zip are gone. The package holds no `.exe` or `.dll`.
+- **Deviation 1, layout (lead accepted):** the plan says `start.py` adds `<release>/src`. The code's package contract fixes the layout instead:
+  - `jobs.engine_root()` is the folder holding `src/`.
+  - `server.WEB` is that folder's parent plus `web`.
+  - So the release is `{start.py, lib/, web/, engine/{bridge.py, store.py, VERSION, src/, docs/, prompts/}}`, and `start.py` adds `lib/` and `engine/src`.
+  - `VERSION` sits beside `src/`, which is where `app_version()` reads it; in the repository it is absent and gives `dev`.
+- **Deviation 2, `bridge.py` (lead ruling R-S8-1):** the review/start worker runs `bridge.py` under `-I`. It now also puts the release's `lib/` on `sys.path` when that folder exists (one statement after line 24). `tools/copied-from.txt` marks the file `edited`.
+- **Deviation 3, `load_config` (2.2):** the plan's `load_config(loc, defaults)` became `Locations.defaults`, because `server.py` calls `load_config(loc)`. The order is: policy (locked), then the user's file, then the package default (not locked), then `Documents/FinalWorkflow`. `--defaults` sets it, and `start.py` passes `<package root>/default-workspace.json`.
+- **Deviation 4, hash source (2.1, controller ruling R2):** the plan asks for PyPI's digest and the export's hash. Both hashes come from `uv.lock`, so they are one trust anchor, not two: the lock's wheel hash must be among the export's hashes, and `runtime.download` checks the bytes against it. No PyPI JSON query is made (S0 ruling R2).
+- **Checks on 2-A** (code head ce047cf8; the record commits are docs only):
+  - `tests/test_packaging.py` and `tests/test_network_check.py`: 21 passed. The build is real: `uv export`, real wheel downloads and the SHA-256 checks.
+  - The worker test resolves `pydantic`, `pydantic_core` and `copilot` from the release's `lib/` under `-I`. It failed before the `bridge.py` line, when they came from the venv.
+  - Offline tests make each SHA-256 check raise: a lock hash missing from the export, an empty export hash set, wrong-tag wheels only (cp312, win32, cp313t, manylinux), served bytes that differ (nothing cached), and a tampered cache with bad bytes. A positive control passes.
+  - quality_gate 0, pr_size 0 (690), validate quick 0 (610 browser / 1503 python passed), browser 0 (86/0).
+  - An earlier run on ce047cf8, made while other sessions' suites held the load average near 100, exited 1 on both. `test_review_concurrent_starts_around_a_failed_spawn` got `{503: 5, 500: 3}` and passed 6 of 6 runs alone. The library walk logged two 404s from a stale `/api/runs/status` poll (`web/actions.js`), and `web/` and the server are not in this diff. The re-run above, at load average 4, passed both.
+- **Checks on 2-B** (head c6661237):
+  - `tests/test_issuer_library_settings.py` plus the server, launch and quit suites: 99 passed, 2 skipped (the skips were already there).
+  - quality_gate 0, pr_size 0 (113), validate quick 0 (610 browser / 1503 python passed), browser 0 (86/0).
+- **Reviews:** `mx-precise` per task: both spec ✅ and quality Approved.
+  - 2.1's two Lows were fixed in c2865d92: `build.py` loaded `runtime.py` with a lasting `sys.path` change, and the launcher echoes dropped their quotes.
+  - Probes `t21_hash_probe.py` (tampered cache, hash missing from the export, version mismatch) and `t21_wheel_contents_probe.py` exit 0.
+  - `task-2.2-save-after-default.py` exits 0: a saved user choice wins over the package default, unlocked.
+  - The lead's scoped `mx-precise` review of #51 at 72ccb532 found one Medium: neither SHA-256 check was tested, so deleting either survived mutation. It was fixed test-first in ce047cf8. The lead's probes on ce047cf8 all exit 0:
+    - `mutants.sh`: 7 of 7 killed, both hash checks among them.
+    - `supply_chain_probe.py`.
+    - `build_and_inspect.py`: nothing in `lib/` shares a top-level name with `engine/src` or the stdlib.
+    - `isolation_probe.sh`: under `-I`, `start.py` and `bridge.py` ignore a planted `PYTHONPATH` and user site.
+- **Known, not fixed here:**
+  - A `%` or `^` in the share path breaks `Credit OS.cmd`, because `call` re-parses the line (marked `ponytail:`). Dropping `call` would put the version on a line without the plan's pinned pythonw command.
+  - The version is stamped from HEAD, but the build copies the working tree, so two builds from a dirty tree share one version. The lead carries this to Phase 3, where S9's runner version rule needs clean release builds.
+  - `lib/` comes before `engine/src` and the stdlib on `sys.path`, so a future wheel could shadow one of their modules. There is no collision today.
+  - Repo-mode `smoke_test.py` fails at the catalogue `issues` list on unchanged main too, because this worktree lacks `deliverables/tdg-model-*`.
+  - `apps/issuer-library/README.md` is copied into each release and still describes `Issuer Library.cmd`, the zip, arm64 and a package without the Copilot SDK. It is fixed by S8's PR 2-C after #51.
+- **Ledger:**
+  - Task 2.1: `agent=mx-feature fix-rounds=1 gates-first-pass=y`. The round fixed the lead review's Medium; the Lows were batched.
+  - Task 2.2: `agent=mx-feature fix-rounds=0 gates-first-pass=y`.
+- **Not verified:**
+  - Windows-only, for the owner: `Credit OS.cmd` under cmd.exe; a start from a UNC share; a full import of pydantic and the Copilot SDK from `lib/` in the server and the worker (macOS checks resolution only, because `pydantic_core` is `win_amd64`); `Smoke-test.ps1`; `smoke_test.py` in release mode; a UNC package default on a work PC.
+  - The full weekly suite.
