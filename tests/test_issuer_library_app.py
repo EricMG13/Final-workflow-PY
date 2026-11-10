@@ -294,8 +294,7 @@ class NewRun:
         }
 
         def listed(route: Any) -> None:
-            if self.fail_list:
-                self.fail_list = False
+            if self.fail_list:  # every list request fails until the test clears it
                 route.abort()
             else:
                 json_reply(self.rows)(route)
@@ -835,6 +834,34 @@ def test_a_failed_list_fetch_is_retried_and_its_error_does_not_stick(new_run: An
     jobs = "document.getElementById('recent-jobs')"
     until(run.page, f"{jobs}.textContent.startsWith('Could not load')")
     assert run.text("recent-jobs").startswith("Could not load")
+    run.fail_list = False
+    run.tick()
+    until(run.page, "document.querySelector('#recent-jobs table')!==null")
+    assert run.screen.exists("#recent-jobs table")
+
+
+@pytest.mark.parametrize("first", ["watch_first", "poll_first"])
+def test_the_list_error_shows_whichever_list_consumer_fires_first(new_run: Any, first: str) -> None:
+    """Two interval callbacks fetch the list: the app-wide watchRuns (failure only logged) and the
+    page poll (failure shown). One failure episode must surface in #recent-jobs in either order."""
+    run = new_run(rows=[ROW_RUNNING])
+    run.page.evaluate(
+        """first=>{
+          const entries=[...window.__timers.entries()];
+          const watch=entries.filter(([id,fn])=>fn.name==='watchRuns');
+          const poll=entries.filter(([id,fn])=>fn.name!=='watchRuns');
+          window.__timers.clear();
+          (first==='watch_first'?[...watch,...poll]:[...poll,...watch])
+            .forEach(([id,fn])=>window.__timers.set(id,fn));
+        }""",
+        first,
+    )
+    run.fail_list = True  # the episode: list requests fail until it is cleared
+    run.tick()
+    jobs = "document.getElementById('recent-jobs')"
+    until(run.page, f"{jobs}.textContent.startsWith('Could not load')")
+    assert run.text("recent-jobs").startswith("Could not load")
+    run.fail_list = False  # the episode ends
     run.tick()
     until(run.page, "document.querySelector('#recent-jobs table')!==null")
     assert run.screen.exists("#recent-jobs table")

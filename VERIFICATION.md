@@ -757,6 +757,21 @@ visit, before the list fetch had drawn it (`Cannot read properties of undefined 
 waits for the first status draw, two other list/timer reads wait too. Forced red (list delayed 400 ms) then green; 10/10 file passes.
 Not verified: other platforms' (Windows) lock-removal order; a worker started on a path where Popen succeeded then failed later.
 
+## 2026-11-10 List-fetch flake: an injected list failure lasts until the test has seen it (test race, branch `claude/sb2-list-fetch-flake`)
+
+Cause (CI timeout waiting for "Could not load recent runs"): the `listed()` route in `NewRun` aborted only the
+first list request, then cleared `fail_list`. `window.__tick()` fires every captured interval in registration order,
+and two consume `/api/runs/list`: the app-wide `watchRuns` (failure only `console.warn`, retried in 5 s) and the page
+poll's `recent()` (the only writer of the error). Registration order depends on whether boot's `watchRuns()` or
+`show()`'s `recent()` resolves first; when `watchRuns` came first it ate the single abort, `recent()` succeeded and the
+error never appeared. A test race, product correct: a real `recent()` failure shows the error; `watchRuns` failures are
+deliberately silent. Fix (tests only): `fail_list` aborts every list request until the test clears it, and
+`test_a_failed_list_fetch_is_retried...` clears it after seeing the error, before its second tick; the other `fail_list`
+user, the key test `test_the_list_error_shows_whichever_list_consumer_fires_first`, already clears it. No assertion changed.
+Evidence: key test `[watch_first]` failed 3/3 on the old helper, then passed 10/10 (and `[poll_first]` 10/10); the two
+`fail_list` tests 10/10; `tests/test_issuer_library_app.py` 56 passed.
+Not verified: the CI runner's actual interleaving; only the two registration orders forced by the key test.
+
 ## 2026-11-10 R-SB2-2a positive qualifier lists
 
 `guess_kind`: the capitalised-word denylist `_QUALIFIER` is replaced by two positive lists in
