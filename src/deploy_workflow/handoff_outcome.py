@@ -188,7 +188,7 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
     gap = r"(?:(?!CP-|[.;](?:\s|$))[^\n])"
     found = [
         w[1]
-        for m in re.finditer(rf"\b{re.escape(module)}\b(?!\.\d|-\d)({gap}{{0,91}}\w*)", prose)
+        for m in re.finditer(rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?=({gap}{{0,91}}\w*))", prose)
         for w in re.finditer(rf"\b({alt})\b", m[1])
         if w.start() <= 70
     ]
