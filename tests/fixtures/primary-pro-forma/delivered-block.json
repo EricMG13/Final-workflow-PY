@@ -1,0 +1,25 @@
+{
+ "frozen": "2026-11-10",
+ "authored_by": "key-writer subagent (lows2-key); written by hand from the findings text",
+ "applies_to": ["cp2-full-valid", "fence-f9-cp2-fenced-capitalisation-example"],
+ "note": "The fenced capitalisation example in F9 is not delivered; both cases deliver this same block. The EBITDA ladder is not part of the block.",
+ "pro-forma": {
+  "capitalisation": {
+   "header": ["Instrument", "Currency", "Balance sheet", "Transaction adjustment", "Pro forma", "Basis", "Source"],
+   "rows": [
+    ["Cash", "USD", "18", "-18", "Not supplied: not stated", "documented", "CP-1A Sources and uses, cash to balance sheet, fees and OID"],
+    ["ABL", "USD", "42", "83", "125", "documented", "CP-1 handoff; CP-1A Sources and uses"],
+    ["Term Loan B", "USD", "0", "720", "720", "documented", "CP-1A Sources and uses"],
+    ["Total debt (USD)", "USD", "42", "803", "845", "documented", "CP-1A total of sources"]
+   ]
+  },
+  "leverage": {
+   "header": ["Basis", "Total debt", "EBITDA", "Total debt / EBITDA", "Reporting unit", "Source"],
+   "rows": [
+    ["Reported", "302", "151.7", "2.0", "USD millions", "CP-1 handoff"],
+    ["Pro forma, excluding unrealised add-backs", "845", "140", "6.0", "USD millions", "CP-1A total debt; CP-2 ladder Base EBITDA"],
+    ["As marketed", "845", "195", "4.3", "USD millions", "Marketing presentation, quoted"]
+   ]
+  }
+ }
+}
