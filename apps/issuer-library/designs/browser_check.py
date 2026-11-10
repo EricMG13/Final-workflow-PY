@@ -825,6 +825,12 @@ def new_run(  # noqa: PLR0915, RUF100
     )
     page.screenshot(path=str(S / f"{name}-review.png"))
     page.check("#run-confirm")
+    if page.locator("#run-accept").count():
+        note(
+            page.is_disabled("#start-run"),
+            f"{name}: Start stays disabled until the acceptance is ticked",
+        )
+        page.check("#run-accept")
     page.click("#start-run")
     page.wait_for_selector("#progress-step:not([hidden])")
     page.wait_for_selector("#open-run:not([hidden])", timeout=180000)
