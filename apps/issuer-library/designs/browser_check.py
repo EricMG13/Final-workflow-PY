@@ -349,6 +349,14 @@ def library_credit(page: Any, name: str) -> None:
         f"{name}: a net leverage maximum reports none recorded and lists no run",
     )
     reset_library(page)
+    page.click("#metric-filters summary")
+    page.fill("#library-leverageProFormaMax", "6")
+    note(
+        f"recorded for 0 of {total} runs" in coverage_line(page, "leverage_pro_forma")
+        and row_ids(page) == [],
+        f"{name}: a pro forma leverage maximum reports none recorded and lists no run",
+    )
+    reset_library(page)
     page.click("#deal-filters summary")
     page.fill("#library-talkMin", "300")
     note(

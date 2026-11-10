@@ -1,5 +1,5 @@
 {
- "_about": "Hand-written 2026-11-08 by a separate agent from the code's author. All issuers are fictional. Each record is in the served /api/catalogue shape. No file is read: every sources[].sha256 is the same fixed 64-hex placeholder, not a hash of real content. Source quotes contain the recorded value (dunmore-001 net_leverage is deliberately empty and its quote says 'not stated').",
+ "_about": "Hand-written 2026-11-08 by a separate agent from the code's author. All issuers are fictional. Each record is in the served /api/catalogue shape. No file is read: every sources[].sha256 is the same fixed 64-hex placeholder, not a hash of real content. Source quotes contain the recorded value (dunmore-001 net_leverage is deliberately empty and its quote says 'not stated'). Pro forma metrics (Plan 4 Task 13): leverage_pro_forma and leverage_as_marketed are added to existing rows only; dunmore-001 pro forma is blank, hartley-001 negative, elmstead-001 'Not supplied'; fairholt-001 has as-marketed and no leverage.",
  "real": [
   {
    "id": "aldermoor-2023-001",
@@ -39,6 +39,14 @@
      "period": "FY2024",
      "basis": "EBITDA / cash interest (fictional)",
      "source": "aldermoor-2023-001.coverage",
+     "provenance": "calculated"
+    },
+    "leverage_pro_forma": {
+     "value": "3.70",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs (fictional)",
+     "source": "aldermoor-2023-001.leverage_pro_forma",
      "provenance": "calculated"
     }
    },
@@ -263,6 +271,22 @@
      "basis": "Undrawn committed facilities (fictional)",
      "source": "brackenfell-hy-001.undrawn",
      "provenance": "calculated"
+    },
+    "leverage_pro_forma": {
+     "value": "5.60",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs (fictional)",
+     "source": "brackenfell-hy-001.leverage_pro_forma",
+     "provenance": "calculated"
+    },
+    "leverage_as_marketed": {
+     "value": "3.50",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / marketed EBITDA incl. add-backs (fictional)",
+     "source": "brackenfell-hy-001.leverage_as_marketed",
+     "provenance": "calculated"
     }
    },
    "completion": null,
@@ -390,6 +414,14 @@
      "basis": "Undrawn committed facilities (fictional)",
      "source": "cobalt-eur-001.undrawn",
      "provenance": "calculated"
+    },
+    "leverage_as_marketed": {
+     "value": "1.60",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / marketed EBITDA incl. add-backs (fictional)",
+     "source": "cobalt-eur-001.leverage_as_marketed",
+     "provenance": "calculated"
     }
    },
    "completion": null,
@@ -498,6 +530,14 @@
      "basis": "Reported closing cash (fictional)",
      "source": "dunmore-001.cash",
      "provenance": "calculated"
+    },
+    "leverage_pro_forma": {
+     "value": "",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs (fictional)",
+     "source": "dunmore-001.leverage_pro_forma",
+     "provenance": "calculated"
     }
    },
    "completion": null,
@@ -604,6 +644,14 @@
      "basis": "Reported closing cash (fictional)",
      "source": "elmstead-001.cash",
      "provenance": "calculated"
+    },
+    "leverage_pro_forma": {
+     "value": "Not supplied",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs (fictional)",
+     "source": "elmstead-001.leverage_pro_forma",
+     "provenance": "calculated"
     }
    },
    "completion": null,
@@ -681,6 +729,14 @@
      "period": "FY2024",
      "basis": "Undrawn committed facilities (fictional)",
      "source": "fairholt-001.undrawn",
+     "provenance": "calculated"
+    },
+    "leverage_as_marketed": {
+     "value": "3.00",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / marketed EBITDA incl. add-backs (fictional)",
+     "source": "fairholt-001.leverage_as_marketed",
      "provenance": "calculated"
     }
    },
@@ -926,6 +982,14 @@
      "period": "FY2024",
      "basis": "Reported closing cash (fictional)",
      "source": "hartley-001.cash",
+     "provenance": "calculated"
+    },
+    "leverage_pro_forma": {
+     "value": "-0.4",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs (fictional)",
+     "source": "hartley-001.leverage_pro_forma",
      "provenance": "calculated"
     }
    },
@@ -1201,6 +1265,22 @@
      "period": "FY2024",
      "basis": "Undrawn committed facilities (fictional)",
      "source": "jasper-001.undrawn",
+     "provenance": "calculated"
+    },
+    "leverage_pro_forma": {
+     "value": "4.90",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Pro forma net debt / pro forma EBITDA, excluding unrealised add-backs (fictional)",
+     "source": "jasper-001.leverage_pro_forma",
+     "provenance": "calculated"
+    },
+    "leverage_as_marketed": {
+     "value": "3.80",
+     "unit": "x",
+     "period": "FY2024",
+     "basis": "Total debt / marketed EBITDA incl. add-backs (fictional)",
+     "source": "jasper-001.leverage_as_marketed",
      "provenance": "calculated"
     }
    },
@@ -2286,6 +2366,76 @@
    "line": 4,
    "quote": "Sector: Consumer",
    "href": "/files/runs/larkspur-2024-002/CP-1-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "aldermoor-2023-001.leverage_pro_forma": {
+   "path": "runs/aldermoor-2023-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 30,
+   "quote": "| Pro forma leverage, excluding unrealised add-backs | 3.70x |",
+   "href": "/files/runs/aldermoor-2023-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.leverage_pro_forma": {
+   "path": "runs/brackenfell-hy-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 30,
+   "quote": "| Pro forma leverage, excluding unrealised add-backs | 5.60x |",
+   "href": "/files/runs/brackenfell-hy-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "brackenfell-hy-001.leverage_as_marketed": {
+   "path": "runs/brackenfell-hy-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 31,
+   "quote": "| Leverage as marketed | 3.50x |",
+   "href": "/files/runs/brackenfell-hy-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "cobalt-eur-001.leverage_as_marketed": {
+   "path": "runs/cobalt-eur-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 31,
+   "quote": "| Leverage as marketed | 1.60x |",
+   "href": "/files/runs/cobalt-eur-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "dunmore-001.leverage_pro_forma": {
+   "path": "runs/dunmore-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 30,
+   "quote": "| Pro forma leverage, excluding unrealised add-backs | not stated |",
+   "href": "/files/runs/dunmore-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "elmstead-001.leverage_pro_forma": {
+   "path": "runs/elmstead-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 30,
+   "quote": "| Pro forma leverage, excluding unrealised add-backs | not stated |",
+   "href": "/files/runs/elmstead-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "fairholt-001.leverage_as_marketed": {
+   "path": "runs/fairholt-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 31,
+   "quote": "| Leverage as marketed | 3.00x |",
+   "href": "/files/runs/fairholt-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "hartley-001.leverage_pro_forma": {
+   "path": "runs/hartley-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 30,
+   "quote": "| Pro forma leverage, excluding unrealised add-backs | -0.4x |",
+   "href": "/files/runs/hartley-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.leverage_pro_forma": {
+   "path": "runs/jasper-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 30,
+   "quote": "| Pro forma leverage, excluding unrealised add-backs | 4.90x |",
+   "href": "/files/runs/jasper-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "jasper-001.leverage_as_marketed": {
+   "path": "runs/jasper-001/CP-2-selected-input.md",
+   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+   "line": 31,
+   "quote": "| Leverage as marketed | 3.80x |",
+   "href": "/files/runs/jasper-001/CP-2-selected-input.md?sha256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
   }
  }
 }
