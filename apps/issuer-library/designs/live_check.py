@@ -166,7 +166,16 @@ def stage2_faults(
     stated = bool(intake and "accepted:" in intake.read_text())
     print(f"start receipt accepted ids: {'present' if stated else STAGE2}", flush=True)
     found = []
-    if context.exists() and context.read_bytes() != args.case_data["context_path"].read_bytes():
+    reviewed = ws / "intake" / run.name / "context.json"
+    if not context.exists():
+        pass
+    elif reviewed.exists():  # the form re-serialises the case file
+        if context.read_bytes() != reviewed.read_bytes():
+            found.append("run context.json is not byte-identical to the reviewed intake context")
+        case_file = args.case_data["context_path"]
+        if json.loads(context.read_text()) != json.loads(case_file.read_text()):
+            found.append("run context.json differs in content from the case context")
+    elif context.read_bytes() != args.case_data["context_path"].read_bytes():
         found.append("run context.json is not byte-identical to the case context")
     if kept.exists():
         shown = {
