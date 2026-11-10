@@ -4,6 +4,7 @@ categories are read from it, never computed here."""
 
 import hashlib
 import json
+import time
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -125,6 +126,7 @@ ROUND_2_RULES = {
     "r2-ut-total-debt-usd-lowercase": ["exactly as shown"],
     "r2-ut-total-debt-capital-d": ["exactly as shown"],
     "r2-tr-two-findings-headings": ["one `## Findings` section"],
+    "r2-ut-findings-heading-colon": ["exactly as shown", "`## Findings`"],
 }
 
 
@@ -138,6 +140,44 @@ def test_each_round_2_rule_is_in_the_instructions_and_named_in_the_message(case_
     for phrase in ROUND_2_RULES[case_id]:
         assert any(phrase in issue for issue in issues), (phrase, issues)
         assert phrase in constant, phrase
+
+
+# Each module's rejecting label rule is told in that module's own instruction (R-L17 condition),
+# and the issue message quotes the expected label. Bodies are the 80-case key's valid tables.
+INEXACT_LABELS = {
+    "CP-1A": ("cp1a-sources-uses-valid-user-entered", "| Total sources |", "| Total Sources |"),
+    "CP-1D": ("cp1d-register-valid", "| Rejected |", "| rejected |"),
+}
+
+
+@pytest.mark.parametrize("module", sorted(CONSTANTS))
+def test_every_module_tells_labels_are_exact_and_the_heading_message_quotes_it(module):
+    constant = cpos_launch.PRO_FORMA[module]
+    assert "exactly as shown" in constant
+    body = next(c for c in CASES if c["module"] == module and c["expected"]["accepted"])
+    text = "## Findings:\n\n" + body["findings"] + "\n## Calculations\n\nnone\n"
+    issues = cpos_launch.pro_forma_issues(SimpleNamespace(instructions=constant.encode()), text)
+    assert any("`## Findings`" in issue for issue in issues), issues
+
+
+@pytest.mark.parametrize("module", sorted(INEXACT_LABELS))
+def test_an_inexact_row_label_is_rejected_by_the_module_that_told_it(module):
+    key, exact, inexact = INEXACT_LABELS[module]
+    findings = next(c for c in CASES if c["id"] == key)["findings"]
+    assert exact in findings
+    constant = cpos_launch.PRO_FORMA[module]
+    text = "## Findings\n\n" + findings.replace(exact, inexact) + "\n## Calculations\n\nnone\n"
+    issues = cpos_launch.pro_forma_issues(SimpleNamespace(instructions=constant.encode()), text)
+    assert issues, "an inexact label must be rejected"
+    assert "exactly as shown" in constant
+
+
+def test_nested_emphasis_is_read_in_bounded_time():
+    line = "*" * 16000 + "x" + "*" * 16000
+    start = time.perf_counter()
+    cpos_launch._plain(line)
+    assert time.perf_counter() - start < 1.0
+    assert cpos_launch._plain("**_x_**") == "x"
 
 
 def test_a_rejected_total_label_quotes_the_expected_label():

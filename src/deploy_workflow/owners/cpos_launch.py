@@ -388,14 +388,16 @@ PRO_FORMA_CP1A = (
     "on its own `documented` row and log the difference, never resolve it. Source names what the "
     "row came from. Write at least one `Source` row and one `Use` row, then exactly one row with "
     "Item `Total sources` (Side `Source`) and exactly one with Item `Total uses` (Side `Use`), "
-    f"each total from `calculate`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
+    "each total from `calculate`. Write labels exactly as shown: `Total sources`, not "
+    f"`Total Sources`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP1D = (
     "Pro forma add-back register (Primary run). Under `## Findings`, write "
     f"`### {ADD_BACK_HEADING}` once, with one table headed {_header(ADD_BACK_HEADER)} and at least "
     "one row, one per management add-back. Verdict is one of "
     + ", ".join(f"`{v}`" for v in VERDICTS)
-    + f". Source names what the row came from. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
+    + ". Source names what the row came from. Write labels exactly as shown: Verdict is `Rejected`, "
+    f"not `rejected`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP2 = (
     "Pro forma capitalisation and leverage (Primary run). Under `## Findings`, write these three "
@@ -1234,6 +1236,7 @@ ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 FX_LINE = re.compile(rf"FX rate: (?:[A-Z]{{3}}/[A-Z]{{3}} )?{NUMBER} \(\s*\S.*\)")
 # R-L9: a pair of `**`, `__`, `*` or `_` around text. An opening marker follows a non-word
 # character and a closing one precedes a non-space, so `snake_case` and `* item` are left alone.
+EMPHASIS_DEPTH = 4
 EMPHASIS = re.compile(r"(?<!\w)(\*\*|__|\*|_)(?=\S)((?:(?!\1).)+?)(?<=\S)\1(?!\w)")
 TOTAL_DEBT = re.compile(r"Total debt \((.+)\)")
 ALL_CURRENCIES_TOTAL = "Total debt (all currencies)"
@@ -1282,7 +1285,10 @@ def _plain(text: str) -> str:
     """R-L9: a heading, label or cell without emphasis (`**`, `__`, `*`, `_`) or surrounding
     whitespace. Read-only: delivery passes the cell on unchanged."""
     text = text.strip()
-    while (stripped := EMPHASIS.sub(r"\2", text)) != text:
+    for _ in range(EMPHASIS_DEPTH):  # A bounded number of nested layers keeps this linear.
+        stripped = EMPHASIS.sub(r"\2", text)
+        if stripped == text:
+            break
         text = stripped
     return text.strip()
 
@@ -1351,7 +1357,8 @@ def _pro_forma_table(
 def _missing(heading: str, header: Sequence[str]) -> str:
     detail = (
         f"write `### {heading}` once inside the one `## Findings` section (a table outside "
-        f"`## Findings` is not read), a table headed {_header(header)}"
+        f"`## Findings` is not read; headings are written exactly as shown), a table headed "
+        f"{_header(header)}"
     )
     return _pf("pro_forma_table_missing", heading, detail + " and a separator row.")
 
