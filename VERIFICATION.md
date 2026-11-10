@@ -786,7 +786,7 @@ sha256 must equal the plan's `context` pin, else the stale error and the run fol
 removed). `launch` writes neither file. The receipt parser (`check_ruling`) reads only lifts/by/date/configs
 lines, each exactly once; the extra line is ignored.
 Checks (head after the lock-error follow-up): the four-file pytest (jobs, cpos_app, quit, app) is 333 passed, 2 skipped,
-1 failed (exit 1): the failure is `test_a_lock_error_other_than_contention_keeps_the_job_watched` (see below); pr_size
+1 failed (exit 1) at that head: `test_a_lock_error_other_than_contention_keeps_the_job_watched` (fixed by ae367db2, passes now; see below); pr_size
 exit 0 (501 of 800); quality_gate exit 0. The earlier 13 RED / 45 failures are resolved (key writer's follow-up commits).
 Context-pin key test (7006eeed): `t6a_key_reaches_pin_check` path, the pin check is reached.
 Lock-error follow-up (#73, lead 6a-extra): `dead_worker_proof` caught only BlockingIOError at its lock call, so ENOLCK
@@ -794,8 +794,8 @@ Lock-error follow-up (#73, lead 6a-extra): `dead_worker_proof` caught only Block
 OSError there now logs a warning (with the error text) and yields None ("cannot prove dead"), so the job stays watched;
 open-error and BlockingIOError handling unchanged. RED: `pr73_settle_flock_error_strands_job.py` exit 1 and the key test
 failed with `the watch thread died on a lock error: ["OSError(77, 'No locks available')"]`. GREEN: the probe exits 0
-("watcher alive ... died: [] | active: False | status: interrupted"); the key test now gets past that assertion but still
-fails: it never advances its FakeClock and `app.pause` is real sleep, so after the settle `finish_job` loops forever in
+("watcher alive ... died: [] | active: False | status: interrupted"); at that head the key test got past that assertion but still
+failed (later fixed by ae367db2): it never advances its FakeClock and `app.pause` is real sleep, so after the settle `finish_job` loops forever in
 `notify.tab_watching` (finished == now, no tab poll) and `watcher.join(5)` leaves the thread alive. The test needs a
 clock-advancing `app.pause` or `app.watched`; the implementer may not edit tests. Probes exit 0: i24rr_emfile_dead_worker,
 i24rr_emfile_live_descendant, i24rr_settle_live_holder_planted, i24rr_transient_open_error_finishes_held_lock,
@@ -806,7 +806,8 @@ Windows lock semantics are unverified, including a read-only lock file.
 PR2 live_check guard (lead review of #74): `--accept-limitations` prints the N it accepts and raises `Refusal` (exit 2, before tick and Start) when it differs from the case's frozen `counted_total`; `attempt` re-raises a `Refusal`; without `--case` the N is printed but nothing is compared.
 PR2 live_check, ruling: a paid `--accept-limitations` run without `--case` is refused in `live_check.parse` (exit 2, before any app start); with `--rehearse` the no-case path still prints and ticks.
 PR2 live_check, rehearsal ruling: `stage2_faults` compares `runs/<id>/context.json` bytes with `intake/<id>/context.json` (the reviewed bytes) and its parsed JSON with the case context; with no intake context file the old byte comparison with the case file stays.
-Not verified: the key test above; the browser UI sending `accept_limitations`; a real run's receipt.
+PR2 stacked (`claude/sb2-pr2-frozen-count`, key 3bb0fd37, R-SB2-6 M1+L1): with a case loaded `walk` refuses (`Refusal`, exit 2, before tick and Start) unless `counted_total` is `type(v) is int` and >= 0, and whenever the page's N (0 without a box) differs from it, with or without the flag; no case: unchanged. `attempt` docstring names the `ends_run` re-raise. Gates exit 0: live_check tests 3x (89 passed), probes pr2rr_null_frozen_count_ticks and pr2rr_flagless_zero_vs_frozen, live_check+jobs+cpos_app pytest (367 passed, 2 skipped), quality_gate --base e722502a (see commit).
+Not verified: the browser UI sending `accept_limitations`; a real run's receipt.
 
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
 
@@ -931,3 +932,6 @@ accepted on main, are unrecognised (fail-safe, by ruling). Back-test: byte-ident
 "This" amendment (lead, key 20fb148a not edited; 6 `r_sb2_2c_this_*` red before, green after): a line opening with "This" IS a credit-agreement title when a non-empty recognised tail follows "Credit Agreement" (the tails plus `is entered into as of ...` / `is made as of ...`, after an optional defined term); bare `This Credit Agreement`, a body sentence and every other opener stay not-a-title; lender presentations unchanged. As on main, `This Amended and Restated Credit Agreement` with a tail is a title. Back-test: byte-identical.
 R-SB2-2d (lead, key 6f19d3c1/75a5d8dd not edited; 36 `r_sb2_2d_*` red before): the as-amended tail is closed. After `as amended` (optionally `and restated`) only punctuation/end, or `through|by|to|on|as of|from time to time ...` to line end, at most 80 characters, no comma except one date comma `<Month> <d>, <yyyy>` ending the tail; a "This" opener never takes an as-amended tail. Accepted limit: `This [qualifiers] Credit Agreement dated as of … requires …` stays a title — dated/among tails are open, as on main for the unqualified form.
 Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.
+
+## 2026-11-10 flow_check units (A-live H1/H2 + R-C2-4) (branch `claude/sb2-flow-check-units`)
+flow_check units (A-live H1/H2 + R-C2-4), `apps/issuer-library/designs/flow_check.py` only, key 018b7619 not edited: bps sourced by the exact percent/100 the module read; unit divisors (exactly 100/1000/10000/0.001, Decimal) after `/` or `÷` and the divisor operand of a `ratio` call; E-notation calculate results read exactly; ASC/ASU/IFRS/IAS/SFAS names. Hand rescales stay flagged. The `ratio 233.1 ÷ 1000` row was a key error: fixed by key commits 7bbf9036 and 06125824. Fix round 1 (review F1/F2/F3): a divisor must be the whole number (`/ 100.5m`, `/ 1000.25x`, `÷ 10000.7bn` stay flagged), a standard prefix needs same-line whitespace. Key row `Adjusted per ASC\n\n1234 total` was corrected to 5678 by f6e5a38d, because 1234 is in units_run's base source; the flow_check and report_text test files all pass (117). The reviewer's original probe has the same 1234 defect; its 5678 copy `fcu_probes_5678.py` and `fcu_reprobe.py` both exit 0. Not verified: live paid runs; conversions beyond the four shapes.

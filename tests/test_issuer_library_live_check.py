@@ -601,14 +601,16 @@ def review_page(browser: Any, items: int) -> Any:
     return page
 
 
-def walk_on(
-    monkeypatch: pytest.MonkeyPatch, page: Any, flag: bool, frozen: int | None = None
-) -> None:
+NO_CASE, ABSENT = object(), object()  # no --case at all; a case without counted_total
+
+
+def walk_on(monkeypatch: pytest.MonkeyPatch, page: Any, flag: bool, frozen: Any = NO_CASE) -> None:
     for name in ("fill_form", "check_run"):
         monkeypatch.setattr(live_check, name, lambda *a, **k: None)
     monkeypatch.setattr(live_check, "check_review", lambda *a, **k: [])
     bc = SimpleNamespace(errors_of=lambda page: [], note=lambda *a, **k: None)
-    case = None if frozen is None else {"expected-outcomes": {"counted_total": frozen}}
+    total = {} if frozen is ABSENT else {"counted_total": frozen}
+    case = None if frozen is NO_CASE else {"expected-outcomes": total}
     args = SimpleNamespace(accept_limitations=flag, minutes=1, case_data=case)
     browser = SimpleNamespace(new_page=lambda **options: page)
     live_check.walk(bc, browser, args, Path("."), {})
@@ -670,14 +672,45 @@ def test_the_flag_accepts_the_frozen_number_and_prints_it(
 
 
 @pytest.mark.browser
-@pytest.mark.parametrize(("items", "frozen"), [(4, 3), (4, 5), (0, 2)])
+@pytest.mark.parametrize(
+    ("items", "frozen", "flag"),
+    [(4, 3, True), (4, 5, True), (0, 2, True), (4, 3, False), (0, 3, False)],
+)
 def test_the_flag_refuses_before_start_when_n_differs_from_the_frozen_count(
-    browser: Any, monkeypatch: pytest.MonkeyPatch, items: int, frozen: int
+    browser: Any, monkeypatch: pytest.MonkeyPatch, items: int, frozen: int, flag: bool
 ) -> None:
     page = review_page(browser, items)
     with pytest.raises(live_check.Refusal) as raised:
-        walk_on(monkeypatch, page, True, frozen=frozen)
+        walk_on(monkeypatch, page, flag, frozen=frozen)
     assert str(items) in str(raised.value) and str(frozen) in str(raised.value)
+    assert page.evaluate("window.__starts") == 0, "Start was clicked"
+    assert not page.evaluate("!!document.getElementById('run-accept')?.checked"), "ticked"
+
+
+# R-SB2-6 M1: with a case loaded, counted_total must be a JSON integer >= 0 (type is int), whatever
+# N the page shows. True == 1 and "3" looks like 3, so those rows show the equal-looking N.
+@pytest.mark.browser
+@pytest.mark.parametrize("flag", [True, False])
+@pytest.mark.parametrize(
+    ("items", "frozen"),
+    [
+        (4, None),
+        (0, None),
+        (4, ABSENT),
+        (0, ABSENT),
+        (1, True),
+        (0, False),
+        (3, "3"),
+        (0, "0"),
+        (4, -1),
+    ],
+)
+def test_a_case_whose_frozen_count_is_not_a_non_negative_integer_refuses_before_start(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, items: int, frozen: Any, flag: bool
+) -> None:
+    page = review_page(browser, items)
+    with pytest.raises(live_check.Refusal):
+        walk_on(monkeypatch, page, flag, frozen=frozen)
     assert page.evaluate("window.__starts") == 0, "Start was clicked"
     assert not page.evaluate("!!document.getElementById('run-accept')?.checked"), "ticked"
 
@@ -694,8 +727,18 @@ def test_the_flag_with_nothing_counted_proceeds_and_says_so(
 
 
 @pytest.mark.browser
+def test_a_zero_frozen_count_with_zero_shown_and_no_flag_proceeds(
+    browser: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    page = review_page(browser, 0)
+    walk_on(monkeypatch, page, False, frozen=0)
+    assert page.evaluate("window.__starts") == 1
+
+
+@pytest.mark.browser
+@pytest.mark.parametrize("frozen", [3, None])  # a mismatch; a case with no usable frozen count
 def test_an_n_mismatch_refusal_ends_the_run_with_exit_2_not_a_recorded_fault(
-    browser: Any, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    browser: Any, monkeypatch: pytest.MonkeyPatch, tmp_path: Path, frozen: Any
 ) -> None:
     """Lead: REFUSE means no Start and exit 2. `walk` runs inside the real `attempt`, which turns
     any exception into a fault and exit 1; a Refusal must get past it."""
@@ -724,7 +767,7 @@ def test_an_n_mismatch_refusal_ends_the_run_with_exit_2_not_a_recorded_fault(
     def run_walk(bc: Any, args: Any, out: Path, summary: dict[str, Any], held: Any) -> None:
         args.case_data = {
             "case": {"label": "stand-in"},
-            "expected-outcomes": {"counted_total": 3},  # the page shows 4
+            "expected-outcomes": {"counted_total": frozen},  # the page shows 4
         }
         bc.attempt("live", stand_in, lambda: live_check.walk(bc, stand_in, args, out, summary))
 

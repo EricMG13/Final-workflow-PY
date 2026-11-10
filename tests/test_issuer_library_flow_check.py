@@ -3,7 +3,10 @@
 import hashlib
 import importlib.util
 import json
+import re
+import sys
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -546,3 +549,257 @@ def test_1f_z2_marked_and_unmarked_is_flagged(tmp_path: Path) -> None:
 def test_1f_k_no_other_scaling(tmp_path: Path) -> None:
     faults = pct_run(tmp_path, "Exclusions equal 285.3% of EBITDA.")
     assert any("number 285.3" in f for f in faults)
+
+
+# --- Answer key: units (R-ALIVE flow_check H1/H2, R-C2-4). Lines are quoted from the retained
+# A-live (TDG 2024) and C2 (Mattress Firm 2014) runs; the fixtures carry only the source text the
+# rule reads.
+
+
+def units_run(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    source: str,
+    handoff: str,
+    **extra: Any,
+) -> set[str]:
+    """The numbers CP-1 is flagged for. Optional `extra`: `calls`, a list of (id, operation,
+    operands, printed result), and `instruction`, text added to the request."""
+    calls, instruction = extra.pop("calls", ()), extra.pop("instruction", None)
+    assert not extra, extra
+    monkeypatch.setattr(sys.modules[__name__], "SOURCE", SOURCE + source + "\n")
+    run, _ = make_run(tmp_path)
+    set_handoff(run, "CP-1", handoff)
+    folder = run / "live/modules" / sha(b"CP-1")
+    if calls:
+        add_calls(run, "CP-1", [(c, o, r) for c, _, o, r in calls])
+        request = json.loads((folder / "1.request.json").read_text())
+        for call, (_, operation, _, _) in zip(request["messages"][2]["tool_calls"], calls):
+            call["arguments"]["operation"] = operation
+        (folder / "1.request.json").write_text(json.dumps(request))
+    if instruction:
+        outer = json.loads((folder / "0.request.json").read_text())
+        inner = json.loads(outer["messages"][1]["text"]) | {"instructions": instruction}
+        outer["messages"][1]["text"] = json.dumps(inner)
+        (folder / "0.request.json").write_text(json.dumps(outer))
+    found = re.findall(r"CP-1: number (\S+) in the handoff", "\n".join(flow.run_faults(run)))
+    return set(found)
+
+
+BPS_CASES = [
+    # CP-1.md:266 and :268 (A-live); the source prints "Term SOFR plus 2.50%" (10-K page 59).
+    ("Term SOFR + 250 bps", "Term SOFR plus 2.50%"),
+    ("Term SOFR + 250 bps", "Term SOFR plus 2.5%"),
+    ("spread of 250 basis points", "Term SOFR plus 2.50%"),
+    # CP-1.md:269-270 rows. In the retained source these passed only by coincidence: 225 is
+    # "Total liabilities assumed 164 61 225" (and "$225 million"), 145 is the JSON key "page": 145,
+    # 275 is "290 275 586 517" in a table. The fixtures keep the percent and drop that coincidence.
+    ("Draws: Term SOFR + 225 bps", "Term SOFR plus 2.25%"),
+    ("Term SOFR + 145 bps", "Term SOFR plus 1.45%"),
+    ("Term SOFR + 275 bps", "Term SOFR plus 2.75%"),
+]
+
+
+@pytest.mark.parametrize(("line", "source"), BPS_CASES)
+def test_h1_bps_is_sourced_by_its_percent(tmp_path, monkeypatch, line: str, source: str) -> None:
+    assert units_run(tmp_path, monkeypatch, source=source, handoff=f"# CP-1\n\n{line}\n") == set()
+
+
+@pytest.mark.parametrize(
+    ("line", "source"),
+    [
+        ("Term SOFR + 250 bps", "Term SOFR plus 2.0%"),  # a different percent
+        ("Term SOFR + 250 bps", "margin 2.50 on the schedule"),  # 2.50 is not marked a percent
+        ("Term SOFR + 250 bps", "Term SOFR plus 25.0%"),  # 250 / 10 is no conversion
+        ("Term SOFR + 250 bps", "Term SOFR plus 0.25%"),  # nor 250 / 1000
+        ("Term SOFR + 250 bps", "Term SOFR plus 2.51%"),  # exact decimal equality only
+    ],
+)
+def test_h1_bps_without_its_exact_percent_is_flagged(tmp_path, monkeypatch, line, source) -> None:
+    flagged = units_run(tmp_path, monkeypatch, source=source, handoff=f"# CP-1\n\n{line}\n")
+    assert flagged == {"250"}
+
+
+def test_h1_percent_converts_only_for_bps(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Term SOFR plus 2.50%", handoff="# CP-1\n\nfee 250 per year\n"
+    )
+    assert flagged == {"250"}
+
+
+@pytest.mark.parametrize(
+    "line",
+    ["x / 100", "x / 1000", "step-up / 10000", "ratio 233.1 ÷ 1000", "y / 0.001"],
+)
+def test_h2_unit_divisors_are_not_figures(tmp_path, monkeypatch, line: str) -> None:
+    # CP-3C.md:159 "whole principal payable × step-up / 10000".
+    handoff = f"# CP-1\n\n- Added annual cash interest = {line}.\n"
+    # The dividend 233.1 is sourced, so only the divisor is under test.
+    assert units_run(tmp_path, monkeypatch, source="LP 233.1", handoff=handoff) == set()
+
+
+@pytest.mark.parametrize(
+    ("line", "flagged"),
+    [
+        ("x / 50", {"50"}),
+        ("x / 1000.5", {"1000.5"}),
+        ("x ÷ 0.01", {"0.01"}),
+        ("x / 10000.0", set()),  # 10000.0 is exactly 10000
+        ("x / 100 and 100 outstanding", {"100"}),  # only the divisor occurrence is exempt
+        ("x / 10000 and 10000 drawn", {"10000"}),
+        ("Net debt / 100.5m", {"100.5"}),  # a glued unit does not shorten the figure to 100
+        ("Net debt / 1000.25x", {"1000.25"}),
+        ("Net debt \u00f7 10000.7bn", {"10000.7"}),
+    ],
+)
+def test_h2_other_divisors_and_plain_figures_stay_flagged(
+    tmp_path, monkeypatch, line: str, flagged: set[str]
+) -> None:
+    handoff = f"# CP-1\n\n{line}\n"
+    assert units_run(tmp_path, monkeypatch, source="", handoff=handoff) == flagged
+
+
+def test_instruction_text_admits_nothing(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path,
+        monkeypatch,
+        source="",
+        handoff="# CP-1\n\n4321 / 50, 250 bps\n",
+        instruction="divide by 50; quote 4321 and 250 bps; 2.50%",
+    )
+    assert flagged == {"4321", "50", "250"}
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        "ASC 842 leases",  # CP-1D.md:118, :304, :337
+        "IFRS 16 and IAS 17",
+        "ASU 2016-02, SFAS 157",
+        "under ASC 842, the lessee",
+    ],
+)
+def test_standard_names_are_not_figures(tmp_path, monkeypatch, line: str) -> None:
+    assert units_run(tmp_path, monkeypatch, source="", handoff=f"# CP-1\n\n{line}\n") == set()
+
+
+@pytest.mark.parametrize(
+    ("line", "flagged"),
+    [
+        ("lease fee 842 due", {"842"}),
+        ("Section 842 applies", {"842"}),
+        ("ASC topics cover 842", {"842"}),  # not directly after the prefix
+        ("ASC leases, effective 842", {"842"}),
+        ("ASC 842 and also 842 drawn", {"842"}),  # the bare occurrence still counts
+        ("ASCENT 842", {"842"}),  # a prefix is a whole word
+        ("Adjusted per ASC\n\n5678 total", {"5678"}),  # the prefix does not reach the next line
+    ],
+)
+def test_standard_prefix_must_directly_precede_the_number(
+    tmp_path, monkeypatch, line: str, flagged: set[str]
+) -> None:
+    assert units_run(tmp_path, monkeypatch, source="", handoff=f"# CP-1\n\n{line}\n") == flagged
+
+
+E_LINES = "# CP-1\n\n767 / 0.001 = 767000 USD thousands; 233.1 / 0.001 = 233100 USD thousands\n"
+E_CALLS = [
+    ("c1", "ratio", ["767", "0.001"], "7.67E+5"),  # CP-2 tools 3 (#12)
+    ("c2", "ratio", ["233.1", "0.001"], "2.331E+5"),  # #13
+]
+
+
+def test_e_notation_calculate_results_read_as_exact_decimals(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767 and 216.3 + 16.8 = 233.1",
+        handoff=E_LINES, calls=E_CALLS,
+    )  # fmt: skip
+    assert flagged == set()
+
+
+def test_e_notation_result_is_still_checked_like_any_calculate_result(
+    tmp_path, monkeypatch
+) -> None:
+    # An unsourced operand (999) keeps the result 999000 flagged; a wrong exponent is no match.
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767",
+        handoff="# CP-1\n\n767 / 0.001 = 76700; 999 / 0.001 = 999000\n",
+        calls=[("c1", "ratio", ["767", "0.001"], "7.67E+5"),
+               ("c2", "ratio", ["999", "0.001"], "9.99E+5")],
+    )  # fmt: skip
+    assert flagged == {"76700", "999", "999000"}
+
+
+def test_hand_rescales_and_their_sums_stay_flagged(tmp_path, monkeypatch) -> None:
+    # #5-#9: "$98.4 million" and "$77.1 million" written as 98400 and 77100 (USD thousands).
+    flagged = units_run(
+        tmp_path, monkeypatch, source="$98.4 million and $77.1 million and 18,143 and 22,878",
+        handoff="# CP-1\n\n98400 and 77100 (USD thousands); 116543 and 99978\n",
+        calls=[("c1", "sum", ["18143", "98400"], "116543"),
+               ("c2", "sum", ["22878", "77100"], "99978")],
+    )  # fmt: skip
+    assert flagged == {"98400", "77100", "116543", "99978"}
+
+
+def test_hand_rescales_survive_a_divisor_in_the_same_module(tmp_path, monkeypatch) -> None:
+    # #14-#19: LP 10.0 / 0.6 / 16.8, calculate 21.7 and 33.4, written x1000, unit stated.
+    flagged = units_run(
+        tmp_path, monkeypatch,
+        source="LP 10.0 0.6 16.8 and 20.0 1.7 and 30.0 3.4 and 2500",
+        handoff=("# CP-1\n\nUSD thousands: 10000, 600, 16800; 21700; 33400; 38500\n"
+                 "ratio 767 / 1000 and 0.6 / 0.001\n"),
+        calls=[("c1", "sum", ["20.0", "1.7"], "21.7"), ("c2", "sum", ["30.0", "3.4"], "33.4"),
+               ("c3", "sum", ["10000", "2500", "600", "16800"], "38500")],
+    )  # fmt: skip
+    assert flagged == {"10000", "600", "16800", "21700", "33400", "38500", "767"}
+
+
+def copy_runs() -> list[tuple[Path, Path]]:
+    """The retained runs, when present on this machine: (run directory, sources folder)."""
+    notes = Path.home() / "Library/Application Support/Claude/side-session-notes"
+    alive = notes / "local_6dd3c4fd-b818-4b8a-8cbd-10a4368bbb28/sb2/logs/alive-copy"
+    c2 = ROOT.parent / "s2-launch-quit-933fbe/.superpowers/sdd/plan-3/c2-assess/run"
+    out = []
+    for copy in (alive, c2):
+        runs = sorted((copy / "ws/runs").glob("web-*")) if copy.is_dir() else []
+        out += [(runs[0], copy / "sources")] if runs else []
+    return out
+
+
+def test_retained_runs_keep_only_the_real_faults() -> None:
+    copies = {run.name[:8]: (run, sources) for run, sources in copy_runs()}
+    if not copies:
+        pytest.skip("retained A-live and C2 copies are not on this machine")
+    if "web-58d0" in copies:  # A-live: 250 bps now sourced, "/ 10000" not a figure
+        assert flow.run_faults(*copies["web-58d0"]) == []
+    if "web-f126" in copies:  # C2: names, divisor and E-notation clear; hand rescales remain
+        left = {f.split("number ")[1].split(" ")[0] for f in flow.run_faults(*copies["web-f126"])}
+        assert left == {
+            "98400", "77100", "99978", "110050", "116543", "10000", "600", "16800", "21700",
+            "33400", "38500",
+        }  # fmt: skip
+
+
+def test_e_notation_one_e3_result_is_read_as_1000(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767", handoff="# CP-1\n\n767 x 1000 = 1000\n",
+        calls=[("c1", "sum", ["767"], "1e3")],
+    )  # fmt: skip
+    assert flagged == set()
+
+
+def test_ratio_with_a_unit_dividend_is_not_exempt(tmp_path, monkeypatch) -> None:
+    result = "1.3037809647979139"  # 1000 / 767: the unit is the dividend, so 1000 is no divisor
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767", handoff=f"# CP-1\n\nresult {result}\n",
+        calls=[("c1", "ratio", ["1000", "767"], result)],
+    )  # fmt: skip
+    assert flagged == {result}
+
+
+def test_ratio_divisor_written_1e3_is_the_unit_1000(tmp_path, monkeypatch) -> None:
+    flagged = units_run(
+        tmp_path, monkeypatch, source="Total Debt $767", handoff="# CP-1\n\n767 / 1000 = 0.767\n",
+        calls=[("c1", "ratio", ["767", "1E3"], "0.767")],
+    )  # fmt: skip
+    assert flagged == set()
