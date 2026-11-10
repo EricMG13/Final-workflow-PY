@@ -14,6 +14,7 @@ from pathlib import Path
 
 import pytest
 import test_cpos_launch
+from fastapi import HTTPException
 from test_cpos_launch import (
     AS_OF,
     COVENANT_MODULES,
@@ -26,6 +27,7 @@ from test_cpos_launch import (
 
 from deploy_workflow.model.adapter import LiveAdapter
 from deploy_workflow.platform_io import read_at
+from issuer_library.jobs import require_acceptance
 
 provider = test_cpos_launch.provider  # The same fake provider fixture.
 ROOT = Path(__file__).resolve().parents[1]
@@ -1134,34 +1136,83 @@ def test_a_retained_module_without_a_stated_status_is_unconfirmed(tmp_path, prov
 def test_a_resume_drops_forecast_rows_of_retained_modules_and_keeps_inherited_ones(
     tmp_path, provider
 ):
-    # Ruling 11. Legal documents declared "none": CP-4 forecasts Will refuse (id
-    # CP-4:cp4-declared-none, counted) and, being retained, loses the row. Will refuse
-    # propagates, so a later consumer of CP-4 keeps an inherited row naming CP-4.
+    # Ruling 11 and R-SB2-6c. Legal documents declared "none": CP-4 forecasts Will refuse (id
+    # CP-4:cp4-declared-none, counted) and, being retained, loses its own row. Will refuse
+    # propagates, so CP-3C and CP-5, which run again, keep inherited rows naming CP-4. The
+    # expectations below are written by hand from that scenario, not read from the plain review.
     def declared_none(data):
         data["attachments"]["legal_documents"] = "none"
 
     kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
     folder, request, _ = stopped_run(tmp_path, provider, kept, context=declared_none)
     plain = bridge.review(folder)
-    retained = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
-    assert "CP-4:cp4-declared-none" in plain["counted"]
-    inherited = [r for r in plain["expectations"] if "CP-4" in r["inherited_from"]]
-    assert inherited and {r["scope"] for r in inherited} <= {"CP-2D", "CP-3C", "CP-5"}
     result = bridge.review(resumed(folder, request))
-    assert set(result["retained_modules"]) == retained
-    assert all(r["scope"] not in retained for r in result["expectations"])
-    assert "CP-4:cp4-declared-none" not in result["counted"]
+    assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
+    # Only the rows of modules that run again stay; the run-scope row (no filed report) counts.
+    assert [(r["id"], r["scope"], r["outcome"], r["counted"]) for r in result["expectations"]] == [
+        ("run:run-financials-management-claims", "run", "check", True),
+        ("CP-3C:from:CP-4", "CP-3C", "limited", False),
+        ("CP-5:from:CP-4", "CP-5", "limited", False),
+    ]
+    assert [r["inherited_from"] for r in result["expectations"]] == [
+        [],
+        ["CP-4"],
+        ["CP-4", "CP-3C"],
+    ]
+    # The retained producer's id stays counted: kept rows inherit from it (one item per cause).
+    assert result["counted"] == ["run:run-financials-management-claims", "CP-4:cp4-declared-none"]
+    assert "CP-4:cp4-declared-none" not in [r["id"] for r in result["expectations"]]
+    assert {"module": "CP-4", "outcome": "unconfirmed"} in result["retained_outcomes"]
     # CP-4 is retained, so nothing offers to run without it; no other module is declared out.
     assert plain["without"] == {"CP-4": ["CP-4"]}
     assert "CP-4" not in result["without"] and result["without"] == {}
-    assert all(i.split(":")[0] not in retained for i in result["counted"])
-    assert result["expectations"] == [
-        r for r in plain["expectations"] if r["scope"] not in retained
-    ]
-    assert result["counted"] == [
-        r["id"] for r in plain["expectations"] if r["counted"] and r["scope"] not in retained
-    ]
-    assert all(r in result["expectations"] for r in inherited)
+
+
+def test_a_resume_keeps_a_retained_producers_counted_id_and_still_requires_acceptance(
+    tmp_path, provider
+):
+    # R-SB2-6c, the probe's scenario: a filed annual report leaves no run-scope item, so the
+    # inherited limitation is the only thing standing between the resume and an unaccepted start.
+    def declared_none(data):
+        data["attachments"]["legal_documents"] = "none"
+        sources = tmp_path / "workspace" / "intake" / ("web-" + "a" * 32) / "sources"
+        (sources / "annual-report.txt").write_text("Annual Report 2025\nRevenue was 100.\n")
+
+    kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
+    folder, request, _ = stopped_run(tmp_path, provider, kept, context=declared_none)
+    result = bridge.review(resumed(folder, request))
+    assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
+    assert result["counted"] == ["CP-4:cp4-declared-none"]
+    # The producer's own forecast row stays dropped; its actual outcome stays shown.
+    ids = [r["id"] for r in result["expectations"]]
+    assert "CP-4:cp4-declared-none" not in ids
+    assert {"module": "CP-4", "outcome": "unconfirmed"} in result["retained_outcomes"]
+    assert "CP-3C:from:CP-4" in ids and "CP-5:from:CP-4" in ids
+    # The stopped job's acceptance does not carry over: an unaccepted start is refused.
+    with pytest.raises(HTTPException):
+        require_acceptance(result, False)
+
+
+def test_a_resume_does_not_count_a_retained_producer_that_no_kept_row_inherits_from(
+    tmp_path, provider
+):
+    # R-SB2-6c, other side. The run asks for CP-0..CP-4 and CP-2D only, so CP-3C and CP-5 are not
+    # in it; the one module that runs again (CP-2D) inherits nothing from CP-4.
+    def declared_none(data):
+        data["attachments"]["legal_documents"] = "none"
+
+    kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
+    modules = ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4", "CP-2D"]
+    folder, request, _ = stopped_run(
+        tmp_path, provider, kept, context=declared_none, modules=modules
+    )
+    assert "CP-4:cp4-declared-none" in bridge.review(folder)["counted"]
+    result = bridge.review(resumed(folder, request))
+    assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
+    assert all(not r["inherited_from"] for r in result["expectations"])
+    assert "CP-4:cp4-declared-none" not in result["counted"]
+    assert result["counted"] == ["run:run-financials-management-claims"]
+    assert {"module": "CP-4", "outcome": "unconfirmed"} in result["retained_outcomes"]
 
 
 def test_a_plain_review_has_no_reruns_and_no_retained_outcomes(tmp_path, monkeypatch):
