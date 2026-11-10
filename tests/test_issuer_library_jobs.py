@@ -6,8 +6,10 @@ import hashlib
 import json
 import logging
 import os
+import select
 import shutil
 import socket
+import subprocess
 import sys
 import tempfile
 import threading
@@ -1178,6 +1180,54 @@ def test_review_concurrent_starts_around_a_failed_spawn(tmp_path: Path) -> None:
     assert codes() == {202: 1, 409: 7}
     wait_idle(app)
     assert (folder / "synthetic-starts.txt").read_text() == "one\n"
+
+
+def test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_into_500(
+    tmp_path: Path,
+) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    fired: list[bool] = []
+    ready_r, ready_w = os.pipe()
+    hold_r, hold_w = os.pipe()
+    helpers: list[threading.Thread] = []
+
+    def hold_the_inherited_descriptors() -> None:
+        # Runs in the forked child before close_fds: the child holds a copy of the lock fd.
+        os.write(ready_w, b"x")
+        select.select([hold_r], [], [], 30)
+
+    class StrayForkEngine(Engine):
+        def start(self, folder: Path, lock: Any) -> Any:
+            if not fired:  # first attempt only: another thread forks while the lock is held
+                fired.append(True)
+                helper = threading.Thread(
+                    target=subprocess.run,
+                    args=(["/usr/bin/true"],),
+                    kwargs={"preexec_fn": hold_the_inherited_descriptors},
+                    daemon=True,
+                )
+                helpers.append(helper)
+                helper.start()
+                assert select.select([ready_r], [], [], 30)[0], "helper child never forked"
+            return super().start(folder, lock)
+
+    good = app.engine
+    broken = missing_python(tmp_path, good)
+    app.engine = StrayForkEngine(root=broken.root, python=broken.python)
+    try:
+        first = start_job(client, job_id)
+        second = start_job(client, job_id)
+    finally:
+        os.write(hold_w, b"x")
+        for helper in helpers:
+            helper.join(30)
+        for descriptor in (ready_r, ready_w, hold_r, hold_w):
+            os.close(descriptor)
+    assert not any(helper.is_alive() for helper in helpers), "helper child left running"
+    assert (first.status_code, second.status_code) == (503, 503), (first.text, second.text)
+    assert not (folder / "start.claim").exists(), "claim left behind"
+    assert state_of(folder)["state"] == "failed"
 
 
 def test_review_worker_that_started_and_failed_keeps_the_claim(tmp_path: Path) -> None:
