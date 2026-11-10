@@ -582,3 +582,173 @@ def test_r_sb2_2_fix1_ancillary_instruments_and_openers_are_not_credit_agreement
 def test_r_sb2_2_fix1_lender_presentation_sentence_is_not_a_title() -> None:
     sentence = "The lender presentation is furnished as Exhibit 99.1 to this report."
     assert guess_kind("x.htm", [sentence]).kind != "lender_presentation"
+
+
+# --- R-SB2-2a: positive qualifier lists (answer key from the lead's ruling and the probes) -----
+# Real exhibit titles: cases/primary-proxy-mattress-firm-2014/documents/
+# 2014-10-21-ex10-1-abl-credit-agreement.htm and ...ex10-2-term-loan-credit-agreement.htm.
+_EX = "Exhibit 10.1\nExecution Version\n"
+
+_QUALIFIED_TITLES = [
+    "ABL CREDIT AGREEMENT",
+    "TERM LOAN CREDIT AGREEMENT",
+    "REVOLVING CREDIT AGREEMENT",
+    "SENIOR SECURED CREDIT AGREEMENT",
+    "FIRST LIEN CREDIT AGREEMENT",
+    "SECOND LIEN TERM LOAN CREDIT AGREEMENT",
+    "DIP CREDIT AGREEMENT",
+    "BRIDGE CREDIT AGREEMENT",
+    "AMENDED AND RESTATED CREDIT AGREEMENT",
+    "SECOND AMENDED AND RESTATED CREDIT AGREEMENT",
+]
+
+
+@pytest.mark.parametrize("title", _QUALIFIED_TITLES, ids=[f"r_sb2_2a_pos_{i}" for i in range(10)])
+def test_r_sb2_2a_known_qualifier_titles_are_executed_credit_agreements(title: str) -> None:
+    guess = guess_kind("x.htm", [_EX + title + "\n"])
+    assert (guess.kind, guess.executed) == ("credit_agreement", True)
+
+
+_NOT_CA_COVERS = [
+    "JOINDER IN CREDIT AGREEMENT",
+    "CONSENT REGARDING CREDIT AGREEMENT",
+    "WAIVER REGARDING CREDIT AGREEMENT",
+    "LIMITED WAIVER CREDIT AGREEMENT",
+    "RELEASE FROM CREDIT AGREEMENT",
+    "ASSIGNMENT PURSUANT TO CREDIT AGREEMENT",
+    "Joinder In Credit Agreement",
+    "Release From Credit Agreement",
+    "JOINDER TO CREDIT AGREEMENT",
+    "FIRST AMENDMENT TO CREDIT AGREEMENT",
+    "Credit Agreement Joinder",
+    "FORM OF CREDIT AGREEMENT",
+    "Commitment Letter",
+    "Intercreditor Agreement",
+]
+
+
+@pytest.mark.parametrize(
+    "title", _NOT_CA_COVERS, ids=[f"r_sb2_2a_neg_cover_{i}" for i in range(len(_NOT_CA_COVERS))]
+)
+def test_r_sb2_2a_unlisted_qualifier_covers_are_not_credit_agreements(title: str) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
+
+
+_NOT_CA_PAGES = [
+    ("x.pdf", "Execution Version\nRelease From Credit Agreement"),
+    ("x.pdf", "A Credit Agreement was entered into by the parties on that date"),
+    ("x.pdf", "Their Credit Agreement contains covenants"),
+    ("x.pdf", "Its Credit Agreement contains covenants"),
+    ("x.pdf", "Execution Version\nCREDIT AGREEMENT JOINDER"),
+    ("x.pdf", "Existing Credit Agreement means the credit agreement dated October 1, 2013."),
+    ("x.pdf", "Prior Credit Agreement means the credit agreement dated October 1, 2013."),
+    ("x.pdf", "Amended Credit Agreement means the credit agreement as amended hereby."),
+    ("x.pdf", "Existing Credit Agreement"),
+    ("x.pdf", "Prior Credit Agreement"),
+    ("x.pdf", "Amended Credit Agreement"),
+    ("x.pdf", "Form of Credit Agreement"),
+    ("x.pdf", "Summary of Credit Agreement Terms"),
+    (
+        "8-k.htm",
+        "Item 1.02 Termination of a Material Definitive Agreement\nTermination Of Credit Agreement",
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    ("name", "page"),
+    _NOT_CA_PAGES,
+    ids=[f"r_sb2_2a_neg_page_{i}" for i in range(len(_NOT_CA_PAGES))],
+)
+def test_r_sb2_2a_openers_and_sentences_are_not_credit_agreements(name: str, page: str) -> None:
+    assert guess_kind(name, [page]).kind != "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "release-from-credit-agreement.htm",
+        "joinder-by-credit-agreement.htm",
+        "abl-credit-agreement-joinder.htm",
+        "2014-10-21-ex10-3-amendment-no-1-to-credit-agreement.htm",
+        "2014-10-21-ex10-3-first-amendment-to-credit-agreement.htm",
+        "2014-10-21-ex10-4-form-of-credit-agreement.htm",
+        "2014-10-21-ex10-5-joinder-to-credit-agreement.htm",
+        "summary-of-credit-agreement-terms.htm",
+        "ex99-2-press-release.htm",
+    ],
+    ids=[f"r_sb2_2a_neg_name_{i}" for i in range(9)],
+)
+def test_r_sb2_2a_unlisted_file_names_are_not_credit_agreements(name: str) -> None:
+    assert guess_kind(name, [""]).kind != "credit_agreement"
+
+
+def test_r_sb2_2a_press_release_sentence_is_not_a_credit_agreement() -> None:
+    page = (
+        "Mattress Firm Announces Financing\nOn October 20, 2014, the Company entered into a "
+        "credit agreement with lenders."
+    )
+    assert guess_kind("ex99-2-press-release.htm", [page]).kind != "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    ("name", "page"),
+    [
+        ("x.pdf", _EX + "ABL CREDIT AGREEMENT\nDated as of October 20, 2014"),
+        ("x.pdf", _EX + "Abl Credit Agreement"),
+        ("x.pdf", "Exhibit 10.1\nEXECUTION VERSION\n$125,000,000\nABL CREDIT AGREEMENT"),
+        ("x.pdf", "EXECUTION VERSION\nTERM LOAN CREDIT AGREEMENT"),
+        ("2014-10-21-ex10-1-abl-credit-agreement.htm", ""),
+        ("2014-10-21-ex10-2-term-loan-credit-agreement.htm", ""),
+    ],
+    ids=[f"r_sb2_2a_probe_pos_{i}" for i in range(6)],
+)
+def test_r_sb2_2a_probe_positive_credit_agreements(name: str, page: str) -> None:
+    assert guess_kind(name, [page]).kind == "credit_agreement"
+
+
+_LENDER_PAGES = [
+    "Public Lender Presentation September 11, 2014",
+    "Public Lender Presentation",
+    "Private Lender Presentation",
+    "Bank Lender Presentation",
+    "Syndicate Lender Presentation",
+    "Lender Presentation",
+    "Lenders' Presentation",
+    "Lenders Presentation",
+]
+
+
+@pytest.mark.parametrize(
+    "page", _LENDER_PAGES, ids=[f"r_sb2_2a_lp_pos_{i}" for i in range(len(_LENDER_PAGES))]
+)
+def test_r_sb2_2a_lender_presentation_qualifiers(page: str) -> None:
+    assert guess_kind("x.pdf", [page]).kind == "lender_presentation"
+
+
+def test_r_sb2_2a_lender_presentation_dated_file_name() -> None:
+    name = "2014-09-11-ex99-1-public-lender-presentation.htm"
+    assert guess_kind(name, [""]).kind == "lender_presentation"
+
+
+@pytest.mark.parametrize(
+    "page",
+    ["Investor Presentation", "Investor Lender Presentation"],
+    ids=["r_sb2_2a_lp_neg_investor", "r_sb2_2a_lp_neg_investor_lender"],
+)
+def test_r_sb2_2a_investor_presentations_are_not_lender_presentations(page: str) -> None:
+    assert guess_kind("x.pdf", [page]).kind != "lender_presentation"
+
+
+def test_r_sb2_2a_10k_cover_with_investor_lender_presentation_line_is_financial_report() -> None:
+    page = (
+        "UNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nFORM 10-K\n"
+        "ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\n"
+        "Investor Lender Presentation\n"
+    )
+    assert guess_kind("10-k.htm", [page]).kind == "financial_report"
+
+
+def test_r_sb2_2a_10k_body_mention_of_lender_presentation_is_financial_report() -> None:
+    page = "FORM 10-K\nThe lender presentation was furnished."
+    assert guess_kind("10-k.htm", [page]).kind == "financial_report"
