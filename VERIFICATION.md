@@ -731,6 +731,26 @@ will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `ac
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
 R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
 
+## 2026-11-10 Run lock items 2 and 4: a stale liveness verdict never settles a live job; any spawn exception refuses (branch `claude/sb2-run-lock-items24`)
+
+Item 2 (pre-existing): `settle_job` no longer acts on `worker_alive`'s verdict. It takes the worker lock itself
+(`dead_worker_proof`: `O_CREAT` open, `flock` LOCK_NB; a lock it cannot take means a worker, and a missing file is
+created so no start can take the lock meanwhile), reads status.json under it, and before the write checks the held
+inode is still the path's (`lstat` vs `fstat` dev/ino, `st_nlink`). Not proven: `WorkerMayStillRun`, which
+`finish_job` answers by leaving the job active (`watch_worker` and `watch` keep polling) and adoption by watching it.
+Call path kept: `settle_job` <- `finish_job` <- `watch_worker`. Windows: `worker_alive` is re-checked at settle, otherwise unchanged.
+A residual window remains between the inode check and the write (microseconds, no lock can close it against an
+unlink by a failed start); the status write is the only thing left in it.
+Item 4: `launch_worker` catches `Exception` (not `BaseException`) from `engine.start`, logs a warning with the job id and error
+(traceback), and takes the OSError path: claim released, lock removed, status failed, 503 "no model call was made".
+Key (eb5c9b69, another agent): 5 tests red before (2 settle-race, 3 spawn-exception), 161 passed 2 skipped after
+for the file; the 5 tests 20/20. Probes exit 0: t7adv_settle_toctou_preexisting, t7adv_non_oserror_spawn,
+t7adv_stale_inode_adoption/liveness, t7adv_save_failure_stray_fork, t7adv_one_worker_invariant,
+t7adv_removal_path_swaps, t7rr_worker_alive_bounds, probe_stray_fork, probe_observe. t7rr_held_probe_lock_vs_removal
+exits 1 by its literal condition (a probe that holds the old inode does not stop the retry; the probe itself
+holds it and never settles); the test for that case passes because settle re-verifies the inode and declines.
+Not verified: Windows; the residual write window; the browser and `validate.py` gates.
+
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
 
 Defect (Low, concurrency): `hold_worker_lock` flocks `worker.lock`; a child forked by another thread
@@ -739,7 +759,7 @@ while that fd is open inherits the locked file until exec, so after a failed spa
 `release_lock` when `Engine.start` raised (`remove_failed_run_lock`: FileNotFoundError ignored, other
 OSError logged). Answer key `test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_into_500`
 red (503, 500) then green; `probe_stray_fork.py` and `probe_observe.py` exit 0; the existing `{503: 8}` test unchanged.
-The lock removal does not create a second worker (item 2's settle race remains open for the next PR): it happens only where no process was spawned (the failed spawn
+The lock removal does not create a second worker (item 2's settle race was open here and is closed by the items 2 and 4 entry above it): it happens only where no process was spawned (the failed spawn
 and the status-save failure, both before any worker exists), so no worker holds the old inode. The
 cross-instance guard is `start.claim`, held from before `hold_worker_lock` until after the unlink
 (`launch_worker` is the only caller of `hold_worker_lock`), not `lib.lock`; the next start's `O_CREAT`
