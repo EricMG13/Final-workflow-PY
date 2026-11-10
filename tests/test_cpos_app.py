@@ -921,3 +921,238 @@ def test_the_fake_engine_bridge_returns_the_same_review_keys(tmp_path, monkeypat
     review = json.loads(fake.stdout)
     assert set(review) == set(real) and EXPECTATION_KEYS <= set(review)
     assert review["expectations"] == real["expectations"]
+
+
+# --- Task 6b: a resume's review keeps the context, names re-runs and shows retained outcomes ----
+
+
+def stopped_run(tmp_path, provider, kept, *, context=None, status=None, **extra):
+    """A covenant run whose provider answers `kept`, with `status[module]` appended to that
+    module's answer, and rejects the rest. `context` edits the context before the first review."""
+    folder, value = job(tmp_path, **extra)
+    if context:
+        data = json.loads((folder / "context.json").read_text())
+        context(data)
+        (folder / "context.json").write_text(json.dumps(data))
+    bridge.write_json(folder / "review.json", bridge.review(folder))
+    routes = bridge.launch(value, folder, tmp_path / "preview").layout.routes
+    provider.answer = lambda c: (
+        answer(c, routes) + (status or {}).get(c["module_id"], "")
+        if c["module_id"] in kept
+        else "# Not a handoff"
+    )
+    bridge.start(folder)
+    assert status_of(folder)["state"] == "stopped"
+    return folder, value, routes
+
+
+def module_dir(folder, module):
+    (fingerprint,) = (Path(job_of(folder)["workspace"]) / "runs" / folder.name).glob(
+        f"requests/{module}/*"
+    )
+    return fingerprint
+
+
+def job_of(folder):
+    return json.loads((folder / "job.json").read_text())
+
+
+UNREADABLE = "its record in the stopped run could not be read"
+CHANGED = "its sources or context changed since the stopped run"
+SEVERAL = "the stopped run holds more than one accepted answer for it"
+
+
+def test_a_resume_keeps_the_stopped_runs_context_bytes_and_asks_for_no_classification(
+    tmp_path, provider
+):
+    # Ruling 9. The fixture context has no identity.issue_classification (an older file).
+    folder, request, _ = stopped_run(tmp_path, provider, {"CP-0"})
+    before = (folder / "context.json").read_bytes()
+    assert "issue_classification" not in json.loads(before)["identity"]
+    second = resumed(folder, request)
+    result = bridge.review(second)
+    assert result["ok"] and result["issue_classification"] == ""
+    assert (second / "context.json").read_bytes() == before
+    assert (folder / "context.json").read_bytes() == before
+
+
+def test_a_resume_review_names_the_stopped_runs_stated_classification(tmp_path, provider):
+    # Ruling 9, the other side: a stated classification is carried unchanged.
+    def classify(data):
+        data["identity"]["issue_classification"] = "high_yield"
+
+    folder, request, _ = stopped_run(tmp_path, provider, {"CP-0"}, context=classify)
+    second = resumed(folder, request)
+    result = bridge.review(second)
+    assert result["issue_classification"] == "high_yield"
+    assert (second / "context.json").read_bytes() == (folder / "context.json").read_bytes()
+
+
+def reruns_of(folder, request):
+    return bridge.review(resumed(folder, request))
+
+
+def test_a_damaged_record_ends_the_replay_and_every_later_answer_is_listed(tmp_path, provider):
+    # Ruling 10. CP-1's verdict cannot be read: CP-0 stays; CP-1 gives its reason; CP-1A and CP-2
+    # follow the stop module (title of CP-1 in the registry: Canonical data foundation).
+    folder, request, _ = stopped_run(tmp_path, provider, {"CP-0", "CP-1", "CP-1A", "CP-2"})
+    (module_dir(folder, "CP-1") / "1.review.json").write_bytes(b"{not json")
+    result = reruns_of(folder, request)
+    follows = "it follows Canonical data foundation, which runs again"
+    assert result["retained_modules"] == ["CP-0"]
+    assert result["reruns"] == [
+        {"module": "CP-1", "reason": UNREADABLE},
+        {"module": "CP-1A", "reason": follows},
+        {"module": "CP-2", "reason": follows},
+    ]
+
+
+def test_a_changed_source_lists_every_accepted_module_and_a_damaged_one_keeps_its_reason(
+    tmp_path, provider
+):
+    # Ruling 10. Nothing is retained: the stop module is CP-0 (title Source readiness) with its
+    # why; CP-1 follows it; CP-1A, whose record is damaged, gives its own reason, not "follows".
+    folder, request, _ = stopped_run(tmp_path, provider, {"CP-0", "CP-1", "CP-1A"})
+    (module_dir(folder, "CP-1A") / "1.review.json").write_bytes(b"[]")
+    (folder / "sources" / "late.txt").write_text("Debt was 900 after the stop.")
+    result = reruns_of(folder, request)
+    assert result["retained_modules"] == []
+    assert result["reruns"] == [
+        {"module": "CP-0", "reason": CHANGED},
+        {"module": "CP-1", "reason": "it follows Source readiness, which runs again"},
+        {"module": "CP-1A", "reason": UNREADABLE},
+    ]
+
+
+def test_several_accepted_answers_are_not_offered_and_the_module_runs_again(tmp_path, provider):
+    # Ruling 10. CP-1A holds two different accepted answers: the replay stops there with that
+    # reason; CP-0 and CP-1 stay, so they are not re-runs.
+    folder, request, _ = stopped_run(tmp_path, provider, {"CP-0", "CP-1", "CP-1A"})
+    first = module_dir(folder, "CP-1A")
+    second_answer = first.with_name("other")
+    shutil.copytree(first, second_answer)
+    changed = (second_answer / "1.response.md").read_bytes() + b"\nA second answer.\n"
+    (second_answer / "1.response.md").write_bytes(changed)
+    bridge.write_json(
+        second_answer / "1.review.json",
+        {"issues": [], "response_sha256": hashlib.sha256(changed).hexdigest()},
+    )
+    result = reruns_of(folder, request)
+    assert result["retained_modules"] == ["CP-0", "CP-1"]
+    assert result["reruns"] == [{"module": "CP-1A", "reason": SEVERAL}]
+
+
+def test_a_primary_resume_lists_the_added_earnings_quality_module_and_what_follows_it(
+    tmp_path, provider
+):
+    # Ruling 10. The stopped run was planned with explicit modules and never had CP-1D; a Primary
+    # resume with default modules adds it (plan order CP-0, CP-1, CP-1A, CP-1D, CP-2, CP-4, ...).
+    # The stop is CP-1D (title Earnings quality); CP-2 holds an accepted answer and follows it.
+    def primary(data):
+        data["run"]["run_type"] = "primary"
+        blank = dict.fromkeys(
+            ("size_m", "tenor_years", "talk_spread_bps_low", "talk_spread_bps_high", "talk_oid_low")
+            + ("talk_oid_high", "floor_pct", "call_protection", "use_of_proceeds", "as_of"),
+            "",
+        )
+        data["deal_terms"] = [
+            {**blank, "facility_id": "tl-b", "instrument": "Term loan B", "currency": "USD"}
+            | {"provider": "synthetic"}
+        ]
+
+    folder, request, _ = stopped_run(
+        tmp_path,
+        provider,
+        {"CP-0", "CP-1", "CP-1A", "CP-2"},
+        context=primary,
+        modules=["CP-2", "CP-4"],
+    )
+    second = resumed(folder, {**request, "modules": []})
+    result = bridge.review(second)
+    assert result["modules"][:5] == ["CP-0", "CP-1", "CP-1A", "CP-1D", "CP-2"]
+    assert result["reruns"] == [
+        {"module": "CP-1D", "reason": "added to this run"},
+        {"module": "CP-2", "reason": "it follows Earnings quality, which runs again"},
+    ]
+
+
+def test_retained_modules_show_the_outcome_their_answers_state(tmp_path, provider):
+    # Ruling 11, classes written by hand from the appended text (handoff_outcome.py rules):
+    # CP-0 is always unconfirmed; CP-1 states "Module Status: Completed with Limitations" ->
+    # limited;
+    # CP-1A states "Module Status: Completed" -> ready; CP-2 states nothing and CP-0's prose says
+    # "CP-2 is READY_WITH_LIMITATIONS" -> limited; CP-4 states "Module Status: Blocked" ->
+    # will_refuse. CP-2D is rejected, so the stop is there.
+    said = {
+        "CP-0": "\nCP-2 is READY_WITH_LIMITATIONS.\n",
+        "CP-1": "\nModule Status: Completed with Limitations\n",
+        "CP-1A": "\nModule Status: Completed\n",
+        "CP-4": "\nModule Status: Blocked\n",
+    }
+    kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
+    folder, request, _ = stopped_run(tmp_path, provider, kept, status=said)
+    result = bridge.review(resumed(folder, request))
+    assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
+    assert result["retained_outcomes"] == [
+        {"module": "CP-0", "outcome": "unconfirmed"},
+        {"module": "CP-1", "outcome": "limited"},
+        {"module": "CP-1A", "outcome": "ready"},
+        {"module": "CP-2", "outcome": "limited"},
+        {"module": "CP-4", "outcome": "will_refuse"},
+    ]
+
+
+def test_a_retained_module_without_a_stated_status_is_unconfirmed(tmp_path, provider):
+    # Ruling 11, rule 4: an accepted handoff with no status anywhere is unconfirmed.
+    folder, request, _ = stopped_run(tmp_path, provider, {"CP-0", "CP-1"})
+    result = bridge.review(resumed(folder, request))
+    assert result["retained_outcomes"] == [
+        {"module": "CP-0", "outcome": "unconfirmed"},
+        {"module": "CP-1", "outcome": "unconfirmed"},
+    ]
+
+
+def test_a_resume_drops_forecast_rows_of_retained_modules_and_keeps_inherited_ones(
+    tmp_path, provider
+):
+    # Ruling 11. Legal documents declared "none": CP-4 forecasts Will refuse (id
+    # CP-4:cp4-declared-none, counted) and, being retained, loses the row. Will refuse
+    # propagates, so a later consumer of CP-4 keeps an inherited row naming CP-4.
+    def declared_none(data):
+        data["attachments"]["legal_documents"] = "none"
+
+    kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
+    folder, request, _ = stopped_run(tmp_path, provider, kept, context=declared_none)
+    plain = bridge.review(folder)
+    retained = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
+    assert "CP-4:cp4-declared-none" in plain["counted"]
+    inherited = [r for r in plain["expectations"] if "CP-4" in r["inherited_from"]]
+    assert inherited and {r["scope"] for r in inherited} <= {"CP-2D", "CP-3C", "CP-5"}
+    result = bridge.review(resumed(folder, request))
+    assert set(result["retained_modules"]) == retained
+    assert all(r["scope"] not in retained for r in result["expectations"])
+    assert "CP-4:cp4-declared-none" not in result["counted"]
+    assert all(i.split(":")[0] not in retained for i in result["counted"])
+    assert result["expectations"] == [
+        r for r in plain["expectations"] if r["scope"] not in retained
+    ]
+    assert result["counted"] == [
+        r["id"] for r in plain["expectations"] if r["counted"] and r["scope"] not in retained
+    ]
+    assert all(r in result["expectations"] for r in inherited)
+
+
+def test_a_plain_review_has_no_reruns_and_no_retained_outcomes(tmp_path, monkeypatch):
+    # Ruling 10 and 11: neither key is a resume-only key; a plain review carries both, empty.
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    folder, _ = job(tmp_path)
+    result = bridge.review(folder)
+    assert result["reruns"] == [] and result["retained_outcomes"] == []
+
+
+def test_a_resume_that_retains_nothing_and_holds_no_answer_has_empty_lists(tmp_path, provider):
+    folder, _ = started(tmp_path, provider)
+    provider.answer = lambda context: "# Not a handoff"
+    bridge.start(folder)
+    result = bridge.review(resumed(folder, job_of(folder)))
+    assert result["reruns"] == [] and result["retained_outcomes"] == []
