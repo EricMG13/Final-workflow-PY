@@ -828,3 +828,58 @@ def test_the_run_context_is_checked_against_the_reviewed_bytes_and_the_case_cont
     different = {**CASE_CONTEXT, "identity": {"issuer_name": "B"}}
     wrong = context_faults(tmp_path / "c", run=same, intake=same, case=different)
     assert len(wrong) == 1 and "case" in wrong[0] and not re.search(r"intake|reviewed", wrong[0])
+
+
+# R-SB2-6 context PR: the form may add blank keys but never drop or change an entered value, so
+# the Stage-2 content check compares every non-blank leaf both ways (hand-written key below).
+ENTERED = {
+    "run": {"pathway": "credit_snapshot", "as_of": "2014-09-11"},
+    "identity": {"issuer_name": "A", "aliases": ["a", "aa"]},
+    "deal_terms": [{"instrument": "ABL revolver", "size_m": "125"}, {"instrument": "Term loan B"}],
+}
+
+
+def content_faults(tmp_path: Path, run: dict) -> list[str]:
+    raw = json.dumps(run, sort_keys=True).encode()
+    return context_faults(tmp_path, run=raw, intake=raw, case=ENTERED)
+
+
+def with_edit(edit) -> dict:
+    run = json.loads(json.dumps(ENTERED))
+    edit(run)
+    return run
+
+
+def test_blank_keys_added_by_the_form_are_not_a_content_fault(tmp_path: Path) -> None:
+    def add(run: dict) -> None:
+        run["run"]["cutoff"] = ""
+        for term in run["deal_terms"]:
+            term |= {"coupon_pct": "", "margin_bps": "", "maturity": ""}
+
+    assert content_faults(tmp_path, with_edit(add)) == []
+
+
+@pytest.mark.parametrize(
+    "edit",
+    [
+        lambda r: r["deal_terms"][0].update(instrument="Revolver"),  # an entered value changed
+        lambda r: r["identity"].update(aliases=["a"]),  # a list entry dropped
+        lambda r: r["deal_terms"][0].pop("size_m"),  # an entered value dropped
+        lambda r: r["deal_terms"][0].update(instrument=""),  # an entered value blanked
+        lambda r: r["run"].update(as_of=""),  # blanked
+        lambda r: r["deal_terms"][1].update(maturity="2033-01-15"),  # a value the case lacks
+        lambda r: r["run"].update(cutoff="2014-09-01"),  # a value the case lacks
+    ],
+    ids=[
+        "changed",
+        "list-shortened",
+        "dropped",
+        "blanked-text",
+        "blanked-date",
+        "extra",
+        "extra-2",
+    ],
+)
+def test_a_changed_dropped_blanked_or_extra_value_is_a_content_fault(tmp_path: Path, edit) -> None:
+    found = content_faults(tmp_path, with_edit(edit))
+    assert len(found) == 1 and "case" in found[0], found
