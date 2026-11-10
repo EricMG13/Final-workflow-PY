@@ -723,6 +723,86 @@ def test_selection_case_gives_the_hand_written_answers(tmp_path, c):
         assert sorted(run.metrics) == want["discovered_metrics"]
 
 
+FACILITY_CASES = json.loads((KEYS / "facility-source-cases.json").read_text(encoding="utf-8"))[
+    "cases"
+]
+DEAL_KEYS = (
+    ("facility_id", "instrument", "currency", "size_m", "tenor_years")
+    + ("talk_spread_bps_low", "talk_spread_bps_high", "talk_oid_low", "talk_oid_high")
+    + ("floor_pct", "coupon_pct", "margin_bps", "call_protection", "use_of_proceeds")
+    + ("as_of", "provider")
+)
+QUOTE_KEYS = ("facility_id", "kind", "bid", "ask", "price", "yield_pct", "spread_bps")
+QUOTE_KEYS += ("as_of", "provider")
+BASIS = "Entered by the user in the run context"
+
+
+def full_row(row, names):
+    """The row with every context key in the form's order (blank unless stated); `_omit` drops."""
+    return {n: row.get(n, "") for n in names if n not in row.get("_omit", [])}
+
+
+def facility_case_workspace(c, tmp_path):
+    """The synthetic workspace with the case's context rows, CP-1 and workflow sources written."""
+    root, run_id = workspace("synthetic", tmp_path)
+    run = root / "runs" / run_id
+    if "deal_terms" in c:
+        ctx = json.loads((run / "context.json").read_text(encoding="utf-8"))
+        ctx["deal_terms"] = [full_row(r, DEAL_KEYS) for r in c["deal_terms"]]
+        ctx["quotes"] = [full_row(r, QUOTE_KEYS) for r in c["quotes"]]
+        (run / "context.json").write_text(json.dumps(ctx, indent=2) + "\n", encoding="utf-8")
+    if "cp1" in c:
+        (run / "CP-1.md").write_text("\n".join(c["cp1"]), encoding="utf-8")
+    if "sources_lines" in c:
+        lines = (run / "workflow.json").read_text(encoding="utf-8").split("\n")
+        end = lines.index("  },", 14)  # the close of the `sources` object that opens on line 14
+        text = "\n".join(lines[:14] + c["sources_lines"] + lines[end:])
+        (run / "workflow.json").write_text(text, encoding="utf-8")
+    return root, run_id
+
+
+def user_terms(spec):
+    return {
+        name: {"value": v, "unit": u, "period": p, "basis": BASIS, "source": s}
+        | {"provenance": "user"}
+        for name, (v, u, p, s) in spec.items()
+    }
+
+
+def facility_of(f):
+    quotes = [{"kind": q["kind"], "terms": user_terms(q["terms"])} for q in f["quotes"]]
+    return {"facility_id": f["facility_id"], "terms": user_terms(f["terms"]), "quotes": quotes}
+
+
+@pytest.mark.parametrize("c", FACILITY_CASES, ids=[c["id"] for c in FACILITY_CASES])
+def test_facility_and_source_case_gives_the_hand_written_answers(tmp_path, c):
+    """Each case of facility-source-cases.json: built from hand-counted pins, then discovered."""
+    root, run_id = facility_case_workspace(c, tmp_path)
+    manifest, want = lm.build(root, run_id), c["expect"]
+    if "facilities" in want:
+        assert manifest["run"]["facilities"] == [facility_of(f) for f in want["facilities"]]
+        assert manifest["run"]["gaps"] == want["gaps"]
+    pins = {"ctx_": want.get("ctx_pins"), "wf_source_": want.get("wf_pins")}
+    for prefix, name in (("ctx_", "context.json"), ("wf_source_", "workflow.json")):
+        if pins[prefix] is None:
+            continue
+        data = (root / "runs" / run_id / name).read_bytes()
+        lines = data.decode().split("\n")
+        assert all(lines[line - 1] == quote for line, quote in pins[prefix].values())
+        wanted = ("ctx_term_", "ctx_quote_") if prefix == "ctx_" else (prefix,)
+        got = {k: v for k, v in manifest["sources"].items() if k.startswith(wanted)}
+        sha = hashlib.sha256(data).hexdigest()
+        assert got == {
+            k: {"path": f"runs/{run_id}/{name}", "sha256": sha, "line": line, "quote": quote}
+            for k, (line, quote) in pins[prefix].items()
+        }
+    if "sources_requirement" in want:
+        (req,) = [r for r in manifest["checklist"]["requirements"] if r["id"] == "sources"]
+        assert req == {"id": "sources", "stage": "sources", **want["sources_requirement"]}
+    _, issues, rejected = write_then_discover(root, run_id)
+    assert issues == [] and rejected == []
+
+
 def test_the_format_gap_follows_the_expectation_gaps_when_the_model_is_published(tmp_path):
     root, run_id = workspace("synthetic", tmp_path)
     edit(root, run_id, "CP-1.md", lambda _: chart_text(leverage_table(lev("FY2025"))))
@@ -787,6 +867,8 @@ PERIOD_CELLS = [
     ("H1 ended 2025-06-30", False, False),
     ("FY2025 ended 2025-6-30", False, False),
     ("FY2025 ended 2025-06-30 (restated)", False, False),
+    ("FY٢٠٢٥ ended 2025-06-30", False, False),  # Arabic-Indic digits: not the ASCII format
+    ("Q1 ٢٠٢٥ ended 2025-03-31", False, False),
     ("2025-06-30", False, True),
     ("2024-02-29", False, True),
     ("2025-02-30", False, False),
@@ -794,6 +876,7 @@ PERIOD_CELLS = [
     ("2025-6-30", False, False),
     ("30/06/2025", False, False),
     ("2025-06-30 (audited)", False, False),
+    ("٢٠٢٥-06-30", False, False),
     ("", False, False),
 ]
 RATIO_TABLES = {"leverage": (leverage_table, lev), "interest cover": (cover_table, cov)}

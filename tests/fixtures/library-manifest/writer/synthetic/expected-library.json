@@ -291,6 +291,12 @@
       "line": 17,
       "quote": "      \"sha256\": \"ee97d3dadaecd2d44eeca249079809c88a3516e1041571175508f3a02744dda0\""
     },
+    "wf_source_1": {
+      "path": "runs/synthetic-hy-001/workflow.json",
+      "sha256": "0f81133ed0b93639a3a6d0a02715c66bb4ff1303db9b99d8dcdcb15655e26356",
+      "line": 21,
+      "quote": "      \"sha256\": \"d27f1c41c63f11be3747f4f9894d3b5f12fbf0305c397203946227668b90128d\""
+    },
     "handoff_CP-0": {
       "path": "runs/synthetic-hy-001/CP-0.md",
       "sha256": "f0fe371487444cad60c21414e6a30a9908752582678a539b8d2fd276ae65c311",
@@ -336,7 +342,8 @@
         "stage": "sources",
         "done": true,
         "evidence": [
-          "wf_source_0"
+          "wf_source_0",
+          "wf_source_1"
         ]
       },
       {

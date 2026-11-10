@@ -66,6 +66,30 @@
       "line": 20,
       "quote": "      \"sha256\": \"fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6\""
     },
+    "wf_source_1": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/workflow.json",
+      "sha256": "996b541cc42566037127b63b3a40466c14e5e816372b3baa4c8c9ff58df4ca76",
+      "line": 24,
+      "quote": "      \"sha256\": \"ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2\""
+    },
+    "wf_source_2": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/workflow.json",
+      "sha256": "996b541cc42566037127b63b3a40466c14e5e816372b3baa4c8c9ff58df4ca76",
+      "line": 28,
+      "quote": "      \"sha256\": \"d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6\""
+    },
+    "wf_source_3": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/workflow.json",
+      "sha256": "996b541cc42566037127b63b3a40466c14e5e816372b3baa4c8c9ff58df4ca76",
+      "line": 32,
+      "quote": "      \"sha256\": \"ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f\""
+    },
+    "wf_source_4": {
+      "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/workflow.json",
+      "sha256": "996b541cc42566037127b63b3a40466c14e5e816372b3baa4c8c9ff58df4ca76",
+      "line": 36,
+      "quote": "      \"sha256\": \"dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af\""
+    },
     "handoff_CP-0": {
       "path": "runs/web-04cd5a5d02ea7d1dea714a8a6632cd21/CP-0.md",
       "sha256": "4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3",
@@ -123,7 +147,11 @@
         "stage": "sources",
         "done": true,
         "evidence": [
-          "wf_source_0"
+          "wf_source_0",
+          "wf_source_1",
+          "wf_source_2",
+          "wf_source_3",
+          "wf_source_4"
         ]
       },
       {

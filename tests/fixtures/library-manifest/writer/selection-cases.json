@@ -17,7 +17,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {
      "leverage": [
@@ -91,7 +92,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -185,7 +187,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {}
    }
@@ -313,7 +316,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {}
    }
@@ -397,7 +401,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics_include": {
      "leverage": [
@@ -430,7 +435,8 @@
    "expect": {
     "gaps": [
      "HTML Model not published by app runs",
-     "CP-1 chart periods are not in the fixed format"
+     "CP-1 chart periods are not in the fixed format",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {
      "coverage": [
@@ -460,7 +466,8 @@
    "expect": {
     "gaps": [
      "HTML Model not published by app runs",
-     "CP-1 chart periods are not in the fixed format"
+     "CP-1 chart periods are not in the fixed format",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -513,7 +520,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {
      "coverage": [
@@ -549,7 +557,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -684,7 +693,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -777,7 +787,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metric_names": [
      "cash",
@@ -800,7 +811,8 @@
      "handoff_CP-1"
     ],
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -835,7 +847,8 @@
    "expect": {
     "gaps": [
      "HTML Model not published by app runs",
-     "CP-1 chart periods are not in the fixed format"
+     "CP-1 chart periods are not in the fixed format",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {
      "cash": [
@@ -865,7 +878,8 @@
    "expect": {
     "gaps": [
      "HTML Model not published by app runs",
-     "CP-1 chart periods are not in the fixed format"
+     "CP-1 chart periods are not in the fixed format",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {}
    }
@@ -909,7 +923,8 @@
    "expect": {
     "discovered_metrics": [],
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -930,7 +945,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -951,7 +967,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -972,7 +989,8 @@
    ],
    "expect": {
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {},
     "sources": []
@@ -1022,7 +1040,8 @@
      "undrawn"
     ],
     "gaps": [
-     "HTML Model not published by app runs"
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
     ],
     "metrics": {
      "cash": [

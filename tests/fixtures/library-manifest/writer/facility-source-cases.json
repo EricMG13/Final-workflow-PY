@@ -1,0 +1,485 @@
+{
+ "cases": [
+  {
+   "id": "duplicate-id-with-a-quote",
+   "rule": "Q4: an id on two deal_terms rows lists the facility with terms {}, no ctx_term pin of either row, its quote kept, one gap; another facility's row keeps its pins.",
+   "deal_terms": [
+    {
+     "facility_id": "SSN-2030",
+     "currency": "USD",
+     "size_m": "450",
+     "as_of": "2025-06-30"
+    },
+    {
+     "facility_id": "SSN-2030",
+     "currency": "USD",
+     "size_m": "300",
+     "coupon_pct": "7.875",
+     "as_of": "2025-06-30"
+    },
+    {
+     "facility_id": "TLB",
+     "currency": "USD",
+     "size_m": "100"
+    }
+   ],
+   "quotes": [
+    {
+     "facility_id": "SSN-2030",
+     "kind": "observed",
+     "bid": "98.50",
+     "ask": "99.00",
+     "as_of": "2025-06-30"
+    }
+   ],
+   "expect": {
+    "facilities": [
+     {
+      "facility_id": "SSN-2030",
+      "terms": {},
+      "quotes": [
+       {
+        "kind": "observed",
+        "terms": {
+         "bid": [
+          "98.50",
+          "price",
+          "2025-06-30",
+          "ctx_quote_0_bid"
+         ],
+         "ask": [
+          "99.00",
+          "price",
+          "2025-06-30",
+          "ctx_quote_0_ask"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "facility_id": "TLB",
+      "terms": {
+       "size_m": [
+        "100",
+        "USD m",
+        "2025-06-30",
+        "ctx_term_2_size_m"
+       ]
+      },
+      "quotes": []
+     }
+    ],
+    "gaps": [
+     "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+     "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+     "HTML Model not published by app runs",
+     "Facility SSN-2030 is entered on more than one row; its terms are not shown"
+    ],
+    "ctx_pins": {
+     "ctx_term_2_size_m": [
+      68,
+      "      \"size_m\": \"100\","
+     ],
+     "ctx_quote_0_bid": [
+      87,
+      "      \"bid\": \"98.50\","
+     ],
+     "ctx_quote_0_ask": [
+      88,
+      "      \"ask\": \"99.00\","
+     ]
+    }
+   }
+  },
+  {
+   "id": "blank-id-deal-row",
+   "rule": "Q4: a deal_terms row with facility_id \"\" is not shown, nothing of it is pinned, and the run gains the blank-id gap.",
+   "deal_terms": [
+    {
+     "facility_id": "",
+     "currency": "USD",
+     "size_m": "999"
+    },
+    {
+     "facility_id": "TLB",
+     "currency": "USD",
+     "size_m": "450"
+    }
+   ],
+   "quotes": [],
+   "expect": {
+    "facilities": [
+     {
+      "facility_id": "TLB",
+      "terms": {
+       "size_m": [
+        "450",
+        "USD m",
+        "2025-06-30",
+        "ctx_term_1_size_m"
+       ]
+      },
+      "quotes": []
+     }
+    ],
+    "gaps": [
+     "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+     "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
+    ],
+    "ctx_pins": {
+     "ctx_term_1_size_m": [
+      50,
+      "      \"size_m\": \"450\","
+     ]
+    }
+   }
+  },
+  {
+   "id": "missing-id-deal-row",
+   "rule": "Q4: a deal_terms row with no facility_id key at all is treated as blank (that row has 15 keys, so the next row's lines shift up by one).",
+   "deal_terms": [
+    {
+     "_omit": [
+      "facility_id"
+     ],
+     "currency": "USD",
+     "size_m": "999"
+    },
+    {
+     "facility_id": "TLB",
+     "currency": "USD",
+     "size_m": "450"
+    }
+   ],
+   "quotes": [],
+   "expect": {
+    "facilities": [
+     {
+      "facility_id": "TLB",
+      "terms": {
+       "size_m": [
+        "450",
+        "USD m",
+        "2025-06-30",
+        "ctx_term_1_size_m"
+       ]
+      },
+      "quotes": []
+     }
+    ],
+    "gaps": [
+     "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+     "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
+    ],
+    "ctx_pins": {
+     "ctx_term_1_size_m": [
+      49,
+      "      \"size_m\": \"450\","
+     ]
+    }
+   }
+  },
+  {
+   "id": "blank-id-quote-row",
+   "rule": "Q4: a quotes row with facility_id \"\" is not shown (no ctx_quote_0 pin) and adds the blank-id gap; the next quote row keeps its own index.",
+   "deal_terms": [
+    {
+     "facility_id": "TLB",
+     "currency": "USD",
+     "size_m": "450"
+    }
+   ],
+   "quotes": [
+    {
+     "facility_id": "",
+     "kind": "observed",
+     "bid": "98.50",
+     "as_of": "2025-06-30"
+    },
+    {
+     "facility_id": "TLB",
+     "kind": "observed",
+     "ask": "99.00",
+     "as_of": "2025-06-15"
+    }
+   ],
+   "expect": {
+    "facilities": [
+     {
+      "facility_id": "TLB",
+      "terms": {
+       "size_m": [
+        "450",
+        "USD m",
+        "2025-06-30",
+        "ctx_term_0_size_m"
+       ]
+      },
+      "quotes": [
+       {
+        "kind": "observed",
+        "terms": {
+         "ask": [
+          "99.00",
+          "price",
+          "2025-06-15",
+          "ctx_quote_1_ask"
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "gaps": [
+     "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+     "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+     "HTML Model not published by app runs",
+     "A facility row has no facility id; it is not shown"
+    ],
+    "ctx_pins": {
+     "ctx_term_0_size_m": [
+      32,
+      "      \"size_m\": \"450\","
+     ],
+     "ctx_quote_1_ask": [
+      63,
+      "      \"ask\": \"99.00\","
+     ]
+    }
+   }
+  },
+  {
+   "id": "both-gaps-and-the-full-gap-order",
+   "rule": "Gap order: accepted limitations, HTML, the format gap, then one duplicate gap per id in order of first appearance (TLB before SSN-2030), then the blank-id gap once for a blank deal row and a blank quote row.",
+   "cp1": [
+    "Hand-written CP-1 for a facility case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "deal_terms": [
+    {
+     "facility_id": "TLB",
+     "currency": "USD",
+     "size_m": "450"
+    },
+    {
+     "facility_id": "SSN-2030",
+     "currency": "USD",
+     "size_m": "300"
+    },
+    {
+     "facility_id": "TLB",
+     "currency": "USD",
+     "size_m": "400"
+    },
+    {
+     "facility_id": "SSN-2030",
+     "currency": "USD",
+     "size_m": "250"
+    },
+    {
+     "facility_id": "",
+     "currency": "USD",
+     "size_m": "999"
+    }
+   ],
+   "quotes": [
+    {
+     "facility_id": "",
+     "kind": "observed",
+     "bid": "98.50"
+    }
+   ],
+   "expect": {
+    "facilities": [
+     {
+      "facility_id": "TLB",
+      "terms": {},
+      "quotes": []
+     },
+     {
+      "facility_id": "SSN-2030",
+      "terms": {},
+      "quotes": []
+     }
+    ],
+    "gaps": [
+     "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+     "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+     "HTML Model not published by app runs",
+     "CP-1 chart periods are not in the fixed format",
+     "Facility TLB is entered on more than one row; its terms are not shown",
+     "Facility SSN-2030 is entered on more than one row; its terms are not shown",
+     "A facility row has no facility id; it is not shown"
+    ],
+    "ctx_pins": {}
+   }
+  },
+  {
+   "id": "two-sources-around-context",
+   "rule": "Q5: sources a, context, b: wf_source_0 is a, wf_source_1 is b (numbered among the non-context entries), both cited; the context entry's own sha line (21) is not pinned.",
+   "sources_lines": [
+    "    \"a.txt\": {",
+    "      \"path\": \"source-text/a.txt\",",
+    "      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+    "    },",
+    "    \"context\": {",
+    "      \"path\": \"../../intake/synthetic-hy-001/context.json\",",
+    "      \"sha256\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\"",
+    "    },",
+    "    \"b.txt\": {",
+    "      \"path\": \"source-text/b.txt\",",
+    "      \"sha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+    "    }"
+   ],
+   "expect": {
+    "wf_pins": {
+     "wf_source_0": [
+      17,
+      "      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\""
+     ],
+     "wf_source_1": [
+      25,
+      "      \"sha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\""
+     ]
+    },
+    "sources_requirement": {
+     "done": true,
+     "evidence": [
+      "wf_source_0",
+      "wf_source_1"
+     ]
+    }
+   }
+  },
+  {
+   "id": "context-first-then-a-source",
+   "rule": "Q5: when context is the first entry, wf_source_0 is the next entry (line 21), not the context entry (line 17).",
+   "sources_lines": [
+    "    \"context\": {",
+    "      \"path\": \"../../intake/synthetic-hy-001/context.json\",",
+    "      \"sha256\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\"",
+    "    },",
+    "    \"a.txt\": {",
+    "      \"path\": \"source-text/a.txt\",",
+    "      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+    "    }"
+   ],
+   "expect": {
+    "wf_pins": {
+     "wf_source_0": [
+      21,
+      "      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\""
+     ]
+    },
+    "sources_requirement": {
+     "done": true,
+     "evidence": [
+      "wf_source_0"
+     ]
+    }
+   }
+  },
+  {
+   "id": "second-source-without-a-sha256-line",
+   "rule": "Q5: b has no sha256 line, so the requirement is not done and not even a.txt's pin is written.",
+   "sources_lines": [
+    "    \"a.txt\": {",
+    "      \"path\": \"source-text/a.txt\",",
+    "      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+    "    },",
+    "    \"b.txt\": {",
+    "      \"path\": \"source-text/b.txt\"",
+    "    }"
+   ],
+   "expect": {
+    "wf_pins": {},
+    "sources_requirement": {
+     "done": false,
+     "evidence": []
+    }
+   }
+  },
+  {
+   "id": "first-source-without-a-sha256-line",
+   "rule": "Q5: the same when the entry without a sha256 line comes first.",
+   "sources_lines": [
+    "    \"a.txt\": {",
+    "      \"path\": \"source-text/a.txt\"",
+    "    },",
+    "    \"b.txt\": {",
+    "      \"path\": \"source-text/b.txt\",",
+    "      \"sha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+    "    }"
+   ],
+   "expect": {
+    "wf_pins": {},
+    "sources_requirement": {
+     "done": false,
+     "evidence": []
+    }
+   }
+  },
+  {
+   "id": "second-source-with-two-sha256-lines",
+   "rule": "Q5: a source entry whose sha256 key is on two lines does not pin to exactly one line: not done, no pins.",
+   "sources_lines": [
+    "    \"a.txt\": {",
+    "      \"path\": \"source-text/a.txt\",",
+    "      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+    "    },",
+    "    \"b.txt\": {",
+    "      \"path\": \"source-text/b.txt\",",
+    "      \"sha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",",
+    "      \"sha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+    "    }"
+   ],
+   "expect": {
+    "wf_pins": {},
+    "sources_requirement": {
+     "done": false,
+     "evidence": []
+    }
+   }
+  },
+  {
+   "id": "context-as-the-only-source",
+   "rule": "Q5: context alone is no source: not done, no wf_source_* pin.",
+   "sources_lines": [
+    "    \"context\": {",
+    "      \"path\": \"../../intake/synthetic-hy-001/context.json\",",
+    "      \"sha256\": \"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\"",
+    "    }"
+   ],
+   "expect": {
+    "wf_pins": {},
+    "sources_requirement": {
+     "done": false,
+     "evidence": []
+    }
+   }
+  },
+  {
+   "id": "no-sources-at-all",
+   "rule": "Q5: an empty sources object: not done, no pin (guards today's behaviour).",
+   "sources_lines": [],
+   "expect": {
+    "wf_pins": {},
+    "sources_requirement": {
+     "done": false,
+     "evidence": []
+    }
+   }
+  }
+ ]
+}
