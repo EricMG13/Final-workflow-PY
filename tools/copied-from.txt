@@ -318,7 +318,7 @@ tests/test_cp4_wording.py
 tests/test_cp4c_refused_at_begin.py
 tests/test_cp4c_secured_facility.py
 tests/test_cp5_checks_once.py
-tests/test_cpos_app.py
+edited tests/test_cpos_app.py
 tests/test_cpos_comparison.py
 tests/test_cpos_handoffs.py
 tests/test_cpos_launch.py
