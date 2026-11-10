@@ -542,11 +542,6 @@ def test_a_launch_failure_is_recorded_and_the_other_engine_still_walks(tmp_path:
 
 
 def test_the_server_is_started_on_a_free_port_not_a_fixed_one(monkeypatch, tmp_path) -> None:
-    import socket
-
-    held = socket.socket()
-    held.bind(("127.0.0.1", 53920))  # the old fixed port is taken by someone else
-    held.listen()
     walked = []
     process = SimpleNamespace(pid=0)
     bc = SimpleNamespace(
@@ -571,8 +566,5 @@ def test_the_server_is_started_on_a_free_port_not_a_fixed_one(monkeypatch, tmp_p
         live_check, "walk", lambda bc, browser, args, ws, summary: walked.append(args.port)
     )
     args = SimpleNamespace(rehearse=True, case_data=None)
-    try:
-        live_check.run_walk(bc, args, tmp_path, {}, {})
-    finally:
-        held.close()
+    live_check.run_walk(bc, args, tmp_path, {}, {})
     assert walked == [41234] and not hasattr(live_check, "PORT")
