@@ -795,6 +795,17 @@ Evidence: key test `[watch_first]` failed 3/3 on the old helper, then passed 10/
 `fail_list` tests 10/10; `tests/test_issuer_library_app.py` 56 passed.
 Not verified: the CI runner's actual interleaving; only the two registration orders forced by the key test.
 
+## 2026-11-10 App tests: read helpers wait for the render they read (test race, branch `claude/sb2-app-test-waits`)
+
+Cause (CI `test_a_null_module_detail_does_not_break_the_row`, `IndexError` at `run.recent()[0]`, run 42770895261): `NewRun`
+helpers read rendered DOM right after a fixed 50 ms `settle()`, before the `/api/runs/list|review|status` reply had
+rendered; a slow runner read an empty `#recent-jobs`. A test race, product correct. Change (tests only, `tests/test_issuer_library_app.py`):
+`NewRun.rendered()` wraps `page.wait_for_function` (10 s, fails naming the condition); `recent()` and `revisit()` wait for
+`#recent-jobs` to hold a node (rows, the empty-list text or the load error), `stages()` for `#module-stages li`,
+`progress()` for `#run-progress .summary-line`, `text(id)` for non-empty text. No test, expected value or `hold_replies` changed.
+Evidence: the 7 forced-delay key tests (`hold_replies`, 1.5 s) failed 7/7 on the old helpers and pass now; the file passes 63/63, 5 runs.
+Not verified: the CI runner's own timing; reads after `tick()` of a changed (not first) render, `hidden`/`disabled`/`exists` booleans and direct `page.evaluate` clicks are still unwaited.
+
 ## 2026-11-10 R-SB2-2a positive qualifier lists
 
 `guess_kind`: the capitalised-word denylist `_QUALIFIER` is replaced by two positive lists in

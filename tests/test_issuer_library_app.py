@@ -271,6 +271,10 @@ def review_reply(ready: bool) -> dict[str, Any]:
     }
 
 
+# #recent-jobs is empty until the list reply renders: rows, the empty-list text or the load error.
+LIST_RENDERED = "document.getElementById('recent-jobs').childNodes.length>0"
+
+
 class NewRun:
     """The New run destination with synthetic replies; Start is counted, never executed."""
 
@@ -325,6 +329,10 @@ class NewRun:
     def settle(self) -> None:
         self.page.wait_for_timeout(50)
 
+    def rendered(self, condition: str) -> None:
+        """Wait (at most 10 s, then fail the test naming the condition) for an async render."""
+        self.page.wait_for_function(condition, timeout=10_000)
+
     def click(self, element_id: str) -> None:
         self.page.evaluate("i=>document.getElementById(i).click()", element_id)
         self.settle()
@@ -337,6 +345,7 @@ class NewRun:
     def revisit(self) -> None:
         self.page.evaluate("window.dispatchEvent(new Event('hashchange'))")
         self.settle()
+        self.rendered(LIST_RENDERED)  # the list reply: rows, the empty-list text or the load error
 
     def launch(self) -> None:
         self.context()
@@ -346,6 +355,7 @@ class NewRun:
         self.click("start-run")
 
     def stages(self) -> list[dict[str, Any]]:
+        self.rendered("document.querySelectorAll('#module-stages li').length>0")
         value: list[dict[str, Any]] = self.page.evaluate(
             "[...document.querySelectorAll('#module-stages li')].map(li=>({"
             "name:li.querySelector('strong')?.textContent,status:li.dataset.status,"
@@ -358,6 +368,7 @@ class NewRun:
         return value
 
     def recent(self) -> list[dict[str, Any]]:
+        self.rendered(LIST_RENDERED)
         value: list[dict[str, Any]] = self.page.evaluate(
             "[...document.querySelectorAll('#recent-jobs tbody tr')].map(tr=>({"
             "head:tr.querySelector('th').textContent,"
@@ -399,6 +410,7 @@ class NewRun:
         return value
 
     def text(self, element_id: str) -> str:
+        self.rendered(f"document.getElementById({json.dumps(element_id)}).textContent!==''")
         value: str = self.page.evaluate("i=>document.getElementById(i).textContent", element_id)
         return value
 
@@ -413,6 +425,7 @@ class NewRun:
         return [call["url"] for call in self.screen.calls()]
 
     def progress(self) -> list[str]:
+        self.rendered("document.querySelectorAll('#run-progress .summary-line').length>0")
         return self.screen.texts("#run-progress .summary-line")
 
     def posted(self, url: str) -> list[Any]:
