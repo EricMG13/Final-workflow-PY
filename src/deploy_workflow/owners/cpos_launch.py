@@ -396,8 +396,8 @@ PRO_FORMA_CP1D = (
     f"`### {ADD_BACK_HEADING}` once, with one table headed {_header(ADD_BACK_HEADER)} and at least "
     "one row, one per management add-back. Verdict is one of "
     + ", ".join(f"`{v}`" for v in VERDICTS)
-    + ". Source names what the row came from. Write labels exactly as shown: Verdict is `Rejected`, "
-    f"not `rejected`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
+    + ". Source names what the row came from. Write labels exactly as shown: Verdict is "
+    f"`Rejected`, not `rejected`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP2 = (
     "Pro forma capitalisation and leverage (Primary run). Under `## Findings`, write these three "
