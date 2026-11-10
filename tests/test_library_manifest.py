@@ -695,227 +695,32 @@ FY24 = "FY2024 ended 2024-06-30"
 LTM25 = "LTM ended 2025-06-30"
 
 
-def test_fy_beats_ltm_on_the_same_date(tmp_path):
-    rows = [lev(LTM25, "3.10", "2.10"), lev(FY25, "4.10", "3.10"), lev(FY24, "5.10", "4.10")]
-    text = chart_text(leverage_table(*rows))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"leverage": ("4.10", FY25), "net_leverage": ("3.10", FY25)}
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-    pinned(manifest, text, "cp1_leverage", rows[1])
-    assert sources_of(manifest) == ["cp1_leverage"]
+SELECTION = json.loads((KEYS / "selection-cases.json").read_text(encoding="utf-8"))["cases"]
 
 
-def test_ltm_is_taken_when_no_fy_row_is_on_the_latest_date(tmp_path):
-    rows = [lev(FY24, "5.10", "4.10"), lev(LTM25, "3.10", "2.10")]
-    text = chart_text(leverage_table(*rows))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"leverage": ("3.10", LTM25), "net_leverage": ("2.10", LTM25)}
-    pinned(manifest, text, "cp1_leverage", rows[1])
-
-
-def test_fy_and_two_ltm_rows_on_the_latest_date_give_no_row(tmp_path):
-    rows = [lev(FY25), lev(LTM25), lev(LTM25, "3.50", "2.50"), lev(FY24, "5.10", "4.10")]
-    manifest, _ = built(tmp_path, chart_text(leverage_table(*rows)))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_two_fy_rows_on_the_latest_date_give_no_row_and_no_older_fallback(tmp_path):
-    rows = [lev(FY25), lev(FY25, "4.50", "3.50"), lev(FY24, "5.10", "4.10")]
-    manifest, _ = built(tmp_path, chart_text(leverage_table(*rows)))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-
-
-def test_rows_dated_after_as_of_are_ignored(tmp_path):
-    # The edge run's as-of date is 2025-06-30.
-    rows = [
-        lev("FY2026 ended 2026-06-30", "9.10", "8.10"),
-        lev("LTM ended 2025-09-30", "9.20", "8.20"),
-        lev(FY25, "4.10", "3.10"),
-    ]
-    liquidity = [liq("2025-07-01", "999", "888"), liq("2025-06-30", "101", "51")]
-    text = chart_text(leverage_table(*rows), liquidity_table(*liquidity))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {
-        "leverage": ("4.10", FY25),
-        "net_leverage": ("3.10", FY25),
-        "cash": ("101", "2025-06-30"),
-        "undrawn": ("51", "2025-06-30"),
-    }
-    pinned(manifest, text, "cp1_leverage", rows[2])
-    pinned(manifest, text, "cp1_liquidity", liquidity[1])
-
-
-def test_only_later_rows_give_no_metric_and_no_gap(tmp_path):
-    text = chart_text(leverage_table(lev("FY2026 ended 2026-06-30")))
-    manifest, _ = built(tmp_path, text)
-    assert manifest["run"]["metrics"] == {} and manifest["run"]["gaps"] == [HTML_GAP]
-
-
-@pytest.mark.parametrize("interim", ["H1 2025", "H2 2025", "9M 2025", "Q2 2025"])
-def test_interim_rows_do_not_block_and_are_not_selected(tmp_path, interim):
-    rows = [lev(f"{interim} ended 2025-06-30", "7.10", "6.10"), lev("FY2024 ended 2024-12-31")]
-    manifest, _ = built(tmp_path, chart_text(leverage_table(*rows)))
-    assert shown(manifest) == {
-        "leverage": ("4.00", "FY2024 ended 2024-12-31"),
-        "net_leverage": ("3.00", "FY2024 ended 2024-12-31"),
-    }
-
-
-def test_interim_row_alone_gives_no_metric(tmp_path):
-    manifest, _ = built(tmp_path, chart_text(leverage_table(lev("H1 2025 ended 2025-06-30"))))
-    assert manifest["run"]["metrics"] == {} and manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_the_latest_row_need_not_be_the_first(tmp_path):
-    rows = [lev(FY24, "5.10", "4.10"), lev(FY25, "4.10", "3.10")]
-    cover = [cov(FY24, "2.10"), cov("LTM ended 2025-03-31", "2.20"), cov(FY25, "2.90")]
-    liquidity = [liq("2024-12-31", "10", "5"), liq("2025-06-30", "20", "6")]
-    text = chart_text(leverage_table(*rows), cover_table(*cover), liquidity_table(*liquidity))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {
-        "leverage": ("4.10", FY25),
-        "net_leverage": ("3.10", FY25),
-        "coverage": ("2.90", FY25),
-        "cash": ("20", "2025-06-30"),
-        "undrawn": ("6", "2025-06-30"),
-    }
-    pinned(manifest, text, "cp1_coverage", cover[2])
-    pinned(manifest, text, "cp1_liquidity", liquidity[1])
-
-
-def test_the_kind_year_is_not_compared_with_the_date_year(tmp_path):
-    text = chart_text(leverage_table(lev("FY2030 ended 2025-06-30", "4.10", "3.10")))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest)["leverage"] == ("4.10", "FY2030 ended 2025-06-30")
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_an_impossible_date_makes_the_table_unreadable_and_adds_the_gap(tmp_path):
-    rows = [lev("FY2025 ended 2025-02-30", "4.10", "3.10"), lev(FY24, "5.10", "4.10")]
-    cover = [cov(FY25, "2.90")]
-    text = chart_text(leverage_table(*rows), cover_table(*cover))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"coverage": ("2.90", FY25)}
-    assert sources_of(manifest) == ["cp1_coverage"]
-    assert manifest["run"]["gaps"] == [HTML_GAP, FORMAT_GAP]
-
-
-def test_one_off_format_row_makes_its_whole_table_unreadable(tmp_path):
-    rows = [lev(FY25, "4.10", "3.10"), lev("FY2024 / 2024-06-30", "5.10", "4.10")]
-    manifest, _ = built(tmp_path, chart_text(leverage_table(*rows)))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-    assert manifest["run"]["gaps"] == [HTML_GAP, FORMAT_GAP]
-
-
-def test_two_liquidity_rows_on_the_latest_date_give_no_row(tmp_path):
-    rows = [
-        liq("2025-06-30", "10", "1"),
-        liq("2025-06-30", "20", "2"),
-        liq("2024-06-30", "30", "3"),
-    ]
-    manifest, _ = built(tmp_path, chart_text(liquidity_table(*rows)))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-
-
-def test_a_duplicate_heading_gives_no_metric_and_no_gap(tmp_path):
-    first, second = leverage_table(lev(FY25)), leverage_table(lev(FY24, "5.10", "4.10"))
-    text = chart_text(first, second, cover_table(cov(FY25, "2.90")))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"coverage": ("2.90", FY25)}
-    assert sources_of(manifest) == ["cp1_coverage"]
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_a_row_with_the_wrong_cell_count_gives_no_metric_and_no_gap(tmp_path):
-    short = f"| {FY25} | 4.10 | 3.10 | x |"
-    rows = [short, lev(FY24, "5.10", "4.10")]
-    long = f"| {FY25} | 2.90 | x | cov basis | extra |"
-    text = chart_text(leverage_table(*rows), cover_table(long, cov(FY24, "2.10")))
-    manifest, _ = built(tmp_path, text)
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-@pytest.mark.parametrize("cell", ["4,10", "12,34", "1250,000"])
-def test_an_admission_unreadable_number_is_no_metric_but_its_sibling_stays(tmp_path, cell):
-    rows = [lev(FY25, debt=cell, net="1,250.5"), lev(FY24, "5.10", "4.10")]
-    text = chart_text(leverage_table(*rows))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"net_leverage": ("1250.5", FY25)}
-    pinned(manifest, text, "cp1_leverage", rows[0])
-
-
-def test_thousands_separators_are_written_without_commas(tmp_path):
-    text = chart_text(liquidity_table(liq("2025-06-30", cash="12,345", undrawn="1,250.5")))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"cash": ("12345", "2025-06-30"), "undrawn": ("1250.5", "2025-06-30")}
-
-
-def test_a_blank_basis_gives_no_metric_for_the_row(tmp_path):
-    rows = [lev(FY25, basis=""), lev(FY24, "5.10", "4.10")]
-    manifest, _ = built(tmp_path, chart_text(leverage_table(*rows)))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_a_wrong_unit_gives_no_metric(tmp_path):
-    manifest, _ = built(tmp_path, chart_text(liquidity_table(liq("2025-06-30", unit="US$bn"))))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-
-
-def test_not_supplied_in_the_chosen_row_is_not_replaced_by_an_older_row(tmp_path):
-    rows = [lev(FY25, debt="Not supplied: no filing", net="3.10"), lev(FY24, "5.10", "4.10")]
-    text = chart_text(leverage_table(*rows))
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"net_leverage": ("3.10", FY25)}
-    pinned(manifest, text, "cp1_leverage", rows[0])
-    both = lev(FY25, debt="Not supplied: a", net="Not supplied: b")
-    manifest, _ = built(tmp_path / "second", chart_text(leverage_table(both, rows[1])))
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-
-
-def test_a_missing_table_gives_no_metric_and_no_gap(tmp_path):
-    text = chart_text(leverage_table(lev(FY25)), liquidity_table(liq("2025-06-30")))
-    manifest, _ = built(tmp_path, text)
-    assert sorted(manifest["run"]["metrics"]) == ["cash", "leverage", "net_leverage", "undrawn"]
-    assert sources_of(manifest) == ["cp1_leverage", "cp1_liquidity"]
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_a_missing_cp1_file_gives_no_metric_and_no_gap(tmp_path):
-    manifest, _ = built(tmp_path, None)
-    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-    assert "handoff_CP-1" not in manifest["sources"]
-
-
-def test_the_format_gap_appears_once_for_two_off_format_tables(tmp_path):
-    text = chart_text(
-        leverage_table(lev("FY2025 / 2025-06-30")),
-        cover_table(cov("FY2025"), cov("FY2024")),
-        liquidity_table(liq("2025-06-30", "20", "6")),
-    )
-    manifest, _ = built(tmp_path, text)
-    assert shown(manifest) == {"cash": ("20", "2025-06-30"), "undrawn": ("6", "2025-06-30")}
-    assert manifest["run"]["gaps"] == [HTML_GAP, FORMAT_GAP]
-
-
-def test_a_liquidity_period_with_the_ratio_format_is_off_format(tmp_path):
-    manifest, _ = built(tmp_path, chart_text(liquidity_table(liq("FY2025 ended 2025-06-30"))))
-    assert manifest["run"]["metrics"] == {}
-    assert manifest["run"]["gaps"] == [HTML_GAP, FORMAT_GAP]
-
-
-def test_the_format_gap_follows_the_expectation_gaps_and_the_html_gap(tmp_path):
-    text = chart_text(leverage_table(lev("FY2025")))
-    manifest, _ = built(tmp_path, text, case="synthetic")
-    assert manifest["run"]["gaps"] == [
-        PRIVATE_GAP,
-        LEGAL_GAP,
-        HTML_GAP,
-        FORMAT_GAP,
-    ]
+@pytest.mark.parametrize("c", SELECTION, ids=[c["id"] for c in SELECTION])
+def test_selection_case_gives_the_hand_written_answers(tmp_path, c):
+    """Each case of selection-cases.json: its CP-1 text, built (and, where stated, written)."""
+    text = None if c["cp1"] is None else "\n".join(c["cp1"])
+    want = c["expect"]
+    manifest, _ = built(tmp_path / "built", text, case=c.get("case", "edge"))
+    if "metrics" in want:
+        assert shown(manifest) == {k: tuple(v) for k, v in want["metrics"].items()}
+    for name, pair in want.get("metrics_include", {}).items():
+        assert shown(manifest)[name] == tuple(pair)
+    if "metric_names" in want:
+        assert sorted(manifest["run"]["metrics"]) == want["metric_names"]
+    if "sources" in want:
+        assert sources_of(manifest) == want["sources"]
+    for source, row in want.get("pinned", []):
+        pinned(manifest, text, source, row)
+    for source in want.get("absent_sources", []):
+        assert source not in manifest["sources"]
+    if "gaps" in want:
+        assert manifest["run"]["gaps"] == want["gaps"]
+    if "discovered_metrics" in want:
+        run = written_and_discovered(tmp_path / "written", text)
+        assert sorted(run.metrics) == want["discovered_metrics"]
 
 
 def test_the_format_gap_follows_the_expectation_gaps_when_the_model_is_published(tmp_path):
@@ -1039,59 +844,6 @@ def written_and_discovered(tmp_path, text):
 def only_html_gap(manifest):
     assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
     assert manifest["run"]["gaps"] == [HTML_GAP]
-
-
-def test_a_liquidity_table_with_the_basis_column_first_is_unreadable(tmp_path):
-    head = (
-        "| Basis and limitation | Period | Cash | Undrawn committed facilities | Reporting unit |"
-    )
-    row = "| gross (see note | 2025-06-30 | 20 | 6 | US$m |"
-    text = chart_text(table(LIQ_HEAD, head, row))
-    manifest, _ = built(tmp_path / "built", text)
-    only_html_gap(manifest)
-    run = written_and_discovered(tmp_path / "written", text)
-    assert run.metrics == {}
-
-
-def test_reordered_leverage_value_columns_are_unreadable(tmp_path):
-    head = (
-        "| Period | Net debt / EBITDA | Total debt / EBITDA | Reporting unit |"
-        " Basis and limitation |"
-    )
-    text = chart_text(table(LEV_HEAD, head, lev("FY2025 ended 2025-06-30")))
-    manifest, _ = built(tmp_path, text)
-    only_html_gap(manifest)
-
-
-def test_an_extra_column_after_the_basis_column_is_unreadable(tmp_path):
-    head = LIQ_COLUMNS[:-1] + " Note |"
-    row = liq("2025-06-30") + " n |"
-    manifest, _ = built(tmp_path, chart_text(table(LIQ_HEAD, head, row)))
-    only_html_gap(manifest)
-
-
-def test_a_table_without_a_period_column_is_unreadable(tmp_path):
-    head = "| Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |"
-    row = "| 20 | 6 | US$m | b |"
-    manifest, _ = built(tmp_path, chart_text(table(LIQ_HEAD, head, row)))
-    only_html_gap(manifest)
-
-
-def test_a_non_finite_value_writes_no_metric_and_its_sibling_stays(tmp_path):
-    text = chart_text(liquidity_table(liq("2025-06-30", cash="9" * 400, undrawn="6")))
-    manifest, _ = built(tmp_path / "built", text)
-    assert shown(manifest) == {"undrawn": ("6", "2025-06-30")}
-    run = written_and_discovered(tmp_path / "written", text)
-    assert sorted(run.metrics) == ["undrawn"]
-
-
-def test_the_standard_header_with_the_same_rows_writes_and_is_admitted(tmp_path):
-    text = chart_text(liquidity_table(liq("2025-06-30", "20", "6", basis="gross (see note)")))
-    manifest, _ = built(tmp_path / "built", text)
-    assert shown(manifest) == {"cash": ("20", "2025-06-30"), "undrawn": ("6", "2025-06-30")}
-    assert manifest["run"]["gaps"] == [HTML_GAP]
-    run = written_and_discovered(tmp_path / "written", text)
-    assert sorted(run.metrics) == ["cash", "undrawn"]
 
 
 # ---- R-26 fix round 2: the writer's output is admitted by discovery, or it is not written -------
