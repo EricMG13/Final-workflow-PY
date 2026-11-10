@@ -74,7 +74,7 @@ MONTHS = (
 
 
 def _cased(*words: str) -> str:
-    """Case-sensitive alternatives: each word as Title Case or UPPER CASE (numeric ordinals as written)."""
+    """Case-sensitive alternatives: Title Case or UPPER CASE (numeric ordinals as written)."""
     forms = {
         form
         for w in words
