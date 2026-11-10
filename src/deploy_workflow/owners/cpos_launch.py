@@ -312,8 +312,12 @@ PROVISIONAL_ISSUES = {
 PRO_FORMA_CELL_RULE = (
     "Every amount cell, `Total debt / EBITDA` included, is either a plain number such as `1234.5` "
     "or `-10` (digits, optional thousands commas and decimals, a negative with a leading minus; "
-    "no brackets, currency symbol, unit suffix, multiple sign or words) or "
-    "`Not supplied: <reason>` with a reason. A `Reporting unit` or `Currency` cell is never blank. "
+    "a comma is followed by exactly three digits and the first group has one to three digits, as "
+    "in `1,234`; the minus is the ASCII hyphen `-`, never the Unicode minus `\u2212`; no brackets, "
+    "currency symbol, unit suffix, multiple sign or words) or `Not supplied: <reason>` with a "
+    "reason that holds at least one letter or digit. Write a plain number such as `1,234`, `-18` "
+    "or `0.5`, with no plus sign and no bare leading point. A `Reporting unit` or `Currency` cell "
+    "is never blank. "
     "Take every figure from the sources and handoffs or from `calculate`; plug nothing and "
     "invent no haircut."
 )
@@ -367,6 +371,11 @@ EBITDA_DEFINITIONS = ("EBIT plus D&A", "Adjusted EBITDA", "As Defined")
 BASES = ("documented", "user-entered")
 
 
+FINDINGS_ONLY = (
+    "A table outside `## Findings` is not read, and the answer has one `## Findings` section."
+)
+
+
 def _header(header: Sequence[str]) -> str:
     return f"`| {' | '.join(header)} |`"
 
@@ -379,27 +388,35 @@ PRO_FORMA_CP1A = (
     "on its own `documented` row and log the difference, never resolve it. Source names what the "
     "row came from. Write at least one `Source` row and one `Use` row, then exactly one row with "
     "Item `Total sources` (Side `Source`) and exactly one with Item `Total uses` (Side `Use`), "
-    f"each total from `calculate`. {PRO_FORMA_CELL_RULE}\n\n"
+    "each total from `calculate`. Write labels exactly as shown: `Total sources`, not "
+    f"`Total Sources`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP1D = (
     "Pro forma add-back register (Primary run). Under `## Findings`, write "
     f"`### {ADD_BACK_HEADING}` once, with one table headed {_header(ADD_BACK_HEADER)} and at least "
     "one row, one per management add-back. Verdict is one of "
     + ", ".join(f"`{v}`" for v in VERDICTS)
-    + f". Source names what the row came from. {PRO_FORMA_CELL_RULE}\n\n"
+    + ". Source names what the row came from. Write labels exactly as shown: Verdict is "
+    f"`Rejected`, not `rejected`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP2 = (
     "Pro forma capitalisation and leverage (Primary run). Under `## Findings`, write these three "
     "tables, each under its own heading, once. Unrealised and unresolved add-backs are shown and "
-    "never counted in the base.\n"
+    f"never counted in the base. {FINDINGS_ONLY}\n"
     f"- `### {CAPITALISATION_HEADING}`: above the table, one line `Balance-sheet date: "
     "YYYY-MM-DD` and one line `LTM period: <text>`, each once. The table is headed "
     f"{_header(CAPITALISATION_HEADER)}. Currency is a 3-letter code. Basis is `documented` or "
     "`user-entered`. One row has Instrument `Cash`; every other row that is not a total is a debt "
-    "instrument. For each currency a debt row uses, one row `Total debt (<CCY>)`. The Cash row "
-    "and every total row cite `CP-1A` in Source (cash to balance sheet, fees and OID, and the "
-    "debt, per its sources and uses). Write a `Total debt (all currencies)` row only after a "
-    "line `FX rate: <rate> (<source>)`.\n"
+    "instrument, and the table has at least one debt row (a Cash row alone is not enough). For "
+    "each currency a debt row uses, one row `Total debt (<CCY>)`, and its Currency must equal the "
+    "code in the label; write no total for a currency that no debt row uses. The Cash row and "
+    "every total row cite `CP-1A` in Source (cash to balance sheet, fees and OID, and the debt, "
+    "per its sources and uses). Write labels exactly as shown, with the currency code in upper "
+    "case: `Total debt (USD)`, not `Total debt (usd)` or `Total Debt (USD)`. Write a "
+    "`Total debt (all currencies)` row only after a line `FX rate: <rate> (<source>)` under the "
+    "heading, above the table. `<rate>` is a plain number, optionally preceded by a currency "
+    "pair `AAA/BBB`, as in `FX rate: EUR/USD 1.25 (ECB reference rate, 2014-06-30)`; a line "
+    "after the table does not count, and neither does a line above the heading.\n"
     f"- `### {LADDER_HEADING}`: headed {_header(LADDER_HEADER)}, with exactly these rows in this "
     "order: "
     + "; ".join(f"`{row}`" for row in LADDER_ROWS)
@@ -1207,11 +1224,24 @@ def consumer_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
     return ()
 
 
-AMOUNT = re.compile(r"-?\d[\d,]*(\.\d+)?")
-NOT_SUPPLIED_WITH_REASON = re.compile(r"Not supplied:\s+\S.*")
+# R-L6, R-L8 and R-L16: with commas the first group has 1 to 3 digits and each later group
+# exactly 3;
+# the minus is the ASCII hyphen only; there is no plus sign and no bare leading point.
+NUMBER = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+AMOUNT = re.compile(f"-?{NUMBER}")
+# R-L7: the reason holds a letter or digit. The lookahead scans once and cannot backtrack.
+NOT_SUPPLIED_WITH_REASON = re.compile(r"Not supplied:(?=[\W_]*[^\W_])\s.*")
 ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
-FX_LINE = re.compile(r"FX rate: \d[\d,]*(\.\d+)? \(.*\S.*\)")
+# R-L12 and R-L15: `FX rate: <rate> (<source>)`; the rate may follow a pair such as EUR/USD.
+FX_LINE = re.compile(rf"FX rate: (?:[A-Z]{{3}}/[A-Z]{{3}} )?{NUMBER} \(\s*\S.*\)")
+# R-L9: a pair of `**`, `__`, `*` or `_` around text. An opening marker follows a non-word
+# character and a closing one precedes a non-space, so `snake_case` and `* item` are left alone.
+EMPHASIS_DEPTH = 4
+EMPHASIS = re.compile(r"(?<!\w)(\*\*|__|\*|_)(?=\S)((?:(?!\1).)+?)(?<=\S)\1(?!\w)")
 TOTAL_DEBT = re.compile(r"Total debt \((.+)\)")
+ALL_CURRENCIES_TOTAL = "Total debt (all currencies)"
+LIST_MARKER = re.compile(r"[-*]\s+")
+UNESCAPED_PIPE = re.compile(r"(?<!\\)\|")
 CURRENCY_CODE = re.compile(r"[A-Z]{3}")
 Rule = Callable[[str], str]
 
@@ -1223,7 +1253,20 @@ def _pf(category: str, table: str, detail: str) -> str:
 def _amount(cell: str) -> str:
     if AMOUNT.fullmatch(cell) or NOT_SUPPLIED_WITH_REASON.fullmatch(cell):
         return ""
-    return "write a plain number (a leading minus if negative) or `Not supplied: <reason>`"
+    base = (
+        "write a plain number such as `1,234`, `-18` or `0.5`, with no plus sign (a leading ASCII "
+        "minus `-` if negative) or `Not supplied: <reason>`"
+    )
+    if cell.startswith("Not supplied:"):
+        return f"{base}; the reason needs at least one letter or digit"
+    if "\u2212" in cell:
+        return f"{base}; the minus is the ASCII `-`, never U+2212"
+    if "," in cell:
+        return (
+            f"{base}; a comma must be followed by exactly three digits and the first group has "
+            "one to three digits"
+        )
+    return base
 
 
 def _named(cell: str) -> str:
@@ -1238,27 +1281,85 @@ def _one_of(*words: str) -> Rule:
     return lambda cell: "" if cell in words else f"must be one of {', '.join(words)}"
 
 
+def _plain(text: str) -> str:
+    """R-L9: a heading, label or cell without emphasis (`**`, `__`, `*`, `_`) or surrounding
+    whitespace. Read-only: delivery passes the cell on unchanged."""
+    text = text.strip()
+    for _ in range(EMPHASIS_DEPTH):  # A bounded number of nested layers keeps this linear.
+        stripped = EMPHASIS.sub(r"\2", text)
+        if stripped == text:
+            break
+        text = stripped
+    return text.strip()
+
+
+def _label_text(line: str) -> str:
+    """R-L9 and R-L10: a label line without emphasis and without a `- ` or `* ` list marker."""
+    return LIST_MARKER.sub("", _plain(line), count=1)
+
+
+def _labelled(line: str, label: str) -> str | None:
+    """The value on a `<label> <value>` line, or None when the line does not start with it."""
+    text = _label_text(line)
+    return text.removeprefix(label).strip() if text.startswith(label) else None
+
+
+def _under(lines: list[str], title: str, level: int) -> list[str]:
+    """The lines under the one heading of this level and title (R-L9: emphasis and surrounding
+    whitespace ignored), up to the next heading of the same or a higher level. None or several
+    such headings give no lines, so the table reads as missing."""
+    wanted = "#" * level + f" {title}"
+    starts = [i for i, line in enumerate(lines) if _plain(line) == wanted]
+    if len(starts) != 1:
+        return []
+    stop = tuple("#" * size + " " for size in range(1, level + 1))
+    rest = lines[starts[0] + 1 :]
+    return next(
+        (rest[:i] for i, line in enumerate(rest) if _plain(line).startswith(stop)),
+        rest,
+    )
+
+
+def _findings(text: str) -> list[str]:
+    """R-L1: the lines under `## Findings`, the only place a pro forma table is read. CRLF is
+    read as LF (R-L13)."""
+    return _under(text.splitlines(), "Findings", 2)
+
+
+def _row_cells(row: str) -> list[str]:
+    """R-L11: the cells of a table row; `\\|` is a literal pipe, not a column break."""
+    inner = row.removeprefix("|")
+    if inner.endswith("|") and not inner.endswith("\\|"):
+        inner = inner[:-1]
+    return [cell.strip().replace("\\|", "|") for cell in UNESCAPED_PIPE.split(inner)]
+
+
 def _pro_forma_table(
-    lines: list[str], heading: str, header: Sequence[str]
+    findings: list[str], heading: str, header: Sequence[str]
 ) -> list[list[str]] | None:
-    """The data rows of one pro forma table; None when its heading is missing or repeated, its
-    exact header is absent or it has no separator row."""
+    """The data rows of one pro forma table under `## Findings`; None when its heading is missing
+    or repeated, its exact header is absent or it has no separator row. A row label is read
+    without emphasis (R-L9)."""
     rows: list[list[str]] = []
-    for line in _body(lines, heading, 3):
+    for line in _under(findings, heading, 3):
         found = table_row(line)
         if found is not None:
-            rows.append(_cells(found))
+            rows.append(_row_cells(found))
         elif rows:
             break
-    if len(rows) < 2 or rows[0] != list(header):
+    if len(rows) < 2 or [_plain(c) for c in rows[0]] != list(header):
         return None
     if len(rows[1]) != len(header) or not all(re.fullmatch(r":?-+:?", c) for c in rows[1]):
         return None
-    return rows[2:]
+    return [[_plain(cell) for cell in row] for row in rows[2:]]
 
 
 def _missing(heading: str, header: Sequence[str]) -> str:
-    detail = f"write `### {heading}` once inside ## Findings, a table headed {_header(header)}"
+    detail = (
+        f"write `### {heading}` once inside the one `## Findings` section (a table outside "
+        f"`## Findings` is not read; headings are written exactly as shown), a table headed "
+        f"{_header(header)}"
+    )
     return _pf("pro_forma_table_missing", heading, detail + " and a separator row.")
 
 
@@ -1358,21 +1459,29 @@ def _add_back_issues(lines: list[str]) -> list[str]:
     return issues + _cell_issues(heading, header, rows, rules)
 
 
+def _above_table(body: list[str]) -> list[str]:
+    above = []
+    for line in body:
+        if table_row(line) is not None:
+            break
+        above.append(line)
+    return above
+
+
 def _capitalisation_issues(lines: list[str]) -> list[str]:
     heading, header = CAPITALISATION_HEADING, CAPITALISATION_HEADER
     table = _pro_forma_table(lines, heading, header)
     if table is None:
         return [_missing(heading, header)]
     rows, issues = _whole_rows(heading, header, table)
-    body = [line.strip() for line in _body(lines, heading, 3)]
-    dates = [line for line in body if line.startswith("Balance-sheet date:")]
-    periods = [line for line in body if line.startswith("LTM period:")]
-    date_text = dates[0].removeprefix("Balance-sheet date:").strip() if dates else ""
-    if len(dates) != 1 or not ISO_DATE.fullmatch(date_text):
+    body = _under(lines, heading, 3)
+    dates = [v for line in body if (v := _labelled(line, "Balance-sheet date:")) is not None]
+    periods = [v for line in body if (v := _labelled(line, "LTM period:")) is not None]
+    if len(dates) != 1 or not ISO_DATE.fullmatch(dates[0]):
         issues.append(
             _pf("pro_forma_basis", heading, "write one line `Balance-sheet date: YYYY-MM-DD`.")
         )
-    if len(periods) != 1 or not periods[0].removeprefix("LTM period:").strip():
+    if len(periods) != 1 or not periods[0]:
         issues.append(_pf("pro_forma_basis", heading, "write one line `LTM period: <text>`."))
     rules = {
         "Instrument": _named,
@@ -1384,28 +1493,77 @@ def _capitalisation_issues(lines: list[str]) -> list[str]:
         "Source": _named,
     }
     issues += _cell_issues(heading, header, rows, rules)
-    return issues + _capitalisation_rows(heading, rows, any(FX_LINE.fullmatch(b) for b in body))
+    has_fx = any(FX_LINE.fullmatch(_label_text(line)) for line in _above_table(body))  # R-L2
+    return issues + _capitalisation_rows(heading, rows, has_fx)
+
+
+def _total_issues(heading: str, totals: list[list[str]], used: set[str]) -> list[str]:
+    """R-L4 and R-L5: each `Total debt (CCY)` row is in the currency its label names, and names a
+    currency some debt row uses."""
+    issues = []
+    for row in totals:
+        ccy = TOTAL_DEBT.fullmatch(row[0])
+        if ccy is None or row[0] == ALL_CURRENCIES_TOTAL:
+            continue
+        if ccy[1] not in used:
+            detail = (
+                f"row `{row[0]}`: no debt row uses {ccy[1]}; write no total for a currency "
+                "that no debt row uses."
+            )
+            if ccy[1].upper() in used:  # R-L17: the label is exact, the code in upper case.
+                detail = (
+                    f"row `{row[0]}`: write the label exactly as shown, expected "
+                    f"`Total debt ({ccy[1].upper()})`, with the currency code in upper case."
+                )
+            issues.append(_pf("pro_forma_rows", heading, detail))
+        elif row[1] != ccy[1]:
+            issues.append(
+                _pf(
+                    "pro_forma_cell",
+                    heading,
+                    f"row `{row[0]}`: Currency must equal the code in the label ({ccy[1]}).",
+                )
+            )
+    return issues
 
 
 def _capitalisation_rows(heading: str, rows: list[list[str]], has_fx: bool) -> list[str]:
-    """P-2, P-5 and P-6 for the capitalisation table: Cash, per-currency totals, citations, FX."""
+    """P-2, P-5 and P-6 for the capitalisation table: Cash, debt, per-currency totals, citations,
+    FX."""
     issues = []
     cash = [row for row in rows if row[0] == "Cash"]
     if len(cash) != 1:
         issues.append(_pf("pro_forma_rows", heading, "write exactly one `Cash` row."))
     totals = [row for row in rows if TOTAL_DEBT.fullmatch(row[0])]
     debt = [row for row in rows if row[0] != "Cash" and row not in totals]
-    for ccy in sorted({row[1] for row in debt if CURRENCY_CODE.fullmatch(row[1])}):
+    if not debt:  # R-L3: with no debt row the CP-1A citation would be vacuous.
+        issues.append(
+            _pf(
+                "pro_forma_rows",
+                heading,
+                "write at least one debt row (a Cash row alone is not enough).",
+            )
+        )
+    used = {row[1] for row in debt if CURRENCY_CODE.fullmatch(row[1])}
+    for ccy in sorted(used):
         if sum(1 for row in totals if row[0] == f"Total debt ({ccy})") != 1:
             issues.append(
-                _pf("pro_forma_rows", heading, f"write exactly one `Total debt ({ccy})` row.")
+                _pf(
+                    "pro_forma_rows",
+                    heading,
+                    f"write exactly one `Total debt ({ccy})` row, with the label exactly as "
+                    "shown and the currency code in upper case.",
+                )
             )
-    if any(row[0] == "Total debt (all currencies)" for row in totals) and not has_fx:
+    issues += _total_issues(heading, totals, used)
+    if any(row[0] == ALL_CURRENCIES_TOTAL for row in totals) and not has_fx:
         issues.append(
             _pf(
                 "pro_forma_fx",
                 heading,
-                "write `FX rate: <rate> (<source>)` before a cross-currency total.",
+                "write the line `FX rate: <rate> (<source>)` (an optional pair `AAA/BBB` before "
+                "the rate) under the heading, above the table, before a cross-currency total; a "
+                "line after the table does not count, and neither does a line above the heading.",
             )
         )
     issues += [
@@ -1510,7 +1668,7 @@ PRO_FORMA_CHECKS: tuple[tuple[str, Callable[[list[str]], list[str]]], ...] = (
 def pro_forma_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
     """P-1 to P-7: the pro forma tables of a module whose instructions carry its constant, and
     nothing elsewhere. Structure only: no number is summed or compared."""
-    lines = text.splitlines()
+    lines = _findings(text)
     issues: list[str] = []
     for constant, check in PRO_FORMA_CHECKS:
         if constant.encode() in task.instructions:

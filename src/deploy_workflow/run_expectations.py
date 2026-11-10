@@ -67,12 +67,47 @@ def _rx(pattern: str) -> re.Pattern[str]:
     return re.compile(pattern, re.IGNORECASE)
 
 
-# Up to two capitalised qualifiers before a title phrase (ABL, Term Loan, Public); not a form, an
-# amendment title, a connective ("Joinder to ...") or a determiner ("Each Credit Agreement ...").
-_QUALIFIER = (
-    r"(?:(?!(?:the|this|form|amendment|to|of|and|under|for|with|each|our|such|any)\b)"
-    r"(?-i:[A-Z][\w&-]*) ){1,2}"
+MONTHS = (
+    *("january", "february", "march", "april", "may", "june", "july"),
+    *("august", "september", "october", "november", "december"),
 )
+
+
+def _cased(*words: str) -> str:
+    """Case-sensitive alternatives: Title Case or UPPER CASE (numeric ordinals as written)."""
+    forms = {
+        form
+        for w in words
+        for form in ((w, w.upper()) if w[0].isdigit() else (w.title(), w.upper()))
+    }
+    return "(?-i:" + "|".join(sorted(forms, key=len, reverse=True)) + ")"
+
+
+# Words that may qualify a title phrase, matched case-sensitively (Title or UPPER) as on main.
+# Positive lists: any other opener ("Joinder In", "Release From", "Existing", "Amended", "Investor")
+# leaves the line unrecognised. Facility words and "[ordinal] Amended and Restated" combine freely.
+_ORDINAL = _cased(
+    *("First", "Second", "Third", "Fourth", "Fifth"),
+    *("Sixth", "Seventh", "Eighth", "Ninth", "Tenth"),
+    *("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
+)
+_CREDIT_QUALIFIER = (
+    rf"(?:(?:{_cased('Abl', 'Term Loan', 'Revolving', 'Senior', 'Secured', 'Unsecured')}|"
+    rf"{_cased('First', 'Second', 'Third')} {_cased('Lien')}|"
+    rf"{_cased('Superpriority', 'Bridge', 'Dip')}|"
+    rf"(?:{_ORDINAL} )?(?-i:Amended (?i:and) Restated|AMENDED AND RESTATED)) )*"
+)
+_LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
+# A title ends at its phrase (optional punctuation) or continues only with a recognised tail, so a
+# body sentence that starts with the phrase ("Credit Agreement borrowings were ...") is no title.
+_TAIL = (
+    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|(?:"
+    + "|".join(MONTHS)
+    + r") \d{1,2}, \d{4}\W*)"
+)
+_DEFINED_TERM = r"\((?:this|the) [\"“][^\"“”]+[\"”]\)"  # (this "Agreement"), straight or curly.
+_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+{_TAIL})?$")
+_ENDS_AT_PHRASE = frozenset({"credit_agreement", "lender_presentation"})  # Title lines only.
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -85,7 +120,10 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "credit_agreement",
-        _rx(rf"(?:(?:the|this) |{_QUALIFIER})?(?:amended and restated )?credit agreement\b"),
+        _rx(
+            rf"(?:(?:the|this) (?:amended and restated )?|{_CREDIT_QUALIFIER})"
+            r"credit agreement\b(?! joinder\b)"
+        ),
     ),
     ("indenture", _rx(r"(?:(?:the|this) )?(?:(?:\w+ )?supplemental )?indenture\b")),
     ("amendment", _rx(r"amendment no\.? ?\d+|\w+ amendment to\b")),
@@ -97,7 +135,10 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "prospectus",
         _rx(r"(?:(?:preliminary|base) )?prospectus\b|supplement no\.? ?\d+\b.*\bprospectus\b"),
     ),
-    ("lender_presentation", _rx(rf"(?:{_QUALIFIER})?lender presentation\b")),
+    (
+        "lender_presentation",
+        _rx(rf"(?:{_LENDER_QUALIFIER}lender presentation|lenders['’]? presentation)\b"),
+    ),
     ("information_memorandum", _rx(r"information memorandum\b")),
     ("term_sheet", _rx(r"term sheet\b|summary of (?:indicative )?terms and conditions\b")),
     ("commitment_letter", _rx(r"commitment letter\b")),
@@ -137,10 +178,6 @@ _CELL = re.compile(r"^[A-Z]+\d+='")  # A workbook page prints cells as A1='text'
 _PREFIX = re.compile(
     r"^(?:L\d+: ?)?(?:ex(?:hibit)?[- ]?\d+(?:\.\d+)* )?", re.IGNORECASE
 )  # captures, EDGAR
-MONTHS = (
-    *("january", "february", "march", "april", "may", "june", "july"),
-    *("august", "september", "october", "november", "december"),
-)
 GERMAN = (
     *("januar", "februar", "märz", "april", "mai", "juni", "juli"),
     *("august", "september", "oktober", "november", "dezember"),
@@ -171,8 +208,9 @@ def _wraps(previous: str, line: str) -> bool:
     return open_prose and len(line.split()) > 6 and not line.isupper()
 
 
-def _hits(lines: list[str]) -> dict[str, str]:
-    """Kind -> the text that matched, from title lines (a line, or a line joined to the next)."""
+def _hits(lines: list[str], *, page: bool = True) -> dict[str, str]:
+    """Kind -> the text that matched, from title lines (a line, or a line joined to the next).
+    Only a page title line must end at its phrase; a file name does not."""
     found: dict[str, str] = {}
     for index, line in enumerate(lines):
         if index and _wraps(lines[index - 1], line):
@@ -180,7 +218,12 @@ def _hits(lines: list[str]) -> dict[str, str]:
         following = lines[index + 1] if index + 1 < len(lines) else ""
         for candidate in (line, f"{line} {following}"):
             for kind, rx in LINE_PHRASES:
-                if match := rx.match(candidate):
+                match = rx.match(candidate)
+                if match and (
+                    not page
+                    or kind not in _ENDS_AT_PHRASE
+                    or _TITLE_END.fullmatch(candidate, match.end())
+                ):
                     found.setdefault(kind, match.group(0))
     text = "\n".join(lines)
     for kind, rx in COVER_PHRASES:
@@ -199,7 +242,7 @@ def _kind(name: str, lines: list[str], pages: Sequence[str]) -> tuple[str, str]:
         if match := INDEX_PHRASE.search(" ".join(page.split())):
             return "financial_report", f"found {match.group(0)!r} on page {number}"
     spaced = " ".join(re.split(r"[-_.]+", name)).upper()
-    named = _hits([_NAME_PREFIX.sub("", spaced)])
+    named = _hits([_NAME_PREFIX.sub("", spaced)], page=False)
     if len(named) == 1:
         ((kind, text),) = named.items()
         return kind, f"file name contains {text!r}"

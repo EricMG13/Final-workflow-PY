@@ -19,7 +19,7 @@ from deploy_vii.render import render
 from deploy_vii.report_view import ReportView, build, pathways
 from deploy_workflow.handoff_delivery import DeliveryRequest, HandoffInput
 from deploy_workflow.markdown_delivery import markdown_files
-from deploy_workflow.owners.cpos_launch import LaunchRefused, _layout
+from deploy_workflow.owners.cpos_launch import REGISTER_HEADER, LaunchRefused, _layout
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = {
@@ -133,8 +133,9 @@ def test_layout_is_unchanged_outside_primary_with_cp2():
 
 
 REGISTER = (
-    "### Legal document register\n\n| Document | Status |\n| --- | --- |\n"
-    "| REGISTER-MARKER-7 indenture | draft |\n\n"
+    f"### Legal document register\n\n| {' | '.join(REGISTER_HEADER)} |\n"
+    f"| {' | '.join(['---'] * len(REGISTER_HEADER))} |\n"
+    "| REGISTER-MARKER-7 indenture | credit agreement or indenture | draft | 1 | src.pdf |\n\n"
 )
 
 
@@ -167,8 +168,9 @@ def test_pro_forma_tables_reach_the_report_unchanged(tmp_path, case_id):
         assert got == want
         assert all(cell.strip() for row in got for cell in row)  # nothing blank, either table
     # The handoff's balance-sheet date and LTM period survive exactly in the block note.
-    for line in (l for l in findings.splitlines() if l.startswith(("Balance-sheet date:", "LTM"))):
-        assert line in (block.note or "")
+    lines = [l for l in findings.splitlines() if l.startswith(("Balance-sheet date:", "LTM"))]
+    assert len(lines) == 2
+    assert block.note == " ".join(lines)  # exact, in the handoff's order, nothing added
     assert "REGISTER-MARKER-7" not in json.dumps(json.loads(files["report-view.json"])["blocks"])
 
 
@@ -285,3 +287,7 @@ def test_other_pathways_deliver_both_tables_intact_in_the_evidence_view(tmp_path
             for cell in row:
                 assert escape(cell) in html
     assert "Not supplied: not stated" in html
+    for line in ("Balance-sheet date: 2014-06-30", "LTM period: LTM Q2 2014"):
+        assert line in findings.splitlines()  # the key's own lines, so the assertion stays exact
+        assert escape(line) in html
+        assert line in files["view.json"].decode()
