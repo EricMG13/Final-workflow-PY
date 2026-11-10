@@ -27,6 +27,7 @@ if (HERE.parent / "lib").is_dir():
 
 from deploy_vii.registry import modules
 from deploy_workflow.context import load_context
+from deploy_workflow.handoff_outcome import actual_of
 from deploy_workflow.model.adapter import KEY_VARIABLES
 from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.pricing import PRICES_AS_OF
@@ -246,6 +247,48 @@ def review_id(job: dict[str, Any], revision: str, prepared: Prepared) -> str:
     return hashlib.sha256(json.dumps(material, sort_keys=True).encode()).hexdigest()
 
 
+def resume_view(
+    job: dict[str, Any], prepared: Prepared
+) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    """A resume's re-runs and retained outcomes; both empty for a plain review. A re-run is every
+    module the stopped run holds an accepted answer for that is not retained, plus the stop module
+    when this run added it (the stopped run planned no instructions for it)."""
+    if job.get("resume_of") is None:
+        return [], []
+    workspace = Path(job["workspace"]).resolve(strict=True)
+    accepted = retained_of(workspace, job)
+    stop, why = prepared.retained_stop
+    title = next((item.title for item in modules() if item.module_id == stop), stop)
+    cp0 = (
+        accepted["CP-0"].response.decode(errors="replace")
+        if "CP-0" in prepared.retained_modules
+        else ""
+    )
+    added = not (workspace / "runs" / job["resume_of"] / "instructions" / f"{stop}.md").exists()
+    reruns: list[dict[str, str]] = []
+    for module in prepared.ordered:
+        if module in prepared.retained_modules:
+            continue
+        if module in accepted:
+            follows = f"it follows {title}, which runs again"
+            reason = accepted[module].problem or (why if module == stop else follows)
+        elif module == stop and added:
+            reason = "added to this run"
+        else:
+            continue
+        reruns.append({"module": module, "reason": reason})
+    outcomes = [
+        {
+            "module": module,
+            "outcome": actual_of(module, accepted[module].response.decode(errors="replace"), cp0)[
+                0
+            ],
+        }
+        for module in prepared.retained_modules
+    ]
+    return reruns, outcomes
+
+
 def review(directory: Path) -> dict[str, Any]:
     job, _ = read_job(directory)
     check_path_room(directory)
@@ -255,6 +298,8 @@ def review(directory: Path) -> dict[str, Any]:
     request = prepared.plan
     revision = engine_revision()
     selected = CONFIGS[job["config"]]
+    reruns, outcomes = resume_view(job, prepared)
+    kept = [row for row in prepared.expectations if row["scope"] not in prepared.retained_modules]
     return {
         "ok": True,
         "review_id": review_id(job, revision, prepared),
@@ -293,9 +338,11 @@ def review(directory: Path) -> dict[str, Any]:
             (directory / "context.json").read_bytes()
         ).identity.issue_classification,
         "documents": list(prepared.documents),
-        "expectations": list(prepared.expectations),
-        "counted": counted_ids(prepared.expectations),
-        "without": without_for(prepared.ordered, prepared.expectations),
+        "expectations": kept,
+        "counted": counted_ids(kept),
+        "without": without_for(prepared.ordered, kept),
+        "reruns": reruns,
+        "retained_outcomes": outcomes,
     }
 
 
