@@ -734,4 +734,7 @@ Success path unchanged (the lock stays for the worker's life).
 Flakes (tests only, no sleeps): new_run progress/stages tests wait for `.summary-line` / `#module-stages li`
 before indexing; `test_a_failed_list_fetch_is_retried...` waited a fixed 50 ms after each tick, too short
 under load for the list fetch, so each tick now waits for the text or table it asserts. 20/20 passes each.
+Sweep (CI 42746147348, `...same_hint[interrupted]`): `open_row` clicked `b[0]` of `#recent-jobs tbody th button` 50 ms after the
+visit, before the list fetch had drawn it (`Cannot read properties of undefined (reading 'click')`); it now waits for the row, `launched`
+waits for the first status draw, two other list/timer reads wait too. Forced red (list delayed 400 ms) then green; 10/10 file passes.
 Not verified: other platforms' (Windows) lock-removal order; a worker started on a path where Popen succeeded then failed later.
