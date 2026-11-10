@@ -725,3 +725,4 @@ Back-test output byte-identical to the parent's. Offline re-read of copies of re
 (`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
 will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `actual_of`); a live run.
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
+R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.

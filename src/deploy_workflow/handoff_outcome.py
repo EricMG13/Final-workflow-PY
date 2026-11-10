@@ -48,7 +48,8 @@ a row of another module never counts, nor is it read as text); in other text it 
 word within 70 characters after the module id (not followed by `.digit`, `-digit` or a letter),
 with no other module id between, and, in CP-0 prose only, a status word (any letter case)
 followed by `:` and a list of module ids that includes it (`Blocked: CP-1, CP-4 and CP-5`; same
-id boundary). A `Module
+id boundary; the word starts the line after list/markup characters only, is not negated, and the
+ids stop at the first word that is not an id or a separator). A `Module
 Status:` value counts when it begins with a known phrase followed by a period or the line's end
 (the rest of the line is ignored).
 
@@ -154,8 +155,11 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
     alone or id plus a label (markup and list marker dropped); else the first within 70 characters
     after the id, no other module id between (another module's row is not read), and any word
     followed by `:` and a list of ids that includes the module (`Blocked: CP-1, CP-4`; any letter
-    case, and only with `both`, i.e. CP-0 text). With `both` the row words and the prose words are
-    all returned."""
+    case, and only with `both`, i.e. CP-0 text). That form counts only when the status word starts
+    the line after list/markup characters (`-*+>_`, backticks, `N.`), so `Not blocked:` and
+    `Unblocked:` never count; the ids are read up to the first word that is not an id or a
+    separator (`,` `&` `/` `and`), so `Blocked: CP-4 because CP-1 ...` lists only CP-4.
+    With `both` the row words and the prose words are all returned."""
     alt = "|".join(words)
     rows: list[str] = []
     rest: list[str] = []
@@ -175,9 +179,9 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
     found = re.search(
         rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?:(?!CP-)[^\n]){{0,70}}?\b({alt})\b", prose
     )
-    listed = (
-        rf"\b({alt})[ \t]*:[ \t]*((?:{ident}(?:[ \t]*[,&/][ \t]*|[ \t]+)(?:and[ \t]+)?)*{ident})"
-    )
+    sep = r"(?:[ \t]*[,&/][ \t]*|[ \t]+)(?:and[ \t]+)?"
+    lead = r"(?m)^(?:[ \t>*+_`-]|\d+\.)*"
+    listed = rf"{lead}({alt})[*_`]*[ \t]*:[ \t*_`]*((?:{ident}{sep})*{ident})"
     rows += [found[1]] if found else []
     if both:  # the status-colon-id form is read in CP-0 prose only, never in a module's own handoff
         rows += [
