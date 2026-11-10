@@ -971,3 +971,95 @@ def test_r_sb2_2c_excluded_openers_and_non_ordinals_are_not_credit_agreements(
     title: str,
 ) -> None:
     assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
+
+
+# --- R-SB2-2c fix round: narrow as-amended tail, no determiner or preposition opener, ordinal
+# suffixes (answer key from the lead's ruling and the reviewer's probes) --------------------------
+_R_SB2_2C_FIX1_NOT_CA = [
+    "Credit Agreement, as amended borrowings were $40.0 million at quarter end.",
+    (
+        "Credit Agreement, as amended, contains covenants that restrict the Company's ability "
+        "to pay dividends."
+    ),
+    (
+        "The Credit Agreement, as amended, contains covenants that restrict the Company's "
+        "ability to pay dividends."
+    ),
+    "Revolving Credit Agreement, as amended, matures in 2019.",
+    "Credit Agreement as amended requires a minimum fixed charge coverage ratio of 1.0x.",
+    (
+        "The Credit Agreement, as amended by the Amendment, contains covenants that restrict "
+        "dividends."
+    ),
+    "Under the Credit Agreement dated as of October 20, 2014, the Company may borrow.",
+    "Our Revolving Credit Agreement among the Company and the Lenders provides for loans.",
+    "This Credit Agreement dated as of October 20, 2014 is made among the Company and the Lenders.",
+    "Such Credit Agreement dated as of October 20, 2014 remains in effect.",
+    "A Credit Agreement dated as of October 20, 2014 was entered into by the Company.",
+    "An Amended and Restated Credit Agreement dated as of October 20, 2014 was executed.",
+    "Pursuant to the Credit Agreement dated as of October 20, 2014, the Company may borrow.",
+    "In the Credit Agreement dated as of October 20, 2014, the Company agreed to covenants.",
+    "As Credit Agreement dated as of October 20, 2014, the Company agreed to covenants.",
+    "the credit agreement dated as of October 20, 2014 among the Company and the Lenders",
+    "0th Amended and Restated Credit Agreement",
+    "11st Amended and Restated Credit Agreement",
+    "1th Amended and Restated Credit Agreement",
+    "21th Amended and Restated Credit Agreement",
+    "12nd Amended and Restated Credit Agreement",
+]
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2C_FIX1_NOT_CA,
+    ids=[f"r_sb2_2c_fix1_neg_{i}" for i in range(len(_R_SB2_2C_FIX1_NOT_CA))],
+)
+def test_r_sb2_2c_fix1_body_sentences_openers_and_bad_ordinals_are_not_credit_agreements(
+    title: str,
+) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
+
+
+_R_SB2_2C_FIX1_NOT_LP = [
+    "The Lender Presentation dated September 11, 2014",
+    "Our Public Lender Presentation",
+]
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2C_FIX1_NOT_LP,
+    ids=[f"r_sb2_2c_fix1_lp_neg_{i}" for i in range(len(_R_SB2_2C_FIX1_NOT_LP))],
+)
+def test_r_sb2_2c_fix1_determiner_openers_are_not_lender_presentations(title: str) -> None:
+    assert guess_kind("x.htm", [title + "\n"]).kind != "lender_presentation"
+
+
+_R_SB2_2C_FIX1_POS = [
+    "Credit Agreement, as amended",
+    "CREDIT AGREEMENT, AS AMENDED.",
+    "Credit Agreement, as amended to date",
+    "Credit Agreement, as amended and restated as of March 1, 2015",
+    "Credit Agreement, as amended from time to time",
+    "1st Amended and Restated Credit Agreement",
+    "2nd Amended and Restated Credit Agreement",
+    "3rd Amended and Restated Credit Agreement",
+    "4th Amended and Restated Credit Agreement",
+    "11th Amended and Restated Credit Agreement",
+    "12th Amended and Restated Credit Agreement",
+    "13th Amended and Restated Credit Agreement",
+    "21st Amended and Restated Credit Agreement",
+    "22nd Amended and Restated Credit Agreement",
+    "101st Amended and Restated Credit Agreement",
+]
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2C_FIX1_POS,
+    ids=[f"r_sb2_2c_fix1_pos_{i}" for i in range(len(_R_SB2_2C_FIX1_POS))],
+)
+def test_r_sb2_2c_fix1_narrow_as_amended_tails_and_ordinal_suffixes_stay_credit_agreements(
+    title: str,
+) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
