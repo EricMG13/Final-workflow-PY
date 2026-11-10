@@ -774,8 +774,14 @@ def test_r_sb2_2a_fix1_ordinal_and_combined_titles_are_credit_agreements(title: 
 @pytest.mark.parametrize(
     "page",
     [
-        "Existing Amended and Restated Credit Agreement means the credit agreement dated October 1, 2013.",
-        "Prior Amended and Restated Credit Agreement means the credit agreement dated October 1, 2013.",
+        (
+            "Existing Amended and Restated Credit Agreement means the credit agreement "
+            "dated October 1, 2013."
+        ),
+        (
+            "Prior Amended and Restated Credit Agreement means the credit agreement "
+            "dated October 1, 2013."
+        ),
         "Existing Amended and Restated Credit Agreement",
         "Proposed Amended and Restated Credit Agreement",
     ],
