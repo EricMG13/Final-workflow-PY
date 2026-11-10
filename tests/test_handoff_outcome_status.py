@@ -512,3 +512,88 @@ def test_b1k2_cp0_status_line_start_not_negated_id_list(
     module: str, own: str | None, cp0: str, wanted: str
 ) -> None:
     assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted
+
+
+RF_BQ_CASES = [
+    (
+        "rf-bq-fence-hides-blocked",
+        "> ```\n> Module Status: Blocked\n> ```\n",
+        "| CP-4 | READY |\n",
+        "ready",
+    ),
+    (
+        "rf-bq-fence-hides-completed",
+        "> ```\n> Module Status: Completed\n> ```\n",
+        "| CP-4 | BLOCKED |\n",
+        "will_refuse",
+    ),
+    ("rf-bq-fence-exits", "> ```\nModule Status: Blocked\n> ```\n", "", "will_refuse"),
+    ("rf-bq-status-outside-fence", "> Module Status: Blocked\n", "", "will_refuse"),
+]
+RF_CASES = [
+    ("rf-1k-id-lower", "CP-4", None, "blocked: cp-4\n", "will_refuse"),
+    ("rf-1k-heading", "CP-4", None, "## Blocked: CP-4\n", "will_refuse"),
+    (
+        "rf-1i-second-prose-mention",
+        "CP-4",
+        OWN4,
+        "CP-4 READY for review.\nLater: CP-4 BLOCKED by covenant gap.\n",
+        "will_refuse",
+    ),
+    (
+        "rf-1l-cp0-ready-then-blocked",
+        "CP-4",
+        OWN4,
+        "CP-4 READY for review.\nCP-4 BLOCKED by covenant gap.\n",
+        "will_refuse",
+    ),
+    (
+        "rf-1l-cp0-blocked-then-ready",
+        "CP-4",
+        OWN4,
+        "CP-4 BLOCKED by covenant gap.\nCP-4 READY for review.\n",
+        "will_refuse",
+    ),
+    ("rf-1l-cp0-two-ready", "CP-4", OWN4, "CP-4 READY for review.\nCP-4 READY again.\n", "ready"),
+    (
+        "rf-1l-own-ready-then-blocked",
+        "CP-4",
+        "# CP-4\nCP-4 READY for review.\nCP-4 BLOCKED by covenant gap.\n",
+        "",
+        "will_refuse",
+    ),
+    (
+        "rf-1l-own-blocked-then-ready",
+        "CP-4",
+        "# CP-4\nCP-4 BLOCKED by covenant gap.\nCP-4 READY for review.\n",
+        "",
+        "will_refuse",
+    ),
+    (
+        "rf-1l-own-two-ready",
+        "CP-4",
+        "# CP-4\nCP-4 READY for review.\nCP-4 READY again.\n",
+        "",
+        "ready",
+    ),
+    ("rf-1m-period", "CP-5", None, "Ready: CP-5. Blocked: CP-6.\n", "not_reached"),
+    ("rf-1m-period-cp6", "CP-6", None, "Ready: CP-5. Blocked: CP-6.\n", "will_refuse"),
+    ("rf-1m-semicolon", "CP-5", None, "Ready: CP-5; Blocked: CP-6.\n", "not_reached"),
+    ("rf-1m-semicolon-cp6", "CP-6", None, "Ready: CP-5; Blocked: CP-6.\n", "will_refuse"),
+    ("rf-1m-newline", "CP-5", None, "Ready: CP-5\nBlocked: CP-6\n", "not_reached"),
+    ("rf-1m-newline-cp6", "CP-6", None, "Ready: CP-5\nBlocked: CP-6\n", "will_refuse"),
+    ("rf-1n-fenced-colon", "CP-4", None, "```\nBlocked: CP-4\n```\n", "not_reached"),
+    ("rf-1n-fenced-row", "CP-4", None, "```\n| CP-4 | BLOCKED |\n```\n", "not_reached"),
+    ("rf-1n-fenced-prose", "CP-4", None, "```\nCP-4 BLOCKED\n```\n", "not_reached"),
+    ("rf-1n-outside-fence-counts", "CP-4", None, "```\nx\n```\nBlocked: CP-4\n", "will_refuse"),
+    *[(c[0], "CP-4", c[1], c[2], c[3]) for c in RF_BQ_CASES],
+]
+
+
+@pytest.mark.parametrize(
+    ("module", "own", "cp0", "wanted"),
+    [c[1:] for c in RF_CASES],
+    ids=[c[0] for c in RF_CASES],
+)
+def test_rf_final_status_reader_batch(module: str, own: str | None, cp0: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted
