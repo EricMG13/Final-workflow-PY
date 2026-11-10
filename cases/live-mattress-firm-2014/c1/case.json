@@ -1,0 +1,25 @@
+{
+  "schema": "live-case/1",
+  "check": "C1",
+  "label": "Mattress Firm Holding Corp. (as of 2014-09-11), public proxy for a private primary deal, older source (2014; public lender presentation, 10-K, 10-Qs, Back to Bed asset purchase papers), run type primary, legal documents declared draft, 8 documents",
+  "pathway": "credit_snapshot",
+  "run_type": "primary",
+  "requested_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-4"
+  ],
+  "config": "sol-medium",
+  "cap_usd": "10",
+  "sources": [
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-09-11-8k-item-7-01.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-09-11-ex99-1-public-lender-presentation.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/10-k-year-ended-2014-01-28.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/10-q-quarter-ended-2014-04-29.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/10-q-quarter-ended-2014-07-29.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-08-29-8k-back-to-bed-asset-purchase.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-08-29-ex2-1-asset-purchase-agreement.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-08-29-ex99-1-press-release.htm"
+  ],
+  "accept_limitations": true
+}

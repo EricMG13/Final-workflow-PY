@@ -1,0 +1,26 @@
+{
+  "scope": "C1r: covenant_refinancing, secondary, legal documents executed, 6 Mattress Firm public documents (3 periodic reports recognised as financial reports; the 8-K and Exhibits 10.1 and 10.2 not recognised as an agreement kind by the title-line rule, though they are executed credit agreements)",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-4",
+    "CP-2D",
+    "CP-3C",
+    "CP-5"
+  ],
+  "run": [],
+  "modules": {
+    "CP-4": [
+      {
+        "rule": "cp4-declared-executed-none-recognised",
+        "outcome": "check",
+        "counted": true,
+        "inherited_from": []
+      }
+    ]
+  },
+  "counted_total": 1,
+  "without": {}
+}

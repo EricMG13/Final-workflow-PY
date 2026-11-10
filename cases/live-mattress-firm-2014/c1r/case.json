@@ -1,0 +1,28 @@
+{
+  "schema": "live-case/1",
+  "check": "C1r",
+  "label": "Mattress Firm Holding Corp. (as of 2014-10-21), public proxy after closing (executed agreements after closing, not a private primary deal), older source (2014; 10-K, 10-Qs, 8-K of 21 October 2014, executed ABL and Term Loan Credit Agreements), run type secondary, legal documents declared executed, 6 documents. Manifest note: \"Executed agreements only; the pre-closing presentation is left out so no draft is in scope.\"",
+  "pathway": "covenant_refinancing",
+  "run_type": "secondary",
+  "requested_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2",
+    "CP-2D",
+    "CP-4",
+    "CP-3C",
+    "CP-5"
+  ],
+  "config": "sol-medium",
+  "cap_usd": "30",
+  "sources": [
+    "cases/primary-proxy-mattress-firm-2014/documents/10-k-year-ended-2014-01-28.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/10-q-quarter-ended-2014-04-29.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/10-q-quarter-ended-2014-07-29.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-10-21-8k-credit-agreements.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-10-21-ex10-1-abl-credit-agreement.htm",
+    "cases/primary-proxy-mattress-firm-2014/documents/2014-10-21-ex10-2-term-loan-credit-agreement.htm"
+  ],
+  "accept_limitations": true
+}

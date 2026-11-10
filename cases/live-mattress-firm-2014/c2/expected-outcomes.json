@@ -1,0 +1,14 @@
+{
+  "scope": "C2: credit_snapshot, primary, legal documents draft, 8 Mattress Firm public filings, modules CP-0, CP-1, CP-1A, CP-1D, CP-2 (3 periodic reports recognised as financial reports; CP-4 not in the run, so no legal-document rule applies)",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-1D",
+    "CP-2"
+  ],
+  "run": [],
+  "modules": {},
+  "counted_total": 0,
+  "without": {}
+}

@@ -10,6 +10,23 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — Plan 3 Task 11a: pro forma instructions, checker and Primary default CP-1D (PR #53, branch `claude/sb3-plan-3-11a`)
+
+- **Scope:** offline, synthetic. Instruction text, a structural checker and default modules in `src/deploy_workflow/owners/cpos_launch.py`; no model run, no delivery change (Task 11b).
+- **Key:** `tests/fixtures/primary-pro-forma/checker-cases.json`, 80 cases, frozen before the code by a key writer who wrote no checker code (byte-identical to final-workflow `8d22e84c`); 80/80 pass with the exact issue-category set per case. Task 10's key still passes.
+- **Gates at `7f6a39dd`:** quality_gate 0; focused tests 437 passed; `validate.py quick` 0 (python 1595 passed, browser tests 610); `validate.py browser` 0 (86 passed); pr_size 797/800.
+- **Review:** `mx-precise` PASS (H0 M0 L2 I2). Lows parked for the next fix batch: fenced-code reading (as in Task 10) and `_pro_forma_table` duplicating `_register`'s loop.
+- **Finding:** the issuer-library app passes `modules=job["modules"] or None`, so an app run with no module selection gets the Primary default (pathway modules plus CP-1D).
+- **Not verified:** any model-written handoff against these instructions or the checker (live check C2, paid, waits for the owner); report delivery of the tables (Task 11b).
+
+## 2026-11-09 — Plan 3 live checks C1 and C1n: CP-4 Provisional review and Blocked control (branch `claude/sb3-plan-3-141ce3`)
+
+- **Scope:** public proxy for a private primary deal, older source (2014), Mattress Firm Holding Corp. only; one live run per check; `sol-medium`, modules CP-0, CP-1, CP-4, cap USD 10 each; app runs through `apps/issuer-library/designs/live_check.py`. Keys frozen before the runs in `cases/live-mattress-firm-2014/{c1,c1n}/` (forecast by hand from `run_expectations.py` rules; literals from `cases/primary-proxy-mattress-firm-2014/expected.json`). Each run started only on the owner's go-ahead in the SB3 session.
+- **C1** (build `aa433ad1`; run `web-8a674922fe6d56369000fc6e773b95f7`; USD 1.09882450): **criteria PASS, required outputs pending the harness fix.** CP-4 accepted, not Blocked; `DRAFT_LIMITATION` verbatim (CP-4.md:64); 18 of 24 keyed covenant terms match and are labelled Provisional; no document called executed. live_check exit 1 with 12 faults: 5 harness (status reader, flow_check rounding, rendered-text join), 2 product (390-px run-detail overflow, fixed by #50), 2 run Lows (CP-1 hand-rescaled ×1000 operands, values correct), 1 accepted forecast disagreement (CP-1 limited by CP-0), 2 aggregates.
+- **C1n** (build `3c3b9254` = main `6522e5ed` + the case folders; run `web-f18789292a1712e2ebcb591a09816385`; USD 0.91672190): **criterion PASS, required outputs pending the harness fixes.** CP-4.md:7 "Module Status: Blocked" with the method's Blocked message verbatim; the register lists only the two filings CP-4 read, with no legal or offering document, and nothing was invented. live_check exit 1 with 20 faults: 14 harness (status reader needs the exact phrase and misses same-line sentences, `handoff_outcome.py:89-90`; CP-1 status window `:95`; flow_check rounding beyond 6 dp, `flow_check.py:76`), 4 run Lows (hand rescaling and percent display, values correct), 2 aggregates. An accepted Blocked handoff that goes on to delivery is allowed, not a fault.
+- **Assessment:** `mx-precise`, read-only, against the frozen keys; each harness fault has a probe. Lead ruling R-SB2-1e: after SB2's harness PR merges, both retained runs are re-read offline on copies (no provider call) and this record is updated. No paid rerun.
+- **Not verified:** the harness fixes themselves (SB2's PR); firefox rendering of the report numbers; the "New records" output (marked not applicable before Stage 2); term matches beyond the key's quoted text; that C1n should have stopped at CP-4 rather than deliver (the plan does not say).
+
 ## 2026-11-09 — Phase 0: network-path check (Task 0.1)
 
 - **Scope:** one work PC; the company Python `C:\Program Files\Statestreet\Python313\pythonw.exe` with `-I -B -X utf8`; the check folder built by `apps/issuer-library/packaging/network_check.py` from PR 0-A (#4) head `d47bd306` (merged as `460b696f`), copied to the network share and opened by its UNC path. Real share and real work PC, not synthetic.
