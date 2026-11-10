@@ -993,7 +993,6 @@ _R_SB2_2C_FIX1_NOT_CA = [
     ),
     "Under the Credit Agreement dated as of October 20, 2014, the Company may borrow.",
     "Our Revolving Credit Agreement among the Company and the Lenders provides for loans.",
-    "This Credit Agreement dated as of October 20, 2014 is made among the Company and the Lenders.",
     "Such Credit Agreement dated as of October 20, 2014 remains in effect.",
     "A Credit Agreement dated as of October 20, 2014 was entered into by the Company.",
     "An Amended and Restated Credit Agreement dated as of October 20, 2014 was executed.",
@@ -1063,3 +1062,54 @@ def test_r_sb2_2c_fix1_narrow_as_amended_tails_and_ordinal_suffixes_stay_credit_
     title: str,
 ) -> None:
     assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
+
+
+# --- R-SB2-2c amendment: a "This" preamble with a recognised tail is a title (answer key from the
+# lead's amendment). Moved here from _R_SB2_2C_FIX1_NOT_CA (old id r_sb2_2c_fix1_neg_8, expected
+# not credit_agreement): "This Credit Agreement dated as of ..." now expects credit_agreement. ----
+_R_SB2_2C_THIS_POS = [
+    "THIS CREDIT AGREEMENT dated as of May 1, 2015",
+    (
+        'This Amended and Restated Credit Agreement (this "Agreement"), dated as of May 1, 2015, '
+        "among the Borrower, the Lenders and the Agent"
+    ),
+    "This CREDIT AGREEMENT is entered into as of May 1, 2015",
+    "THIS CREDIT AGREEMENT is made as of May 1, 2015",
+    "This Second Amended and Restated Credit Agreement, dated as of May 1, 2015",
+    "This Credit Agreement dated as of October 20, 2014 is made among the Company and the Lenders.",
+]
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2C_THIS_POS,
+    ids=[f"r_sb2_2c_this_pos_{i}" for i in range(len(_R_SB2_2C_THIS_POS))],
+)
+def test_r_sb2_2c_this_preamble_with_a_recognised_tail_is_a_credit_agreement(title: str) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
+
+
+_R_SB2_2C_THIS_NEG = [
+    "This Credit Agreement contains customary covenants",
+    "This Credit Agreement",
+    "The Credit Agreement",
+    "The Credit Agreement dated as of May 1, 2015",
+    "Our Credit Agreement is entered into as of May 1, 2015",
+    "This Credit Agreement, as amended, contains customary covenants",
+]
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2C_THIS_NEG,
+    ids=[f"r_sb2_2c_this_neg_{i}" for i in range(len(_R_SB2_2C_THIS_NEG))],
+)
+def test_r_sb2_2c_this_without_a_tail_and_other_openers_are_not_credit_agreements(
+    title: str,
+) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
+
+
+def test_r_sb2_2c_this_lender_presentation_is_not_a_lender_presentation() -> None:
+    title = "This Lender Presentation dated September 11, 2014"
+    assert guess_kind("x.htm", [title + "\n"]).kind != "lender_presentation"
