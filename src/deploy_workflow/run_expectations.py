@@ -361,11 +361,30 @@ class Item(TypedDict):
     inherited_from: list[str]  # [] on a row that inherits nothing
 
 
+# Forecast-only edges (R-ALIVE F1): CP-5's QA treats missing legal evidence as a Critical issue, so
+# it finishes Blocked through a Blocked CP-4. deploy_vii.registry is not changed.
+FORECAST_EDGES = {("CP-5", "CP-4"): "block"}
+CP5_BLOCKED_REASON = (
+    "Expected to finish Blocked through CP-4: its QA treats missing legal evidence as a Critical "
+    "issue."
+)
+
+
+CP5_BASIS = (
+    "forecast-only override FORECAST_EDGES (R-ALIVE F1) of the registry's restricted "
+    "CP-5 <- CP-4 edge; A-live run web-58d058451a6bfb7620b579bbd74b52df: CP-5.md:8, :70; "
+    "INS/CP-5.md:706, :753"
+)
+
+
 def edges_for(ordered: Sequence[str]) -> Edges:
     """Consumer -> {producer: "block" | "restricted"} among the ordered modules."""
     chosen = set(ordered)
     return {
-        consumer: {p: edge_rule(consumer, p) for p in sorted(producers & chosen)}
+        consumer: {
+            p: FORECAST_EDGES.get((consumer, p)) or edge_rule(consumer, p)
+            for p in sorted(producers & chosen)
+        }
         for consumer, producers in dependencies(tuple(ordered)).items()
         if consumer in chosen
     }
@@ -446,8 +465,6 @@ _ADD_EXECUTED = (
 _ADD_QUOTES = "Add observed quotes in Context, or a quotes file."
 _CP4_LIVE = "legal documents declared %r (entered by user)"
 
-# ponytail: the Will refuse wording below is provisional; A-live (Covenant & Refinancing, legal
-# documents `none`) records what CP-4 and its consumers do and sets the final text.
 RULES: tuple[Rule, ...] = (
     Rule(
         "investment-grade",
@@ -543,6 +560,27 @@ RULES: tuple[Rule, ...] = (
         "observed offline",
     ),
     Rule(
+        "cp2d-declared-legal-none",
+        "CP-2D",
+        lambda f: f.legal == "none",
+        "limited",
+        "Legal documents declared 'none': covenant documents are a required CP-2D input.",
+        "Add the executed credit agreement or indenture and declare legal documents 'executed'.",
+        "R-ALIVE-rulings.md F2 (lead, 2026-11-10); A-live evidence, TDG FY2024 older public source",
+        "observed offline",
+    ),
+    Rule(
+        "cp3c-no-step-up",
+        "CP-3C",
+        lambda f: f.context.assumptions.cp3c is None,
+        "limited",
+        "No repricing step-up entered: cost cells will be gaps.",
+        "Enter a repricing step-up in Context.",
+        "R-ALIVE-rulings.md F4 (lead, 2026-11-10); A-live evidence CP-3C.md:4, TDG FY2024 older "
+        "public source",
+        "observed offline",
+    ),
+    Rule(
         "cp2h-no-ratings",
         "CP-2H",
         lambda f: not f.context.ratings and f.kind("ratings") is None,
@@ -590,9 +628,12 @@ RULES: tuple[Rule, ...] = (
         "CP-4",
         lambda f: f.legal == "none",
         "will_refuse",
-        "Legal documents declared 'none' (entered by user): the method blocks with 'No executed "
-        "governing document'. Will refuse wording open until A-live.",
-        "Add the executed agreement and declare it, or run without CP-4.",
+        "Legal documents declared 'none' (entered by user). CP-4 will run and return Blocked: "
+        "'No executed governing document.' Its six report sections will be marked Blocked and "
+        "show filing summaries only, with covenant headroom and basket capacity Not calculable.",
+        "Add the executed credit agreement or indenture and declare legal documents 'executed', "
+        "or run without CP-4. Without CP-4 the report omits its six legal sections; CP-3C still "
+        "marks liability-management paths Insufficient Information.",
         _STEPS4 + " line 31: 'Blocked: No executed governing document. Output blocked message "
         "and STOP.'",
         "per method",
@@ -734,8 +775,15 @@ def _inherit(
         return None
     worst = min(reaching.values(), key=SEVERITY.__getitem__)
     names = list(reaching)
-    reason = f"Expected to be {worst.replace('_', ' ')} through {', '.join(names)}, which it reads."
-    words = Words(reason, "", "owner-path: deploy_vii.registry.edge_rule", "observed offline")
+    state = "return Blocked" if worst == "will_refuse" else f"be {worst.replace('_', ' ')}"
+    reason = f"Expected to {state} through {', '.join(names)}, which it reads."
+    basis = "owner-path: deploy_vii.registry.edge_rule"
+    # Ceiling: keys on will_refuse alone, fine while CP-0 has no will_refuse rule.
+    # Upgrade: check that CP-4 is the will_refuse producer.
+    if (module, "CP-4") in FORECAST_EDGES and worst == "will_refuse":
+        reason = CP5_BLOCKED_REASON
+        basis = CP5_BASIS
+    words = Words(reason, "", basis, "observed offline")
     return _item(module, f"from:{names[0]}", worst, words, names)
 
 

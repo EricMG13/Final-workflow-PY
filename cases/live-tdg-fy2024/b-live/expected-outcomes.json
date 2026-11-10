@@ -1,5 +1,6 @@
 {
   "scope": "B-live: relative_value, secondary, high_yield, legal documents none, peer_source none, one synthetic notes row and one synthetic observed quote",
+  "ruling": "R-ALIVE F1/F2/F4 and R-ALIVE-K4 (lead, 2026-11-10; R-ALIVE-rulings.md): unrun case re-frozen by hand; previous values in git history",
   "ordered_modules": [
     "CP-0",
     "CP-1",
@@ -34,8 +35,55 @@
         "counted": true,
         "inherited_from": []
       }
+    ],
+    "CP-2D": [
+      {
+        "rule": "cp2d-declared-legal-none",
+        "outcome": "limited",
+        "counted": true,
+        "inherited_from": []
+      }
+    ],
+    "CP-3C": [
+      {
+        "rule": "cp3c-no-step-up",
+        "outcome": "limited",
+        "counted": true,
+        "inherited_from": []
+      },
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-2D"
+        ]
+      }
+    ],
+    "CP-3": [
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-2D",
+          "CP-3C"
+        ]
+      }
+    ],
+    "CP-5": [
+      {
+        "rule": "inherited",
+        "outcome": "limited",
+        "counted": false,
+        "inherited_from": [
+          "CP-2D",
+          "CP-3C",
+          "CP-3"
+        ]
+      }
     ]
   },
-  "counted_total": 1,
+  "counted_total": 3,
   "without": {}
 }

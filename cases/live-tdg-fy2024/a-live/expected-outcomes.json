@@ -1,5 +1,6 @@
 {
   "scope": "A-live: covenant_refinancing, secondary, high_yield, legal documents none, 5 TDG FY2024 filings (all financial reports, none an agreement)",
+  "ruling": "R-ALIVE-rulings.md (lead, 2026-11-10): F1, F2, F4 and Wording (Checkpoint A); previous values in git history (counted_total was 1)",
   "ordered_modules": [
     "CP-0",
     "CP-1",
@@ -20,29 +21,45 @@
         "inherited_from": []
       }
     ],
-    "CP-3C": [
+    "CP-2D": [
       {
-        "rule": "inherited",
+        "rule": "cp2d-declared-legal-none",
         "outcome": "limited",
-        "counted": false,
-        "inherited_from": [
-          "CP-4"
-        ]
+        "counted": true,
+        "inherited_from": []
       }
     ],
-    "CP-5": [
+    "CP-3C": [
+      {
+        "rule": "cp3c-no-step-up",
+        "outcome": "limited",
+        "counted": true,
+        "inherited_from": []
+      },
       {
         "rule": "inherited",
         "outcome": "limited",
         "counted": false,
         "inherited_from": [
           "CP-4",
+          "CP-2D"
+        ]
+      }
+    ],
+    "CP-5": [
+      {
+        "rule": "inherited",
+        "outcome": "will_refuse",
+        "counted": false,
+        "inherited_from": [
+          "CP-4",
+          "CP-2D",
           "CP-3C"
         ]
       }
     ]
   },
-  "counted_total": 1,
+  "counted_total": 3,
   "without": {
     "CP-4": [
       "CP-4"
