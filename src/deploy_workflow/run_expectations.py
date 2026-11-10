@@ -91,10 +91,13 @@ _TEENS = ("Tenth", "Eleventh", "Twelfth", "Thirteenth", "Fourteenth")
 _TEENS_2 = ("Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth")
 _TENS = ("Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
 _TENS_TH = tuple(t[:-1] + "ieth" for t in _TENS)  # Twentieth ... Ninetieth.
-# A closed grammar of ordinals: English words up to Ninety-Ninth, or digits with st/nd/rd/th.
+_PRE = r"(?:[2-9]|[1-9]\d*[02-9])?"  # Digits before 1/2/3 whose tens digit is not 1 (not 11st).
+# A closed grammar of ordinals: English words up to Ninety-Ninth, or digits whose st/nd/rd/th
+# suffix matches the number (1st, 22nd, 113th; no 0th, 11st or 1th).
 _ORDINAL = (
     _cased(*_ONES, *_TEENS, *_TEENS_2, *_TENS_TH, *(f"{t}-{o}" for t in _TENS for o in _ONES))
-    + r"|(?-i:\d+(?:st|nd|rd|th|ST|ND|RD|TH))"
+    + rf"|(?-i:{_PRE}1(?:st|ST)|{_PRE}2(?:nd|ND)|{_PRE}3(?:rd|RD)"
+    r"|(?:[4-9]|[1-9]\d*[04-9]|(?:[1-9]\d*)?1[123])(?:th|TH))"
 )
 _CREDIT_QUALIFIER = (
     rf"(?:(?:{_cased('Abl', 'Term Loan', 'Revolving', 'Senior', 'Secured', 'Unsecured')}|"
@@ -107,7 +110,8 @@ _LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
 # A title ends at its phrase (optional punctuation) or continues only with a recognised tail, so a
 # body sentence that starts with the phrase ("Credit Agreement borrowings were ...") is no title.
 _TAIL = (
-    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|as amended\b.*|"
+    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|"
+    r"as amended(?: and restated)?(?:\W*|\s+(?:through|by|to|on|as of|from time to time)\b.*)|"
     r"\((?:execution version|conformed copy)\)|- execution version|(?:"
     + "|".join(MONTHS)
     + r") \d{1,2}, \d{4}\W*)"
@@ -115,6 +119,8 @@ _TAIL = (
 _DEFINED_TERM = r"\((?:this|the) [\"“][^\"“”]+[\"”]\)"  # (this "Agreement"), straight or curly.
 _TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+{_TAIL})?$")
 _ENDS_AT_PHRASE = frozenset({"credit_agreement", "lender_presentation"})  # Title lines only.
+# A title line never begins with a determiner or preposition: that is a body sentence.
+_NOT_A_TITLE = _rx(r"(?:the|this|our|such|an?|under|pursuant|in|as)\b")
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -229,7 +235,10 @@ def _hits(lines: list[str], *, page: bool = True) -> dict[str, str]:
                 if match and (
                     not page
                     or kind not in _ENDS_AT_PHRASE
-                    or _TITLE_END.fullmatch(candidate, match.end())
+                    or (
+                        _TITLE_END.fullmatch(candidate, match.end())
+                        and not _NOT_A_TITLE.match(candidate)
+                    )
                 ):
                     found.setdefault(kind, match.group(0))
     text = "\n".join(lines)

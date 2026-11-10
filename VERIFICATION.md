@@ -777,7 +777,7 @@ Not verified: defined-term tails other than `(this|the "...")`.
 `guess_kind` (`run_expectations.py`), lead ruling R-SB2-2c: the credit-agreement qualifier list also takes
 DEBTOR-IN-POSSESSION, SYNDICATED and MULTICURRENCY (Title or UPPER, combining with the other words);
 the ordinal before `Amended and Restated` is a closed grammar (First to Ninety-Ninth as words, hyphenated compounds
-included, or digits plus st/nd/rd/th), so `Existing`, `Fiftyish`, `Thirdly` stay unrecognised; title lines may also end
+included, or digits; the digit suffix is checked against the number in the fix round below), so `Existing`, `Fiftyish`, `Thirdly` stay unrecognised; title lines may also end
 with `(Execution Version)`, `(Conformed Copy)`, `- Execution Version` or `as amended ...`. INCREMENTAL, EXTENDED,
 JOINDER and Existing/Prior/Amended openers are not added. Answer key (de400e69, not edited): 19 positive tests red
 before (the 9 negatives green), all 28 green after; 425 passed, 1 skipped (paid) across the four target files.
@@ -785,4 +785,13 @@ Probes `main_vs_head` (differences listed in the PR), `r2a_rr_edges`, `r2a_rr3_n
 `r2a_rr2_name_and_title_parity`, `r2a_ordinal_and_combinations`, `denylist_residue`, `adv_kinds`,
 `r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0. Back-test (`r2a_rr_backtest`) origin/main's rule file vs
 this one: byte-identical.
+Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.
+
+Fix round (review M1 + L, key 8cf76486 not edited; 13 of 77 `fix1` tests red before, all green after): the `as amended`
+tail is `as amended(?: and restated)?(?:\W*|\s+(?:through|by|to|on|as of|from time to time)\b.*)`, so body sentences
+(`The Credit Agreement, as amended, contains ...`) are no title; a credit-agreement or lender-presentation title line
+never begins (case-insensitively) with The/This/Our/Such/A/An/Under/Pursuant/In/As; numeric ordinals need the matching
+suffix (1st, 22nd, 113th; not 0th, 11st, 1th, 12nd). The `the|this` lead-in stays: it still serves file names, which the
+opener guard does not touch. Cost: bare `The Credit Agreement` / `This Amended and Restated Credit Agreement` title lines,
+accepted on main, are unrecognised (fail-safe, by ruling). Back-test: byte-identical.
 Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.
