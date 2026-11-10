@@ -183,3 +183,48 @@ def _hand(body: str = "", fm: str = "") -> str:
 )
 def test_r_sb2_1d_fences_front_matter_value_forms_bom(own: str, wanted: str) -> None:
     assert handoff_outcome.actual_of("CP-4", own, "")[0] == wanted
+
+
+READY_ROW = "| CP-4 | READY |\n"
+CASES_1H = {
+    "1h-inline-triple-wrapped": ("```Module Status: Blocked```\n", READY_ROW, "will_refuse"),
+    "1h-inline-triple-earlier": (
+        "```CP-4 inline note```\nModule Status: Blocked\n",
+        READY_ROW,
+        "will_refuse",
+    ),
+    "1h-tilde-hides-completed": ("~~~\nModule Status: Completed\n~~~\n", "", "unconfirmed"),
+    "1h-tilde-backtick-tilde": (
+        "~~~\n```\n~~~\nModule Status: Blocked\n",
+        READY_ROW,
+        "will_refuse",
+    ),
+    "1h-four-backtick-holds-three": (
+        "````\n```\nModule Status: Completed\n````\n",
+        "",
+        "unconfirmed",
+    ),
+    "1h-unclosed-fence": ("```\nModule Status: Completed\n", "", "unconfirmed"),
+    "1h-four-space-not-fence": (
+        "    ```\nModule Status: Blocked\n    ```\n",
+        READY_ROW,
+        "will_refuse",
+    ),
+    "1h-own-fenced-ready": ("```\nCP-4 READY\n```\n", "", "unconfirmed"),
+    "1h-info-string-backtick": ("```py`\nModule Status: Blocked\n", READY_ROW, "will_refuse"),
+    "1h-closing-line-trailing-text": (
+        "```\n``` x\nModule Status: Blocked\n",
+        "",
+        "unconfirmed",
+    ),
+    "1h-three-space-opens-fence": (
+        "   ```\nModule Status: Blocked\n```\n",
+        "",
+        "unconfirmed",
+    ),
+}
+
+
+@pytest.mark.parametrize(("own", "cp0", "wanted"), CASES_1H.values(), ids=CASES_1H.keys())
+def test_r_sb2_1h_fences_per_commonmark(own: str, cp0: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
