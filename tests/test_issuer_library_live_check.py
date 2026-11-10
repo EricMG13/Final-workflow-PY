@@ -691,3 +691,52 @@ def test_the_flag_with_nothing_counted_proceeds_and_says_so(
     assert page.evaluate("window.__starts") == 1
     out = capsys.readouterr().out.lower()
     assert "nothing" in out and "counted" in out, out
+
+
+@pytest.mark.browser
+def test_an_n_mismatch_refusal_ends_the_run_with_exit_2_not_a_recorded_fault(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Lead: REFUSE means no Start and exit 2. `walk` runs inside the real `attempt`, which turns
+    any exception into a fault and exit 1; a Refusal must get past it."""
+    import browser_check as bc
+
+    for name in live_check.KEYS:
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("FW_PYTHON", sys.executable)
+    for name, value in {
+        "FAULTS": Faults(),
+        "results": [],
+        "S": tmp_path,
+        "WALK": "",
+        "PY": "",
+        "NEW_SESSION": False,
+        "scan_server_logs": lambda: None,
+        "secrets": list,
+    }.items():
+        monkeypatch.setattr(bc, name, value)
+    for name in ("fill_form", "check_run"):
+        monkeypatch.setattr(live_check, name, lambda *a, **k: None)
+    monkeypatch.setattr(live_check, "check_review", lambda *a, **k: [])
+    page = review_page(browser, 4)
+    stand_in = SimpleNamespace(new_page=lambda **options: page, pages=[])
+
+    def run_walk(bc: Any, args: Any, out: Path, summary: dict[str, Any], held: Any) -> None:
+        args.case_data = {
+            "case": {"label": "stand-in"},
+            "expected-outcomes": {"counted_total": 3},  # the page shows 4
+        }
+        bc.attempt("live", stand_in, lambda: live_check.walk(bc, stand_in, args, out, summary))
+
+    monkeypatch.setattr(live_check, "run_walk", run_walk)
+    saved = {s: signal.getsignal(s) for s in live_check.HALTING}
+    try:
+        code = live_check.main(
+            ["--cap", "1", "--rehearse", "--accept-limitations", "--out", str(tmp_path / "o")]
+        )
+    finally:
+        for sig, handler in saved.items():
+            signal.signal(sig, handler)
+    assert code == 2, f"exit status {code}"
+    assert page.evaluate("window.__starts") == 0, "Start was clicked"
+    assert [f.kind for f in bc.FAULTS.items] == [], "the refusal was recorded as a fault"
