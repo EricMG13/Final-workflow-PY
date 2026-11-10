@@ -1,5 +1,6 @@
 {
   "scope": "A-ab: credit_snapshot, secondary, investment_grade, legal documents none, no quotes, 5 TDG FY2024 filings",
+  "ruling": "R-ALIVE F1/F2/F4 and R-ALIVE-K4 (lead, 2026-11-10; R-ALIVE-rulings.md): unrun case re-frozen by hand; previous values in git history",
   "ordered_modules": [
     "CP-0",
     "CP-1",
@@ -52,7 +53,7 @@
     "CP-5": [
       {
         "rule": "inherited",
-        "outcome": "limited",
+        "outcome": "will_refuse",
         "counted": false,
         "inherited_from": [
           "CP-4",
@@ -63,7 +64,7 @@
     "CP-6": [
       {
         "rule": "inherited",
-        "outcome": "limited",
+        "outcome": "will_refuse",
         "counted": false,
         "inherited_from": [
           "CP-3",

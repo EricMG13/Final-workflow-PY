@@ -497,6 +497,35 @@ def test_f4_cp3c_row_is_absent_when_a_step_up_is_entered() -> None:
     assert [bool(i["inherited_from"]) for i in rows] == [True]  # only the inherited row remains
 
 
+CP5_BASIS = (
+    "forecast-only override FORECAST_EDGES (R-ALIVE F1) of the registry's restricted "
+    "CP-5 <- CP-4 edge; A-live run web-58d058451a6bfb7620b579bbd74b52df: CP-5.md:8, :70; "
+    "INS/CP-5.md:706, :753"
+)
+
+
+def test_l2_the_cp5_f1_row_basis_names_the_forecast_override_and_the_a_live_evidence() -> None:
+    (row,) = [i for i in a_live_rows().values() if i["scope"] == "CP-5"]
+    assert row["basis"] == CP5_BASIS
+    assert "edge_rule" not in row["basis"]  # the registry returns restricted for this edge
+
+
+def test_l1_an_inherited_row_reason_names_the_label_not_the_class() -> None:
+    """CP-6 reads CP-5 through a block edge, so a legal-none credit snapshot gives CP-6 a Blocked
+    inherited row. Its reason uses the on-screen label wording, never the class name."""
+    scenario = json.loads(
+        json.dumps(next(s for s in SCENARIOS if s["id"] == "clean-credit_snapshot-secondary"))
+    )
+    scenario["context"]["legal_documents"] = "none"
+    rows = {i["id"]: i for i in run_scenario(scenario)}
+    cp6 = next(i for i in rows.values() if i["scope"] == "CP-6")
+    assert cp6["outcome"] == "will_refuse" and cp6["counted"] is False
+    assert cp6["reason"] == "Expected to return Blocked through CP-3, CP-5, which it reads."
+    for row in rows.values():
+        assert "will refuse" not in row["reason"].lower(), row["id"]
+        assert "will_refuse" not in row["reason"], row["id"]
+
+
 def test_the_provisional_will_refuse_note_is_gone() -> None:
     source = (ROOT / "src/deploy_workflow/run_expectations.py").read_text("utf-8")
     assert "ponytail:" not in source and "Will refuse wording open" not in source
