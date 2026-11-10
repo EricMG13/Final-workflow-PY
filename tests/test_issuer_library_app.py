@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -18,6 +19,7 @@ from issuer_library_browser import (
     DEFAULT_APP,
     EMPTY_STORE,
     EMPTY_WORKSPACE,
+    NO_TIMERS,
     ORIGIN,
     ROOT,
     WEB,
@@ -33,6 +35,28 @@ from issuer_library_browser import (
 )
 
 pytestmark = pytest.mark.browser
+
+
+def late_replies(prefix: str, ms: int) -> str:
+    """Page script: the reply to each fetch of a path under prefix reaches the page ms late.
+
+    The request is sent at once (so the harness records it); only the answer is delayed."""
+    return (
+        f"{{const held=window.fetch;window.fetch=(url,options)=>{{const reply=held(url,options);"
+        f"return String(url).startsWith({json.dumps(prefix)})"
+        f"?reply.then(r=>new Promise(done=>setTimeout(()=>done(r),{int(ms)}))):reply;}};}}"
+    )
+
+
+# Slow-reply mode for sweeping the file for reads that do not wait: FW_SLOW_API_MS=300 delays every
+# /api/ answer in the page by that many ms, in New run pages (CAPTURED_TIMERS) and in open_store
+# pages. Unset (the default), nothing changes.
+SLOW_API = (
+    late_replies("/api/", int(os.environ["FW_SLOW_API_MS"]))
+    if os.environ.get("FW_SLOW_API_MS")
+    else ""
+)
+CAPTURED_TIMERS = CAPTURED_TIMERS + SLOW_API
 
 ID = "web-" + "a" * 32
 ID2 = "web-" + "c" * 32
@@ -233,6 +257,7 @@ def open_store(
     **options: Any,
 ) -> Any:
     """open_app (option: api) with the /api/catalogue records the server sends for the runs."""
+    options["timers"] = options.get("timers", NO_TIMERS) + SLOW_API
     api: dict[str, Reply] = {
         "/api/catalogue": catalogue_reply(store, app),
         **options.pop("api", {}),
@@ -995,6 +1020,26 @@ def test_the_review_text_waits_for_a_slow_review_reply(
         assert expected in text, expected
 
 
+def test_review_shows_after_a_slow_review_reply(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The steps of the folder-review test with only the review reply late: the review step must
+    be showing once the reply has rendered, so the read waits for it."""
+    monkeypatch.setattr(
+        sys.modules[__name__],
+        "CAPTURED_TIMERS",
+        CAPTURED_TIMERS + late_replies("/api/runs/review", 1000),
+    )
+    run = new_run()
+    run.context()
+    run.folder("Northbridge/annual.txt", "Northbridge/filings/notes.md")
+    assert "2 files" in run.text("upload-list")
+    run.click("review-run")
+    body = run.review_body()
+    assert json.loads(body["paths"]) == ["annual.txt", "filings/notes.md"]
+    assert run.starts == 0 and run.hidden("review-step") is False
+
+
 def test_progress_waits_for_a_slow_status_reply(
     new_run: Any, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -1239,6 +1284,30 @@ def test_settings_shows_the_workspace_and_its_issues_and_respects_the_policy_loc
     assert re.search(r"managed by your IT configuration", screen.text(".settings"))
     assert not screen.exists(".settings ul b")
     assert "<b>changed</b>" in screen.text(".settings ul")
+    screen.click("#quit-library")
+    screen.page.wait_for_function("document.getElementById('settings-status').textContent!==''")
+    assert len(quits) == 1 and quits[0].get("x-issuer-library") == "1"
+    assert re.search(r"Library stopped", screen.text("#settings-status"))
+    screen.close()
+
+
+def test_settings_shows_library_stopped_after_a_slow_quit_reply(browser: Any) -> None:
+    """The steps of the settings test with only the quit reply late: the status text is set at
+    once (the click's note) and replaced by the reply, so the read waits for the reply's text."""
+    quits: list[dict[str, str]] = []
+
+    def quit_reply(route: Any) -> None:
+        quits.append(dict(route.request.headers))
+        json_reply({"stopped": True})(route)
+
+    screen = open_store(
+        browser,
+        "W-Settings/workspace",
+        NORTHBRIDGE,
+        NORTHBRIDGE_REPORTS,
+        api={"/api/quit": quit_reply},
+        timers=NO_TIMERS + late_replies("/api/quit", 1000),
+    )
     screen.click("#quit-library")
     screen.page.wait_for_function("document.getElementById('settings-status').textContent!==''")
     assert len(quits) == 1 and quits[0].get("x-issuer-library") == "1"
