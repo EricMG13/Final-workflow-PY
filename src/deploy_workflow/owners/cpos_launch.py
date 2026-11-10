@@ -603,6 +603,44 @@ CHART_TABLES: dict[str, tuple[str, tuple[str, ...], str]] = {
 CHART_BLOCKS = frozenset(STRIP_FIGURES) - {"yield-against-maturity"}
 NOT_SUPPLIED = "Not supplied:"
 PLAIN_NUMBER = re.compile(r"-?\d[\d,]*(?:\.\d+)?")
+_PERIOD_DATE = r"(\d{4}-\d{2}-\d{2})"
+_PERIOD_KIND = r"(?:FY\d{4}|LTM|H[12] \d{4}|9M \d{4}|Q[1-4] \d{4})"
+# Figure id -> (Period cell pattern, instruction sentence, issue text). S.4 is free text.
+_PERIOD_ENDED = (
+    re.compile(rf"{_PERIOD_KIND} ended {_PERIOD_DATE}"),
+    (
+        " Each Period cell is `<kind> ended YYYY-MM-DD`, where kind is `FY<yyyy>`, `LTM`, "
+        "`H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`; a ratio of period-end debt to "
+        "trailing-twelve-month EBITDA is an `LTM` row."
+    ),
+    (
+        "Period must be `<kind> ended YYYY-MM-DD` with a real date; kind is `FY<yyyy>`, `LTM`, "
+        "`H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`."
+    ),
+)
+_PERIOD_FORMATS = {
+    "S.1": _PERIOD_ENDED,
+    "S.2": _PERIOD_ENDED,
+    "S.3": (
+        re.compile(_PERIOD_DATE),
+        " Each Period cell is the balance-sheet date as `YYYY-MM-DD`.",
+        "Period must be the balance-sheet date as `YYYY-MM-DD`, a real date.",
+    ),
+}
+
+
+def _period_issues(heading: str, period: str, figure: str | None) -> list[str]:
+    if figure not in _PERIOD_FORMATS:
+        return []
+    pattern, _, message = _PERIOD_FORMATS[figure]
+    matched = pattern.fullmatch(period)
+    try:
+        if matched is not None:
+            date.fromisoformat(matched.group(1))
+            return []
+    except ValueError:
+        pass
+    return [f"`{heading}` {period}: {message}"]
 
 
 def _chart_route(block_id: str, figure: str) -> MarkdownRoute:
@@ -644,6 +682,7 @@ def chart_issues(text: str, route: MarkdownRoute) -> tuple[str, ...]:
             issues.append(f"`{heading}` row needs {len(header)} cells: {' | '.join(row)}")
             continue
         period, *values, unit, basis = row
+        issues += _period_issues(heading, period, route.figure_id)
         if not basis:
             issues.append(f"`{heading}` {period}: Basis and limitation is blank.")
         for value in values:
@@ -804,7 +843,8 @@ def _selector(route: MarkdownRoute) -> str:
     if route.kind == "chart":
         return (
             f"- `### {route.heading}`: exactly one Markdown table headed "
-            f"`| {' | '.join(_chart_header(route))} |`, one row per period. Value cells are plain "
+            f"`| {' | '.join(_chart_header(route))} |`, one row per period."
+            f"{_PERIOD_FORMATS.get(route.figure_id or '', ('', '', ''))[1]} Value cells are plain "
             f"numbers in {route.chart_unit}, with that as the Reporting unit, or "
             "`Not supplied: <reason>`. An issuer reporting in another currency or scale writes "
             "`Not supplied: reported in <unit>` in monetary cells. Basis and limitation is never "

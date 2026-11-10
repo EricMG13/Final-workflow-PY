@@ -362,10 +362,10 @@ def test_summary_draws_chart_tables_with_their_exact_values_and_shows_a_gap_with
         "Debt maturities",
     ]
     assert charts[0]["rows"] == [
-        ["FY2023Total debt / EBITDA", "4.20"],
-        ["FY2023Net debt / EBITDA", "3.85"],
-        ["FY2024Total debt / EBITDA", "3.60"],
-        ["FY2024Net debt / EBITDA", "3.25"],
+        ["FY2023 ended 2023-12-31Total debt / EBITDA", "4.20"],
+        ["FY2023 ended 2023-12-31Net debt / EBITDA", "3.85"],
+        ["FY2024 ended 2024-12-31Total debt / EBITDA", "3.60"],
+        ["FY2024 ended 2024-12-31Net debt / EBITDA", "3.25"],
     ]
     assert charts[3]["rows"] == [
         ["FY2026Debt maturing", "500"],
