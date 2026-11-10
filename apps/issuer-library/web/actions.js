@@ -320,7 +320,7 @@ const folderPath=file=>(file.webkitRelativePath||file.name).split('/').slice(fil
 const uploadable=files=>[...files].filter(file=>!folderPath(file).split('/').some(part=>part.startsWith('.')));
 
 function installNewRun(){
-  let context=null,review=null,busy=false,running=false,polling=false,listing=false,watch=null,activeListed=false,lastRows='';
+  let context=null,review=null,busy=false,running=false,polling=false,listing=false,watch=null,activeListed=false,listFailed=false,lastRows='';
   function message(value){$('new-run-message').textContent=value;}
   function stage(name){
     for(const id of ['context','source','review','progress'])$(id+'-step').hidden=id!==name;
@@ -338,7 +338,7 @@ function installNewRun(){
     $('revise-run').disabled=busy||running;
     $('resume-run').disabled=busy||running||!resumeBudgetOk();
     $('run-sources').disabled=busy||running;
-    const wanted=(running||activeListed)&&!$('new-run').hidden;
+    const wanted=(running||activeListed||listFailed)&&!$('new-run').hidden;
     if(wanted&&!watch)watch=setInterval(poll,2000);
     if(!wanted&&watch){clearInterval(watch);watch=null;}
   }
@@ -363,7 +363,7 @@ function installNewRun(){
     if(listing)return;listing=true;
     try{
       // Only the app-wide watcher builds the browser notice, so this page's poll never speaks for the tab.
-      const jobs=await appRequest('/api/runs/list?notify=0');
+      const jobs=await appRequest('/api/runs/list?notify=0');listFailed=false;
       const key=JSON.stringify(jobs);if(key===lastRows){controls();return;}
       if(!jobs.length){const link=textNode('a','Issuer library');link.href='#W-Library/cases';$('recent-jobs').replaceChildren('No runs started from this app are recorded in this workspace yet. Earlier runs are in the ',link,'.');lastRows=key;activeListed=false;controls();return;}
       const active=job=>WORKFLOW_ACTIVE.includes(job.state);
@@ -396,7 +396,7 @@ function installNewRun(){
       if(activeListed&&!hadActive)document.querySelector('.recent-runs').open=true;
       lastRows=key;
       controls();
-    }catch(error){lastRows='';$('recent-jobs').textContent='Could not load recent runs. Reopen New run to try again. Details: '+error.message;}
+    }catch(error){lastRows='';listFailed=true;$('recent-jobs').textContent='Could not load recent runs. Retrying while New run is open. Details: '+error.message;controls();}
     finally{listing=false;}
   }
   function showStatus(status){

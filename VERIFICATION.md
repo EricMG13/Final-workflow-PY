@@ -10,6 +10,13 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — New run: a failed first recent-runs render is retried on the next refresh (branch `claude/sb2-first-render-poll`)
+
+- **Rule:** in `apps/issuer-library/web/actions.js`, `recent()` sets `listFailed` when the list fetch or render fails and clears it when the fetch succeeds; `controls()` keeps New run's 2-second poll while `listFailed` and New run is visible. The failure text now reads "Retrying while New run is open."
+- **Reason:** the poll started only when a run was active, so a failed first render left no interval and the list stayed on the error until the page was reopened.
+- **Key:** `test_a_failed_first_render_is_retried_on_the_next_refresh` (commit ab016fbe, unedited), failing at the missing poll before the change; `tests/test_issuer_library_app.py` 64 passed after, including the hidden-stops-polling and retried-render tests.
+- **Not verified:** a real browser; a list that keeps failing (the poll then repeats every 2 seconds while New run is open).
+
 ## 2026-11-10 — Verification record: 2026-11-08 entries archived (SB3, branch `claude/sb3-verification-archive-2`)
 
 - Moved verbatim on main 6ed04ff5 (part 2 of 2, after #85): the 271 lines of the fourteen 2026-11-08 entries, from "Plan 3 Task 9" to "Run activity page", with no other dates. They go to the top of docs/VERIFICATION-ARCHIVE.md, above the 2026-11-07 entries, so it stays newest first; the header line names the move.
