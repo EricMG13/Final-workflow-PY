@@ -10,6 +10,7 @@ import shutil
 import sys
 import tempfile
 import warnings
+from collections.abc import Sequence
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -43,7 +44,13 @@ from deploy_workflow.owners.cpos_launch import (
     without_for,
 )
 from deploy_workflow.platform_io import replace
-from deploy_workflow.run_expectations import counted_ids
+from deploy_workflow.run_expectations import (
+    PROPAGATING,
+    RULES,
+    Item,
+    counted_ids,
+    edges_for,
+)
 from deploy_workflow.run_events import stop_reason
 
 RETAINED_NOTE = "Retained work is in the run folder; no automatic paid retry was made."
@@ -299,6 +306,40 @@ def resume_view(
     return reruns, outcomes
 
 
+def reaching_roots(
+    rows: Sequence[Item], ordered: Sequence[str], retained: Sequence[str]
+) -> set[str]:
+    """R-SB2-6c: ids of the plain review's counted, propagating rows on retained modules from which
+    a module that runs again is reachable through propagating inheritance, however many retained
+    modules lie between. Such a cause still limits the resume, so its id stays counted."""
+    edges = edges_for(ordered)
+    stays = {f"{rule.scope}:{rule.key}" for rule in RULES if not rule.propagates}
+    runs_again = [m for m in ordered if m not in retained]
+
+    def reaches(start: str) -> bool:
+        seen, todo = {start}, [start]
+        while todo:
+            producer = todo.pop()
+            for consumer in ordered:
+                if consumer in seen or producer not in edges.get(consumer, {}):
+                    continue
+                if consumer in runs_again:
+                    return True
+                seen.add(consumer)
+                todo.append(consumer)
+        return False
+
+    return {
+        row["id"]
+        for row in rows
+        if row["scope"] in retained
+        and row["counted"]
+        and row["outcome"] in PROPAGATING
+        and row["id"] not in stays
+        and reaches(row["scope"])
+    }
+
+
 def review(directory: Path) -> dict[str, Any]:
     job, _ = read_job(directory)
     check_path_room(directory)
@@ -310,14 +351,12 @@ def review(directory: Path) -> dict[str, Any]:
     selected = CONFIGS[job["config"]]
     reruns, outcomes = resume_view(job, prepared)
     kept = [row for row in prepared.expectations if row["scope"] not in prepared.retained_modules]
-    # R-SB2-6c: a retained producer's own row is dropped, but its counted id stays while a kept
-    # row inherits from it, so the resume still needs the acceptance that cause requires.
-    inheriting = {module for row in kept for module in row["inherited_from"]}
+    roots = reaching_roots(prepared.expectations, prepared.ordered, prepared.retained_modules)
     counted = counted_ids(
         [
             row
             for row in prepared.expectations
-            if row["scope"] not in prepared.retained_modules or row["scope"] in inheriting
+            if row["scope"] not in prepared.retained_modules or row["id"] in roots
         ]
     )
     return {
