@@ -2737,11 +2737,36 @@ def test_a_refused_acceptance_leaves_the_job_startable(tmp_path: Path) -> None:
     assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
 
 
-OLD_REVIEW_KEYS = (
-    "ok review_id id engine_revision issuer issuer_id pathway as_of modules module_details config "
-    "provider model effort cap_usd hold_usd max_turns resume_of retained_modules retained_note "
-    "prices_as_of provider_ready provider_key sources ignored report_sections omitted scope"
-).split()
+OLD_REVIEW_KEYS = [
+    "ok",
+    "review_id",
+    "id",
+    "engine_revision",
+    "issuer",
+    "issuer_id",
+    "pathway",
+    "as_of",
+    "modules",
+    "module_details",
+    "config",
+    "provider",
+    "model",
+    "effort",
+    "cap_usd",
+    "hold_usd",
+    "max_turns",
+    "resume_of",
+    "retained_modules",
+    "retained_note",
+    "prices_as_of",
+    "provider_ready",
+    "provider_key",
+    "sources",
+    "ignored",
+    "report_sections",
+    "omitted",
+    "scope",
+]
 
 
 def test_a_review_written_before_expectations_must_be_made_again(tmp_path: Path) -> None:
