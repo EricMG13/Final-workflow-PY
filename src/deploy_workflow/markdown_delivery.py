@@ -728,14 +728,15 @@ def status_note(module_id: str, raw: str) -> str | None:
     """`<module> Blocked: <reason>` (or Restricted) for a module whose own handoff reads
     will_refuse or limited through the frozen reader, else None. The reason is the first line of
     the Request section that opens with bold text (the handoff's stated outcome), as written with
-    its `**` markers removed; a handoff with no such line gives the reader's own account of where
-    it read the status. No wording of this module is added."""
+    its `**` markers removed; a handoff with no such line gives `reason not stated in the
+    handoff` (L1 ruling: the status always shows, no other line is guessed).
+    No wording of this module is added."""
     read = own_status(module_id, raw)
     if read is None or read[0] not in STATUS_WORDS:
         return None
     request = section(physical_lines(raw), "Request")
     reason = next((line for _, line in request if line.startswith("**")), None)
-    shown = reason.replace("**", "") if reason else f"({read[1]})"
+    shown = reason.replace("**", "") if reason else "reason not stated in the handoff"
     return f"{module_id} {STATUS_WORDS[read[0]]}: {shown}"
 
 
