@@ -77,7 +77,14 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "financial_report",
         _rx(r"(?:group )?consolidated (?:financial statements|statements? of|balance sheet)"),
     ),
-    ("credit_agreement", _rx(r"(?:(?:the|this) )?(?:amended and restated )?credit agreement\b")),
+    (
+        "credit_agreement",
+        # Up to two capitalised qualifiers (ABL, Term Loan); not a form or an amendment title.
+        _rx(
+            r"(?:(?:the|this) |(?:(?!the\b|this\b|form\b|amendment\b)(?-i:[A-Z][\w&-]*) ){1,2})?"
+            r"(?:amended and restated )?credit agreement\b"
+        ),
+    ),
     ("indenture", _rx(r"(?:(?:the|this) )?(?:(?:\w+ )?supplemental )?indenture\b")),
     ("amendment", _rx(r"amendment no\.? ?\d+|\w+ amendment to\b")),
     ("intercreditor", _rx(r"(?:(?:the|this) )?intercreditor agreement\b")),
@@ -120,6 +127,8 @@ INDEX_PHRASE = _rx(r"item 1b\.? unresolved staff comments")
 EXECUTION_MARK = _rx(r"(?:execution version|executed copy|conformed copy)\b")
 DRAFT_MARK = _rx(r"draft\b|preliminary (?:offering memorandum|prospectus)\b")
 DRAFT_ANYWHERE = _rx(r"subject to completion|not for execution")
+
+_NAME_PREFIX = re.compile(r"^(?:\d{4} \d\d \d\d )?(?:EX(?:HIBIT)?\d+ \d+ )?")  # 2014-10-21-ex10-1-
 
 HTML_HEADER = "Visible text of "
 _CELL = re.compile(r"^[A-Z]+\d+='")  # A workbook page prints cells as A1='text'.
@@ -187,7 +196,8 @@ def _kind(name: str, lines: list[str], pages: Sequence[str]) -> tuple[str, str]:
     for number, page in enumerate(pages, 1):
         if match := INDEX_PHRASE.search(" ".join(page.split())):
             return "financial_report", f"found {match.group(0)!r} on page {number}"
-    named = _hits([" ".join(re.split(r"[-_.]+", name))])
+    spaced = " ".join(re.split(r"[-_.]+", name)).upper()
+    named = _hits([_NAME_PREFIX.sub("", spaced)])
     if len(named) == 1:
         ((kind, text),) = named.items()
         return kind, f"file name contains {text!r}"
