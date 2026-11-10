@@ -946,9 +946,10 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
 
 
 def remove_failed_run_lock(path: Path, job_id: str) -> None:
-    """Unlink the lock of a start whose spawn failed, so a stray fork's copy locks a dead inode.
+    """Unlink the lock of a start that failed before any worker, so a stray fork locks a dead inode.
 
-    No worker holds this inode, and the next start creates a fresh file under lib.lock.
+    Used after a failed spawn or a failed status save. No worker holds this inode; the
+    cross-instance guard is start.claim (not lib.lock), and the next start creates a fresh file.
     """
     try:
         os.remove(path)
