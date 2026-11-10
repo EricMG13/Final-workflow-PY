@@ -684,3 +684,59 @@ for _n in (68, 69, 70, 71, 72):
 )
 def test_rf2_second_same_id_mention_in_window(own: str | None, cp0: str, wanted: str) -> None:
     assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
+
+
+RM_OWN = "# CP-4\nbody\n"
+RM_CASES = [
+    ("rm-abbr-sec", None, "CP-4 (see sec. 3) BLOCKED\n", "will_refuse"),
+    (
+        "rm-abbr-sec-plus-ready-own",
+        "# CP-4\nCP-4 (see sec. 3) BLOCKED pending data\nCP-4 READY for drafting\n",
+        "",
+        "will_refuse",
+    ),
+    # `e.g. covenant` does not end a sentence (lowercase follows), so the second
+    # mention's BLOCKED is read next to CP-4 and the worst status wins.
+    (
+        "rm-abbr-eg-own",
+        "# CP-4\nCP-4 READY for review\nCP-4 e.g. covenant test BLOCKED\n",
+        "",
+        "will_refuse",
+    ),
+    ("rm-abbr-sec-pending", None, "CP-4 (see sec. 3) BLOCKED pending data\n", "will_refuse"),
+    ("rm-abbr-no", None, "CP-4 (see no. 2) BLOCKED pending data\n", "will_refuse"),
+    ("rm-abbr-decimal", None, "CP-4 (3.5x leverage) BLOCKED pending data\n", "will_refuse"),
+    ("rm-abbr-eg-the", None, "CP-4 (e.g. the covenant) BLOCKED pending data\n", "will_refuse"),
+    ("rm-sentence-end-upper", RM_OWN, "CP-4 READY. BLOCKED items are listed below\n", "ready"),
+    ("rm-sentence-end-line", RM_OWN, "CP-4 READY.\nBLOCKED items are listed below\n", "ready"),
+    ("rm-semicolon", RM_OWN, "CP-4 READY; BLOCKED for filing\n", "ready"),
+    ("rm-lower-cp-between", RM_OWN, "CP-4 READY, cp-5 BLOCKED\n", "ready"),
+    ("rm1-tcp-in-word", RM_OWN, "CP-4 READY over tcp-5 BLOCKED\n", "will_refuse"),
+    ("rm1-xcp-in-word", RM_OWN, "CP-4 READY over xcp-5 BLOCKED\n", "will_refuse"),
+    ("rm1-ipcp-2-in-word", RM_OWN, "CP-4 READY over ipcp-2 BLOCKED\n", "will_refuse"),
+    ("rm-known-limit-negation", RM_OWN, "CP-4 READY, not BLOCKED\n", "will_refuse"),
+    (
+        "rm-known-limit-same-mention-semicolon",
+        RM_OWN,
+        "CP-4 READY for drafting; BLOCKED for filing\n",
+        "ready",
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    ("own", "cp0", "wanted"), [c[1:] for c in RM_CASES], ids=[c[0] for c in RM_CASES]
+)
+def test_rm_abbreviations_do_not_end_a_sentence(own: str | None, cp0: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
+
+
+def test_rm_known_limit_and_list_never_ready() -> None:
+    assert handoff_outcome.actual_of("CP-4", RM_OWN, "CP-4 and CP-5 BLOCKED\n")[0] != "ready"
+
+
+def test_rm_cp0_reader_is_linear_with_repeated_abbreviation() -> None:
+    text = "CP-4 " + "sec. " * 200_000 + "\n"
+    start = time.perf_counter()
+    handoff_outcome.actual_of("CP-4", RM_OWN, text)
+    assert time.perf_counter() - start < 1.0

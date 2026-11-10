@@ -44,18 +44,18 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
 
 A CP-0 status is the most severe status word in any cell of a table row whose first cell is the
 module id alone or the id plus a label (id, optional whitespace, then a colon or a dash after
-whitespace; case-insensitive; `*`, backticks and a leading list marker `- ` or `N. ` are
-dropped from the cell first; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
-a row of another module never counts, nor is it read as text); in other text every status
-word within 70 characters after a mention of the module id (not followed by `.digit`, `-digit` or
-a letter), with no other module id and no sentence end (`.` or `;` before a space or the line's
-end) between, so the worst class over all mentions wins, and, in CP-0 prose only, a status word
-(any letter case) followed by `:` and a list of module ids that includes it (`Blocked: CP-1, CP-4
-and CP-5`; same id boundary; the word starts a line after list/markup characters (`#`
-too) only, ids in any letter case, is not negated, and the ids stop at the first word that is not
-an id or a separator). A `Module Status:` value counts when it begins with a known phrase followed
-by a period or the line's end
-(the rest of the line is ignored).
+whitespace; case-insensitive; `*`, backticks and a leading list marker `- ` or `N. ` are dropped
+from the cell first; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's; a row of
+another module never counts, nor is it read as text); in other text every status word within 70
+characters after a mention of the module id (not followed by `.digit`, `-digit` or a letter), with
+no other module id (any letter case) and no sentence end between (`;` before a space or the line's
+end; `.` before whitespace and an uppercase letter, or before the line's end, so `sec. 3`, `no. 2`,
+`3.5x` and `e.g. the` do not end it), so the worst class over all mentions wins, and, in CP-0 prose
+only, a status word (any letter case) followed by `:` and a list of module ids that includes it
+(`Blocked: CP-1, CP-4 and CP-5`; same id boundary; the word starts a line after list/markup
+characters (`#` too) only, ids in any letter case, is not negated, and the ids stop at the first
+word that is not an id or a separator). A `Module Status:` value counts when it begins with a known
+phrase followed by a period or the line's end (the rest of the line is ignored).
 
 `unconfirmed` and `not_reached` are not evidence: against any forecast the
 verdict is "not testable" (a live check reports them as findings, never as agreement).
@@ -161,8 +161,9 @@ def unfenced(text: str) -> list[str]:
 def status_words(module: str, text: str, words: tuple[str, ...], both: bool = False) -> list[str]:
     """The module's status words: those in any cell of a table row whose first cell is the module id
     alone or id plus a label (markup and list marker dropped); else, for every mention of the id,
-    every status word within 70 characters after it, no other module id and no sentence end (`.` or
-    `;` before a space or line end) between (another module's row is not read), and any word
+    every status word within 70 characters after it, no other module id (any letter case) and no
+    sentence end between (`;` before a space or line end; `.` before whitespace and an uppercase
+    letter, or before line end; another module's row is not read), and any word
     followed by `:` and a list of ids that includes the module (`Blocked: CP-1, CP-4`; any letter
     case, and only with `both`, i.e. CP-0 text). That form counts only when the status word starts
     the line after list/markup characters (`-*+>_#`, backticks, `N.`), so `Not blocked:` and
@@ -185,7 +186,7 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
         return rows
     prose = "\n".join(rest)
     ident = r"CP-\w+(?!\w|\.\d|-\d)"
-    gap = r"(?:(?!CP-|[.;](?:\s|$))[^\n])"
+    gap = r"(?:(?!\b(?i:cp-)|;(?:\s|$)|\.(?:[ \t]+[A-Z]|\s*(?:\n|$)))[^\n])"
     found = [
         w[1]
         for m in re.finditer(rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?=({gap}{{0,91}}\w*))", prose)
