@@ -446,7 +446,8 @@ def case_pages(name: str) -> list[str]:
 
 
 def cover(title: str) -> str:
-    return f"Exhibit 10.1\nExecution Version\n$125,000,000\n{title}\nDated as of October 20, 2014\namong\n"
+    head = "Exhibit 10.1\nExecution Version\n$125,000,000\n"
+    return f"{head}{title}\nDated as of October 20, 2014\namong\n"
 
 
 @pytest.mark.parametrize("name", [ABL_FILE, TERM_FILE])
@@ -499,3 +500,43 @@ def test_r_sb2_2_credit_agreement_mentioned_in_an_8k_sentence_is_not_one() -> No
 def test_r_sb2_2_form_of_credit_agreement_is_not_executed() -> None:
     guess = guess_kind("x.htm", [cover("FORM OF CREDIT AGREEMENT")])
     assert not (guess.kind == "credit_agreement" and guess.executed is True)
+
+
+# --- R-SB2-2: the lender presentation with a qualifier or a dated file name ----------------------
+LENDER_FILE = "2014-09-11-ex99-1-public-lender-presentation.htm"
+
+
+def test_r_sb2_2_real_lender_presentation_is_recognised() -> None:
+    assert guess_kind(LENDER_FILE, case_pages(LENDER_FILE)).kind == "lender_presentation"
+
+
+def test_r_sb2_2_qualified_cover_title_is_a_lender_presentation() -> None:
+    page = "Exhibit 99.1\nPublic Lender Presentation September 11, 2014\n"
+    assert guess_kind("x.htm", [page]).kind == "lender_presentation"
+
+
+def test_r_sb2_2_dated_lender_presentation_file_name_fallback() -> None:
+    assert guess_kind(LENDER_FILE, [""]).kind == "lender_presentation"
+
+
+def test_r_sb2_2_lender_presentation_in_a_body_sentence_is_not_one() -> None:
+    sentence = (
+        "This presentation is intended to facilitate discussion of the lender presentation "
+        "materials furnished by the Company to prospective lenders."
+    )
+    assert guess_kind("x.htm", [sentence]).kind != "lender_presentation"
+
+
+@pytest.mark.parametrize(
+    ("name", "period_end"),
+    [
+        ("10-k-year-ended-2014-01-28.htm", "2014-01-28"),
+        ("10-q-quarter-ended-2014-04-29.htm", "2014-04-29"),
+        ("10-q-quarter-ended-2014-07-29.htm", "2014-07-29"),
+    ],
+)
+def test_r_sb2_2_financial_reports_in_the_case_stay_financial_reports(
+    name: str, period_end: str
+) -> None:
+    guess = guess_kind(name, case_pages(name))
+    assert (guess.kind, guess.period_end) == ("financial_report", period_end)
