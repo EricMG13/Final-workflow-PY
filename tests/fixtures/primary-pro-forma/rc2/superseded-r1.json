@@ -1,0 +1,5 @@
+{
+  "frozen": "2026-11-10",
+  "superseded": [],
+  "note": "Empty: no existing rc2 case changes result. Scan of every CP-1A case in checker-cases-rc2.json and the four earlier key files for (a) a non-exact `total` Item, (b) `(commitment)` on a non-Memo row, (c) a Not supplied total: only `rc2-memo-side-lowercase` (Side `memo`, not Source/Use, so the LOW ruling as worded does not apply; expected stays pro_forma_cell, see UNDECIDED r3) and the older `cp1a-total-uses-side-source` (already rejected, pro_forma_rows) match, and neither result changes."
+}
