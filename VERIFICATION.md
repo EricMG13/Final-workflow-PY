@@ -653,3 +653,20 @@ Lead review of #55 (Medium): the fence rule toggled on any line starting with th
 inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per CommonMark (R-SB2-1h):
 opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
 same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
+
+## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
+
+Defect (Low, concurrency): `hold_worker_lock` flocks `worker.lock`; a child forked by another thread
+while that fd is open inherits the locked file until exec, so after a failed spawn the next start's
+`LOCK_NB` failed and answered 500 instead of 503. Fix: `launch_worker` removes `worker.lock` after
+`release_lock` when `Engine.start` raised (`remove_failed_run_lock`: FileNotFoundError ignored, other
+OSError logged). Answer key `test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_into_500`
+red (503, 500) then green; `probe_stray_fork.py` and `probe_observe.py` exit 0; the existing `{503: 8}` test unchanged.
+Two workers cannot run at once: the removal happens only where no process was spawned, so no worker
+holds the old inode; it runs under `lib.lock`, as does every start, so the next start's `O_CREAT`
+makes a fresh inode and locks that; the stray fork holds only the unlinked old one and is not a worker.
+Success path unchanged (the lock stays for the worker's life).
+Flakes (tests only, no sleeps): new_run progress/stages tests wait for `.summary-line` / `#module-stages li`
+before indexing; `test_a_failed_list_fetch_is_retried...` waited a fixed 50 ms after each tick, too short
+under load for the list fetch, so each tick now waits for the text or table it asserts. 20/20 passes each.
+Not verified: other platforms' (Windows) lock-removal order; a worker started on a path where Popen succeeded then failed later.

@@ -126,6 +126,7 @@ def test_a_stop_between_modules_keeps_the_accepted_module_ticked(new_run: Any) -
         {"state": "failed", "reason": "provider", "message": "handoff refused",
          "progress": progress, "run_available": True, "id": ID},
     )  # fmt: skip
+    until(run.page, "document.querySelectorAll('#run-progress .summary-line').length>1")
     assert run.progress()[1] == f"Stopped after Source readiness{SPACED}(1{SPACED}of{SPACED}2)."
     stages = run.stages()
     assert [s["status"] for s in stages] == ["complete", "incomplete", "incomplete"]
@@ -427,6 +428,7 @@ def test_the_report_delivery_step_is_grey_ahead_blue_delivering_ticked_delivered
     new_run: Any, status: dict[str, Any], want: tuple[str, str | None, bool, bool]
 ) -> None:
     run = launched(new_run, status)
+    until(run.page, "document.querySelectorAll('#module-stages li').length>0")
     stages = run.stages()
     step = stages[-1]
     assert step["name"] == "Report delivery"

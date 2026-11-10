@@ -832,8 +832,10 @@ def test_a_failed_list_fetch_is_retried_and_its_error_does_not_stick(new_run: An
     run = new_run(rows=[ROW_RUNNING])
     run.fail_list = True
     run.tick()
+    until(run.page, "document.getElementById('recent-jobs').textContent.startsWith('Could not load')")
     assert run.text("recent-jobs").startswith("Could not load")
     run.tick()
+    until(run.page, "document.querySelector('#recent-jobs table')!==null")
     assert run.screen.exists("#recent-jobs table")
 
 
