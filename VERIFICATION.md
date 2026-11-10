@@ -14,7 +14,7 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
 - **Reason:** counting every edited file by its drift from the source recounted history. A later PR touching `cpos_launch.py` would have recounted the ~720 lines already counted and reviewed in #53, whose own count was 797/800.
-- **Key:** `SDD/prsize-key/scenarios.json` (sha256 `01ac9082...e8`), 19 scenarios replayed in `tests/test_pr_size.py`; 19/19 pass. Before the change 7 failed with the key's "today" numbers (65, 85, 0, 860, 861, 100, 10). `edited_setup` no longer puts a file at base (scenarios 3 and 4); scenario 17 covers the old shape.
+- **Key:** `tests/fixtures/pr-size/scenarios.json` (sha256 `01ac9082...e8`), 19 scenarios replayed in `tests/test_pr_size.py`; 19/19 pass. Before the change 7 failed with the key's "today" numbers (65, 85, 0, 860, 861, 100, 10). `edited_setup` no longer puts a file at base (scenarios 3 and 4); scenario 17 covers the old shape.
 - **Not verified:** a diverged base other than the one in scenario 19; the CI run itself.
 
 ## 2026-11-10 — Plan 3 Task 11a: pro forma instructions, checker and Primary default CP-1D (PR #53, branch `claude/sb3-plan-3-11a`)
