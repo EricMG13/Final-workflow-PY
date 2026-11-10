@@ -53,6 +53,7 @@ PYTHON_TESTS = (
     "tests/test_library_manifest.py",
     "tests/test_cpos_launch.py",
     "tests/test_cpos_provisional.py",
+    "tests/test_cpos_pro_forma.py",
     "tests/test_reader_summary.py",
     "tests/test_cpos_handoffs.py",
     "tests/test_cpos_comparison.py",
