@@ -752,3 +752,100 @@ def test_r_sb2_2a_10k_cover_with_investor_lender_presentation_line_is_financial_
 def test_r_sb2_2a_10k_body_mention_of_lender_presentation_is_financial_report() -> None:
     page = "FORM 10-K\nThe lender presentation was furnished."
     assert guess_kind("10-k.htm", [page]).kind == "financial_report"
+
+
+_R2A_FIX1_TITLES = [
+    "THIRD AMENDED AND RESTATED CREDIT AGREEMENT",
+    "AMENDED AND RESTATED REVOLVING CREDIT AGREEMENT",
+    "AMENDED AND RESTATED ABL CREDIT AGREEMENT",
+    "SECOND AMENDED AND RESTATED SENIOR SECURED CREDIT AGREEMENT",
+    "AMENDED AND RESTATED TERM LOAN CREDIT AGREEMENT",
+    "SENIOR SECURED CREDIT AGREEMENT",
+]
+
+
+@pytest.mark.parametrize(
+    "title", _R2A_FIX1_TITLES, ids=lambda t: "r_sb2_2a_fix1_ca_" + t.lower().replace(" ", "_")
+)
+def test_r_sb2_2a_fix1_ordinal_and_combined_titles_are_credit_agreements(title: str) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "page",
+    [
+        "Existing Amended and Restated Credit Agreement means the credit agreement dated October 1, 2013.",
+        "Prior Amended and Restated Credit Agreement means the credit agreement dated October 1, 2013.",
+        "Existing Amended and Restated Credit Agreement",
+        "Proposed Amended and Restated Credit Agreement",
+    ],
+    ids=["existing_sentence", "prior_sentence", "existing_bare", "proposed_bare"],
+)
+def test_r_sb2_2a_fix1_non_ordinal_openers_are_not_credit_agreements(page: str) -> None:
+    assert guess_kind("x.pdf", [page]).kind != "credit_agreement"
+
+
+def test_r_sb2_2a_fix1_amended_and_restated_revolving_file_name() -> None:
+    name = "2014-10-21-ex10-1-amended-and-restated-revolving-credit-agreement.htm"
+    assert guess_kind(name, [""]).kind == "credit_agreement"
+
+
+def test_r_sb2_2a_fix1_lower_case_body_line_is_not_a_credit_agreement() -> None:
+    page = "Exhibit 10.1\nsenior secured credit agreement covenants restrict dividends.\n"
+    assert guess_kind("x.htm", [page]).kind != "credit_agreement"
+
+
+def test_r_sb2_2a_fix1_capitalised_title_under_exhibit_stays_credit_agreement() -> None:
+    page = "Exhibit 10.1\nExecution Version\nSENIOR SECURED CREDIT AGREEMENT\n"
+    assert guess_kind("x.htm", [page]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize("name", [ABL_FILE, TERM_FILE])
+def test_r_sb2_2a_fix1_end_real_mattress_titles_match_through_the_page_path(name: str) -> None:
+    assert guess_kind(name, case_pages(name)).kind == "credit_agreement"
+
+
+def test_r_sb2_2a_fix1_end_real_lender_presentation_matches_through_the_page_path() -> None:
+    name = "2014-09-11-ex99-1-public-lender-presentation.htm"
+    assert guess_kind(name, case_pages(name)).kind == "lender_presentation"
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        "ABL CREDIT AGREEMENT dated as of October 20, 2014",
+        "ABL CREDIT AGREEMENT dated October 20, 2014",
+        "ABL CREDIT AGREEMENT among Mattress Holding Corp. and the lenders",
+        "ABL CREDIT AGREEMENT between the Borrower and the Agent",
+        "ABL CREDIT AGREEMENT by and among the Borrowers and the Lenders",
+        "ABL CREDIT AGREEMENT October 20, 2014",
+        "ABL CREDIT AGREEMENT.",
+    ],
+    ids=["dated_as_of", "dated", "among", "between", "by_and_among", "bare_date", "full_stop"],
+)
+def test_r_sb2_2a_fix1_end_title_with_recognised_tail_is_a_credit_agreement(line: str) -> None:
+    assert guess_kind("x.htm", [_EX + line + "\n"]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "Revolving Credit Agreement borrowings were $40.0 million at quarter end.",
+        "Senior Secured Credit Agreement covenants restrict dividends.",
+        "senior secured credit agreement covenants restrict dividends.",
+        "Credit Agreement borrowings were $40.0 million at quarter end.",
+    ],
+    ids=["revolving", "senior_secured", "lower_case", "bare"],
+)
+def test_r_sb2_2a_fix1_end_body_sentences_are_not_credit_agreements(sentence: str) -> None:
+    assert guess_kind("8-k.htm", ["Current Report\n" + sentence]).kind != "credit_agreement"
+
+
+def test_r_sb2_2a_fix1_end_lender_presentation_bare_date_tail_stays() -> None:
+    page = "Public Lender Presentation September 11, 2014"
+    assert guess_kind("x.pdf", [page]).kind == "lender_presentation"
+
+
+def test_r_sb2_2a_fix1_end_lender_presentation_sentence_is_not_a_title() -> None:
+    page = "Lender Presentation materials were furnished to lenders."
+    assert guess_kind("x.pdf", [page]).kind != "lender_presentation"
