@@ -1741,3 +1741,208 @@ def test_the_kept_expectations_have_exactly_the_six_keys_of_the_approved_review(
         "without",
     }
     assert not {"reruns", "retained_outcomes"} & set(bridge.EXPECTATION_KEYS)
+
+
+# ---- PR-C2: a finished app run writes its library entry (runs/<id>/library.json) ---------------
+# Scope: a fake provider proves wiring only (the writer is called, after delivery, from the run's
+# own snapshot, and its failure leaves the run's outcome alone). It says nothing about analysis.
+# The literals below are written by hand from the context the test stages (cases/cpdr-context-
+# cutoff with issuer "Northbridge Synthetic Group", id "nbg", as-of 2025-03-31, USD) and the
+# classification the test sets; none is read back from a manifest. The fake CP-1 of the covenant
+# pathway holds only the "Chart data: debt maturities" table, no leverage, interest-cover or
+# liquidity chart, so the served run's metrics are {}.
+
+NOTE = "Library entry not written: "
+
+
+def indented(value: dict) -> bytes:
+    """The staged context as a user-written, one-key-per-line file (the writer pins those lines)."""
+    return json.dumps(value, indent=2).encode()
+
+
+def finished_setup(tmp_path, provider):
+    """An approved covenant job whose context states a high-yield issue; nothing has run yet."""
+    folder, value = job(tmp_path)
+    context = json.loads((folder / "context.json").read_text())
+    context["identity"]["issue_classification"] = "high_yield"
+    (folder / "context.json").write_bytes(indented(context))
+    bridge.write_json(folder / "review.json", bridge.review(folder))
+    run_dir = Path(value["workspace"]) / "runs" / value["id"]
+    routes = bridge.launch(value, folder, tmp_path / "preview").layout.routes
+    provider.answer = lambda ctx: answer(ctx, routes)
+    return folder, run_dir
+
+
+def discovered(run_dir):
+    """(catalogue issues naming the run, the served run), by the app's discovery."""
+    from issuer_library.discovery import discover
+    from issuer_library.model import Catalogue
+
+    workspace = run_dir.parent.parent
+    cat = discover(str(workspace), Catalogue())
+    (run,) = [r for r in cat.real if r.id == run_dir.name]
+    return [issue for issue in cat.issues if run_dir.name in issue], run
+
+
+def rejected(run):
+    return [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+
+
+def test_a_finished_run_writes_a_library_entry_discovery_admits(tmp_path, provider):
+    folder, run_dir = finished_setup(tmp_path, provider)
+    bridge.start(folder)
+    assert status_of(folder)["state"] == "complete"
+    assert (run_dir / "library.json").is_file()
+    issues, run = discovered(run_dir)
+    assert issues == [] and rejected(run) == []
+    assert run.id == "web-" + "a" * 32
+    assert run.issuer == "nbg"
+    assert run.name == "Northbridge Synthetic Group"
+    assert run.date == "2025-03-31"
+    assert run.currency == "USD"
+    assert run.classification == "high_yield"
+    assert run.metrics == {}
+
+
+def test_editing_the_intake_context_after_the_run_changes_nothing_served(tmp_path, provider):
+    """Review Focus 22: the entry is written from runs/<id>/context.json, not intake/."""
+    folder, run_dir = finished_setup(tmp_path, provider)
+    bridge.start(folder)
+    _, before = discovered(run_dir)
+    assert before.name == "Northbridge Synthetic Group"
+    edited = json.loads((folder / "context.json").read_text())
+    edited["identity"]["issuer_name"] = "Changed Issuer plc"
+    edited["ratings"] = [
+        {"agency": "S&P", "scope": "issuer", "rating": "CCC", "outlook": "Negative", "as_of": ""}
+    ]
+    (folder / "context.json").write_bytes(indented(edited))
+    issues, after = discovered(run_dir)
+    assert issues == [] and rejected(after) == []
+    assert after.model_dump(mode="json") == before.model_dump(mode="json")
+
+
+def test_a_changed_pinned_value_in_the_written_entry_is_rejected(tmp_path, provider):
+    """Review Focus 24, negative: the pin on CP-0's handoff is checked, so this test can fail."""
+    folder, run_dir = finished_setup(tmp_path, provider)
+    bridge.start(folder)
+    entry = run_dir / "library.json"
+    text = entry.read_text(encoding="utf-8")
+    pin = hashlib.sha256((run_dir / "CP-0.md").read_bytes()).hexdigest()
+    assert text.count(f'"sha256": "{pin}"') == 1  # the pin of source handoff_CP-0
+    changed = pin[:-1] + ("0" if pin[-1] != "0" else "1")
+    entry.write_text(text.replace(f'"sha256": "{pin}"', f'"sha256": "{changed}"', 1))
+    issues, run = discovered(run_dir)
+    assert rejected(run) != [] and issues != []
+
+
+WRITER_FAULTS = [
+    (lambda: bridge.library_manifest.ManifestError("x"), "ManifestError: x"),
+    (lambda: TypeError("unhashable type: 'list'"), "TypeError: unhashable type: 'list'"),
+    (lambda: OSError("disk full"), "OSError: disk full"),
+]
+
+
+@pytest.mark.parametrize("case", WRITER_FAULTS, ids=["ManifestError", "TypeError", "OSError"])
+def test_a_writer_failure_leaves_the_finished_run_as_it_was_and_says_so(
+    tmp_path, provider, monkeypatch, capsys, case
+):
+    """The one documented fail-open: the contract fixes the seam name `bridge.library_manifest`."""
+    fault, named = case
+    base_folder, _ = finished_setup(tmp_path / "plain", provider)
+    bridge.start(base_folder)
+    baseline = status_of(base_folder)
+    assert baseline["state"] == "complete"
+
+    folder, run_dir = finished_setup(tmp_path / "faulty", provider)
+
+    def fails(*args, **kwargs):
+        raise fault()
+
+    monkeypatch.setattr(bridge.library_manifest, "write", fails)
+    capsys.readouterr()
+    bridge.start(folder)
+    status = status_of(folder)
+    assert status["state"] == "complete"
+    assert status["run_id"] == baseline["run_id"] == "web-" + "a" * 32
+    assert status["spent_usd"] == baseline["spent_usd"]
+    parts = status["message"].split("; ")
+    assert parts.count(NOTE + named) == 1
+    assert parts == [*baseline["message"].split("; "), NOTE + named]
+    assert NOTE + named in capsys.readouterr().err
+    assert not (run_dir / "library.json").exists()
+    assert [p.name for p in run_dir.iterdir() if p.name.startswith(".library-")] == []
+    assert rejected(discovered(run_dir)[1]) == []
+
+
+def test_the_stderr_line_of_a_library_entry_failure_is_redacted_like_the_status_line(
+    tmp_path, provider, monkeypatch, capsys
+):
+    folder, _ = finished_setup(tmp_path, provider)
+    dummy_key = "not-a-real-key-123"
+    dummy_token = "sk-ant-abcdefghijklmnop"
+    for variable in bridge.KEY_VARIABLES.values():
+        monkeypatch.setenv(variable, dummy_key)
+
+    def fails(*args, **kwargs):
+        raise ValueError(f"leaked {dummy_key} and {dummy_token}")
+
+    monkeypatch.setattr(bridge.library_manifest, "write", fails)
+    capsys.readouterr()
+    bridge.start(folder)
+    err = capsys.readouterr().err
+    status_text = (folder / "status.json").read_text()
+    lines = [x for x in err.splitlines() if x.startswith("Library entry not written: ")]
+    parts = [
+        p
+        for p in status_of(folder)["message"].split("; ")
+        if p.startswith("Library entry not written: ")
+    ]
+    assert len(lines) == 1 and len(parts) == 1
+    assert lines[0] == parts[0]
+    for text in (err, status_text):
+        assert dummy_key not in text and dummy_token not in text
+        assert "[redacted]" in text
+
+
+def test_a_stopped_run_writes_no_library_entry(tmp_path, provider):
+    _, run_dir, _, _ = stopped_after_the_first_module(tmp_path, provider)
+    assert not (run_dir / "library.json").exists()
+
+
+def test_an_interrupt_from_the_writer_is_not_swallowed(tmp_path, provider, monkeypatch):
+    folder, _ = finished_setup(tmp_path, provider)
+
+    def interrupted(*args, **kwargs):
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr(bridge.library_manifest, "write", interrupted)
+    with pytest.raises(KeyboardInterrupt):
+        bridge.start(folder)
+
+
+def test_a_resumed_run_that_finishes_writes_an_entry_discovery_admits(tmp_path, provider):
+    folder, run_dir = finished_setup(tmp_path, provider)
+    request = json.loads((folder / "job.json").read_text())
+    routes = bridge.launch(request, folder, tmp_path / "preview").layout.routes
+    first = COVENANT_MODULES[0]
+    provider.answer = lambda ctx: (
+        answer(ctx, routes) if ctx["module_id"] == first else "# Not a handoff"
+    )
+    bridge.start(folder)
+    assert status_of(folder)["state"] == "stopped"
+    assert not (run_dir / "library.json").exists()
+    second = resumed(folder, request, cap_usd="50")
+    bridge.write_json(second / "review.json", bridge.review(second))
+    provider.answer = lambda ctx: answer(ctx, routes)
+    bridge.start(second)
+    assert status_of(second)["state"] == "complete"
+    new_dir = run_dir.parent / second.name
+    assert (new_dir / "library.json").is_file()
+    issues, run = discovered(new_dir)
+    assert issues == [] and rejected(run) == []
+    assert (run.id, run.issuer, run.date, run.classification) == (
+        "web-" + "b" * 32,
+        "nbg",
+        "2025-03-31",
+        "high_yield",
+    )

@@ -23,8 +23,11 @@ COMPLETE_MESSAGE = (
 HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
+sys.path.insert(0, str(HERE))  # library_manifest.py sits beside this file in both layouts
 if (HERE.parent / "lib").is_dir():
     sys.path.insert(0, str(HERE.parent / "lib"))
+
+import library_manifest
 
 from deploy_vii.registry import modules
 from deploy_workflow.context import load_context
@@ -44,6 +47,7 @@ from deploy_workflow.owners.cpos_launch import (
     without_for,
 )
 from deploy_workflow.platform_io import replace
+from deploy_workflow.run_events import stop_reason
 from deploy_workflow.run_expectations import (
     PROPAGATING,
     RULES,
@@ -51,7 +55,6 @@ from deploy_workflow.run_expectations import (
     counted_ids,
     edges_for,
 )
-from deploy_workflow.run_events import stop_reason
 
 RETAINED_NOTE = "Retained work is in the run folder; no automatic paid retry was made."
 UNKNOWN_SPEND_NOTE = "Recorded spend could not be read and may be above zero."
@@ -512,6 +515,16 @@ def start(directory: Path) -> None:
         if not stopped:
             raise  # main prints the redacted problems; it keeps this status, which holds the spend
         return
+    # The one documented, logged fail-open: a library-entry failure must not change a finished
+    # run's outcome. Any Exception (never BaseException) becomes one status line and one stderr
+    # line.
+    entry: list[str] = []
+    try:
+        library_manifest.write(workspace, job["id"])
+    except Exception as error:  # noqa: BLE001 -- documented fail-open, logged below
+        line = " ".join(f"{type(error).__name__}: {error}".split())
+        entry = [redact(f"Library entry not written: {line}")]
+        print(entry[0], file=sys.stderr)
     amount, notes = final_spend()
     write_json(
         directory / "status.json",
@@ -521,6 +534,7 @@ def start(directory: Path) -> None:
                 [
                     COMPLETE_MESSAGE,
                     *(str(w.message) for w in caught if issubclass(w.category, RuntimeWarning)),
+                    *entry,
                     *notes,
                 ]
             ),
