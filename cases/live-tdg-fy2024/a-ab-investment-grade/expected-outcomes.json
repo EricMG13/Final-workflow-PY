@@ -13,7 +13,7 @@
   ],
   "run": [
     {
-      "rule": "ig-method-fit",
+      "rule": "investment-grade",
       "outcome": "information",
       "counted": false,
       "detail": "methods and persona are written for high-yield and leveraged-loan credit"

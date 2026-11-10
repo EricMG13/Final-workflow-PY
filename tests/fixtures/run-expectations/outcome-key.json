@@ -1701,7 +1701,7 @@
     "counted_total": 3,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
+   "note": "Everything declared is recognised or not needed, but legal documents are declared none, so CP-2D has a counted Limited (F2, covenant documents are a required input) and the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE). Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
   },
   {
    "id": "clean-relative_value-secondary",
@@ -1778,7 +1778,7 @@
     "counted_total": 2,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed."
+   "note": "Everything declared is recognised or not needed, but legal documents are declared none, so CP-2D has a counted Limited (F2, covenant documents are a required input) and the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE)."
   },
   {
    "id": "clean-relative_value-research",
@@ -1855,7 +1855,7 @@
     "counted_total": 2,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed."
+   "note": "Everything declared is recognised or not needed, but legal documents are declared none, so CP-2D has a counted Limited (F2, covenant documents are a required input) and the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE)."
   },
   {
    "id": "clean-relative_value-earnings",
@@ -1932,7 +1932,7 @@
     "counted_total": 2,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed."
+   "note": "Everything declared is recognised or not needed, but legal documents are declared none, so CP-2D has a counted Limited (F2, covenant documents are a required input) and the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE)."
   },
   {
    "id": "clean-covenant_refinancing-primary",
@@ -1996,7 +1996,7 @@
     "counted_total": 2,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption). This pathway omits no report section."
+   "note": "Everything declared is recognised or not needed, but the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE). Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption). This pathway omits no report section."
   },
   {
    "id": "clean-covenant_refinancing-secondary",
@@ -2052,7 +2052,7 @@
     "counted_total": 1,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
+   "note": "Everything declared is recognised or not needed, but the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE). This pathway omits no report section."
   },
   {
    "id": "clean-covenant_refinancing-research",
@@ -2108,7 +2108,7 @@
     "counted_total": 1,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
+   "note": "Everything declared is recognised or not needed, but the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE). This pathway omits no report section."
   },
   {
    "id": "clean-covenant_refinancing-earnings",
@@ -2164,7 +2164,7 @@
     "counted_total": 1,
     "without": []
    },
-   "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
+   "note": "Everything declared is recognised or not needed, but the context leaves assumptions.cp3c null, so CP-3C has a counted Limited (F4, no repricing step-up) and its consumers inherit it uncounted (R-ALIVE). This pathway omits no report section."
   },
   {
    "id": "clean-distressed_restructuring-primary",
