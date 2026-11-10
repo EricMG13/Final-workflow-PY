@@ -13,7 +13,6 @@ import datetime
 import errno
 import hashlib
 import json
-import math
 import os
 import re
 import secrets
@@ -26,13 +25,12 @@ HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
 
-from issuer_library import events
+from issuer_library import discovery, events
 from issuer_library.events import open_regular
+from issuer_library.model import Catalogue, Manifest, Metric, Source
 
 SCHEMA = "issuer-library-run/1"
 Json = dict[str, Any]
-# Mirrors discovery's WHOLE_NUMBER, non-negative: commas only group exactly three digits.
-_NUMBER = re.compile(r"(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?")
 _DATE = r"(?P<date>[0-9]{4}-[0-9]{2}-[0-9]{2})"
 _KINDS = r"(?P<kind>FY[0-9]{4}|LTM|H[12] [0-9]{4}|9M [0-9]{4}|Q[1-4] [0-9]{4})"
 _RATIO_PERIOD = re.compile(_KINDS + " ended " + _DATE)
@@ -325,7 +323,8 @@ def _chart_rows(doc: _Doc) -> dict[str, list[_Row]]:
 
 
 def _number(cell: str) -> bool:
-    return _NUMBER.fullmatch(cell) is not None and math.isfinite(float(cell.replace(",", "")))
+    """The cell is, by discovery's own reader, exactly one non-negative number."""
+    return discovery.stated_numbers(cell) == [cell.replace(",", "")] and cell[0] != "-"
 
 
 def _row_metrics(table: str, row: _Row) -> Json:
@@ -342,12 +341,26 @@ def _row_metrics(table: str, row: _Row) -> Json:
     return out
 
 
+def _readable_metrics(found: Json, pin: Json) -> Json:
+    """Keep the metrics discovery would admit from the pinned line, as it reads that line."""
+    kept: Json = {}
+    for name, metric in found.items():
+        try:
+            discovery.check_metric(Metric(**metric), {metric["source"]: Source(**pin)})
+        except ValueError:
+            continue
+        kept[name] = metric
+    return kept
+
+
 def _chart_metrics(doc: _Doc | None, as_of: str, sink: _Sink) -> tuple[Json, bool]:
     metrics: Json = {}
     tables, off_format = _scan(doc) if doc else ({}, False)
     for table, rows in tables.items():
         row = _chosen_row(table, rows, as_of)
-        found = _row_metrics(table, row) if row else {}
+        found = (
+            _readable_metrics(_row_metrics(table, row), _pin(doc, row.line)) if row and doc else {}
+        )
         if found and doc and row:
             sink.pin(table, doc, row.line)
             metrics |= found
@@ -646,6 +659,11 @@ def _close_if_unowned(fd: int, ours: os.stat_result) -> None:
 def _publish(workspace: Path, run_id: str, text: str) -> None:
     """Write `library.json` through folder fds; a link swapped in after `build` is not followed."""
     fds = _walk(workspace, ("runs", run_id))
+    try:
+        _admit(workspace, run_id, text)
+    except BaseException:
+        _close(fds)
+        raise
     temp = f".library-{secrets.token_hex(8)}.tmp"
     made = False
     try:
@@ -674,6 +692,17 @@ def _publish(workspace: Path, run_id: str, text: str) -> None:
         _close(fds)
 
 
+def _admit(workspace: Path, run_id: str, text: str) -> None:
+    """Run discovery's admission on the manifest text; raise `ManifestError` with its reason."""
+    try:
+        manifest = Manifest.model_validate_json(text)
+        if manifest.schema_ != discovery.MANIFEST_SCHEMA:
+            raise ValueError("unsupported run manifest schema")
+        discovery.admit_run(workspace, manifest, run_id, Catalogue(workspace=str(workspace)))
+    except (OSError, ValueError) as err:
+        raise ManifestError(f"discovery rejects this manifest: {discovery.describe(err)}") from err
+
+
 def write(workspace: Path, run_id: str) -> Path:
     """Write `build(...)` to `runs/<run_id>/library.json` atomically and return the path."""
     text = json.dumps(build(workspace, run_id), indent=2, ensure_ascii=False) + "\n"
@@ -682,6 +711,7 @@ def write(workspace: Path, run_id: str) -> Path:
     if os.open not in os.supports_dir_fd:
         # ponytail: no dir_fd (Windows), so the folder path is not pinned; a link swapped in
         # between build() and this write can redirect library.json. Ceiling: the POSIX path above.
+        _admit(workspace, run_id, text)
         temp = target.with_name(f".library-{secrets.token_hex(8)}.tmp")
         try:
             temp.write_text(text, encoding="utf-8", newline="")
