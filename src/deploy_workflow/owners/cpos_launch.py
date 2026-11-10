@@ -185,8 +185,9 @@ BLOCK_OWNERS: dict[str, tuple[str, ...]] = {
 # CP-8 owns this section and compares two completed deliveries; a single run has nothing to compare.
 SECOND_RUN_ONLY = "what-changed"
 # The H3 that follows the two tables of `### Reader summary` (R-C2-6) and precedes any other
-# table: its first content is prose stating the module's view in plain English (owner ruling, 2026-11-05; Deploy V's M365 runs for VMO2 and Wood Mackenzie open
-# each module's analysis that way). "Credit view" (CP-1C, CP-2) and "Downside view" (CP-2A) are the
+# table: its first content is prose stating the module's view in plain English
+# (owner ruling, 2026-11-05; Deploy V's M365 runs for VMO2 and Wood Mackenzie open each module's
+# analysis that way). "Credit view" (CP-1C, CP-2) and "Downside view" (CP-2A) are the
 # M365 headings. A module added to METHODS needs an entry here; a test fails otherwise.
 # This launcher route only: the owner route (`deploy_vii.cp2_synthesis`, Python-composed
 # Markdown) is unchanged.
