@@ -1446,15 +1446,10 @@ def recording_engines(tmp_path: Path, engine: Engine) -> tuple[Engine, Engine]:
     )
 
 
-def settle_race_outcome(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, in_gap: bool
-) -> SimpleNamespace:
-    """A second instance's watcher judges a failed start's worker gone and is descheduled before
-    settle_job reads status.json (injected stall); the retry starts a live worker meanwhile.
-
-    With `in_gap` the watcher's verdict is made between the failed start's release_lock and its
-    unlink (the unlink waits for the stalled settle to be reached), otherwise after the unlink.
-    """
+def settle_race_outcome(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> SimpleNamespace:
+    """A second instance's watcher judges a failed start's worker gone (after its unlink) and is
+    descheduled before settle_job reads status.json (injected stall); the retry starts a live
+    worker meanwhile."""
     monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
     first_app, root, client_a, job_id = reviewed(tmp_path)
     folder = root / "intake" / job_id
@@ -1465,7 +1460,7 @@ def settle_race_outcome(
     reached, go = threading.Event(), threading.Event()
     armed = [False]
     attempts: list[int] = []
-    real_settle, real_remove = jobs_module.settle_job, jobs_module.remove_failed_run_lock
+    real_settle = jobs_module.settle_job
 
     def stalling_settle(path: Path) -> None:
         caller, outer = sys._getframe(1).f_code.co_name, sys._getframe(2).f_code.co_name
@@ -1474,13 +1469,6 @@ def settle_race_outcome(
             reached.set()
             go.wait(20)
         real_settle(path)
-
-    stall_reached: list[bool] = []
-
-    def remove_once_the_check_is_stalled(path: Path, job: str) -> None:
-        if in_gap:
-            stall_reached.append(reached.wait(10))
-        real_remove(path, job)
 
     class SwitchEngine(Engine):
         def start(self, folder: Path, lock: Any) -> Any:
@@ -1495,13 +1483,11 @@ def settle_race_outcome(
 
     first_app.engine = SwitchEngine(root=held_root, python=sys.executable)
     monkeypatch.setattr(jobs_module, "settle_job", stalling_settle)
-    monkeypatch.setattr(jobs_module, "remove_failed_run_lock", remove_once_the_check_is_stalled)
     starts = root / "worker-starts.txt"
     resumed_workers = 0
     try:
         first = start_job(client_a, job_id)
-        stall_reached.append(reached.wait(10))
-        assert all(stall_reached), "the settle never reached its stall"
+        assert reached.wait(10), "the settle never reached its stall"
         retry = start_job(client_a, job_id)
         await_text(starts)
         go.set()
@@ -1528,10 +1514,22 @@ def test_another_instances_settle_never_marks_a_live_retry_interrupted(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, in_gap: bool
 ) -> None:
     # Answer key: sb2/probes/t7adv_settle_toctou_preexisting.py (after_unlink) and
-    # t7rr_held_probe_lock_vs_removal.py (between_release_and_unlink: a check that won the
-    # lock on the inode about to be unlinked must not take that inode as proof). Whatever the
-    # retry's answer, a live worker's job is never settled, and no second worker starts.
-    outcome = settle_race_outcome(tmp_path, monkeypatch, in_gap)
+    # i24_held_stale_inode_settle_v2.py (between_release_and_unlink, staged for unlink-first: a
+    # settle that opened the lock file before the unlink wins the flock on that inode once the
+    # lock is released and must not take it as proof; the older gap, a verdict made between
+    # release and unlink, no longer exists on POSIX, where the unlink comes first). Whatever
+    # the retry's answer, a live worker's job is never settled, and no second worker starts.
+    if in_gap:
+        outcome = run_failed_start_race(
+            tmp_path,
+            monkeypatch,
+            race_of(),
+            stall_after_job_state_in_settle,
+            settle_opens_first=True,
+        )
+        assert outcome.race.seen["stalled"], "the settle never reached its stall"
+    else:
+        outcome = settle_race_outcome(tmp_path, monkeypatch)
     assert outcome.first.status_code == 503, outcome.first.text
     if outcome.retry.status_code == 202:
         assert outcome.alive, "the retry's worker was judged dead"
@@ -1546,6 +1544,8 @@ def race_of() -> SimpleNamespace:
         reached=threading.Event(),
         go=threading.Event(),
         done=threading.Event(),
+        opened=threading.Event(),
+        released=threading.Event(),
         seen={},
         attempts=[],
     )
@@ -1556,10 +1556,16 @@ def run_failed_start_race(
     monkeypatch: pytest.MonkeyPatch,
     race: SimpleNamespace,
     install: Callable[[pytest.MonkeyPatch, SimpleNamespace], None],
+    settle_opens_first: bool = False,
 ) -> SimpleNamespace:
     """The first start's spawn fails; another instance's settle_job wins the lock on the inode
     about to be unlinked (started between the failed start's release_lock and its unlink) and is
-    stalled by `install`'s hook; the retry then locks a fresh inode and spawns a live worker."""
+    stalled by `install`'s hook; the retry then locks a fresh inode and spawns a live worker.
+
+    With `settle_opens_first` the settle instead opens the lock file before the failed start
+    unlinks it and waits at its flock until release_lock has run (the order on POSIX, where the
+    unlink comes first and the lock is held until after it): it then wins the flock on the
+    unlinked inode and stalls, which the start's answer is awaited for (race.seen["stalled"])."""
     app, root, client, job_id = reviewed(tmp_path)
     folder = root / "intake" / job_id
     held, missing = recording_engines(tmp_path, app.engine)
@@ -1579,24 +1585,34 @@ def run_failed_start_race(
         finally:
             race.done.set()
 
-    settler = threading.Thread(target=settle, daemon=True)
+    settler = threading.Thread(target=settle, name="racing-settle", daemon=True)
 
     def remove_with_a_settle_racing(path: Path, job: str) -> None:
         if "started" not in race.seen:
             race.seen["started"] = True
             race.seen["failed_start_ino"] = os.lstat(path).st_ino
             settler.start()
+            if settle_opens_first:
+                race.opened.wait(10)
             deadline = time.time() + 10
-            while time.time() < deadline and not (race.reached.is_set() or race.done.is_set()):
+            while (
+                not settle_opens_first
+                and time.time() < deadline
+                and not (race.reached.is_set() or race.done.is_set())
+            ):
                 time.sleep(0.005)
         real_remove(path, job)
 
     app.engine = SwitchEngine(root=held.root, python=sys.executable)
     install(monkeypatch, race)
+    if settle_opens_first:
+        settle_flock_waits_for_the_release(monkeypatch, race)
     monkeypatch.setattr(jobs_module, "remove_failed_run_lock", remove_with_a_settle_racing)
     starts = root / "worker-starts.txt"
     try:
         first = start_job(client, job_id)
+        if settle_opens_first:
+            race.seen["stalled"] = race.reached.wait(10)
         retry = start_job(client, job_id)
         await_text(starts)
         race.go.set()
@@ -1608,16 +1624,48 @@ def run_failed_start_race(
         race.go.set()
         (root / "release-all").write_bytes(b"")
         drain_apps(app)
+    workers = starts.read_text().count("\n") if starts.exists() else 0
     return SimpleNamespace(
-        first=first, retry=retry, settled=settled, alive=alive, new_ino=new_ino, race=race
+        first=first,
+        retry=retry,
+        settled=settled,
+        alive=alive,
+        new_ino=new_ino,
+        workers=workers,
+        race=race,
     )
+
+
+def settle_flock_waits_for_the_release(
+    monkeypatch: pytest.MonkeyPatch, race: SimpleNamespace
+) -> None:
+    """The racing settle has opened the lock file when it reaches its flock, and gets the flock
+    only after the failed start's release_lock has run; every other flock is untouched."""
+    real_fcntl, real_release = jobs_module.fcntl, jobs_module.release_lock
+
+    def flock_once_released(descriptor: int, operation: int) -> Any:
+        if threading.current_thread().name == "racing-settle":
+            race.opened.set()
+            race.released.wait(10)
+        return real_fcntl.flock(descriptor, operation)
+
+    def release_then_signal(lock: int) -> None:
+        real_release(lock)
+        race.released.set()
+
+    gated = SimpleNamespace(
+        flock=flock_once_released, LOCK_EX=real_fcntl.LOCK_EX, LOCK_NB=real_fcntl.LOCK_NB
+    )
+    monkeypatch.setattr(jobs_module, "fcntl", gated)
+    monkeypatch.setattr(jobs_module, "release_lock", release_then_signal)
 
 
 def stall_after_job_state_in_settle(monkeypatch: pytest.MonkeyPatch, race: SimpleNamespace) -> None:
     real_job_state = jobs_module.job_state
 
     def stalling_job_state(folder: Path) -> Any:
-        if not race.reached.is_set() and sys._getframe(1).f_code.co_name == "settle_job":
+        racing = threading.current_thread().name == "racing-settle"
+        if racing and not race.reached.is_set() and sys._getframe(1).f_code.co_name == "settle_job":
             race.reached.set()
             race.go.wait(20)
         return real_job_state(folder)
@@ -1653,8 +1701,10 @@ def test_a_settle_holding_the_inode_about_to_be_unlinked_never_marks_a_live_retr
     # retry's live worker locks a fresh one. The settle must not take its held, unlinked inode
     # as proof: the job stays "running".
     race = race_of()
-    outcome = run_failed_start_race(tmp_path, monkeypatch, race, stall_after_job_state_in_settle)
-    assert race.reached.is_set(), "the settle never stalled holding the failed start's inode"
+    outcome = run_failed_start_race(
+        tmp_path, monkeypatch, race, stall_after_job_state_in_settle, settle_opens_first=True
+    )
+    assert race.seen["stalled"], "the settle never stalled holding the failed start's inode"
     assert outcome.first.status_code == 503, outcome.first.text
     assert outcome.retry.status_code == 202, outcome.retry.text
     assert outcome.new_ino != race.seen["failed_start_ino"], "the retry did not lock a fresh inode"
