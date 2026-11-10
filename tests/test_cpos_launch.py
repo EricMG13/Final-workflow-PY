@@ -123,7 +123,9 @@ CHART_TABLES = {
 NON_USD_TABLES = {
     "Chart data: liquidity": """| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- | --- |
-| 2024-12-31 | Not supplied: reported in EUR m | Not supplied: reported in EUR m | EUR m | Synthetic. |""",
+"""
+    "| 2024-12-31 | Not supplied: reported in EUR m | Not supplied: reported in EUR m "
+    "| EUR m | Synthetic. |",
     "Chart data: debt maturities": """| Period | Debt maturing | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- |
 | FY2026 | Not supplied: reported in EUR m | EUR m | Synthetic. |""",
@@ -1014,9 +1016,14 @@ FIGURES = {
     "debt maturities": "S.4",
 }
 HEADERS = {
-    "leverage": "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "leverage": (
+        "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit "
+        "| Basis and limitation |"
+    ),
     "interest cover": "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
-    "liquidity": "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "liquidity": (
+        "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |"
+    ),
     "debt maturities": "| Period | Debt maturing | Reporting unit | Basis and limitation |",
 }
 

@@ -347,7 +347,8 @@ def test_each_rejecting_rule_is_in_the_instructions_and_named_in_the_message(cas
 # tree's, and each file is compared after the key's sentence substitutions
 # (rc2/substitutions.json) are taken back out, so base bytes + exactly those substitutions == the
 # new bytes. Nothing here is computed from production code except the bytes under test. A module
-# outside the key's sets whose bytes move changes the digest and fails.
+# outside the key's sets whose bytes move changes the digest and fails. R-26 (lead ruling
+# R-SB4-plan-4-rulings.md, 2026-11-10) entries apply only where the chart bullet exists.
 BASE_NON_PRIMARY_DIGEST = "d0bf5a8a3fa0627a8cf3a3a7a5f9a993cc57355cc4e5e5d4b4535777f5b73142"
 
 
@@ -355,10 +356,24 @@ def base_bytes(module: str, raw: bytes) -> bytes:
     """The file with the key's non-Primary substitutions for its module taken back out."""
     for part in reversed(SUBSTITUTIONS["non_primary"].get(module, [])):
         new, old = part["new"].encode(), part["old"].encode()
+        if part.get("where_present") and new not in raw:
+            assert old not in raw, (module, part["rule"])  # base text left un-substituted
+            continue
         assert raw.count(new) == 1, (module, part["rule"])
         assert old not in raw, (module, part["rule"])
         raw = raw.replace(new, old)
     return raw
+
+
+def test_where_present_cannot_hide_a_missing_insertion(tmp_path):
+    prepared = prepared_for(tmp_path, "covenant_refinancing", "secondary", "executed", ["CP-1"])
+    composed = instructions_of(prepared, "CP-1")
+    r26 = [p for p in SUBSTITUTIONS["non_primary"]["CP-1"] if p["rule"] == "R-26"]
+    assert len(r26) == 3 and not any(p["new"].encode() in composed for p in r26)
+    assert base_bytes("CP-1", composed)  # neither old nor new: passes through
+    leverage = r26[0]
+    with pytest.raises(AssertionError):
+        base_bytes("CP-1", composed + leverage["old"].encode())
 
 
 def non_primary_digest(root: Path) -> str:
