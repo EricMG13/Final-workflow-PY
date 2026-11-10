@@ -40,7 +40,11 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
   - R-C2-7: keep the source unit; convert with `calculate` and say so.
   - Key: literal 821 moves to the routed S&U tab; 466 is corrected to what the source prints.
   - Plan 4 needs only the pro forma leverage rows, which passed.
-- **Not verified:** the rendered report in a browser (the block note "USD millions" over a thousands tab was read from `report-view.json`; R-C2-5); the fixes above live. Live proof rides on C1r, after R-C2-1/-2/-6/-7 merge.
+- **Input differed from the frozen case (found afterwards):** the run's `intake/web-f126f83e…/context.json` has `deal_terms[0].instrument` `""` where `cases/live-mattress-firm-2014/c2/context.json` has `"ABL revolver"` (size 125 kept; Term loan B kept). live_check loads the case file through the app's context editor, so the app's import probably dropped it; it has not been traced. The model still identified the ABL from the documents. Reported to the lead.
+- **Not verified:**
+  - the rendered report in a browser: the block note "USD millions" over a thousands tab was read from `report-view.json` (R-C2-5);
+  - the fixes above, live. Live proof rides on C1r, after R-C2-1/-2/-6/-7 merge;
+  - the cause of the dropped instrument name.
 
 ## 2026-11-10 — pr_size: an edited copy counts against the merge base when the base holds it (R-PRSIZE-1, branch `sb3-prsize`)
 
