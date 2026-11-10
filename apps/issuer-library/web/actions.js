@@ -491,7 +491,7 @@ function installNewRun(){
       details(`Report · ${result.report_sections.length} sections, ${result.omitted.length} not produced`,[textNode('h4','Sections this run fills'),list('ul',result.report_sections.map(name=>textNode('li',name))),textNode('h4','Sections it does not produce'),list('ul',(result.omitted.length?result.omitted:['None']).map(name=>textNode('li',name)))]),
       details('Scope and limitations',[textNode('p',result.scope),textNode('p',`The spend ceiling applies to this run folder. Each call holds up to the amount shown while in flight; this is not an estimate of total cost. Prices dated ${displayDate(result.prices_as_of)}.`)]),...(counted.length?[accept]:[]));
   }
-  const OUTCOME_NAMES={will_refuse:'Will refuse',gap:'Gap',limited:'Limited',check:'Check',information:'Information',ready:'Ready'};
+  const OUTCOME_NAMES={will_refuse:'Returns Blocked',gap:'Gap',limited:'Limited',check:'Check',information:'Information',ready:'Ready'};
   // The forecast table: "This run" rows first, then modules in run order; an inherited row sits under its producer's rows.
   function expectedOutcomes(result){
     const order=['run',...result.modules],place=row=>{const home=row.inherited_from?.[0]??row.scope,at=order.indexOf(home);return at<0?order.length:at;};
