@@ -926,9 +926,10 @@ def test_the_fake_engine_bridge_returns_the_same_review_keys(tmp_path, monkeypat
 # --- Task 6b: a resume's review keeps the context, names re-runs and shows retained outcomes ----
 
 
-def stopped_run(tmp_path, provider, kept, *, context=None, status=None, **extra):
+def stopped_run(tmp_path, provider, kept, *, context=None, texts=None, **extra):
     """A covenant run whose provider answers `kept`, with `status[module]` appended to that
-    module's answer, and rejects the rest. `context` edits the context before the first review."""
+    module's answer, and rejects the rest. `texts[module]` is (findings placed before its
+    Calculations section, text appended). `context` edits the context before the first review."""
     folder, value = job(tmp_path, **extra)
     if context:
         data = json.loads((folder / "context.json").read_text())
@@ -937,7 +938,10 @@ def stopped_run(tmp_path, provider, kept, *, context=None, status=None, **extra)
     bridge.write_json(folder / "review.json", bridge.review(folder))
     routes = bridge.launch(value, folder, tmp_path / "preview").layout.routes
     provider.answer = lambda c: (
-        answer(c, routes) + (status or {}).get(c["module_id"], "")
+        answer(c, routes).replace(
+            "## Calculations", (texts or {}).get(c["module_id"], ("", ""))[0] + "## Calculations"
+        )
+        + (texts or {}).get(c["module_id"], ("", ""))[1]
         if c["module_id"] in kept
         else "# Not a handoff"
     )
@@ -1045,9 +1049,10 @@ def test_several_accepted_answers_are_not_offered_and_the_module_runs_again(tmp_
 def test_a_primary_resume_lists_the_added_earnings_quality_module_and_what_follows_it(
     tmp_path, provider
 ):
-    # Ruling 10. The stopped run was planned with explicit modules and never had CP-1D; a Primary
-    # resume with default modules adds it (plan order CP-0, CP-1, CP-1A, CP-1D, CP-2, CP-4, ...).
-    # The stop is CP-1D (title Earnings quality); CP-2 holds an accepted answer and follows it.
+    # Ruling 10. Both jobs use default modules (a real resume copies them). The stopped run models
+    # one from before CP-1D was added on Primary: its CP-1D instructions and requests are removed.
+    # Plan order CP-0, CP-1, CP-1A, CP-1D, CP-2, CP-4, ...; the stop is CP-1D (title Earnings
+    # quality); CP-2 holds an accepted answer and follows it.
     def primary(data):
         data["run"]["run_type"] = "primary"
         blank = dict.fromkeys(
@@ -1060,14 +1065,26 @@ def test_a_primary_resume_lists_the_added_earnings_quality_module_and_what_follo
             | {"provider": "synthetic"}
         ]
 
+    # The frozen key's accepted pro forma findings for each Primary module (checker-cases.json).
+    cases = json.loads((ROOT / "tests/fixtures/primary-pro-forma/checker-cases.json").read_text())
+    accepted = {
+        "CP-1A": "cp1a-sources-uses-valid-user-entered",
+        "CP-1D": "cp1d-register-valid",
+        "CP-2": "cp2-full-valid",
+    }
+    held = {c["id"]: c["findings"].strip() + "\n\n" for c in cases["cases"]}
     folder, request, _ = stopped_run(
         tmp_path,
         provider,
-        {"CP-0", "CP-1", "CP-1A", "CP-2"},
+        {"CP-0", "CP-1", "CP-1A", "CP-1D", "CP-2"},
         context=primary,
-        modules=["CP-2", "CP-4"],
+        texts={module: (held[case], "") for module, case in accepted.items()},
     )
-    second = resumed(folder, {**request, "modules": []})
+    stopped = Path(request["workspace"]) / "runs" / folder.name
+    shutil.rmtree(stopped / "requests" / "CP-1D")
+    (stopped / "instructions" / "CP-1D.md").unlink()
+    (stopped / "CP-1D.md").unlink(missing_ok=True)
+    second = resumed(folder, request)
     result = bridge.review(second)
     assert result["modules"][:5] == ["CP-0", "CP-1", "CP-1A", "CP-1D", "CP-2"]
     assert result["reruns"] == [
@@ -1090,7 +1107,9 @@ def test_retained_modules_show_the_outcome_their_answers_state(tmp_path, provide
         "CP-4": "\nModule Status: Blocked\n",
     }
     kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"}
-    folder, request, _ = stopped_run(tmp_path, provider, kept, status=said)
+    folder, request, _ = stopped_run(
+        tmp_path, provider, kept, texts={m: ("", t) for m, t in said.items()}
+    )
     result = bridge.review(resumed(folder, request))
     assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
     assert result["retained_outcomes"] == [
