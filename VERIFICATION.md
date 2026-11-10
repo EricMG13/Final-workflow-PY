@@ -750,8 +750,10 @@ Key (eb5c9b69, another agent): 5 tests red before (2 settle-race, 3 spawn-except
 for the file; the 5 tests 20/20. Probes exit 0: t7adv_settle_toctou_preexisting, t7adv_non_oserror_spawn,
 t7adv_stale_inode_adoption/liveness, t7adv_save_failure_stray_fork, t7adv_one_worker_invariant,
 t7adv_removal_path_swaps, t7rr_worker_alive_bounds, probe_stray_fork, probe_observe. t7rr_held_probe_lock_vs_removal
-exits 1 by its literal condition (a probe that holds the old inode does not stop the retry; the probe itself
-holds it and never settles); the test for that case passes because settle re-verifies the inode and declines.
+exits 1 (corrected 2026-11-10; the reason first stated here was wrong): it now fails at the probe's own lock attempt,
+`fcntl.flock(fd, LOCK_EX | LOCK_NB)  # won: release_lock already ran` in `remove_after_a_probe_wins`, which raises
+`BlockingIOError: [Errno 35] Resource temporarily unavailable` (the lock is not won after unlink-first). The test for
+that case passes because settle re-verifies the inode and declines.
 Not verified: Windows (item 2 open there); the browser and `validate.py` gates.
 
 ## 2026-11-10 Plan 2 Task 6a (start requires and records acceptance; branch `claude/sb2-task6-acceptance`)
@@ -765,11 +767,25 @@ re-check and before `run_live_handoffs`, adds `accepted: <ids>|none` to the rece
 sha256 must equal the plan's `context` pin, else the stale error and the run folder `launch` just made is
 removed). `launch` writes neither file. The receipt parser (`check_ruling`) reads only lifts/by/date/configs
 lines, each exactly once; the extra line is ignored.
-Checks: key tests 25 RED, 12 now GREEN, 13 still RED (see below); quality_gate exit 0; pr_size exit 1 ("copy mismatch:
-tests/test_cpos_app.py", the key commit changed a mirrored test file); full four-file pytest exit 1,
-45 failed: 13 key tests (the REVIEW_AGAIN 409 is asserted with `.json()["detail"]` but the app answers
-plain text) and 32 legacy fake-bridge tests whose review prints no `counted` (409 under the fail-closed ruling).
-Not verified: the 45 failures above; the browser UI sending `accept_limitations`; a real run's receipt.
+Checks (head after the lock-error follow-up): the four-file pytest (jobs, cpos_app, quit, app) is 333 passed, 2 skipped,
+1 failed (exit 1): the failure is `test_a_lock_error_other_than_contention_keeps_the_job_watched` (see below); pr_size
+exit 0 (501 of 800); quality_gate exit 0. The earlier 13 RED / 45 failures are resolved (key writer's follow-up commits).
+Context-pin key test (7006eeed): `t6a_key_reaches_pin_check` path, the pin check is reached.
+Lock-error follow-up (#73, lead 6a-extra): `dead_worker_proof` caught only BlockingIOError at its lock call, so ENOLCK
+(a network share) escaped `settle_job` and killed the watch thread, leaving the job active with no watcher. Any other
+OSError there now logs a warning (with the error text) and yields None ("cannot prove dead"), so the job stays watched;
+open-error and BlockingIOError handling unchanged. RED: `pr73_settle_flock_error_strands_job.py` exit 1 and the key test
+failed with `the watch thread died on a lock error: ["OSError(77, 'No locks available')"]`. GREEN: the probe exits 0
+("watcher alive ... died: [] | active: False | status: interrupted"); the key test now gets past that assertion but still
+fails: it never advances its FakeClock and `app.pause` is real sleep, so after the settle `finish_job` loops forever in
+`notify.tab_watching` (finished == now, no tab poll) and `watcher.join(5)` leaves the thread alive. The test needs a
+clock-advancing `app.pause` or `app.watched`; the implementer may not edit tests. Probes exit 0: i24rr_emfile_dead_worker,
+i24rr_emfile_live_descendant, i24rr_settle_live_holder_planted, i24rr_transient_open_error_finishes_held_lock,
+i24rr_unlink_first_two_instances, i24_held_stale_inode_settle_v2, i24_settle_holds_unlinked_inode_v2,
+t6a_ctx_swap_after_launch, t6a_concurrent_starts.
+Recorded for Phase 3 (lead, no action): a KeyboardInterrupt during start leaves the claim held until the next adopt;
+Windows lock semantics are unverified, including a read-only lock file.
+Not verified: the key test above; the browser UI sending `accept_limitations`; a real run's receipt.
 
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
 
