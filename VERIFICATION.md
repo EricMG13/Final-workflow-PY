@@ -10,6 +10,15 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — Phase 1 checkpoint: full offline suite on main bc34228c, new failures classified (branch `claude/sb3-known-failures`)
+
+- Scope: one Mac, offline, not run on the CI runner.
+- Full offline suite on main bc34228c: 118 failures, 92 known, 26 new.
+- Of the 26: 6 fail identically in an upstream clone at dd3dfa18 (class A, now listed in `tests/nightly-known-failures.txt`, causes A1-A5 as in the classification document); 20 depend on machine-local Deploy Workflow data and also fail upstream on this machine (not listed, since they skip on CI): C1 13 ids (live-run stores under `Deploy Workflow/artifacts/model-testing/cp1h-live-*`), C2 1 id (public corpus v1 miss count), C3 6 ids (corpus plus untracked `work/model-testing/mapping/output/*-report.md`).
+- 0 caused by the Python build.
+- Evidence: `.superpowers/checkpoint/new-failures/classification.md` and its `NN.wt.out` / `NN.upstream.out` files.
+- Not verified: the CI runner; whether to list the class-C ids for local full runs (owner's call); A4's cause (not traced); A5 found by code reading, not bisected.
+
 ## 2026-11-10 — pr_size: an edited copy counts against the merge base when the base holds it (R-PRSIZE-1, branch `sb3-prsize`)
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
