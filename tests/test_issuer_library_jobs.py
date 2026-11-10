@@ -2624,3 +2624,114 @@ def test_a_quitting_library_discovers_nothing_but_still_notices_a_finish(
     refused = call(client_of(app), "POST", "/api/refresh", "{}")
     assert refused.status_code == 503 and refused.text == server_module.LIBRARY_QUITTING + "\n"
     assert seen["total"] == 0, "a quitting library discovered"
+
+
+MISSING = object()
+LISTED = ["CP-4:legal-none", "CP-2:quotes-none"]
+ACCEPT_REFUSAL = "Accept the listed limitations before starting"
+INVALID_REVIEW = "Review is invalid or the provider is not configured"
+
+
+def reviewed_with_counted(
+    tmp_path: Path, counted: object
+) -> tuple[Application, Path, TestClient, str]:
+    """A reviewed job whose approved review.json lists `counted` (MISSING leaves the key out)."""
+    app, root, client, job_id = reviewed(tmp_path)
+    path = root / "intake" / job_id / "review.json"
+    review = json.loads(path.read_bytes())
+    if counted is MISSING:
+        review.pop("counted", None)
+    else:
+        review["counted"] = counted
+    save_json(path, review)
+    return app, root, client, job_id
+
+
+def accept_body(job_id: str, **fields: Any) -> str:
+    return json.dumps({"id": job_id, "review_id": "review-fingerprint", "confirm": True, **fields})
+
+
+def assert_nothing_started(app: Application, root: Path, job_id: str) -> None:
+    folder = root / "intake" / job_id
+    assert not (folder / "start.claim").exists(), "a refused start took the one-shot claim"
+    assert not (folder / "synthetic-starts.txt").exists(), "a worker was launched"
+    assert not (root / "runs" / job_id).exists(), "a refused start created runs/<id>"
+    assert not app.active_jobs, "a refused start marked the job active"
+
+
+def post_start(client: TestClient, body: str) -> Any:
+    return client.post("/api/runs/start", content=body, headers=POST_HEADERS)
+
+
+@pytest.mark.parametrize("fields", [{}, {"accept_limitations": False}])
+def test_start_with_counted_limitations_needs_acceptance(
+    tmp_path: Path, fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, LISTED)
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 400 and ACCEPT_REFUSAL in response.text
+    assert_nothing_started(app, root, job_id)
+
+
+def test_start_with_counted_limitations_accepted_starts(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, LISTED)
+    response = post_start(client, accept_body(job_id, accept_limitations=True))
+    assert response.status_code == 202 and response.json()["state"] == "running"
+    assert (root / "intake" / job_id / "start.claim").exists()
+    wait_idle(app)
+    assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
+
+
+@pytest.mark.parametrize("fields", [{}, {"accept_limitations": False}])
+def test_start_with_nothing_counted_needs_no_acceptance(
+    tmp_path: Path, fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, [])
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 202 and response.json()["state"] == "running"
+    assert (root / "intake" / job_id / "start.claim").exists()
+    wait_idle(app)
+
+
+@pytest.mark.parametrize(
+    "fields",
+    [
+        {"accept_limitations": "true"},
+        {"accept_limitations": 1},
+        {"accept_limitations": None},
+        {"accept_limitations": True, "extra": 1},
+    ],
+)
+@pytest.mark.parametrize("counted", [[], LISTED])
+def test_start_refuses_a_non_boolean_acceptance_or_unknown_key(
+    tmp_path: Path, counted: list[str], fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, counted)
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 400, response.text
+    assert "Explicit confirmation of a reviewed run is required" in response.text
+    assert_nothing_started(app, root, job_id)
+
+
+@pytest.mark.parametrize(
+    "counted", [MISSING, None, "CP-4:legal-none", [1], [["CP-4:legal-none"]], {"a": "b"}]
+)
+@pytest.mark.parametrize("fields", [{}, {"accept_limitations": True}])
+def test_start_with_a_malformed_counted_is_the_invalid_review_answer(
+    tmp_path: Path, counted: object, fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, counted)
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 409 and INVALID_REVIEW in response.text
+    assert_nothing_started(app, root, job_id)
+
+
+def test_a_refused_acceptance_leaves_the_job_startable(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, LISTED)
+    for fields in ({}, {"accept_limitations": False}, {"accept_limitations": "yes"}):
+        assert post_start(client, accept_body(job_id, **fields)).status_code == 400
+        assert_nothing_started(app, root, job_id)
+    again = post_start(client, accept_body(job_id, accept_limitations=True))
+    assert again.status_code == 202, again.text
+    wait_idle(app)
+    assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
