@@ -159,6 +159,40 @@ def test_checker_matches_the_rc2_answer_key(case):
     assert (issues == ()) == case["expected"]["accepted"]
 
 
+RC2_R1 = json.loads((RC2_DIR / "checker-cases-rc2-r1.json").read_text())["cases"]
+
+
+@pytest.mark.parametrize("case", RC2_R1, ids=[c["id"] for c in RC2_R1])
+def test_checker_matches_the_rc2_r1_answer_key(case):
+    """Lead review of #84, fix round 1 (frozen key rc2/checker-cases-rc2-r1.json): every Item
+    containing "total" is a total row and must be exact on its own Side; `(commitment)` only on a
+    Memo row; a side of numbers carries a numeric total."""
+    task = SimpleNamespace(instructions=cpos_launch.PRO_FORMA_CP1A.encode())
+    issues = cpos_launch.pro_forma_issues(task, findings_text(case))
+    assert categories(issues) == set(case["expected"]["issues"]), issues
+    assert (issues == ()) == case["expected"]["accepted"]
+
+
+@pytest.mark.parametrize(
+    ("case_id", "phrase"),
+    [
+        ("rc2r1-subtotal-sources-an", 'containing "total"'),
+        ("rc2r1-memo-item-has-total-an", 'containing "total"'),
+        ("rc2r1-commitment-on-source-row-an", "belongs only on a Memo row"),
+        ("rc2r1-not-supplied-total-on-all-number-side", "write the total as a number"),
+    ],
+)
+def test_each_rc2_r1_refusal_names_its_rule(case_id, phrase):
+    case = next(c for c in RC2_R1 if c["id"] == case_id)
+    task = SimpleNamespace(instructions=cpos_launch.PRO_FORMA_CP1A.encode())
+    issues = cpos_launch.pro_forma_issues(task, findings_text(case))
+    assert any(phrase in issue for issue in issues), issues
+
+
+def test_the_r1_key_supersedes_no_earlier_case():
+    assert json.loads((RC2_DIR / "superseded-r1.json").read_text())["superseded"] == []
+
+
 def test_a_memo_row_without_commitment_in_its_item_is_a_cell_error():
     """Controller ruling u9: the Item of a Memo row ends with `(commitment)`."""
     case = next(c for c in RC2 if c["id"] == "rc2-memo-funded-rows-both-totals")

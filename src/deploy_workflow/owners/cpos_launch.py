@@ -1459,18 +1459,41 @@ COMMITMENT = "(commitment)"
 
 def _sources_uses_total_issues(heading: str, rows: list[list[str]]) -> list[str]:
     """R-C2-1 fail closed. A side's total is written only when every row of that side holds a
-    number: one `Not supplied` row means no total for that side. A `Memo` row is neither a Source
-    nor a Use row, so it is in no count and no total. Nothing is summed (a commitment inside a
-    total is told by the instruction only)."""
+    number: one `Not supplied` row means no total for that side, and a side of numbers carries a
+    total that is a number. An Item containing "total" in any case is a total row on any Side
+    (Memo included) and must be the exact label on its own Side; `(commitment)` ends only a Memo
+    row's Item. A `Memo` row is neither a Source nor a Use row, so it is in no count and no total.
+    Nothing is summed (a commitment inside a total is told by the instruction only)."""
     totals = {"Total sources": "Source", "Total uses": "Use"}
-    plain = [row for row in rows if row[1] not in totals]
-    issues = []
+    exact = {(side, item) for item, side in totals.items()}
+    plain = [row for row in rows if "total" not in row[1].lower()]
+    issues = [
+        _pf(
+            "pro_forma_rows",
+            heading,
+            f'row `{row[0]} / {row[1]}`: an Item containing "total" in any case is a total row, '
+            "and the only total rows are `Total sources` with Side Source and `Total uses` with "
+            "Side Use, written exactly as shown.",
+        )
+        for row in rows
+        if "total" in row[1].lower() and (row[0], row[1]) not in exact
+    ]
+    issues += [
+        _pf(
+            "pro_forma_rows",
+            heading,
+            f"row `{row[0]} / {row[1]}`: an Item ending `{COMMITMENT}` belongs only on a Memo "
+            "row; a Source or Use row holds a funded amount, never a commitment.",
+        )
+        for row in plain
+        if row[0] in ("Source", "Use") and row[1].endswith(COMMITMENT)
+    ]
     for side in ("Source", "Use"):
         item = next(i for i, s in totals.items() if s == side)
         side_rows = [row for row in plain if row[0] == side]
         if not side_rows:
             issues.append(_pf("pro_forma_rows", heading, f"write at least one {side} row."))
-        written = sum(1 for row in rows if (row[0], row[1]) == (side, item))
+        written = [row for row in rows if (row[0], row[1]) == (side, item)]
         if any(NOT_SUPPLIED_WITH_REASON.fullmatch(row[2]) for row in side_rows):
             if written:
                 issues.append(
@@ -1481,9 +1504,18 @@ def _sources_uses_total_issues(heading: str, rows: list[list[str]]) -> list[str]
                         f"written only when every {side} row holds a number.",
                     )
                 )
-        elif written != 1:
+        elif len(written) != 1:
             issues.append(
                 _pf("pro_forma_rows", heading, f"write exactly one `{item}` row with Side {side}.")
+            )
+        elif NOT_SUPPLIED_WITH_REASON.fullmatch(written[0][2]):
+            issues.append(
+                _pf(
+                    "pro_forma_rows",
+                    heading,
+                    f"`{item}` is `Not supplied` but every {side} row holds a number: write the "
+                    "total as a number from `calculate`.",
+                )
             )
     return issues
 
