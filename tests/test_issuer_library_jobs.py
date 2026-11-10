@@ -1230,6 +1230,179 @@ def test_a_stray_fork_holding_the_run_lock_does_not_turn_a_failed_spawn_retry_in
     assert state_of(folder)["state"] == "failed"
 
 
+def test_a_stray_fork_during_a_failed_status_save_does_not_block_the_next_start(
+    tmp_path: Path,
+) -> None:
+    # Answer key: sb2/probes/t7adv_save_failure_stray_fork.py. The probe's outcome is 202 (the
+    # lead's brief says "503, not 500"; no worker exists, so a start that is not refused is the
+    # probe's key). Here: never 500, and a plain retry starts.
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    (folder / "status.json").unlink()
+    put(folder, "status.json/blocker", b"")
+    ready_r, ready_w = os.pipe()
+    hold_r, hold_w = os.pipe()
+    helpers: list[threading.Thread] = []
+    real_save = jobs_module.save_json
+
+    def hold_the_inherited_descriptors() -> None:
+        os.write(ready_w, b"x")
+        select.select([hold_r], [], [], 30)
+
+    def forking_save(path: Path, value: Any) -> None:
+        if not helpers and isinstance(value, dict) and value.get("state") == "running":
+            helper = threading.Thread(
+                target=subprocess.run,
+                args=(["/usr/bin/true"],),
+                kwargs={"preexec_fn": hold_the_inherited_descriptors},
+                daemon=True,
+            )
+            helpers.append(helper)
+            helper.start()
+            assert select.select([ready_r], [], [], 30)[0], "helper child never forked"
+        real_save(path, value)
+
+    jobs_module.save_json = forking_save
+    try:
+        first = start_job(client, job_id)
+        shutil.rmtree(folder / "status.json")
+        put(folder, "status.json", b'{"state":"reviewed"}')
+        second = start_job(client, job_id)
+    finally:
+        jobs_module.save_json = real_save
+        os.write(hold_w, b"x")
+        for helper in helpers:
+            helper.join(30)
+        for descriptor in (ready_r, ready_w, hold_r, hold_w):
+            os.close(descriptor)
+        wait_idle(app)
+    assert first.status_code == 500, first.text
+    assert not any(helper.is_alive() for helper in helpers), "helper child left running"
+    assert second.status_code == 202, second.text
+    assert not (folder / "worker.lock").exists() or state_of(folder)["state"] != "running"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock semantics")
+@pytest.mark.parametrize("variant", ["adoption", "watch_worker"])
+def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_the_retry_running(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, variant: str
+) -> None:
+    # Answer key: sb2/probes/t7adv_stale_inode_adoption.py and t7adv_stale_inode_liveness.py. A
+    # second instance opens worker.lock, is descheduled before flock (injected stall), the failed
+    # start unlinks that inode and the retry's worker locks a new one: the retry's job must stay
+    # "running" and no second worker may start.
+    import fcntl
+
+    adoption = variant == "adoption"
+    if not adoption:
+        monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
+    first_app, root, client_a, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    held_root = tmp_path / "held-engine"
+    held_root.mkdir()
+    (held_root / "bridge.py").write_text(RECORDING_BRIDGE)
+    (held_root / "store.py").write_text((first_app.engine.root / "store.py").read_text())
+    held = Engine(root=held_root, python=sys.executable)
+    missing = Engine(root=held_root, python=str(tmp_path / "no-such-python"))
+    second_app = restarted(tmp_path, root)
+    second_app.engine = held
+    client_b = client_of(second_app)
+    opened, go = threading.Event(), threading.Event()
+    armed = [False]
+    real_fcntl = fcntl
+    outer = "adopt_jobs_locked" if adoption else "watch_worker"
+
+    class StallingFcntl:
+        def __getattr__(self, name: str) -> Any:
+            return getattr(real_fcntl, name)
+
+        def flock(self, descriptor: int, operation: int) -> Any:
+            frame = sys._getframe
+            caller, outer_name = frame(1).f_code.co_name, frame(2).f_code.co_name
+            if armed[0] and caller == "worker_alive" and outer_name == outer:
+                armed[0] = False
+                opened.set()
+                go.wait(20)
+            return real_fcntl.flock(descriptor, operation)
+
+    attempts: list[int] = []
+    adopters: list[threading.Thread] = []
+
+    def adopt() -> None:
+        with second_app.lock:
+            jobs_module.adopt_jobs_locked(second_app, str(root))
+
+    class SwitchEngine(Engine):
+        def start(self, folder: Path, lock: Any) -> Any:
+            attempts.append(1)
+            if len(attempts) > 1:
+                return Engine.start(held, folder, lock)
+            if adoption:
+                armed[0] = True
+                thread = threading.Thread(target=adopt, daemon=True)
+                adopters.append(thread)
+                thread.start()
+            else:
+                with second_app.lock:
+                    jobs_module.adopt_jobs_locked(second_app, str(root))
+                assert job_id in second_app.active_jobs, "the watcher did not adopt the job"
+                armed[0] = True
+            assert opened.wait(10), "the liveness probe never opened the lock"
+            return Engine.start(missing, folder, lock)
+
+    first_app.engine = SwitchEngine(root=held_root, python=sys.executable)
+    starts = root / "worker-starts.txt"
+    monkeypatch.setattr(jobs_module, "fcntl", StallingFcntl())
+    try:
+        first = start_job(client_a, job_id)
+        retry = start_job(client_a, job_id)
+        deadline = time.time() + 5
+        while time.time() < deadline and not (starts.exists() and starts.read_text()):
+            time.sleep(0.01)
+        go.set()
+        for thread in adopters:
+            thread.join(10)
+        if not adoption:
+            time.sleep(0.3)  # the watcher's next polls, at 0.01 s
+        settled = state_of(folder)["state"]
+        resumed_workers = 0
+        if (
+            settled != "running"
+            and call(client_b, "POST", "/api/runs/resume", resume_body(job_id)).status_code == 200
+        ):
+            copy = next(p.name for p in (root / "intake").iterdir() if p.name != job_id)
+            start_job(client_b, copy)
+            time.sleep(0.5)
+            resumed_workers = starts.read_text().count("\n")
+    finally:
+        go.set()
+        (root / "release-all").write_bytes(b"")
+        deadline = time.time() + 15
+        for app in (first_app, second_app):
+            while time.time() < deadline:
+                with app.lock:
+                    if not app.active_jobs:
+                        break
+                time.sleep(0.05)
+    assert (first.status_code, retry.status_code) == (503, 202), (first.text, retry.text)
+    assert settled == "running", f"a live worker's job was settled {settled!r}"
+    assert resumed_workers < 2, "two workers for the same inputs"
+    assert starts.read_text().count("\n") == 1
+
+
+RECORDING_BRIDGE = """import json,os,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+else:
+ ws=folder.parent.parent
+ with (ws/'worker-starts.txt').open('a') as s: s.write(folder.name+' '+str(os.getpid())+'\\n')
+ deadline=time.time()+60
+ while not (ws/'release-all').exists() and time.time()<deadline: time.sleep(.01)
+"""
+
+
 def test_review_worker_that_started_and_failed_keeps_the_claim(tmp_path: Path) -> None:
     app, root, client, job_id = reviewed(tmp_path)
     (app.engine.root / "bridge.py").write_text("import sys\nsys.exit(3)\n")
