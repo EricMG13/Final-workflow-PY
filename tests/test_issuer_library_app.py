@@ -819,6 +819,7 @@ def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
     assert run.page.evaluate("window.__thrown") is True
     assert run.text("recent-jobs").startswith("Could not load")
     run.tick()
+    until(run.page, "document.querySelector('#recent-jobs table')!==null")
     assert run.screen.exists("#recent-jobs table")
 
 
