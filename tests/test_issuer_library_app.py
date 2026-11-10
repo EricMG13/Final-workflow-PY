@@ -804,9 +804,8 @@ def test_a_malformed_row_degrades_to_a_dash_and_does_not_hide_the_others(new_run
     assert run.progress() == ["Running", "Running CP-1."]
 
 
-def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
-    rows = [ROW_RUNNING]
-    run = new_run(rows=rows)
+def failed_render_is_retried(run: Any) -> None:
+    rows = run.rows
     rows[0] = {**ROW_RUNNING, "message": "Still working"}
     run.page.evaluate(
         "()=>{const real=document.createElement.bind(document);window.__thrown=false;"
@@ -821,6 +820,29 @@ def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
     run.tick()
     until(run.page, "document.querySelector('#recent-jobs table')!==null")
     assert run.screen.exists("#recent-jobs table")
+
+
+def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
+    rows = [ROW_RUNNING]
+    run = new_run(rows=rows)
+    failed_render_is_retried(run)
+
+
+def test_a_failed_render_is_retried_when_the_first_list_reply_is_slow(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The first list reply reaches the page late, delayed in the page, so the initial render is
+    still waiting when the fault is installed."""
+    script = (
+        "{const held=window.fetch;let first=true;"
+        "window.fetch=(url,options)=>{if(first&&String(url).startsWith('/api/runs/list')){"
+        "first=false;return new Promise(done=>setTimeout(done,1000)).then(()=>held(url,options));}"
+        "return held(url,options);};}"
+    )
+    monkeypatch.setattr(sys.modules[__name__], "CAPTURED_TIMERS", CAPTURED_TIMERS + script)
+    rows = [ROW_RUNNING]
+    run = new_run(rows=rows)
+    failed_render_is_retried(run)
 
 
 def test_polling_stops_while_new_run_is_hidden_and_resumes_on_return(new_run: Any) -> None:
