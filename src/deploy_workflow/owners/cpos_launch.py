@@ -419,7 +419,15 @@ PRO_FORMA_CP1A = (
     "total from `calculate`; where the source prints a total the rows do not reach, plug "
     "nothing: write the printed total, say so in Source, and log the difference in prose. "
     "Write labels exactly as shown: `Total sources`, not "
-    f"`Total Sources`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
+    "`Total Sources`. A row whose Item contains `total`, in any case or position (`Total "
+    "Sources`, `Sources total`, `Subtotal sources`, `TOTAL`), is a total row: it must be "
+    "exactly `Total sources` with Side `Source` or `Total uses` with Side `Use`, and no other "
+    "row on any Side, `Memo` included, may have `total` in its Item, or the table is refused. "
+    "An Item ending `(commitment)` belongs only on a `Memo` row; on a `Source` or `Use` row it "
+    "is refused. When every row of a side holds a number, that side's total is a number too "
+    "(from `calculate`, or the printed total with any difference logged in prose); a "
+    "`Not supplied` total there is refused. "
+    f"{FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP1D = (
     "Pro forma add-back register (Primary run). Under `## Findings`, write "

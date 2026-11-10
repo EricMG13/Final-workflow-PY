@@ -214,6 +214,17 @@ def test_a_memo_amount_may_be_not_supplied_and_stays_out_of_the_totals():
     assert cpos_launch.pro_forma_issues(task, findings_text({**case, "findings": findings})) == ()
 
 
+def test_the_r1_instruction_sentence_is_the_keys_text():
+    """Lead review of #84, r1: the three new refusals are stated in PRO_FORMA_CP1A (key
+    rc2/instruction-text-r1.json). The key's `old` text is the start of its `new` text, so the
+    bare `old` is found only inside it."""
+    part = json.loads((RC2_DIR / "instruction-text-r1.json").read_text())
+    constant = cpos_launch.PRO_FORMA_CP1A
+    assert part["new"] in constant
+    assert part["old"] not in constant.replace(part["new"], "")
+    assert constant.count(part["new"]) == 1
+
+
 def test_the_instruction_text_is_the_keys_text():
     """R-C2-1 and R-C2-7 sentences are inserted verbatim (rc2/instruction-text.json)."""
     for part in INSTRUCTION_TEXT["R-C2-1"]["replacements"]:
