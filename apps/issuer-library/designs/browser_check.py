@@ -812,13 +812,13 @@ def new_run(  # noqa: PLR0915, RUF100
     note(
         ISSUER in text
         and "Source readiness" in text
-        and "CP-0" not in text
+        and "CP-0" not in page.inner_text("#run-review .review-modules")
         and "gpt-6.1-sol" in text,
         f"{name}: review shows the launcher's plan",
     )
     note(page.is_disabled("#start-run"), f"{name}: Start stays disabled before approval")
     note(not any(Path(workspace, "runs").iterdir()), f"{name}: review created no run")
-    page.locator("#run-review details").first.click()
+    page.locator('#run-review details:has(summary:text-matches("^Source files"))').click()
     note(
         "chart.png" in page.inner_text("#run-review"),
         f"{name}: review lists the file no module can read",
