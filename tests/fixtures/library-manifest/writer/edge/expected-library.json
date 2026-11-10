@@ -96,7 +96,7 @@
       "leverage": {
         "value": "3.60",
         "unit": "x",
-        "period": "LTM 2025-06-30",
+        "period": "LTM ended 2025-06-30",
         "basis": "Fictional last-twelve-months EBITDA; gross debt.",
         "source": "cp1_leverage",
         "provenance": "calculated"
@@ -156,13 +156,13 @@
     },
     "cp1_leverage": {
       "path": "runs/synthetic-edge-001/CP-1.md",
-      "sha256": "6e997285fe990c230e1c581ac6b7fb38bceb12b1a71311ec0db2bb1cdda56968",
+      "sha256": "edbeb8f5e5db9fd858151983613bfb5bea40be3d9e7c94062564812a5e0a693f",
       "line": 10,
-      "quote": "| LTM 2025-06-30 | 3.60 | Not supplied: cash by entity is not disclosed | x | Fictional last-twelve-months EBITDA; gross debt. |"
+      "quote": "| LTM ended 2025-06-30 | 3.60 | Not supplied: cash by entity is not disclosed | x | Fictional last-twelve-months EBITDA; gross debt. |"
     },
     "cp1_liquidity": {
       "path": "runs/synthetic-edge-001/CP-1.md",
-      "sha256": "6e997285fe990c230e1c581ac6b7fb38bceb12b1a71311ec0db2bb1cdda56968",
+      "sha256": "edbeb8f5e5db9fd858151983613bfb5bea40be3d9e7c94062564812a5e0a693f",
       "line": 25,
       "quote": "| 2025-06-30 | 1,250 | -35 | US$m | Fictional consolidated cash; facilities cell is a fictional overdrawn revolver. |"
     },
@@ -180,7 +180,7 @@
     },
     "handoff_CP-1": {
       "path": "runs/synthetic-edge-001/CP-1.md",
-      "sha256": "6e997285fe990c230e1c581ac6b7fb38bceb12b1a71311ec0db2bb1cdda56968",
+      "sha256": "edbeb8f5e5db9fd858151983613bfb5bea40be3d9e7c94062564812a5e0a693f",
       "line": 1,
       "quote": "SYNTHETIC FIXTURE: fictional edge-case CP-1 handoff for Harbor Lane Logistics plc; not retained model output."
     }

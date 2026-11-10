@@ -1,0 +1,1040 @@
+{
+ "cases": [
+  {
+   "id": "fy-beats-ltm",
+   "rule": "A FY row beats an LTM row on the same latest date.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| LTM ended 2025-06-30 | 3.10 | 2.10 | x | lev basis |",
+    "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {
+     "leverage": [
+      "4.10",
+      "FY2025 ended 2025-06-30"
+     ],
+     "net_leverage": [
+      "3.10",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |"
+     ]
+    ],
+    "sources": [
+     "cp1_leverage"
+    ]
+   }
+  },
+  {
+   "id": "ltm-when-no-fy-on-latest",
+   "rule": "An LTM row is taken when no FY row is on the latest date.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    "| LTM ended 2025-06-30 | 3.10 | 2.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "3.10",
+      "LTM ended 2025-06-30"
+     ],
+     "net_leverage": [
+      "2.10",
+      "LTM ended 2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| LTM ended 2025-06-30 | 3.10 | 2.10 | x | lev basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "fy-and-two-ltm-no-row",
+   "rule": "A FY row and two LTM rows on the latest date give no row.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    "| LTM ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    "| LTM ended 2025-06-30 | 3.50 | 2.50 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "two-fy-no-row-no-fallback",
+   "rule": "Two FY rows on the latest date give no row and no older fallback.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    "| FY2025 ended 2025-06-30 | 4.50 | 3.50 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "rows-after-as-of-ignored",
+   "rule": "Rows dated after the run's as-of date (2025-06-30 for the edge run) are ignored.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2026 ended 2026-06-30 | 9.10 | 8.10 | x | lev basis |",
+    "| LTM ended 2025-09-30 | 9.20 | 8.20 | x | lev basis |",
+    "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-07-01 | 999 | 888 | US$m | liq basis |",
+    "| 2025-06-30 | 101 | 51 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "4.10",
+      "FY2025 ended 2025-06-30"
+     ],
+     "net_leverage": [
+      "3.10",
+      "FY2025 ended 2025-06-30"
+     ],
+     "cash": [
+      "101",
+      "2025-06-30"
+     ],
+     "undrawn": [
+      "51",
+      "2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |"
+     ],
+     [
+      "cp1_liquidity",
+      "| 2025-06-30 | 101 | 51 | US$m | liq basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "only-later-rows",
+   "rule": "Only rows after as-of give no metric and no gap.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2026 ended 2026-06-30 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {}
+   }
+  },
+  {
+   "id": "interim-not-selected-H1-2025",
+   "rule": "An interim row does not block and is not selected.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| H1 2025 ended 2025-06-30 | 7.10 | 6.10 | x | lev basis |",
+    "| FY2024 ended 2024-12-31 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "4.00",
+      "FY2024 ended 2024-12-31"
+     ],
+     "net_leverage": [
+      "3.00",
+      "FY2024 ended 2024-12-31"
+     ]
+    }
+   }
+  },
+  {
+   "id": "interim-not-selected-H2-2025",
+   "rule": "An interim row does not block and is not selected.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| H2 2025 ended 2025-06-30 | 7.10 | 6.10 | x | lev basis |",
+    "| FY2024 ended 2024-12-31 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "4.00",
+      "FY2024 ended 2024-12-31"
+     ],
+     "net_leverage": [
+      "3.00",
+      "FY2024 ended 2024-12-31"
+     ]
+    }
+   }
+  },
+  {
+   "id": "interim-not-selected-9M-2025",
+   "rule": "An interim row does not block and is not selected.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 9M 2025 ended 2025-06-30 | 7.10 | 6.10 | x | lev basis |",
+    "| FY2024 ended 2024-12-31 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "4.00",
+      "FY2024 ended 2024-12-31"
+     ],
+     "net_leverage": [
+      "3.00",
+      "FY2024 ended 2024-12-31"
+     ]
+    }
+   }
+  },
+  {
+   "id": "interim-not-selected-Q2-2025",
+   "rule": "An interim row does not block and is not selected.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| Q2 2025 ended 2025-06-30 | 7.10 | 6.10 | x | lev basis |",
+    "| FY2024 ended 2024-12-31 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "4.00",
+      "FY2024 ended 2024-12-31"
+     ],
+     "net_leverage": [
+      "3.00",
+      "FY2024 ended 2024-12-31"
+     ]
+    }
+   }
+  },
+  {
+   "id": "interim-alone-no-metric",
+   "rule": "An interim row alone gives no metric.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| H1 2025 ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {}
+   }
+  },
+  {
+   "id": "latest-row-need-not-be-first",
+   "rule": "The latest row need not be the first.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |",
+    "",
+    "### Chart data: interest cover",
+    "",
+    "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- |",
+    "| FY2024 ended 2024-06-30 | 2.10 | x | cov basis |",
+    "| LTM ended 2025-03-31 | 2.20 | x | cov basis |",
+    "| FY2025 ended 2025-06-30 | 2.90 | x | cov basis |",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2024-12-31 | 10 | 5 | US$m | liq basis |",
+    "| 2025-06-30 | 20 | 6 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage": [
+      "4.10",
+      "FY2025 ended 2025-06-30"
+     ],
+     "net_leverage": [
+      "3.10",
+      "FY2025 ended 2025-06-30"
+     ],
+     "coverage": [
+      "2.90",
+      "FY2025 ended 2025-06-30"
+     ],
+     "cash": [
+      "20",
+      "2025-06-30"
+     ],
+     "undrawn": [
+      "6",
+      "2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_coverage",
+      "| FY2025 ended 2025-06-30 | 2.90 | x | cov basis |"
+     ],
+     [
+      "cp1_liquidity",
+      "| 2025-06-30 | 20 | 6 | US$m | liq basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "kind-year-not-date-year",
+   "rule": "The kind year is not compared with the date year.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2030 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics_include": {
+     "leverage": [
+      "4.10",
+      "FY2030 ended 2025-06-30"
+     ]
+    }
+   }
+  },
+  {
+   "id": "impossible-date-unreadable",
+   "rule": "An impossible date makes the table unreadable and adds the format gap.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-02-30 | 4.10 | 3.10 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    "",
+    "### Chart data: interest cover",
+    "",
+    "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 2.90 | x | cov basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs",
+     "CP-1 chart periods are not in the fixed format"
+    ],
+    "metrics": {
+     "coverage": [
+      "2.90",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "sources": [
+     "cp1_coverage"
+    ]
+   }
+  },
+  {
+   "id": "one-off-format-row-unreadable",
+   "rule": "One off-format row makes its whole table unreadable.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x | lev basis |",
+    "| FY2024 / 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs",
+     "CP-1 chart periods are not in the fixed format"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "two-liquidity-rows-no-row",
+   "rule": "Two liquidity rows on the latest date give no row.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 10 | 1 | US$m | liq basis |",
+    "| 2025-06-30 | 20 | 2 | US$m | liq basis |",
+    "| 2024-06-30 | 30 | 3 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "duplicate-heading",
+   "rule": "A duplicate heading gives no metric for that table and no gap.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    "",
+    "### Chart data: interest cover",
+    "",
+    "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 2.90 | x | cov basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {
+     "coverage": [
+      "2.90",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "sources": [
+     "cp1_coverage"
+    ]
+   }
+  },
+  {
+   "id": "wrong-cell-count",
+   "rule": "A row with the wrong cell count gives no metric and no gap.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.10 | 3.10 | x |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    "",
+    "### Chart data: interest cover",
+    "",
+    "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 2.90 | x | cov basis | extra |",
+    "| FY2024 ended 2024-06-30 | 2.10 | x | cov basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "admission-unreadable-number-4,10",
+   "rule": "An admission-unreadable number is no metric but its sibling stays.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4,10 | 1,250.5 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "net_leverage": [
+      "1250.5",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| FY2025 ended 2025-06-30 | 4,10 | 1,250.5 | x | lev basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "admission-unreadable-number-12,34",
+   "rule": "An admission-unreadable number is no metric but its sibling stays.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 12,34 | 1,250.5 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "net_leverage": [
+      "1250.5",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| FY2025 ended 2025-06-30 | 12,34 | 1,250.5 | x | lev basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "admission-unreadable-number-1250,000",
+   "rule": "An admission-unreadable number is no metric but its sibling stays.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 1250,000 | 1,250.5 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "net_leverage": [
+      "1250.5",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| FY2025 ended 2025-06-30 | 1250,000 | 1,250.5 | x | lev basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "thousands-separators",
+   "rule": "Thousands separators are written without commas.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 12,345 | 1,250.5 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "cash": [
+      "12345",
+      "2025-06-30"
+     ],
+     "undrawn": [
+      "1250.5",
+      "2025-06-30"
+     ]
+    }
+   }
+  },
+  {
+   "id": "blank-basis",
+   "rule": "A blank basis gives no metric for the row.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.00 | 3.00 | x |  |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "wrong-unit",
+   "rule": "A wrong unit gives no metric.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 100 | 50 | US$bn | liq basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "not-supplied-no-older-fallback",
+   "rule": "Not supplied in the chosen row is not replaced by an older row; its sibling stays.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | Not supplied: no filing | 3.10 | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "net_leverage": [
+      "3.10",
+      "FY2025 ended 2025-06-30"
+     ]
+    },
+    "pinned": [
+     [
+      "cp1_leverage",
+      "| FY2025 ended 2025-06-30 | Not supplied: no filing | 3.10 | x | lev basis |"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "not-supplied-both-no-metric",
+   "rule": "Both values Not supplied in the chosen row give no metric.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | Not supplied: a | Not supplied: b | x | lev basis |",
+    "| FY2024 ended 2024-06-30 | 5.10 | 4.10 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "missing-table",
+   "rule": "A missing table gives no metric for it and no gap.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 100 | 50 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metric_names": [
+     "cash",
+     "leverage",
+     "net_leverage",
+     "undrawn"
+    ],
+    "sources": [
+     "cp1_leverage",
+     "cp1_liquidity"
+    ]
+   }
+  },
+  {
+   "id": "missing-cp1-file",
+   "rule": "A missing CP-1 file gives no metric and no gap.",
+   "cp1": null,
+   "expect": {
+    "absent_sources": [
+     "handoff_CP-1"
+    ],
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "format-gap-once",
+   "rule": "The format gap appears once for two off-format tables.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 / 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    "",
+    "### Chart data: interest cover",
+    "",
+    "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- |",
+    "| FY2025 | 2.00 | x | cov basis |",
+    "| FY2024 | 2.00 | x | cov basis |",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 20 | 6 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs",
+     "CP-1 chart periods are not in the fixed format"
+    ],
+    "metrics": {
+     "cash": [
+      "20",
+      "2025-06-30"
+     ],
+     "undrawn": [
+      "6",
+      "2025-06-30"
+     ]
+    }
+   }
+  },
+  {
+   "id": "liquidity-ratio-period-off-format",
+   "rule": "A liquidity period in the ratio format is off-format.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 100 | 50 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs",
+     "CP-1 chart periods are not in the fixed format"
+    ],
+    "metrics": {}
+   }
+  },
+  {
+   "id": "format-gap-after-expectation-gaps",
+   "rule": "The format gap follows the expectation gaps and the HTML gap.",
+   "case": "synthetic",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "Private-side run: the dealer run is indicative and no market-observed pricing is available.",
+     "No executed credit agreement or indenture was supplied, so legal analysis will refuse.",
+     "HTML Model not published by app runs",
+     "CP-1 chart periods are not in the fixed format"
+    ]
+   }
+  },
+  {
+   "id": "liquidity-basis-column-first",
+   "rule": "A liquidity table with the basis column first is unreadable, and discovery admits what is written.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Basis and limitation | Period | Cash | Undrawn committed facilities | Reporting unit |",
+    "| --- | --- | --- | --- | --- |",
+    "| gross (see note | 2025-06-30 | 20 | 6 | US$m |",
+    ""
+   ],
+   "expect": {
+    "discovered_metrics": [],
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "reordered-leverage-columns",
+   "rule": "Reordered leverage value columns are unreadable.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: leverage",
+    "",
+    "| Period | Net debt / EBITDA | Total debt / EBITDA | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| FY2025 ended 2025-06-30 | 4.00 | 3.00 | x | lev basis |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "extra-column-after-basis",
+   "rule": "An extra column after the basis column is unreadable.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation  Note |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 100 | 50 | US$m | liq basis | n |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "no-period-column",
+   "rule": "A table without a period column is unreadable.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- |",
+    "| 20 | 6 | US$m | b |",
+    ""
+   ],
+   "expect": {
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {},
+    "sources": []
+   }
+  },
+  {
+   "id": "non-finite-value",
+   "rule": "A non-finite value writes no metric and its sibling stays; discovery admits what is written.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 | 6 | US$m | liq basis |",
+    ""
+   ],
+   "expect": {
+    "discovered_metrics": [
+     "undrawn"
+    ],
+    "metrics": {
+     "undrawn": [
+      "6",
+      "2025-06-30"
+     ]
+    }
+   }
+  },
+  {
+   "id": "standard-header-admitted",
+   "rule": "The standard header with the same rows writes and is admitted.",
+   "cp1": [
+    "Hand-written CP-1 for a selection case.",
+    "",
+    "### Chart data: liquidity",
+    "",
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |",
+    "| --- | --- | --- | --- | --- |",
+    "| 2025-06-30 | 20 | 6 | US$m | gross (see note) |",
+    ""
+   ],
+   "expect": {
+    "discovered_metrics": [
+     "cash",
+     "undrawn"
+    ],
+    "gaps": [
+     "HTML Model not published by app runs"
+    ],
+    "metrics": {
+     "cash": [
+      "20",
+      "2025-06-30"
+     ],
+     "undrawn": [
+      "6",
+      "2025-06-30"
+     ]
+    }
+   }
+  }
+ ]
+}

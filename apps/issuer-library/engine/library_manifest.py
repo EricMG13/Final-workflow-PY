@@ -9,6 +9,7 @@ file without following a link or blocking on a FIFO.
 
 from __future__ import annotations
 
+import datetime
 import errno
 import hashlib
 import json
@@ -24,12 +25,21 @@ HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
 
-from issuer_library import events
+from issuer_library import discovery, events
 from issuer_library.events import open_regular
+from issuer_library.model import Catalogue, Manifest, Metric, Source
 
 SCHEMA = "issuer-library-run/1"
 Json = dict[str, Any]
-_NUMBER = re.compile(r"-?\d[\d,]*(\.\d+)?")
+_DATE = r"(?P<date>[0-9]{4}-[0-9]{2}-[0-9]{2})"
+_KINDS = r"(?P<kind>FY[0-9]{4}|LTM|H[12] [0-9]{4}|9M [0-9]{4}|Q[1-4] [0-9]{4})"
+_RATIO_PERIOD = re.compile(_KINDS + " ended " + _DATE)
+_PERIODS = {
+    "cp1_leverage": _RATIO_PERIOD,
+    "cp1_coverage": _RATIO_PERIOD,
+    "cp1_liquidity": re.compile(_DATE + r"(?P<kind>)"),
+}
+_FORMAT_GAP = "CP-1 chart periods are not in the fixed format"
 _KEY = re.compile(r'^("(?:[^"\\]|\\.)*"):\s*(.*)$')
 _TERM_FIELDS = (
     ("tenor_years", "years"),
@@ -234,53 +244,127 @@ class _Sink:
         return [str(self.pin(key, doc, line)) for key, doc, line in items if doc]
 
 
-def _chosen_row(rows: list[_Row], as_of: str, current_period: str, needs_ltm: bool) -> _Row | None:
-    # R-24: the chart-row rule awaits an owner ruling, so no row is chosen and no metric written.
-    return None
+def _chosen_row(table: str, rows: list[_Row], as_of: str) -> _Row | None:
+    """R-26: the latest row on or before `as_of`; FY beats LTM on a tie; no row when ambiguous."""
+    eligible: list[tuple[str, str, _Row]] = []
+    for row in rows:
+        found = _PERIODS[table].fullmatch(row.cells["Period"])
+        kind = found["kind"] if found else "H1"
+        # Liquidity has no kind and competes as one pool; interim kinds never compete.
+        pool = "fy" if kind.startswith("FY") else "ltm" if kind in ("LTM", "") else ""
+        if found and pool and found["date"] <= as_of:
+            eligible.append((found["date"], pool, row))
+    latest = max((date for date, _, _ in eligible), default="")
+    fy = [r for date, pool, r in eligible if date == latest and pool == "fy"]
+    ltm = [r for date, pool, r in eligible if date == latest and pool == "ltm"]
+    return None if len(fy) > 1 or len(ltm) > 1 else next(iter(fy or ltm), None)
 
 
-def _chart_rows(doc: _Doc) -> dict[str, list[_Row]]:
+def _real_date(text: str) -> bool:
+    try:
+        datetime.date.fromisoformat(text)
+    except ValueError:
+        return False
+    return True
+
+
+def _period_ok(table: str, cell: str) -> bool:
+    found = _PERIODS[table].fullmatch(cell)
+    return found is not None and _real_date(found["date"])
+
+
+def _header(table: str) -> list[str]:
+    """The one header a readable chart table has: Period, its value columns, unit, basis."""
+    columns = [column for _, column in _TABLES[table][2]]
+    return ["Period", *columns, "Reporting unit", "Basis and limitation"]
+
+
+def _scan(doc: _Doc) -> tuple[dict[str, list[_Row]], bool]:
+    """Readable chart tables by key, and whether a table was dropped for an off-format Period.
+
+    A table is unreadable when its heading repeats, its header is not exactly `_header`, or a
+    row has the wrong cell count (checked first): none of these adds the gap. A row with the
+    right count and a Period outside the fixed format also makes it unreadable, with the gap.
+    """
     tables: dict[str, list[_Row]] = {}
-    current, header = "", None
+    seen: set[str] = set()
+    bad: set[str] = set()
+    off_format = False
+    current, header, exact = "", None, False
     for number, line in enumerate(doc.lines, 1):
         text = line.strip()
         if text.startswith("#"):
             current, header = _HEADINGS.get(text, ""), None
             if current:
+                (bad if current in seen else seen).add(current)
                 tables[current] = []
         elif current and text.startswith("|"):
             cells = [c.strip() for c in text.strip("|").split("|")]
             if header is None:
                 header = cells
-            elif len(cells) == len(header) and not all(re.fullmatch(r":?-+:?", c) for c in cells):
-                tables[current].append(_Row(number, dict(zip(header, cells, strict=True))))
-    return tables
+                exact = cells == _header(current)
+                if not exact:
+                    bad.add(current)
+            elif not exact or all(re.fullmatch(r":?-+:?", c) for c in cells):
+                continue
+            elif len(cells) != len(header):
+                bad.add(current)
+            else:
+                row = _Row(number, dict(zip(header, cells, strict=True)))
+                if not _period_ok(current, row.cells.get("Period", "")):
+                    bad.add(current)
+                    off_format = True
+                tables[current].append(row)
+    return {k: v for k, v in tables.items() if k not in bad}, off_format
+
+
+def _chart_rows(doc: _Doc) -> dict[str, list[_Row]]:
+    return _scan(doc)[0]
+
+
+def _number(cell: str) -> bool:
+    """The cell is, by discovery's own reader, exactly one non-negative number."""
+    return discovery.stated_numbers(cell) == [cell.replace(",", "")] and cell[0] != "-"
 
 
 def _row_metrics(table: str, row: _Row) -> Json:
     _, unit, fields = _TABLES[table]
     period, basis = row.cells.get("Period"), row.cells.get("Basis and limitation")
-    if row.cells.get("Reporting unit") != unit or period is None or basis is None:
+    if row.cells.get("Reporting unit") != unit or not period or not basis:
         return {}
     out: Json = {}
     for name, column in fields:
         cell = row.cells.get(column, "")
-        if _NUMBER.fullmatch(cell) and not cell.startswith("-"):
+        if _number(cell):
             out[name] = {"value": cell.replace(",", ""), "unit": unit, "period": period}
             out[name] |= {"basis": basis, "source": table, "provenance": "calculated"}
     return out
 
 
-def _chart_metrics(doc: _Doc | None, as_of: str, period: str, sink: _Sink) -> Json:
+def _readable_metrics(found: Json, pin: Json) -> Json:
+    """Keep the metrics discovery would admit from the pinned line, as it reads that line."""
+    kept: Json = {}
+    for name, metric in found.items():
+        try:
+            discovery.check_metric(Metric(**metric), {metric["source"]: Source(**pin)})
+        except ValueError:
+            continue
+        kept[name] = metric
+    return kept
+
+
+def _chart_metrics(doc: _Doc | None, as_of: str, sink: _Sink) -> tuple[Json, bool]:
     metrics: Json = {}
-    for table, rows in (_chart_rows(doc) if doc else {}).items():
-        interim = not period.startswith("fy-") and table != "cp1_liquidity"
-        row = _chosen_row(rows, as_of, period, interim)
-        found = _row_metrics(table, row) if doc and row else {}
+    tables, off_format = _scan(doc) if doc else ({}, False)
+    for table, rows in tables.items():
+        row = _chosen_row(table, rows, as_of)
+        found = (
+            _readable_metrics(_row_metrics(table, row), _pin(doc, row.line)) if row and doc else {}
+        )
         if found and doc and row:
             sink.pin(table, doc, row.line)
             metrics |= found
-    return metrics
+    return metrics, off_format
 
 
 def _user_terms(sink: _Sink, row: Json, fields: Any, prefix: str, path: tuple[Any, ...]) -> Json:
@@ -478,10 +562,12 @@ def build(workspace: Path, run_id: str) -> Json:
     if handoff := cp1 or next((d for d in handoffs.values() if d), None):
         run["handoff"] = handoff.rel
     published = bool(receipt and receipt[1].get("cp_model_published") is True)
-    run |= {"gaps": _gaps(expectations, published), "artifacts": []}
+    metrics, off_format = _chart_metrics(cp1, as_of, sink)
+    gaps = _gaps(expectations, published) + ([_FORMAT_GAP] if off_format else [])
+    run |= {"gaps": gaps, "artifacts": []}
     run["ratings"] = _ratings(ctx, sink)
     run["facilities"] = _facilities(ctx, sink, ctx_run["reporting_currency"])
-    run["metrics"] = _chart_metrics(cp1, as_of, period, sink)
+    run["metrics"] = metrics
     line = _line_of(wf_doc, "sources", first, "sha256") if first else None
     sources = sink.evidence([("wf_source_0", wf_doc, line)] if first else [])
     scope = f"App run {run_id}: requested modules and delivery"
@@ -573,6 +659,11 @@ def _close_if_unowned(fd: int, ours: os.stat_result) -> None:
 def _publish(workspace: Path, run_id: str, text: str) -> None:
     """Write `library.json` through folder fds; a link swapped in after `build` is not followed."""
     fds = _walk(workspace, ("runs", run_id))
+    try:
+        _admit(workspace, run_id, text)
+    except BaseException:
+        _close(fds)
+        raise
     temp = f".library-{secrets.token_hex(8)}.tmp"
     made = False
     try:
@@ -601,6 +692,17 @@ def _publish(workspace: Path, run_id: str, text: str) -> None:
         _close(fds)
 
 
+def _admit(workspace: Path, run_id: str, text: str) -> None:
+    """Run discovery's admission on the manifest text; raise `ManifestError` with its reason."""
+    try:
+        manifest = Manifest.model_validate_json(text)
+        if manifest.schema_ != discovery.MANIFEST_SCHEMA:
+            raise ValueError("unsupported run manifest schema")
+        discovery.admit_run(workspace, manifest, run_id, Catalogue(workspace=str(workspace)))
+    except (OSError, ValueError) as err:
+        raise ManifestError(f"discovery rejects this manifest: {discovery.describe(err)}") from err
+
+
 def write(workspace: Path, run_id: str) -> Path:
     """Write `build(...)` to `runs/<run_id>/library.json` atomically and return the path."""
     text = json.dumps(build(workspace, run_id), indent=2, ensure_ascii=False) + "\n"
@@ -609,6 +711,7 @@ def write(workspace: Path, run_id: str) -> Path:
     if os.open not in os.supports_dir_fd:
         # ponytail: no dir_fd (Windows), so the folder path is not pinned; a link swapped in
         # between build() and this write can redirect library.json. Ceiling: the POSIX path above.
+        _admit(workspace, run_id, text)
         temp = target.with_name(f".library-{secrets.token_hex(8)}.tmp")
         try:
             temp.write_text(text, encoding="utf-8", newline="")
