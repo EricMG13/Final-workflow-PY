@@ -560,3 +560,18 @@ back-test changes only CP-0 rows (cpos-launch-live-001 not_reached → unconfirm
 limited → unconfirmed, disagreed → not testable); `validate.py browser` 86/0; quick exit 0;
 quality gate 0; two mx-precise reviews APPROVE. Not verified: a live run's handoffs beyond the C1
 fixtures; combined markups on one `Module Status:` line (read unconfirmed; question with the lead).
+
+## 2026-11-10 — Plan 2: C1 live-check harness faults, lead rulings R-SB2-1a(3)/1c/1d (SB2, branch `claude/sb2-c1-harness-a`)
+
+Scope: `handoff_outcome.py`, `designs/flow_check.py`, `designs/live_check.py` (`REPORT_TEXT_JS`),
+answer-key tests. Cause: SB3's paid C1 run (`web-8a674922…`, sol-medium) re-read offline: CP-1's
+`calculate` result 3.835 did not cover the 3.84 its handoff printed; the report text ran table
+cells together ("September 11, 2014Rounded", "-83,297Not calculable"), so 11 and 83 were flagged.
+Rulings (keys by agents other than the implementer): a calculate result's printed roundings are
+evidence once its operands are; report text keeps cell/block separators; `Module Status:` strips
+repeat (combined markups, `*` runs, `> `, any-case label); fenced examples never count;
+front-matter values in any case, quoted or with `# comment`; BOM ignored.
+Checks: keys red then green; offline re-read on a copy (no provider): C1 flow faults 10800 and
+162600 only (out of scope), CP-4 limited, CP-1 limited (forecast ready: a real disagreement);
+back-test output unchanged; `validate.py` quick exit 0, browser 86/0; quality gate 0; mx-precise
+review APPROVE (Low: O(n²) strip loop on a 1 MB line). Not verified: a live run after this change.
