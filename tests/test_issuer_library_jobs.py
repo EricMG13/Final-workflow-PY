@@ -1282,6 +1282,49 @@ def test_a_stray_fork_during_a_failed_status_save_does_not_block_the_next_start(
     assert not (folder / "worker.lock").exists() or state_of(folder)["state"] != "running"
 
 
+def stalling_fcntl(
+    outer: str, armed: list[bool], opened: threading.Event, go: threading.Event
+) -> Any:
+    """fcntl for jobs.py whose next worker_alive flock, called from `outer`, waits on `go` (a
+    descheduled thread between its open and its flock)."""
+    import fcntl
+
+    class StallingFcntl:
+        def __getattr__(self, name: str) -> Any:
+            return getattr(fcntl, name)
+
+        def flock(self, descriptor: int, operation: int) -> Any:
+            frame = sys._getframe
+            caller, outer_name = frame(1).f_code.co_name, frame(2).f_code.co_name
+            if armed[0] and caller == "worker_alive" and outer_name == outer:
+                armed[0] = False
+                opened.set()
+                go.wait(20)
+            return fcntl.flock(descriptor, operation)
+
+    return StallingFcntl()
+
+
+def resume_and_start_copy(client: Any, root: Path, job_id: str, starts: Path) -> int:
+    """Resume the job from the other instance, start the copy, return the worker starts seen."""
+    if call(client, "POST", "/api/runs/resume", resume_body(job_id)).status_code != 200:
+        return 0
+    copy = next(p.name for p in (root / "intake").iterdir() if p.name != job_id)
+    start_job(client, copy)
+    time.sleep(0.5)
+    return starts.read_text().count("\n")
+
+
+def drain_apps(*apps: Any) -> None:
+    deadline = time.time() + 15
+    for app in apps:
+        while time.time() < deadline:
+            with app.lock:
+                if not app.active_jobs:
+                    break
+            time.sleep(0.05)
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock semantics")
 @pytest.mark.parametrize("variant", ["adoption", "watch_worker"])
 def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_the_retry_running(
@@ -1290,9 +1333,7 @@ def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_th
     # Answer key: sb2/probes/t7adv_stale_inode_adoption.py and t7adv_stale_inode_liveness.py. A
     # second instance opens worker.lock, is descheduled before flock (injected stall), the failed
     # start unlinks that inode and the retry's worker locks a new one: the retry's job must stay
-    # "running" and no second worker may start.
-    import fcntl
-
+    # "running", its worker alive, and no second worker may start.
     adoption = variant == "adoption"
     if not adoption:
         monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
@@ -1306,25 +1347,8 @@ def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_th
     missing = Engine(root=held_root, python=str(tmp_path / "no-such-python"))
     second_app = restarted(tmp_path, root)
     second_app.engine = held
-    client_b = client_of(second_app)
     opened, go = threading.Event(), threading.Event()
     armed = [False]
-    real_fcntl = fcntl
-    outer = "adopt_jobs_locked" if adoption else "watch_worker"
-
-    class StallingFcntl:
-        def __getattr__(self, name: str) -> Any:
-            return getattr(real_fcntl, name)
-
-        def flock(self, descriptor: int, operation: int) -> Any:
-            frame = sys._getframe
-            caller, outer_name = frame(1).f_code.co_name, frame(2).f_code.co_name
-            if armed[0] and caller == "worker_alive" and outer_name == outer:
-                armed[0] = False
-                opened.set()
-                go.wait(20)
-            return real_fcntl.flock(descriptor, operation)
-
     attempts: list[int] = []
     adopters: list[threading.Thread] = []
 
@@ -1343,8 +1367,7 @@ def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_th
                 adopters.append(thread)
                 thread.start()
             else:
-                with second_app.lock:
-                    jobs_module.adopt_jobs_locked(second_app, str(root))
+                adopt()
                 assert job_id in second_app.active_jobs, "the watcher did not adopt the job"
                 armed[0] = True
             assert opened.wait(10), "the liveness probe never opened the lock"
@@ -1352,7 +1375,8 @@ def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_th
 
     first_app.engine = SwitchEngine(root=held_root, python=sys.executable)
     starts = root / "worker-starts.txt"
-    monkeypatch.setattr(jobs_module, "fcntl", StallingFcntl())
+    outer = "adopt_jobs_locked" if adoption else "watch_worker"
+    monkeypatch.setattr(jobs_module, "fcntl", stalling_fcntl(outer, armed, opened, go))
     try:
         first = start_job(client_a, job_id)
         retry = start_job(client_a, job_id)
@@ -1365,27 +1389,17 @@ def test_a_liveness_probe_opened_before_a_failed_start_removed_the_lock_keeps_th
         if not adoption:
             time.sleep(0.3)  # the watcher's next polls, at 0.01 s
         settled = state_of(folder)["state"]
+        alive = jobs_module.worker_alive(folder / "worker.lock")
         resumed_workers = 0
-        if (
-            settled != "running"
-            and call(client_b, "POST", "/api/runs/resume", resume_body(job_id)).status_code == 200
-        ):
-            copy = next(p.name for p in (root / "intake").iterdir() if p.name != job_id)
-            start_job(client_b, copy)
-            time.sleep(0.5)
-            resumed_workers = starts.read_text().count("\n")
+        if settled != "running":
+            resumed_workers = resume_and_start_copy(client_of(second_app), root, job_id, starts)
     finally:
         go.set()
         (root / "release-all").write_bytes(b"")
-        deadline = time.time() + 15
-        for app in (first_app, second_app):
-            while time.time() < deadline:
-                with app.lock:
-                    if not app.active_jobs:
-                        break
-                time.sleep(0.05)
+        drain_apps(first_app, second_app)
     assert (first.status_code, retry.status_code) == (503, 202), (first.text, retry.text)
     assert settled == "running", f"a live worker's job was settled {settled!r}"
+    assert alive, "the retry's worker was judged dead"
     assert resumed_workers < 2, "two workers for the same inputs"
     assert starts.read_text().count("\n") == 1
 
