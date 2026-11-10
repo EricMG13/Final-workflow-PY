@@ -51,7 +51,7 @@ word within 70 characters after a mention of the module id (not followed by `.di
 a letter), with no other module id and no sentence end (`.` or `;` before a space or the line's
 end) between, so the worst class over all mentions wins, and, in CP-0 prose only, a status word
 (any letter case) followed by `:` and a list of module ids that includes it (`Blocked: CP-1, CP-4
-and CP-5`; same id boundary; the word starts a line or sentence after list/markup characters (`#`
+and CP-5`; same id boundary; the word starts a line after list/markup characters (`#`
 too) only, ids in any letter case, is not negated, and the ids stop at the first word that is not
 an id or a separator). A `Module Status:` value counts when it begins with a known phrase followed
 by a period or the line's end
@@ -160,11 +160,12 @@ def unfenced(text: str) -> list[str]:
 
 def status_words(module: str, text: str, words: tuple[str, ...], both: bool = False) -> list[str]:
     """The module's status words: those in any cell of a table row whose first cell is the module id
-    alone or id plus a label (markup and list marker dropped); else the first within 70 characters
-    after the id, no other module id between (another module's row is not read), and any word
+    alone or id plus a label (markup and list marker dropped); else, for every mention of the id,
+    every status word within 70 characters after it, no other module id and no sentence end (`.` or
+    `;` before a space or line end) between (another module's row is not read), and any word
     followed by `:` and a list of ids that includes the module (`Blocked: CP-1, CP-4`; any letter
     case, and only with `both`, i.e. CP-0 text). That form counts only when the status word starts
-    the line after list/markup characters (`-*+>_`, backticks, `N.`), so `Not blocked:` and
+    the line after list/markup characters (`-*+>_#`, backticks, `N.`), so `Not blocked:` and
     `Unblocked:` never count; the ids are read up to the first word that is not an id or a
     separator (`,` `&` `/` `and`), so `Blocked: CP-4 because CP-1 ...` lists only CP-4.
     With `both` the row words and the prose words are all returned."""
@@ -184,12 +185,15 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
         return rows
     prose = "\n".join(rest)
     ident = r"CP-\w+(?!\w|\.\d|-\d)"
-    found = re.findall(
-        rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?:(?!CP-|[.;](?:\s|$))[^\n]){{0,70}}?\b({alt})\b",
-        prose,
-    )
+    gap = r"(?:(?!CP-|[.;](?:\s|$))[^\n])"
+    found = [
+        w[1]
+        for m in re.finditer(rf"\b{re.escape(module)}\b(?!\.\d|-\d)({gap}{{0,91}}\w*)", prose)
+        for w in re.finditer(rf"\b({alt})\b", m[1])
+        if w.start() <= 70
+    ]
     sep = r"(?:[ \t]*[,&/][ \t]*|[ \t]+)(?:and[ \t]+)?"
-    lead = r"(?m)(?:^|[.;][ \t]+)(?:[ \t>*+_`#-]|\d+\.)*"
+    lead = r"(?m)^(?:[ \t>*+_`#-]|\d+\.)*"
     listed = rf"{lead}({alt})[*_`]*[ \t]*:[ \t*_`]*((?:{ident}{sep})*{ident})"
     rows += found
     if both:  # the status-colon-id form is read in CP-0 prose only, never in a module's own handoff
