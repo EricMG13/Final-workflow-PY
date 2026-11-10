@@ -4,6 +4,7 @@ import importlib.util
 import json
 import shutil
 import sys
+import time
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -385,3 +386,71 @@ def test_1j2_row_markup_list_markers_id_prefixes(
 ) -> None:
     own = f"# {module}\nbody\n" if has_own else None
     assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted
+
+
+# --- Handoff-outcome batch: R-SB2-1g, 1i, 1k and the reader Lows (ids prefixed b1-) ---
+NO_STATUS = "# CP-4\nbody\n"
+CASES_B1 = [  # (module, own, cp0, expected): values from the rulings
+    # R-SB2-1g: a row is ranked by the class it resolves to
+    ("CP-1", NO_STATUS, "| CP-1 | READY_WITH_LIMITATIONS | CONDITIONAL |\n", "limited"),
+    ("CP-1", None, "| CP-1 | READY_WITH_LIMITATIONS | CONDITIONAL |\n", "will_refuse"),
+    ("CP-1", NO_STATUS, "| CP-1 | READY | CONDITIONAL |\n", "ready"),
+    ("CP-1", NO_STATUS, "| CP-1 | CONDITIONAL |\n", "unconfirmed"),
+    # R-SB2-1i: prose and row both read, worst class wins
+    ("CP-4", NO_STATUS, "CP-4 BLOCKED: no indenture.\n\n| CP-4 | READY |\n", "will_refuse"),
+    ("CP-4", NO_STATUS, "CP-4 READY.\n\n| CP-4 | BLOCKED |\n", "will_refuse"),
+    ("CP-4", NO_STATUS, "CP-4 READY_WITH_LIMITATIONS.\n\n| CP-4 | READY |\n", "limited"),
+    # R-SB2-1k: status, colon, then the id (same exact-id boundary as 1j)
+    ("CP-4", None, "Blocked: CP-4.\n", "will_refuse"),
+    ("CP-1", None, "BLOCKED: CP-1, CP-4 and CP-5.\n", "will_refuse"),
+    ("CP-4", None, "BLOCKED: CP-1, CP-4 and CP-5.\n", "will_refuse"),
+    ("CP-5", None, "BLOCKED: CP-1, CP-4 and CP-5.\n", "will_refuse"),
+    ("CP-4", None, "Blocked: CP-4.1.\n", "not_reached"),
+    ("CP-4", NO_STATUS, "READY_WITH_LIMITATIONS: CP-4\n", "limited"),
+    # Lows
+    ("CP-4", "Module Status: `Blocked`. See below.\n", "", "will_refuse"),
+    ("CP-4", "> ```\nModule Status: Blocked\n> ```\n", "", "will_refuse"),
+    ("CP-4", "---\nqa_status: ok\n```\n---\nModule Status: Blocked\n", "", "will_refuse"),
+    ("CP-4", "Note Module Status: Blocked\n", "", "unconfirmed"),
+    ("CP-4", "Module Status: Blocked\r\n", "", "will_refuse"),
+]
+IDS_B1 = [
+    "b1-1g-limited-over-conditional",
+    "b1-1g-no-own-will-refuse",
+    "b1-1g-ready-conditional-ignored",
+    "b1-1g-conditional-own-unconfirmed",
+    "b1-1i-prose-blocked-row-ready",
+    "b1-1i-prose-ready-row-blocked",
+    "b1-1i-prose-limited-row-ready",
+    "b1-1k-blocked-colon-id",
+    "b1-1k-list-cp1",
+    "b1-1k-list-cp4",
+    "b1-1k-list-cp5",
+    "b1-1k-id-boundary",
+    "b1-1k-limited-colon-id",
+    "b1-low-backtick-value-then-text",
+    "b1-low-blockquote-fence",
+    "b1-low-front-matter-fence",
+    "b1-low-u2028-not-a-line-break",
+    "b1-low-crlf",
+]
+
+
+@pytest.mark.parametrize(("module", "own", "cp0", "wanted"), CASES_B1, ids=IDS_B1)
+def test_b1_batch_cases(module: str, own: str | None, cp0: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted
+
+
+@pytest.mark.parametrize(
+    ("own", "wanted"),
+    [
+        ("Module Status: Completed" + " x" * 500000, "unconfirmed"),
+        ("- " * 500000 + "Module Status: Blocked", "will_refuse"),
+    ],
+    ids=["b1-low-long-line-text", "b1-low-long-list-markers"],
+)
+def test_b1_long_lines_finish_within_2s(own: str, wanted: str) -> None:
+    start = time.monotonic()
+    got = handoff_outcome.actual_of("CP-4", own, "")[0]
+    assert time.monotonic() - start < 2
+    assert got == wanted
