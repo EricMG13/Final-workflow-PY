@@ -954,6 +954,7 @@ def new_run(  # noqa: PLR0915, RUF100
         key is not None and link.count() == 1,
         f"{name}: the library lists the new run with its Overview link",
     )
+    library_entry_values(page, name, port, workspace, key)
     # A run that appears on disk while the app is open is offered, not forced.
     added = Path(workspace, "runs", "added-001")
     added.mkdir()
@@ -997,6 +998,58 @@ def run_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
     library_detail_links(page, name, port, folder)
     line = f"N/A {name}: library counts and screening cases of the repo store: {NOT_APPLICABLE}"
     print(redact(line, secrets()), flush=True)
+
+
+def library_entry_values(page: Any, name: str, port: int, workspace: Path, run: str) -> None:
+    """4C L6: the fake-engine run's own manifest reaches its Library detail (synthetic CP-1).
+
+    The walk's context as-of is 2025-03-31, on or after 2024-12-31, so the FY2024 rows of
+    reader-fixture/CP-1.md apply. Values and the pinned line are hand-copied from that file."""
+    page.click(f"[data-library-select='{run}']")
+    detail = page.locator("#run-detail")
+    detail.wait_for(state="visible")
+    parts = (
+        "(item) => [item.querySelector('.metric-value').firstChild.textContent.trim(),"
+        " item.querySelector('p').textContent.trim()]"
+    )
+    for label, value, period in (
+        ("Leverage", "3.60\u00d7", "FY2024 ended 2024-12-31"),
+        ("Net leverage", "3.25\u00d7", "FY2024 ended 2024-12-31"),
+        ("Interest coverage", "3.40\u00d7", "FY2024 ended 2024-12-31"),
+        ("Closing cash", "275", "2024-12-31"),
+        ("Undrawn facilities", "400", "2024-12-31"),
+    ):
+        item = detail.locator(".metric-item", has=page.locator(f"text='{label}'")).first
+        shown_value, shown_period = item.evaluate(parts)
+        note(
+            shown_value == value and shown_period == f"{period} \u00b7 Synthetic.",
+            f"{name}: Library detail shows {label} {value}, {period}, Synthetic"
+            f" ({shown_value!r}, {shown_period!r})",
+        )
+    pinned = "| FY2024 ended 2024-12-31 | 3.60 | 3.25 | x | Synthetic. |"  # CP-1.md line 29
+    at = [
+        n
+        for n, t in enumerate((Path(workspace, "runs", run, "CP-1.md")).read_text().splitlines(), 1)
+        if t.strip() == pinned
+    ]
+    detail.locator(".metric-item", has=page.locator("text='Leverage'")).first.locator(
+        ".tertiary-action"
+    ).click()
+    page.wait_for_selector("#inspector:not([hidden]) .evidence-fields")
+    shown = " ".join(page.inner_text("#inspector").split())
+    where = page.locator("#inspector .evidence-context").inner_text().strip()
+    note(
+        len(at) == 1
+        and re.search(rf"\bLine {at[0]}$", where) is not None
+        and all(
+            cell in shown for cell in ("FY2024 ended 2024-12-31", "3.60", "3.25", "Synthetic.")
+        ),
+        f"{name}: View source for Leverage opens the pinned CP-1 line {pinned} (line {at})",
+    )
+    page.keyboard.press("Escape")
+    page.goto(f"http://127.0.0.1:{port}/#W-Library/cases?runs=any")
+    page.reload()
+    page.wait_for_selector("#library-results tbody tr")
 
 
 def overview_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:

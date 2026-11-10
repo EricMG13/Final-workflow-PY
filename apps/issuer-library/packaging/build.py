@@ -73,7 +73,7 @@ def build(target: Path) -> Path:
     engine.mkdir(parents=True)
     unpack(release / "lib")
     skip = shutil.ignore_patterns("__pycache__", "*.pyc")
-    for name in ["bridge.py", "store.py", "catalog.json"]:
+    for name in ["bridge.py", "store.py", "library_manifest.py", "catalog.json"]:
         shutil.copyfile(APP / "engine" / name, engine / name)
     shutil.copyfile(ROOT / "cases/context/research-minimal.json", engine / "smoke-context.json")
     (engine / "VERSION").write_text(version, encoding="utf-8")

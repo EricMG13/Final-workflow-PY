@@ -153,6 +153,7 @@ def test_release_layout(built: tuple[Path, Path]) -> None:
         "start.py",
         "engine/bridge.py",
         "engine/store.py",
+        "engine/library_manifest.py",
         "engine/catalog.json",
         "engine/smoke-context.json",
         "engine/src/issuer_library/__main__.py",
