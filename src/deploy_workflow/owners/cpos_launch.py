@@ -18,7 +18,7 @@ import re
 import sys
 import tempfile
 import textwrap
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal, InvalidOperation
@@ -308,6 +308,124 @@ PROVISIONAL_ISSUES = {
     "provisional_section_missing": "Provisional label missing in routed section",
     "provisional_main_limitation_missing": "Provisional label missing in Main limitation",
     "consumer_provisional_missing": "Provisional label missing from a Provisional CP-4 term",
+}
+PRO_FORMA_CELL_RULE = (
+    "Every amount cell, `Total debt / EBITDA` included, is either a plain number such as `1234.5` "
+    "or `-10` (digits, optional thousands commas and decimals, a negative with a leading minus; "
+    "no brackets, currency symbol, unit suffix, multiple sign or words) or "
+    "`Not supplied: <reason>` with a reason. A `Reporting unit` or `Currency` cell is never blank. "
+    "Take every figure from the sources and handoffs or from `calculate`; plug nothing and "
+    "invent no haircut."
+)
+LADDER_ROWS = (
+    "(a) Starting EBITDA",
+    "(b) Documented acquisition and disposal adjustments",
+    "Base EBITDA, (a) + (b)",
+    "(c) Unrealised run-rate savings, not in base",
+    "(d) Management add-backs: Supported, not in base",
+    "(d) Management add-backs: Challenged, not in base",
+    "(d) Management add-backs: Rejected, not in base",
+    "(d) Management add-backs: Insufficient Information, not in base",
+    "As marketed",
+    "(e) Difference from As marketed",
+)
+LEVERAGE_ROWS = ("Reported", "Pro forma, excluding unrealised add-backs", "As marketed")
+SOURCES_USES_HEADING = "Sources and uses"
+SOURCES_USES_HEADER = ("Side", "Item", "Amount", "Currency", "Basis", "Source")
+ADD_BACK_HEADING = "Add-back LTM register"
+ADD_BACK_HEADER = (
+    "Add-back",
+    "Run-rate claimed",
+    "Realised to date",
+    "Amount already in LTM",
+    "Verdict",
+    "Source",
+)
+VERDICTS = ("Supported", "Challenged", "Rejected", "Insufficient Information")
+CAPITALISATION_HEADING = "Pro forma capitalisation"
+CAPITALISATION_HEADER = (
+    "Instrument",
+    "Currency",
+    "Balance sheet",
+    "Transaction adjustment",
+    "Pro forma",
+    "Basis",
+    "Source",
+)
+LADDER_HEADING = "EBITDA ladder"
+LADDER_HEADER = ("Row", "Amount", "Reporting unit", "Definition or basis", "Source")
+LEVERAGE_HEADING = "Pro forma leverage"
+LEVERAGE_HEADER = (
+    "Basis",
+    "Total debt",
+    "EBITDA",
+    "Total debt / EBITDA",
+    "Reporting unit",
+    "Source",
+)
+EBITDA_DEFINITIONS = ("EBIT plus D&A", "Adjusted EBITDA", "As Defined")
+BASES = ("documented", "user-entered")
+
+
+def _header(header: Sequence[str]) -> str:
+    return f"`| {' | '.join(header)} |`"
+
+
+PRO_FORMA_CP1A = (
+    "Pro forma sources and uses (Primary run). Under `## Findings`, write "
+    f"`### {SOURCES_USES_HEADING}` once, with one table headed {_header(SOURCES_USES_HEADER)}. "
+    "Side is `Source` or `Use`. Basis is `documented` or `user-entered`. Use the facility sizes "
+    "the user entered, labelled `user-entered`; when a document states a different size, give it "
+    "on its own `documented` row and log the difference, never resolve it. Source names what the "
+    "row came from. Write at least one `Source` row and one `Use` row, then exactly one row with "
+    "Item `Total sources` (Side `Source`) and exactly one with Item `Total uses` (Side `Use`), "
+    f"each total from `calculate`. {PRO_FORMA_CELL_RULE}\n\n"
+)
+PRO_FORMA_CP1D = (
+    "Pro forma add-back register (Primary run). Under `## Findings`, write "
+    f"`### {ADD_BACK_HEADING}` once, with one table headed {_header(ADD_BACK_HEADER)} and at least "
+    "one row, one per management add-back. Verdict is one of "
+    + ", ".join(f"`{v}`" for v in VERDICTS)
+    + f". Source names what the row came from. {PRO_FORMA_CELL_RULE}\n\n"
+)
+PRO_FORMA_CP2 = (
+    "Pro forma capitalisation and leverage (Primary run). Under `## Findings`, write these three "
+    "tables, each under its own heading, once. Unrealised and unresolved add-backs are shown and "
+    "never counted in the base.\n"
+    f"- `### {CAPITALISATION_HEADING}`: above the table, one line `Balance-sheet date: "
+    "YYYY-MM-DD` and one line `LTM period: <text>`, each once. The table is headed "
+    f"{_header(CAPITALISATION_HEADER)}. Currency is a 3-letter code. Basis is `documented` or "
+    "`user-entered`. One row has Instrument `Cash`; every other row that is not a total is a debt "
+    "instrument. For each currency a debt row uses, one row `Total debt (<CCY>)`. The Cash row "
+    "and every total row cite `CP-1A` in Source (cash to balance sheet, fees and OID, and the "
+    "debt, per its sources and uses). Write a `Total debt (all currencies)` row only after a "
+    "line `FX rate: <rate> (<source>)`.\n"
+    f"- `### {LADDER_HEADING}`: headed {_header(LADDER_HEADER)}, with exactly these rows in this "
+    "order: "
+    + "; ".join(f"`{row}`" for row in LADDER_ROWS)
+    + ". Definition or basis and Source are never blank. Row (a)'s Definition or basis names one "
+    "of "
+    + ", ".join(f"`{d}`" for d in EBITDA_DEFINITIONS)
+    + ". The Base EBITDA and any (e) figure come from the `calculate` tool and their Source says "
+    "`calculate`. Row (e) is either that number or `Not supplied: Insufficient Information` "
+    "when the management figure is not reconciled; give no other reason. When CP-1D did not run, "
+    "rows (c) and (d) carry `Not supplied: <reason>`.\n"
+    f"- `### {LEVERAGE_HEADING}`: headed {_header(LEVERAGE_HEADER)}, with exactly these rows in "
+    "this order: "
+    + ", ".join(f"`{row}`" for row in LEVERAGE_ROWS)
+    + ". The `Pro forma, excluding unrealised add-backs` Source cites `CP-1A`. A private deal "
+    "with no filings writes `Not supplied: no filed financial statements` in the Reported row.\n"
+    f"{PRO_FORMA_CELL_RULE} Nothing is plugged and no haircut is invented; write negatives with a "
+    "leading minus.\n\n"
+)
+PRO_FORMA = {"CP-1A": PRO_FORMA_CP1A, "CP-1D": PRO_FORMA_CP1D, "CP-2": PRO_FORMA_CP2}
+PRO_FORMA_ISSUES = {
+    "pro_forma_table_missing": "Pro forma table missing",
+    "pro_forma_rows": "Pro forma rows wrong",
+    "pro_forma_cell": "Pro forma cell invalid",
+    "pro_forma_basis": "Pro forma basis or date missing",
+    "pro_forma_cp1a_citation": "Pro forma does not cite CP-1A",
+    "pro_forma_fx": "Pro forma cross-currency total lacks an FX rate",
 }
 
 
@@ -614,6 +732,7 @@ def _instructions(
     provisional = run_type == "primary" or legal_documents == "draft"
     paragraph = PROVISIONAL_PARAGRAPH if provisional and module == "CP-4" else ""
     consumer = f"{CONSUMER_SENTENCE}\n\n" if provisional and module in CONSUMERS else ""
+    pro_forma = PRO_FORMA.get(module, "") if run_type == "primary" else ""
     selectors = "\n".join(_selector(r) for r in routes if r.module_id == module)
     sections = [(path, (ROOT / path).read_text(encoding="utf-8")) for path in METHODS[module]]
     if module == "CP-1":
@@ -656,6 +775,7 @@ def _instructions(
         )
         + paragraph
         + consumer
+        + pro_forma
         + f"Selected method, verbatim:\n\n{method}\n"
     ).encode()
 
@@ -754,11 +874,10 @@ def prepare(  # noqa: PLR0913 - one keyword per run setting; retained is the res
     folder = Path(sources).expanduser().resolve()
     raw_context = context_path.read_bytes()
     settings = load_context(raw_context)
-    requested = (
-        tuple(modules)
-        if modules
-        else tuple(m for m in PATHWAY_MODULES[settings.run.pathway] if m not in NOT_ANALYTICAL)
-    )
+    defaults = tuple(m for m in PATHWAY_MODULES[settings.run.pathway] if m not in NOT_ANALYTICAL)
+    if settings.run.run_type == "primary" and "CP-1D" not in defaults:
+        defaults += ("CP-1D",)  # The add-back register CP-2's pro forma ladder reads.
+    requested = tuple(modules) if modules else defaults
     ordered = plan(requested)  # Refuses an unknown module, naming it.
     if unknown := [m for m in ordered if m not in METHODS]:
         raise LaunchRefused(f"--modules: no launchable method for {', '.join(unknown)}")
@@ -1045,6 +1164,317 @@ def consumer_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
     return ()
 
 
+AMOUNT = re.compile(r"-?\d[\d,]*(\.\d+)?")
+NOT_SUPPLIED_WITH_REASON = re.compile(r"Not supplied:\s+\S.*")
+ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
+FX_LINE = re.compile(r"FX rate: \d[\d,]*(\.\d+)? \(.*\S.*\)")
+TOTAL_DEBT = re.compile(r"Total debt \((.+)\)")
+CURRENCY_CODE = re.compile(r"[A-Z]{3}")
+Rule = Callable[[str], str]
+
+
+def _pf(category: str, table: str, detail: str) -> str:
+    return f"{PRO_FORMA_ISSUES[category]}: {table}: {detail}"
+
+
+def _amount(cell: str) -> str:
+    if AMOUNT.fullmatch(cell) or NOT_SUPPLIED_WITH_REASON.fullmatch(cell):
+        return ""
+    return "write a plain number (a leading minus if negative) or `Not supplied: <reason>`"
+
+
+def _named(cell: str) -> str:
+    return "" if cell else "must not be blank"
+
+
+def _currency(cell: str) -> str:
+    return "" if CURRENCY_CODE.fullmatch(cell) else "must be a 3-letter currency code"
+
+
+def _one_of(*words: str) -> Rule:
+    return lambda cell: "" if cell in words else f"must be one of {', '.join(words)}"
+
+
+def _pro_forma_table(
+    lines: list[str], heading: str, header: Sequence[str]
+) -> list[list[str]] | None:
+    """The data rows of one pro forma table; None when its heading is missing or repeated, its
+    exact header is absent or it has no separator row."""
+    rows: list[list[str]] = []
+    for line in _body(lines, heading, 3):
+        found = table_row(line)
+        if found is not None:
+            rows.append(_cells(found))
+        elif rows:
+            break
+    if len(rows) < 2 or rows[0] != list(header):
+        return None
+    if len(rows[1]) != len(header) or not all(re.fullmatch(r":?-+:?", c) for c in rows[1]):
+        return None
+    return rows[2:]
+
+
+def _missing(heading: str, header: Sequence[str]) -> str:
+    detail = f"write `### {heading}` once inside ## Findings, a table headed {_header(header)}"
+    return _pf("pro_forma_table_missing", heading, detail + " and a separator row.")
+
+
+def _whole_rows(
+    heading: str, header: Sequence[str], rows: list[list[str]]
+) -> tuple[list[list[str]], list[str]]:
+    """The rows with the right number of cells, and one cell issue for each other row."""
+    issues = [
+        _pf("pro_forma_cell", heading, f"`{' | '.join(row)}` needs {len(header)} cells.")
+        for row in rows
+        if len(row) != len(header)
+    ]
+    return [row for row in rows if len(row) == len(header)], issues
+
+
+def _cell_issues(
+    heading: str,
+    header: Sequence[str],
+    rows: list[list[str]],
+    rules: Mapping[str, Rule],
+    label: Callable[[list[str]], str] = lambda row: row[0],
+) -> list[str]:
+    return [
+        _pf("pro_forma_cell", heading, f"row `{label(row)}`, column {column}: {problem}.")
+        for row in rows
+        for column, rule in rules.items()
+        if (problem := rule(row[header.index(column)]))
+    ]
+
+
+def _fixed_rows(heading: str, labels: Sequence[str], rows: list[list[str]]) -> list[str]:
+    """Rows that must be exactly these labels, each once, in this order."""
+    found = [row[0] for row in rows]
+    if found == list(labels):
+        return []
+    lacking = [label for label in labels if label not in found]
+    repeated = [label for label in labels if found.count(label) > 1]
+    extra = [label for label in found if label not in labels]
+    if lacking or repeated or extra:
+        detail = (
+            f"missing {lacking}; repeated {repeated}; not allowed {extra}; "
+            f"write exactly these rows once each: {list(labels)}."
+        )
+    else:
+        detail = f"rows are out of order; write them in this order: {list(labels)}."
+    return [_pf("pro_forma_rows", heading, detail)]
+
+
+def _by_label(rows: list[list[str]]) -> dict[str, list[str]]:
+    return {row[0]: row for row in reversed(rows)}  # The first of any repeat wins.
+
+
+def _sources_uses_issues(lines: list[str]) -> list[str]:
+    heading, header = SOURCES_USES_HEADING, SOURCES_USES_HEADER
+    table = _pro_forma_table(lines, heading, header)
+    if table is None:
+        return [_missing(heading, header)]
+    rows, issues = _whole_rows(heading, header, table)
+    rules = {
+        "Side": _one_of("Source", "Use"),
+        "Item": _named,
+        "Amount": _amount,
+        "Currency": _named,
+        "Basis": _one_of(*BASES),
+        "Source": _named,
+    }
+    issues += _cell_issues(heading, header, rows, rules, lambda row: f"{row[0]} / {row[1]}")
+    totals = {"Total sources": "Source", "Total uses": "Use"}
+    plain = [row for row in rows if row[1] not in totals]
+    for side in ("Source", "Use"):
+        if not any(row[0] == side for row in plain):
+            issues.append(_pf("pro_forma_rows", heading, f"write at least one {side} row."))
+    for item, side in totals.items():
+        if sum(1 for row in rows if (row[0], row[1]) == (side, item)) != 1:
+            issues.append(
+                _pf("pro_forma_rows", heading, f"write exactly one `{item}` row with Side {side}.")
+            )
+    return issues
+
+
+def _add_back_issues(lines: list[str]) -> list[str]:
+    heading, header = ADD_BACK_HEADING, ADD_BACK_HEADER
+    table = _pro_forma_table(lines, heading, header)
+    if table is None:
+        return [_missing(heading, header)]
+    if not table:
+        return [_pf("pro_forma_rows", heading, "write at least one add-back row.")]
+    rows, issues = _whole_rows(heading, header, table)
+    rules = {
+        "Add-back": _named,
+        "Run-rate claimed": _amount,
+        "Realised to date": _amount,
+        "Amount already in LTM": _amount,
+        "Verdict": _one_of(*VERDICTS),
+        "Source": _named,
+    }
+    return issues + _cell_issues(heading, header, rows, rules)
+
+
+def _capitalisation_issues(lines: list[str]) -> list[str]:
+    heading, header = CAPITALISATION_HEADING, CAPITALISATION_HEADER
+    table = _pro_forma_table(lines, heading, header)
+    if table is None:
+        return [_missing(heading, header)]
+    rows, issues = _whole_rows(heading, header, table)
+    body = [line.strip() for line in _body(lines, heading, 3)]
+    dates = [line for line in body if line.startswith("Balance-sheet date:")]
+    periods = [line for line in body if line.startswith("LTM period:")]
+    date_text = dates[0].removeprefix("Balance-sheet date:").strip() if dates else ""
+    if len(dates) != 1 or not ISO_DATE.fullmatch(date_text):
+        issues.append(
+            _pf("pro_forma_basis", heading, "write one line `Balance-sheet date: YYYY-MM-DD`.")
+        )
+    if len(periods) != 1 or not periods[0].removeprefix("LTM period:").strip():
+        issues.append(_pf("pro_forma_basis", heading, "write one line `LTM period: <text>`."))
+    rules = {
+        "Instrument": _named,
+        "Currency": _currency,
+        "Balance sheet": _amount,
+        "Transaction adjustment": _amount,
+        "Pro forma": _amount,
+        "Basis": _one_of(*BASES),
+        "Source": _named,
+    }
+    issues += _cell_issues(heading, header, rows, rules)
+    return issues + _capitalisation_rows(heading, rows, any(FX_LINE.fullmatch(b) for b in body))
+
+
+def _capitalisation_rows(heading: str, rows: list[list[str]], has_fx: bool) -> list[str]:
+    """P-2, P-5 and P-6 for the capitalisation table: Cash, per-currency totals, citations, FX."""
+    issues = []
+    cash = [row for row in rows if row[0] == "Cash"]
+    if len(cash) != 1:
+        issues.append(_pf("pro_forma_rows", heading, "write exactly one `Cash` row."))
+    totals = [row for row in rows if TOTAL_DEBT.fullmatch(row[0])]
+    debt = [row for row in rows if row[0] != "Cash" and row not in totals]
+    for ccy in sorted({row[1] for row in debt if CURRENCY_CODE.fullmatch(row[1])}):
+        if sum(1 for row in totals if row[0] == f"Total debt ({ccy})") != 1:
+            issues.append(
+                _pf("pro_forma_rows", heading, f"write exactly one `Total debt ({ccy})` row.")
+            )
+    if any(row[0] == "Total debt (all currencies)" for row in totals) and not has_fx:
+        issues.append(
+            _pf(
+                "pro_forma_fx",
+                heading,
+                "write `FX rate: <rate> (<source>)` before a cross-currency total.",
+            )
+        )
+    issues += [
+        _pf("pro_forma_cp1a_citation", heading, f"row `{row[0]}`: Source must cite CP-1A.")
+        for row in [*cash, *totals]
+        if row[6] and "CP-1A" not in row[6]
+    ]
+    return issues
+
+
+def _ladder_basis(heading: str, row: Mapping[str, list[str]]) -> list[str]:
+    """P-4 for the ladder: a named definition for (a), `calculate` for Base and (e). A blank cell
+    is reported as a cell issue instead."""
+    issues = []
+    start = row.get(LADDER_ROWS[0])
+    if start and start[3] and not any(d in start[3] for d in EBITDA_DEFINITIONS):
+        issues.append(
+            _pf(
+                "pro_forma_basis",
+                heading,
+                f"row (a) Definition or basis must name one of {', '.join(EBITDA_DEFINITIONS)}.",
+            )
+        )
+    base = row.get(LADDER_ROWS[2])
+    if base and base[4] and "calculate" not in base[4]:
+        issues.append(
+            _pf("pro_forma_basis", heading, "the Base EBITDA Source must cite calculate.")
+        )
+    diff = row.get(LADDER_ROWS[9])
+    if diff and diff[4] and not _amount(diff[1]):
+        number = AMOUNT.fullmatch(diff[1]) is not None
+        if number and "calculate" not in diff[4]:
+            issues.append(
+                _pf("pro_forma_basis", heading, "row (e) with a number must cite calculate.")
+            )
+        if not number and not diff[1].startswith("Not supplied: Insufficient Information"):
+            issues.append(
+                _pf(
+                    "pro_forma_basis",
+                    heading,
+                    "row (e) is a calculate result or `Not supplied: Insufficient Information`.",
+                )
+            )
+    return issues
+
+
+def _ladder_issues(lines: list[str]) -> list[str]:
+    heading, header = LADDER_HEADING, LADDER_HEADER
+    table = _pro_forma_table(lines, heading, header)
+    if table is None:
+        return [_missing(heading, header)]
+    rows, issues = _whole_rows(heading, header, table)
+    rules = {
+        "Row": _named,
+        "Amount": _amount,
+        "Reporting unit": _named,
+        "Definition or basis": _named,
+        "Source": _named,
+    }
+    issues += _cell_issues(heading, header, rows, rules)
+    issues += _fixed_rows(heading, LADDER_ROWS, rows)
+    return issues + _ladder_basis(heading, _by_label(rows))
+
+
+def _leverage_issues(lines: list[str]) -> list[str]:
+    heading, header = LEVERAGE_HEADING, LEVERAGE_HEADER
+    table = _pro_forma_table(lines, heading, header)
+    if table is None:
+        return [_missing(heading, header)]
+    rows, issues = _whole_rows(heading, header, table)
+    rules = {
+        "Basis": _named,
+        "Total debt": _amount,
+        "EBITDA": _amount,
+        "Total debt / EBITDA": _amount,
+        "Reporting unit": _named,
+        "Source": _named,
+    }
+    issues += _cell_issues(heading, header, rows, rules)
+    issues += _fixed_rows(heading, LEVERAGE_ROWS, rows)
+    pro_forma = _by_label(rows).get(LEVERAGE_ROWS[1])
+    if pro_forma and pro_forma[5] and "CP-1A" not in pro_forma[5]:
+        issues.append(
+            _pf(
+                "pro_forma_cp1a_citation", heading, f"row `{pro_forma[0]}`: Source must cite CP-1A."
+            )
+        )
+    return issues
+
+
+def _cp2_pro_forma_issues(lines: list[str]) -> list[str]:
+    return _capitalisation_issues(lines) + _ladder_issues(lines) + _leverage_issues(lines)
+
+
+PRO_FORMA_CHECKS: tuple[tuple[str, Callable[[list[str]], list[str]]], ...] = (
+    (PRO_FORMA_CP1A, _sources_uses_issues),
+    (PRO_FORMA_CP1D, _add_back_issues),
+    (PRO_FORMA_CP2, _cp2_pro_forma_issues),
+)
+
+
+def pro_forma_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
+    """P-1 to P-7: the pro forma tables of a module whose instructions carry its constant, and
+    nothing elsewhere. Structure only: no number is summed or compared."""
+    lines = text.splitlines()
+    issues: list[str] = []
+    for constant, check in PRO_FORMA_CHECKS:
+        if constant.encode() in task.instructions:
+            issues += check(lines)
+    return tuple(issues)
+
+
 def checker(layout: MarkdownLayout) -> Check:
     """Anchors and report selectors for one module's answer, so a defect is repaired inside the
     module's loop rather than found at delivery after every module was paid for."""
@@ -1093,6 +1523,7 @@ def checker(layout: MarkdownLayout) -> Check:
             if route.kind == "chart":
                 issues += chart_issues(text, route)
         issues += cp4_issues(task, text, routes) + consumer_issues(task, text)
+        issues += pro_forma_issues(task, text)
         return tuple(issues)
 
     return check

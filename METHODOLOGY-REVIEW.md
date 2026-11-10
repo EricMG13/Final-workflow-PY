@@ -688,3 +688,22 @@ legal documents "draft"), with or without CP-4 in the run, because instructions 
 what the checker enforces: it requires "Provisional" from any consumer whose upstream
 CP-4 handoff holds `DRAFT_LIMITATION` or the final-offering-memorandum reason
 (coordinator ruling, 2026-11-08).
+
+**Primary pro forma tables (2026-11-09, Plan 3 Task 11a):** source: the plan's own
+instruction (docs/superpowers/plans/2026-11-08-plan-3-primary-transactions.md, Task 11;
+owner, 2026-11-08: "Use the plan's instruction"). Deploy V r14's CP-1 pro forma
+reference was not supplied, so no earlier method text is carried. Reason: on Primary
+runs CP-1A writes `### Sources and uses` (user-entered facility sizes labelled
+`user-entered`, a differing documented size on its own row, the difference logged),
+CP-1D writes `### Add-back LTM register`, and CP-2 writes `### Pro forma capitalisation`,
+`### EBITDA ladder` and `### Pro forma leverage`. Unrealised and unresolved add-backs
+are never counted in the base; Base EBITDA and any (e) figure come from `calculate`;
+nothing is plugged. Primary runs add CP-1D to the default modules; an explicit list is
+taken as given. Outside Primary nothing changes. The checker validates structure only,
+against the frozen key (tests/fixtures/primary-pro-forma/checker-cases.json).
+Source revision: this repository at 07e14eca (Plan 3 Task 10 merged); key origin
+final-workflow 8d22e84c.
+Rulings (controller, 2026-11-08): currency is a column with one `Total debt (<CCY>)` row
+per currency, not a column per currency, so the header is fixed and checkable; CP-1D
+writes its own `### Add-back LTM register` rather than a column added to the method's T1D
+registers, which are not structurally checked.
