@@ -55,9 +55,9 @@ PERCENT = re.compile(
 # the unit from the calculate tool's own call record rather than from the handoff text.
 NUMBER_TEXT = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
 BPS = re.compile(rf"(?<![\w/.])({NUMBER_TEXT})\s*(?:bps|basis points)\b", re.IGNORECASE)
-DIVISOR = re.compile(rf"([/÷]\s*)({NUMBER_TEXT})(?!\w)")
+DIVISOR = re.compile(rf"([/÷]\s*)({NUMBER_TEXT})(?!\w|[.,]\d)")
 UNIT_DIVISORS = frozenset(Decimal(d) for d in ("100", "1000", "10000", "0.001"))
-STANDARD = re.compile(r"\b(?:ASC|ASU|IFRS|IAS|SFAS)\s+\d+(?:[-.]\d+)*")
+STANDARD = re.compile(r"\b(?:ASC|ASU|IFRS|IAS|SFAS)[ \t]+\d+(?:[-.]\d+)*")
 E_NOTATION = re.compile(r"(?<![\w.])(\d+(?:\.\d+)?)[eE]([+-]?\d{1,2})(?![\w.])")
 BPS_TAG = "bps:"  # evidence entry: this many basis points is printed as a percent in the source
 EXACT = Context(prec=200)  # a result printed to 40 places must not overflow the default 28
