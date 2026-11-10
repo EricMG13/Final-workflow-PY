@@ -518,6 +518,7 @@ _PRESETS: tuple[tuple[PathwayId, str, str, tuple[str, ...]], ...] = (
             "relative-value",
             "company-profile",
             "transaction-summary",
+            "pro-forma",
             "portfolio-fit",
             "committee-challenge",
             "what-changed",
@@ -1199,6 +1200,16 @@ _CREDIT_SNAPSHOT: Mapping[str, _Spec] = MappingProxyType(
         ),
         "transaction-summary": _Spec(
             "Transaction summary and new debt issues", "Primary", "prose", (), collapsed=True
+        ),
+        # Beside, not inside, transaction-summary: a prose spec rejects table routes. Collapsed like
+        # that block (supporting detail); dated because the tables carry a balance-sheet date.
+        "pro-forma": _Spec(
+            "Pro forma capitalisation and leverage",
+            "CP-2",
+            "dense",
+            ("CP-2",),
+            collapsed=True,
+            dated=True,
         ),
         "portfolio-fit": _Spec("Portfolio Fit", "FIT", "prose", (), collapsed=True),
         "committee-challenge": _Spec(

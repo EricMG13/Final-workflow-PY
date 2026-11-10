@@ -117,7 +117,7 @@ src/deploy_vii/prose.py
 src/deploy_vii/quotes.py
 src/deploy_vii/readiness.py
 src/deploy_vii/registry.py
-src/deploy_vii/report_view.py
+edited src/deploy_vii/report_view.py
 src/deploy_vii/statement_extract.py
 src/deploy_vii/statement_history.py
 src/deploy_vii/statement_output.py
@@ -323,7 +323,7 @@ tests/test_cpos_app.py
 tests/test_cpos_comparison.py
 tests/test_cpos_handoffs.py
 tests/test_cpos_launch.py
-tests/test_delivery_low_s04.py
+edited tests/test_delivery_low_s04.py
 tests/test_downstream_evidence_tags.py
 tests/test_earnings.py
 tests/test_execution_atomic_write.py
@@ -391,7 +391,7 @@ tests/test_replay_reuse.py
 tests/test_review_s02_s05_s09_low.py
 tests/test_rule_issue_bounds.py
 tests/test_run_events.py
-tests/test_run_expectations.py
+edited tests/test_run_expectations.py
 tests/test_run_pathway.py
 tests/test_run_pathway_cpdr.py
 tests/test_rv_quotes_input.py
