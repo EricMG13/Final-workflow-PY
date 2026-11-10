@@ -22,6 +22,7 @@ from typing import Any
 
 import pytest
 from issuer_library_browser import ROOT, WEB, json_reply, open_app, serve
+from playwright.sync_api import expect
 
 pytestmark = pytest.mark.browser
 
@@ -457,3 +458,215 @@ def test_a_value_the_form_cannot_hold_refuses_the_load_visibly(
     with pytest.raises(Exception, match=r"(?s).+"):
         load_context(raw)
     assert_refused(path, value, load_and_use(browser, changed))
+
+
+# --- Load invariant (PR B): what the form sends is what the file held, or the load is refused. ---
+# The key is the file itself and the server's verdict (load_context), never the form. Comparison:
+# every non-blank leaf of the file (text stripped; JSON null is a value) must come back with the
+# same type and value; Python's `True == 1` must not hide a change.
+
+
+def main_checkout() -> Path | None:
+    try:
+        common = subprocess.run(
+            ["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+            check=True,
+            capture_output=True,
+            text=True,
+            cwd=ROOT,
+        ).stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+    return Path(common).parent
+
+
+def context_files() -> list[Any]:
+    """Every context/1 JSON under <worktree>/cases and the main checkout's .superpowers/live."""
+    main = main_checkout()
+    live = main / ".superpowers/live" if main else None
+    found: dict[Path, str] = {}
+    roots = [(ROOT / "cases", "cases")] + ([(live, "live")] if live and live.is_dir() else [])
+    for base, label in roots:
+        for path in sorted(base.rglob("*.json")):
+            try:
+                doc = json.loads(path.read_text("utf-8"))
+            except (ValueError, OSError):
+                continue  # not a readable JSON document, so not a context file
+            if isinstance(doc, dict) and doc.get("schema") == "context/1":
+                found.setdefault(path.resolve(), f"{label}/{path.relative_to(base).as_posix()}")
+    params = [pytest.param(p, id=i) for p, i in found.items()]
+    if not (live and live.is_dir()):
+        reason = "the main checkout has no .superpowers/live folder (or git cannot name it)"
+        params.append(pytest.param(None, id="live-folder-absent", marks=pytest.mark.skip(reason)))
+    return params
+
+
+def lost_leaves(saved: Any, sent: Any) -> dict[str, Any]:
+    """File leaves that are non-blank (text stripped) and not sent with the same type and value."""
+    out = dict(leaves(sent))
+    lost: dict[str, Any] = {}
+    for path, value in leaves(saved):
+        want = value.strip() if isinstance(value, str) else value
+        if isinstance(want, str) and want == "":
+            continue
+        got = out.get(path, "<absent>")
+        if type(got) is not type(want) or got != want:
+            lost[path] = (want, got)
+    return lost
+
+
+def server_refuses(raw: bytes) -> bool:
+    from deploy_workflow.context import ContextRefused, load_context
+
+    try:
+        load_context(raw)
+    except ContextRefused:
+        return True
+    return False
+
+
+def load_then_use(browser: Any, path: Path) -> tuple[str, str, dict[str, Any] | None]:
+    """Load a file into the real editor; return note, its class and the context Use sent."""
+    note, kind, sent = load_and_use(browser, path)
+    context = sent[-1]["context"] if sent and note.startswith("Loaded") else None
+    return note, kind, context
+
+
+@pytest.mark.parametrize("case", context_files())
+def test_every_context_file_keeps_its_values_or_is_refused(browser: Any, case: Path) -> None:
+    raw = case.read_bytes()
+    saved = json.loads(raw)
+    note, kind, context = load_then_use(browser, case)
+    if not server_refuses(raw):
+        assert note.startswith("Loaded") and context is not None, note
+        assert lost_leaves(saved, context) == {}, note
+    elif note.startswith("Not loaded"):
+        assert kind == "bad", (kind, note)
+    else:
+        assert context is not None, note
+        assert lost_leaves(saved, context) == {}, note
+
+
+BLANK_PEER = {"name": "", "ticker": "", "ev_m": "", "ebitda_m": "", "as_of": "", "source": ""}
+BLANK_PREC = {k: "" for k in PREC}
+
+
+def deal_rows(count: int) -> list[dict[str, Any]]:
+    """C2's two deal rows extended to `count` rows, each otherwise valid for the form."""
+    rows = json.loads(C2.read_text("utf-8"))["deal_terms"]
+    template = rows[0]
+    rows += [template | {"facility_id": f"t{i}"} for i in range(len(rows), count)]
+    return rows
+
+
+def with_row(rows: list[dict[str, Any]], index: int, **cells: Any) -> list[dict[str, Any]]:
+    rows[index] = rows[index] | cells
+    return rows
+
+
+PEERS_SECOND = (
+    {
+        "valuation.peer_source": "none",
+        "valuation.peers": [BLANK_PEER, BLANK_PEER | {"name": "Sealy"}],
+    },
+    "valuation.peers[1].name",
+    "Sealy",
+)
+CANNOT_HOLD = {
+    "peers-second-row-only": PEERS_SECOND,
+    "precedents-second-row-only": (
+        {
+            "valuation.basis": "auto",
+            "valuation.precedents": [BLANK_PREC, BLANK_PREC | {"target": "Tempur"}],
+        },
+        "valuation.precedents[1].target",
+        "Tempur",
+    ),
+    "21-deal-rows": (
+        {"deal_terms": deal_rows(21)},
+        "deal_terms[20].facility_id",
+        "t20",
+    ),
+    "11-questions": (
+        {"research_questions": [{"text": f"Q{i}?", "focus_module": ""} for i in range(11)]},
+        "research_questions[10].text",
+        "Q10?",
+    ),
+    "extra-identity-key": ({"identity.nickname": "Sleepy"}, "identity.nickname", "Sleepy"),
+    "extra-cp2d-sub-key": (
+        {"assumptions.cp2d": {"horizon_months": "18", "rationale": "r", "extra": "x"}},
+        "assumptions.cp2d.extra",
+        "x",
+    ),
+    "size_m-as-json-number": (
+        {"deal_terms": with_row(deal_rows(2), 0, size_m=125)},
+        "deal_terms[0].size_m",
+        "125",
+    ),
+    # vis() throws on PATHWAYS[''] today, so no note appears at all.
+    "pathway-empty": ({"run.pathway": ""}, "run.pathway", ""),
+    "deal-as_of-not-iso": (
+        {"deal_terms": with_row(deal_rows(2), 0, as_of="2014/09/11")},
+        "deal_terms[0].as_of",
+        "2014/09/11",
+    ),
+}
+
+
+@pytest.mark.parametrize("case", CANNOT_HOLD)
+def test_a_value_the_form_cannot_hold_refuses_the_load_visibly_anywhere(
+    browser: Any, tmp_path: Path, case: str
+) -> None:
+    edits, path, value = CANNOT_HOLD[case]
+    changed, raw = c2_variant(edits, tmp_path)
+    assert server_refuses(raw)  # the key: the server refuses the file
+    assert_refused(path, value, load_and_use(browser, changed))
+
+
+def test_surrounding_spaces_are_trimmed_not_refused(browser: Any, tmp_path: Path) -> None:
+    rows = with_row(deal_rows(2), 0, instrument="  ABL revolver  ")
+    changed, _ = c2_variant({"deal_terms": rows}, tmp_path)
+    sent, note = through_the_editor(browser, changed)
+    assert sent["deal_terms"][0]["instrument"] == "ABL revolver", note
+
+
+def test_a_refused_load_leaves_the_form_as_it_was(browser: Any, tmp_path: Path) -> None:
+    """Load C2, then a file the form cannot hold, then Use: the first file's context is sent."""
+    kept, _ = through_the_editor(browser, C2)
+    edits, _path, _value = PEERS_SECOND
+    changed, _ = c2_variant(edits, tmp_path)
+    screen = open_app(browser, "W-NewRun/run", init=CAPTURE)
+    try:
+        frame = screen.page.frame_locator("#context-editor")
+        frame.locator("#load").wait_for(state="attached", timeout=15000)
+        frame.locator("#load").set_input_files(str(C2))
+        message = frame.locator("#loadmsg")
+        message.filter(has_text=re.compile(r"^Loaded")).wait_for(timeout=15000)
+        first = message.inner_text()
+        frame.locator("#load").set_input_files(str(changed))
+        expect(message).not_to_have_text(first, timeout=15000)  # the second file was answered
+        second = message.inner_text()
+        screen.page.click("#use-context", force=True)
+        screen.page.wait_for_function("window.__ctx.length>0", timeout=15000)
+        sent: dict[str, Any] = screen.page.evaluate("window.__ctx.at(-1)")
+        assert screen.errors == []
+    finally:
+        screen.close()
+    assert second.startswith("Not loaded") and second.endswith("Nothing was changed."), second
+    assert sent["context"] == kept
+
+
+def test_fill_form_refuses_a_row_the_form_cannot_hold(browser: Any, tmp_path: Path) -> None:
+    edits, _path, _value = PEERS_SECOND
+    changed, _ = c2_variant(edits, tmp_path)
+    with pytest.raises(live_check.Refusal, match=r"Not loaded.*valuation\.peers\[1\]"):
+        real_fill_form(browser, changed, tmp_path)
+
+
+def test_fill_form_refuses_an_empty_pathway_rather_than_timing_out(
+    browser: Any, tmp_path: Path
+) -> None:
+    changed, raw = c2_variant({"run.pathway": ""}, tmp_path)
+    assert server_refuses(raw)  # the key: the server refuses the file
+    with pytest.raises(live_check.Refusal, match=r"Not loaded.*run\.pathway"):
+        real_fill_form(browser, changed, tmp_path)
