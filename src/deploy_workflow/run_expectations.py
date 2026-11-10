@@ -67,6 +67,12 @@ def _rx(pattern: str) -> re.Pattern[str]:
     return re.compile(pattern, re.IGNORECASE)
 
 
+# Up to two capitalised qualifiers before a title phrase (ABL, Term Loan, Public); not a form, an
+# amendment title, a connective ("Joinder to ...") or a determiner ("Each Credit Agreement ...").
+_QUALIFIER = (
+    r"(?:(?!(?:the|this|form|amendment|to|of|and|under|for|with|each|our|such|any)\b)"
+    r"(?-i:[A-Z][\w&-]*) ){1,2}"
+)
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -77,7 +83,10 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "financial_report",
         _rx(r"(?:group )?consolidated (?:financial statements|statements? of|balance sheet)"),
     ),
-    ("credit_agreement", _rx(r"(?:(?:the|this) )?(?:amended and restated )?credit agreement\b")),
+    (
+        "credit_agreement",
+        _rx(rf"(?:(?:the|this) |{_QUALIFIER})?(?:amended and restated )?credit agreement\b"),
+    ),
     ("indenture", _rx(r"(?:(?:the|this) )?(?:(?:\w+ )?supplemental )?indenture\b")),
     ("amendment", _rx(r"amendment no\.? ?\d+|\w+ amendment to\b")),
     ("intercreditor", _rx(r"(?:(?:the|this) )?intercreditor agreement\b")),
@@ -88,7 +97,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "prospectus",
         _rx(r"(?:(?:preliminary|base) )?prospectus\b|supplement no\.? ?\d+\b.*\bprospectus\b"),
     ),
-    ("lender_presentation", _rx(r"lender presentation\b")),
+    ("lender_presentation", _rx(rf"(?:{_QUALIFIER})?lender presentation\b")),
     ("information_memorandum", _rx(r"information memorandum\b")),
     ("term_sheet", _rx(r"term sheet\b|summary of (?:indicative )?terms and conditions\b")),
     ("commitment_letter", _rx(r"commitment letter\b")),
@@ -120,6 +129,8 @@ INDEX_PHRASE = _rx(r"item 1b\.? unresolved staff comments")
 EXECUTION_MARK = _rx(r"(?:execution version|executed copy|conformed copy)\b")
 DRAFT_MARK = _rx(r"draft\b|preliminary (?:offering memorandum|prospectus)\b")
 DRAFT_ANYWHERE = _rx(r"subject to completion|not for execution")
+
+_NAME_PREFIX = re.compile(r"^(?:\d{4} \d\d \d\d )?(?:EX(?:HIBIT)?\d+ \d+ )?")  # 2014-10-21-ex10-1-
 
 HTML_HEADER = "Visible text of "
 _CELL = re.compile(r"^[A-Z]+\d+='")  # A workbook page prints cells as A1='text'.
@@ -187,7 +198,8 @@ def _kind(name: str, lines: list[str], pages: Sequence[str]) -> tuple[str, str]:
     for number, page in enumerate(pages, 1):
         if match := INDEX_PHRASE.search(" ".join(page.split())):
             return "financial_report", f"found {match.group(0)!r} on page {number}"
-    named = _hits([" ".join(re.split(r"[-_.]+", name))])
+    spaced = " ".join(re.split(r"[-_.]+", name)).upper()
+    named = _hits([_NAME_PREFIX.sub("", spaced)])
     if len(named) == 1:
         ((kind, text),) = named.items()
         return kind, f"file name contains {text!r}"

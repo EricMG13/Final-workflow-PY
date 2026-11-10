@@ -35,8 +35,17 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
    the run stopped at this module (`refused`, even if CP-0 says READY), else not_reached.
 4. An accepted handoff with no status anywhere: unconfirmed. CP-0 itself: always unconfirmed.
 
-A CP-0 status is the first status word within 70 characters after the module id, with no other
-module id between. `unconfirmed` and `not_reached` are not evidence: against any forecast the
+A CP-0 status is the most severe status word in any cell of a table row whose first cell is the
+module id alone or the id plus a label (id, optional whitespace, then a colon or a dash after
+whitespace; case-insensitive; `*`, backticks and a leading list marker `- ` or `N. ` are
+dropped from the cell first; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
+a row of another module never counts, nor is it read as text); in other text it is the first status
+word within 70 characters after the module id (not followed by `.digit`, `-digit` or a letter),
+with no other module id between. A `Module
+Status:` value counts when it begins with a known phrase followed by a period or the line's end
+(the rest of the line is ignored).
+
+`unconfirmed` and `not_reached` are not evidence: against any forecast the
 verdict is "not testable" (a live check reports them as findings, never as agreement).
 """
 
@@ -51,6 +60,7 @@ FIELDS = {
     ("review_status", "provisional"): "limited",
     ("committee_status", "committee ready"): "ready",
 }
+_WORD_RANK = ["READY", "READY_WITH_LIMITATIONS", "CONDITIONAL", "BLOCKED"]
 SEVERITY = {"ready": 0, "limited": 1, "will_refuse": 2}
 COMPATIBLE = {
     "will_refuse": {"will_refuse"},
@@ -97,10 +107,14 @@ def module_status(line: str) -> str | None:
         line = line.strip().replace("*", "").strip("`").removesuffix(".")
         line = re.sub(r"^(?:>|-)[ \t]+", "", line)
     label, sep, value = line.partition(":")
-    value = value.strip("` \t")
     if not sep or label.strip().lower() != "module status":
         return None
-    return value if value.lower() in MODULE_STATUS else None
+    phrase = re.match(
+        r"(completed with limitations|completed|blocked)(?:\.|$)",
+        value.strip("` \t"),
+        re.IGNORECASE,
+    )
+    return phrase[1] if phrase else None
 
 
 def fence_run(line: str) -> tuple[str, int, str]:
@@ -129,9 +143,26 @@ def unfenced(text: str) -> list[str]:
 
 
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
-    """The first of `words` within 70 characters after the module id, no other module id between."""
-    pattern = rf"\b{re.escape(module)}\b(?:(?!CP-)[^\n]){{0,70}}?\b({'|'.join(words)})\b"
-    found = re.search(pattern, text)
+    """The module's status word: in a table row whose first cell is the module id alone or id plus
+    a label (markup and list marker dropped), the most severe of `words` in any cell; else the first
+    within 70 characters after the id, no other module id between (another module's row is not
+    read)."""
+    alt = "|".join(words)
+    rows: list[str] = []
+    rest: list[str] = []
+    for line in text.split("\n"):
+        first = line.lstrip().startswith("|") and re.sub(
+            r"^(?:-|\d+\.)\s+", "", re.sub(r"[*`]", "", line.split("|")[1]).strip()
+        )
+        if first and re.match(r"CP-", first, re.IGNORECASE):
+            if re.fullmatch(rf"{re.escape(module)}(?:\s*:.*|\s+[-–—].*)?", first, re.IGNORECASE):
+                rows += re.findall(rf"\b({alt})\b", line)
+        else:
+            rest.append(line)
+    if rows:
+        return max(rows, key=_WORD_RANK.index)
+    pattern = rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?:(?!CP-)[^\n]){{0,70}}?\b({alt})\b"
+    found = re.search(pattern, "\n".join(rest))
     return found[1] if found else None
 
 

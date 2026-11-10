@@ -228,3 +228,160 @@ CASES_1H = {
 @pytest.mark.parametrize(("own", "cp0", "wanted"), CASES_1H.values(), ids=CASES_1H.keys())
 def test_r_sb2_1h_fences_per_commonmark(own: str, cp0: str, wanted: str) -> None:
     assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
+
+
+C1N = ROOT / "tests/fixtures/handoff-status-c1n"
+C1N_CP4_LINE7 = (
+    "**Module Status: Blocked. CP-4 Blocked. No executed governing document available.** "
+    "The supplied set contains no governing credit agreement, indenture, offering memorandum, "
+    "financing draft or lender presentation. The acquisition agreement is not a governing "
+    "financing document. The provisional-review override therefore does not clear the "
+    "documentary gate. This handoff records the gate decision and bounded reported "
+    "capital-structure facts, not a completed covenant interpretation."
+)
+
+
+def _own(module: str, body: str = "## Analysis\nText.\n") -> str:
+    return f"---\nmodule_id: {module}\n---\n{body}"
+
+
+def test_1e_r_c1n_cp4_fixture_will_refuse() -> None:
+    own = (C1N / "CP-4.md").read_text()
+    cp0 = (C1N / "CP-0.md").read_text()
+    assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == "will_refuse"
+
+
+def test_1e_r_c1n_line7_will_refuse() -> None:
+    assert (C1N / "CP-4.md").read_text().splitlines()[6] == C1N_CP4_LINE7
+    assert handoff_outcome.actual_of("CP-4", handoff(body=C1N_CP4_LINE7 + "\n"), "")[0] == (
+        "will_refuse"
+    )
+
+
+def test_1e_s_completed_with_limitations_then_text() -> None:
+    body = "Module Status: Completed with Limitations. See §3.\n"
+    assert handoff_outcome.actual_of("CP-4", handoff(body=body), "")[0] == "limited"
+
+
+def test_1e_t_blocked_comma_text_unconfirmed() -> None:
+    body = "Module Status: Blocked, see below\n"
+    assert handoff_outcome.actual_of("CP-4", handoff(body=body), "")[0] == "unconfirmed"
+
+
+def test_1e_u_c1n_cp0_row_fourth_cell_limited() -> None:
+    cp0 = (C1N / "CP-0.md").read_text()
+    assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "limited"
+
+
+def test_1e_v_blocked_in_fourth_cell_will_refuse() -> None:
+    cp0 = "| CP-1 — figures | READY | x | BLOCKED: no statements |\n"
+    assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "will_refuse"
+
+
+def test_1e_w_other_modules_row_does_not_set_cp1() -> None:
+    cp0 = "| CP-4 — legal | x | BLOCKED |\n"
+    assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "unconfirmed"
+
+
+@pytest.mark.parametrize(
+    "first_cell",
+    [
+        "CP-4",
+        "CP-4 — legal",
+        "CP-4 – legal",
+        "CP-4 - legal",
+        "CP-4: Legal",
+        "cp-4",
+        "**CP-4**",
+    ],
+    ids=lambda c: f"1j-is-row-{c}",
+)
+def test_1j_is_the_row_blocked_will_refuse(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | BLOCKED |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "will_refuse"
+
+
+NOT_CP4_CELLS = ["CP-4.1", "CP-4a", "CP-40", "CP-4-1", "CP-4 (draft)"]
+
+
+NO_STATUS_OWN = "# CP-4\nbody\n"
+
+
+@pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-blocked-{c}")
+def test_1j_not_the_row_blocked_then_real_row_ready(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | BLOCKED |\n| CP-4 | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", NO_STATUS_OWN, cp0)[0] == "ready"
+
+
+@pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-ready-{c}")
+def test_1j_not_the_row_ready_alone_is_not_reached(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "not_reached"
+
+
+@pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-ready-own-{c}")
+def test_1j_not_the_row_ready_alone_with_own_is_unconfirmed(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", NO_STATUS_OWN, cp0)[0] == "unconfirmed"
+
+
+def test_1j_lead_probe_cp4_1_blocked_then_cp4_ready() -> None:
+    # The lead's probe expected "ready" for own=None; corrected by the lead (R-SB2-1j
+    # amendment): with no own handoff only BLOCKED/CONDITIONAL count (R-SB2-1 rule 3).
+    cp0 = "| CP-4.1 | BLOCKED |\n| CP-4 | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "not_reached"
+
+
+def test_1j_lead_probe_cp4_1_blocked_then_cp4_ready_with_own_handoff() -> None:
+    cp0 = "| CP-4.1 | BLOCKED |\n| CP-4 | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", NO_STATUS_OWN, cp0)[0] == "ready"
+
+
+CASES_1J2 = [  # (module, own?, cp0, expected): the lead probe_1j_rows.py, verbatim
+    # (module, own?, cp0, expected)
+    ("CP-1", False, "| CP-1A | BLOCKED |\n", "not_reached"),
+    ("CP-1", False, "| CP-1D | BLOCKED |\n", "not_reached"),
+    ("CP-1", False, "| CP-10 | BLOCKED |\n", "not_reached"),
+    ("CP-1", True, "| CP-10 | BLOCKED |\n| CP-1 | READY |\n", "ready"),
+    ("CP-1", True, "| CP-1 — financial-data foundation | READY |\n", "ready"),
+    ("CP-1", False, "| CP-1: Financial data | BLOCKED |\n", "will_refuse"),
+    ("CP-4", False, "| CP-4 - label | BLOCKED |\n", "will_refuse"),
+    ("CP-4", False, "| CP-4-1 | BLOCKED |\n", "not_reached"),
+    ("CP-4", False, "| CP-4:label | BLOCKED |\n", "will_refuse"),
+    ("CP-4", False, "| CP-4 : label | BLOCKED |\n", "will_refuse"),
+    ("CP-4", False, "| CP-4—label | BLOCKED |\n", "not_reached"),  # ruling: not a match
+    ("CP-4", False, "| `CP-4` | BLOCKED |\n", "will_refuse"),
+    ("CP-4", False, "| **`CP-4`** — Legal | CONDITIONAL |\n", "will_refuse"),
+    ("CP-4", False, "| cp-4 — legal | BLOCKED |\n", "will_refuse"),
+    ("CP-4", True, "| cp-4.1 | READY |\n", "unconfirmed"),
+    # list markers (ruling: stripped)
+    ("CP-4", False, "| - CP-4.1 | BLOCKED |\n", "not_reached"),
+    ("CP-4", False, "| 1. CP-4.1 | BLOCKED |\n", "not_reached"),
+    ("CP-4", False, "| - CP-4 | BLOCKED |\n", "will_refuse"),
+    ("CP-4", True, "| - CP-4 | READY |\n", "ready"),
+    # leading empty cell / id in later cell
+    ("CP-4", False, "|  | CP-4 | BLOCKED |\n", "will_refuse"),
+    ("CP-4", False, "| Legal | CP-4 | BLOCKED |\n", "will_refuse"),
+    # disagreeing rows: worst wins
+    ("CP-4", True, "| CP-4 | READY |\n| CP-4 — again | BLOCKED |\n", "will_refuse"),
+    ("CP-4", True, "| CP-4 | BLOCKED |\n| CP-4 | READY |\n", "will_refuse"),
+    ("CP-4", False, "| CP-4 | READY |\n| CP-4 | CONDITIONAL |\n", "will_refuse"),
+    # false-ready without own: READY row never counts
+    ("CP-4", False, "| CP-4 | READY |\n", "not_reached"),
+    ("CP-4", False, "| CP-4 | READY_WITH_LIMITATIONS |\n", "not_reached"),
+    ("CP-4", False, "| CP-4.1 | BLOCKED |\nCP-4 is READY\n", "not_reached"),
+    # other module row not read as prose
+    ("CP-4", False, "| CP-4.1 | see CP-4 BLOCKED |\n", "not_reached"),
+]
+
+
+@pytest.mark.parametrize(
+    ("module", "has_own", "cp0", "wanted"),
+    CASES_1J2,
+    ids=[f"1j2-{i:02d}-{m}-{'own' if o else 'noown'}" for i, (m, o, _, _) in enumerate(CASES_1J2)],
+)
+def test_1j2_row_markup_list_markers_id_prefixes(
+    module: str, has_own: bool, cp0: str, wanted: str
+) -> None:
+    own = f"# {module}\nbody\n" if has_own else None
+    assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted

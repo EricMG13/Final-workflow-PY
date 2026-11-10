@@ -654,6 +654,66 @@ inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per C
 opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
 same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
 
+## 2026-11-10 — Plan 2: C1n live-check harness faults, lead rulings R-SB2-1e/1f (SB2, branch `claude/sb2-c1-harness-b`)
+
+Scope: `handoff_outcome.py`, `designs/flow_check.py`, answer-key tests and C1n fixtures. Cause:
+SB3's paid C1n run (`web-f1878929…`, sol-medium) re-read offline: CP-4's `**Module Status: Blocked.
+CP-4 Blocked. …**` and CP-1's CP-0 row (status beyond 70 characters) read unconfirmed; 12 CP-1
+numbers rounding `calculate` results to 8–19 places and 28.5301% / 8.2832% (×100 of ratios) were
+flagged as untraced. Rulings (keys by an agent other than the implementer): a status phrase then
+`.` or line end counts, longest first; a CP-0 row whose first cell is the module id is read whole,
+most severe wins; calculate roundings to every place are evidence; ×100 only for figures marked
+`%` / percent / per cent / pct; no other scaling; operands must still be evidence.
+Checks: keys red (22) then green (175 targeted pass); offline re-read on copies (no provider): C1n
+flow faults 116543 and 98400 only (operand 98400 not evidence: laundering guard), CP-4 will_refuse,
+CP-1 limited (forecast ready: a real disagreement); C1 unchanged from the previous section;
+back-test output byte-identical to main; `validate.py` quick exit 0, browser 86/0; quality gate 0;
+mx-precise review APPROVE (Low: a backtick-wrapped value followed by text reads unconfirmed).
+Not verified: a live run after this change; a CP-0 row with CONDITIONAL beside
+READY_WITH_LIMITATIONS (reads unconfirmed; question with the lead).
+R-SB2-1j (branch claude/sb2-c1-harness-b): a CP-0 row is a module's only when its first cell is the id alone or id + (colon | whitespace-dash) + label; `CP-4.1`, `CP-4a`, `CP-40`, `CP-4-1`, `CP-4 (draft)` are not CP-4's and never reach the 70-character window.
+RED 9 failed in test_handoff_outcome_status.py, GREEN 210 passed across the four target files; probe_inline_triple exit 0; probe_status deviates only on the corrected 'CP-4.1 not CP-4' expectation (not_reached) and R-SB2-1i (deferred).
+R-SB2-1j fix round 2 (#56 re-review): Medium `| **`CP-4`** — Legal | CONDITIONAL |` lost its row (inner backtick); Lows `| - CP-4.1 |` / `| 1. CP-4.1 |` read as CP-4 via the prose window, docstring said "begins with". Fix: drop `*`/backticks and a leading list marker from the first cell; prose id not followed by `.digit` or `-digit`; docstring states the 1j rule.
+RED 3 failed (test_1j2 noown cases), GREEN 238 passed across the four target files; probe_1j_rows exit 0.
+
+## 2026-11-10 — Plan 2: guess_kind recognises executed credit agreements, lead ruling R-SB2-2 (SB2, branch `claude/sb2-guess-kind`)
+
+Scope: `src/deploy_workflow/run_expectations.py` only (answer-key tests in 22b96bb3, written by another
+agent). Cause: SB3's C1r rehearsal gave CP-4 `check` (`cp4-declared-executed-none-recognised`) though
+the run holds Ex 10.1 "ABL CREDIT AGREEMENT" and Ex 10.2 "TERM LOAN CREDIT AGREEMENT": the
+credit-agreement title rule was anchored at line start with no room for a qualifier, and the file-name
+fallback ran the same anchored rule on `2014-10-21-ex10-1-abl-credit-agreement`.
+Change: the rule accepts up to two capitalised qualifiers (not after `the`/`this`, not `form`, not
+`amendment`); the file-name fallback upper-cases the name and drops a leading date and `exNN-N`
+prefix. A sentence mentioning one, an amendment title and `FORM OF CREDIT AGREEMENT` are unchanged.
+Checks: answer-key tests 11 failed on the old rule, then 120 passed with `test_expectations_backtest.py`
+(exit 0). Back-test (`tools/expectations_backtest.py`) output byte-identical to origin/main's. In the
+Mattress Firm case folder only the two exhibits change: `unrecognised`/None to `credit_agreement`/True;
+the other nine files are unchanged. Gates: quality gate exit 1 on one finding in the answer-key file
+(`tests/test_run_expectations.py:449` E501, not editable here), none in `run_expectations.py`;
+`tools/pr_size.py` exit 1 with counted lines 0 and "copy mismatch" for `run_expectations.py` and
+the test file, which `tools/copied-from.txt` lists as byte-identical copies (needs an `edited`
+entry; outside this brief). Not verified: other issuers' title wording beyond the two exhibits; a
+title-case sentence opener such as "Revolving credit agreement ..." as a page-1 line.
+
+R-SB2-2 part 2 (lender presentation): `Public Lender Presentation September 11, 2014` and
+`2014-09-11-ex99-1-public-lender-presentation.htm` were `unrecognised` for the same two causes (title
+rule anchored at line start; dated/exhibit-prefixed name). The qualifier of the credit-agreement rule
+is now one shared `_QUALIFIER` used by it and the lender-presentation rule; no other rule changes.
+Checks: 3 new answer-key tests red on the old rule, then 143 passed (`test_run_expectations`,
+`test_expectations_backtest`, `test_pr_size`). Mattress Firm folder: only the lender presentation
+changes (`unrecognised` to `lender_presentation`); the credit agreements stay `credit_agreement`/True.
+Back-test on origin/main with this rule file: output byte-identical to origin/main's. `tools/copied-from.txt`:
+both `run_expectations` files moved to `edited`; `pr_size` 212 of 800, exit 0. Quality gate: 0 findings
+against the merge base (exit 0); against `origin/main` it reports `apps/issuer-library/packaging/runtime.py`
+because this branch predates PR #51 (that file is main's, not changed here). Not verified: other issuers'
+lender-presentation titles; a title-case sentence opener such as "Public lender presentation ..." in a body.
+
+R-SB2-2 fix 1 (review M1/L1): `_QUALIFIER` admitted connectives and determiners, so `JOINDER TO CREDIT
+AGREEMENT`, `TERMINATION OF ...` and `Each/Our ... Credit Agreement contains` became credit agreements; the lender rule
+also gained an unasked `the|this` lead-in. Now `_QUALIFIER` excludes to/of/and/under/for/with/each/our/such/any; `the|this` stays on the credit-agreement rule only.
+Reviewer probe `r2_qualifier_admits_connectives.py`: 10 of 10 misclassified before, 0 after (exit 0).
+
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
 
 Defect (Low, concurrency): `hold_worker_lock` flocks `worker.lock`; a child forked by another thread
