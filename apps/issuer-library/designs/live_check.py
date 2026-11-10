@@ -409,6 +409,8 @@ def parse(argv: list[str]) -> argparse.Namespace:
         cap = None
     if cap is None or not cap.is_finite() or cap <= 0:
         raise Refusal("--cap USD is required and must be a finite number above zero")
+    if args.accept_limitations and not args.case and not args.rehearse:
+        raise Refusal("--accept-limitations on a paid run needs --case (the frozen counted_total)")
     if not args.rehearse and not any(os.environ.get(k) for k in PROVIDER_KEYS):
         raise Refusal(f"no provider key in the environment (one of {', '.join(PROVIDER_KEYS)})")
     if not (math.isfinite(args.minutes) and args.minutes >= 1):

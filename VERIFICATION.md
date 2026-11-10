@@ -800,6 +800,7 @@ t6a_ctx_swap_after_launch, t6a_concurrent_starts.
 Recorded for Phase 3 (lead, no action): a KeyboardInterrupt during start leaves the claim held until the next adopt;
 Windows lock semantics are unverified, including a read-only lock file.
 PR2 live_check guard (lead review of #74): `--accept-limitations` prints the N it accepts and raises `Refusal` (exit 2, before tick and Start) when it differs from the case's frozen `counted_total`; `attempt` re-raises a `Refusal`; without `--case` the N is printed but nothing is compared.
+PR2 live_check, ruling: a paid `--accept-limitations` run without `--case` is refused in `live_check.parse` (exit 2, before any app start); with `--rehearse` the no-case path still prints and ticks.
 Not verified: the key test above; the browser UI sending `accept_limitations`; a real run's receipt.
 
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
