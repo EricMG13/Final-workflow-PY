@@ -954,7 +954,7 @@ def new_run(  # noqa: PLR0915, RUF100
         key is not None and link.count() == 1,
         f"{name}: the library lists the new run with its Overview link",
     )
-    library_entry_values(page, name, key)
+    library_entry_values(page, name, port, workspace, key)
     # A run that appears on disk while the app is open is offered, not forced.
     added = Path(workspace, "runs", "added-001")
     added.mkdir()
@@ -1000,7 +1000,7 @@ def run_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
     print(redact(line, secrets()), flush=True)
 
 
-def library_entry_values(page: Any, name: str, run: str) -> None:
+def library_entry_values(page: Any, name: str, port: int, workspace: Path, run: str) -> None:
     """4C L6: the fake-engine run's own manifest reaches its Library detail (synthetic CP-1).
 
     The walk's context as-of is 2025-03-31, on or after 2024-12-31, so the FY2024 rows of
@@ -1029,15 +1029,28 @@ def library_entry_values(page: Any, name: str, run: str) -> None:
             f"{name}: Library detail shows {label} {value}, {period}, Synthetic ({items[label]})",
         )
     pinned = "| FY2024 ended 2024-12-31 | 3.60 | 3.25 | x | Synthetic. |"  # CP-1.md line 29
+    at = [
+        n
+        for n, t in enumerate((Path(workspace, "runs", run, "CP-1.md")).read_text().splitlines(), 1)
+        if t.strip() == pinned
+    ]
     detail.locator(".metric-item", has=page.locator("text='Leverage'")).first.locator(
         ".tertiary-action"
     ).click()
-    page.wait_for_timeout(500)
-    shown = " ".join(page.inner_text("body").split())
+    page.wait_for_selector("#inspector:not([hidden]) .evidence-fields")
+    shown = " ".join(page.inner_text("#inspector").split())
     note(
-        pinned in shown,
-        f"{name}: View source for Leverage opens the pinned CP-1 line {pinned}",
+        len(at) == 1
+        and f"Line {at[0]}" in shown
+        and all(
+            cell in shown for cell in ("FY2024 ended 2024-12-31", "3.60", "3.25", "Synthetic.")
+        ),
+        f"{name}: View source for Leverage opens the pinned CP-1 line {pinned} (line {at})",
     )
+    page.keyboard.press("Escape")
+    page.goto(f"http://127.0.0.1:{port}/#W-Library/cases?runs=any")
+    page.reload()
+    page.wait_for_selector("#library-results tbody tr")
 
 
 def overview_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:

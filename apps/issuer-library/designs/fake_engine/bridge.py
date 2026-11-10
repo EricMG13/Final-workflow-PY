@@ -123,7 +123,7 @@ def handoff_markdown(context: dict[str, Any], plan: dict[str, Any], instructions
     if provisional and provisional["findings_text"]:
         lines += [provisional["findings_text"], ""]
     held = pro_forma_findings(context["module_id"], instructions)
-    held_headings = set(re.findall(r"^### (.+)$", held, re.MULTILINE))
+    held_headings = set(re.findall(r"^### (.+)$", held + "\n".join(lines), re.MULTILINE))
     if held:
         lines += [held, ""]
     for route in plan["layout"]["routes"]:
