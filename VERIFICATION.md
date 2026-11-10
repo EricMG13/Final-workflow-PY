@@ -771,3 +771,18 @@ R-SB2-2a fix 3 (restored narrowings, round-2 Lows): connectives in the qualifier
 lender-presentation alternatives. Answer key (142ce81b, not edited): 5 fix3 tests red before, 397 passed after
 across the four test files. Back-test (`--out`) origin/main's rule file vs this one: byte-identical (see below).
 Not verified: defined-term tails other than `(this|the "...")`.
+
+## 2026-11-10 R-SB2-2c qualifier words, any ordinal, version and as-amended tails
+
+`guess_kind` (`run_expectations.py`), lead ruling R-SB2-2c: the credit-agreement qualifier list also takes
+DEBTOR-IN-POSSESSION, SYNDICATED and MULTICURRENCY (Title or UPPER, combining with the other words);
+the ordinal before `Amended and Restated` is a closed grammar (First to Ninety-Ninth as words, hyphenated compounds
+included, or digits plus st/nd/rd/th), so `Existing`, `Fiftyish`, `Thirdly` stay unrecognised; title lines may also end
+with `(Execution Version)`, `(Conformed Copy)`, `- Execution Version` or `as amended ...`. INCREMENTAL, EXTENDED,
+JOINDER and Existing/Prior/Amended openers are not added. Answer key (de400e69, not edited): 19 positive tests red
+before (the 9 negatives green), all 28 green after; 425 passed, 1 skipped (paid) across the four target files.
+Probes `main_vs_head` (differences listed in the PR), `r2a_rr_edges`, `r2a_rr3_narrowings`,
+`r2a_rr2_name_and_title_parity`, `r2a_ordinal_and_combinations`, `denylist_residue`, `adv_kinds`,
+`r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0. Back-test (`r2a_rr_backtest`) origin/main's rule file vs
+this one: byte-identical.
+Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.

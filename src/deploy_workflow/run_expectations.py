@@ -86,22 +86,29 @@ def _cased(*words: str) -> str:
 # Words that may qualify a title phrase, matched case-sensitively (Title or UPPER) as on main.
 # Positive lists: any other opener ("Joinder In", "Release From", "Existing", "Amended", "Investor")
 # leaves the line unrecognised. Facility words and "[ordinal] Amended and Restated" combine freely.
-_ORDINAL = _cased(
-    *("First", "Second", "Third", "Fourth", "Fifth"),
-    *("Sixth", "Seventh", "Eighth", "Ninth", "Tenth"),
-    *("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
+_ONES = ("First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth")
+_TEENS = ("Tenth", "Eleventh", "Twelfth", "Thirteenth", "Fourteenth")
+_TEENS_2 = ("Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth")
+_TENS = ("Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
+_TENS_TH = tuple(t[:-1] + "ieth" for t in _TENS)  # Twentieth ... Ninetieth.
+# A closed grammar of ordinals: English words up to Ninety-Ninth, or digits with st/nd/rd/th.
+_ORDINAL = (
+    _cased(*_ONES, *_TEENS, *_TEENS_2, *_TENS_TH, *(f"{t}-{o}" for t in _TENS for o in _ONES))
+    + r"|(?-i:\d+(?:st|nd|rd|th|ST|ND|RD|TH))"
 )
 _CREDIT_QUALIFIER = (
     rf"(?:(?:{_cased('Abl', 'Term Loan', 'Revolving', 'Senior', 'Secured', 'Unsecured')}|"
+    rf"{_cased('Debtor-In-Possession', 'Syndicated', 'Multicurrency')}|"
     rf"{_cased('First', 'Second', 'Third')} {_cased('Lien')}|"
     rf"{_cased('Superpriority', 'Bridge', 'Dip')}|"
-    rf"(?:{_ORDINAL} )?(?-i:Amended (?i:and) Restated|AMENDED AND RESTATED)) )*"
+    rf"(?:(?:{_ORDINAL}) )?(?-i:Amended (?i:and) Restated|AMENDED AND RESTATED)) )*"
 )
 _LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
 # A title ends at its phrase (optional punctuation) or continues only with a recognised tail, so a
 # body sentence that starts with the phrase ("Credit Agreement borrowings were ...") is no title.
 _TAIL = (
-    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|(?:"
+    r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|as amended\b.*|"
+    r"\((?:execution version|conformed copy)\)|- execution version|(?:"
     + "|".join(MONTHS)
     + r") \d{1,2}, \d{4}\W*)"
 )
