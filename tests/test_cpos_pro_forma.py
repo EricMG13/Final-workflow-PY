@@ -5,17 +5,22 @@ categories are read from it, never computed here."""
 import hashlib
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from test_cpos_launch import answer
 from test_cpos_provisional import instructions_of, prepared_for
 
+from deploy_vii.contracts import PATHWAY_MODULES
 from deploy_workflow.owners import cpos_launch
 from deploy_workflow.owners.cpos import HandoffTask, _checked_handoff
 from deploy_workflow.owners.cpos_launch import checker
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = json.loads((ROOT / "tests/fixtures/primary-pro-forma/checker-cases.json").read_text())[
+    "cases"
+]
+LOWS = json.loads((ROOT / "tests/fixtures/primary-pro-forma/checker-cases-lows.json").read_text())[
     "cases"
 ]
 CONSTANTS = {"CP-1A": "PRO_FORMA_CP1A", "CP-1D": "PRO_FORMA_CP1D", "CP-2": "PRO_FORMA_CP2"}
@@ -75,7 +80,88 @@ def test_constant_is_in_instructions_only_on_primary_runs(tmp_path, module, run_
             assert getattr(cpos_launch, name).encode() not in instructions_of(prepared, module)
 
 
-def test_secondary_instructions_are_byte_for_byte_the_old_ones(tmp_path):
+@pytest.mark.parametrize("case", LOWS, ids=[c["id"] for c in LOWS])
+def test_checker_matches_the_lows_answer_key(case):
+    """Rulings R-L1 to R-L13 (frozen key checker-cases-lows.json). `wrap: false` findings are the
+    whole answer; otherwise they sit under `## Findings`, as in the 80-case key."""
+    text = case["findings"]
+    if case.get("wrap", True):
+        text = "## Findings\n\n" + text + "\n## Calculations\n\nnone\n"
+    task = SimpleNamespace(instructions=cpos_launch.PRO_FORMA[case["module"]].encode())
+    issues = cpos_launch.pro_forma_issues(task, text)
+    assert categories(issues) == set(case["expected"]["issues"]), issues
+    assert (issues == ()) == case["expected"]["accepted"]
+
+
+# Lead condition: a rejecting rule is told to the model in the Primary instruction text and named in
+# the issue message, so no paid run is charged a repair turn for a rule it was never told. Each
+# phrase must be in both.
+REJECTING_RULES = {
+    "low-fp-su-outside-findings": "outside `## Findings`",
+    "low-fp-fx-line-after-table": "a line after the table does not count",
+    "low-fp-cap-cash-only": "at least one debt row",
+    "low-fp-cap-total-usd-currency-eur": "Currency must equal the code in the label",
+    "low-fp-cap-total-gbp-no-gbp-debt": "no debt row uses",
+    "low-fp-cell-decimal-comma-8,3": "exactly three digits",
+    "low-fp-cell-commas-1,,,": "exactly three digits",
+    "low-fp-cell-not-supplied-dash": "at least one letter or digit",
+    "low-ff-unicode-minus": "ASCII",
+}
+
+
+@pytest.mark.parametrize("case_id", sorted(REJECTING_RULES))
+def test_each_rejecting_rule_is_in_the_instructions_and_named_in_the_message(case_id):
+    case = next(c for c in LOWS if c["id"] == case_id)
+    phrase = REJECTING_RULES[case_id]
+    text = case["findings"]
+    if case.get("wrap", True):
+        text = "## Findings\n\n" + text + "\n## Calculations\n\nnone\n"
+    constant = cpos_launch.PRO_FORMA[case["module"]]
+    issues = cpos_launch.pro_forma_issues(SimpleNamespace(instructions=constant.encode()), text)
+    assert any(phrase in issue for issue in issues), issues
+    assert phrase in constant
+
+
+# sha256 over every instruction file of every non-Primary-affected run (all pathways, both run
+# types, executed and draft legal documents, four module selections), the module order of every
+# Secondary run, and each refusal. Computed from the base tree (01f0efe4) by the same function,
+# never from this tree: a Primary run's CP-1A, CP-1D and CP-2 files are the only bytes that may
+# move.
+BASE_NON_PRIMARY_DIGEST = "d0bf5a8a3fa0627a8cf3a3a7a5f9a993cc57355cc4e5e5d4b4535777f5b73142"
+
+
+def non_primary_digest(root: Path) -> str:
+    entries = []
+    count = 0
+    for pathway in sorted(PATHWAY_MODULES):
+        for run_type in ("secondary", "primary"):
+            for legal in ("executed", "draft"):
+                for modules in (None, ["CP-1A"], ["CP-2"], ["CP-1D"]):
+                    key = f"{pathway}|{run_type}|{legal}|{modules}"
+                    count += 1
+                    folder = root / str(count)
+                    folder.mkdir()
+                    try:
+                        prepared = prepared_for(folder, pathway, run_type, legal, modules)
+                    except cpos_launch.LaunchRefused as refusal:
+                        entries.append((key, "refused", f"{type(refusal).__name__}: {refusal}"))
+                        continue
+                    if run_type == "secondary":
+                        entries.append((key, "ordered", ",".join(prepared.ordered)))
+                    for file in sorted((prepared.directory / "instructions").glob("*.md")):
+                        if run_type == "primary" and file.stem in CONSTANTS:
+                            continue
+                        entries.append(
+                            (key, file.name, hashlib.sha256(file.read_bytes()).hexdigest())
+                        )
+    return hashlib.sha256(json.dumps(entries).encode()).hexdigest()
+
+
+def test_non_primary_instruction_bytes_are_those_of_the_base_tree(tmp_path):
+    assert non_primary_digest(tmp_path) == BASE_NON_PRIMARY_DIGEST
+
+
+def test_secondary_instructions_hold_no_pro_forma_text(tmp_path):
     prepared = prepared_for(tmp_path, "credit_snapshot", "secondary", "executed", ["CP-2"])
     raw = instructions_of(prepared, "CP-2")
     for name in CONSTANTS.values():
