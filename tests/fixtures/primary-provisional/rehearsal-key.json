@@ -1,0 +1,131 @@
+{
+ "frozen": "2026-11-10",
+ "authored_by": "key-writer subagent; hand-written from tests/fixtures/primary-provisional/checker-cases.json (frozen 2026-11-08) and cpos_launch.py at origin/main b6ce0f52; no production code run to derive any value",
+ "scope": "Rehearsal fake engine only (apps/issuer-library/designs/fake_engine/bridge.py). Answers are copied key text; nothing is invented.",
+ "trigger": {
+  "cp4": "the module's instructions contain cpos_launch.PROVISIONAL_PARAGRAPH (the same test as pro_forma_findings uses for PRO_FORMA[module]); not the run type, because instructions carry it for Primary runs and for Secondary runs with draft legal documents",
+  "consumers": "the module is in cpos_launch.CONSUMERS and its instructions contain cpos_launch.CONSUMER_SENTENCE",
+  "placeholder_rule": "Placeholder {DRAFT_LIMITATION} is the constant deploy_vii.cp4_legal.DRAFT_LIMITATION (src/deploy_vii/cp4_legal.py:94), imported by cpos_launch; the fake must import it, never retype it.",
+  "other_placeholders": "{FINAL_OM_REASON} and {BLOCKED_LINE} are not used by the chosen cases"
+ },
+ "cp4_case": {
+  "id": "executed-plus-draft-with-limitation",
+  "key_expected": {
+   "accepted": true,
+   "issues": []
+  },
+  "chosen_over": "filed-only-ranked-with-limitation: the C3 modelled documents are a mix, and this case has both an executed and a draft ranked row so the register is the representative one",
+  "text": {
+   "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Intercreditor draft | intercreditor agreement | draft | 2 | ic-draft.pdf |",
+   "main_limitation": "Provisional: legal documents in this run are not executed.",
+   "routed_sections_text": "This section is Provisional.",
+   "findings_text": "{DRAFT_LIMITATION}"
+  },
+  "placement": {
+   "register": "A new `### Legal document register` heading plus a blank line, the register table verbatim, a blank line; placed inside ## Findings after the last routed section and immediately before `## Calculations` (insert before the first `## Calculations`). Written exactly once. It is not a routed heading, so the routed-section loop never adds it or stubs it.",
+   "main_limitation": "The third cell of the Reader summary's first table row. Today the fake writes `| A fake engine finding only. | Low | Fake data. |`; the cell `Fake data.` is replaced by the main_limitation text. Other cells unchanged. (The checker reads row 3 of the first table, column 'Main limitation', and needs the word Provisional in it.)",
+   "section_labels": "For every route of CP-4 in plan.layout.routes (C3: one route, `Capital structure`, kind table), the routed_sections_text sentence followed by a blank line is inserted directly after that route's `### <heading>` line and its blank line, before the stub table. The `| Item | Value |` stub table stays; nothing is replaced. (Checker: every CP-4 route body at level 3 must contain `Provisional`.)",
+   "findings_text": "The DRAFT_LIMITATION constant text as its own paragraph under `## Findings`, after the `### Covenant view` (CP-4's OPENING) prose `A fake engine view only.` and its blank line, before the next heading. Any position inside the answer satisfies the checker (it searches the whole text); this one keeps it in Findings. Written exactly once."
+  },
+  "stub_headings_replaced": "none. Only the Reader summary cell `Fake data.` is replaced; everything else is inserted.",
+  "whole_answer_rules_beyond_the_text": "None found. Rules that read the whole answer: draft_limitation_missing needs DRAFT_LIMITATION anywhere in the answer (met by findings_text); final_om_draft_wording applies only when every unsigned ranked row is final (not here). The register must be one table with the exact header, a separator row and rows after it (met). The case's register rows are Credit agreement (executed, 1) and Intercreditor draft (draft, 2), so the checker needs the limitation and the labels; both are provided.",
+  "verified_by_probe": "A scratch probe (not in the repo) composed this exact placement on the fake's real output for CP-4 of the C3 module order and ran the real checker(prepared.layout) through _checked_handoff: issues == ()."
+ },
+ "consumers": {
+  "modules": [
+   "CP-3",
+   "CP-5",
+   "CP-6"
+  ],
+  "text": "Provisional: legal documents in this run are not executed.",
+  "source_case": "cp6-upstream-draft-with-word (CP-6; the same answer text is the key's for CP-5 and CP-3 cases)",
+  "constant_alternative": "cpos_launch.CONSUMER_SENTENCE = 'Label any term taken from a Provisional CP-4 handoff as Provisional.' also contains the word; the key's text is the one to use",
+  "placement": "Replace the Reader summary's `Fake data.` cell (Main limitation) with the text. Nothing else changes. Checker: consumer_issues needs the word `Provisional` anywhere in the answer when the CP-4 handoff holds DRAFT_LIMITATION or FINAL_OM_REASON.",
+  "c3_runs": [
+   "CP-3",
+   "CP-5",
+   "CP-6"
+  ],
+  "not_in_c3": "none of CONSUMERS is missing from C3's ordered modules",
+  "without_it": "Probe: with the plain fake, CP-3, CP-5 and CP-6 each return `Provisional label missing from a Provisional CP-4 term` (category consumer_provisional_missing)."
+ },
+ "unchanged": {
+  "rule": "Byte-identical to today's fake text for these; the test (like test_other_runs_and_modules_are_unchanged) compares against the pre-change text.",
+  "combinations": [
+   "any module whose instructions carry neither PROVISIONAL_PARAGRAPH nor CONSUMER_SENTENCE: Secondary runs with executed or none legal documents, every module",
+   "CP-4 when its instructions lack PROVISIONAL_PARAGRAPH (including a hand-built instruction string 'Method.\\n\\nEnd.')",
+   "CP-3, CP-5, CP-6 when their instructions lack CONSUMER_SENTENCE",
+   "every module outside CP-4 and CONSUMERS: CP-0, CP-1, CP-1A, CP-1D, CP-2 and the rest, in any run (their existing pro forma behaviour from #70 is also unchanged)",
+   "CP-4 under FAKE_MALFORMED set to a module other than CP-4 (e.g. CP-2): CP-4 still writes the accepted case",
+   "every module other than CP-4 under FAKE_MALFORMED=CP-4"
+  ],
+  "caution_executed_only": "A Primary run always carries PROVISIONAL_PARAGRAPH (the instructions test is `run_type == primary or legal_documents == draft`), even when every document is executed. So 'executed-only' is unchanged only when the run is Secondary with executed documents. A Primary run with executed documents will now get the draft case from the fake, which is a rehearsal answer that does not match its documents; same for Secondary with legal documents declared draft. The brief's 'executed-only runs unchanged' cannot hold for Primary; the lead should rule (suggested: accept, labelled rehearsal scope)."
+ },
+ "malformed": {
+  "env": "FAKE_MALFORMED=CP-4",
+  "case_id": "malformed-unknown-status",
+  "chosen_over": "register-wrong-header (the checker then reports register_missing, which hides the register's rows); this case fails on one row only, which a model repairs by changing one status",
+  "text": {
+   "register": "| Document | Kind | Status | Authority rank | Source |\n| --- | --- | --- | --- | --- |\n| Credit agreement | credit agreement or indenture | executed | 1 | credit-agreement.pdf |\n| Annual report | other | pending | not ranked | 10-k.htm |",
+   "main_limitation": "Covenant terms are taken from the executed credit agreement.",
+   "routed_sections_text": "Covenant terms follow the executed credit agreement.",
+   "findings_text": null
+  },
+  "placement": "As for cp4_case (register before ## Calculations; main limitation cell replaced; routed sentence inserted after each CP-4 route heading); findings_text is null, so DRAFT_LIMITATION is NOT written.",
+  "key_expected": {
+   "accepted": false,
+   "issues": [
+    "register_malformed"
+   ]
+  },
+  "issue_category": "register_malformed",
+  "issue_prefix": "Provisional register row malformed",
+  "issue_text_seen_in_probe": "Provisional register row malformed: `Annual report | other | pending | not ranked | 10-k.htm`: Status `pending` is not one of executed, draft, indicative, final, filed.",
+  "affects_only": "CP-4 and only when its instructions carry PROVISIONAL_PARAGRAPH; with FAKE_MALFORMED=CP-4 and no paragraph, the old text. Consumers then are not Provisional (no DRAFT_LIMITATION upstream), so their text is unchanged by upstream."
+ },
+ "expected_c3_rehearsal": {
+  "accepted_modules": [
+   "CP-0",
+   "CP-1",
+   "CP-1A",
+   "CP-1D",
+   "CP-2",
+   "CP-4",
+   "CP-3",
+   "CP-5",
+   "CP-6"
+  ],
+  "basis": "CP-0 to CP-2 were accepted in the rehearsal at b36dbad3; CP-4, CP-3, CP-5 and CP-6 pass the real checker in the probe (above).",
+  "reaches_delivery": "EXPECTED yes for the answer checks; UNDECIDED for the whole run (see undecided).",
+  "undecided": [
+   "UNDECIDED: whether the end of the run (delivery and live_check) is clean. The probe ran only the per-module checker with synthetic upstream handoffs (CP-1 and CP-4), not the real sequence of CP-0..CP-2 handoffs, so handoff sha listing across all nine modules is untested.",
+   "UNDECIDED: the delivered report for CP-3 (Relative value, Portfolio Fit), CP-6 (Committee challenge) and CP-4 (Capital structure with a leading Provisional sentence before the stub table): the checker's report-adapter pass accepts them, but the delivered block text and table limitation text (the leading sentence becomes the table's section prose) was not inspected.",
+   "UNDECIDED: whether live_check's shown-versus-frozen comparison (CP-4, CP-3, CP-5, CP-6 limited; the rest ready; counted_total 3) holds after delivery; status comes from the readiness review, not from the fake's text, but this was not checked.",
+   "UNDECIDED: CP-6's front route `Action Bias Determination` and the CP-5/CP-6 `Reader summary` front routes: the fake already writes `### Challenge view` (OPENING) and a Reader summary, and the checker passed, but front-matter delivery was not run.",
+   "UNDECIDED: the context-derived facts (draft legal documents, 8 documents) do not change what the fake writes, so the register's two rows (Credit agreement, Intercreditor draft) do not match C3's actual documents; any review that compares the register with the sources will say so (rehearsal scope)."
+  ]
+ },
+ "pro_forma": {
+  "block_id": "pro-forma",
+  "rule": "R-C2-2 (METHODOLOGY-REVIEW.md:715): CP-1A and CP-2 both run on a Primary run, so the block has the S&U tab; unchanged by this work (the #70 fake pro forma path is not touched).",
+  "tabs_in_order": [
+   "capitalisation (primary table, route 'Pro forma capitalisation', header Instrument)",
+   "Pro forma leverage — Basis",
+   "Sources and uses — Side"
+  ],
+  "s_and_u_tab": {
+   "label": "Sources and uses — Side",
+   "header": [
+    "Side",
+    "Item",
+    "Amount",
+    "Currency",
+    "Basis",
+    "Source"
+   ],
+   "rows": "tests/fixtures/primary-pro-forma/rc2/delivered-block-rc2.json key sources_and_uses.rows (cells verbatim)"
+  },
+  "note": "Pro forma capitalisation: Balance-sheet date: 2014-06-30 LTM period: LTM Q2 2014 · Pro forma leverage: unit stated per row",
+  "note_source": "tests/fixtures/primary-pro-forma/rc2/delivered-notes.json, case fake_cp2_full_valid_plus_cp1a_valid, expected_block_note. The note carries the key's 2014-06-30 balance-sheet date, not C3's as-of 2014-09-11: it is the fake's key text, not evidence for C3."
+ }
+}
