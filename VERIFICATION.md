@@ -646,3 +646,21 @@ Lead review of #55 (Medium): the fence rule toggled on any line starting with th
 inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per CommonMark (R-SB2-1h):
 opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
 same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
+
+## 2026-11-10 — Plan 2: C1n live-check harness faults, lead rulings R-SB2-1e/1f (SB2, branch `claude/sb2-c1-harness-b`)
+
+Scope: `handoff_outcome.py`, `designs/flow_check.py`, answer-key tests and C1n fixtures. Cause:
+SB3's paid C1n run (`web-f1878929…`, sol-medium) re-read offline: CP-4's `**Module Status: Blocked.
+CP-4 Blocked. …**` and CP-1's CP-0 row (status beyond 70 characters) read unconfirmed; 12 CP-1
+numbers rounding `calculate` results to 8–19 places and 28.5301% / 8.2832% (×100 of ratios) were
+flagged as untraced. Rulings (keys by an agent other than the implementer): a status phrase then
+`.` or line end counts, longest first; a CP-0 row whose first cell is the module id is read whole,
+most severe wins; calculate roundings to every place are evidence; ×100 only for figures marked
+`%` / percent / per cent / pct; no other scaling; operands must still be evidence.
+Checks: keys red (22) then green (175 targeted pass); offline re-read on copies (no provider): C1n
+flow faults 116543 and 98400 only (operand 98400 not evidence: laundering guard), CP-4 will_refuse,
+CP-1 limited (forecast ready: a real disagreement); C1 unchanged from the previous section;
+back-test output byte-identical to main; `validate.py` quick exit 0, browser 86/0; quality gate 0;
+mx-precise review APPROVE (Low: a backtick-wrapped value followed by text reads unconfirmed).
+Not verified: a live run after this change; a CP-0 row with CONDITIONAL beside
+READY_WITH_LIMITATIONS (reads unconfirmed; question with the lead).
