@@ -1,0 +1,288 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "tdg-2024-09-30-covenant_refinancing-sol-medium",
+    "issuer_id": "tdg",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-0",
+      "CP-1",
+      "CP-1A",
+      "CP-2",
+      "CP-2D",
+      "CP-4",
+      "CP-3C",
+      "CP-5"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/dcc853e43fe1e7d4446e59a58bb5f3491badb303cf13cb65c848f933b60eec2e/1.response.md",
+      "sha256": "4384019a7fa81b9f8924ed27046963e65aad3dd918f8a860c599158d4dba35de"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/0717c8cad5f84206f3559949c4d17b0ddac7c599ab8a0c265cb9bd7d4717c456/1.response.md",
+      "sha256": "83e94d822e344944688547415a39fc90276336538b869676a0ff27b0369defe4"
+    },
+    "CP-1A": {
+      "path": "requests/CP-1A/5c8f62405f1852ffdc26dd0e5af4967c2846f029477dc1f0a8c1fec244397ae4/1.response.md",
+      "sha256": "21bc9a630a3d1746c9aedc48020d23dc062f5ca0a8004225837f074a3f2c6a83"
+    },
+    "CP-2": {
+      "path": "requests/CP-2/3c9100d092031aaa005095d6ed18a88e506da59a9e3e91d1535c441c3f23daff/1.response.md",
+      "sha256": "0edd032bb766ad399560423b0d9206804fbb6a47273660d1325590e1620cdab5"
+    },
+    "CP-4": {
+      "path": "requests/CP-4/28215344046c0f157121f6d93bdfe3da01f93f4060d7cbfc0bb59b545b4b07b9/1.response.md",
+      "sha256": "5983cd52bac13e5c298e44751227ce67643114a6bb8ce3c16be756a185b0f438"
+    },
+    "CP-2D": {
+      "path": "requests/CP-2D/b73a6013ce17b554f5d501764d103f220b931745f2c5a30d1c1fe19222a9ce41/1.response.md",
+      "sha256": "4d6be9591cfe20ab0cdd7243a3752c566c0870c29bba73f522cc6e9e3dbe98fe"
+    },
+    "CP-3C": {
+      "path": "requests/CP-3C/09a1a6492087bdca564164f54b23a14a26e8eebc8b7e8ad468ea36245d4bb5f0/1.response.md",
+      "sha256": "767ec9e6b632e83986303e0bf0983853d7b227be2ba04d82ca4533c02d08d08e"
+    },
+    "CP-5": {
+      "path": "requests/CP-5/52507b1b3d06b78ffb3dd1edc9894b272360ef90267e31c920831533e6f32af9/1.response.md",
+      "sha256": "c956e91b9c044a7c0f8df116453ce9138bd658aba676c41df1e7b4d3f63c7b99"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "covenant-tests-headroom",
+      "liquidity-runway",
+      "maturity-wall",
+      "funding-gap",
+      "red-flags",
+      "lender-protection-score",
+      "refinancing-paths",
+      "capacity",
+      "lme-creditor-exposure",
+      "ebitda-definition",
+      "documents-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-4",
+        "heading": "Covenant tests and headroom",
+        "kind": "table",
+        "block_id": "covenant-tests-headroom",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "Liquidity and cash runway",
+        "kind": "table",
+        "block_id": "liquidity-runway",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "Chart data: debt maturities",
+        "kind": "chart",
+        "block_id": "maturity-wall",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.4",
+        "value_columns": [
+          "Debt maturing"
+        ],
+        "row_labels": [],
+        "orientation": "period-rows",
+        "chart_unit": "US$m"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "Funding gap",
+        "kind": "table",
+        "block_id": "funding-gap",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Red flags",
+        "kind": "table",
+        "block_id": "red-flags",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Lender protection score",
+        "kind": "table",
+        "block_id": "lender-protection-score",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Refinancing paths",
+        "kind": "table",
+        "block_id": "refinancing-paths",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Capacity and baskets",
+        "kind": "table",
+        "block_id": "capacity",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "LME capacity and creditor exposure",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "EBITDA definition",
+        "kind": "table",
+        "block_id": "ebitda-definition",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Documents and structure",
+        "kind": "table",
+        "block_id": "documents-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      }
+    ],
+    "scope": "User-launched Covenant & Refinancing run for TransDigm Group Incorporated as of 2024-09-30, using sol-medium on the selected issuer folder. Automated checks cover handoff structure, issuer and date anchors, source and upstream references and report selectors; analytical accuracy has not been independently reviewed. The HTML Model and calculation JSON are not published by this launcher. Sections not produced: none.",
+    "title": "TransDigm Group Incorporated — Covenant & Refinancing",
+    "question": null,
+    "issuer_aliases": [],
+    "front": [
+      {
+        "module_id": "CP-5",
+        "heading": "Reader summary",
+        "kind": "table",
+        "block_id": "front",
+        "table_header": "Bottom line | Confidence | Main limitation",
+        "prefix": null,
+        "label": "Evidence validation",
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Reader summary",
+        "kind": "table",
+        "block_id": "front",
+        "table_header": "Bottom line | Confidence | Main limitation",
+        "prefix": null,
+        "label": "Fundamental credit",
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-0",
+        "heading": "Reader summary",
+        "kind": "table",
+        "block_id": "front",
+        "table_header": "Bottom line | Confidence | Main limitation",
+        "prefix": null,
+        "label": "Source readiness",
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      }
+    ]
+  },
+  "module_execution": {
+    "CP-0": "live-provider",
+    "CP-1": "live-provider",
+    "CP-1A": "live-provider",
+    "CP-2": "live-provider",
+    "CP-4": "live-provider",
+    "CP-2D": "live-provider",
+    "CP-3C": "live-provider",
+    "CP-5": "live-provider"
+  }
+}
