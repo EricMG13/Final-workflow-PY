@@ -285,7 +285,6 @@ class NewRun:
         status: dict[str, Any] | None = None,
         rows: list[dict[str, Any]] | None = None,
         route: str = "W-NewRun/run",
-        init: str = "",
     ) -> None:
         self.starts = 0
         self.status = status or RUNNING
@@ -323,7 +322,6 @@ class NewRun:
                 "/api/runs/list": listed,
             },
             timers=CAPTURED_TIMERS,
-            init=init,
         )
         self.page = self.screen.page
         self.settle()
@@ -825,16 +823,17 @@ def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
     assert run.screen.exists("#recent-jobs table")
 
 
-def test_a_failed_first_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
+def test_a_failed_first_render_is_retried_on_the_next_refresh(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # The first table creation throws before the page's first list render, so that render fails.
-    run = new_run(
-        rows=[ROW_RUNNING],
-        init=(
-            "(()=>{const real=document.createElement.bind(document);window.__thrown=false;"
-            "document.createElement=(tag,...rest)=>{if(tag==='table'&&!window.__thrown){"
-            "window.__thrown=true;throw new Error('render fault');}return real(tag,...rest);};})();"
-        ),
+    script = (
+        "(()=>{const real=document.createElement.bind(document);window.__thrown=false;"
+        "document.createElement=(tag,...rest)=>{if(tag==='table'&&!window.__thrown){"
+        "window.__thrown=true;throw new Error('render fault');}return real(tag,...rest);};})();"
     )
+    monkeypatch.setattr(sys.modules[__name__], "CAPTURED_TIMERS", CAPTURED_TIMERS + script)
+    run = new_run(rows=[ROW_RUNNING])
     jobs = "document.getElementById('recent-jobs')"
     until(run.page, f"{jobs}.textContent.startsWith('Could not load')")
     assert run.page.evaluate("window.__thrown") is True
