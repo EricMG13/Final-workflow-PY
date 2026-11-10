@@ -461,8 +461,10 @@ def test_b1_long_lines_finish_within_2s(own: str, wanted: str) -> None:
     [
         ("# CP-4\nModule Status: Completed\n\nNot blocked: CP-4 has its indenture.\n", "ready"),
         (
-            "# CP-4\nModule Status: Completed\n\n"
-            "Previously blocked: CP-4 lacked inputs; resolved.\n",
+            (
+                "# CP-4\nModule Status: Completed\n\n"
+                "Previously blocked: CP-4 lacked inputs; resolved.\n"
+            ),
             "ready",
         ),
         ("# CP-4\nModule Status: Completed\n\nCP-4 blocked earlier\n", "ready"),
