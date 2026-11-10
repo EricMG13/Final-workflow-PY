@@ -29,9 +29,11 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
 ## 2026-11-09 — Plan 3 live checks C1 and C1n: CP-4 Provisional review and Blocked control (branch `claude/sb3-plan-3-141ce3`)
 
 - **Scope:** public proxy for a private primary deal, older source (2014), Mattress Firm Holding Corp. only; one live run per check; `sol-medium`, modules CP-0, CP-1, CP-4, cap USD 10 each; app runs through `apps/issuer-library/designs/live_check.py`. Keys frozen before the runs in `cases/live-mattress-firm-2014/{c1,c1n}/` (forecast by hand from `run_expectations.py` rules; literals from `cases/primary-proxy-mattress-firm-2014/expected.json`). Each run started only on the owner's go-ahead in the SB3 session.
-- **C1** (build `aa433ad1`; run `web-8a674922fe6d56369000fc6e773b95f7`; USD 1.09882450): **criteria PASS, required outputs pending the harness fix.** CP-4 accepted, not Blocked; `DRAFT_LIMITATION` verbatim (CP-4.md:64); 18 of 24 keyed covenant terms match and are labelled Provisional; no document called executed. live_check exit 1 with 12 faults: 5 harness (status reader, flow_check rounding, rendered-text join), 2 product (390-px run-detail overflow, fixed by #50), 2 run Lows (CP-1 hand-rescaled ×1000 operands, values correct), 1 accepted forecast disagreement (CP-1 limited by CP-0), 2 aggregates.
-- **C1n** (build `3c3b9254` = main `6522e5ed` + the case folders; run `web-f18789292a1712e2ebcb591a09816385`; USD 0.91672190): **criterion PASS, required outputs pending the harness fixes.** CP-4.md:7 "Module Status: Blocked" with the method's Blocked message verbatim; the register lists only the two filings CP-4 read, with no legal or offering document, and nothing was invented. live_check exit 1 with 20 faults: 14 harness (status reader needs the exact phrase and misses same-line sentences, `handoff_outcome.py:89-90`; CP-1 status window `:95`; flow_check rounding beyond 6 dp, `flow_check.py:76`), 4 run Lows (hand rescaling and percent display, values correct), 2 aggregates. An accepted Blocked handoff that goes on to delivery is allowed, not a fault.
+- **C1** (build `aa433ad1`; run `web-8a674922fe6d56369000fc6e773b95f7`; USD 1.09882450): **criteria PASS** (required outputs: see the re-read below). CP-4 accepted, not Blocked; `DRAFT_LIMITATION` verbatim (CP-4.md:64); 18 of 24 keyed covenant terms match and are labelled Provisional; no document called executed. live_check exit 1 with 12 faults: 5 harness (status reader, flow_check rounding, rendered-text join), 2 product (390-px run-detail overflow, fixed by #50), 2 run Lows (CP-1 hand-rescaled ×1000 operands, values correct), 1 accepted forecast disagreement (CP-1 limited by CP-0), 2 aggregates.
+- **C1n** (build `3c3b9254` = main `6522e5ed` + the case folders; run `web-f18789292a1712e2ebcb591a09816385`; USD 0.91672190): **criterion PASS** (required outputs: see the re-read below). CP-4.md:7 "Module Status: Blocked" with the method's Blocked message verbatim; the register lists only the two filings CP-4 read, with no legal or offering document, and nothing was invented. live_check exit 1 with 20 faults: 14 harness (status reader needs the exact phrase and misses same-line sentences, `handoff_outcome.py:89-90`; CP-1 status window `:95`; flow_check rounding beyond 6 dp, `flow_check.py:76`), 4 run Lows (hand rescaling and percent display, values correct), 2 aggregates. An accepted Blocked handoff that goes on to delivery is allowed, not a fault.
 - **Assessment:** `mx-precise`, read-only, against the frozen keys; each harness fault has a probe. Lead ruling R-SB2-1e: after SB2's harness PR merges, both retained runs are re-read offline on copies (no provider call) and this record is updated. No paid rerun.
+- **Re-read 2026-11-10 (ruling R-SB2-1e), offline on copies at `7d4e9979` (after #55, #56), no provider:** both runs now pass their required outputs up to the accepted CP-1 forecast disagreement (CP-0 rates CP-1 Ready with limitations) and run Lows. C1: CP-0 no longer a finding, CP-4 reads limited as forecast, 3.84 cleared; report numbers 11 and 83 cleared under the new cell-separated reading (probe `report_numbers_now.py`, file:// render, exit 0); the offline single-run browser walk on a C1 copy passes 72/72, with no 390-px overflow in chromium or firefox. Remaining: run Lows 10800 and 162600 (hand ×1000 rescaling). C1n: CP-4 reads will_refuse as forecast; the 12 long roundings and the two percent displays cleared; remaining run Lows 98400 and 116543. A full `live_check` rerun would still exit 1 on the CP-1 forecast item and the flow aggregate. Re-read by `mx-precise` with live_check's own functions; it confirms every claim in #56's notes.
+- **Status:** C1 and C1n pass, with their actual scope; the remaining items are accepted (CP-1 forecast) or run Lows (values correct, arithmetic by hand instead of `calculate`).
 - **Not verified:** the harness fixes themselves (SB2's PR); firefox rendering of the report numbers; the "New records" output (marked not applicable before Stage 2); term matches beyond the key's quoted text; that C1n should have stopped at CP-4 rather than deliver (the plan does not say).
 
 ## 2026-11-09 — Phase 0: network-path check (Task 0.1)
@@ -654,6 +656,28 @@ inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per C
 opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
 same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
 
+## 2026-11-10 — Plan 2: C1n live-check harness faults, lead rulings R-SB2-1e/1f (SB2, branch `claude/sb2-c1-harness-b`)
+
+Scope: `handoff_outcome.py`, `designs/flow_check.py`, answer-key tests and C1n fixtures. Cause:
+SB3's paid C1n run (`web-f1878929…`, sol-medium) re-read offline: CP-4's `**Module Status: Blocked.
+CP-4 Blocked. …**` and CP-1's CP-0 row (status beyond 70 characters) read unconfirmed; 12 CP-1
+numbers rounding `calculate` results to 8–19 places and 28.5301% / 8.2832% (×100 of ratios) were
+flagged as untraced. Rulings (keys by an agent other than the implementer): a status phrase then
+`.` or line end counts, longest first; a CP-0 row whose first cell is the module id is read whole,
+most severe wins; calculate roundings to every place are evidence; ×100 only for figures marked
+`%` / percent / per cent / pct; no other scaling; operands must still be evidence.
+Checks: keys red (22) then green (175 targeted pass); offline re-read on copies (no provider): C1n
+flow faults 116543 and 98400 only (operand 98400 not evidence: laundering guard), CP-4 will_refuse,
+CP-1 limited (forecast ready: a real disagreement); C1 unchanged from the previous section;
+back-test output byte-identical to main; `validate.py` quick exit 0, browser 86/0; quality gate 0;
+mx-precise review APPROVE (Low: a backtick-wrapped value followed by text reads unconfirmed).
+Not verified: a live run after this change; a CP-0 row with CONDITIONAL beside
+READY_WITH_LIMITATIONS (reads unconfirmed; question with the lead).
+R-SB2-1j (branch claude/sb2-c1-harness-b): a CP-0 row is a module's only when its first cell is the id alone or id + (colon | whitespace-dash) + label; `CP-4.1`, `CP-4a`, `CP-40`, `CP-4-1`, `CP-4 (draft)` are not CP-4's and never reach the 70-character window.
+RED 9 failed in test_handoff_outcome_status.py, GREEN 210 passed across the four target files; probe_inline_triple exit 0; probe_status deviates only on the corrected 'CP-4.1 not CP-4' expectation (not_reached) and R-SB2-1i (deferred).
+R-SB2-1j fix round 2 (#56 re-review): Medium `| **`CP-4`** — Legal | CONDITIONAL |` lost its row (inner backtick); Lows `| - CP-4.1 |` / `| 1. CP-4.1 |` read as CP-4 via the prose window, docstring said "begins with". Fix: drop `*`/backticks and a leading list marker from the first cell; prose id not followed by `.digit` or `-digit`; docstring states the 1j rule.
+RED 3 failed (test_1j2 noown cases), GREEN 238 passed across the four target files; probe_1j_rows exit 0.
+
 ## 2026-11-10 — Plan 2: guess_kind recognises executed credit agreements, lead ruling R-SB2-2 (SB2, branch `claude/sb2-guess-kind`)
 
 Scope: `src/deploy_workflow/run_expectations.py` only (answer-key tests in 22b96bb3, written by another
@@ -691,6 +715,21 @@ R-SB2-2 fix 1 (review M1/L1): `_QUALIFIER` admitted connectives and determiners,
 AGREEMENT`, `TERMINATION OF ...` and `Each/Our ... Credit Agreement contains` became credit agreements; the lender rule
 also gained an unasked `the|this` lead-in. Now `_QUALIFIER` excludes to/of/and/under/for/with/each/our/such/any; `the|this` stays on the credit-agreement rule only.
 Reviewer probe `r2_qualifier_admits_connectives.py`: 10 of 10 misclassified before, 0 after (exit 0).
+
+2026-11-10 live_check free port (B.1 fourth PR, cherry-pick of fc08893a onto main cabbe619, no conflicts): `live_check.py` has no fixed `PORT`; `run_walk` starts the server with `bc.serve_free` and passes `args.port` to the walks; per-engine launch failures are recorded as `{name}-single-run` faults. The test `test_the_server_is_started_on_a_free_port_not_a_fixed_one` no longer binds port 53920 (its `serve` fake still fails on any fixed-port call; assertions unchanged). Tests: `tests/test_issuer_library_live_check.py` 54 passed (exit 0); `tools/quality_gate.py` exit 0; `tools/pr_size.py` exit 0. Not verified: a real browser launch failure per engine; `validate.py quick` and `browser` (run by the controller); any live server on a free port.
+
+2026-11-10 Handoff outcome batch (R-SB2-1g/1i/1k and the reader Lows), `handoff_outcome.py`. CP-0 words are
+now classed per module (own handoff or not) and the worst class wins; the row and the prose are both read
+(`CP-4 BLOCKED:` plus `| CP-4 | READY |` is will_refuse); `Blocked: CP-1, CP-4` counts for each id listed
+(1j boundary). Lows: text after a backticked `Module Status` value; the markup strip is one linear pass (a 1 MB
+line is ~0.06 s); front matter is not scanned for fences; lines split on `\n`/`\r\n` only. The blockquote
+fence case already held. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
+134 passed after; with flow_check, backtest and live_check tests 258 passed; lead probe `probe_1j_rows.py` exit 0.
+Back-test output byte-identical to the parent's. Offline re-read of copies of retained C1 and C1n handoffs
+(`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
+will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `actual_of`); a live run.
+Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
+R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
 
 ## 2026-11-10 R-SB2-2a positive qualifier lists
 

@@ -18,3 +18,7 @@ Literals (3): 821; 767; 720. Basis, plan row C2: "Sources and uses and pro forma
 - 767: pro forma total debt (42 + 720 + 1 + 4 = 767, as stated). Certain whichever way a run words the adjustment column.
 - 720: new Term Loan, in the S&U row and the pro forma debt row.
 Not included: 466 (the stated adjustment does not foot: 42 + 720 - 297 = 465, so a run may write 465); 763 (no required secured-debt row in the Task 11 contract); 194.5 (base EBITDA depends on the run's starting definition: the key's 151.7 + 5.7 + 32.1 + 5.0 = 194.5 holds for Adjusted EBITDA start only; the key lists CP-1's own EBIT-plus-D&A start as a gap); 200/216/233 (which As marketed figure a run quotes is not fixed); 2014-07-29 (the Balance-sheet date line is not a table, and under the lead ruling only tables are routed to the report, so the date may not render); 18 and 42 (too short to prove anything). Each pro forma number is a plain number or `Not supplied: <reason>` per the cell rule; a run that wrote Not supplied for 767 would fail the plan row too.
+
+Frozen before any paid run: this key was frozen in commit edef5b76, before any paid or live run of C2.
+
+Re-derived after #59 / R-SB2-2 (executed credit agreements and the lender presentation recognised): no change. C2 has no CP-4 and none of its rules read a credit-agreement or lender-presentation kind (the one rule that cites a lender presentation, run-financials-management-claims, does not fire because the periodic reports are financial reports). Forecast and literals unchanged.

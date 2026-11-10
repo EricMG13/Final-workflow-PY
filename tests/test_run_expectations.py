@@ -297,7 +297,16 @@ def omitted_of(scenario: dict[str, Any]) -> list[str]:
         pathway=scenario["pathway"],
         requested_modules=tuple(scenario["modules"]),
     )
-    return list(_layout(run, tuple(scenario["modules"]), (), "test")[1])
+    return list(
+        _layout(
+            run,
+            tuple(scenario["modules"]),
+            (),
+            "test",
+            run_type="secondary",
+            legal_documents="executed",
+        )[1]
+    )
 
 
 def test_key_run_rows_agree_with_the_launcher_layout() -> None:
