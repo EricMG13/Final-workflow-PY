@@ -9,7 +9,7 @@ import json
 import re
 import sys
 from collections.abc import Iterable
-from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal
+from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Context, Decimal
 from pathlib import Path
 from typing import Any
 
@@ -41,6 +41,12 @@ NUMBER = re.compile(
     rf"(?<![\w/.])(?<![a-z]-)(?<!\d,)(?:\d{{1,3}}(?:,\d{{3}})+|\d+)(?:\.\d+)?{UNIT}?(?!\w|\.[A-Za-z\d])"
 )
 UNIT_END = re.compile(rf"{UNIT}$")
+# A figure marked as a percent: % right after it, or percent / per cent / pct.
+PERCENT = re.compile(
+    r"(?<![\w/.])((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)(?:%|\s+(?:percent|per cent|pct)\b)",
+    re.IGNORECASE,
+)
+EXACT = Context(prec=200)  # a result printed to 40 places must not overflow the default 28
 LEADING_ZERO = re.compile(r"0\d+")
 # The completed record does not name its delivery folder, so every folder is checked.
 LAUNCHER_KIND = "cpos-markdown-delivery/1"
@@ -69,14 +75,17 @@ def rounded(values: set[str], calculated: bool = False) -> set[str]:
     """The roundings a reader may print of a calculation result (4.50682961... -> 4.51).
 
     Unless `calculated` (the values are `calculate` results), only values with 6 or more decimals
-    are expanded: they are kernel results, not reported figures.
+    are expanded, to 0-6 places: they are kernel results, not reported figures. A `calculated`
+    value is expanded to every place count up to its own decimals.
     """
     out = set(values)
     for value in values:
         if "." in value and (calculated or len(value.split(".")[1]) >= 6):
-            for places in range(7):
+            for places in range(len(value.split(".")[1]) + 1 if calculated else 7):
                 for mode in (ROUND_HALF_UP, ROUND_HALF_EVEN):
-                    out |= numbers(f"{Decimal(value).quantize(Decimal(1).scaleb(-places), mode):f}")
+                    out |= numbers(
+                        f"{Decimal(value).quantize(Decimal(1).scaleb(-places), mode, EXACT):f}"
+                    )
     return out
 
 
@@ -218,12 +227,13 @@ def _operands(node: Any) -> set[str]:
     return numbers(str(node))
 
 
-def _read_numbers(folder: Path, base: set[str]) -> set[str]:
+def _read_numbers(folder: Path, base: set[str]) -> tuple[set[str], set[str]]:
     """Numbers in what the module read. The engine's own replies (write_handoff, edit_handoff) are
     not reading. A calculate result counts only once every operand of its call is itself evidence,
     iterated to a fixpoint, so chained calculations resolve; an invented operand of two or more
-    digits cannot launder (single digits are not checked, as everywhere here)."""
-    calls, pending, evidence = _calls(folder), [], set(base)
+    digits cannot launder (single digits are not checked, as everywhere here). Also returns the
+    roundings of those results times 100, which only a percent-marked figure may use."""
+    calls, pending, evidence, percent = _calls(folder), [], set(base), set()
     for tools in sorted(folder.glob("*.tools.json")):
         for c in json.loads(tools.read_text()):
             if c["name"] == "calculate":
@@ -236,10 +246,15 @@ def _read_numbers(folder: Path, base: set[str]) -> set[str]:
         for c in list(pending):
             arguments = calls.get(c["call_id"])
             if arguments is not None and _operands(arguments) <= known:
-                evidence |= rounded(numbers(c["text"]), calculated=True)
+                results = numbers(c["text"])
+                evidence |= rounded(results, calculated=True)
+                percent |= rounded(
+                    {f"{Decimal(r).scaleb(2, EXACT):f}" for r in results if "." in r},
+                    calculated=True,
+                )
                 pending.remove(c)
                 changed = True
-    return evidence
+    return evidence, percent
 
 
 def _checked_inputs(
@@ -290,7 +305,7 @@ def run_faults(run: Path, sources: Path | None = None) -> list[str]:
                 f"{module}: accepted {module} is not a draft the model submitted "
                 "and the checker accepted"
             )
-        evidence = set(shared)
+        evidence, percent = set(shared), set()
         for folder, request in invocations:
             faults += [
                 f"{module}: upstream {before} never received, though accepted before it"
@@ -308,12 +323,17 @@ def run_faults(run: Path, sources: Path | None = None) -> list[str]:
                         f"{module}: upstream {upstream} received differs from its accepted handoff"
                     )
             faults += _checked_inputs(run, request, sources, module)
-            evidence |= _read_numbers(folder, shared | _received(run, request))
+            read, scaled = _read_numbers(folder, shared | _received(run, request))
+            evidence |= read
+            percent |= scaled
         evidence = rounded(evidence)
         if invocations:
+            text = data.decode("utf-8", "replace")
+            marked = {n for m in PERCENT.finditer(text) for n in numbers(m[1])}
+            unknown = numbers(PERCENT.sub(" ", text)) | (marked - percent)
             faults += [
                 f"{module}: number {n} in the handoff is not in what the module read or received"
-                for n in sorted(numbers(data.decode("utf-8", "replace")) - evidence)
+                for n in sorted(unknown - evidence)
             ]
     folders = sorted(p for p in run.glob("deliveries/*") if p.is_dir())
     for folder in folders if _launcher(run) else []:

@@ -654,6 +654,28 @@ inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per C
 opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
 same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
 
+## 2026-11-10 — Plan 2: C1n live-check harness faults, lead rulings R-SB2-1e/1f (SB2, branch `claude/sb2-c1-harness-b`)
+
+Scope: `handoff_outcome.py`, `designs/flow_check.py`, answer-key tests and C1n fixtures. Cause:
+SB3's paid C1n run (`web-f1878929…`, sol-medium) re-read offline: CP-4's `**Module Status: Blocked.
+CP-4 Blocked. …**` and CP-1's CP-0 row (status beyond 70 characters) read unconfirmed; 12 CP-1
+numbers rounding `calculate` results to 8–19 places and 28.5301% / 8.2832% (×100 of ratios) were
+flagged as untraced. Rulings (keys by an agent other than the implementer): a status phrase then
+`.` or line end counts, longest first; a CP-0 row whose first cell is the module id is read whole,
+most severe wins; calculate roundings to every place are evidence; ×100 only for figures marked
+`%` / percent / per cent / pct; no other scaling; operands must still be evidence.
+Checks: keys red (22) then green (175 targeted pass); offline re-read on copies (no provider): C1n
+flow faults 116543 and 98400 only (operand 98400 not evidence: laundering guard), CP-4 will_refuse,
+CP-1 limited (forecast ready: a real disagreement); C1 unchanged from the previous section;
+back-test output byte-identical to main; `validate.py` quick exit 0, browser 86/0; quality gate 0;
+mx-precise review APPROVE (Low: a backtick-wrapped value followed by text reads unconfirmed).
+Not verified: a live run after this change; a CP-0 row with CONDITIONAL beside
+READY_WITH_LIMITATIONS (reads unconfirmed; question with the lead).
+R-SB2-1j (branch claude/sb2-c1-harness-b): a CP-0 row is a module's only when its first cell is the id alone or id + (colon | whitespace-dash) + label; `CP-4.1`, `CP-4a`, `CP-40`, `CP-4-1`, `CP-4 (draft)` are not CP-4's and never reach the 70-character window.
+RED 9 failed in test_handoff_outcome_status.py, GREEN 210 passed across the four target files; probe_inline_triple exit 0; probe_status deviates only on the corrected 'CP-4.1 not CP-4' expectation (not_reached) and R-SB2-1i (deferred).
+R-SB2-1j fix round 2 (#56 re-review): Medium `| **`CP-4`** — Legal | CONDITIONAL |` lost its row (inner backtick); Lows `| - CP-4.1 |` / `| 1. CP-4.1 |` read as CP-4 via the prose window, docstring said "begins with". Fix: drop `*`/backticks and a leading list marker from the first cell; prose id not followed by `.digit` or `-digit`; docstring states the 1j rule.
+RED 3 failed (test_1j2 noown cases), GREEN 238 passed across the four target files; probe_1j_rows exit 0.
+
 ## 2026-11-10 — Plan 2: guess_kind recognises executed credit agreements, lead ruling R-SB2-2 (SB2, branch `claude/sb2-guess-kind`)
 
 Scope: `src/deploy_workflow/run_expectations.py` only (answer-key tests in 22b96bb3, written by another

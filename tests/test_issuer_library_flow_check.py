@@ -5,6 +5,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
     "library_flow_check", ROOT / "apps/issuer-library/designs/flow_check.py"
@@ -441,3 +443,106 @@ def test_calculate_result_covers_itself(tmp_path: Path) -> None:
 def test_reported_three_decimal_figure_is_not_expanded(tmp_path: Path) -> None:
     faults = c1_rounding_run(tmp_path, "3.84", calculated=False)
     assert any("number 3.84" in f for f in faults)
+
+
+ROUNDINGS = [
+    ("0.0828320662783500246", "0.082832066278350024600441220816734648531"),
+    ("0.2853008794070834874", "0.28530087940708348740373948971881481005"),
+    ("1.5382407917", "1.5382407917290375621446797949322516346"),
+    ("1.7156817882", "1.7156817882155848386371216057952580022"),
+    ("1.8702504944", "1.8702504943968358602504943968358602505"),
+    ("1.989848385", "1.9898483849703361898483849703361898484"),
+    ("10.4730259931", "10.473025993133889161353604708190289358"),
+    ("11.4556197246", "11.455619724566859173700577521101732563"),
+    ("2.21434202", "2.2143420200270044565158007289642308023"),
+    ("2.3159137264", "2.3159137263719144972457320892286443863"),
+    ("2.3559437121", "2.3559437120981526142030953663162331125"),
+    ("2.4094624761", "2.4094624761109415902484462074614161594"),
+]
+
+
+def calc_run(tmp_path: Path, result: str, text: str, operands: tuple[str, str]) -> list[str]:
+    """CP-1 read the two operands, calculated `result` from them; its handoff holds `text`."""
+    run, sources = make_run(tmp_path)
+    folder = run / "live/modules" / sha(b"CP-1")
+    tools = json.loads((folder / "0.tools.json").read_text())
+    tools.append(
+        {"call_id": "r2", "name": "read_pages", "text": f"Values {operands[0]} and {operands[1]}."}
+    )
+    (folder / "0.tools.json").write_text(json.dumps(tools))
+    add_calls(run, "CP-1", [("c1", list(operands), result)])
+    set_handoff(run, "CP-1", CP1 + text + "\n")
+    return flow.run_faults(run, sources)
+
+
+@pytest.mark.parametrize(("printed", "result"), ROUNDINGS, ids=[r[0] for r in ROUNDINGS])
+def test_long_calculate_roundings_trace(tmp_path: Path, printed: str, result: str) -> None:
+    faults = calc_run(tmp_path, result, f"The ratio is {printed}.", ("1234", "567"))
+    assert not any(f"number {printed}" in f for f in faults)
+
+
+@pytest.mark.parametrize(("printed", "result"), ROUNDINGS, ids=[r[0] for r in ROUNDINGS])
+def test_long_calculate_rounding_with_changed_last_digit_is_flagged(
+    tmp_path: Path, printed: str, result: str
+) -> None:
+    wrong = printed[:-1] + str((int(printed[-1]) + 1) % 10)
+    faults = calc_run(tmp_path, result, f"The ratio is {wrong}.", ("1234", "567"))
+    assert any(f"number {wrong}" in f for f in faults)
+
+
+PCT_RESULT = "0.2853008794070834874"
+PCT_OPERANDS = ("17746", "62201")
+C1N_CP1_LINE193 = (
+    "Calculated H1 exclusions total 17,746 versus 5,219 in the prior H1; reported EBITDA fell "
+    "by 806 while exclusions rose by 12,527, producing the 11,721 increase in Adjusted EBITDA. "
+    "Exclusions equal 28.5301% of current-H1 EBITDA versus 8.2832% in prior H1. This is the "
+    "principal earnings-definition risk: adjusted growth does not demonstrate improvement in "
+    "the unadjusted earnings available to absorb acquisition and implementation costs."
+)
+
+
+def pct_run(tmp_path: Path, text: str) -> list[str]:
+    """The two C1n CP-1 calculate calls (17746/62201 and 5219/63007) over evidenced operands."""
+    run, sources = make_run(tmp_path)
+    folder = run / "live/modules" / sha(b"CP-1")
+    tools = json.loads((folder / "0.tools.json").read_text())
+    tools.append(
+        {"call_id": "r2", "name": "read_pages", "text": "Values 17746, 62201, 5219 and 63007."}
+    )
+    (folder / "0.tools.json").write_text(json.dumps(tools))
+    add_calls(
+        run,
+        "CP-1",
+        [
+            ("c1", ["17746", "62201"], PCT_RESULT),
+            ("c2", ["5219", "63007"], "0.0828320662783500246"),
+        ],
+    )
+    set_handoff(run, "CP-1", CP1 + text + "\n")
+    return flow.run_faults(run, sources)
+
+
+def test_1f_x_c1n_line193_percent_pair_traces(tmp_path: Path) -> None:
+    faults = pct_run(tmp_path, C1N_CP1_LINE193)
+    assert not any("number 28.5301" in f or "number 8.2832" in f for f in faults)
+
+
+@pytest.mark.parametrize("marker", ["%", " percent", " per cent", " pct"])
+def test_1f_y_percent_marker_traces(tmp_path: Path, marker: str) -> None:
+    faults = pct_run(tmp_path, f"Exclusions equal 28.53{marker} of EBITDA.")
+    assert not any("number 28.53" in f for f in faults)
+
+
+def test_1f_z_unmarked_percent_is_flagged(tmp_path: Path) -> None:
+    faults = pct_run(tmp_path, "Exclusions equal 28.53 of EBITDA.")
+    assert any("number 28.53" in f for f in faults)
+
+
+def test_1f_z2_marked_and_unmarked_is_flagged(tmp_path: Path) -> None:
+    faults = pct_run(tmp_path, "Exclusions equal 28.53% of EBITDA. Elsewhere 28.53 appears bare.")
+    assert any("number 28.53" in f for f in faults)
+
+
+def test_1f_k_no_other_scaling(tmp_path: Path) -> None:
+    faults = pct_run(tmp_path, "Exclusions equal 285.3% of EBITDA.")
+    assert any("number 285.3" in f for f in faults)
