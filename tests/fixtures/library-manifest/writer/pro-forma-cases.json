@@ -1,0 +1,719 @@
+{
+ "cases": [
+  {
+   "id": "both-numeric",
+   "rule": "Both rows numeric: both metrics, side by side with the CP-1 ones.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "5.00",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     },
+     "leverage_as_marketed": {
+      "value": "4.25",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "As marketed",
+      "source": "cp2_leverage_as_marketed",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |"
+     },
+     "cp2_leverage_as_marketed": {
+      "line": 14,
+      "quote": "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |"
+     }
+    }
+   }
+  },
+  {
+   "id": "comma-in-ratio",
+   "rule": "A comma in the ratio cell is removed as for chart cells.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 1,250.5 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "1250.5",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     },
+     "leverage_as_marketed": {
+      "value": "4.25",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "As marketed",
+      "source": "cp2_leverage_as_marketed",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 1,250.5 | USD thousands; ratio x | CP-1A |"
+     },
+     "cp2_leverage_as_marketed": {
+      "line": 14,
+      "quote": "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |"
+     }
+    }
+   }
+  },
+  {
+   "id": "secondary-run",
+   "rule": "A secondary run with the same CP-2 table writes none.",
+   "run_type": "secondary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "run-type-missing",
+   "rule": "A context with no run_type writes none.",
+   "run_type": "__missing__",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "no-cp2",
+   "rule": "No CP-2.md writes none.",
+   "run_type": "primary",
+   "cp2": null,
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "heading-twice",
+   "rule": "The heading twice makes the table unreadable.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "header-reordered",
+   "rule": "A header with two columns swapped makes the table unreadable.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | EBITDA | Total debt | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "five-cell-row",
+   "rule": "A data row with five cells makes the table unreadable (both keys).",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "as-marketed-twice",
+   "rule": "As marketed on two rows: no leverage_as_marketed; the pro forma one stays.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    "| As marketed | 680000 | 160000 | 4.30 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "5.00",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |"
+     }
+    }
+   }
+  },
+  {
+   "id": "pro-forma-twice",
+   "rule": "The excluding label on two rows: no leverage_pro_forma; the marketed one stays.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.10 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_as_marketed": {
+      "value": "4.25",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "As marketed",
+      "source": "cp2_leverage_as_marketed",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_as_marketed": {
+      "line": 15,
+      "quote": "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |"
+     }
+    }
+   }
+  },
+  {
+   "id": "negative-pro-forma",
+   "rule": "A negative pro forma ratio writes no pro forma metric.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | -5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_as_marketed": {
+      "value": "4.25",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "As marketed",
+      "source": "cp2_leverage_as_marketed",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_as_marketed": {
+      "line": 14,
+      "quote": "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |"
+     }
+    }
+   }
+  },
+  {
+   "id": "negative-as-marketed",
+   "rule": "A negative marketed ratio writes no marketed metric.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | -4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "5.00",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |"
+     }
+    }
+   }
+  },
+  {
+   "id": "not-supplied-pro-forma",
+   "rule": "Not supplied in the excluding row: only as marketed.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | Not supplied: add-back detail is not disclosed | Not supplied: EBITDA without add-backs is not disclosed | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_as_marketed": {
+      "value": "4.25",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "As marketed",
+      "source": "cp2_leverage_as_marketed",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_as_marketed": {
+      "line": 14,
+      "quote": "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |"
+     }
+    }
+   }
+  },
+  {
+   "id": "not-supplied-as-marketed",
+   "rule": "Not supplied in the marketed row: only pro forma.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | Not supplied: marketed EBITDA is not disclosed | Not supplied: marketed ratio is not disclosed | USD thousands; ratio x | CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "5.00",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |"
+     }
+    }
+   }
+  },
+  {
+   "id": "both-not-supplied",
+   "rule": "Both rows Not supplied: no metric.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | Not supplied: add-back detail is not disclosed | Not supplied: EBITDA without add-backs is not disclosed | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | Not supplied: marketed EBITDA is not disclosed | Not supplied: marketed ratio is not disclosed | USD thousands; ratio x | CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "blank-as-marketed",
+   "rule": "A blank ratio cell writes no marketed metric.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 |  | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "5.00",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |"
+     }
+    }
+   }
+  },
+  {
+   "id": "no-ltm-line",
+   "rule": "No LTM period line: none.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "two-ltm-lines",
+   "rule": "Two LTM period lines: none.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "LTM period: Trailing period ended June 30, 2025",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "blank-ltm-line",
+   "rule": "A blank LTM period: none.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period:   ",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {},
+    "pins": {}
+   }
+  },
+  {
+   "id": "unclosed-bracket-in-debt-cell",
+   "rule": "An unclosed ( before the ratio: discovery would not read it; no marketed metric, manifest admitted.",
+   "run_type": "primary",
+   "cp2": [
+    "SYNTHETIC FIXTURE: hand-written CP-2 for a pro forma case.",
+    "",
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2025-03-31",
+    "LTM period: Trailing period ended March 31, 2025; fictional basis",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 390000 | 100000 | 3.90 | USD thousands; ratio x | CP-1 |",
+    "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |",
+    "| As marketed | (680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |",
+    ""
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_pro_forma": {
+      "value": "5.00",
+      "unit": "x",
+      "period": "Trailing period ended March 31, 2025; fictional basis",
+      "basis": "Pro forma, excluding unrealised add-backs",
+      "source": "cp2_leverage_pro_forma",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_pro_forma": {
+      "line": 13,
+      "quote": "| Pro forma, excluding unrealised add-backs | 650000 | 130000 | 5.00 | USD thousands; ratio x | CP-1A |"
+     }
+    }
+   }
+  },
+  {
+   "id": "retained-c2-lines",
+   "rule": "One issuer/date, older source: the Mattress Firm 2014-09-11 retained C2 CP-2 lines (run web-f126f83e49773a9e5d16ee6af9284481), copied verbatim; as marketed 3.29, no pro forma (Not supplied).",
+   "run_type": "primary",
+   "cp2": [
+    "### Pro forma capitalisation",
+    "",
+    "Balance-sheet date: 2014-07-29",
+    "LTM period: Trailing period ended July 29, 2014; historical consolidated basis, with management acquisition-completion illustration separately identified",
+    "",
+    "### Pro forma leverage",
+    "",
+    "| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |",
+    "| --- | --- | --- | --- | --- | --- |",
+    "| Reported | 301860 | 128127 | 2.36 | USD thousands; ratio x | CP-1, historical debt and calculated LTM EBITDA, QJ pages 3, 12, 39; K page:51 |",
+    "| Pro forma, excluding unrealised add-backs | 767000 | Not supplied: supported combined base EBITDA unresolved | Not supplied: supported combined denominator unresolved | USD thousands; ratio x | CP-1A, proposed total debt and transaction register; CP-1D, target-support gaps; calculate conversion |",
+    "| As marketed | 767000 | 233100 | 3.29 | USD thousands; ratio x | CP-1 and CP-1D, proposed new-store-inclusive illustration; LP pages 5, 18–19; calculate conversions |"
+   ],
+   "expect": {
+    "metrics": {
+     "leverage_as_marketed": {
+      "value": "3.29",
+      "unit": "x",
+      "period": "Trailing period ended July 29, 2014; historical consolidated basis, with management acquisition-completion illustration separately identified",
+      "basis": "As marketed",
+      "source": "cp2_leverage_as_marketed",
+      "provenance": "calculated"
+     }
+    },
+    "pins": {
+     "cp2_leverage_as_marketed": {
+      "line": 12,
+      "quote": "| As marketed | 767000 | 233100 | 3.29 | USD thousands; ratio x | CP-1 and CP-1D, proposed new-store-inclusive illustration; LP pages 5, 18–19; calculate conversions |"
+     }
+    }
+   }
+  }
+ ]
+}

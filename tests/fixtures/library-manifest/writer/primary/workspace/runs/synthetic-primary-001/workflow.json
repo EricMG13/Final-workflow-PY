@@ -1,0 +1,16 @@
+{
+  "run": {
+    "run_id": "synthetic-primary-001",
+    "issuer_id": "lanternfreight",
+    "issuer_name": "Lantern Freight Holdings plc",
+    "as_of": "2025-03-31",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-2"
+    ]
+  },
+  "sources": {},
+  "execution": "synthetic"
+}

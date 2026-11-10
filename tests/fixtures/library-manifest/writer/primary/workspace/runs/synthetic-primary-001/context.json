@@ -1,0 +1,31 @@
+{
+  "schema": "context/1",
+  "run": {
+    "run_type": "primary",
+    "pathway": "credit_snapshot",
+    "case_kind": "public",
+    "as_of": "2025-03-31",
+    "cutoff": "",
+    "current_period": "fy-2024",
+    "prior_period": "fy-2023",
+    "reporting_currency": "USD"
+  },
+  "identity": {
+    "issuer_name": "Lantern Freight Holdings plc",
+    "issuer_id": "lanternfreight",
+    "borrower_name": "",
+    "parent_name": "",
+    "guarantors": [],
+    "aliases": [],
+    "listed_equity": false,
+    "ticker": "",
+    "sector": "",
+    "country": "United Kingdom",
+    "sponsor": "",
+    "issue_classification": ""
+  },
+  "deal_terms": [],
+  "quotes": [],
+  "ratings": [],
+  "research_questions": []
+}
