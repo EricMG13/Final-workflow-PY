@@ -109,12 +109,15 @@ REPLY_TO_CLICK = {
 
 def wait_for_replies(page: Any, path: str) -> None:
     """Wait (at most 10 s, then fail naming the path) until every request sent to path has been
-    answered and read by the app. No request sent (the click was refused) is nothing to wait for."""
+    answered and read by the app. No request sent (the click was refused) is nothing to wait for.
+    A request the page itself delays before calling fetch (hold_replies, a first-list delay) is not
+    in window.__calls yet, so this returns at once for it; those tests wait on the render instead."""
     page.wait_for_function(
         "p=>(window.__replied[p]||0)>=window.__calls.filter(c=>c.url.split('?')[0]===p).length",
         arg=path,
         timeout=10_000,
     )
+
 
 ID = "web-" + "a" * 32
 ID2 = "web-" + "c" * 32
@@ -1433,21 +1436,7 @@ def test_the_shell_loads_only_files_the_server_packages() -> None:
 
 @pytest.fixture
 def form(browser: Any) -> Any:
-    opened: Any = ContextForm(browser)
-
-    def load(folder: Path, text: str) -> None:
-        # ContextForm.load waits with wait_for_function, whose polling evals a string; the form's
-        # content security policy refuses that as soon as the first check is not yet true.
-        saved = folder / "context.json"
-        saved.write_text(text, encoding="utf-8")
-        opened.page.set_input_files("#load", saved)
-        until(
-            opened.page,
-            "document.getElementById('loadmsg').textContent.startsWith('Loaded')",
-            timeout=10,
-        )
-
-    opened.load = load
+    opened = ContextForm(browser)
     yield opened
     opened.close()
 
