@@ -368,6 +368,7 @@ def _chart_metrics(doc: _Doc | None, as_of: str, sink: _Sink) -> tuple[Json, boo
 
 
 _LEVERAGE_HEADING = "### Pro forma leverage"
+_CAPITALISATION_HEADING = "### Pro forma capitalisation"
 _LEVERAGE_HEADER = [
     "Basis",
     "Total debt",
@@ -409,15 +410,34 @@ def _leverage_table(doc: _Doc) -> list[_Row] | None:
     return rows if header else None
 
 
+def _ltm_period(doc: _Doc) -> str | None:
+    """The text of the one `LTM period:` line above the `Pro forma capitalisation` table."""
+    fenced = False
+    unfenced: list[str] = []
+    for line in doc.lines:
+        if line.strip().startswith(("```", "~~~")):
+            fenced = not fenced
+        elif not fenced:
+            unfenced.append(line)
+    if [line.strip() for line in unfenced].count(_CAPITALISATION_HEADING) != 1:
+        return None
+    start = [line.strip() for line in unfenced].index(_CAPITALISATION_HEADING)
+    section: list[str] = []
+    for line in unfenced[start + 1 :]:
+        if line.strip().startswith(("#", "|")):
+            break
+        section.append(line)
+    hits = [line for line in section if "LTM period:" in line]
+    if len(hits) != 1 or not hits[0].startswith("LTM period:"):
+        return None
+    return hits[0][len("LTM period:") :].strip() or None
+
+
 def _pro_forma_metrics(doc: _Doc | None, run_type: object, sink: _Sink) -> Json:
     """R-C2: `leverage_pro_forma` and `leverage_as_marketed` from CP-2 on a Primary run."""
-    periods = (
-        [line[len("LTM period:") :].strip() for line in doc.lines if line.startswith("LTM period:")]
-        if doc
-        else []
-    )
     rows = _leverage_table(doc) if doc and run_type == "primary" else None
-    if not doc or rows is None or len(periods) != 1 or not periods[0]:
+    period = _ltm_period(doc) if doc else None
+    if not doc or rows is None or not period:
         return {}
     metrics: Json = {}
     for name, label in _LEVERAGE_ROWS.items():
@@ -426,7 +446,7 @@ def _pro_forma_metrics(doc: _Doc | None, run_type: object, sink: _Sink) -> Json:
         if not row or not _number(cell):
             continue
         source = f"cp2_{name}"
-        metric = {"value": cell.replace(",", ""), "unit": "x", "period": periods[0]}
+        metric = {"value": cell.replace(",", ""), "unit": "x", "period": period}
         metric |= {"basis": label, "source": source, "provenance": "calculated"}
         if found := _readable_metrics({name: metric}, _pin(doc, row.line)):
             sink.pin(source, doc, row.line)
@@ -648,7 +668,8 @@ def build(workspace: Path, run_id: str) -> Json:
     published = bool(receipt and receipt[1].get("cp_model_published") is True)
     metrics, off_format = _chart_metrics(cp1, as_of, sink)
     is_primary = ctx_run.get("run_type") == "primary"
-    cp2 = _doc_if(workspace, f"{base}/CP-2.md") if is_primary else None
+    read_cp2 = is_primary and "CP-2" in modules
+    cp2 = _doc_if(workspace, f"{base}/CP-2.md") if read_cp2 else None
     metrics |= _pro_forma_metrics(cp2, ctx_run.get("run_type"), sink)
     run["ratings"] = _ratings(ctx, sink)
     run["facilities"], facility_gaps = _facilities(ctx, sink)
