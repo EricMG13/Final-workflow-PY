@@ -68,7 +68,6 @@ docs/superpowers/plans/2026-11-05-issuer-library-reader-update.md
 docs/superpowers/plans/2026-11-06-copilot-sdk-adapter.md
 docs/superpowers/plans/2026-11-08-plan-1-library-screening.md
 docs/templates/README.md
-docs/templates/context-form.html
 docs/visualisations/MAP.md
 src/deploy_vii/assets/app.js
 src/deploy_vii/business_context.py
@@ -440,6 +439,7 @@ edited docs/superpowers/plans/2026-11-08-plan-3-primary-transactions.md
 edited docs/superpowers/plans/2026-11-08-plan-4-library-credit-data.md
 edited docs/superpowers/plans/2026-11-08-plan-5-beta-release.md
 edited docs/superpowers/plans/2026-11-08-run-expectations.md
+edited docs/templates/context-form.html
 edited examples/issuer-library/README.md
 edited src/deploy_workflow/owners/cpos_launch.py
 edited src/deploy_workflow/run_expectations.py

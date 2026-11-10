@@ -1310,12 +1310,29 @@ function resetAll() {
 }
 function today() { const d = new Date(), p = n => String(n).padStart(2, '0'); return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()); }
 const txt = x => (x === null || x === undefined) ? '' : String(x);
+/* Values build() writes only in some states (an unlisted issuer has no ticker, a basis keeps only its own block).
+   A loaded file that holds one of them where it would be dropped is refused, never trimmed. */
+function droppedProblem(o) {
+  const v = o.valuation, id = o.identity, found = [];
+  const filled = x => txt(x).trim() !== '';
+  const hold = (path, x, why) => { if (filled(x)) found.push(`${path} has the value "${txt(x)}", which the form cannot hold ${why}.`); };
+  const listed = id.listed_equity === true;
+  const basis = txt(v.basis) || BASIS_DEFAULT[listed ? 'yes' : 'no'], source = txt(v.peer_source) || 'cp_dr_public';
+  if (!listed) hold('identity.ticker', id.ticker, 'for an issuer without listed equity');
+  if (basis === 'issuer_trading' && !listed) found.push('valuation.basis has the value "issuer_trading", which needs identity.listed_equity true.');
+  if (source !== 'user_list' && source !== 'user_comps' && v.peers.length) hold('valuation.peers', Object.values(v.peers[0]).find(filled) || '', `when peer_source is ${source}`);
+  if (source === 'user_list') v.peers.forEach((r, i) => ['ev_m', 'ebitda_m', 'as_of', 'source'].forEach(k => hold(`valuation.peers[${i}].${k}`, r[k], 'when peer_source is user_list (names and tickers only)')));
+  if (basis !== 'precedents' && basis !== 'blend' && v.precedents.length) hold('valuation.precedents', Object.values(v.precedents[0]).find(filled) || '', `when basis is ${basis}`);
+  if (basis !== 'issuer_trading') for (const [k, x] of Object.entries(v.issuer_market)) hold('valuation.issuer_market.' + k, k === 'ebitda_basis' && txt(x) === 'LTM' ? '' : x, `when basis is ${basis}`);
+  if (basis !== 'user_multiple') for (const [k, x] of Object.entries(v.user_multiple)) hold('valuation.user_multiple.' + k, k === 'basis' && txt(x) === 'LTM' ? '' : x, `when basis is ${basis}`);
+  return found.join(' ');
+}
 /* Closed fields (the server enumerates them): a value outside the list refuses the whole load. */
 function closedProblem(o) {
   const vals = k => OPTIONS[k].map(x => x.v);
   const pathways = [...$('s1-pathway').options].map(x => x.value);
   const at = (path, x, list) => (txt(x) === '' || list.includes(txt(x))) ? '' : `${path} has the value "${txt(x)}", which is not one of ${list.join(', ')}.`;
-  const bool = (path, x) => (x === undefined || x === null || typeof x === 'boolean') ? '' : `${path} has the value "${txt(x)}", which is not true or false.`;
+  const bool = (path, x) => (x === undefined || typeof x === 'boolean') ? '' : `${path} has the value ${x === null ? 'null' : '"' + txt(x) + '"'}, which is not true or false.`;
   const v = o.valuation, a = o.attachments;
   const found = [at('run.run_type', o.run.run_type, vals('run_type')), at('run.pathway', o.run.pathway, pathways), at('run.case_kind', o.run.case_kind, vals('case_kind')),
     at('identity.issue_classification', o.identity.issue_classification, vals('issue_classification')), bool('identity.listed_equity', o.identity.listed_equity),
@@ -1364,7 +1381,6 @@ function fill(o) {
   vis();
   setV(s7, 'basis', txt(v.basis), 'valuation.basis', warn);
   basisTouched = getV(s7, 'basis') !== BASIS_DEFAULT[getV(s2, 'listed_equity')];
-  if (getV(s7, 'basis') === 'issuer_trading' && getV(s2, 'listed_equity') !== 'yes') warn.push('valuation.basis: issuer_trading needs identity.listed_equity true; reset to auto');
   for (const k of keysOf($('im'))) if (k in v.issuer_market) setV($('im'), k, txt(v.issuer_market[k]), 'valuation.issuer_market.' + k, warn);
   for (const k of keysOf($('um'))) {
     const src = k === 'ebitda_basis' ? 'basis' : k;
@@ -1401,7 +1417,7 @@ $('load').addEventListener('change', e => {
     catch (err) { loadMsg('Not loaded. ' + file.name + ' is not valid JSON: ' + err.message, true); return; }
     const p = shapeProblem(o);
     if (p) { loadMsg('Not loaded. ' + file.name + ': ' + p + ' Nothing was changed.', true); return; }
-    const closed = closedProblem(o);
+    const closed = closedProblem(o) || droppedProblem(o);
     if (closed) { loadMsg('Not loaded. ' + file.name + ': ' + closed + ' Nothing was changed.', true); return; }
     const warn = fill(o);
     const loaded = update(), sq = seqFor(loaded.run.run_type), target = sq.find(stepBad) || 11;
