@@ -1,0 +1,175 @@
+{
+ "frozen": "2026-11-10",
+ "authored_by": "key-writer subagent (lows2-key); not the author of the product code",
+ "undecided": [],
+ "cases": [
+  {
+   "id": "fence-f1-example-after-valid",
+   "covers": "F1: valid table, then a fenced example with a heading and a broken table; R-L19 hides the fence so the heading is not a repeat and the broken table is not read.",
+   "basis": "R-L19: a heading or table inside a fence is neither a pro forma heading nor a pro forma table; it does not count as a repeat of the heading. An opening fence has indent <= 3 and a run of 3+ backticks or tildes.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n```\n### Sources and uses\n\n| Side | Item | Amount |\n| --- | --- |\n| Source | Orphan | x |\n```\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   }
+  },
+  {
+   "id": "fence-f2-table-only-in-backtick-fence",
+   "covers": "F2: the only Sources and uses table is inside a ``` fence.",
+   "basis": "R-L19: a table inside a fence does not satisfy a requirement. An opening fence has indent <= 3 and a run of 3+ backticks or tildes.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "```\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n```\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   }
+  },
+  {
+   "id": "fence-f3-table-only-in-tilde-fence",
+   "covers": "F3: as F2 with a ~~~ fence.",
+   "basis": "R-L19; An opening fence has indent <= 3 and a run of 3+ backticks or tildes (backticks or tildes).",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "~~~\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n~~~\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   }
+  },
+  {
+   "id": "fence-f4-four-backtick-fence-holds-three-backtick-line",
+   "covers": "F4: a 4-backtick fence holds a ``` line, then the table; closed by 4 backticks. The ``` line (run 3 < 4) does not close it, so the table stays hidden.",
+   "basis": "R-SB2-1h: A fence closes only on a line of the same character with a run >= the opening run and only whitespace after.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "````\n```\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n````\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   }
+  },
+  {
+   "id": "fence-f5-inline-triple-backtick-not-a-fence",
+   "covers": "F5: '```inline``` text' has a backtick in a backtick fence's info string, so it opens no fence; the valid table after it is read.",
+   "basis": "R-SB2-1h: a backtick fence's info string has no backtick.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "```inline``` text\n\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   }
+  },
+  {
+   "id": "fence-f6-unclosed-fence-before-table",
+   "covers": "F6: an unclosed fence before the valid table runs to the end.",
+   "basis": "R-SB2-1h: an unclosed fence runs to the end.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "```\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   }
+  },
+  {
+   "id": "fence-f7-indent-four-not-a-fence",
+   "covers": "F7: a line of four spaces then ``` has indent 4, so it is not a fence; the valid table after it is read.",
+   "basis": "R-SB2-1h: An opening fence has indent <= 3 and a run of 3+ backticks or tildes (indent 4 is not a fence).",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "    ```\n\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   }
+  },
+  {
+   "id": "fence-f8-closing-line-with-trailing-text",
+   "covers": "F8: the line '``` x' has text after the run, so it does not close the fence; the table after it stays hidden to the end.",
+   "basis": "R-SB2-1h: A fence closes only on a line of the same character with a run >= the opening run and only whitespace after.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "```\ntext\n``` x\n\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   }
+  },
+  {
+   "id": "fence-f9-cp2-fenced-capitalisation-example",
+   "covers": "F9: cp2-full-valid plus a fenced example of the capitalisation heading and a table with no Cash row; hidden, so no repeat heading and no missing-Cash finding.",
+   "basis": "R-L19: a heading or table inside a fence does not count as a repeat of the heading.",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n```\n### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 83 | 125 | documented | CP-1A total of sources |\n```\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   }
+  },
+  {
+   "id": "fence-f10-fence-in-quote-ends-at-unquoted-line",
+   "covers": "F10: a fence opened inside a '> ' quote holds the table; the first unquoted line ends it, and the unquoted valid table after is read once.",
+   "basis": "R-SB2-1h: a fence opened inside a '> ' quote ends at the first unquoted line.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "> ```\n> ### Sources and uses\n> \n> | Side | Item | Amount | Currency | Basis | Source |\n> | --- | --- | --- | --- | --- | --- |\n> | Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n> | Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n> | Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n> | Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n> | Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n> | Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n> | Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   }
+  },
+  {
+   "id": "fence-f11-cp1d-register-only-in-fence",
+   "covers": "F11: the valid add-back register inside a fence only.",
+   "basis": "R-L19: a table inside a fence does not satisfy a requirement.",
+   "module": "CP-1D",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "```\n### Add-back LTM register\n\n| Add-back | Run-rate claimed | Realised to date | Amount already in LTM | Verdict | Source |\n| --- | --- | --- | --- | --- | --- |\n| Synergy savings | 50 | 20 | 20 | Supported | Management presentation, slide 12 |\n| Restructuring add-back | 10 | 0 | 0 | Rejected | Management presentation, slide 14 |\n```\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   }
+  },
+  {
+   "id": "fence-f12-non-primary-no-check",
+   "covers": "F12: F2's text on a non-Primary run; CP-2 instructions carry no pro forma constant, so no pro forma check runs.",
+   "basis": "Pro forma checking applies only to a Primary run that was sent the PRO_FORMA_* instruction (see secondary-* cases in the frozen key).",
+   "module": "CP-2",
+   "run_type": "secondary",
+   "pathway": "credit_snapshot",
+   "findings": "```\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n```\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   }
+  }
+ ]
+}
