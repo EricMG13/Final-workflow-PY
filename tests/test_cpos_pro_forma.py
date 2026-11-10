@@ -23,6 +23,9 @@ CASES = json.loads((ROOT / "tests/fixtures/primary-pro-forma/checker-cases.json"
 LOWS = json.loads((ROOT / "tests/fixtures/primary-pro-forma/checker-cases-lows.json").read_text())[
     "cases"
 ]
+LOWS_R2 = json.loads(
+    (ROOT / "tests/fixtures/primary-pro-forma/checker-cases-lows-r2.json").read_text()
+)["cases"]
 CONSTANTS = {"CP-1A": "PRO_FORMA_CP1A", "CP-1D": "PRO_FORMA_CP1D", "CP-2": "PRO_FORMA_CP2"}
 
 
@@ -91,6 +94,58 @@ def test_checker_matches_the_lows_answer_key(case):
     issues = cpos_launch.pro_forma_issues(task, text)
     assert categories(issues) == set(case["expected"]["issues"]), issues
     assert (issues == ()) == case["expected"]["accepted"]
+
+
+def findings_text(case: dict) -> str:
+    """`wrap: false` findings are the whole answer; otherwise they sit under `## Findings`."""
+    text = case["findings"]
+    if case.get("wrap", True):
+        text = "## Findings\n\n" + text + "\n## Calculations\n\nnone\n"
+    return text
+
+
+@pytest.mark.parametrize("case", LOWS_R2, ids=[c["id"] for c in LOWS_R2])
+def test_checker_matches_the_round_2_answer_key(case):
+    """R-L9 (widened) and R-L14 to R-L18 (frozen key checker-cases-lows-r2.json)."""
+    task = SimpleNamespace(instructions=cpos_launch.PRO_FORMA[case["module"]].encode())
+    issues = cpos_launch.pro_forma_issues(task, findings_text(case))
+    assert categories(issues) == set(case["expected"]["issues"]), issues
+    assert (issues == ()) == case["expected"]["accepted"]
+
+
+# Round 2 (lead condition as round 1): case id -> phrases that the instruction text and the issue
+# message must both carry.
+ROUND_2_RULES = {
+    "r2-ut-fx-line-above-heading": ["under the heading, above the table"],
+    "r2-tr-fx-line-after-table": ["under the heading, above the table"],
+    "r2-ut-fx-no-parens": ["FX rate: <rate> (<source>)", "AAA/BBB"],
+    "r2-ut-plus-sign": ["with no plus sign"],
+    "r2-ut-bare-leading-point": ["with no plus sign"],
+    "r2-ut-comma-after-4-digits": ["one to three digits"],
+    "r2-ut-total-debt-usd-lowercase": ["exactly as shown"],
+    "r2-ut-total-debt-capital-d": ["exactly as shown"],
+    "r2-tr-two-findings-headings": ["one `## Findings` section"],
+}
+
+
+@pytest.mark.parametrize("case_id", sorted(ROUND_2_RULES))
+def test_each_round_2_rule_is_in_the_instructions_and_named_in_the_message(case_id):
+    case = next(c for c in LOWS_R2 if c["id"] == case_id)
+    constant = cpos_launch.PRO_FORMA[case["module"]]
+    issues = cpos_launch.pro_forma_issues(
+        SimpleNamespace(instructions=constant.encode()), findings_text(case)
+    )
+    for phrase in ROUND_2_RULES[case_id]:
+        assert any(phrase in issue for issue in issues), (phrase, issues)
+        assert phrase in constant, phrase
+
+
+def test_a_rejected_total_label_quotes_the_expected_label():
+    for case_id in ("r2-ut-total-debt-usd-lowercase", "r2-ut-total-debt-capital-d"):
+        case = next(c for c in LOWS_R2 if c["id"] == case_id)
+        task = SimpleNamespace(instructions=cpos_launch.PRO_FORMA_CP2.encode())
+        issues = cpos_launch.pro_forma_issues(task, findings_text(case))
+        assert any("`Total debt (USD)`" in issue for issue in issues), issues
 
 
 # Lead condition: a rejecting rule is told to the model in the Primary instruction text and named in

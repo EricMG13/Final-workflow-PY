@@ -312,10 +312,11 @@ PROVISIONAL_ISSUES = {
 PRO_FORMA_CELL_RULE = (
     "Every amount cell, `Total debt / EBITDA` included, is either a plain number such as `1234.5` "
     "or `-10` (digits, optional thousands commas and decimals, a negative with a leading minus; "
-    "a comma is followed by exactly three digits, as in `1,234`; the minus is the ASCII hyphen "
-    "`-`, never the Unicode minus `\u2212`; no brackets, currency symbol, unit suffix, multiple "
-    "sign or words) or `Not supplied: <reason>` with a reason that holds at least one letter or "
-    "digit. A `Reporting unit` or `Currency` cell is never blank. "
+    "a comma is followed by exactly three digits and the first group has one to three digits, as "
+    "in `1,234`; the minus is the ASCII hyphen `-`, never the Unicode minus `\u2212`; no brackets, "
+    "currency symbol, unit suffix, multiple sign or words) or `Not supplied: <reason>` with a "
+    "reason that holds at least one letter or digit. Write a plain number such as `1,234`, `-18` "
+    "or `0.5`, with no plus sign and no bare leading point. A `Reporting unit` or `Currency` cell is never blank. "
     "Take every figure from the sources and handoffs or from `calculate`; plug nothing and "
     "invent no haircut."
 )
@@ -369,7 +370,9 @@ EBITDA_DEFINITIONS = ("EBIT plus D&A", "Adjusted EBITDA", "As Defined")
 BASES = ("documented", "user-entered")
 
 
-FINDINGS_ONLY = "A table outside `## Findings` is not read."
+FINDINGS_ONLY = (
+    "A table outside `## Findings` is not read, and the answer has one `## Findings` section."
+)
 
 
 def _header(header: Sequence[str]) -> str:
@@ -405,9 +408,12 @@ PRO_FORMA_CP2 = (
     "each currency a debt row uses, one row `Total debt (<CCY>)`, and its Currency must equal the "
     "code in the label; write no total for a currency that no debt row uses. The Cash row and "
     "every total row cite `CP-1A` in Source (cash to balance sheet, fees and OID, and the debt, "
-    "per its sources and uses). Write a `Total debt (all currencies)` row only after a line "
-    "`FX rate: <rate> (<source>)` above the table, where the rate may follow a pair such as "
-    "`EUR/USD`; a line after the table does not count.\n"
+    "per its sources and uses). Write labels exactly as shown, with the currency code in upper "
+    "case: `Total debt (USD)`, not `Total debt (usd)` or `Total Debt (USD)`. Write a "
+    "`Total debt (all currencies)` row only after a line `FX rate: <rate> (<source>)` under the "
+    "heading, above the table. `<rate>` is a plain number, optionally preceded by a currency "
+    "pair `AAA/BBB`, as in `FX rate: EUR/USD 1.25 (ECB reference rate, 2014-06-30)`; a line "
+    "after the table does not count, and neither does a line above the heading.\n"
     f"- `### {LADDER_HEADING}`: headed {_header(LADDER_HEADER)}, with exactly these rows in this "
     "order: "
     + "; ".join(f"`{row}`" for row in LADDER_ROWS)
@@ -1215,13 +1221,18 @@ def consumer_issues(task: HandoffTask, text: str) -> tuple[str, ...]:
     return ()
 
 
-# R-L6 and R-L8: a comma is followed by exactly three digits; the minus is the ASCII hyphen only.
-AMOUNT = re.compile(r"-?\d+(?:,\d{3})*(?:\.\d+)?")
+# R-L6, R-L8 and R-L16: with commas the first group has 1 to 3 digits and each later group exactly 3;
+# the minus is the ASCII hyphen only; there is no plus sign and no bare leading point.
+NUMBER = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+AMOUNT = re.compile(f"-?{NUMBER}")
 # R-L7: the reason holds a letter or digit. The lookahead scans once and cannot backtrack.
 NOT_SUPPLIED_WITH_REASON = re.compile(r"Not supplied:(?=[\W_]*[^\W_])\s.*")
 ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
-# R-L12: the rate may follow a pair such as EUR/USD.
-FX_LINE = re.compile(r"FX rate: (?:[A-Z]{3}/[A-Z]{3} )?\d[\d,]*(?:\.\d+)? \(\s*\S.*\)")
+# R-L12 and R-L15: `FX rate: <rate> (<source>)`; the rate may follow a pair such as EUR/USD.
+FX_LINE = re.compile(rf"FX rate: (?:[A-Z]{{3}}/[A-Z]{{3}} )?{NUMBER} \(\s*\S.*\)")
+# R-L9: a pair of `**`, `__`, `*` or `_` around text. An opening marker follows a non-word
+# character and a closing one precedes a non-space, so `snake_case` and `* item` are left alone.
+EMPHASIS = re.compile(r"(?<!\w)(\*\*|__|\*|_)(?=\S)((?:(?!\1).)+?)(?<=\S)\1(?!\w)")
 TOTAL_DEBT = re.compile(r"Total debt \((.+)\)")
 ALL_CURRENCIES_TOTAL = "Total debt (all currencies)"
 LIST_MARKER = re.compile(r"[-*]\s+")
@@ -1238,14 +1249,18 @@ def _amount(cell: str) -> str:
     if AMOUNT.fullmatch(cell) or NOT_SUPPLIED_WITH_REASON.fullmatch(cell):
         return ""
     base = (
-        "write a plain number (a leading ASCII minus `-` if negative) or `Not supplied: <reason>`"
+        "write a plain number such as `1,234`, `-18` or `0.5`, with no plus sign (a leading ASCII "
+        "minus `-` if negative) or `Not supplied: <reason>`"
     )
     if cell.startswith("Not supplied:"):
         return f"{base}; the reason needs at least one letter or digit"
     if "\u2212" in cell:
         return f"{base}; the minus is the ASCII `-`, never U+2212"
     if "," in cell:
-        return f"{base}; a comma must be followed by exactly three digits"
+        return (
+            f"{base}; a comma must be followed by exactly three digits and the first group has "
+            "one to three digits"
+        )
     return base
 
 
@@ -1261,9 +1276,13 @@ def _one_of(*words: str) -> Rule:
     return lambda cell: "" if cell in words else f"must be one of {', '.join(words)}"
 
 
-def _plain(line: str) -> str:
-    """R-L9: a heading or label without `**`/`__` emphasis or surrounding whitespace."""
-    return line.replace("**", "").replace("__", "").strip()
+def _plain(text: str) -> str:
+    """R-L9: a heading, label or cell without emphasis (`**`, `__`, `*`, `_`) or surrounding
+    whitespace. Read-only: delivery passes the cell on unchanged."""
+    text = text.strip()
+    while (stripped := EMPHASIS.sub(r"\2", text)) != text:
+        text = stripped
+    return text.strip()
 
 
 def _label_text(line: str) -> str:
@@ -1320,17 +1339,17 @@ def _pro_forma_table(
             rows.append(_row_cells(found))
         elif rows:
             break
-    if len(rows) < 2 or rows[0] != list(header):
+    if len(rows) < 2 or [_plain(c) for c in rows[0]] != list(header):
         return None
     if len(rows[1]) != len(header) or not all(re.fullmatch(r":?-+:?", c) for c in rows[1]):
         return None
-    return [[_plain(row[0]), *row[1:]] for row in rows[2:]]
+    return [[_plain(cell) for cell in row] for row in rows[2:]]
 
 
 def _missing(heading: str, header: Sequence[str]) -> str:
     detail = (
-        f"write `### {heading}` once inside ## Findings (a table outside `## Findings` is not "
-        f"read), a table headed {_header(header)}"
+        f"write `### {heading}` once inside the one `## Findings` section (a table outside "
+        f"`## Findings` is not read), a table headed {_header(header)}"
     )
     return _pf("pro_forma_table_missing", heading, detail + " and a separator row.")
 
@@ -1478,14 +1497,16 @@ def _total_issues(heading: str, totals: list[list[str]], used: set[str]) -> list
         if ccy is None or row[0] == ALL_CURRENCIES_TOTAL:
             continue
         if ccy[1] not in used:
-            issues.append(
-                _pf(
-                    "pro_forma_rows",
-                    heading,
-                    f"row `{row[0]}`: no debt row uses {ccy[1]}; write no total for a currency "
-                    "that no debt row uses.",
-                )
+            detail = (
+                f"row `{row[0]}`: no debt row uses {ccy[1]}; write no total for a currency "
+                "that no debt row uses."
             )
+            if ccy[1].upper() in used:  # R-L17: the label is exact, the code in upper case.
+                detail = (
+                    f"row `{row[0]}`: write the label exactly as shown, expected "
+                    f"`Total debt ({ccy[1].upper()})`, with the currency code in upper case."
+                )
+            issues.append(_pf("pro_forma_rows", heading, detail))
         elif row[1] != ccy[1]:
             issues.append(
                 _pf(
@@ -1518,7 +1539,12 @@ def _capitalisation_rows(heading: str, rows: list[list[str]], has_fx: bool) -> l
     for ccy in sorted(used):
         if sum(1 for row in totals if row[0] == f"Total debt ({ccy})") != 1:
             issues.append(
-                _pf("pro_forma_rows", heading, f"write exactly one `Total debt ({ccy})` row.")
+                _pf(
+                    "pro_forma_rows",
+                    heading,
+                    f"write exactly one `Total debt ({ccy})` row, with the label exactly as "
+                    "shown and the currency code in upper case.",
+                )
             )
     issues += _total_issues(heading, totals, used)
     if any(row[0] == ALL_CURRENCIES_TOTAL for row in totals) and not has_fx:
@@ -1526,8 +1552,9 @@ def _capitalisation_rows(heading: str, rows: list[list[str]], has_fx: bool) -> l
             _pf(
                 "pro_forma_fx",
                 heading,
-                "write the line `FX rate: <rate> (<source>)` above the table, before a "
-                "cross-currency total; a line after the table does not count.",
+                "write the line `FX rate: <rate> (<source>)` (an optional pair `AAA/BBB` before "
+                "the rate) under the heading, above the table, before a cross-currency total; a "
+                "line after the table does not count, and neither does a line above the heading.",
             )
         )
     issues += [
