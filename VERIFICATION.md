@@ -14,6 +14,42 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
 
 Offline forecast change against the key written first by another agent (d01fe3a2, 8b901cb2; not edited): CP-5 inherits Returns Blocked from a Blocked CP-4 (forecast-only edge, registry untouched); counted Limited rules for CP-2D (legal documents `none`) and CP-3C (no step-up); the CP-4 wording and the on-screen label. Frozen-case change hand-derived: c1r counted_total 0 to 1 because of F4 alone (CP-3C, no step-up; CP-5 inherits it, uncounted); F2 cannot fire there because c1r's context declares legal_documents `executed`. Exhibit recognition (both credit-agreement exhibits are executed under the launcher's HTML reader) explains only why the review probe's CP-4 row for c1r was spurious. Scope: forecast rules only, one issuer/date (TDG FY2024, older public source); no live run. 25 red tests green; the five named test files 607 passed, 1 skipped (paid). Not verified: any live module behaviour; cpos_launch.py "Will refuse" docstring left as is.
 
+## 2026-11-10 — Plan 3 live check C2: Primary pro forma pathway, Mattress Firm pre-closing (SB3, branch `claude/sb3-c2-record`)
+
+- **Scope:** public proxy for a private Primary deal, older source (2014), Mattress Firm Holding Corp. as of 2014-09-11 only. One live run: build `d52c4ef2`, `sol-medium`, modules CP-0 CP-1 CP-1A CP-1D CP-2, cap USD 15, launched only on the owner's go-ahead in the SB3 session. Run `web-f126f83e49773a9e5d16ee6af9284481`, USD 1.71466120, retained at `.superpowers/live/plan-3/c2-d52c4ef2/`. Key frozen before the run in `cases/live-mattress-firm-2014/c2/`.
+- **Rehearsal, before the paid run:** fake engine with provider keys unset (rehearsal scope only, not model evidence), at `d52c4ef2` after #70. It reached delivery: 75 passed, 5 forecast faults, all because fake handoffs state no status. The delivered `pro-forma` block (`report-view.json` sha256 `1d8f32a8…`) equals the key's `cp2-full-valid` tables cell for cell. With `FAKE_MALFORMED=CP-2`, the checker's repair text read: `Pro forma rows wrong: Pro forma capitalisation: write exactly one `Cash` row.`
+- **Result:** the run completed and wrote its report. live_check exited 1: 75 passed, 21 faults. Purpose by purpose:
+  - **Pro forma capitalisation and leverage: PASS.** Pro forma total debt 767, TLB 720, ABL 42 and as-marketed 3.29x (LP 3.3x) reach the report byte-equal to the CP-2 handoff, labelled, with missing values kept missing. The balance-sheet date 2014-07-29 matches the key. Differences:
+    - Equipment and other notes (1 + 4) were withheld as Not supplied: a run Low, a gap rather than an invention.
+    - The key's 466 adjustment does not foot; a key correction is pending.
+  - **Sources and uses: FAIL as delivered.** The table was not routed to the report. Total sources is 903, not 821, because `PRO_FORMA_CP1A` said to use the user-entered facility sizes, which put the 125 ABL commitment in place of the 42 draw. The model labelled the row "commitment, not draw" and logged the gap. Uses (821) equal the key.
+  - Every module took one repair turn, all for the same instruction conflict: the view heading was placed before the reader summary's tables. None was a pro forma repair; all three pro forma checks passed on the first draft.
+- **Faults (assessment by mx-precise, offline on a copy, no rerun; SDD `c2-assessment.md`):**
+  - Forecast: CP-1 and CP-1A came out limited via CP-0. This is the accepted A-live F3 disagreement.
+  - Forecast: CP-1D came out Restricted because its instructions name scripts the app does not expose. New; fixed by R-C2-3.
+  - Untraced numbers (15), none unsourced or wrong:
+    - 8 hand ×1000 rescales (run Lows; R-C2-7).
+    - 2 conversions stated in the handoff but done with `calculate`, written in E-notation (R-C2-4).
+    - 4 sums with a hand-scaled operand.
+    - 1 unit divisor, 0.001.
+    - "ASC 842", a standard's name.
+  - Literal 821: present in the source and in the CP-1A handoff, but not in a routed section (R-C2-2).
+- **Lead rulings R-C2-1 to R-C2-7:**
+  - R-C2-1: funded amounts only, failing closed to Not supplied.
+  - R-C2-2: route CP-1A Sources and uses as a tab of the pro-forma block.
+  - R-C2-3: a missing script alone does not restrict a module.
+  - R-C2-4: flow_check reads stated conversions and standards' names (SB2).
+  - R-C2-5: each tab states its own unit.
+  - R-C2-6: the view heading comes after the reader summary's tables.
+  - R-C2-7: keep the source unit; convert with `calculate` and say so.
+  - Key: literal 821 moves to the routed S&U tab; 466 is corrected to what the source prints.
+  - Plan 4 needs only the pro forma leverage rows, which passed.
+- **Input differed from the frozen case (found afterwards):** the run's `intake/web-f126f83e…/context.json` has `deal_terms[0].instrument` `""` where `cases/live-mattress-firm-2014/c2/context.json` has `"ABL revolver"` (size 125 kept; Term loan B kept). live_check loads the case file through the app's context editor, so the app's import probably dropped it; it has not been traced. The model still identified the ABL from the documents. Reported to the lead.
+- **Not verified:**
+  - the rendered report in a browser: the block note "USD millions" over a thousands tab was read from `report-view.json` (R-C2-5);
+  - the fixes above, live. Live proof rides on C1r, after R-C2-1/-2/-6/-7 merge;
+  - the cause of the dropped instrument name.
+
 ## 2026-11-10 — pr_size: an edited copy counts against the merge base when the base holds it (R-PRSIZE-1, branch `sb3-prsize`)
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
