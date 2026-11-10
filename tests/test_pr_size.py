@@ -298,9 +298,9 @@ def test_a_listed_directory_is_a_mismatch(tmp_path: Path) -> None:
     assert run(repo, base) == 1
 
 
-# Answer key SDD/prsize-key/scenarios.json (sha256 01ac9082...e8), recipes and expected values
-# copied verbatim except that stdout_contains is derived: "counted lines: N (limit 800)" then one
-# "copy mismatch: <path>" per mismatch (checked against the key when this was embedded).
+# Answer key tests/fixtures/pr-size/scenarios.json (sha256 01ac9082...e8), recipes and expected
+# values copied verbatim except that stdout_contains is derived: "counted lines: N (limit 800)" then
+# one "copy mismatch: <path>" per mismatch (checked against the key when this was embedded).
 # Each expected entry is [counted, exit code, mismatches].
 SCENARIOS = json.loads(
     r"""

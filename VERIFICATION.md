@@ -14,7 +14,7 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
 - **Reason:** counting every edited file by its drift from the source recounted history. A later PR touching `cpos_launch.py` would have recounted the ~720 lines already counted and reviewed in #53, whose own count was 797/800.
-- **Key:** `SDD/prsize-key/scenarios.json` (sha256 `01ac9082...e8`), 19 scenarios replayed in `tests/test_pr_size.py`; 19/19 pass. Before the change 7 failed with the key's "today" numbers (65, 85, 0, 860, 861, 100, 10). `edited_setup` no longer puts a file at base (scenarios 3 and 4); scenario 17 covers the old shape.
+- **Key:** `tests/fixtures/pr-size/scenarios.json` (sha256 `01ac9082...e8`), 19 scenarios replayed in `tests/test_pr_size.py`; 19/19 pass. Before the change 7 failed with the key's "today" numbers (65, 85, 0, 860, 861, 100, 10). `edited_setup` no longer puts a file at base (scenarios 3 and 4); scenario 17 covers the old shape.
 - **Not verified:** a diverged base other than the one in scenario 19; the CI run itself.
 
 ## 2026-11-10 — Plan 3 Task 11a: pro forma instructions, checker and Primary default CP-1D (PR #53, branch `claude/sb3-plan-3-11a`)
@@ -723,7 +723,7 @@ now classed per module (own handoff or not) and the worst class wins; the row an
 (`CP-4 BLOCKED:` plus `| CP-4 | READY |` is will_refuse); `Blocked: CP-1, CP-4` counts for each id listed
 (1j boundary). Lows: text after a backticked `Module Status` value; the markup strip is one linear pass (a 1 MB
 line is ~0.06 s); front matter is not scanned for fences; lines split on `\n`/`\r\n` only. The blockquote
-fence case already held. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
+fence case did NOT hold (a fence inside a quote was read as text); fixed in the final reader batch below. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
 134 passed after; with flow_check, backtest and live_check tests 258 passed; lead probe `probe_1j_rows.py` exit 0.
 Back-test output byte-identical to the parent's. Offline re-read of copies of retained C1 and C1n handoffs
 (`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
@@ -779,3 +779,63 @@ Sweep (CI 42746147348, `...same_hint[interrupted]`): `open_row` clicked `b[0]` o
 visit, before the list fetch had drawn it (`Cannot read properties of undefined (reading 'click')`); it now waits for the row, `launched`
 waits for the first status draw, two other list/timer reads wait too. Forced red (list delayed 400 ms) then green; 10/10 file passes.
 Not verified: other platforms' (Windows) lock-removal order; a worker started on a path where Popen succeeded then failed later.
+
+## 2026-11-10 List-fetch flake: an injected list failure lasts until the test has seen it (test race, branch `claude/sb2-list-fetch-flake`)
+
+Cause (CI timeout waiting for "Could not load recent runs"): the `listed()` route in `NewRun` aborted only the
+first list request, then cleared `fail_list`. `window.__tick()` fires every captured interval in registration order,
+and two consume `/api/runs/list`: the app-wide `watchRuns` (failure only `console.warn`, retried in 5 s) and the page
+poll's `recent()` (the only writer of the error). Registration order depends on whether boot's `watchRuns()` or
+`show()`'s `recent()` resolves first; when `watchRuns` came first it ate the single abort, `recent()` succeeded and the
+error never appeared. A test race, product correct: a real `recent()` failure shows the error; `watchRuns` failures are
+deliberately silent. Fix (tests only): `fail_list` aborts every list request until the test clears it, and
+`test_a_failed_list_fetch_is_retried...` clears it after seeing the error, before its second tick; the other `fail_list`
+user, the key test `test_the_list_error_shows_whichever_list_consumer_fires_first`, already clears it. No assertion changed.
+Evidence: key test `[watch_first]` failed 3/3 on the old helper, then passed 10/10 (and `[poll_first]` 10/10); the two
+`fail_list` tests 10/10; `tests/test_issuer_library_app.py` 56 passed.
+Not verified: the CI runner's actual interleaving; only the two registration orders forced by the key test.
+
+## 2026-11-10 R-SB2-2a positive qualifier lists
+
+`guess_kind`: the capitalised-word denylist `_QUALIFIER` is replaced by two positive lists in
+`run_expectations.py`. Credit agreement: ABL, Term Loan, Revolving, Senior, Secured, Unsecured, First/Second/Third
+Lien, Superpriority, Bridge, DIP, and `[ordinal] Amended and Restated`, in any combination, or `the|this` (optionally
+`amended and restated`); `Credit Agreement Joinder` is excluded. Lender presentation: Public, Private, Bank,
+Syndicate or none, plus `Lenders' Presentation`. Joinder In, Release From, Existing/Prior/Amended openers and
+`Investor ...` no longer match; a 10-K cover with an `Investor Lender Presentation` line stays financial_report.
+Answer key (c281e708, not edited): 27 tests red on the old rule, 201 passed in `test_run_expectations` after.
+Probes `denylist_residue`, `adv_kinds`, `r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0.
+Back-test (`expectations_backtest --out`) with origin/main's rule file vs this one on the same tree: identical.
+Not verified: qualifiers on issuer titles outside the key (a new facility word needs adding to the list).
+
+R-SB2-2a fix round 1 (review M1/M2/L1/I1): the `Amended and Restated` ordinal is a closed list (First to Tenth, 1st to
+10th; fix round 2 corrects the numeric forms, which `.title()` had turned into `1St` and which now match as written,
+`1st` or `1ST`), so `Existing/Prior/Proposed Amended and Restated ...` no longer match; facility words and `[ordinal] Amended and
+Restated` combine in any order (`AMENDED AND RESTATED REVOLVING CREDIT AGREEMENT`, file name included); qualifier words are case-sensitive (Title or UPPER), so a lower-case line start
+is no title; a credit-agreement or lender-presentation title line must end at the phrase (optional punctuation) or
+continue only with `dated ...`, `among ...`, `by and among ...`, `between ...` or a bare date, so `Revolving Credit
+Agreement borrowings were ...` is no title; that end rule applies to page title lines only (fix round 2): the file-name fallback keeps main's rule
+(folder kept, no end rule; `abl-credit-agreement-executed.pdf` and `credit-agreement/exhibit.htm` stay credit agreements)
+plus the date/exhibit prefix and the qualifier lists. Answer key (3cb7eefb, not edited): 15 fix1 tests red on 94b98f50, 230
+passed in `test_run_expectations` after. Probes `r2a_ordinal_and_combinations`, `denylist_residue`, `adv_kinds`,
+`r2_qualifier_residue`, `r2_qualifier_admits_connectives`, `r2a_info_residue`: exit 0. Back-test (`--out`) with
+origin/main's rule file vs this one on the same tree: byte-identical.
+Not verified: SUPERPRIORITY SECURED DEBTOR-IN-POSSESSION long form (I2, out of scope, stays unrecognised); titles with
+other tails (e.g. `made as of`).
+
+R-SB2-2a fix round 2 (re-review M/L): title end rule moved out of the patterns into `_hits(..., page=True)`, so the
+file-name fallback is main's rule again (`2014-10-21-8k-credit-agreements.htm` and `...-credit-agreement-joinder.htm`
+stay unrecognised); numeric ordinals match as written. Answer key (31d68dc4, not edited): 5 fix2 tests, 390 passed
+across the four test files after. Back-test (`--out`) origin/main's rule file vs this one: byte-identical.
+Not verified: titles `Amended And Restated Credit Agreement` and `CREDIT AGREEMENT (this "Agreement")` (closed lists, INFO).
+
+R-SB2-2a fix 3 (restored narrowings, round-2 Lows): connectives in the qualifier match case-insensitively
+(`Amended And Restated Credit Agreement`; ordinal list stays closed); title end rule accepts a `(this "...")` /
+`(the "...")` defined-term tail (straight or curly quotes) before the recognised tails; `\b` restored on both
+lender-presentation alternatives. Answer key (142ce81b, not edited): 5 fix3 tests red before, 397 passed after
+across the four test files. Back-test (`--out`) origin/main's rule file vs this one: byte-identical (see below).
+Not verified: defined-term tails other than `(this|the "...")`.
+
+2026-11-10 Final status-reader batch (R-SB2-1l/1m/1n, blockquote fence, 1k case and heading), `handoff_outcome.py`. Every mention of the id is read and the worst class wins (own handoff and CP-0); an id-then-status match stops at `.`/`;` before a space or line end; CP-0 text is fence-filtered like own handoffs; `> ` prefixes are stripped before the fence rule and a fence opened in a quote ends at the first unquoted line; `Blocked: cp-4` and `## Blocked: CP-4` count (the status-colon-id form counts at line start only, so CP-6 in `Ready: CP-5. Blocked: CP-6.` is not_reached). Every status word in a mention's window is read and the worst wins (`CP-4 READY for drafting but BLOCKED for filing` is will_refuse). The reader is linear: the 1 MB timing tests in the key finish in under 1 s. Key (another agent's): `rf-` and `rf2-` cases in `tests/test_handoff_outcome_status.py`; 212 pass in that file after fix round 2 (the 12 `rf-` red before round 1, 6 `rf2-` red before round 2).
+Final batch fix 2 (re-review H1): the mention window is read in a lookahead (`(?=(...))`) so only the id is consumed and a second mention of the same id inside the window is matched (`CP-4 READY ..., then CP-4 BLOCKED ...` is will_refuse, not ready); window bounds unchanged. Back-test output byte-identical to 3ec114cf.
+R-SB2-1m refinement (reader frozen after this): a `.` ends the mention window's sentence only when followed by whitespace and an uppercase letter, or by the line's end, so `CP-4 (see sec. 3) BLOCKED pending data`, `no. 2`, `3.5x` and `e.g. the` no longer cut the window (will_refuse, as on main); `;` and line end unchanged. The window stops at the next module id in any letter case (`CP-4 READY, cp-5 BLOCKED` is CP-4 ready). Key (another agent's): 7 `rm-` cases red before, `tests/test_handoff_outcome_status.py` 227 pass after; the `rm-`/`rm1-` keys check the abbr-*/lower-cp rows (`probe_pr68_adv.py` prints them with exp=None and does not check them; it exits 0); pr65, 1j, rf, rf2, rf3 probes exit 0. Review L1: the window stop is a module id at a word boundary (`\b(?i:cp-)`), so `CP-4 READY over tcp-5 BLOCKED` stays will_refuse; `rm1-` cases red before, green after. The `\b` stop also closes the pre-existing `SCP-1 BLOCKED` false ready (probe row SCP-in-word). Linear (1 MB timing probes pass). Back-test output byte-identical to 6803f35d's. Known limits, not changed (end-of-phase list): negation inside a mention (`CP-4 READY, not BLOCKED` is will_refuse, conservative); `CP-4 and CP-5 BLOCKED` (CP-4 not read, never ready); `READY for drafting; BLOCKED for filing` (ready, as `;` ends the sentence).
