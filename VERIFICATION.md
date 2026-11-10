@@ -731,6 +731,20 @@ will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `ac
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
 R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
 
+## 2026-11-10 Plan 2 PR1: acceptance UI (branch `claude/sb2-acceptance-ui`, R-SB2-7)
+
+Scope: Plan 2 Task 7 items 2 and 6 only. The Review step opens with `#expected-outcomes` (heading, caption, one `tr[data-id]` per expectation; "This run" first, then modules in run order, inherited rows under their producer, "Not counted" on uncounted rows, a "Why we expect this" disclosure) and, when `counted` is non-empty, `#run-accept` ("I accept these N items"). Start needs `#run-confirm` and, when N > 0, `#run-accept`; every reset clears both. The Start body carries `accept_limitations` when the review reply carries `counted`. `start_run` validates the optional key as a boolean (non-boolean: 400) with no other effect. `browser_check` ticks the box when shown; `live_check --accept-limitations` ticks it, and without the flag and N > 0 refuses before Start naming the flag and N.
+
+Checks (exit codes): the four test files (new_run, jobs, live_check, app) 340 passed, 2 skipped, exit 0; the 27 new tests 3 times, 0 failures; `tools/pr_size.py` 479, exit 0; `tools/quality_gate.py --base <merge-base>` 0 findings, exit 0.
+
+The browser walk goes through the real bridge review. Its review counts 4 items (`run:run-financials-management-claims`, `CP-1:cp1-no-financial-report-recognised`, `CP-4:cp4-declared-none`, `CP-3:cp3-no-quotes-no-talk`), so the walk exercises N > 0 ("Start stays disabled until the acceptance is ticked" passes in both walks).
+
+Commit 841d1d00 re-anchored two browser_check review checks to the module list and the Source files disclosure, because the verbatim caption contains "CP-0" and the first disclosure is now a table row's. `validate.py browser` gives 88 passed, 0 failed, exit 0.
+
+Info: without `--accept-limitations` and with counted items, live_check fails the walk with a RuntimeError before Start (recorded as an exception fault, exit 1), rather than a Refusal (exit 2). The box is never ticked.
+
+Not verified: `validate.py` quick and browser (the controller runs them); a real bridge review reply; real-browser layout of the table.
+
 ## 2026-11-10 Run lock items 2 and 4: a stale liveness verdict never settles a live job; any spawn exception refuses; POSIX only for item 2 (branch `claude/sb2-run-lock-items24`)
 
 Item 2 (pre-existing): `settle_job` no longer acts on `worker_alive`'s verdict. It takes the worker lock itself

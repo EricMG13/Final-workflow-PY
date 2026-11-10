@@ -328,9 +328,13 @@ function installNewRun(){
     document.querySelectorAll('[data-stage]').forEach(item=>{if(item.dataset.stage===name)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
     message('');$(name+'-step').querySelector('h2').focus();
   }
+  // Items the Review step counts; each needs the analyst's separate acceptance (#run-accept) before Start.
+  const owed=()=>Array.isArray(review?.counted)?review.counted.length:0;
+  const acceptanceMet=()=>owed()===0||$('run-accept')?.checked===true;
+  function untick(){$('run-confirm').checked=false;const box=$('run-accept');if(box)box.checked=false;}
   function controls(){
     $('review-run').disabled=busy||running;
-    $('start-run').disabled=busy||running||!review?.provider_ready||!$('run-confirm').checked;
+    $('start-run').disabled=busy||running||!review?.provider_ready||!$('run-confirm').checked||!acceptanceMet();
     $('revise-run').disabled=busy||running;
     $('resume-run').disabled=busy||running||!resumeBudgetOk();
     $('run-sources').disabled=busy||running;
@@ -479,10 +483,36 @@ function installNewRun(){
     const modules=list('ol',result.modules.map(id=>{const detail=result.module_details.find(item=>item.id===id),item=textNode('li',detail?.title||id);item.title=detail?`${id}: ${detail.purpose}`:id;return item;}));
     modules.className='review-modules';
     const ignored=result.ignored.length?result.ignored:['None'];
-    $('run-review').replaceChildren(textNode('h3',result.issuer),summary,readiness,...(resumed?[resumed]:[]),textNode('h4','Modules to run, in order'),modules,
+    const counted=Array.isArray(result.counted)?result.counted:[];
+    const accept=document.createElement('label'),box=document.createElement('input');
+    box.type='checkbox';box.id='run-accept';accept.className='start-confirm';accept.append(box,`I accept these ${counted.length} items`);
+    $('run-review').replaceChildren(textNode('h3',result.issuer),...(Array.isArray(result.expectations)?[expectedOutcomes(result)]:[]),summary,readiness,...(resumed?[resumed]:[]),textNode('h4','Modules to run, in order'),modules,
       details(`Source files · ${result.sources.length} chosen, ${result.ignored.length} ignored`,[list('ul',result.sources.map(source=>textNode('li',`${source.path} · SHA-256 ${source.sha256}`))),textNode('h4','Ignored: no module can read these'),list('ul',ignored.map(name=>textNode('li',name)))]),
       details(`Report · ${result.report_sections.length} sections, ${result.omitted.length} not produced`,[textNode('h4','Sections this run fills'),list('ul',result.report_sections.map(name=>textNode('li',name))),textNode('h4','Sections it does not produce'),list('ul',(result.omitted.length?result.omitted:['None']).map(name=>textNode('li',name)))]),
-      details('Scope and limitations',[textNode('p',result.scope),textNode('p',`The spend ceiling applies to this run folder. Each call holds up to the amount shown while in flight; this is not an estimate of total cost. Prices dated ${displayDate(result.prices_as_of)}.`)]));
+      details('Scope and limitations',[textNode('p',result.scope),textNode('p',`The spend ceiling applies to this run folder. Each call holds up to the amount shown while in flight; this is not an estimate of total cost. Prices dated ${displayDate(result.prices_as_of)}.`)]),...(counted.length?[accept]:[]));
+  }
+  const OUTCOME_NAMES={will_refuse:'Will refuse',gap:'Gap',limited:'Limited',check:'Check',information:'Information',ready:'Ready'};
+  // The forecast table: "This run" rows first, then modules in run order; an inherited row sits under its producer's rows.
+  function expectedOutcomes(result){
+    const order=['run',...result.modules],place=row=>{const home=row.inherited_from?.[0]??row.scope,at=order.indexOf(home);return at<0?order.length:at;};
+    const rows=result.expectations.map((row,index)=>[row,index]).sort(([a,i],[b,j])=>place(a)-place(b)||(a.inherited_from?.length?1:0)-(b.inherited_from?.length?1:0)||i-j).map(([row])=>row);
+    const section=document.createElement('div'),table=document.createElement('table'),head=document.createElement('tr'),body=document.createElement('tbody'),thead=document.createElement('thead');
+    section.id='expected-outcomes';
+    head.append(...['Scope','Outcome','Reason','Fix','Why'].map(label=>textNode('th',label)));thead.append(head);
+    for(const row of rows){
+      const tr=document.createElement('tr'),why=document.createElement('details'),evidence=textNode('p',`Evidence: ${row.evidence}`);
+      tr.dataset.id=row.id;
+      why.append(textNode('summary','Why we expect this'),textNode('p',row.basis),evidence);
+      const scope=textNode('td',row.scope==='run'?'This run':result.module_details.find(item=>item.id===row.scope)?.title||row.scope);
+      const outcome=textNode('td',OUTCOME_NAMES[row.outcome]||row.outcome);
+      if(!row.counted){const mark=textNode('span','Not counted');mark.className='not-counted';outcome.append(' ',mark);}
+      const reason=textNode('td',row.reason),fix=textNode('td',row.fix),basis=document.createElement('td');
+      basis.append(why);tr.append(scope,outcome,reason,fix,basis);body.append(tr);
+    }
+    table.append(thead,body);
+    section.append(textNode('h4','Expected outcomes'),textNode('p','Expected from your declarations, files and context; CP-0 confirms during the run; the model may still find less.'),table);
+    section.children[1].className='matrix-note';
+    return section;
   }
   async function poll(){
     if(polling)return;
@@ -517,8 +547,9 @@ function installNewRun(){
   });
   $('use-context').addEventListener('click',()=>{$('context-editor').contentWindow.postMessage({type:'cpos:get-context'},'*');});
   $('edit-context').addEventListener('click',()=>{if(!running)stage('context');});
-  $('revise-run').addEventListener('click',()=>{review=null;$('run-confirm').checked=false;stage('source');controls();});
+  $('revise-run').addEventListener('click',()=>{review=null;untick();stage('source');controls();});
   $('run-confirm').addEventListener('change',controls);
+  $('run-review').addEventListener('change',controls);
   $('resume-budget').addEventListener('input',controls);
   $('run-sources').addEventListener('change',()=>{
     const files=uploadable($('run-sources').files),bytes=files.reduce((sum,file)=>sum+file.size,0);
@@ -540,7 +571,7 @@ function installNewRun(){
       files.forEach(file=>body.append('sources',file,file.name));
       const result=await appRequest('/api/runs/review',body,true);
       if(!result.ok){message(result.problems.join('\n'));return;}
-      review=result;$('run-confirm').checked=false;
+      review=result;untick();
       reviewSummary(result);stage('review');
     }catch(error){message('Could not prepare the run review. Check the inputs and choose Validate and review run again. Details: '+error.message);}
     finally{busy=false;controls();}
@@ -551,16 +582,16 @@ function installNewRun(){
     try{
       const result=await appRequest('/api/runs/resume',{id:review.id,cap_usd:$('resume-budget').value,max_turns:Number(review.max_turns)||Number(review.progress?.max_turns)||Number($('run-turns').value)});
       if(!result.ok){message(result.problems.join('\n'));return;}
-      review=result;$('run-confirm').checked=false;
+      review=result;untick();
       reviewSummary(result);stage('review');
     }catch(error){message('Could not prepare the resumed run. Details: '+error.message);}
     finally{busy=false;controls();}
   });
   $('start-run').addEventListener('click',async()=>{
-    if(busy||running||!review?.provider_ready||!$('run-confirm').checked)return;
+    if(busy||running||!review?.provider_ready||!$('run-confirm').checked||!acceptanceMet())return;
     busy=true;controls();
     try{
-      await appRequest('/api/runs/start',{id:review.id,review_id:review.review_id,confirm:true});
+      await appRequest('/api/runs/start',{id:review.id,review_id:review.review_id,confirm:true,...(Array.isArray(review.counted)?{accept_limitations:owed()>0&&$('run-accept').checked}:{})});
       running=true;delete document.body.dataset.draft;stage('progress');$('open-run').hidden=true;$('another-run').hidden=true;
       if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(error=>console.warn('Notification permission request failed',error));
       watchRuns();await poll();
@@ -570,7 +601,7 @@ function installNewRun(){
       try{const status=await appRequest('/api/runs/status?id='+encodeURIComponent(review.id));if(status.state!=='reviewed'){running=true;delete document.body.dataset.draft;stage('progress');await poll();}}catch{}
     }finally{busy=false;controls();}
   });
-  $('another-run').addEventListener('click',()=>{if(running)return;review=null;context=null;delete document.body.dataset.draft;$('run-sources').value='';$('upload-list').replaceChildren();$('run-confirm').checked=false;stage('context');controls();});
+  $('another-run').addEventListener('click',()=>{if(running)return;review=null;context=null;delete document.body.dataset.draft;$('run-sources').value='';$('upload-list').replaceChildren();untick();stage('context');controls();});
   // The store is read at load, so a finished run needs a reload to appear.
   $('open-run').addEventListener('click',()=>{location.hash=$('open-run').dataset.route;location.reload();});
   window.addEventListener('beforeunload',event=>{if(running){event.preventDefault();event.returnValue='';}});

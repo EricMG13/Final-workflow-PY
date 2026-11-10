@@ -3111,6 +3111,117 @@ def test_a_transient_lock_open_error_keeps_a_held_lock_job_active(
     assert state_of(folder)["state"] == "running" and not notices
 
 
+# PR1 answer key (R-SB2-7 ruling 4): Start validates the optional `accept_limitations` (a JSON
+# boolean) and otherwise behaves the same whether it is true, false or absent. Nothing is
+# recorded as accepted: the fake worker writes a receipt, and no `accepted:` line may reach it.
+ACCEPT_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+counted=json.loads((pathlib.Path(__file__).parent/'counted.json').read_text())
+if sys.argv[1]=='review':
+ rows=[{'id':i,'scope':i.split(':')[0],'outcome':'will_refuse','reason':'r','fix':'f','basis':'b',
+  'evidence':'per method','counted':True,'inherited_from':[]} for i in counted]
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,
+  'cap_usd':job['cap_usd'],'expectations':rows,'counted':counted}))
+else:
+ with (folder/'synthetic-starts.txt').open('a') as stream: stream.write('one\\n')
+ (folder/'start-authorization.md').write_text('review_id: review-fingerprint\\nconfirm: true\\n')
+ time.sleep(.15)
+ (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'Synthetic seam.'}))
+"""
+COUNTED_ITEMS = ["CP-4:legal-none", "CP-4:from:CP-0"]
+
+
+def accept_app(tmp_path: Path, counted: list[str]) -> tuple[Application, Path, TestClient, str]:
+    app, root = make_app(tmp_path)
+    engine = tmp_path / "accept-engine"
+    engine.mkdir()
+    (engine / "bridge.py").write_text(ACCEPT_BRIDGE)
+    (engine / "store.py").write_text(FAKE_STORE)
+    (engine / "counted.json").write_text(json.dumps(counted))
+    app.engine = Engine(root=engine, python=sys.executable)
+    client = client_of(app)
+    response = review_request(client, '["annual.txt"]')
+    assert response.status_code == 200, response.text
+    return app, root, client, response.json()["id"]
+
+
+def accept_start(job_id: str, **extra: Any) -> str:
+    body = {"id": job_id, "review_id": "review-fingerprint", "confirm": True, **extra}
+    return json.dumps(body)
+
+
+def workspace_outcome(
+    app: Application, root: Path, client: TestClient, job_id: str, body: str
+) -> Any:
+    """Status, body, every file below the workspace (job id masked) and the worker's receipt."""
+    response = client.post("/api/runs/start", content=body, headers=POST_HEADERS)
+    wait_idle(app)
+    folder = root / "intake" / job_id
+    files = sorted(
+        str(path.relative_to(root)).replace(job_id, "JOB")
+        for path in root.rglob("*")
+        if path.is_file()
+    )
+    texts = {
+        name: (folder / name).read_text()
+        for name in ("synthetic-starts.txt", "start-authorization.md")
+        if (folder / name).is_file()
+    }
+    everything = "".join(
+        path.read_text(errors="replace") for path in root.rglob("*") if path.is_file()
+    )
+    return (response.status_code, response.text.replace(job_id, "JOB"), files, texts, everything)
+
+
+@pytest.mark.parametrize("counted", [COUNTED_ITEMS, []], ids=["counts-items", "counts-none"])
+def test_start_is_the_same_with_accept_limitations_true_false_or_absent(
+    tmp_path: Path, counted: list[str]
+) -> None:
+    outcomes = {}
+    for name, extra in {
+        "absent": {},
+        "true": {"accept_limitations": True},
+        "false": {"accept_limitations": False},
+    }.items():
+        app, root, client, job_id = accept_app(tmp_path / name, counted)
+        outcomes[name] = workspace_outcome(app, root, client, job_id, accept_start(job_id, **extra))
+    status, body, files, texts, _ = outcomes["absent"]
+    assert status == 202 and '"state":"running"' in body.replace(" ", "")
+    assert texts["synthetic-starts.txt"] == "one\n" and "start.claim" in "".join(files)
+    for name in ("true", "false"):
+        assert outcomes[name][:4] == outcomes["absent"][:4], f"accept_limitations={name} differs"
+    for name, outcome in outcomes.items():
+        assert "accepted:" not in outcome[4], f"{name}: an accepted line was recorded"
+        assert "accept_limitations" not in outcome[4], f"{name}: the field was recorded"
+
+
+@pytest.mark.parametrize("value", ["true", "false", 1, 0, None, [], {}, "", 1.0])
+def test_a_non_boolean_accept_limitations_is_refused_before_any_claim(
+    tmp_path: Path, value: Any
+) -> None:
+    _, root, client, job_id = accept_app(tmp_path, COUNTED_ITEMS)
+    response = client.post(
+        "/api/runs/start",
+        content=accept_start(job_id, accept_limitations=value),
+        headers=POST_HEADERS,
+    )
+    assert response.status_code == 400, f"{value!r} accepted: {response.text}"
+    folder = root / "intake" / job_id
+    assert not (folder / "start.claim").exists() and not (folder / "synthetic-starts.txt").exists()
+
+
+@pytest.mark.parametrize("extra", [{"accepted": True}, {"accept_limitation": True}, {"x": 1}])
+def test_an_unknown_start_key_is_still_refused_beside_accept_limitations(
+    tmp_path: Path, extra: dict[str, Any]
+) -> None:
+    _, root, client, job_id = accept_app(tmp_path, COUNTED_ITEMS)
+    body = accept_start(job_id, accept_limitations=True, **extra)
+    response = client.post("/api/runs/start", content=body, headers=POST_HEADERS)
+    assert response.status_code == 400, response.text
+    assert not (root / "intake" / job_id / "start.claim").exists()
+
+
 MISSING = object()
 LISTED = ["CP-4:legal-none", "CP-2:quotes-none"]
 ACCEPT_REFUSAL = "Accept the listed limitations before starting"

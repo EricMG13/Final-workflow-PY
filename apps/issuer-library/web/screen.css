@@ -356,3 +356,4 @@ th .source-link:hover{color:var(--blue-700);text-decoration:underline;text-under
 .model-original{margin:20px 0}.model-original>summary{cursor:pointer;font-weight:600;font-size:var(--fs-control);color:var(--text-secondary);min-height:32px;padding:6px 0}
 .model-original[open]>summary{margin-bottom:8px}
 .summary-line{display:block}
+#expected-outcomes{margin:0 0 16px}#expected-outcomes table{margin-top:8px}#expected-outcomes td:last-child details{margin:0}#expected-outcomes .not-counted{display:inline-block;padding:0 6px;border:1px solid var(--border-secondary);border-radius:999px;font:500 var(--fs-label)/18px 'Red Hat Text',sans-serif;color:var(--muted);white-space:nowrap}
