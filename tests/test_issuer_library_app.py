@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -270,6 +271,10 @@ def review_reply(ready: bool) -> dict[str, Any]:
     }
 
 
+# #recent-jobs is empty until the list reply renders: rows, the empty-list text or the load error.
+LIST_RENDERED = "document.getElementById('recent-jobs').childNodes.length>0"
+
+
 class NewRun:
     """The New run destination with synthetic replies; Start is counted, never executed."""
 
@@ -324,6 +329,10 @@ class NewRun:
     def settle(self) -> None:
         self.page.wait_for_timeout(50)
 
+    def rendered(self, condition: str) -> None:
+        """Wait (at most 10 s, then fail the test naming the condition) for an async render."""
+        self.page.wait_for_function(condition, timeout=10_000)
+
     def click(self, element_id: str) -> None:
         self.page.evaluate("i=>document.getElementById(i).click()", element_id)
         self.settle()
@@ -336,6 +345,7 @@ class NewRun:
     def revisit(self) -> None:
         self.page.evaluate("window.dispatchEvent(new Event('hashchange'))")
         self.settle()
+        self.rendered(LIST_RENDERED)  # the list reply: rows, the empty-list text or the load error
 
     def launch(self) -> None:
         self.context()
@@ -345,6 +355,7 @@ class NewRun:
         self.click("start-run")
 
     def stages(self) -> list[dict[str, Any]]:
+        self.rendered("document.querySelectorAll('#module-stages li').length>0")
         value: list[dict[str, Any]] = self.page.evaluate(
             "[...document.querySelectorAll('#module-stages li')].map(li=>({"
             "name:li.querySelector('strong')?.textContent,status:li.dataset.status,"
@@ -357,6 +368,7 @@ class NewRun:
         return value
 
     def recent(self) -> list[dict[str, Any]]:
+        self.rendered(LIST_RENDERED)
         value: list[dict[str, Any]] = self.page.evaluate(
             "[...document.querySelectorAll('#recent-jobs tbody tr')].map(tr=>({"
             "head:tr.querySelector('th').textContent,"
@@ -398,6 +410,7 @@ class NewRun:
         return value
 
     def text(self, element_id: str) -> str:
+        self.rendered(f"document.getElementById({json.dumps(element_id)}).textContent!==''")
         value: str = self.page.evaluate("i=>document.getElementById(i).textContent", element_id)
         return value
 
@@ -412,6 +425,7 @@ class NewRun:
         return [call["url"] for call in self.screen.calls()]
 
     def progress(self) -> list[str]:
+        self.rendered("document.querySelectorAll('#run-progress .summary-line').length>0")
         return self.screen.texts("#run-progress .summary-line")
 
     def posted(self, url: str) -> list[Any]:
@@ -800,9 +814,12 @@ def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
         "window.__thrown=true;throw new Error('render fault');}return real(tag,...rest);};}"
     )
     run.tick()
+    jobs = "document.getElementById('recent-jobs')"
+    until(run.page, f"{jobs}.textContent.startsWith('Could not load')")
     assert run.page.evaluate("window.__thrown") is True
     assert run.text("recent-jobs").startswith("Could not load")
     run.tick()
+    until(run.page, "document.querySelector('#recent-jobs table')!==null")
     assert run.screen.exists("#recent-jobs table")
 
 
@@ -871,6 +888,106 @@ def test_a_null_module_detail_does_not_break_the_row(new_run: Any) -> None:
     details = [None, {"id": "CP-1", "title": "Financial analysis"}]
     run = new_run(rows=[{**ROW_RUNNING, "module_details": details}])
     assert run.recent()[0]["cells"][1] == "running Financial analysis (2 of 2)"
+
+
+# ---- Forced delay: a read of rendered DOM must wait for the API reply that feeds the render. ----
+
+HELD_MS = 1500
+
+
+def hold_replies(monkeypatch: pytest.MonkeyPatch, *paths: str) -> None:
+    """Make the page's own fetch of each path resolve HELD_MS late, from the first request on.
+
+    NewRun builds its page from the module's CAPTURED_TIMERS script, so the page-side hold is
+    installed after the harness's fetch wrapper and before any app script runs."""
+    script = (
+        f"{{const held=window.fetch;const late={json.dumps(list(paths))};"
+        "window.fetch=(url,options)=>late.some(p=>String(url).startsWith(p))"
+        f"?new Promise(done=>setTimeout(done,{HELD_MS}))"
+        ".then(()=>held(url,options)):held(url,options);}"
+    )
+    monkeypatch.setattr(sys.modules[__name__], "CAPTURED_TIMERS", CAPTURED_TIMERS + script)
+
+
+def test_recent_waits_for_a_slow_list_reply(new_run: Any, monkeypatch: pytest.MonkeyPatch) -> None:
+    hold_replies(monkeypatch, "/api/runs/list")
+    details = [None, {"id": "CP-1", "title": "Financial analysis"}]
+    run = new_run(rows=[{**ROW_RUNNING, "module_details": details}])
+    assert run.recent()[0]["cells"][1] == "running Financial analysis (2 of 2)"
+
+
+def test_recent_waits_for_a_slow_list_reply_after_a_revisit(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    hold_replies(monkeypatch, "/api/runs/list")
+    run = new_run(rows=[ROW_DONE, ROW_RUNNING], status=STARTED)
+    run.revisit()
+    rows = run.recent()
+    assert len(rows) == 2
+    assert rows[0]["cells"] == [
+        "Covenant Refinancing",
+        "running Financial analysis (2 of 2)",
+        "running",
+        "0.10",
+    ]
+    assert rows[1]["head"] == "Southport Holdings · WEB-BBBBBBBB · 7 November 2026"
+
+
+def test_the_empty_list_text_waits_for_a_slow_list_reply(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    hold_replies(monkeypatch, "/api/runs/list")
+    run = new_run()
+    assert run.text("recent-jobs") == (
+        "No runs started from this app are recorded in this workspace yet. "
+        "Earlier runs are in the Issuer library."
+    )
+
+
+def test_a_focused_row_read_waits_for_a_slow_list_reply(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    hold_replies(monkeypatch, "/api/runs/list")
+    run = new_run(rows=[dict(ROW_RUNNING)])
+    run.revisit()
+    focused = run.page.evaluate(
+        "(()=>{window.__table=document.querySelector('#recent-jobs table');"
+        "document.querySelector('#recent-jobs tbody th button').focus();"
+        "return document.activeElement.title;})()"
+    )
+    assert focused == ID
+
+
+def test_the_review_text_waits_for_a_slow_review_reply(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    hold_replies(monkeypatch, "/api/runs/review")
+    run = new_run()
+    run.context()
+    run.folder("N/annual.txt")
+    run.click("review-run")
+    text = run.text("run-review")
+    for expected in ["Northbridge Group", "Covenant Refinancing", "31 March 2025", "USD 10.00"]:
+        assert expected in text, expected
+
+
+def test_progress_waits_for_a_slow_status_reply(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    hold_replies(monkeypatch, "/api/runs/status")
+    run = new_run(status={**STARTED, "progress": {**STARTED["progress"], "spent_usd": "0.42"}})
+    run.launch()
+    assert run.progress() == ["Running", "Running Financial analysis\u00a0(2\u00a0of\u00a02)."]
+
+
+def test_stages_wait_for_a_slow_status_reply(new_run: Any, monkeypatch: pytest.MonkeyPatch) -> None:
+    hold_replies(monkeypatch, "/api/runs/status")
+    run = new_run(status={**STARTED, "progress": {**STARTED["progress"], "spent_usd": "0.42"}})
+    run.launch()
+    first, second, _ = run.stages()
+    assert second["current"] is not None and first["current"] is None
+    assert first["status"] == "complete" and first["note"] == "Accepted"
+    assert second["status"] == "current" and second["note"] == "Running" and not second["stopped"]
 
 
 def test_new_run_lives_inside_the_app_and_keeps_what_you_entered(browser: Any) -> None:
