@@ -756,3 +756,44 @@ Sweep (CI 42746147348, `...same_hint[interrupted]`): `open_row` clicked `b[0]` o
 visit, before the list fetch had drawn it (`Cannot read properties of undefined (reading 'click')`); it now waits for the row, `launched`
 waits for the first status draw, two other list/timer reads wait too. Forced red (list delayed 400 ms) then green; 10/10 file passes.
 Not verified: other platforms' (Windows) lock-removal order; a worker started on a path where Popen succeeded then failed later.
+
+## 2026-11-10 R-SB2-2a positive qualifier lists
+
+`guess_kind`: the capitalised-word denylist `_QUALIFIER` is replaced by two positive lists in
+`run_expectations.py`. Credit agreement: ABL, Term Loan, Revolving, Senior, Secured, Unsecured, First/Second/Third
+Lien, Superpriority, Bridge, DIP, and `[ordinal] Amended and Restated`, in any combination, or `the|this` (optionally
+`amended and restated`); `Credit Agreement Joinder` is excluded. Lender presentation: Public, Private, Bank,
+Syndicate or none, plus `Lenders' Presentation`. Joinder In, Release From, Existing/Prior/Amended openers and
+`Investor ...` no longer match; a 10-K cover with an `Investor Lender Presentation` line stays financial_report.
+Answer key (c281e708, not edited): 27 tests red on the old rule, 201 passed in `test_run_expectations` after.
+Probes `denylist_residue`, `adv_kinds`, `r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0.
+Back-test (`expectations_backtest --out`) with origin/main's rule file vs this one on the same tree: identical.
+Not verified: qualifiers on issuer titles outside the key (a new facility word needs adding to the list).
+
+R-SB2-2a fix round 1 (review M1/M2/L1/I1): the `Amended and Restated` ordinal is a closed list (First to Tenth, 1st to
+10th; fix round 2 corrects the numeric forms, which `.title()` had turned into `1St` and which now match as written,
+`1st` or `1ST`), so `Existing/Prior/Proposed Amended and Restated ...` no longer match; facility words and `[ordinal] Amended and
+Restated` combine in any order (`AMENDED AND RESTATED REVOLVING CREDIT AGREEMENT`, file name included); qualifier words are case-sensitive (Title or UPPER), so a lower-case line start
+is no title; a credit-agreement or lender-presentation title line must end at the phrase (optional punctuation) or
+continue only with `dated ...`, `among ...`, `by and among ...`, `between ...` or a bare date, so `Revolving Credit
+Agreement borrowings were ...` is no title; that end rule applies to page title lines only (fix round 2): the file-name fallback keeps main's rule
+(folder kept, no end rule; `abl-credit-agreement-executed.pdf` and `credit-agreement/exhibit.htm` stay credit agreements)
+plus the date/exhibit prefix and the qualifier lists. Answer key (3cb7eefb, not edited): 15 fix1 tests red on 94b98f50, 230
+passed in `test_run_expectations` after. Probes `r2a_ordinal_and_combinations`, `denylist_residue`, `adv_kinds`,
+`r2_qualifier_residue`, `r2_qualifier_admits_connectives`, `r2a_info_residue`: exit 0. Back-test (`--out`) with
+origin/main's rule file vs this one on the same tree: byte-identical.
+Not verified: SUPERPRIORITY SECURED DEBTOR-IN-POSSESSION long form (I2, out of scope, stays unrecognised); titles with
+other tails (e.g. `made as of`).
+
+R-SB2-2a fix round 2 (re-review M/L): title end rule moved out of the patterns into `_hits(..., page=True)`, so the
+file-name fallback is main's rule again (`2014-10-21-8k-credit-agreements.htm` and `...-credit-agreement-joinder.htm`
+stay unrecognised); numeric ordinals match as written. Answer key (31d68dc4, not edited): 5 fix2 tests, 390 passed
+across the four test files after. Back-test (`--out`) origin/main's rule file vs this one: byte-identical.
+Not verified: titles `Amended And Restated Credit Agreement` and `CREDIT AGREEMENT (this "Agreement")` (closed lists, INFO).
+
+R-SB2-2a fix 3 (restored narrowings, round-2 Lows): connectives in the qualifier match case-insensitively
+(`Amended And Restated Credit Agreement`; ordinal list stays closed); title end rule accepts a `(this "...")` /
+`(the "...")` defined-term tail (straight or curly quotes) before the recognised tails; `\b` restored on both
+lender-presentation alternatives. Answer key (142ce81b, not edited): 5 fix3 tests red before, 397 passed after
+across the four test files. Back-test (`--out`) origin/main's rule file vs this one: byte-identical (see below).
+Not verified: defined-term tails other than `(this|the "...")`.
