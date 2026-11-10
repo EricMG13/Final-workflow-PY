@@ -40,6 +40,7 @@ from deploy_workflow.handoff_delivery import (
     section,
     table_row,
 )
+from deploy_workflow.handoff_outcome import unfenced
 from deploy_workflow.html_text import convert_html
 from deploy_workflow.markdown_delivery import (
     STRIP_FIGURES,
@@ -372,7 +373,8 @@ BASES = ("documented", "user-entered")
 
 
 FINDINGS_ONLY = (
-    "A table outside `## Findings` is not read, and the answer has one `## Findings` section."
+    "A table outside `## Findings` is not read, and the answer has one `## Findings` section. "
+    "Fenced code under `## Findings` is not read."
 )
 
 
@@ -1322,8 +1324,9 @@ def _under(lines: list[str], title: str, level: int) -> list[str]:
 
 def _findings(text: str) -> list[str]:
     """R-L1: the lines under `## Findings`, the only place a pro forma table is read. CRLF is
-    read as LF (R-L13)."""
-    return _under(text.splitlines(), "Findings", 2)
+    read as LF (R-L13). R-L19: fenced code is not read, so a heading or table in a fence is
+    neither a pro forma table nor a repeat of one (the delivery reads the unfenced text)."""
+    return _under(unfenced(text), "Findings", 2)
 
 
 def _row_cells(row: str) -> list[str]:

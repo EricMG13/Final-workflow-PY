@@ -286,3 +286,58 @@ def test_primary_defaults_add_cp1d_and_secondary_does_not(tmp_path):
 def test_explicit_module_list_is_taken_as_given(tmp_path):
     prepared = prepared_for(tmp_path, "credit_snapshot", "primary", "executed", ["CP-2"])
     assert "CP-1D" not in prepared.plan.run.requested_modules
+
+
+FENCES = json.loads((ROOT / "tests/fixtures/primary-pro-forma/fence-cases.json").read_text())[
+    "cases"
+]
+FENCE_RULE = "Fenced code under `## Findings` is not read."
+
+
+def fence_instructions(case: dict) -> bytes:
+    """A case on a non-Primary run is checked by instructions that carry no pro forma constant."""
+    if case["id"] == "fence-f12-non-primary-no-check":
+        return b"Method."
+    return cpos_launch.PRO_FORMA[case["module"]].encode()
+
+
+@pytest.mark.parametrize("case", FENCES, ids=[c["id"] for c in FENCES])
+def test_checker_matches_the_fence_answer_key(case):
+    """R-L19 (frozen key fence-cases.json): fenced code under `## Findings` is not read."""
+    issues = cpos_launch.pro_forma_issues(
+        SimpleNamespace(instructions=fence_instructions(case)), findings_text(case)
+    )
+    assert categories(issues) == set(case["expected"]["issues"]), issues
+    assert (issues == ()) == case["expected"]["accepted"]
+
+
+@pytest.mark.parametrize("module", sorted(CONSTANTS))
+def test_the_fence_rule_is_told_in_every_primary_instruction(module):
+    assert FENCE_RULE in cpos_launch.PRO_FORMA[module]
+
+
+def test_an_accepted_cp2_fence_case_delivers_the_key_block_without_the_fenced_copy(tmp_path):
+    """Checker/delivery agreement: what the checker accepts delivers the unfenced table only."""
+    from test_cpos_pro_forma_delivery import CP2_RUN, PROSE, TAIL, deliver
+
+    from deploy_vii.report_view import ReportView
+
+    delivered = json.loads(
+        (ROOT / "tests/fixtures/primary-pro-forma/delivered-block.json").read_text()
+    )["pro-forma"]
+    case = next(c for c in FENCES if c["id"] == "fence-f9-cp2-fenced-capitalisation-example")
+    assert case["expected"]["accepted"]
+    head = "# CP-2 Acme Corp\n\n## Request\nAcme Corp pro forma.\n\n## Sources\nsrc.pdf\n\n"
+    text = head + "## Findings\n\n" + PROSE + case["findings"] + "\n\n" + TAIL
+    files = deliver(tmp_path, CP2_RUN, "CP-2", text, "primary")
+    block = next(
+        b
+        for b in ReportView.model_validate_json(files["report-view.json"]).blocks
+        if b.block_id == "pro-forma"
+    )
+    for table, key in (
+        (block, delivered["capitalisation"]),
+        (block.tabs[0], delivered["leverage"]),
+    ):
+        assert [table.row_header, *table.columns] == key["header"]
+        assert [[r.label, *(c.text for c in r.cells)] for r in table.rows] == key["rows"]
