@@ -693,7 +693,7 @@ def test_standard_names_are_not_figures(tmp_path, monkeypatch, line: str) -> Non
         ("ASC leases, effective 842", {"842"}),
         ("ASC 842 and also 842 drawn", {"842"}),  # the bare occurrence still counts
         ("ASCENT 842", {"842"}),  # a prefix is a whole word
-        ("Adjusted per ASC\n\n1234 total", {"1234"}),  # the prefix does not reach the next line
+        ("Adjusted per ASC\n\n5678 total", {"5678"}),  # the prefix does not reach the next line
     ],
 )
 def test_standard_prefix_must_directly_precede_the_number(
