@@ -1151,6 +1151,9 @@ def test_a_resume_drops_forecast_rows_of_retained_modules_and_keeps_inherited_on
     assert set(result["retained_modules"]) == retained
     assert all(r["scope"] not in retained for r in result["expectations"])
     assert "CP-4:cp4-declared-none" not in result["counted"]
+    # CP-4 is retained, so nothing offers to run without it; no other module is declared out.
+    assert plain["without"] == {"CP-4": ["CP-4"]}
+    assert "CP-4" not in result["without"] and result["without"] == {}
     assert all(i.split(":")[0] not in retained for i in result["counted"])
     assert result["expectations"] == [
         r for r in plain["expectations"] if r["scope"] not in retained
@@ -1175,3 +1178,14 @@ def test_a_resume_that_retains_nothing_and_holds_no_answer_has_empty_lists(tmp_p
     bridge.start(folder)
     result = bridge.review(resumed(folder, job_of(folder)))
     assert result["reruns"] == [] and result["retained_outcomes"] == []
+
+
+def test_reruns_follow_the_plan_order_not_the_alphabet(tmp_path, provider):
+    # Ruling 10 "in module order". Covenant plan order: CP-0, CP-1, CP-1A, CP-2, CP-4, CP-2D,
+    # CP-3C, CP-5; alphabetically CP-2D would come before CP-4. CP-1's record is damaged, so
+    # CP-0 stays and every later accepted module is a re-run.
+    kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4", "CP-2D"}
+    folder, request, _ = stopped_run(tmp_path, provider, kept)
+    (module_dir(folder, "CP-1") / "1.review.json").write_bytes(b"{not json")
+    result = reruns_of(folder, request)
+    assert [r["module"] for r in result["reruns"]] == ["CP-1", "CP-1A", "CP-2", "CP-4", "CP-2D"]
