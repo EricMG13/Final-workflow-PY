@@ -818,7 +818,8 @@ rendered; a slow runner read an empty `#recent-jobs`. A test race, product corre
 `#recent-jobs` to hold a node (rows, the empty-list text or the load error), `stages()` for `#module-stages li`,
 `progress()` for `#run-progress .summary-line`, `text(id)` for non-empty text. No test, expected value or `hold_replies` changed.
 Evidence: the 7 forced-delay key tests (`hold_replies`, 1.5 s) failed 7/7 on the old helpers and pass now; the file passes 63/63, 5 runs.
-Not verified: the CI runner's own timing; reads after `tick()` of a changed (not first) render, `hidden`/`disabled`/`exists` booleans and direct `page.evaluate` clicks are still unwaited.
+Review fix (Medium): `test_a_failed_render_is_retried_on_the_next_refresh` read `#recent-jobs` after `tick()` while the boot table still satisfied the helper's wait; it now `until`-waits for the `Could not load` text before its asserts. Scratch copy outside the worktree with the reviewer's `delay_next` (one-shot variant, so only the first tick's list reply is held 1.5 s): pre-fix exit 1, with the line exit 0; real worktree 30/30 passes, file 63/63.
+Not verified: the CI runner's own timing; reads after `tick()` of other changed (not first) renders, `hidden`/`disabled`/`exists` booleans and direct `page.evaluate` clicks are still unwaited.
 
 ## 2026-11-10 R-SB2-2a positive qualifier lists
 

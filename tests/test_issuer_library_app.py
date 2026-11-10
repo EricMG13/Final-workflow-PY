@@ -814,6 +814,8 @@ def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
         "window.__thrown=true;throw new Error('render fault');}return real(tag,...rest);};}"
     )
     run.tick()
+    jobs = "document.getElementById('recent-jobs')"
+    until(run.page, f"{jobs}.textContent.startsWith('Could not load')")
     assert run.page.evaluate("window.__thrown") is True
     assert run.text("recent-jobs").startswith("Could not load")
     run.tick()
