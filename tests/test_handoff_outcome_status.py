@@ -281,3 +281,41 @@ def test_1e_v_blocked_in_fourth_cell_will_refuse() -> None:
 def test_1e_w_other_modules_row_does_not_set_cp1() -> None:
     cp0 = "| CP-4 — legal | x | BLOCKED |\n"
     assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "unconfirmed"
+
+
+@pytest.mark.parametrize(
+    "first_cell",
+    [
+        "CP-4",
+        "CP-4 — legal",
+        "CP-4 – legal",
+        "CP-4 - legal",
+        "CP-4: Legal",
+        "cp-4",
+        "**CP-4**",
+    ],
+    ids=lambda c: f"1j-is-row-{c}",
+)
+def test_1j_is_the_row_blocked_will_refuse(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | BLOCKED |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "will_refuse"
+
+
+NOT_CP4_CELLS = ["CP-4.1", "CP-4a", "CP-40", "CP-4-1", "CP-4 (draft)"]
+
+
+@pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-blocked-{c}")
+def test_1j_not_the_row_blocked_then_real_row_ready(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | BLOCKED |\n| CP-4 | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "ready"
+
+
+@pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-ready-{c}")
+def test_1j_not_the_row_ready_alone_is_not_reached(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "not_reached"
+
+
+def test_1j_lead_probe_cp4_1_blocked_then_cp4_ready() -> None:
+    cp0 = "| CP-4.1 | BLOCKED |\n| CP-4 | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "ready"
