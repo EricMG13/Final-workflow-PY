@@ -3174,7 +3174,9 @@ def workspace_outcome(
     return (response.status_code, response.text.replace(job_id, "JOB"), files, texts, everything)
 
 
-@pytest.mark.parametrize("counted", [COUNTED_ITEMS, []], ids=["counts-items", "counts-none"])
+# The Task 6a gate supersedes #74's "accept_limitations has no effect" condition for a review that
+# counts items (R-SB2-6 ruling 2); it still holds when nothing is counted.
+@pytest.mark.parametrize("counted", [[]], ids=["counts-none"])
 def test_start_is_the_same_with_accept_limitations_true_false_or_absent(
     tmp_path: Path, counted: list[str]
 ) -> None:
@@ -3194,6 +3196,28 @@ def test_start_is_the_same_with_accept_limitations_true_false_or_absent(
     for name, outcome in outcomes.items():
         assert "accepted:" not in outcome[4], f"{name}: an accepted line was recorded"
         assert "accept_limitations" not in outcome[4], f"{name}: the field was recorded"
+
+
+@pytest.mark.parametrize(
+    ("fields", "status"),
+    [({}, 400), ({"accept_limitations": False}, 400), ({"accept_limitations": True}, 202)],
+    ids=["absent", "false", "true"],
+)
+def test_a_stored_review_that_counts_items_needs_acceptance_to_start(
+    tmp_path: Path, fields: dict[str, Any], status: int
+) -> None:
+    """The gate reads the stored review's `counted`, never the request or the page's reply."""
+    app, root, client, job_id = accept_app(tmp_path, COUNTED_ITEMS)
+    response = client.post(
+        "/api/runs/start", content=accept_start(job_id, **fields), headers=POST_HEADERS
+    )
+    assert response.status_code == status, response.text
+    if status == 400:
+        assert response.text == "Accept the listed limitations before starting\n"
+        assert_nothing_started(app, root, job_id)
+    else:
+        wait_idle(app)
+        assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
 
 
 @pytest.mark.parametrize("value", ["true", "false", 1, 0, None, [], {}, "", 1.0])
@@ -3278,7 +3302,9 @@ def test_start_with_counted_limitations_accepted_starts(tmp_path: Path) -> None:
     assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
 
 
-@pytest.mark.parametrize("fields", [{}, {"accept_limitations": False}])
+@pytest.mark.parametrize(
+    "fields", [{}, {"accept_limitations": False}, {"accept_limitations": True}]
+)
 def test_start_with_nothing_counted_needs_no_acceptance(
     tmp_path: Path, fields: dict[str, Any]
 ) -> None:

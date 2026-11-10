@@ -1132,3 +1132,17 @@ def test_a_context_changed_after_launch_pinned_it_is_stale_and_records_nothing(
         assert (run_dir / "sentinel.txt").read_text() == "kept"
     else:
         assert not run_dir.exists(), "launch's own run folder was left behind"
+
+
+def test_the_kept_expectations_have_exactly_the_six_keys_of_the_approved_review():
+    """Ruling 12: `reruns` and `retained_outcomes` stay in review.json only."""
+    assert len(bridge.EXPECTATION_KEYS) == 6
+    assert set(bridge.EXPECTATION_KEYS) == {
+        "review_id",
+        "issue_classification",
+        "documents",
+        "expectations",
+        "counted",
+        "without",
+    }
+    assert not {"reruns", "retained_outcomes"} & set(bridge.EXPECTATION_KEYS)

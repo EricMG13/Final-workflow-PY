@@ -825,7 +825,12 @@ def new_run(  # noqa: PLR0915, RUF100
     )
     page.screenshot(path=str(S / f"{name}-review.png"))
     page.check("#run-confirm")
-    if page.locator("#run-accept").count():
+    owed = page.locator("#expected-outcomes tr[data-id]:not(:has(.not-counted))").count()
+    note(
+        page.locator("#run-accept").count() == int(owed > 0),
+        f"{name}: the acceptance box exists exactly when the review counts items ({owed})",
+    )
+    if owed:
         note(
             page.is_disabled("#start-run"),
             f"{name}: Start stays disabled until the acceptance is ticked",

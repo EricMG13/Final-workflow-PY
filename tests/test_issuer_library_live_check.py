@@ -5,6 +5,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -600,12 +601,15 @@ def review_page(browser: Any, items: int) -> Any:
     return page
 
 
-def walk_on(monkeypatch: pytest.MonkeyPatch, page: Any, flag: bool) -> None:
+def walk_on(
+    monkeypatch: pytest.MonkeyPatch, page: Any, flag: bool, frozen: int | None = None
+) -> None:
     for name in ("fill_form", "check_run"):
         monkeypatch.setattr(live_check, name, lambda *a, **k: None)
     monkeypatch.setattr(live_check, "check_review", lambda *a, **k: [])
     bc = SimpleNamespace(errors_of=lambda page: [], note=lambda *a, **k: None)
-    args = SimpleNamespace(accept_limitations=flag, minutes=1, case_data=None)
+    case = None if frozen is None else {"expected-outcomes": {"counted_total": frozen}}
+    args = SimpleNamespace(accept_limitations=flag, minutes=1, case_data=case)
     browser = SimpleNamespace(new_page=lambda **options: page)
     live_check.walk(bc, browser, args, Path("."), {})
 
@@ -650,3 +654,40 @@ def test_the_walk_needs_no_flag_when_nothing_is_counted(
     page = review_page(browser, 0)
     walk_on(monkeypatch, page, flag)
     assert page.evaluate("window.__starts") == 1
+
+
+# PR2 answer key (lead review of #74): the flag accepts exactly the N the case froze, and the walk
+# says which N it accepts. A different N is a Refusal before Start (the box stays unticked).
+@pytest.mark.browser
+def test_the_flag_accepts_the_frozen_number_and_prints_it(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    page = review_page(browser, 4)
+    walk_on(monkeypatch, page, True, frozen=4)
+    assert page.evaluate("document.getElementById('run-accept').checked")
+    assert page.evaluate("window.__starts") == 1
+    assert re.search(r"\b4\b", capsys.readouterr().out), "the accepted N was not printed"
+
+
+@pytest.mark.browser
+@pytest.mark.parametrize(("items", "frozen"), [(4, 3), (4, 5), (0, 2)])
+def test_the_flag_refuses_before_start_when_n_differs_from_the_frozen_count(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, items: int, frozen: int
+) -> None:
+    page = review_page(browser, items)
+    with pytest.raises(live_check.Refusal) as raised:
+        walk_on(monkeypatch, page, True, frozen=frozen)
+    assert str(items) in str(raised.value) and str(frozen) in str(raised.value)
+    assert page.evaluate("window.__starts") == 0, "Start was clicked"
+    assert not page.evaluate("!!document.getElementById('run-accept')?.checked"), "ticked"
+
+
+@pytest.mark.browser
+def test_the_flag_with_nothing_counted_proceeds_and_says_so(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    page = review_page(browser, 0)
+    walk_on(monkeypatch, page, True, frozen=0)
+    assert page.evaluate("window.__starts") == 1
+    out = capsys.readouterr().out.lower()
+    assert "nothing" in out and "counted" in out, out
