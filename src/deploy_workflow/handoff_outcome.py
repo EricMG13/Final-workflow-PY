@@ -7,7 +7,11 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
    case, may be single- or double-quoted and may end in ` # comment`; a leading BOM is
    ignored), a line that starts with the label `Module Status:` (case-insensitive; bold,
    backticks, a `> ` quote, a list marker and a final period allowed; a table row never counts;
-   a line inside a ``` code fence never counts, front matter excepted), plus a
+   a line inside a code fence never counts, nor does a status word there, front matter
+   excepted; fences per CommonMark: an
+   opening line is indented at most 3 spaces and starts with 3+ backticks or tildes, a backtick
+   fence's info string has no backtick, and it closes only on a line of the same character,
+   at least as long a run and only whitespace after; unclosed runs to the end), plus a
    status word after the module id (below). The most severe value wins:
    will_refuse > limited > ready.
 
@@ -99,6 +103,31 @@ def module_status(line: str) -> str | None:
     return value if value.lower() in MODULE_STATUS else None
 
 
+def fence_run(line: str) -> tuple[str, int, str]:
+    """(character, run length, rest) of a possible fence line (indent <= 3), else ("", 0, "")."""
+    stripped = line.lstrip(" ")
+    if len(line) - len(stripped) > 3 or stripped[:1] not in ("`", "~"):
+        return "", 0, ""
+    rest = stripped.lstrip(stripped[0])
+    return stripped[0], len(stripped) - len(rest), rest
+
+
+def unfenced(text: str) -> list[str]:
+    """The lines of `text` outside code fences (the fence lines themselves are dropped)."""
+    kept: list[str] = []
+    fence = ("", 0)  # (character, run length) of the open fence
+    for line in text.removeprefix("\ufeff").splitlines():
+        char, run, rest = fence_run(line)
+        if fence[0]:
+            if char == fence[0] and run >= fence[1] and not rest.strip():
+                fence = ("", 0)
+        elif run >= 3 and not (char == "`" and "`" in rest):
+            fence = (char, run)
+        else:
+            kept.append(line)
+    return kept
+
+
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
     """The first of `words` within 70 characters after the module id, no other module id between."""
     pattern = rf"\b{re.escape(module)}\b(?:(?!CP-)[^\n]){{0,70}}?\b({'|'.join(words)})\b"
@@ -114,13 +143,13 @@ def own_status(module: str, own: str) -> tuple[str, str] | None:
         for key, value in front_matter(own)
         if (key, value.lower()) in FIELDS
     ]
-    fenced = False
-    for line in own.removeprefix("\ufeff").splitlines():
-        if line.lstrip().startswith("```"):
-            fenced = not fenced
-        elif not fenced and (value := module_status(line)):
-            found.append((MODULE_STATUS[value.lower()], f"Module Status: {value} in {name}"))
-    if word := status_word(module, own, tuple(STATUS)):
+    prose = unfenced(own)
+    found.extend(
+        (MODULE_STATUS[value.lower()], f"Module Status: {value} in {name}")
+        for line in prose
+        if (value := module_status(line))
+    )
+    if word := status_word(module, "\n".join(prose), tuple(STATUS)):
         found.append((STATUS[word], f"{word} in {name}"))
     # ready only when nothing limited or will_refuse is present: max by severity gives that.
     return max(found, key=lambda f: SEVERITY[f[0]], default=None)

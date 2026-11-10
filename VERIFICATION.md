@@ -575,3 +575,7 @@ Checks: keys red then green; offline re-read on a copy (no provider): C1 flow fa
 162600 only (out of scope), CP-4 limited, CP-1 limited (forecast ready: a real disagreement);
 back-test output unchanged; `validate.py` quick exit 0, browser 86/0; quality gate 0; mx-precise
 review APPROVE (Low: O(n²) strip loop on a 1 MB line). Not verified: a live run after this change.
+Lead review of #55 (Medium): the fence rule toggled on any line starting with three backticks, so
+inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per CommonMark (R-SB2-1h):
+opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
+same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
