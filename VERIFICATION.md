@@ -721,10 +721,12 @@ now classed per module (own handoff or not) and the worst class wins; the row an
 (`CP-4 BLOCKED:` plus `| CP-4 | READY |` is will_refuse); `Blocked: CP-1, CP-4` counts for each id listed
 (1j boundary). Lows: text after a backticked `Module Status` value; the markup strip is one linear pass (a 1 MB
 line is ~0.06 s); front matter is not scanned for fences; lines split on `\n`/`\r\n` only. The blockquote
-fence case already held. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
+fence case did NOT hold (a fence inside a quote was read as text); fixed in the final reader batch below. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
 134 passed after; with flow_check, backtest and live_check tests 258 passed; lead probe `probe_1j_rows.py` exit 0.
 Back-test output byte-identical to the parent's. Offline re-read of copies of retained C1 and C1n handoffs
 (`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
 will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `actual_of`); a live run.
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
 R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
+
+2026-11-10 Final status-reader batch (R-SB2-1l/1m/1n, blockquote fence, 1k case and heading), `handoff_outcome.py`. Every mention of the id is read and the worst class wins (own handoff and CP-0); an id-then-status match stops at `.`/`;` before a space or line end; CP-0 text is fence-filtered like own handoffs; `> ` prefixes are stripped before the fence rule and a fence opened in a quote ends at the first unquoted line; `Blocked: cp-4` and `## Blocked: CP-4` count (the status-colon-id form may also start a sentence). Strip stays linear. Key (another agent's): `rf-` cases in `tests/test_handoff_outcome_status.py`, 12 red before, 180 passed after.
