@@ -9,6 +9,7 @@ from pathlib import Path
 
 import pytest
 
+from deploy_vii.registry import plan
 from deploy_vii.report_view import ReportView
 from deploy_workflow.handoff_delivery import (
     HEADINGS,
@@ -21,10 +22,8 @@ from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
 from deploy_workflow.model.handoff import _pages
 from deploy_workflow.model.providers import build
 from deploy_workflow.model.turn import ToolCall, Turn, Usage
-from deploy_vii.registry import plan
 from deploy_workflow.owners import cpos_launch
 from deploy_workflow.owners.cpos import HandoffTask, _checked_handoff
-from deploy_workflow.run_expectations import Item
 from deploy_workflow.owners.cpos_launch import (
     METHODS,
     Accepted,
@@ -34,6 +33,7 @@ from deploy_workflow.owners.cpos_launch import (
     prepare,
     without_for,
 )
+from deploy_workflow.run_expectations import Item
 
 ROOT = Path(__file__).resolve().parents[1]
 RULING = ROOT / "docs/rulings/2026-11-05-live-loop-tests.md"  # configs: sol-medium
@@ -1367,7 +1367,8 @@ def test_legal_none_will_refuse_offers_run_without_exactly_as_the_key_has_it(tmp
     prepared = prepared_with(tmp_path, context, report_folder(tmp_path / "x"))
     assert list(prepared.ordered) == scenario["modules"]
     assert without_of(prepared) == scenario["expected"]["without"]
-    refusals = [i for i in prepared.expectations if i["outcome"] == "will_refuse"]
+    refusals = [i for i in prepared.expectations if i["outcome"] == "will_refuse" and i["counted"]]
+    # CP-5's inherited will_refuse row (R-ALIVE F1) is uncounted, so only CP-4 is a counted refusal.
     assert [i["scope"] for i in refusals] == ["CP-4"]
     # Plan fact: the files and the refusal are unchanged by the forecast.
     assert prepared.plan.run.pathway == scenario["pathway"]

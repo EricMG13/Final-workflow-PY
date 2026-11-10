@@ -70,14 +70,14 @@
     "Records whether CP-4 ends as an accepted Blocked handoff or stops the run",
     "Records what downstream modules (CP-3C, CP-5) and the report then show",
     "Records what the run cost",
-    "The Will refuse wording and the 'Run without' fix are set from this run",
-    "Forecast equals outcome for every module (CP-4 Will refuse; CP-3C and CP-5 Limited by inheritance; all others Ready)"
+    "The Returns Blocked wording, the cp4-declared-none reason and fix and the 'Run without' fix are set by R-ALIVE-rulings.md (Wording, Checkpoint A)",
+    "Forecast equals outcome for every module (CP-4 Returns Blocked; CP-5 Blocked through CP-4; CP-2D and CP-3C Limited; all others Ready), except CP-1, CP-1A and CP-2, whose disagreement is the accepted F3 deferral in R-ALIVE-rulings.md"
   ],
   "observe": [
     "Whether CP-4 ends as an accepted Blocked handoff or stops the run",
     "What CP-3C, CP-5 and the report show after CP-4",
     "Total cost in USD against the 25 cap",
     "Whether the run reached delivery",
-    "Whether CP-2D ran normally (forecast Ready)"
+    "Whether CP-2D ran normally (forecast Limited: legal documents declared none)"
   ]
 }

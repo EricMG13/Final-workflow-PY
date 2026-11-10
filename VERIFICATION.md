@@ -10,6 +10,10 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — A-live PR 1 (F1/F2/F4, Returns Blocked) (R-ALIVE-rulings.md, branch `claude/sb2-alive-forecast`)
+
+Offline forecast change against the key written first by another agent (d01fe3a2, 8b901cb2; not edited): CP-5 inherits Returns Blocked from a Blocked CP-4 (forecast-only edge, registry untouched); counted Limited rules for CP-2D (legal documents `none`) and CP-3C (no step-up); the CP-4 wording and the on-screen label. Frozen-case change hand-derived: c1r counted_total 0 to 1 because of F4 alone (CP-3C, no step-up; CP-5 inherits it, uncounted); F2 cannot fire there because c1r's context declares legal_documents `executed`. Exhibit recognition (both credit-agreement exhibits are executed under the launcher's HTML reader) explains only why the review probe's CP-4 row for c1r was spurious. Scope: forecast rules only, one issuer/date (TDG FY2024, older public source); no live run. 25 red tests green; the five named test files 607 passed, 1 skipped (paid). Not verified: any live module behaviour; cpos_launch.py "Will refuse" docstring left as is.
+
 ## 2026-11-10 — Verification record: 2026-11-08 entries archived (SB3, branch `claude/sb3-verification-archive-2`)
 
 - Moved verbatim on main 6ed04ff5 (part 2 of 2, after #85): the 271 lines of the fourteen 2026-11-08 entries, from "Plan 3 Task 9" to "Run activity page", with no other dates. They go to the top of docs/VERIFICATION-ARCHIVE.md, above the 2026-11-07 entries, so it stays newest first; the header line names the move.
