@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -18,6 +19,7 @@ from issuer_library_browser import (
     DEFAULT_APP,
     EMPTY_STORE,
     EMPTY_WORKSPACE,
+    NO_TIMERS,
     ORIGIN,
     ROOT,
     WEB,
@@ -33,6 +35,89 @@ from issuer_library_browser import (
 )
 
 pytestmark = pytest.mark.browser
+
+
+def late_replies(prefix: str, ms: int) -> str:
+    """Page script: the reply to each fetch of a path under prefix reaches the page ms late.
+
+    The request is sent at once (so the harness records it); only the answer is delayed."""
+    return (
+        f"{{const held=window.fetch;window.fetch=(url,options)=>{{const reply=held(url,options);"
+        f"return String(url).startsWith({json.dumps(prefix)})"
+        f"?reply.then(r=>new Promise(done=>setTimeout(()=>done(r),{int(ms)}))):reply;}};}}"
+    )
+
+
+# Slow-reply mode for sweeping the file for reads that do not wait: FW_SLOW_API_MS=300 delays every
+# /api/ answer in the page by that many ms, in New run pages (CAPTURED_TIMERS) and in open_store
+# pages. Unset (the default), nothing changes.
+SLOW_API = (
+    late_replies("/api/", int(os.environ["FW_SLOW_API_MS"]))
+    if os.environ.get("FW_SLOW_API_MS")
+    else ""
+)
+CAPTURED_TIMERS = CAPTURED_TIMERS + SLOW_API
+
+
+@pytest.fixture(autouse=True)
+def cpu_throttle(request: pytest.FixtureRequest, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Off unless FW_CPU_THROTTLE=<rate> (e.g. 4): every page this file's helpers open runs that
+    many times slower (Chromium CDP Emulation.setCPUThrottlingRate), set before the page loads."""
+    rate = os.environ.get("FW_CPU_THROTTLE")
+    if not rate or "browser" not in request.fixturenames:
+        return
+    browser = request.getfixturevalue("browser")
+    new_context = browser.new_context
+
+    def throttled_context(**options: Any) -> Any:
+        context = new_context(**options)
+        new_page = context.new_page
+
+        def throttled_page() -> Any:
+            page = new_page()
+            context.new_cdp_session(page).send(
+                "Emulation.setCPUThrottlingRate", {"rate": float(rate)}
+            )
+            return page
+
+        monkeypatch.setattr(context, "new_page", throttled_page)
+        return context
+
+    monkeypatch.setattr(browser, "new_context", throttled_context)
+
+
+# Page script, installed outermost (after any late reply): window.__replied counts, per request
+# path, the replies the app has finished reading (body consumed, or the request failed). It is
+# bumped before the app's own continuation runs, so a test that waits on it reads a settled page.
+COUNT_REPLIES = (
+    "{const held=window.fetch;window.__replied={};"
+    "const done=url=>{const k=String(url).split('?')[0];"
+    "window.__replied[k]=(window.__replied[k]||0)+1;};"
+    "window.fetch=async(url,options)=>{let reply;"
+    "try{reply=await held(url,options);}catch(error){done(url);throw error;}"
+    "for(const name of ['json','text']){const read=reply[name].bind(reply);"
+    "reply[name]=async()=>{try{return await read();}finally{done(url);}};}"
+    "return reply;};}"
+)
+# A click that sends one request: the helper that performs it returns once the reply is in.
+REPLY_TO_CLICK = {
+    "review-run": "/api/runs/review",
+    "start-run": "/api/runs/start",
+    "quit-library": "/api/quit",
+}
+
+
+def wait_for_replies(page: Any, path: str) -> None:
+    """Wait (at most 10 s, then fail naming the path) until every request sent to path has been
+    answered and read by the app. No request sent (the click was refused) is nothing to wait for.
+    A request the page itself delays before calling fetch (hold_replies, a first-list delay) is not
+    in window.__calls yet, so this returns at once for it; those tests wait on the render."""
+    page.wait_for_function(
+        "p=>(window.__replied[p]||0)>=window.__calls.filter(c=>c.url.split('?')[0]===p).length",
+        arg=path,
+        timeout=10_000,
+    )
+
 
 ID = "web-" + "a" * 32
 ID2 = "web-" + "c" * 32
@@ -233,11 +318,21 @@ def open_store(
     **options: Any,
 ) -> Any:
     """open_app (option: api) with the /api/catalogue records the server sends for the runs."""
+    options["timers"] = options.get("timers", NO_TIMERS) + SLOW_API + COUNT_REPLIES
     api: dict[str, Reply] = {
         "/api/catalogue": catalogue_reply(store, app),
         **options.pop("api", {}),
     }
-    return open_app(browser, route, store, workspace, app, api, **options)
+    screen = open_app(browser, route, store, workspace, app, api, **options)
+    plain_click = screen.click
+
+    def click(selector: str) -> None:
+        plain_click(selector)
+        if selector.removeprefix("#") in REPLY_TO_CLICK:
+            wait_for_replies(screen.page, REPLY_TO_CLICK[selector.removeprefix("#")])
+
+    screen.click = click
+    return screen
 
 
 def review_reply(ready: bool) -> dict[str, Any]:
@@ -321,7 +416,7 @@ class NewRun:
                 "/api/runs/status": lambda route: json_reply(self.status)(route),
                 "/api/runs/list": listed,
             },
-            timers=CAPTURED_TIMERS,
+            timers=CAPTURED_TIMERS + COUNT_REPLIES,
         )
         self.page = self.screen.page
         self.settle()
@@ -336,11 +431,18 @@ class NewRun:
     def click(self, element_id: str) -> None:
         self.page.evaluate("i=>document.getElementById(i).click()", element_id)
         self.settle()
+        if element_id in REPLY_TO_CLICK:
+            wait_for_replies(self.page, REPLY_TO_CLICK[element_id])
 
     def tick(self) -> None:
         """Fire every live interval once, as the page's own polling would."""
         self.page.evaluate("window.__tick()")
         self.settle()
+
+    def tick_list(self) -> None:
+        """tick(), then wait until every list request sent so far has been answered and read."""
+        self.tick()
+        wait_for_replies(self.page, "/api/runs/list")
 
     def revisit(self) -> None:
         self.page.evaluate("window.dispatchEvent(new Event('hashchange'))")
@@ -594,6 +696,8 @@ def test_a_lost_start_response_reconnects_by_id_instead_of_launching_again(new_r
     run.click("review-run")
     run.confirm()
     run.click("start-run")
+    # the lost start, then the reconnect: its status call is sent before the progress step shows
+    run.rendered("!document.getElementById('progress-step').hidden")
     assert run.starts == 1 and run.hidden("progress-step") is False
     assert f"/api/runs/status?id={ID}" in run.urls()
 
@@ -621,6 +725,7 @@ def test_a_finished_run_offers_its_deliverables_a_stopped_one_offers_the_run(
     run.click("review-run")
     run.confirm()
     run.click("start-run")
+    run.rendered("document.getElementById('open-run').hidden===false")  # the status render
     assert run.hidden("open-run") is False and run.text("open-run") == label
     assert run.screen.attr("#open-run", "data-route") == route
     assert "USD 3.10" in run.text("run-spend") and run.hidden("another-run") is False
@@ -645,6 +750,7 @@ def test_a_failed_run_offers_nothing_to_open(new_run: Any) -> None:
     run.click("review-run")
     run.confirm()
     run.click("start-run")
+    run.progress()  # the status render: "open-run" is hidden before it as well
     assert run.hidden("open-run") is True
 
 
@@ -755,13 +861,13 @@ def test_a_list_refresh_keeps_the_focused_row(new_run: Any) -> None:
         "return document.activeElement.title;})()"
     )
     assert focused == ID
-    run.tick()
+    run.tick_list()
     assert run.page.evaluate("document.querySelector('#recent-jobs table')===window.__table"), (
         "an identical list keeps the same table node"
     )
     assert run.page.evaluate("document.activeElement.title") == ID
     rows[0] = {**ROW_RUNNING, "state": "complete"}
-    run.tick()
+    run.tick_list()
     after = run.page.evaluate(
         "(()=>{const t=document.querySelector('#recent-jobs table');"
         "return {rebuilt:t!==window.__table,"
@@ -804,9 +910,10 @@ def test_a_malformed_row_degrades_to_a_dash_and_does_not_hide_the_others(new_run
     assert run.progress() == ["Running", "Running CP-1."]
 
 
-def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
-    rows = [ROW_RUNNING]
-    run = new_run(rows=rows)
+def failed_render_is_retried(run: Any) -> None:
+    # the first list render, so the patched failure is the poll's
+    run.rendered("document.querySelector('#recent-jobs table')!==null")
+    rows = run.rows
     rows[0] = {**ROW_RUNNING, "message": "Still working"}
     run.page.evaluate(
         "()=>{const real=document.createElement.bind(document);window.__thrown=false;"
@@ -821,6 +928,29 @@ def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
     run.tick()
     until(run.page, "document.querySelector('#recent-jobs table')!==null")
     assert run.screen.exists("#recent-jobs table")
+
+
+def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
+    rows = [ROW_RUNNING]
+    run = new_run(rows=rows)
+    failed_render_is_retried(run)
+
+
+def test_a_failed_render_is_retried_when_the_first_list_reply_is_slow(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The first list reply reaches the page late, delayed in the page, so the initial render is
+    still waiting when the fault is installed."""
+    script = (
+        "{const held=window.fetch;let first=true;"
+        "window.fetch=(url,options)=>{if(first&&String(url).startsWith('/api/runs/list')){"
+        "first=false;return new Promise(done=>setTimeout(done,1000)).then(()=>held(url,options));}"
+        "return held(url,options);};}"
+    )
+    monkeypatch.setattr(sys.modules[__name__], "CAPTURED_TIMERS", CAPTURED_TIMERS + script)
+    rows = [ROW_RUNNING]
+    run = new_run(rows=rows)
+    failed_render_is_retried(run)
 
 
 def test_a_failed_first_render_is_retried_on_the_next_refresh(
@@ -848,6 +978,7 @@ def test_polling_stops_while_new_run_is_hidden_and_resumes_on_return(new_run: An
     polls = "[...window.__timers.entries()].filter(([,f])=>f.name==='poll').map(([id])=>id)"
     run = new_run(rows=[ROW_RUNNING])
     run.revisit()
+    wait_for_replies(run.page, "/api/runs/list")  # a late reply would start the poll again below
     (poll,) = run.page.evaluate(polls)
     started = len(run.page.evaluate("window.__started"))
     run.page.evaluate("document.getElementById('new-run').hidden=true")
@@ -857,15 +988,19 @@ def test_polling_stops_while_new_run_is_hidden_and_resumes_on_return(new_run: An
     assert len(run.page.evaluate("window.__started")) == started
     run.page.evaluate("location.hash='#W-Reports/list'")
     run.settle()
+    wait_for_replies(run.page, "/api/runs/list")  # none in flight, so coming back sends its own
     run.page.evaluate("location.hash='#W-NewRun/run'")
     run.settle()
     assert run.hidden("new-run") is False
+    # coming back lists again; the poll restarts once that reply has been read
+    wait_for_replies(run.page, "/api/runs/list")
     assert len(run.page.evaluate("window.__started")) == started + 1
     assert len(run.page.evaluate(polls)) == 1
 
 
 def test_a_failed_list_fetch_is_retried_and_its_error_does_not_stick(new_run: Any) -> None:
     run = new_run(rows=[ROW_RUNNING])
+    run.rendered("document.querySelector('#recent-jobs table')!==null")  # the first list reply
     run.fail_list = True
     run.tick()
     jobs = "document.getElementById('recent-jobs')"
@@ -882,6 +1017,7 @@ def test_the_list_error_shows_whichever_list_consumer_fires_first(new_run: Any, 
     """Two interval callbacks fetch the list: the app-wide watchRuns (failure only logged) and the
     page poll (failure shown). One failure episode must surface in #recent-jobs in either order."""
     run = new_run(rows=[ROW_RUNNING])
+    run.rendered("document.querySelector('#recent-jobs table')!==null")  # the poll starts after it
     run.page.evaluate(
         """first=>{
           const entries=[...window.__timers.entries()];
@@ -989,6 +1125,26 @@ def test_the_review_text_waits_for_a_slow_review_reply(
     text = run.text("run-review")
     for expected in ["Northbridge Group", "Covenant Refinancing", "31 March 2025", "USD 10.00"]:
         assert expected in text, expected
+
+
+def test_review_shows_after_a_slow_review_reply(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The steps of the folder-review test with only the review reply late: the review step must
+    be showing once the reply has rendered, so the read waits for it."""
+    monkeypatch.setattr(
+        sys.modules[__name__],
+        "CAPTURED_TIMERS",
+        CAPTURED_TIMERS + late_replies("/api/runs/review", 1000),
+    )
+    run = new_run()
+    run.context()
+    run.folder("Northbridge/annual.txt", "Northbridge/filings/notes.md")
+    assert "2 files" in run.text("upload-list")
+    run.click("review-run")
+    body = run.review_body()
+    assert json.loads(body["paths"]) == ["annual.txt", "filings/notes.md"]
+    assert run.starts == 0 and run.hidden("review-step") is False
 
 
 def test_progress_waits_for_a_slow_status_reply(
@@ -1235,6 +1391,30 @@ def test_settings_shows_the_workspace_and_its_issues_and_respects_the_policy_loc
     assert re.search(r"managed by your IT configuration", screen.text(".settings"))
     assert not screen.exists(".settings ul b")
     assert "<b>changed</b>" in screen.text(".settings ul")
+    screen.click("#quit-library")
+    screen.page.wait_for_function("document.getElementById('settings-status').textContent!==''")
+    assert len(quits) == 1 and quits[0].get("x-issuer-library") == "1"
+    assert re.search(r"Library stopped", screen.text("#settings-status"))
+    screen.close()
+
+
+def test_settings_shows_library_stopped_after_a_slow_quit_reply(browser: Any) -> None:
+    """The steps of the settings test with only the quit reply late: the status text is set at
+    once (the click's note) and replaced by the reply, so the read waits for the reply's text."""
+    quits: list[dict[str, str]] = []
+
+    def quit_reply(route: Any) -> None:
+        quits.append(dict(route.request.headers))
+        json_reply({"stopped": True})(route)
+
+    screen = open_store(
+        browser,
+        "W-Settings/workspace",
+        NORTHBRIDGE,
+        NORTHBRIDGE_REPORTS,
+        api={"/api/quit": quit_reply},
+        timers=NO_TIMERS + late_replies("/api/quit", 1000),
+    )
     screen.click("#quit-library")
     screen.page.wait_for_function("document.getElementById('settings-status').textContent!==''")
     assert len(quits) == 1 and quits[0].get("x-issuer-library") == "1"
