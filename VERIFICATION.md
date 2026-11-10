@@ -713,3 +713,14 @@ R-SB2-2 fix 1 (review M1/L1): `_QUALIFIER` admitted connectives and determiners,
 AGREEMENT`, `TERMINATION OF ...` and `Each/Our ... Credit Agreement contains` became credit agreements; the lender rule
 also gained an unasked `the|this` lead-in. Now `_QUALIFIER` excludes to/of/and/under/for/with/each/our/such/any; `the|this` stays on the credit-agreement rule only.
 Reviewer probe `r2_qualifier_admits_connectives.py`: 10 of 10 misclassified before, 0 after (exit 0).
+
+2026-11-10 Handoff outcome batch (R-SB2-1g/1i/1k and the reader Lows), `handoff_outcome.py`. CP-0 words are
+now classed per module (own handoff or not) and the worst class wins; the row and the prose are both read
+(`CP-4 BLOCKED:` plus `| CP-4 | READY |` is will_refuse); `Blocked: CP-1, CP-4` counts for each id listed
+(1j boundary). Lows: text after a backticked `Module Status` value; the markup strip is one linear pass (a 1 MB
+line is ~0.06 s); front matter is not scanned for fences; lines split on `\n`/`\r\n` only. The blockquote
+fence case already held. Key (another agent's): 13 `b1-` cases red before, `tests/test_handoff_outcome_status.py`
+134 passed after; with flow_check, backtest and live_check tests 258 passed; lead probe `probe_1j_rows.py` exit 0.
+Back-test output byte-identical to the parent's. Offline re-read of copies of retained C1 and C1n handoffs
+(`actual_of`, old vs new, per module and refused flag): no change (C1 CP-4 limited, CP-1 limited, C1n CP-4
+will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `actual_of`); a live run.
