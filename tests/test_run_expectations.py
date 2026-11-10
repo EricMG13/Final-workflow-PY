@@ -878,3 +878,34 @@ def test_r_sb2_2a_fix2_file_names_keep_mains_rule(name: str) -> None:
 )
 def test_r_sb2_2a_fix2_numeric_ordinal_titles_are_credit_agreements(title: str) -> None:
     assert guess_kind("x.htm", [_EX + title]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "title",
+    [
+        "Amended And Restated Credit Agreement",
+        "Second Amended And Restated Credit Agreement",
+        'CREDIT AGREEMENT (this "Agreement")',
+        'ABL CREDIT AGREEMENT (the "Credit Agreement")',
+        'CREDIT AGREEMENT (this "Agreement") dated as of October 20, 2014',
+    ],
+    ids=[f"r_sb2_2a_fix3_pos_{i}" for i in range(5)],
+)
+def test_r_sb2_2a_fix3_capital_and_and_defined_term_tails_are_credit_agreements(
+    title: str,
+) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "title",
+    [
+        "Credit Agreement (see Note 7) borrowings were $40.0 million",
+        "Existing Amended And Restated Credit Agreement",
+    ],
+    ids=[f"r_sb2_2a_fix3_neg_{i}" for i in range(2)],
+)
+def test_r_sb2_2a_fix3_non_defined_tails_and_openers_are_not_credit_agreements(
+    title: str,
+) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
