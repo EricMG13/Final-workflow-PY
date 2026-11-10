@@ -757,3 +757,31 @@ def test_a_rehearsed_accept_limitations_run_without_a_case_is_not_refused_at_par
     monkeypatch.setenv("FW_PYTHON", sys.executable)
     args = live_check.parse(["--cap", "1", "--accept-limitations", "--rehearse"])
     assert args.accept_limitations is True and args.case_data is None
+
+
+# The app's form re-serialises the case's context.json, so the run's snapshot is compared with the
+# reviewed intake bytes (byte for byte) and with the case's content (parsed), not the case's bytes.
+CASE_CONTEXT = {"run": {"pathway": "x"}, "identity": {"issuer_name": "A"}}
+
+
+def context_faults(tmp_path: Path, *, run: bytes, intake: bytes, case: dict) -> list[str]:
+    ws, run_dir, review = _workspace(tmp_path)
+    (ws / "intake" / "web-1" / "context.json").write_bytes(intake)
+    (run_dir / "context.json").write_bytes(run)
+    args = _args(tmp_path)
+    args.case_data["context_path"].write_text(json.dumps(case, indent=4))  # not the app's bytes
+    found = live_check.required_outputs(args, ws, run_dir, review, "")
+    return [f for f in found if "context" in f]
+
+
+def test_the_run_context_is_checked_against_the_reviewed_bytes_and_the_case_content(
+    tmp_path: Path,
+) -> None:
+    same = json.dumps(CASE_CONTEXT, sort_keys=True).encode()  # the form's own serialisation
+    assert context_faults(tmp_path / "a", run=same, intake=same, case=CASE_CONTEXT) == []
+    other = same + b" "
+    changed = context_faults(tmp_path / "b", run=other, intake=same, case=CASE_CONTEXT)
+    assert len(changed) == 1 and re.search(r"intake|reviewed", changed[0]), changed
+    different = {**CASE_CONTEXT, "identity": {"issuer_name": "B"}}
+    wrong = context_faults(tmp_path / "c", run=same, intake=same, case=different)
+    assert len(wrong) == 1 and "case" in wrong[0] and not re.search(r"intake|reviewed", wrong[0])
