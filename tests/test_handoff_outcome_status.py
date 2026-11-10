@@ -644,3 +644,43 @@ def test_rf1_cp0_reader_is_linear_at_one_megabyte(name: str) -> None:
     start = time.perf_counter()
     handoff_outcome.actual_of("CP-4", "# CP-4\nbody\n", text)
     assert time.perf_counter() - start < 1.0
+
+
+RF2_OWN = "# CP-4\nbody\n"
+RF2_CASES = [
+    (
+        "rf2-ready-then-blocked",
+        RF2_OWN,
+        "CP-4 READY for review, then CP-4 BLOCKED by covenant gap\n",
+        "will_refuse",
+    ),
+    (
+        "rf2-ellipsis",
+        RF2_OWN,
+        "CP-4 READY for review … CP-4 BLOCKED by covenant gap.\n",
+        "will_refuse",
+    ),
+    ("rf2-update-colon", RF2_OWN, "CP-4 update: CP-4 BLOCKED by covenant gap\n", "will_refuse"),
+    ("rf2-mention-right-after-mention", RF2_OWN, "CP-4 CP-4 BLOCKED\n", "will_refuse"),
+    ("rf2-no-own-mention-right-after-mention", None, "CP-4 CP-4 BLOCKED\n", "will_refuse"),
+    (
+        "rf2-own-handoff",
+        "# CP-4\nCP-4 READY for review, then CP-4 BLOCKED by covenant gap\n",
+        "",
+        "will_refuse",
+    ),
+]
+for _n in (68, 69, 70, 71, 72):
+    _edge = "will_refuse" if _n <= 70 else "unconfirmed"
+    RF2_CASES += [
+        (f"rf2-cp0-spaces-{_n}", RF2_OWN, "CP-4" + " " * _n + "BLOCKED\n", _edge),
+        (f"rf2-cp0-letters-{_n}", RF2_OWN, "CP-4 " + "x" * (_n - 2) + " BLOCKED\n", _edge),
+        (f"rf2-own-spaces-{_n}", "# CP-4\nCP-4" + " " * _n + "BLOCKED\n", "", _edge),
+    ]
+
+
+@pytest.mark.parametrize(
+    ("own", "cp0", "wanted"), [c[1:] for c in RF2_CASES], ids=[c[0] for c in RF2_CASES]
+)
+def test_rf2_second_same_id_mention_in_window(own: str | None, cp0: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
