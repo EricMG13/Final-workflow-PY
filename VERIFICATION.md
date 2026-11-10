@@ -799,6 +799,7 @@ i24rr_unlink_first_two_instances, i24_held_stale_inode_settle_v2, i24_settle_hol
 t6a_ctx_swap_after_launch, t6a_concurrent_starts.
 Recorded for Phase 3 (lead, no action): a KeyboardInterrupt during start leaves the claim held until the next adopt;
 Windows lock semantics are unverified, including a read-only lock file.
+PR2 live_check guard (lead review of #74): `--accept-limitations` prints the N it accepts and raises `Refusal` (exit 2, before tick and Start) when it differs from the case's frozen `counted_total`; `attempt` re-raises a `Refusal`; without `--case` the N is printed but nothing is compared.
 Not verified: the key test above; the browser UI sending `accept_limitations`; a real run's receipt.
 
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
