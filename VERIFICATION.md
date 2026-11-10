@@ -580,3 +580,16 @@ the other nine files are unchanged. Gates: quality gate exit 1 on one finding in
 the test file, which `tools/copied-from.txt` lists as byte-identical copies (needs an `edited`
 entry; outside this brief). Not verified: other issuers' title wording beyond the two exhibits; a
 title-case sentence opener such as "Revolving credit agreement ..." as a page-1 line.
+
+R-SB2-2 part 2 (lender presentation): `Public Lender Presentation September 11, 2014` and
+`2014-09-11-ex99-1-public-lender-presentation.htm` were `unrecognised` for the same two causes (title
+rule anchored at line start; dated/exhibit-prefixed name). The qualifier of the credit-agreement rule
+is now one shared `_QUALIFIER` used by it and the lender-presentation rule; no other rule changes.
+Checks: 3 new answer-key tests red on the old rule, then 143 passed (`test_run_expectations`,
+`test_expectations_backtest`, `test_pr_size`). Mattress Firm folder: only the lender presentation
+changes (`unrecognised` to `lender_presentation`); the credit agreements stay `credit_agreement`/True.
+Back-test on origin/main with this rule file: output byte-identical to origin/main's. `tools/copied-from.txt`:
+both `run_expectations` files moved to `edited`; `pr_size` 212 of 800, exit 0. Quality gate: 0 findings
+against the merge base (exit 0); against `origin/main` it reports `apps/issuer-library/packaging/runtime.py`
+because this branch predates PR #51 (that file is main's, not changed here). Not verified: other issuers'
+lender-presentation titles; a title-case sentence opener such as "Public lender presentation ..." in a body.
