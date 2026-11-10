@@ -11,10 +11,13 @@ import socket
 import stat
 import subprocess
 import sys
+import tempfile
 import threading
 from pathlib import Path
 
 import pytest
+from hypothesis import HealthCheck, example, given, settings
+from hypothesis import strategies as st
 
 ROOT = Path(__file__).resolve().parents[1]
 KEYS = ROOT / "tests/fixtures/library-manifest/writer"
@@ -1089,3 +1092,189 @@ def test_the_standard_header_with_the_same_rows_writes_and_is_admitted(tmp_path)
     assert manifest["run"]["gaps"] == [HTML_GAP]
     run = written_and_discovered(tmp_path / "written", text)
     assert sorted(run.metrics) == ["cash", "undrawn"]
+
+
+# ---- R-26 fix round 2: the writer's output is admitted by discovery, or it is not written -------
+
+
+def write_then_discover(root, run_id):
+    """Write the manifest, run discovery on the workspace; return (run, issues, rejected gaps)."""
+    from issuer_library.discovery import discover
+    from issuer_library.model import Catalogue
+
+    lm.write(root, run_id)
+    cat = discover(str(root), Catalogue())
+    issues = [issue for issue in cat.issues if run_id in issue]
+    (run,) = [r for r in cat.real if r.id == run_id]
+    rejected = [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+    return run, issues, rejected
+
+
+def metrics_are_stated_by_their_pinned_quote(root, run_id):
+    """Every metric written to library.json has its value among discovery's numbers of its quote."""
+    from issuer_library.discovery import stated_numbers
+
+    manifest = json.loads((root / "runs" / run_id / "library.json").read_text(encoding="utf-8"))
+    for name, metric in manifest["run"]["metrics"].items():
+        quote = manifest["sources"][metric["source"]]["quote"]
+        assert metric["value"] in stated_numbers(quote), (name, metric["value"], quote)
+
+
+# Hand derivation with discovery.number_runs / run_number / accounting_number (whole pinned line).
+# Leverage line:  | FY2025 ended 2025-06-30 | Not supplied (see note | 3.10 | x | lev basis |
+#   number runs: "2025" (depth 0), "2025-06-30" (depth 0), "3.10" (depth 1: the "(" in the debt cell
+#   is never closed).  "2025" -> stated "2025".  "2025-06-30" is not a whole number -> nothing.
+#   "3.10" has depth 1 and is preceded by " ", not "(" -> accounting_number gives None -> nothing.
+#   stated_numbers(line) == ["2025"].  The debt cell is not a number; net 3.10 is not stated.
+#   So no metric: {}.
+# Liquidity line: | 2025-06-30 | Not supplied (pending | 50 | US$m | liq basis |
+#   runs: "2025-06-30" (nothing), "50" at depth 1 preceded by " " -> nothing.  stated == [].
+#   cash is not a number; undrawn 50 is not stated.  So no metric: {}.
+PROBE_ROWS = [
+    (
+        "leverage",
+        lambda: chart_text(leverage_table(lev(FY25, debt="Not supplied (see note", net="3.10"))),
+    ),
+    (
+        "liquidity",
+        lambda: chart_text(
+            liquidity_table(liq("2025-06-30", cash="Not supplied (pending", undrawn="50"))
+        ),
+    ),
+]
+
+
+@pytest.mark.parametrize(("name", "make"), PROBE_ROWS, ids=[n for n, _ in PROBE_ROWS])
+def test_an_unclosed_bracket_before_a_value_writes_a_manifest_discovery_admits(
+    tmp_path, name, make
+):
+    text = make()
+    manifest, _ = built(tmp_path / "built", text)
+    assert manifest["run"]["metrics"] == {}
+    root, run_id = workspace("edge", tmp_path / "written")
+    (root / "runs" / run_id / "CP-1.md").write_text(text, encoding="utf-8")
+    run, issues, rejected = write_then_discover(root, run_id)
+    assert issues == [] and rejected == []
+    assert run.metrics == {}
+    metrics_are_stated_by_their_pinned_quote(root, run_id)
+
+
+def test_write_refuses_and_leaves_nothing_when_discovery_would_reject_the_run(tmp_path):
+    # context.json run.as_of is a string (build accepts it) but not a calendar date (admission
+    # rejects it: "invalid evidence date").
+    root, run_id = workspace("edge", tmp_path)
+    edit(
+        root,
+        run_id,
+        "context.json",
+        lambda t: t.replace('"as_of": "2025-06-30"', '"as_of": "2025-13-40"', 1),
+    )
+    assert lm.build(root, run_id)["run"]["date"] == "2025-13-40"
+    with pytest.raises(lm.ManifestError, match="invalid evidence date"):
+        lm.write(root, run_id)
+    left = [p.name for p in (root / "runs" / run_id).iterdir()]
+    assert not [n for n in left if n.startswith(".library-") or n == "library.json"]
+
+
+# Cells: plain numbers in many shapes, Not supplied texts, brackets, pipes, emphasis, blanks.
+VALUE_CELLS = st.one_of(
+    st.sampled_from(
+        [
+            "3.10",
+            "1,250",
+            "007",
+            "-35",
+            "(35)",
+            "$50",
+            "−12",
+            "4,10",
+            "0",
+            "12.5",
+            "1,250.5",
+            "–35",
+            "35)",
+            "(35",
+            "1 234",
+            "1.2e3",
+            "Not supplied (see note",
+            "Not supplied: x)",
+            "Not supplied",
+            "(a) 12",
+            "n/a",
+            "**3.1**",
+            "a \\| 3.1",
+            "",
+            "(n/a)",
+            "x (3.1",
+            "3.1)",
+            "[3.1",
+            "3.1]",
+            "(3.1",
+            "- 5",
+            "5%",
+            "US$ 20",
+        ]
+    ),
+    st.text(alphabet="0123456789.,()-$ −–*`[]a|\\", max_size=12).map(
+        lambda s: s.replace("|", "\\|")
+    ),
+)
+BASIS_CELLS = st.sampled_from(
+    ["lev basis", "gross (see note", "(x", "**bold** `code", "a \\| b", "", "net (of cash)", "3.1"]
+)
+RATIO_PERIODS = st.sampled_from(
+    [FY25, FY24, LTM25, "H1 2025 ended 2025-06-30", "FY2025", "FY2025 ended 2025-02-30"]
+)
+LIQ_PERIODS = st.sampled_from(["2025-06-30", "2025-03-31", "2024-12-31", "2025-02-30", "FY2025"])
+UNITS = st.sampled_from(["x", "x", "x", "US$m"])
+LIQ_UNITS = st.sampled_from(["US$m", "US$m", "US$m", "x"])
+
+
+@st.composite
+def generated_chart_text(draw):
+    lev_rows = draw(
+        st.lists(
+            st.builds(lev, RATIO_PERIODS, VALUE_CELLS, VALUE_CELLS, UNITS, BASIS_CELLS),
+            min_size=1,
+            max_size=4,
+        )
+    )
+    cov_rows = draw(
+        st.lists(
+            st.builds(cov, RATIO_PERIODS, VALUE_CELLS, UNITS, BASIS_CELLS), min_size=1, max_size=4
+        )
+    )
+    liq_rows = draw(
+        st.lists(
+            st.builds(liq, LIQ_PERIODS, VALUE_CELLS, VALUE_CELLS, LIQ_UNITS, BASIS_CELLS),
+            min_size=1,
+            max_size=4,
+        )
+    )
+    return chart_text(leverage_table(*lev_rows), cover_table(*cov_rows), liquidity_table(*liq_rows))
+
+
+PROBE_TEXTS = [make() for _, make in PROBE_ROWS]
+
+
+@settings(
+    max_examples=150,
+    deadline=None,
+    suppress_health_check=[HealthCheck.function_scoped_fixture],
+)
+@example(text=PROBE_TEXTS[0])
+@example(text=PROBE_TEXTS[1])
+@given(text=generated_chart_text())
+def test_whatever_the_chart_rows_say_the_written_manifest_is_admitted_or_absent(text):
+    with tempfile.TemporaryDirectory() as scratch:
+        root, run_id = workspace("edge", Path(scratch))
+        (root / "runs" / run_id / "CP-1.md").write_text(text, encoding="utf-8")
+        library = root / "runs" / run_id / "library.json"
+        try:
+            _, issues, rejected = write_then_discover(root, run_id)
+        except lm.ManifestError:
+            assert not library.exists()
+            return
+        assert library.exists()
+        assert issues == [] and rejected == []
+        metrics_are_stated_by_their_pinned_quote(root, run_id)
