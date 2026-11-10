@@ -918,3 +918,56 @@ def test_r_sb2_2a_fix3_non_defined_tails_and_openers_are_not_credit_agreements(
     title: str,
 ) -> None:
     assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
+
+
+_R_SB2_2C_POS = [
+    "DEBTOR-IN-POSSESSION CREDIT AGREEMENT",
+    "Debtor-In-Possession Credit Agreement",
+    "SUPERPRIORITY SECURED DEBTOR-IN-POSSESSION CREDIT AGREEMENT",
+    "SENIOR SECURED SUPERPRIORITY DEBTOR-IN-POSSESSION CREDIT AGREEMENT",
+    "SYNDICATED CREDIT AGREEMENT",
+    "MULTICURRENCY CREDIT AGREEMENT",
+    "MULTICURRENCY REVOLVING CREDIT AGREEMENT",
+    "Eleventh Amended and Restated Credit Agreement",
+    "TWELFTH AMENDED AND RESTATED CREDIT AGREEMENT",
+    "Twentieth Amended and Restated Credit Agreement",
+    "Twenty-First Amended and Restated Credit Agreement",
+    "11th Amended and Restated Credit Agreement",
+    "22nd Amended and Restated Credit Agreement",
+    "CREDIT AGREEMENT (Execution Version)",
+    "CREDIT AGREEMENT (Conformed Copy)",
+    "CREDIT AGREEMENT - Execution Version",
+    "Credit Agreement, as amended through March 1, 2015",
+    "CREDIT AGREEMENT as amended through March 1, 2015",
+    "Credit Agreement, as amended by the First Amendment",
+]
+
+# Not keyed: "Credit Agreement, as amended borrowings were ...".
+# The ruling's ", as amended ..." tail covers it.
+_R_SB2_2C_NEG = [
+    "INCREMENTAL CREDIT AGREEMENT",
+    "EXTENDED CREDIT AGREEMENT",
+    "JOINDER IN CREDIT AGREEMENT",
+    "CREDIT AGREEMENT JOINDER",
+    "Existing Amended and Restated Credit Agreement",
+    "Prior Credit Agreement",
+    "Amended Credit Agreement",
+    "Fiftyish Amended and Restated Credit Agreement",
+    "Thirdly Amended and Restated Credit Agreement",
+]
+
+
+@pytest.mark.parametrize(
+    "title", _R_SB2_2C_POS, ids=[f"r_sb2_2c_pos_{i}" for i in range(len(_R_SB2_2C_POS))]
+)
+def test_r_sb2_2c_dip_syndicated_multicurrency_ordinal_and_tail_titles(title: str) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "title", _R_SB2_2C_NEG, ids=[f"r_sb2_2c_neg_{i}" for i in range(len(_R_SB2_2C_NEG))]
+)
+def test_r_sb2_2c_excluded_openers_and_non_ordinals_are_not_credit_agreements(
+    title: str,
+) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind != "credit_agreement"
