@@ -596,10 +596,7 @@ function F(id, k, label, attrs, help, cls) {
 function D(id, k, label, help) {
   return F(id, k, label, '', help).replace('type="text"', 'type="date"');
 }
-function S(id, k, label, opts) {
-  return `<div class="f"><label for="${id}">${label}</label><select id="${id}" data-k="${k}"><option value=""></option>` +
-    opts.map(o => `<option>${o}</option>`).join('') + '</select></div>';
-}
+const SUGGEST = 'Pick a suggestion or type your own.';
 function rowShell(title, body, extraCls) {
   return `<div class="row ${extraCls || ''}" data-row><div class="rowhead"><h4 data-title="${title}"></h4><button type="button" class="btn sm" data-remove>Remove</button></div>${body}</div>`;
 }
@@ -607,12 +604,15 @@ const NUMA = 'inputmode="decimal"';
 const P = t => ` placeholder="${t}"`;
 const NP = t => NUMA + P(t);
 const INSTRUMENTS = ['Term loan B','Term loan A','Revolver','Senior secured notes','Senior unsecured notes','Other'];
-document.body.insertAdjacentHTML('beforeend', '<datalist id="instruments">' + INSTRUMENTS.map(o => `<option value="${o}">`).join('') + '</datalist>');
+const AGENCIES = ['S&P',"Moody's",'Fitch','Other'], OUTLOOKS = ['Positive','Stable','Negative','Developing','Watch'];
+for (const [id, list] of [['instruments', INSTRUMENTS], ['agencies', AGENCIES], ['outlooks', OUTLOOKS], ['modules', MODULE_IDS]]) {
+  document.body.insertAdjacentHTML('beforeend', `<datalist id="${id}">` + list.map(o => `<option value="${o}">${o}</option>`).join('') + '</datalist>');
+}
 
 const ROWS = {
   deal: {box:'rows-deal', title:'Facility', max:20, make() {
     const p = 'd' + (++uid);
-    return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + F(p+'b','instrument','Instrument','list="instruments"' + P('e.g. Term loan B'),'Pick a suggestion or type your own.') +
+    return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + F(p+'b','instrument','Instrument','list="instruments"' + P('e.g. Term loan B'),SUGGEST) +
       F(p+'c','currency','Currency','value="USD" maxlength="3"' + P('e.g. USD'),'Three uppercase letters.') + F(p+'d','size_m','Size (m)',NP('e.g. 1250'),'Millions of the stated currency.') + F(p+'e','tenor_years','Tenor (years)',NP('e.g. 7'),'Years.','pf') +
       F(p+'f','talk_spread_bps_low','Talk spread low (bps)',NP('e.g. 325'),'Basis points over the reference rate.','pf') + F(p+'g','talk_spread_bps_high','Talk spread high (bps)',NP('e.g. 350'),'Basis points over the reference rate.','pf') +
       F(p+'h','talk_oid_low','Talk OID low',NP('e.g. 99.0'),'Price per 100.','pf') + F(p+'i','talk_oid_high','Talk OID high',NP('e.g. 99.5'),'Price per 100.','pf') + F(p+'j','floor_pct','Floor (%)',NP('e.g. 0.50'),'Percent.') +
@@ -629,8 +629,8 @@ const ROWS = {
   }},
   rating: {box:'rows-rating', title:'Rating', max:20, make() {
     const p = 'r' + (++uid);
-    return rowShell('Rating', '<div class="grid">' + S(p+'a','agency','Agency',['S&P',"Moody's",'Fitch','Other']) + F(p+'b','rating','Rating',P('e.g. B+ or B1'),'As the agency writes it.') +
-      S(p+'c','outlook','Outlook',['Positive','Stable','Negative','Developing','Watch']) + D(p+'d','as_of','As-of','Date of the rating, YYYY-MM-DD.') + '</div>' +
+    return rowShell('Rating', '<div class="grid">' + F(p+'a','agency','Agency','list="agencies"' + P('e.g. S&amp;P'),SUGGEST) + F(p+'b','rating','Rating',P('e.g. B+ or B1'),'As the agency writes it.') +
+      F(p+'c','outlook','Outlook','list="outlooks"' + P('e.g. Stable'),SUGGEST) + D(p+'d','as_of','As-of','Date of the rating, YYYY-MM-DD.') + '</div>' +
       `<fieldset><legend>Scope</legend>${cards('rs' + p, 'scope', OPTIONS.scope)}</fieldset>`);
   }},
   peer: {box:'rows-peer', title:'Peer', max:30, make() {
@@ -650,7 +650,7 @@ const ROWS = {
   }},
   q: {box:'rows-q', title:'Question', max:10, make() {
     const p = 'z' + (++uid);
-    return rowShell('Question', '<div class="grid">' + F(p+'a','text','Question',P('e.g. How much of 2025 adjusted EBITDA is run-rate cost savings?'),'One question, plain text.') + S(p+'b','focus_module','Focus module',MODULE_IDS) + '</div>');
+    return rowShell('Question', '<div class="grid">' + F(p+'a','text','Question',P('e.g. How much of 2025 adjusted EBITDA is run-rate cost savings?'),'One question, plain text.') + F(p+'b','focus_module','Focus module','list="modules"' + P('e.g. CP-2'),SUGGEST) + '</div>');
   }}
 };
 function addRow(kind) {
@@ -1310,6 +1310,26 @@ function resetAll() {
 }
 function today() { const d = new Date(), p = n => String(n).padStart(2, '0'); return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()); }
 const txt = x => (x === null || x === undefined) ? '' : String(x);
+/* Closed fields (the server enumerates them): a value outside the list refuses the whole load. */
+function closedProblem(o) {
+  const vals = k => OPTIONS[k].map(x => x.v);
+  const pathways = [...$('s1-pathway').options].map(x => x.value);
+  const at = (path, x, list) => (txt(x) === '' || list.includes(txt(x))) ? '' : `${path} has the value "${txt(x)}", which is not one of ${list.join(', ')}.`;
+  const bool = (path, x) => (x === undefined || x === null || typeof x === 'boolean') ? '' : `${path} has the value "${txt(x)}", which is not true or false.`;
+  const v = o.valuation, a = o.attachments;
+  const found = [at('run.run_type', o.run.run_type, vals('run_type')), at('run.pathway', o.run.pathway, pathways), at('run.case_kind', o.run.case_kind, vals('case_kind')),
+    at('identity.issue_classification', o.identity.issue_classification, vals('issue_classification')), bool('identity.listed_equity', o.identity.listed_equity),
+    at('valuation.peer_source', v.peer_source, vals('peer_source')), at('valuation.basis', v.basis, vals('basis')),
+    at('valuation.issuer_market.ebitda_basis', v.issuer_market.ebitda_basis, vals('ebitda_basis')), at('valuation.user_multiple.basis', v.user_multiple.basis, vals('ebitda_basis')),
+    at('attachments.legal_documents', a.legal_documents, vals('legal_documents')), ...['portfolio_workbook', 'prior_case', 'management_bridge'].map(k => bool('attachments.' + k, a[k])),
+    ...o.quotes.map((r, i) => at(`quotes[${i}].kind`, r.kind, vals('deal_kind'))), ...o.ratings.map((r, i) => at(`ratings[${i}].scope`, r.scope, vals('scope')))];
+  if (txt(o.run.run_type) !== 'primary') {
+    // Tenor and price talk exist only on Primary rows, so a value on any other run would be dropped.
+    const talk = o.deal_terms.flatMap((r, i) => PRIMARY_ONLY.filter(k => txt(r[k]).trim() !== '').map(k => `deal_terms[${i}].${k} has the value "${txt(r[k])}"`));
+    if (talk.length) found.push(`${talk.join('; ')}: a ${txt(o.run.run_type) || 'non-Primary'} run cannot hold tenor or price talk (Primary runs only).`);
+  }
+  return found.find(x => x !== '') || '';
+}
 function fillRows(kind, list, path, warn) {
   const box = $(ROWS[kind].box);
   list.slice(0, ROWS[kind].max).forEach((item, i) => {
@@ -1345,7 +1365,6 @@ function fill(o) {
   setV(s7, 'basis', txt(v.basis), 'valuation.basis', warn);
   basisTouched = getV(s7, 'basis') !== BASIS_DEFAULT[getV(s2, 'listed_equity')];
   if (getV(s7, 'basis') === 'issuer_trading' && getV(s2, 'listed_equity') !== 'yes') warn.push('valuation.basis: issuer_trading needs identity.listed_equity true; reset to auto');
-  if (getV(s1, 'run_type') !== 'primary' && o.deal_terms.some(r => PRIMARY_ONLY.some(k => txt(r[k]) !== ''))) warn.push('deal_terms: tenor and price talk are shown for Primary only, so they will not be written');
   for (const k of keysOf($('im'))) if (k in v.issuer_market) setV($('im'), k, txt(v.issuer_market[k]), 'valuation.issuer_market.' + k, warn);
   for (const k of keysOf($('um'))) {
     const src = k === 'ebitda_basis' ? 'basis' : k;
@@ -1382,6 +1401,8 @@ $('load').addEventListener('change', e => {
     catch (err) { loadMsg('Not loaded. ' + file.name + ' is not valid JSON: ' + err.message, true); return; }
     const p = shapeProblem(o);
     if (p) { loadMsg('Not loaded. ' + file.name + ': ' + p + ' Nothing was changed.', true); return; }
+    const closed = closedProblem(o);
+    if (closed) { loadMsg('Not loaded. ' + file.name + ': ' + closed + ' Nothing was changed.', true); return; }
     const warn = fill(o);
     const loaded = update(), sq = seqFor(loaded.run.run_type), target = sq.find(stepBad) || 11;
     sq.slice(0, sq.indexOf(target)).forEach(n => visited.add(n));

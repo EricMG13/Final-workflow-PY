@@ -155,6 +155,17 @@ def literal_faults(shown: str, literals: list[dict[str, str]]) -> list[str]:
     ]
 
 
+def entered_leaves(value: Any, path: str = "") -> dict[str, Any]:
+    """Every non-blank leaf by path; the form may add blank keys but never change an entered value."""
+    if isinstance(value, dict):
+        pairs = ((f"{path}.{k}", v) for k, v in value.items())
+    elif isinstance(value, list):
+        pairs = ((f"{path}[{i}]", v) for i, v in enumerate(value))
+    else:
+        return {} if value in ("", None) else {path: value}
+    return {k: v for key, item in pairs for k, v in entered_leaves(item, key).items()}
+
+
 def stage2_faults(
     args: argparse.Namespace, ws: Path, run: Path, review: dict[str, Any]
 ) -> list[str]:
@@ -173,7 +184,9 @@ def stage2_faults(
         if context.read_bytes() != reviewed.read_bytes():
             found.append("run context.json is not byte-identical to the reviewed intake context")
         case_file = args.case_data["context_path"]
-        if json.loads(context.read_text()) != json.loads(case_file.read_text()):
+        if entered_leaves(json.loads(context.read_text())) != entered_leaves(
+            json.loads(case_file.read_text())
+        ):
             found.append("run context.json differs in content from the case context")
     elif context.read_bytes() != args.case_data["context_path"].read_bytes():
         found.append("run context.json is not byte-identical to the case context")
@@ -566,10 +579,11 @@ def fill_form(page: Any, args: argparse.Namespace) -> None:
     frame.locator("#load").set_input_files(str(args.context))
     note = frame.locator("#loadmsg")
     expect(note).to_have_text(re.compile(r"\S"), timeout=15000)
-    if "unknown value" in note.inner_text():
-        raise Refusal(
-            f"the form dropped a context value (unknown value): {note.inner_text()[:500]}"
-        )
+    shown = note.inner_text()
+    if shown.startswith("Not loaded"):
+        raise Refusal(f"the form rejected the context file: {shown[:500]}")
+    if "unknown value" in shown:
+        raise Refusal(f"the form dropped a context value (unknown value): {shown[:500]}")
     expect(page.locator("#context-readiness")).to_contain_text(
         "Required fields complete", timeout=15000
     )

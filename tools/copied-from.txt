@@ -15,7 +15,6 @@ apps/issuer-library/designs/library-answer-key.json
 apps/issuer-library/web/boot.js
 apps/issuer-library/web/context-embed.css
 apps/issuer-library/web/context-embed.js
-apps/issuer-library/web/context-form.html
 apps/issuer-library/web/hydrate.js
 apps/issuer-library/web/icons/circle-check.svg
 apps/issuer-library/web/icons/triangle-alert.svg
@@ -434,6 +433,7 @@ edited apps/issuer-library/web/screen.css
 edited apps/issuer-library/web/screen.js
 edited apps/issuer-library/web/screening.js
 edited apps/issuer-library/web/views.js
+edited apps/issuer-library/web/context-form.html
 edited docs/VERIFICATION-ARCHIVE.md
 edited docs/superpowers/plans/2026-11-08-plan-2-run-expectations.md
 edited docs/superpowers/plans/2026-11-08-plan-3-primary-transactions.md
