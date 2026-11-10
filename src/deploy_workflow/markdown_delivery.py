@@ -1262,10 +1262,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
             rank: dict[tuple[str, str], int] = {}
             for position, route in enumerate(layout.routes):
                 rank.setdefault((route.module_id, route.block_id), position)
-            last = len(layout.routes)  # entries no route selected (evidence) follow the routed
-            bound = tuple(
-                sorted(bound, key=lambda e: rank.get((e.fact_coord.module_id, block_id), last))
-            )
+            bound = tuple(sorted(bound, key=lambda e: rank[(e.fact_coord.module_id, block_id)]))
             slots = _registers(bound, module_views, refs)
             primary, *further = slots
             tabs = tuple(
