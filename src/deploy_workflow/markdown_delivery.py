@@ -11,7 +11,7 @@ import hashlib
 import html
 import json
 import re
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, replace
 from datetime import date
 from decimal import Context, Decimal
@@ -64,6 +64,7 @@ from deploy_workflow.handoff_delivery import (
     plain,
     section,
 )
+from deploy_workflow.handoff_outcome import own_status
 
 CHART_UNITS: dict[str, UnitClass] = {"x": "multiple", "US$m": "amount", "%": "percent"}
 
@@ -728,6 +729,35 @@ def _block_note(
     return " · ".join(dict.fromkeys(parts)) or None
 
 
+STATUS_WORDS = {"will_refuse": "Blocked", "limited": "Restricted"}
+
+
+def status_note(module_id: str, raw: str) -> str | None:
+    """`<module> Blocked: <reason>` (or Restricted) for a module whose own handoff reads
+    will_refuse or limited through the frozen reader, else None. The reason is the first line of
+    the Request section that opens with bold text (the handoff's stated outcome), as written with
+    its `**` markers removed; a handoff with no such line gives `reason not stated in the
+    handoff` (L1 ruling: the status always shows, no other line is guessed).
+    No wording of this module is added."""
+    read = own_status(module_id, raw)
+    if read is None or read[0] not in STATUS_WORDS:
+        return None
+    request = section(physical_lines(raw), "Request")
+    reason = next((line for _, line in request if line.startswith("**")), None)
+    shown = reason.replace("**", "") if reason else "reason not stated in the handoff"
+    return f"{module_id} {STATUS_WORDS[read[0]]}: {shown}"
+
+
+def _with_status(
+    note: str | None, module_ids: Iterable[str], status_of: Mapping[str, str]
+) -> str | None:
+    """`note` followed by the status note of each module the block's content comes from."""
+    modules = dict.fromkeys(module_ids)
+    parts = [note] if note else []
+    parts.extend(status_of[m] for m in modules if m in status_of)
+    return " · ".join(parts) or None
+
+
 def _registers(
     bound: tuple[Binding, ...],
     modules: list[ModuleView],
@@ -811,15 +841,21 @@ def _front_prose(
     return fact.text or NOT_STATED, fact.citations[0].locator.split()[-1], fact.table_id
 
 
+def _status(status_of: Mapping[str, str], module: ModuleView) -> list[str]:
+    return [status_of[module.module_id]] if module.module_id in status_of else []
+
+
 def front_lines(
     routes: tuple[MarkdownRoute, ...],
     module_views: list[ModuleView],
     metadata: dict[str, dict[str, tuple[str, str]]],
+    status_of: Mapping[str, str],
 ) -> tuple[list[str], set[tuple[str, str]]]:
     """One cited sentence per front route and the (module, entry id) each was read from. No match
     gives `not stated in the handoff` (a blank cell too, never zero). A table route reads the first
     data row of the table with the routed header (`<column> <cell>`, then `<column>: <cell>`); a
-    prose route the first paragraph opening with the prefix, without the label."""
+    prose route the first paragraph opening with the prefix, without the label. A module that reads
+    Blocked or Restricted has its status note after its sentence."""
     lines: list[str] = []
     sources: set[tuple[str, str]] = set()
     for route in routes:
@@ -830,11 +866,12 @@ def front_lines(
         meta = metadata[module.module_id]
         got = (_front_table if route.kind == "table" else _front_prose)(route, module, meta)
         if got is None:
-            lines.append(f"{label}: {NOT_STATED}")
+            lines.append(" · ".join([f"{label}: {NOT_STATED}", *_status(status_of, module)]))
         else:
             text, number, entry = got
             shown = text if route.kind == "prose" else f"{label}: {text}"
-            lines.append(f"{shown} ({module.module_id} line {number})")
+            cited = f"{shown} ({module.module_id} line {number})"
+            lines.append(" · ".join([cited, *_status(status_of, module)]))
             sources.add((module.module_id, entry))
     return lines, sources
 
@@ -976,6 +1013,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
     sources = []
     metadata = {}
     files = {}
+    status_of: dict[str, str] = {}
     owner_lines: dict[str, dict[str, int]] = {}
     for module_id, spec in request.handoffs.items():
         raw = (base / spec.path).read_bytes()
@@ -998,6 +1036,8 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
         sources.append(source)
         metadata[module_id] = meta
         files[module_id + ".md"] = raw
+        if note := status_note(module_id, raw.decode()):
+            status_of[module_id] = note
     if request.model is not None:
         from deploy_workflow.model_handoff_delivery import build_model
 
@@ -1212,6 +1252,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                         full_analysis_route=next(iter(specs.values()))[0],
                         width="full",
                         figures=tuple(figures),
+                        note=_with_status(None, (spec[0] for spec in specs.values()), status_of),
                     )
                 )
                 continue
@@ -1248,6 +1289,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     full_analysis_route=module_id,
                     width="full",
                     figures=(figure,),
+                    note=_with_status(None, [module_id], status_of),
                 )
             )
         elif block_spec.kind == "prose":
@@ -1261,7 +1303,9 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     full_analysis_route=bound[0].fact_coord.module_id,
                     width="full",
                     lines=_prose_lines(bound, view, refs),
-                    note=presentation_note,
+                    note=_with_status(
+                        presentation_note, (e.fact_coord.module_id for e in bound), status_of
+                    ),
                 )
             )
         else:
@@ -1289,7 +1333,11 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     row_header=primary.row_header,
                     columns=primary.columns,
                     rows=primary.rows,
-                    note=_block_note(block_id, labels, bound, module_views, metadata),
+                    note=_with_status(
+                        _block_note(block_id, labels, bound, module_views, metadata),
+                        (e.fact_coord.module_id for e in bound),
+                        status_of,
+                    ),
                     tab_label=primary.label if tabs else None,
                     tabs=tabs,
                 )
@@ -1323,7 +1371,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
     anchor = '<div id="call-root"></div>'
     if rendered.count(anchor) != 1:
         raise ValueError("Existing renderer scope-banner location changed")
-    front_text, front_sources = front_lines(layout.front, module_views, metadata)
+    front_text, front_sources = front_lines(layout.front, module_views, metadata, status_of)
     record_of = coverage_record(module_views, metadata, owner_lines, entries, source_of)
     for module_id, listed in record_of["modules"].items():  # `front` goes last in blocks
         for entry in listed:

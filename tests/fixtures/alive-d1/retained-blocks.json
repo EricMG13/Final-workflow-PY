@@ -1,0 +1,49 @@
+{
+ "source": "A-live deliveries/4024b341.../report-view.json; per block: sha256 of the block minus note and state (values), and of the whole block",
+ "blocks": {
+  "covenant-tests-headroom": {
+   "values": "f7590c27bcb451e02e038bf4db546798dd2f79e3a0c3181708ddf282e55ac0a0",
+   "whole": "ae21e2fb0f03a1cc6fec75c945852ab99991f9c6f24ecd06ff50eabd452cd077"
+  },
+  "liquidity-runway": {
+   "values": "ce37fe790a8af2cf68a27d769bce50156427a914a27db1c11fb292d45475e606",
+   "whole": "7731053e521c82e0775b3c3e00bbc14856614d0f1e6b796703687bf0f4821101"
+  },
+  "maturity-wall": {
+   "values": "1cdae4659481d466f9b261a8476461b2b7aa22da8eb7701b8451b769de976fc1",
+   "whole": "53a41602c876885ddaf23f107fd437fc90378eb655b940a9385df6f34592e9ed"
+  },
+  "funding-gap": {
+   "values": "7d24663bd6e3745dc5e21ec794ef5f422babb7ef09e9be339cab95d68f4a4441",
+   "whole": "0e33cea8a6541f0ebebe95f70c88e49390ba681a902f1069e4a9c5c6e6da0c3b"
+  },
+  "red-flags": {
+   "values": "665515351e1ee5bda8681c6443d66f4d9af96ad395cf32a57cff7edca0a8f3a9",
+   "whole": "e169444e6f74f02c87eddb173550111dab84efba2c11bc85c94a52a4b30b372f"
+  },
+  "lender-protection-score": {
+   "values": "f3bbaa81afab91da8aaa661abc82b285849b895e6f45c23e5cbc75f8cad0d7eb",
+   "whole": "791783f1f222fe204cc988049b0e3b7cb1d548c84cadefb8e539d8c3a6382a77"
+  },
+  "refinancing-paths": {
+   "values": "95262da863107545fba16aed00c6e4f73b5936f527c5d7e1ff55568ddaa9a003",
+   "whole": "39e1b75b7c4e7fd85f7a33d298ec1926df282774656cdd2a69b7fdfe724a0c51"
+  },
+  "capacity": {
+   "values": "cc5f96b945bd1535dd88193887d4539a4f2b11bba4db8cc652bd43d3a7684519",
+   "whole": "571615159dfc210c3c4dcf770cc6ad2855f0e704ba72348fcae66b9f0f78d235"
+  },
+  "lme-creditor-exposure": {
+   "values": "9e886c3d31cba76f400ee20b5fb544141b665e27e388b94d16ef15fe69dd1422",
+   "whole": "594ff5f452f3deb63073738222f2ef08033d37f14f82cdcef5b1ce0590cdffe1"
+  },
+  "ebitda-definition": {
+   "values": "42e9bb1305cce1b3930d293c96c46e7d65d9515b2ccd783a1061a3000bb441ef",
+   "whole": "3bae19a426728d377e691775f86365cfa047d72b1ce3f9cdde1dd763d3d70a38"
+  },
+  "documents-structure": {
+   "values": "e51edfb09a3b85fa9f7b7a6cd4c359b20055dcc3fa5462b3d5821b87cd0890ba",
+   "whole": "5cbf154f1b49e351a724cec83da3a6052f9a043f82fc1593eaf80ef27ef5f475"
+  }
+ }
+}
