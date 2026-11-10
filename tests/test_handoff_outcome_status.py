@@ -228,3 +228,56 @@ CASES_1H = {
 @pytest.mark.parametrize(("own", "cp0", "wanted"), CASES_1H.values(), ids=CASES_1H.keys())
 def test_r_sb2_1h_fences_per_commonmark(own: str, cp0: str, wanted: str) -> None:
     assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == wanted
+
+
+C1N = ROOT / "tests/fixtures/handoff-status-c1n"
+C1N_CP4_LINE7 = (
+    "**Module Status: Blocked. CP-4 Blocked. No executed governing document available.** "
+    "The supplied set contains no governing credit agreement, indenture, offering memorandum, "
+    "financing draft or lender presentation. The acquisition agreement is not a governing "
+    "financing document. The provisional-review override therefore does not clear the "
+    "documentary gate. This handoff records the gate decision and bounded reported "
+    "capital-structure facts, not a completed covenant interpretation."
+)
+
+
+def _own(module: str, body: str = "## Analysis\nText.\n") -> str:
+    return f"---\nmodule_id: {module}\n---\n{body}"
+
+
+def test_1e_r_c1n_cp4_fixture_will_refuse() -> None:
+    own = (C1N / "CP-4.md").read_text()
+    cp0 = (C1N / "CP-0.md").read_text()
+    assert handoff_outcome.actual_of("CP-4", own, cp0)[0] == "will_refuse"
+
+
+def test_1e_r_c1n_line7_will_refuse() -> None:
+    assert (C1N / "CP-4.md").read_text().splitlines()[6] == C1N_CP4_LINE7
+    assert handoff_outcome.actual_of("CP-4", handoff(body=C1N_CP4_LINE7 + "\n"), "")[0] == (
+        "will_refuse"
+    )
+
+
+def test_1e_s_completed_with_limitations_then_text() -> None:
+    body = "Module Status: Completed with Limitations. See §3.\n"
+    assert handoff_outcome.actual_of("CP-4", handoff(body=body), "")[0] == "limited"
+
+
+def test_1e_t_blocked_comma_text_unconfirmed() -> None:
+    body = "Module Status: Blocked, see below\n"
+    assert handoff_outcome.actual_of("CP-4", handoff(body=body), "")[0] == "unconfirmed"
+
+
+def test_1e_u_c1n_cp0_row_fourth_cell_limited() -> None:
+    cp0 = (C1N / "CP-0.md").read_text()
+    assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "limited"
+
+
+def test_1e_v_blocked_in_fourth_cell_will_refuse() -> None:
+    cp0 = "| CP-1 — figures | READY | x | BLOCKED: no statements |\n"
+    assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "will_refuse"
+
+
+def test_1e_w_other_modules_row_does_not_set_cp1() -> None:
+    cp0 = "| CP-4 — legal | x | BLOCKED |\n"
+    assert handoff_outcome.actual_of("CP-1", _own("CP-1"), cp0)[0] == "unconfirmed"
