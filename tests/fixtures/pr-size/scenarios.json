@@ -1,0 +1,281 @@
+[
+  {
+    "id": 1,
+    "name": "base-holds-drift-pr-adds-5",
+    "requirement": "1",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70], ["a", 0, 5]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 5, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 5 (limit 800)"]},
+    "arithmetic": "vendor/f.txt exists at base, so count numstat base...HEAD. The PR appends 5 lines (a 0..a 4) after line 100: 5 added + 0 deleted = 5. The other changed file, tools/copied-from.txt, is excluded (listing is unchanged anyway). Total 5.",
+    "today": "Counted drift from source at HEAD: base drift 30 deleted + 30 added = 60, plus 5 appended = 65."
+  },
+  {
+    "id": 2,
+    "name": "same-pr-copies-and-edits-new-file-plus-appends-5",
+    "requirement": "2 (with 1)",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}, "vendor/g.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70], ["a", 0, 5]]}, "vendor/g.txt": {"seq": [["e", 0, 10], ["s", 10, 90]]}}, "listing": ["source $source", "edited vendor/f.txt", "edited vendor/g.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 25, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 25 (limit 800)"]},
+    "arithmetic": "f.txt exists at base: numstat base...HEAD = 5 added + 0 deleted = 5. g.txt is absent at base: whole drift from source = first 10 lines replaced = 10 deleted + 10 added = 20. Total 5 + 20 = 25.",
+    "today": "f.txt 65 (60 drift + 5) + g.txt 20 = 85."
+  },
+  {
+    "id": 3,
+    "name": "edited-copy-absent-at-base-small-drift",
+    "requirement": "2 (replaces edited_setup replaced=3)",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/g.txt": {"seq": [["s", 0, 900]]}}},
+      {"commit": "pr", "branch": "main", "files": {"vendor/g.txt": {"seq": [["c", 0, 3], ["s", 3, 897]]}}, "listing": ["source $source", "edited vendor/g.txt"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 6, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 6 (limit 800)"]},
+    "arithmetic": "g.txt is absent at base (root holds README.md only), so count the whole drift from source: first 3 of 900 lines replaced = 3 deleted + 3 added = 6.",
+    "today": "6 (the same)."
+  },
+  {
+    "id": 4,
+    "name": "edited-copy-absent-at-base-drift-over-limit",
+    "requirement": "2 (replaces edited_setup replaced=401)",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/g.txt": {"seq": [["s", 0, 900]]}}},
+      {"commit": "pr", "branch": "main", "files": {"vendor/g.txt": {"seq": [["c", 0, 401], ["s", 401, 499]]}}, "listing": ["source $source", "edited vendor/g.txt"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 802, "exit": 1, "mismatches": [], "stdout_contains": ["counted lines: 802 (limit 800)"]},
+    "arithmetic": "g.txt absent at base: first 401 of 900 lines replaced = 401 deleted + 401 added = 802 > 800, so exit 1. No copy mismatch (blob at source and HEAD).",
+    "today": "802 (the same)."
+  },
+  {
+    "id": 5,
+    "name": "edited-entry-byte-identical-to-source-absent-at-base",
+    "requirement": "3",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 0, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 0 (limit 800)"]},
+    "arithmetic": "f.txt absent at base, so count drift from source. HEAD equals source, so git diff --numstat source HEAD prints nothing, and _edit_lines returns 0 (pr_size.py lines 123-124). Total 0. copied_mismatches: an edited path must be a blob at source and at HEAD, and it is, so no mismatch.",
+    "today": "0 (the same; the range numstat lists 100 added lines but own = 0 replaces it)."
+  },
+  {
+    "id": 6,
+    "name": "edited-entry-reverts-base-drift-to-source",
+    "requirement": "3 (edge: identical to source but present at base)",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 60, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 60 (limit 800)"]},
+    "arithmetic": "f.txt exists at base, so count numstat base...HEAD. The PR turns d 0..d 29 back into s 0..s 29: 30 added + 30 deleted = 60. See question Q2.",
+    "today": "0 (HEAD equals source, so _edit_lines returns 0)."
+  },
+  {
+    "id": 7,
+    "name": "plain-copy-at-base-becomes-edited",
+    "requirement": "4",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/h.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/h.txt": {"seq": [["s", 0, 100]]}}, "listing": ["source $source", "vendor/h.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/h.txt": {"seq": [["c", 0, 7], ["s", 7, 93]]}}, "listing": ["source $source", "edited vendor/h.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 14, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 14 (limit 800)"]},
+    "arithmetic": "h.txt exists at base, so count numstat base...HEAD. Base equals the source, and the PR replaces the first 7 lines: 7 deleted + 7 added = 14. No mismatch: edited path is a blob at both ends. The listing file is excluded.",
+    "today": "14 (the same, because base equals source; the two rules cannot differ here)."
+  },
+  {
+    "id": 8,
+    "name": "plain-copy-matches-source",
+    "requirement": "5a",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/big.txt": {"seq": [["s", 0, 900]]}}},
+      {"commit": "pr", "branch": "main", "files": {"vendor/big.txt": {"seq": [["s", 0, 900]]}}, "listing": ["source $source", "vendor/big.txt"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 0, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 0 (limit 800)"]},
+    "arithmetic": "big.txt is listed plain and has the same mode, type and object id at HEAD as at the source, so no mismatch. Plain paths are skipped (pr_size.py line 141), so its 900 added lines are not counted. Total 0.",
+    "today": "0 (the same)."
+  },
+  {
+    "id": 9,
+    "name": "plain-copy-differs-from-source",
+    "requirement": "5b",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 50]]}}},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["s", 0, 7], ["c", 0, 1], ["s", 8, 42]]}}, "listing": ["source $source", "vendor/f.txt"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 0, "exit": 1, "mismatches": ["vendor/f.txt"], "stdout_contains": ["counted lines: 0 (limit 800)", "copy mismatch: vendor/f.txt"]},
+    "arithmetic": "f.txt is a plain entry, and its object id at HEAD differs from the source's (line 8 changed), so copy mismatch and exit 1. Plain paths are never counted, so the counted lines are 0.",
+    "today": "The same."
+  },
+  {
+    "id": 10,
+    "name": "limit-edge-800-passes",
+    "requirement": "6",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70], ["a", 0, 800]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 800, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 800 (limit 800)"]},
+    "arithmetic": "f.txt exists at base. The PR appends 800 lines: 800 added + 0 deleted = 800. The limit test is total > 800, so 800 passes and exit is 0.",
+    "today": "860 (60 base drift + 800), which fails with exit 1."
+  },
+  {
+    "id": 11,
+    "name": "limit-edge-801-fails",
+    "requirement": "6",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70], ["a", 0, 801]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 801, "exit": 1, "mismatches": [], "stdout_contains": ["counted lines: 801 (limit 800)"]},
+    "arithmetic": "Same as scenario 10 with 801 appended lines: 801 added + 0 deleted = 801 > 800, so exit 1.",
+    "today": "861, exit 1."
+  },
+  {
+    "id": 12,
+    "name": "edited-file-deleted-listing-still-edited",
+    "requirement": "7",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70], ["x", 0, 5]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "remove": ["vendor/f.txt"], "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 105, "exit": 1, "mismatches": ["vendor/f.txt"], "stdout_contains": ["counted lines: 105 (limit 800)", "copy mismatch: vendor/f.txt"]},
+    "arithmetic": "Base f.txt has 100 + 5 = 105 lines. It exists at base, so count numstat base...HEAD = 0 added + 105 deleted = 105. The edited entry must be a blob at HEAD, and the file is gone, so copy mismatch and exit 1 whatever the count.",
+    "today": "100 (diff of source against HEAD: the source's 100 lines deleted); mismatch and exit 1 the same."
+  },
+  {
+    "id": 13,
+    "name": "edited-file-deleted-and-entry-removed",
+    "requirement": "7",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70], ["x", 0, 5]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "remove": ["vendor/f.txt"], "listing": ["source $source"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 105, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 105 (limit 800)"]},
+    "arithmetic": "The entry is no longer listed at HEAD, so the file is an ordinary path: numstat base...HEAD = 0 added + 105 deleted = 105. No listed path, so no mismatch; 105 <= 800 so exit 0.",
+    "today": "105 (the same)."
+  },
+  {
+    "id": 14,
+    "name": "edited-path-binary-at-source-text-at-head-absent-at-base",
+    "requirement": "8",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"code.py": {"hex": "62696e006172790a"}}},
+      {"commit": "pr", "branch": "main", "files": {"code.py": {"seq": [["t", 0, 1000]]}}, "listing": ["source $source", "edited code.py"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 1000, "exit": 1, "mismatches": [], "stdout_contains": ["counted lines: 1000 (limit 800)"]},
+    "arithmetic": "code.py is absent at base. Drift from source is not computable because the source side is binary (numstat prints - -), so _edit_lines returns None and the caller keeps its range count: 1000 added + 0 deleted = 1000 > 800, exit 1. See question Q3.",
+    "today": "1000 (same; the existing test test_edited_path_binary_at_source_keeps_its_range_count)."
+  },
+  {
+    "id": 15,
+    "name": "edited-path-binary-at-head-absent-at-base",
+    "requirement": "8",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"code.py": {"seq": [["s", 0, 10]]}}},
+      {"commit": "pr", "branch": "main", "files": {"code.py": {"hex": "62696e006172790a"}}, "listing": ["source $source", "edited code.py"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 0, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 0 (limit 800)"]},
+    "arithmetic": "Range numstat for code.py is - - (binary at HEAD), and binary entries are skipped (pr_size.py line 141) before any edited handling. Total 0. The edited path is a blob at source and HEAD, so no mismatch.",
+    "today": "0 (the same)."
+  },
+  {
+    "id": 16,
+    "name": "edited-path-text-at-base-becomes-binary",
+    "requirement": "8",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"hex": "62696e006172790a"}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 0, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 0 (limit 800)"]},
+    "arithmetic": "Numstat base...HEAD for f.txt is - - (binary at HEAD), and binaries are excluded as today. Total 0. Edited path is a blob at source and HEAD, so no mismatch.",
+    "today": "0 (the same)."
+  },
+  {
+    "id": 17,
+    "name": "unlisted-hand-written-file-at-base-becomes-edited",
+    "requirement": "rule as written (existing edited_setup shape)",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n", "vendor/f.txt": {"seq": [["b", 0, 50]]}}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 50]]}}},
+      {"commit": "pr", "branch": "main", "files": {"vendor/f.txt": {"seq": [["s", 0, 45], ["e", 0, 5]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "root",
+    "expected": {"counted": 100, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 100 (limit 800)"]},
+    "arithmetic": "f.txt exists at base (hand-written, 50 lines b 0..b 49, not listed). Rule: count numstat base...HEAD. No line of the HEAD file (s 0..s 44, e 0..e 4) equals a base line, so 50 deleted + 50 added = 100. See question Q1.",
+    "today": "10 (drift from source: lines 46-50 replaced = 5 + 5)."
+  },
+  {
+    "id": 18,
+    "name": "edited-file-untouched-by-pr",
+    "requirement": "rule as written",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "base", "branch": "main", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "main", "files": {"notes.txt": {"seq": [["n", 0, 3]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_commit": "base",
+    "expected": {"counted": 3, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 3 (limit 800)"]},
+    "arithmetic": "The PR does not touch vendor/f.txt, so it is not in numstat base...HEAD and counts 0. notes.txt adds 3 lines. Total 3.",
+    "today": "3 (the range numstat does not list f.txt, so the edited branch never runs)."
+  },
+  {
+    "id": 19,
+    "name": "base-ref-advanced-past-merge-base-file-absent-at-merge-base",
+    "requirement": "Q4 ruling (existence tested at git merge-base <base> HEAD)",
+    "steps": [
+      {"commit": "root", "branch": "main", "files": {"README.md": "base\n"}},
+      {"commit": "source", "branch": "src", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["s", 0, 100]]}}},
+      {"commit": "main-advance", "branch": "main", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["d", 0, 30], ["s", 30, 70]]}}, "listing": ["source $source", "edited vendor/f.txt"]},
+      {"commit": "pr", "branch": "pr", "start_from": "root", "files": {"vendor/f.txt": {"seq": [["e", 0, 12], ["s", 12, 88]]}}, "listing": ["source $source", "edited vendor/f.txt"]}
+    ],
+    "base_ref": "main",
+    "run_branch": "pr",
+    "base_commit": "main-advance",
+    "expected": {"counted": 24, "exit": 0, "mismatches": [], "stdout_contains": ["counted lines: 24 (limit 800)"]},
+    "arithmetic": "Branch pr forks from root; main then advances (main-advance adds an edited vendor/f.txt with 30 lines of drift). Run at the tip of pr with --base main. git merge-base main pr = root, and vendor/f.txt is absent at root, so count the whole drift from the source: the first 12 of 100 lines replaced = 12 deleted + 12 added = 24. Testing existence at the main tip would wrongly find the file there and count the range numstat main...HEAD = 100 added.",
+    "today": "24 (drift from source, the same)."
+  }
+]
