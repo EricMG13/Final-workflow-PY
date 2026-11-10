@@ -370,6 +370,13 @@ CP5_BLOCKED_REASON = (
 )
 
 
+CP5_BASIS = (
+    "forecast-only override FORECAST_EDGES (R-ALIVE F1) of the registry's restricted "
+    "CP-5 <- CP-4 edge; A-live run web-58d058451a6bfb7620b579bbd74b52df: CP-5.md:8, :70; "
+    "INS/CP-5.md:706, :753"
+)
+
+
 def edges_for(ordered: Sequence[str]) -> Edges:
     """Consumer -> {producer: "block" | "restricted"} among the ordered modules."""
     chosen = set(ordered)
@@ -768,10 +775,13 @@ def _inherit(
         return None
     worst = min(reaching.values(), key=SEVERITY.__getitem__)
     names = list(reaching)
-    reason = f"Expected to be {worst.replace('_', ' ')} through {', '.join(names)}, which it reads."
+    state = "return Blocked" if worst == "will_refuse" else f"be {worst.replace('_', ' ')}"
+    reason = f"Expected to {state} through {', '.join(names)}, which it reads."
+    basis = "owner-path: deploy_vii.registry.edge_rule"
     if (module, "CP-4") in FORECAST_EDGES and worst == "will_refuse":
         reason = CP5_BLOCKED_REASON
-    words = Words(reason, "", "owner-path: deploy_vii.registry.edge_rule", "observed offline")
+        basis = CP5_BASIS
+    words = Words(reason, "", basis, "observed offline")
     return _item(module, f"from:{names[0]}", worst, words, names)
 
 
