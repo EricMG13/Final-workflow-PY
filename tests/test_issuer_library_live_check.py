@@ -13,6 +13,7 @@ from contextlib import nullcontext
 from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
+from typing import Any
 
 import pytest
 
@@ -568,3 +569,86 @@ def test_the_server_is_started_on_a_free_port_not_a_fixed_one(monkeypatch, tmp_p
     args = SimpleNamespace(rehearse=True, case_data=None)
     live_check.run_walk(bc, args, tmp_path, {}, {})
     assert walked == [41234] and not hasattr(live_check, "PORT")
+
+
+# PR1 answer key (R-SB2-7 ruling 5): --accept-limitations is accepted at argument parsing and the
+# walk ticks the acceptance box when the Review step shows one. Without the flag and with N > 0
+# the walk refuses before Start, naming the flag and N; it never ticks the box by itself.
+# There is no seam for the walk besides `walk` itself, so it runs on a real page holding only the
+# contract's ids (#run-confirm, #run-accept inside a label, #start-run, #progress-step, #open-run).
+def review_page(browser: Any, items: int) -> Any:
+    """Start is enabled by both ticks (the box only exists when items are counted)."""
+    box = (
+        f'<label><input id="run-accept" type="checkbox">I accept these {items} items</label>'
+        if items
+        else ""
+    )
+    page = browser.new_page()
+    page.set_default_timeout(3000)
+    page.set_content(
+        f"""<section id="review-step"><label><input id="run-confirm" type="checkbox">approve
+        </label>{box}<button id="start-run" disabled>Start run</button></section>
+        <section id="progress-step" hidden><div id="run-progress">Complete: done</div>
+        <button id="open-run" hidden>Open</button></section>
+        <script>window.__starts=0;
+        const sync=()=>{{const a=document.getElementById('run-accept');
+          document.getElementById('start-run').disabled=
+            !document.getElementById('run-confirm').checked||(a!==null&&!a.checked);}};
+        document.addEventListener('change',sync);
+        document.getElementById('start-run').addEventListener('click',()=>{{window.__starts++;
+          document.getElementById('progress-step').hidden=false;
+          document.getElementById('open-run').hidden=false;}});</script>"""
+    )
+    return page
+
+
+def walk_on(monkeypatch: pytest.MonkeyPatch, page: Any, flag: bool) -> None:
+    for name in ("fill_form", "check_run"):
+        monkeypatch.setattr(live_check, name, lambda *a, **k: None)
+    monkeypatch.setattr(live_check, "check_review", lambda *a, **k: [])
+    bc = SimpleNamespace(errors_of=lambda page: [], note=lambda *a, **k: None)
+    args = SimpleNamespace(accept_limitations=flag, minutes=1, case_data=None)
+    browser = SimpleNamespace(new_page=lambda **options: page)
+    live_check.walk(bc, browser, args, Path("."), {})
+
+
+def test_accept_limitations_parses_without_the_not_available_refusal(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("FW_PYTHON", sys.executable)
+    args = live_check.parse(["--cap", "5", "--accept-limitations", "--rehearse"])
+    assert args.accept_limitations is True
+    done = refuse(tmp_path, "--cap", "5", "--accept-limitations", "--rehearse", keep=True)
+    assert "not available" not in done.stderr and "Stage 2" not in done.stderr
+
+
+@pytest.mark.browser
+def test_the_walk_ticks_the_acceptance_box_when_the_flag_is_given(
+    browser: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    page = review_page(browser, 4)
+    walk_on(monkeypatch, page, True)
+    assert page.evaluate("document.getElementById('run-accept').checked")
+    assert page.evaluate("window.__starts") == 1
+
+
+@pytest.mark.browser
+def test_the_walk_refuses_before_start_without_the_flag_naming_the_flag_and_n(
+    browser: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    page = review_page(browser, 4)
+    with pytest.raises(Exception, match=r"--accept-limitations") as raised:
+        walk_on(monkeypatch, page, False)
+    assert "4" in str(raised.value) and "Timeout" not in type(raised.value).__name__
+    assert page.evaluate("window.__starts") == 0
+    assert not page.evaluate("document.getElementById('run-accept').checked"), "ticked on its own"
+
+
+@pytest.mark.browser
+@pytest.mark.parametrize("flag", [False, True])
+def test_the_walk_needs_no_flag_when_nothing_is_counted(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, flag: bool
+) -> None:
+    page = review_page(browser, 0)
+    walk_on(monkeypatch, page, flag)
+    assert page.evaluate("window.__starts") == 1
