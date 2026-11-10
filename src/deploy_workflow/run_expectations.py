@@ -111,13 +111,18 @@ _LENDER_QUALIFIER = rf"(?:{_cased('Public', 'Private', 'Bank', 'Syndicate')} )?"
 # body sentence that starts with the phrase ("Credit Agreement borrowings were ...") is no title.
 _TAIL = (
     r"(?:dated\b.*|(?:by and )?among\b.*|between\b.*|"
-    r"as amended(?: and restated)?(?:\W*|\s+(?:through|by|to|on|as of|from time to time)\b.*)|"
     r"\((?:execution version|conformed copy)\)|- execution version|(?:"
     + "|".join(MONTHS)
     + r") \d{1,2}, \d{4}\W*)"
 )
+# After "as amended" only punctuation, or a short connective tail with no comma but a closing date.
+_AS_AMENDED = (
+    r"as amended(?: and restated)?"
+    r"(?:\W*|\s+(?=.{0,80}$)(?:through|by|to|on|as of|from time to time)\b"
+    r"(?:[^,]*|[^,]*(?:" + "|".join(MONTHS) + r") \d{1,2}, \d{4}\W*))"
+)
 _DEFINED_TERM = r"\((?:this|the) [\"“][^\"“”]+[\"”]\)"  # (this "Agreement"), straight or curly.
-_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+{_TAIL})?$")
+_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+(?:{_TAIL}|{_AS_AMENDED}))?$")
 # An executed agreement's preamble: "This ... Credit Agreement" is a title with a tail.
 _THIS_TITLE_END = _rx(
     rf"[.,;:]?(?:\s+{_DEFINED_TERM})?[.,;:]?\s*(?:{_TAIL}|is (?:entered into|made) as of\b.*)"
