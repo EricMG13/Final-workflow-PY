@@ -660,3 +660,8 @@ both `run_expectations` files moved to `edited`; `pr_size` 212 of 800, exit 0. Q
 against the merge base (exit 0); against `origin/main` it reports `apps/issuer-library/packaging/runtime.py`
 because this branch predates PR #51 (that file is main's, not changed here). Not verified: other issuers'
 lender-presentation titles; a title-case sentence opener such as "Public lender presentation ..." in a body.
+
+R-SB2-2 fix 1 (review M1/L1): `_QUALIFIER` admitted connectives and determiners, so `JOINDER TO CREDIT
+AGREEMENT`, `TERMINATION OF ...` and `Each/Our ... Credit Agreement contains` became credit agreements; the lender rule
+also gained an unasked `the|this` lead-in. Now `_QUALIFIER` excludes to/of/and/under/for/with/each/our/such/any; `the|this` stays on the credit-agreement rule only.
+Reviewer probe `r2_qualifier_admits_connectives.py`: 10 of 10 misclassified before, 0 after (exit 0).
