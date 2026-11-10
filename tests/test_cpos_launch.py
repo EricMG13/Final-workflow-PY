@@ -1102,6 +1102,57 @@ def test_a_non_usd_liquidity_row_still_needs_the_date_period():
     assert chart_issues(text, route) == ()
 
 
+VALUE_ACCEPTED = ("4.20", "-3", "1,250", "1,250.5", "12,345,678", "1250000", "0.5", "0", "007")
+VALUE_REFUSED = (
+    "4,10", "12,34", "1250,000", "1,,000", "1,", ",100", "1,00", "1,0000",
+    "\u0663\u0660\u0660", "\uff14.\uff12\uff10", "1.", ".5", "+4", "1 250",
+)  # fmt: skip
+VALUE_TEMPLATE = (
+    "`### Chart data: interest cover` FY2024 ended 2024-12-31: `{value} |` must be a plain "
+    "number or `Not supplied: <reason>`."
+)
+
+
+# Interest cover has one value column, so the bad cell is the only value on its row.
+@pytest.mark.parametrize("value", VALUE_ACCEPTED)
+def test_a_chart_value_in_plain_ascii_number_form_has_no_issue(value):
+    text, route = one_row("interest cover", "FY2024 ended 2024-12-31", value=value)
+    assert chart_issues(text, route) == ()
+
+
+@pytest.mark.parametrize("value", VALUE_REFUSED)
+def test_a_chart_value_that_is_not_a_plain_ascii_number_is_refused_as_written(value):
+    text, route = one_row("interest cover", "FY2024 ended 2024-12-31", value=value)
+    assert chart_issues(text, route) == (VALUE_TEMPLATE.format(value=value),)
+
+
+@pytest.mark.parametrize(
+    ("name", "period"),
+    [
+        ("leverage", "FY\u0662\u0660\u0662\u0664 ended 2024-12-31"),
+        ("interest cover", "H1 \u0662\u0660\u0662\u0665 ended 2025-06-30"),
+        ("leverage", "LTM ended \u0662\u0660\u0662\u0664-12-31"),
+    ],
+)
+def test_a_ratio_period_with_non_ascii_digits_is_refused_as_written(name, period):
+    text, route = one_row(name, period)
+    expected = RATIO_MESSAGE.format(heading=f"Chart data: {name}", period=period)
+    assert chart_issues(text, route) == (expected,)
+
+
+def test_a_liquidity_period_with_non_ascii_digits_is_refused_as_written():
+    period = "\u0662\u0660\u0662\u0664-12-31"
+    text, route = one_row("liquidity", period)
+    assert chart_issues(text, route) == (LIQUIDITY_MESSAGE.format(period=period),)
+
+
+def test_a_not_supplied_value_with_a_reason_gives_no_value_issue():
+    text, route = one_row(
+        "interest cover", "FY2024 ended 2024-12-31", value="Not supplied: reported in EUR m"
+    )
+    assert chart_issues(text, route) == ()
+
+
 RATIO_SENTENCE = (
     "Each Period cell is `<kind> ended YYYY-MM-DD`, where kind is `FY<yyyy>`, `LTM`, "
     "`H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`; a ratio of period-end debt to "
