@@ -1,6 +1,6 @@
 """Manifest writer against the hand-written answer key (tests/fixtures/library-manifest/writer)."""
 
-import copy
+import hashlib
 import importlib.util
 import json
 import os
@@ -11,10 +11,13 @@ import socket
 import stat
 import subprocess
 import sys
+import tempfile
 import threading
 from pathlib import Path
 
 import pytest
+from hypothesis import HealthCheck, example, given, settings
+from hypothesis import strategies as st
 
 ROOT = Path(__file__).resolve().parents[1]
 KEYS = ROOT / "tests/fixtures/library-manifest/writer"
@@ -43,20 +46,6 @@ def key(case: str) -> dict:
     return json.loads((KEYS / case / "expected-library.json").read_text())
 
 
-def without_chart_rows(manifest: dict) -> dict:
-    manifest = copy.deepcopy(manifest)
-    manifest["run"]["metrics"] = {}
-    manifest["sources"] = {k: v for k, v in manifest["sources"].items() if not k.startswith("cp1_")}
-    return manifest
-
-
-@pytest.mark.parametrize("case", CASES)
-def test_build_matches_key_except_chart_rows(case, tmp_path):
-    root, run_id = workspace(case, tmp_path)
-    assert lm.build(root, run_id) == without_chart_rows(key(case))
-
-
-@pytest.mark.xfail(strict=True, reason="R-24: chart-row rule awaits the owner")
 @pytest.mark.parametrize("case", CASES)
 def test_build_matches_full_key(case, tmp_path):
     root, run_id = workspace(case, tmp_path)
@@ -77,13 +66,17 @@ def test_row_metrics_match_key(case, tmp_path):
     assert got == expected["run"]["metrics"]
 
 
-@pytest.mark.parametrize("cell", ["Not supplied: x", "-3", "abc", "1.2.3", ""])
+UNUSABLE = ["Not supplied: x", "-3", "abc", "1.2.3", "", "4,10", "12,34", "1250,000"]
+
+
+@pytest.mark.parametrize("cell", UNUSABLE)
 def test_row_metrics_omit_unusable_cells(cell):
     cells = {"Period": "p", "Basis and limitation": "b", "Reporting unit": "x"}
     cells |= {"Total debt / EBITDA": cell, "Net debt / EBITDA": "1,250.5"}
     got = lm._row_metrics("cp1_leverage", lm._Row(3, cells))
     assert list(got) == ["net_leverage"] and got["net_leverage"]["value"] == "1250.5"
     assert lm._row_metrics("cp1_leverage", lm._Row(3, cells | {"Reporting unit": "US$m"})) == {}
+    assert lm._row_metrics("cp1_leverage", lm._Row(3, cells | {"Basis and limitation": ""})) == {}
 
 
 def edit(root, run_id, name, change):
@@ -141,9 +134,8 @@ def test_nested_array_in_context(tmp_path):
     assert lm.build(root, run_id)["run"]["private_side"] is True
 
 
-def test_cp1_handoff_and_metrics_do_not_need_a_request(tmp_path, monkeypatch):
+def test_cp1_handoff_and_metrics_do_not_need_a_request(tmp_path):
     root, run_id = workspace("edge", tmp_path)
-    monkeypatch.setattr(lm, "_chosen_row", lambda rows, *_: rows[0] if rows else None)
     edit(root, run_id, "workflow.json", lambda t: t.replace('"CP-1",', ""))
     manifest = lm.build(root, run_id)
     assert manifest["run"]["handoff"] == f"runs/{run_id}/CP-1.md"
@@ -611,3 +603,430 @@ def test_replacing_os_open_selects_the_by_path_walk(tmp_path, monkeypatch):
     monkeypatch.setattr(lm.os, "open", lambda *a, **k: real_open(*a, **k))
     assert lm.os.open not in os.supports_dir_fd
     assert lm._read(root, f"runs/{run_id}/context.json") is not None
+
+
+# ---- R-26 row selection: hand-written CP-1 tables, answers written here by hand ----------------
+
+FORMAT_GAP = "CP-1 chart periods are not in the fixed format"
+HTML_GAP = "HTML Model not published by app runs"
+PRIVATE_GAP = (
+    "Private-side run: the dealer run is indicative and no market-observed pricing is available."
+)
+LEGAL_GAP = "No executed credit agreement or indenture was supplied, so legal analysis will refuse."
+LEV_HEAD = "### Chart data: leverage"
+COV_HEAD = "### Chart data: interest cover"
+LIQ_HEAD = "### Chart data: liquidity"
+LEV_COLUMNS = (
+    "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |"
+)
+COV_COLUMNS = "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |"
+LIQ_COLUMNS = (
+    "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |"
+)
+
+
+def table(head, columns, *rows):
+    divider = "| " + " | ".join("---" for _ in columns.strip("|").split("|")) + " |"
+    return "\n".join([head, "", columns, divider, *rows])
+
+
+def lev(period, debt="4.00", net="3.00", unit="x", basis="lev basis"):
+    return f"| {period} | {debt} | {net} | {unit} | {basis} |"
+
+
+def cov(period, value="2.00", unit="x", basis="cov basis"):
+    return f"| {period} | {value} | {unit} | {basis} |"
+
+
+def liq(period, cash="100", undrawn="50", unit="US$m", basis="liq basis"):
+    return f"| {period} | {cash} | {undrawn} | {unit} | {basis} |"
+
+
+def leverage_table(*rows):
+    return table(LEV_HEAD, LEV_COLUMNS, *rows)
+
+
+def cover_table(*rows):
+    return table(COV_HEAD, COV_COLUMNS, *rows)
+
+
+def liquidity_table(*rows):
+    return table(LIQ_HEAD, LIQ_COLUMNS, *rows)
+
+
+def chart_text(*tables):
+    return "Hand-written CP-1 for a selection case.\n\n" + "\n\n".join(tables) + "\n"
+
+
+def built(tmp_path, text, case="edge"):
+    """Build the manifest of the `case` workspace after its CP-1.md is replaced by `text`."""
+    root, run_id = workspace(case, tmp_path)
+    path = root / "runs" / run_id / "CP-1.md"
+    if text is None:
+        path.unlink()
+    else:
+        path.write_text(text, encoding="utf-8")
+    return lm.build(root, run_id), run_id
+
+
+def shown(manifest):
+    """The metrics as {name: (value, period)}."""
+    return {k: (m["value"], m["period"]) for k, m in manifest["run"]["metrics"].items()}
+
+
+def pinned(manifest, text, source, row):
+    """The cp1_* source is the line of `row` in `text`, with the file's sha256."""
+    lines = text.split("\n")
+    assert manifest["sources"][source] == {
+        "path": manifest["sources"][source]["path"],
+        "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        "line": lines.index(row) + 1,
+        "quote": row,
+    }
+    assert manifest["sources"][source]["path"].endswith("/CP-1.md")
+
+
+def sources_of(manifest):
+    return sorted(k for k in manifest["sources"] if k.startswith("cp1_"))
+
+
+FY25 = "FY2025 ended 2025-06-30"
+FY24 = "FY2024 ended 2024-06-30"
+LTM25 = "LTM ended 2025-06-30"
+
+
+SELECTION = json.loads((KEYS / "selection-cases.json").read_text(encoding="utf-8"))["cases"]
+
+
+@pytest.mark.parametrize("c", SELECTION, ids=[c["id"] for c in SELECTION])
+def test_selection_case_gives_the_hand_written_answers(tmp_path, c):
+    """Each case of selection-cases.json: its CP-1 text, built (and, where stated, written)."""
+    text = None if c["cp1"] is None else "\n".join(c["cp1"])
+    want = c["expect"]
+    manifest, _ = built(tmp_path / "built", text, case=c.get("case", "edge"))
+    if "metrics" in want:
+        assert shown(manifest) == {k: tuple(v) for k, v in want["metrics"].items()}
+    for name, pair in want.get("metrics_include", {}).items():
+        assert shown(manifest)[name] == tuple(pair)
+    if "metric_names" in want:
+        assert sorted(manifest["run"]["metrics"]) == want["metric_names"]
+    if "sources" in want:
+        assert sources_of(manifest) == want["sources"]
+    for source, row in want.get("pinned", []):
+        pinned(manifest, text, source, row)
+    for source in want.get("absent_sources", []):
+        assert source not in manifest["sources"]
+    if "gaps" in want:
+        assert manifest["run"]["gaps"] == want["gaps"]
+    if "discovered_metrics" in want:
+        run = written_and_discovered(tmp_path / "written", text)
+        assert sorted(run.metrics) == want["discovered_metrics"]
+
+
+def test_the_format_gap_follows_the_expectation_gaps_when_the_model_is_published(tmp_path):
+    root, run_id = workspace("synthetic", tmp_path)
+    edit(root, run_id, "CP-1.md", lambda _: chart_text(leverage_table(lev("FY2025"))))
+    receipt = next((root / "runs" / run_id).glob("completed-*.json"))
+    receipt.write_text(
+        receipt.read_text(encoding="utf-8").replace(
+            '"cp_model_published": false', '"cp_model_published": true'
+        ),
+        encoding="utf-8",
+    )
+    assert lm.build(root, run_id)["run"]["gaps"] == [
+        PRIVATE_GAP,
+        LEGAL_GAP,
+        FORMAT_GAP,
+    ]
+
+
+# ---- item 6: the writer's manifests are admitted by discovery unchanged -------------------------
+
+
+@pytest.mark.parametrize("case", CASES)
+def test_writer_output_is_admitted_by_discovery(case, tmp_path):
+    from issuer_library.discovery import discover
+    from issuer_library.model import Catalogue
+
+    root, run_id = workspace(case, tmp_path)
+    lm.write(root, run_id)
+    cat = discover(str(root), Catalogue())
+    assert not [issue for issue in cat.issues if run_id in issue]
+    (run,) = [r for r in cat.real if r.id == run_id]
+    assert not [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+    assert sorted(run.metrics) == sorted(key(case)["run"]["metrics"])
+
+
+# ---- item 7: one hand-written list of Period cells ----------------------------------------------
+
+# (cell, valid for leverage and interest cover, valid for liquidity)
+PERIOD_CELLS = [
+    ("FY2025 ended 2025-06-30", True, False),
+    ("FY2024 ended 2025-06-30", True, False),
+    ("LTM ended 2025-06-30", True, False),
+    ("H1 2025 ended 2025-06-30", True, False),
+    ("H2 2024 ended 2024-12-31", True, False),
+    ("9M 2025 ended 2025-09-30", True, False),
+    ("Q1 2025 ended 2025-03-31", True, False),
+    ("Q4 2025 ended 2025-12-31", True, False),
+    ("FY2024 ended 2024-02-29", True, False),
+    ("FY2025 ended 2025-02-29", False, False),
+    ("FY2025 ended 2025-02-30", False, False),
+    ("FY2025 ended 2025-13-01", False, False),
+    ("fy2025 ended 2025-06-30", False, False),
+    ("FY2025  ended 2025-06-30", False, False),
+    ("FY2025 ended  2025-06-30", False, False),
+    ("FY2025 / 2025-06-30", False, False),
+    ("FY2025", False, False),
+    ("FY25 ended 2025-06-30", False, False),
+    ("LTM 2025-06-30", False, False),
+    ("LTM2025 ended 2025-06-30", False, False),
+    ("H3 2025 ended 2025-06-30", False, False),
+    ("Q5 2025 ended 2025-06-30", False, False),
+    ("Q1 ended 2025-03-31", False, False),
+    ("H1 ended 2025-06-30", False, False),
+    ("FY2025 ended 2025-6-30", False, False),
+    ("FY2025 ended 2025-06-30 (restated)", False, False),
+    ("2025-06-30", False, True),
+    ("2024-02-29", False, True),
+    ("2025-02-30", False, False),
+    ("2025-06-31", False, False),
+    ("2025-6-30", False, False),
+    ("30/06/2025", False, False),
+    ("2025-06-30 (audited)", False, False),
+    ("", False, False),
+]
+RATIO_TABLES = {"leverage": (leverage_table, lev), "interest cover": (cover_table, cov)}
+
+
+@pytest.mark.parametrize(("cell", "ratio_valid", "liquidity_valid"), PERIOD_CELLS)
+def test_writer_period_format_gives_the_hand_written_answers(
+    tmp_path, cell, ratio_valid, liquidity_valid
+):
+    for name, (table_of, row_of) in RATIO_TABLES.items():
+        manifest, _ = built(tmp_path / name, chart_text(table_of(row_of(cell))))
+        assert (FORMAT_GAP not in manifest["run"]["gaps"]) is ratio_valid, name
+    manifest, _ = built(tmp_path / "liquidity", chart_text(liquidity_table(liq(cell))))
+    assert (FORMAT_GAP not in manifest["run"]["gaps"]) is liquidity_valid
+
+
+@pytest.mark.parametrize(("cell", "ratio_valid", "liquidity_valid"), PERIOD_CELLS)
+def test_launcher_period_check_gives_the_same_answers(cell, ratio_valid, liquidity_valid):
+    from deploy_workflow.owners import cpos_launch
+
+    check = getattr(cpos_launch, "_period_issues", None)
+    if check is None:
+        pytest.skip(
+            "cpos_launch._period_issues is not on this branch yet (R-26 launcher check, PR #93)"
+        )
+    assert (check("h", cell, "S.1") == []) is ratio_valid
+    assert (check("h", cell, "S.3") == []) is liquidity_valid
+
+
+# ---- R-26 fix round 1: a chart table needs the exact header; non-finite values write no metric --
+
+
+def written_and_discovered(tmp_path, text):
+    """Write the `edge` manifest with CP-1.md = `text`, then run discovery on it."""
+    from issuer_library.discovery import discover
+    from issuer_library.model import Catalogue
+
+    root, run_id = workspace("edge", tmp_path)
+    (root / "runs" / run_id / "CP-1.md").write_text(text, encoding="utf-8")
+    lm.write(root, run_id)
+    cat = discover(str(root), Catalogue())
+    assert not [issue for issue in cat.issues if run_id in issue]
+    (run,) = [r for r in cat.real if r.id == run_id]
+    assert not [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+    return run
+
+
+def only_html_gap(manifest):
+    assert manifest["run"]["metrics"] == {} and sources_of(manifest) == []
+    assert manifest["run"]["gaps"] == [HTML_GAP]
+
+
+# ---- R-26 fix round 2: the writer's output is admitted by discovery, or it is not written -------
+
+
+def write_then_discover(root, run_id):
+    """Write the manifest, run discovery on the workspace; return (run, issues, rejected gaps)."""
+    from issuer_library.discovery import discover
+    from issuer_library.model import Catalogue
+
+    lm.write(root, run_id)
+    cat = discover(str(root), Catalogue())
+    issues = [issue for issue in cat.issues if run_id in issue]
+    (run,) = [r for r in cat.real if r.id == run_id]
+    rejected = [gap for gap in run.gaps if gap.startswith("Run metadata rejected")]
+    return run, issues, rejected
+
+
+def metrics_are_stated_by_their_pinned_quote(root, run_id):
+    """Every metric written to library.json has its value among discovery's numbers of its quote."""
+    from issuer_library.discovery import stated_numbers
+
+    manifest = json.loads((root / "runs" / run_id / "library.json").read_text(encoding="utf-8"))
+    for name, metric in manifest["run"]["metrics"].items():
+        quote = manifest["sources"][metric["source"]]["quote"]
+        assert metric["value"] in stated_numbers(quote), (name, metric["value"], quote)
+
+
+# Hand derivation with discovery.number_runs / run_number / accounting_number (whole pinned line).
+# Leverage line:  | FY2025 ended 2025-06-30 | Not supplied (see note | 3.10 | x | lev basis |
+#   number runs: "2025" (depth 0), "2025-06-30" (depth 0), "3.10" (depth 1: the "(" in the debt cell
+#   is never closed).  "2025" -> stated "2025".  "2025-06-30" is not a whole number -> nothing.
+#   "3.10" has depth 1 and is preceded by " ", not "(" -> accounting_number gives None -> nothing.
+#   stated_numbers(line) == ["2025"].  The debt cell is not a number; net 3.10 is not stated.
+#   So no metric: {}.
+# Liquidity line: | 2025-06-30 | Not supplied (pending | 50 | US$m | liq basis |
+#   runs: "2025-06-30" (nothing), "50" at depth 1 preceded by " " -> nothing.  stated == [].
+#   cash is not a number; undrawn 50 is not stated.  So no metric: {}.
+PROBE_ROWS = [
+    (
+        "leverage",
+        lambda: chart_text(leverage_table(lev(FY25, debt="Not supplied (see note", net="3.10"))),
+    ),
+    (
+        "liquidity",
+        lambda: chart_text(
+            liquidity_table(liq("2025-06-30", cash="Not supplied (pending", undrawn="50"))
+        ),
+    ),
+]
+
+
+@pytest.mark.parametrize(("name", "make"), PROBE_ROWS, ids=[n for n, _ in PROBE_ROWS])
+def test_an_unclosed_bracket_before_a_value_writes_a_manifest_discovery_admits(
+    tmp_path, name, make
+):
+    text = make()
+    manifest, _ = built(tmp_path / "built", text)
+    assert manifest["run"]["metrics"] == {}
+    root, run_id = workspace("edge", tmp_path / "written")
+    (root / "runs" / run_id / "CP-1.md").write_text(text, encoding="utf-8")
+    run, issues, rejected = write_then_discover(root, run_id)
+    assert issues == [] and rejected == []
+    assert run.metrics == {}
+    metrics_are_stated_by_their_pinned_quote(root, run_id)
+
+
+def test_write_refuses_and_leaves_nothing_when_discovery_would_reject_the_run(tmp_path):
+    # context.json run.as_of is a string (build accepts it) but not a calendar date (admission
+    # rejects it: "invalid evidence date").
+    root, run_id = workspace("edge", tmp_path)
+    edit(
+        root,
+        run_id,
+        "context.json",
+        lambda t: t.replace('"as_of": "2025-06-30"', '"as_of": "2025-13-40"', 1),
+    )
+    assert lm.build(root, run_id)["run"]["date"] == "2025-13-40"
+    with pytest.raises(lm.ManifestError, match="invalid evidence date"):
+        lm.write(root, run_id)
+    left = [p.name for p in (root / "runs" / run_id).iterdir()]
+    assert not [n for n in left if n.startswith(".library-") or n == "library.json"]
+
+
+# Cells: plain numbers in many shapes, Not supplied texts, brackets, pipes, emphasis, blanks.
+VALUE_CELLS = st.one_of(
+    st.sampled_from(
+        [
+            "3.10",
+            "1,250",
+            "007",
+            "-35",
+            "(35)",
+            "$50",
+            "−12",
+            "4,10",
+            "0",
+            "12.5",
+            "1,250.5",
+            "–35",
+            "35)",
+            "(35",
+            "1 234",
+            "1.2e3",
+            "Not supplied (see note",
+            "Not supplied: x)",
+            "Not supplied",
+            "(a) 12",
+            "n/a",
+            "**3.1**",
+            "a \\| 3.1",
+            "",
+            "(n/a)",
+            "x (3.1",
+            "3.1)",
+            "[3.1",
+            "3.1]",
+            "(3.1",
+            "- 5",
+            "5%",
+            "US$ 20",
+        ]
+    ),
+    st.text(alphabet="0123456789.,()-$ −–*`[]a|\\", max_size=12).map(
+        lambda s: s.replace("|", "\\|")
+    ),
+)
+BASIS_CELLS = st.sampled_from(
+    ["lev basis", "gross (see note", "(x", "**bold** `code", "a \\| b", "", "net (of cash)", "3.1"]
+)
+RATIO_PERIODS = st.sampled_from(
+    [FY25, FY24, LTM25, "H1 2025 ended 2025-06-30", "FY2025", "FY2025 ended 2025-02-30"]
+)
+LIQ_PERIODS = st.sampled_from(["2025-06-30", "2025-03-31", "2024-12-31", "2025-02-30", "FY2025"])
+UNITS = st.sampled_from(["x", "x", "x", "US$m"])
+LIQ_UNITS = st.sampled_from(["US$m", "US$m", "US$m", "x"])
+
+
+@st.composite
+def generated_chart_text(draw):
+    lev_rows = draw(
+        st.lists(
+            st.builds(lev, RATIO_PERIODS, VALUE_CELLS, VALUE_CELLS, UNITS, BASIS_CELLS),
+            min_size=1,
+            max_size=4,
+        )
+    )
+    cov_rows = draw(
+        st.lists(
+            st.builds(cov, RATIO_PERIODS, VALUE_CELLS, UNITS, BASIS_CELLS), min_size=1, max_size=4
+        )
+    )
+    liq_rows = draw(
+        st.lists(
+            st.builds(liq, LIQ_PERIODS, VALUE_CELLS, VALUE_CELLS, LIQ_UNITS, BASIS_CELLS),
+            min_size=1,
+            max_size=4,
+        )
+    )
+    return chart_text(leverage_table(*lev_rows), cover_table(*cov_rows), liquidity_table(*liq_rows))
+
+
+PROBE_TEXTS = [make() for _, make in PROBE_ROWS]
+
+
+@settings(
+    max_examples=150,
+    deadline=None,
+    suppress_health_check=[HealthCheck.function_scoped_fixture],
+)
+@example(text=PROBE_TEXTS[0])
+@example(text=PROBE_TEXTS[1])
+@given(text=generated_chart_text())
+def test_whatever_the_chart_rows_say_the_written_manifest_is_admitted_or_absent(text):
+    with tempfile.TemporaryDirectory() as scratch:
+        root, run_id = workspace("edge", Path(scratch))
+        (root / "runs" / run_id / "CP-1.md").write_text(text, encoding="utf-8")
+        library = root / "runs" / run_id / "library.json"
+        try:
+            _, issues, rejected = write_then_discover(root, run_id)
+        except lm.ManifestError:
+            assert not library.exists()
+            return
+        assert library.exists()
+        assert issues == [] and rejected == []
+        metrics_are_stated_by_their_pinned_quote(root, run_id)

@@ -137,7 +137,7 @@
       "leverage": {
         "value": "4.10",
         "unit": "x",
-        "period": "FY2025 / 2025-06-30",
+        "period": "FY2025 ended 2025-06-30",
         "basis": "Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage.",
         "source": "cp1_leverage",
         "provenance": "calculated"
@@ -145,7 +145,7 @@
       "net_leverage": {
         "value": "3.45",
         "unit": "x",
-        "period": "FY2025 / 2025-06-30",
+        "period": "FY2025 ended 2025-06-30",
         "basis": "Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage.",
         "source": "cp1_leverage",
         "provenance": "calculated"
@@ -153,7 +153,7 @@
       "coverage": {
         "value": "2.95",
         "unit": "x",
-        "period": "FY2025",
+        "period": "FY2025 ended 2025-06-30",
         "basis": "Fictional EBITDA / fictional cash interest paid, net of interest income.",
         "source": "cp1_coverage",
         "provenance": "calculated"
@@ -269,19 +269,19 @@
     },
     "cp1_leverage": {
       "path": "runs/synthetic-hy-001/CP-1.md",
-      "sha256": "07b4ff0c67bcadb8fc109aad2b14b41ec8f93f5aa743cd6c8f0a929e4e2db9bc",
+      "sha256": "298cd1f7315f539b42c71c566d92a09d308c80bcff39fa14fcc69ac29969a06d",
       "line": 9,
-      "quote": "| FY2025 / 2025-06-30 | 4.10 | 3.45 | x | Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage. |"
+      "quote": "| FY2025 ended 2025-06-30 | 4.10 | 3.45 | x | Fictional gross debt / fictional EBITDA; consolidated cash fully netted; not covenant leverage. |"
     },
     "cp1_coverage": {
       "path": "runs/synthetic-hy-001/CP-1.md",
-      "sha256": "07b4ff0c67bcadb8fc109aad2b14b41ec8f93f5aa743cd6c8f0a929e4e2db9bc",
-      "line": 16,
-      "quote": "| FY2025 | 2.95 | x | Fictional EBITDA / fictional cash interest paid, net of interest income. |"
+      "sha256": "298cd1f7315f539b42c71c566d92a09d308c80bcff39fa14fcc69ac29969a06d",
+      "line": 17,
+      "quote": "| FY2025 ended 2025-06-30 | 2.95 | x | Fictional EBITDA / fictional cash interest paid, net of interest income. |"
     },
     "cp1_liquidity": {
       "path": "runs/synthetic-hy-001/CP-1.md",
-      "sha256": "07b4ff0c67bcadb8fc109aad2b14b41ec8f93f5aa743cd6c8f0a929e4e2db9bc",
+      "sha256": "298cd1f7315f539b42c71c566d92a09d308c80bcff39fa14fcc69ac29969a06d",
       "line": 23,
       "quote": "| 2025-06-30 | 412 | 150 | US$m | Fictional consolidated cash; facilities cell is fictional revolving availability only. |"
     },
@@ -299,7 +299,7 @@
     },
     "handoff_CP-1": {
       "path": "runs/synthetic-hy-001/CP-1.md",
-      "sha256": "07b4ff0c67bcadb8fc109aad2b14b41ec8f93f5aa743cd6c8f0a929e4e2db9bc",
+      "sha256": "298cd1f7315f539b42c71c566d92a09d308c80bcff39fa14fcc69ac29969a06d",
       "line": 1,
       "quote": "SYNTHETIC FIXTURE: fictional CP-1 handoff for Northwind Fabrication Holdings; not retained model output."
     },
@@ -311,19 +311,19 @@
     },
     "delivery_CP-0": {
       "path": "runs/synthetic-hy-001/deliveries/cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd/delivery.json",
-      "sha256": "e7d2e669396b43557d58ced9c337e8a446c110796aa634c9cf83c292538c23a6",
+      "sha256": "8314877b1a29a2ae0f312c507eff8535a1bf19b1286c9ac88144af4c0b9913c1",
       "line": 6,
       "quote": "    \"CP-0.md\": \"f0fe371487444cad60c21414e6a30a9908752582678a539b8d2fd276ae65c311\","
     },
     "delivery_CP-1": {
       "path": "runs/synthetic-hy-001/deliveries/cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd/delivery.json",
-      "sha256": "e7d2e669396b43557d58ced9c337e8a446c110796aa634c9cf83c292538c23a6",
+      "sha256": "8314877b1a29a2ae0f312c507eff8535a1bf19b1286c9ac88144af4c0b9913c1",
       "line": 7,
-      "quote": "    \"CP-1.md\": \"07b4ff0c67bcadb8fc109aad2b14b41ec8f93f5aa743cd6c8f0a929e4e2db9bc\","
+      "quote": "    \"CP-1.md\": \"298cd1f7315f539b42c71c566d92a09d308c80bcff39fa14fcc69ac29969a06d\","
     },
     "delivery_report": {
       "path": "runs/synthetic-hy-001/deliveries/cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd/delivery.json",
-      "sha256": "e7d2e669396b43557d58ced9c337e8a446c110796aa634c9cf83c292538c23a6",
+      "sha256": "8314877b1a29a2ae0f312c507eff8535a1bf19b1286c9ac88144af4c0b9913c1",
       "line": 9,
       "quote": "    \"report.html\": \"49e861754e717bb17dbb5d7adfe14478fc2553e25ee89c30c61261ad452fd638\""
     }
