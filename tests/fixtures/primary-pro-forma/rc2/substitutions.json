@@ -1,0 +1,314 @@
+{
+  "frozen": "2026-11-10",
+  "base": "origin/main 0c9c893a, src/deploy_workflow/owners/cpos_launch.py _instructions",
+  "rule": "new bytes = base bytes with these (old -> new) replacements applied once each, in listed order; each `old` occurs exactly once in the base instruction of that module (checked on every module and run type listed in `checked`). A module with no entry must be byte-identical. Strings are exact; \\n is a newline.",
+  "checked": "all 20 modules x run_type secondary/primary x legal_documents executed/draft, instructions composed with the unchanged origin/main code and a placeholder run (issuer 'Issuer X'); anchors counted by str.count.",
+  "sentences": {
+    "R-C2-3": "The helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.",
+    "R-C2-7": "Keep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion."
+  },
+  "non_primary": {
+    "CP-0": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Readiness view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Readiness view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      }
+    ],
+    "CP-1": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Financial base view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Financial base view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-7",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nKeep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-1A": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Business and transaction view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Business and transaction view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      }
+    ],
+    "CP-1B": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Earnings delta view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Earnings delta view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      }
+    ],
+    "CP-1C": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Credit view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Credit view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-1D": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Earnings quality view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Earnings quality view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-2": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Credit view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Credit view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      }
+    ],
+    "CP-2A": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Downside view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Downside view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-2D": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Liquidity view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Liquidity view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-2E": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Macro and FX view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Macro and FX view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-2G": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Forward model view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Forward model view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-2H": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Ratings view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Ratings view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-3": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Relative value view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Relative value view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-3C": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Funding gap view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Funding gap view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      }
+    ],
+    "CP-3D": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Market-implied view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Market-implied view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-4": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Covenant view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Covenant view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-4C": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Restructuring view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Restructuring view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-5": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Evidence trace view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Evidence trace view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-6": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Challenge view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Challenge view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ],
+    "CP-DR": [
+      {
+        "rule": "R-C2-6",
+        "where": "the last bullet of the 'A handoff is rejected unless it does all of this' list",
+        "old": ";\n- place `### Research view` directly after `### Reader summary`, once: prose that states the view, before any table.\n\n",
+        "new": ";\n- place `### Research view` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view.\n\n"
+      },
+      {
+        "rule": "R-C2-3",
+        "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
+        "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
+        "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nThe helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.\n\nA handoff is rejected unless it does all of this:\n"
+      }
+    ]
+  },
+  "primary_additions": {
+    "CP-1A": [
+      {
+        "rule": "R-C2-7",
+        "where": "end of the PRO_FORMA_CELL_RULE sentence group",
+        "old": "Take every figure from the sources and handoffs or from `calculate`; plug nothing and invent no haircut.",
+        "new": "Take every figure from the sources and handoffs or from `calculate`; plug nothing and invent no haircut. Keep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion."
+      },
+      {
+        "rule": "R-C2-1",
+        "where": "PRO_FORMA_CP1A",
+        "old": "Side is `Source` or `Use`.",
+        "new": "Side is `Source`, `Use` or `Memo`."
+      },
+      {
+        "rule": "R-C2-1",
+        "where": "PRO_FORMA_CP1A",
+        "old": "Use the facility sizes the user entered, labelled `user-entered`; when a document states a different size, give it on its own `documented` row and log the difference, never resolve it.",
+        "new": "A `Source` row holds a funded amount taken from the source (what is drawn or issued at closing), never a facility commitment. The user-entered facility size is a commitment: write it on a `Memo` row whose Item ends with `(commitment)` and whose Basis is `documented` or `user-entered`; a `Memo` row is not a source or use of funds and is in no total. When the source states no funded amount for a row, write `Not supplied: <reason>` in Amount. Where documents differ, log the difference in prose and never resolve it."
+      },
+      {
+        "rule": "R-C2-1",
+        "where": "PRO_FORMA_CP1A",
+        "old": "Write at least one `Source` row and one `Use` row, then exactly one row with Item `Total sources` (Side `Source`) and exactly one with Item `Total uses` (Side `Use`), each total from `calculate`.",
+        "new": "Write at least one `Source` row and one `Use` row (a `Memo` row is neither). For each of Source and Use: when every row of that side holds a number, write exactly one total row (Item `Total sources` with Side `Source`, Item `Total uses` with Side `Use`); when any row of that side is `Not supplied`, write no total row for that side. Take each total from `calculate`; where the source prints a total the rows do not reach, plug nothing: write the printed total, say so in Source, and log the difference in prose."
+      }
+    ],
+    "CP-1D": [
+      {
+        "rule": "R-C2-7",
+        "where": "end of the PRO_FORMA_CELL_RULE sentence group",
+        "old": "Take every figure from the sources and handoffs or from `calculate`; plug nothing and invent no haircut.",
+        "new": "Take every figure from the sources and handoffs or from `calculate`; plug nothing and invent no haircut. Keep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion."
+      }
+    ],
+    "CP-2": [
+      {
+        "rule": "R-C2-7",
+        "where": "end of the PRO_FORMA_CELL_RULE sentence group",
+        "old": "Take every figure from the sources and handoffs or from `calculate`; plug nothing and invent no haircut.",
+        "new": "Take every figure from the sources and handoffs or from `calculate`; plug nothing and invent no haircut. Keep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion."
+      }
+    ]
+  },
+  "primary_note": "A Primary run applies non_primary[module] AND primary_additions[module] (CP-1A, CP-1D, CP-2). Order of application is irrelevant: the olds do not overlap. CP-1 Primary gets non_primary['CP-1'] only.",
+  "modules_with_only_r_c2_6": [
+    "CP-0",
+    "CP-1A",
+    "CP-1B",
+    "CP-2",
+    "CP-3C"
+  ]
+}

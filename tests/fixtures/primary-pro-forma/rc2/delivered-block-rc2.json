@@ -1,0 +1,81 @@
+{
+  "frozen": "2026-11-10",
+  "authored_by": "key-writer subagent (rc2 key); by hand from checker-cases.json cp1a-sources-uses-valid-user-entered",
+  "applies_to": [
+    "cp1a-sources-uses-valid-user-entered delivered with cp2-full-valid in one Primary run (CP-1A and CP-2 both ordered)"
+  ],
+  "note": "Tab order in the pro-forma block: primary = capitalisation, then the leverage tab, then this tab. Same shape as delivered-block.json (header = [row_header, *columns]; each row = [label, *cell texts]); the row label is the Side cell, so labels repeat. Cells are verbatim, including 'Total sources' rows.",
+  "tab_order": [
+    "Pro forma leverage — Basis",
+    "Sources and uses — Side"
+  ],
+  "sources_and_uses": {
+    "label": "Sources and uses — Side",
+    "header": [
+      "Side",
+      "Item",
+      "Amount",
+      "Currency",
+      "Basis",
+      "Source"
+    ],
+    "rows": [
+      [
+        "Source",
+        "ABL drawn at closing",
+        "83",
+        "USD",
+        "documented",
+        "ABL Credit Agreement, Section 2.1"
+      ],
+      [
+        "Source",
+        "Term Loan B",
+        "720",
+        "USD",
+        "documented",
+        "Term Loan Credit Agreement"
+      ],
+      [
+        "Source",
+        "Total sources",
+        "803",
+        "USD",
+        "documented",
+        "calculate: 83 + 720"
+      ],
+      [
+        "Use",
+        "Refinance 2012 facilities",
+        "760",
+        "USD",
+        "documented",
+        "8-K, refinancing description"
+      ],
+      [
+        "Use",
+        "Fees and OID",
+        "25",
+        "USD",
+        "user-entered",
+        "Entered by the user"
+      ],
+      [
+        "Use",
+        "Cash to balance sheet",
+        "18",
+        "USD",
+        "documented",
+        "8-K"
+      ],
+      [
+        "Use",
+        "Total uses",
+        "803",
+        "USD",
+        "documented",
+        "calculate: 760 + 25 + 18"
+      ]
+    ]
+  }
+}

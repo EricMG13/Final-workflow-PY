@@ -1,0 +1,605 @@
+{
+  "frozen": "2026-11-10",
+  "authored_by": "key-writer subagent (rc2 key). Draft sentences from R-C2-rulings.md and the controller's Q1-Q4 rulings; the implementer inserts them verbatim or reports why not.",
+  "R-C2-1": {
+    "file": "src/deploy_workflow/owners/cpos_launch.py",
+    "constant": "PRO_FORMA_CP1A",
+    "scope": "CP-1A, Primary runs only (PRO_FORMA applies when run_type == primary)",
+    "replacements": [
+      {
+        "old": "Side is `Source` or `Use`.",
+        "new": "Side is `Source`, `Use` or `Memo`."
+      },
+      {
+        "old": "Use the facility sizes the user entered, labelled `user-entered`; when a document states a different size, give it on its own `documented` row and log the difference, never resolve it.",
+        "new": "A `Source` row holds a funded amount taken from the source (what is drawn or issued at closing), never a facility commitment. The user-entered facility size is a commitment: write it on a `Memo` row whose Item ends with `(commitment)` and whose Basis is `documented` or `user-entered`; a `Memo` row is not a source or use of funds and is in no total. When the source states no funded amount for a row, write `Not supplied: <reason>` in Amount. Where documents differ, log the difference in prose and never resolve it."
+      },
+      {
+        "old": "Write at least one `Source` row and one `Use` row, then exactly one row with Item `Total sources` (Side `Source`) and exactly one with Item `Total uses` (Side `Use`), each total from `calculate`.",
+        "new": "Write at least one `Source` row and one `Use` row (a `Memo` row is neither). For each of Source and Use: when every row of that side holds a number, write exactly one total row (Item `Total sources` with Side `Source`, Item `Total uses` with Side `Use`); when any row of that side is `Not supplied`, write no total row for that side. Take each total from `calculate`; where the source prints a total the rows do not reach, plug nothing: write the printed total, say so in Source, and log the difference in prose."
+      }
+    ],
+    "checker_rules_stated": [
+      "Side is exactly Source, Use or Memo (case-sensitive)",
+      "a Memo row's Item ends with `(commitment)`",
+      "a Memo row is not a Source or Use row and is in no total",
+      "at least one Source row and one Use row",
+      "exactly one total per side when every row of the side holds a number",
+      "no total for a side with any Not supplied row; a total present is rejected as pro_forma_rows, and so is a total missing"
+    ],
+    "known_limits": [
+      "The checker sums nothing: a commitment inside a total, a Source row that is really a commitment, and a total that differs from its rows are enforced by this instruction only (Q3)."
+    ]
+  },
+  "R-C2-6": {
+    "file": "src/deploy_workflow/owners/cpos_launch.py",
+    "scope": "every module that has an OPENING entry (all 20), every run type",
+    "replacements": [
+      {
+        "where": "_instructions, lines 816-817",
+        "old": "place `### {opening}` directly after `### Reader summary`, once: prose that states the view, before any table.",
+        "new": "place `### {opening}` once, after the two tables of `### Reader summary` and before any other table: its first content is prose that states the view."
+      },
+      {
+        "where": "checker, lines 1702-1703",
+        "old": "Place ### {opening} directly after ### Reader summary, once: prose that states the view, before any table.",
+        "new": "Place ### {opening} once, after the two tables of ### Reader summary and before any other table: its first content is prose that states the view."
+      }
+    ],
+    "checker_confirmation": [
+      "src/deploy_workflow/reader_summary.py:9 NEXT_HEADING = ^#{2,3} ; :176-178 the Reader summary section runs from its heading to the next ## or ### heading, so its two tables must sit before any following heading.",
+      "src/deploy_workflow/reader_summary.py:90-93 _table_issues needs exactly two tables in that section ('found 0' when the view heading came first and cut the section short: the C2 repair cause).",
+      "src/deploy_workflow/owners/cpos_launch.py:1750-1751 _opens_with: findings[:1] == ['### Reader summary'] and headings[1:2] == ['### <view>']: the view is the next ### heading after Reader summary, with the tables inside the Reader summary section, so tables-then-view is accepted.",
+      "src/deploy_workflow/owners/cpos_launch.py:1752 first content of the view section is a paragraph (letter, quote or bold), not a table.",
+      "Ordering accepted: Reader summary heading, table 1, table 2, view heading, paragraph. The checker logic is unchanged (R-C2-6)."
+    ],
+    "note": "The old words 'directly after ### Reader summary ... before any table' read as the view heading before the tables; the checker needs the tables first. Also stale: comment lines cpos_launch.py:186-190 and apps/issuer-library/designs/fake_engine/bridge.py:70 (comments only)."
+  },
+  "R-C2-7": {
+    "sentence": "Keep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion.",
+    "insert": [
+      {
+        "where": "end of PRO_FORMA_CELL_RULE (cpos_launch.py:313-323)",
+        "effect": "lands in the Primary instructions of CP-1A, CP-1D and CP-2 (all three constants end with PRO_FORMA_CELL_RULE; PRO_FORMA_CP2 at line 437)"
+      },
+      {
+        "where": "the CP-1 instruction (module == 'CP-1', the module whose C2 handoff carried the hand x1000 of faults 5-9, CP-1.md:318), as its own sentence after the 'Use calculate for all new arithmetic' paragraph (cpos_launch.py:~809)",
+        "effect": "every run type, because CP-1's statements are not Primary-only"
+      }
+    ],
+    "undecided": "Which modules are 'statement instructions': this key names CP-1 only (C2 faults 5-9 are CP-1). See UNDECIDED u4."
+  },
+  "R-C2-3": {
+    "sentence": "The helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.",
+    "insert": "in _instructions, in the shared opening block after the paragraph 'Use calculate for all new arithmetic...' (cpos_launch.py:~808-811), for each module in the list below only. A test should assert that the set equals the modules whose METHODS files name scripts/*.py.",
+    "no_scripts_exposed": true,
+    "method": "Each module's composed text (METHODS files, plus STEP_CONTRACTS for CP-1) was read with the same function _instructions uses and searched for names ending .py or .sh. Source: SDD/rc2-key/r-c2-3-grep.out (raw).",
+    "modules_naming_unavailable_scripts": {
+      "CP-1C": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/peer_statistics.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+            "line": 18
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+            "line": 283
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+            "line": 284
+          },
+          {
+            "script": "scripts/peer_statistics.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+            "line": 285
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+            "line": 288
+          }
+        ]
+      },
+      "CP-1D": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1d-earnings-quality/SKILL.md",
+            "line": 21
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1d-earnings-quality/SKILL.md",
+            "line": 279
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1d-earnings-quality/SKILL.md",
+            "line": 280
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-1d-earnings-quality/SKILL.md",
+            "line": 283
+          }
+        ]
+      },
+      "CP-2A": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2a-downside-pathway/SKILL.md",
+            "line": 20
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2a-downside-pathway/SKILL.md",
+            "line": 521
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2a-downside-pathway/SKILL.md",
+            "line": 522
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2a-downside-pathway/SKILL.md",
+            "line": 525
+          }
+        ]
+      },
+      "CP-2D": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/liquidity_bridge.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+            "line": 13
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+            "line": 234
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+            "line": 234
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+            "line": 234
+          },
+          {
+            "script": "scripts/liquidity_bridge.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+            "line": 236
+          }
+        ]
+      },
+      "CP-2E": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/rate_fx_sensitivity.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md",
+            "line": 20
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md",
+            "line": 462
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md",
+            "line": 463
+          },
+          {
+            "script": "scripts/rate_fx_sensitivity.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md",
+            "line": 464
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md",
+            "line": 467
+          }
+        ]
+      },
+      "CP-2G": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/credit_metrics.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+            "line": 19
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+            "line": 240
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+            "line": 241
+          },
+          {
+            "script": "scripts/credit_metrics.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+            "line": 242
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+            "line": 245
+          }
+        ]
+      },
+      "CP-2H": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/covenant_headroom.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+            "line": 19
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+            "line": 218
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+            "line": 219
+          },
+          {
+            "script": "scripts/covenant_headroom.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+            "line": 220
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+            "line": 223
+          }
+        ]
+      },
+      "CP-3": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/recovery_waterfall.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+            "line": 22
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+            "line": 637
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+            "line": 638
+          },
+          {
+            "script": "scripts/recovery_waterfall.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+            "line": 639
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+            "line": 642
+          }
+        ]
+      },
+      "CP-3D": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/bond_analytics.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+            "line": 13
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+            "line": 202
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+            "line": 202
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+            "line": 202
+          },
+          {
+            "script": "scripts/bond_analytics.py",
+            "file": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+            "line": 204
+          }
+        ]
+      },
+      "CP-4": {
+        "scripts": [
+          "caos/server/edgar.py",
+          "caos/server/routes/edgar.py",
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/covenant_headroom.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+            "line": 24
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+            "line": 482
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+            "line": 483
+          },
+          {
+            "script": "scripts/covenant_headroom.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+            "line": 484
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+            "line": 487
+          },
+          {
+            "script": "caos/server/edgar.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+            "line": 534
+          },
+          {
+            "script": "caos/server/routes/edgar.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+            "line": 534
+          }
+        ]
+      },
+      "CP-4C": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/recovery_waterfall.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md",
+            "line": 21
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md",
+            "line": 231
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md",
+            "line": 232
+          },
+          {
+            "script": "scripts/recovery_waterfall.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md",
+            "line": 233
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md",
+            "line": 236
+          }
+        ]
+      },
+      "CP-5": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+            "line": 20
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+            "line": 220
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+            "line": 221
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+            "line": 226
+          }
+        ]
+      },
+      "CP-6": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/completeness_check.py",
+          "scripts/confidence_score.py",
+          "scripts/validate_handoff.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+            "line": 20
+          },
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+            "line": 539
+          },
+          {
+            "script": "scripts/completeness_check.py",
+            "file": "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+            "line": 540
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+            "line": 543
+          }
+        ]
+      },
+      "CP-DR": {
+        "scripts": [
+          "cp-os-credit-os/scripts/prepare_invocation.py",
+          "scripts/confidence_score.py",
+          "scripts/validate_handoff.py",
+          "scripts/validate_research.py"
+        ],
+        "first_occurrences": [
+          {
+            "script": "scripts/confidence_score.py",
+            "file": "docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md",
+            "line": 175
+          },
+          {
+            "script": "cp-os-credit-os/scripts/prepare_invocation.py",
+            "file": "docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md",
+            "line": 179
+          },
+          {
+            "script": "scripts/validate_handoff.py",
+            "file": "docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md",
+            "line": 184
+          },
+          {
+            "script": "scripts/validate_research.py",
+            "file": "docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md",
+            "line": 184
+          }
+        ]
+      }
+    },
+    "modules_naming_none": [
+      "CP-0",
+      "CP-1",
+      "CP-1A",
+      "CP-1B",
+      "CP-2",
+      "CP-3C"
+    ],
+    "notes": [
+      "CP-4's REF_CP-4_STEPS.md:534 names caos/server/edgar.py and caos/server/routes/edgar.py: server files cited as a dependency, not scripts the model is told to run; CP-4 is on the list anyway through SKILL.md:24,482-487.",
+      "cp0.md:6 already says invocation scripts are replaced by the transport; CP-0 names no script, so CP-0 gets no sentence.",
+      "Only CP-1D was observed Restricted (C2 fault 3). Whether the other 13 would be is not known."
+    ]
+  },
+  "R-C2-5": {
+    "scope": "expected delivered pro-forma block for C2's real CP-2 and for the routed S&U tab; shape only, strings are the handoff's own sentences (delivery does not author text)",
+    "capitalisation_primary_tab": {
+      "unit_sentence": "All amounts below are USD millions.",
+      "source": "CP-2.md:92",
+      "block_note_holds": "the capitalisation section's prose only: CP-2.md lines 90-92 and 102",
+      "block_note_must_not_hold": [
+        "The unadjusted combined historical denominator is unavailable"
+      ]
+    },
+    "leverage_tab": {
+      "note_holds": "the leverage section's prose, CP-2.md:131 ('The unadjusted combined historical denominator is unavailable ... [CP-1D: C4 and Leverage sensitivity.]')",
+      "note_must_not_contain": "All amounts below are USD millions",
+      "unit": "USD thousands, stated in each row's Reporting unit cell ('USD thousands; ratio x', CP-2.md:127-129); the handoff has no unit sentence for this tab",
+      "expected_unit_sentence": null,
+      "see": "UNDECIDED u5"
+    },
+    "sources_and_uses_tab": {
+      "label": "Sources and uses — Side",
+      "position": "after the leverage tab",
+      "unit_sentence": "Amounts are **USD millions** throughout this table.",
+      "source": "CP-1A.md:97 (raw Markdown; whether emphasis is stripped is not ruled)",
+      "note_must_not_contain": "USD thousands"
+    },
+    "constraint": "deploy_vii/report_view.py:369-370 BlockTab validator: 'A tab with rows carries no note' — a note on a populated tab is rejected today. See UNDECIDED u6."
+  }
+}
