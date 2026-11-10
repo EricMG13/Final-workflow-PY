@@ -241,27 +241,30 @@ else:
     def dead_worker_proof(path: Path) -> Iterator[Callable[[], bool] | None]:
         """Hold the lock of a gone worker; yield a check that the file is still the path's.
 
-        None (nothing is proven, so nothing may be settled) when a worker holds the lock or the
-        path is unusable. A missing file is created, as hold_worker_lock does, so that no start
-        can take the lock while the caller decides (a start then refuses; none is paid for).
-        The check, made after the caller's read, catches a lock file removed and replaced
-        meanwhile, which holding the old inode alone does not prevent.
+        None (nothing is proven, so nothing may be settled) when a worker holds the lock.
+        nothing_to_settle when the run folder is gone or the lock cannot be opened at all (logged
+        once, here): see settle_job. A missing file is created, as hold_worker_lock does, so that
+        no start can take the lock while the caller decides (a start then refuses; none is paid
+        for). The descriptor is read-only, as in worker_alive: flock needs no write access, so a
+        read-only lock file can still be proven dead. The check, made after the caller's read,
+        catches a lock file removed and replaced meanwhile, which holding the old inode alone
+        does not prevent.
         """
-        flags = os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK
+        flags = os.O_RDONLY | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK
         try:
             descriptor = os.open(path, flags, 0o600)
         except FileNotFoundError:  # The run folder itself is gone.
-            yield None
+            yield nothing_to_settle
             return
         except OSError as error:
-            log.warning("The run lock %s cannot be checked: %s", path, error)
-            yield None
+            log.warning("The run lock %s cannot be opened; its job is not settled: %s", path, error)
+            yield nothing_to_settle
             return
         try:
             refuse_non_regular_descriptor(descriptor, path)
         except OSError as error:  # The descriptor is closed.
-            log.warning("The run lock %s cannot be checked: %s", path, error)
-            yield None
+            log.warning("The run lock %s cannot be used; its job is not settled: %s", path, error)
+            yield nothing_to_settle
             return
         try:
             try:
@@ -997,8 +1000,13 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
                 )
             raise HTTPException(503, message) from error
     finally:
+        # On POSIX the file goes before the lock is released, so no settle can win the lock and
+        # then hold the path's inode past a retry; Windows cannot delete a file that is held.
+        unlink_first = spawn_failed and sys.platform != "win32"
+        if unlink_first:
+            remove_failed_run_lock(folder / "worker.lock", job_id)
         release_lock(lock)
-        if spawn_failed:
+        if spawn_failed and not unlink_first:
             remove_failed_run_lock(folder / "worker.lock", job_id)
 
 
@@ -1034,6 +1042,11 @@ def job_state(folder: Path) -> str | None:
         return None
 
 
+def nothing_to_settle() -> bool:
+    """dead_worker_proof's answer when no lock can be taken because the run is gone or unusable."""
+    return False
+
+
 class WorkerMayStillRun(Exception):
     """settle_job could not prove the worker gone; the job is left as it is, to be checked again."""
 
@@ -1044,11 +1057,16 @@ def settle_job(folder: Path) -> None:
     The worker's lock is held while status.json is read and rewritten, and the lock file is
     checked to still be the path's before the write, so a verdict that has gone stale (a retry
     started a worker meanwhile) never settles a live job: WorkerMayStillRun, and the caller
-    checks again later.
+    checks again later. When the run folder is gone, or its lock file cannot be opened at all,
+    there is nothing to settle: status.json is left as it is and the job is finished. That is
+    safe because no worker can be settled live: a worker holds its lock through an open
+    descriptor, and a start needs the same file to open read-write, so none can start either.
     """
     with dead_worker_proof(folder / "worker.lock") as still_valid:
         if still_valid is None:
             raise WorkerMayStillRun(folder.name)
+        if still_valid is nothing_to_settle:
+            return
         if job_state(folder) != "running":
             return
         if not still_valid():
