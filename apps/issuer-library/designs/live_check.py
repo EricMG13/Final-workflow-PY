@@ -65,7 +65,7 @@ KEY_RUNNER = (
 
 
 class Refusal(Exception):
-    pass
+    ends_run = True  # attempt re-raises it: exit 2, not a recorded fault
 
 
 STAGE2 = "not applicable before Stage 2"
@@ -578,6 +578,25 @@ def fill_form(page: Any, args: argparse.Namespace) -> None:
         raise RuntimeError("review refused: " + page.inner_text("#new-run-message")[:500])
 
 
+def accept_frozen_count(page: Any, args: argparse.Namespace, items: str) -> None:
+    """Tick the acceptance box only when the page's N is the case's frozen `counted_total`."""
+    found = re.search(r"\d+", items)
+    shown = int(found[0]) if found else 0
+    frozen = args.case_data["expected-outcomes"]["counted_total"] if args.case_data else None
+    if frozen is None:  # no --case: nothing frozen to compare; the N is still printed
+        print(f"accepting {shown} counted items (no case: no frozen count to compare)", flush=True)
+        if shown:
+            page.check("#run-accept")
+        return
+    if shown != frozen:
+        raise Refusal(f"the review counts {shown} items but the case froze counted_total {frozen}")
+    if not shown:
+        print("accepting nothing: no items were counted", flush=True)
+        return
+    print(f"accepting {shown} counted items (the case froze {frozen})", flush=True)
+    page.check("#run-accept")
+
+
 def walk(
     bc: Any, browser: Any, args: argparse.Namespace, ws: Path, summary: dict[str, Any]
 ) -> None:
@@ -587,13 +606,14 @@ def walk(
     wrong = check_review(page, args)
     if wrong:  # raised, so the attempt keeps the page: screenshot, source and URL
         raise RuntimeError("review screen: " + "; ".join(wrong))
-    if page.locator("#run-accept").count():  # counted items: only the flag may accept them
-        items = page.inner_text("label:has(#run-accept)").strip()
-        if not args.accept_limitations:
-            raise RuntimeError(
-                f"review counts items ({items!r}); rerun with --accept-limitations to accept them"
-            )
-        page.check("#run-accept")
+    boxed = bool(page.locator("#run-accept").count())  # counted items: only the flag accepts
+    items = page.inner_text("label:has(#run-accept)").strip() if boxed else ""
+    if boxed and not args.accept_limitations:
+        raise RuntimeError(
+            f"review counts items ({items!r}); rerun with --accept-limitations to accept them"
+        )
+    if args.accept_limitations:
+        accept_frozen_count(page, args, items)
     page.check("#run-confirm")
     if page.is_disabled("#start-run"):
         raise RuntimeError("Start stays disabled after review (provider not configured?); no spend")
@@ -821,8 +841,12 @@ def main(argv: list[str]) -> int:
 
     for sig in HALTING:  # also SIGINT: a shell's background job starts with it ignored
         signal.signal(sig, terminate)
+    refused: Refusal | None = None
     try:
         run_walk(bc, args, out, summary, held)
+    except Refusal as refusal:  # before Start; not a fault
+        refused = refusal
+        print(f"live_check: {refusal}", file=sys.stderr)
     except KeyboardInterrupt:
         ignore_signals()
         bc.FAULTS.add("live", "interrupted", "interrupted by a signal; spend may be above zero")
@@ -837,7 +861,7 @@ def main(argv: list[str]) -> int:
                 fault.kind = "interrupted"
         bc.scan_server_logs()
         code = finish(bc, args, out, summary)
-    return code
+    return 2 if refused else code
 
 
 if __name__ == "__main__":
