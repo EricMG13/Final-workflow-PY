@@ -249,7 +249,12 @@ def load_and_use(browser: Any, changed: Path) -> tuple[str, str, list[dict[str, 
         message.filter(has_text=re.compile(r"\S")).wait_for(timeout=15000)
         text, kind = message.inner_text(), message.get_attribute("class")
         screen.page.click("#use-context", force=True)
-        screen.page.wait_for_timeout(500)
+        if text.startswith("Loaded"):
+            screen.page.wait_for_function("window.__ctx.length>0", timeout=15000)
+        else:
+            # An absence check: after a refused load Use must send nothing, and "nothing
+            # happened" is no state to wait for, so give a late message a bounded chance.
+            screen.page.wait_for_timeout(500)
         sent: list[dict[str, Any]] = screen.page.evaluate("window.__ctx")
         assert screen.errors == []
         return text, kind or "", sent
