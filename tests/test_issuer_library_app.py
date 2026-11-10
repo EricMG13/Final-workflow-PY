@@ -805,6 +805,8 @@ def test_a_malformed_row_degrades_to_a_dash_and_does_not_hide_the_others(new_run
 
 
 def failed_render_is_retried(run: Any) -> None:
+    # the first list render, so the patched failure is the poll's
+    run.rendered("document.querySelector('#recent-jobs table')!==null")
     rows = run.rows
     rows[0] = {**ROW_RUNNING, "message": "Still working"}
     run.page.evaluate(

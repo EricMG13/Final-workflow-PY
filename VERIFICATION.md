@@ -10,6 +10,14 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — CI flake on #82: failed-render retry test raced the first list render (SB2, branch `claude/sb2-flake82`)
+
+- The flake: `test_a_failed_render_is_retried_on_the_next_refresh`, CI run 42788732481, attempt 1.
+- Cause: a test race. NewRun returned before the first list render. On a slow runner that render hit the injected fault, so the poll interval was never created and the tick had nothing to retry.
+- Key d2ddca8b (`test_a_failed_render_is_retried_when_the_first_list_reply_is_slow`) delays the first list reply by 1 s in the page and failed 5/5 runs before the fix. The fix: `failed_render_is_retried` waits for the first table before injecting the fault.
+- The product gap, where a failed first render is never retried, is fixed in a separate PR.
+- Not verified: the CI runner timing itself; only the 1 s delay key reproduces it locally.
+
 ## 2026-11-10 — Verification record: 2026-11-08 entries archived (SB3, branch `claude/sb3-verification-archive-2`)
 
 - Moved verbatim on main 6ed04ff5 (part 2 of 2, after #85): the 271 lines of the fourteen 2026-11-08 entries, from "Plan 3 Task 9" to "Run activity page", with no other dates. They go to the top of docs/VERIFICATION-ARCHIVE.md, above the 2026-11-07 entries, so it stays newest first; the header line names the move.
