@@ -16,7 +16,7 @@ import pytest
 from pypdf.errors import DependencyError
 
 from deploy_vii.contracts import Run
-from deploy_workflow.context import RunContext, load_context
+from deploy_workflow.context import ContextRefused, RunContext, load_context
 from deploy_workflow.model.handoff import _pages
 from deploy_workflow.owners.cpos_launch import _html_page_rows, _layout
 from deploy_workflow.run_expectations import (
@@ -251,6 +251,8 @@ def build_context(summary: dict[str, Any], run_type: str, pathway: str) -> RunCo
         prior_case=summary["prior_case"],
     )
     base["valuation"]["peer_source"] = summary["peer_source"]
+    if summary.get("cp3c_entered"):  # R-ALIVE F4: the key leaves the step-up null unless it says so
+        base["assumptions"]["cp3c"] = full["assumptions"]["cp3c"]
     if summary["peer_source"] == "user_list":
         base["valuation"]["peers"] = [
             {**p, "ev_m": "", "ebitda_m": "", "as_of": "", "source": ""}
@@ -402,11 +404,131 @@ def test_chart_strip_row_has_its_exact_id_and_never_propagates() -> None:
     assert not [i for i in items.values() if "CP-1" in (i["inherited_from"] or [])]
 
 
-def test_will_refuse_wording_is_provisional_until_a_live() -> None:
-    scenario = next(s for s in SCENARIOS if s["id"] == "a-live-legal-none-will-refuse")
-    (row,) = [i for i in run_scenario(scenario) if i["outcome"] == "will_refuse"]
+A_LIVE_ID = "a-live-legal-none-will-refuse"
+# Rulings R-ALIVE-rulings.md (lead, 2026-11-10): the texts below are copied from it, not from code.
+CP4_REASON = (
+    "Legal documents declared 'none' (entered by user). CP-4 will run and return Blocked: "
+    "'No executed governing document.' Its six report sections will be marked Blocked and "
+    "show filing summaries only, with covenant headroom and basket capacity Not calculable."
+)
+CP4_FIX = (
+    "Add the executed credit agreement or indenture and declare legal documents 'executed', or "
+    "run without CP-4. Without CP-4 the report omits its six legal sections; CP-3C still marks "
+    "liability-management paths Insufficient Information."
+)
+CP5_REASON = (
+    "Expected to finish Blocked through CP-4: its QA treats missing legal evidence as a Critical "
+    "issue."
+)
+CP2D_REASON = "Legal documents declared 'none': covenant documents are a required CP-2D input."
+# The rulings give no F2 fix text; this is the brief's default.
+CP2D_FIX = "Add the executed credit agreement or indenture and declare legal documents 'executed'."
+CP3C_REASON = "No repricing step-up entered: cost cells will be gaps."
+CP3C_FIX = "Enter a repricing step-up in Context."
+
+
+def a_live_rows(**changes: Any) -> dict[str, dict[str, Any]]:
+    scenario = json.loads(json.dumps(next(s for s in SCENARIOS if s["id"] == A_LIVE_ID)))
+    scenario["context"].update(changes)
+    return {i["id"]: i for i in run_scenario(scenario)}
+
+
+def test_cp4_declared_none_wording_is_the_rulings_text() -> None:
+    (row,) = [i for i in a_live_rows().values() if i["id"] == "CP-4:cp4-declared-none"]
+    assert (row["outcome"], row["counted"]) == ("will_refuse", True)
+    assert row["reason"] == CP4_REASON and row["fix"] == CP4_FIX
     assert "entered by user" in row["reason"]
     assert FORECAST not in row["reason"]  # the shared sentence is a constant, not repeated
+
+
+def test_f1_cp5_inherits_will_refuse_from_cp4_uncounted() -> None:
+    rows = a_live_rows()
+    (row,) = [i for i in rows.values() if i["scope"] == "CP-5"]
+    assert (row["id"], row["outcome"], row["counted"]) == ("CP-5:from:CP-4", "will_refuse", False)
+    assert "CP-4" in row["inherited_from"] and row["reason"] == CP5_REASON
+    assert not [i for i in rows.values() if i["scope"] == "CP-5" and i["counted"]]
+
+
+def test_f1_run_without_has_no_cp5_entry_and_the_registry_edge_is_unchanged() -> None:
+    from deploy_vii.registry import edge_rule
+
+    assert edge_rule("CP-5", "CP-4") == "restricted"  # forecast-only: the registry is untouched
+    assert edge_rule("CP-3C", "CP-4") == "restricted"
+    from deploy_workflow.owners.cpos_launch import without_for
+
+    ordered = tuple(next(s for s in SCENARIOS if s["id"] == A_LIVE_ID)["modules"])
+    result = without_for(ordered, list(a_live_rows().values()))  # type: ignore[arg-type]
+    assert result == {"CP-4": ["CP-4"]}
+
+
+def test_f2_cp2d_is_limited_and_counted_when_legal_documents_are_none() -> None:
+    rows = [i for i in a_live_rows().values() if i["scope"] == "CP-2D"]
+    (row,) = [i for i in rows if not i["inherited_from"]]
+    assert (row["outcome"], row["counted"], row["inherited_from"]) == ("limited", True, [])
+    assert (row["reason"], row["fix"]) == (CP2D_REASON, CP2D_FIX)
+
+
+@pytest.mark.parametrize("declared", ["executed", "draft"])
+def test_f2_cp2d_row_is_absent_when_legal_documents_are_declared_otherwise(declared: str) -> None:
+    rows = a_live_rows(legal_documents=declared)
+    assert not [i for i in rows.values() if i["scope"] == "CP-2D"]
+
+
+def test_f2_only_a_declared_none_counts_a_blank_field_is_not_a_declaration() -> None:
+    """Lead scope: a blank or undeclared legal-documents field gives no F2 row. The context
+    reader has no blank value (the field is executed, draft or none), so a blank is refused
+    before any rule reads it and cannot be mistaken for `none`."""
+    with pytest.raises(ContextRefused, match="legal_documents"):
+        a_live_rows(legal_documents="")
+
+
+def test_f4_cp3c_has_a_counted_limited_row_without_a_step_up_and_keeps_the_inherited_one() -> None:
+    rows = [i for i in a_live_rows().values() if i["scope"] == "CP-3C"]
+    (own,) = [i for i in rows if not i["inherited_from"]]
+    assert (own["outcome"], own["counted"]) == ("limited", True)
+    assert (own["reason"], own["fix"]) == (CP3C_REASON, CP3C_FIX)
+    (inherited,) = [i for i in rows if i["inherited_from"]]
+    assert (inherited["outcome"], inherited["counted"]) == ("limited", False)
+    assert "CP-4" in inherited["inherited_from"]
+
+
+def test_f4_cp3c_row_is_absent_when_a_step_up_is_entered() -> None:
+    rows = [i for i in a_live_rows(cp3c_entered=True).values() if i["scope"] == "CP-3C"]
+    assert [bool(i["inherited_from"]) for i in rows] == [True]  # only the inherited row remains
+
+
+CP5_BASIS = (
+    "forecast-only override FORECAST_EDGES (R-ALIVE F1) of the registry's restricted "
+    "CP-5 <- CP-4 edge; A-live run web-58d058451a6bfb7620b579bbd74b52df: CP-5.md:8, :70; "
+    "INS/CP-5.md:706, :753"
+)
+
+
+def test_l2_the_cp5_f1_row_basis_names_the_forecast_override_and_the_a_live_evidence() -> None:
+    (row,) = [i for i in a_live_rows().values() if i["scope"] == "CP-5"]
+    assert row["basis"] == CP5_BASIS
+    assert "edge_rule" not in row["basis"]  # the registry returns restricted for this edge
+
+
+def test_l1_an_inherited_row_reason_names_the_label_not_the_class() -> None:
+    """CP-6 reads CP-5 through a block edge, so a legal-none credit snapshot gives CP-6 a Blocked
+    inherited row. Its reason uses the on-screen label wording, never the class name."""
+    scenario = json.loads(
+        json.dumps(next(s for s in SCENARIOS if s["id"] == "clean-credit_snapshot-secondary"))
+    )
+    scenario["context"]["legal_documents"] = "none"
+    rows = {i["id"]: i for i in run_scenario(scenario)}
+    cp6 = next(i for i in rows.values() if i["scope"] == "CP-6")
+    assert cp6["outcome"] == "will_refuse" and cp6["counted"] is False
+    assert cp6["reason"] == "Expected to return Blocked through CP-3, CP-5, which it reads."
+    for row in rows.values():
+        assert "will refuse" not in row["reason"].lower(), row["id"]
+        assert "will_refuse" not in row["reason"], row["id"]
+
+
+def test_the_provisional_will_refuse_note_is_gone() -> None:
+    source = (ROOT / "src/deploy_workflow/run_expectations.py").read_text("utf-8")
+    assert "ponytail:" not in source and "Will refuse wording open" not in source
 
 
 def test_a_guessed_kind_reads_as_a_forecast_not_a_fact() -> None:

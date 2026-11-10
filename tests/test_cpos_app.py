@@ -1136,10 +1136,12 @@ def test_a_retained_module_without_a_stated_status_is_unconfirmed(tmp_path, prov
 def test_a_resume_drops_forecast_rows_of_retained_modules_and_keeps_inherited_ones(
     tmp_path, provider
 ):
-    # Ruling 11 and R-SB2-6c. Legal documents declared "none": CP-4 forecasts Will refuse (id
-    # CP-4:cp4-declared-none, counted) and, being retained, loses its own row. Will refuse
-    # propagates, so CP-3C and CP-5, which run again, keep inherited rows naming CP-4. The
-    # expectations below are written by hand from that scenario, not read from the plain review.
+    # Ruling 11 and R-SB2-6c, with R-ALIVE F1/F2/F4. Legal documents declared "none" and no
+    # CP-3C step-up: CP-4 forecasts Will refuse (id CP-4:cp4-declared-none, counted) and, being
+    # retained, loses its own row. CP-2D (F2) and CP-3C (F4) each have a counted Limited row of
+    # their own and run again, so those stay. Will refuse propagates: CP-3C keeps an inherited
+    # Limited row (CP-4 restricted edge, CP-2D block edge) and CP-5 an inherited Will refuse
+    # (F1, forecast-only block edge from CP-4). Written by hand, not read from the plain review.
     def declared_none(data):
         data["attachments"]["legal_documents"] = "none"
 
@@ -1151,16 +1153,25 @@ def test_a_resume_drops_forecast_rows_of_retained_modules_and_keeps_inherited_on
     # Only the rows of modules that run again stay; the run-scope row (no filed report) counts.
     assert [(r["id"], r["scope"], r["outcome"], r["counted"]) for r in result["expectations"]] == [
         ("run:run-financials-management-claims", "run", "check", True),
+        ("CP-2D:cp2d-declared-legal-none", "CP-2D", "limited", True),
+        ("CP-3C:cp3c-no-step-up", "CP-3C", "limited", True),
         ("CP-3C:from:CP-4", "CP-3C", "limited", False),
-        ("CP-5:from:CP-4", "CP-5", "limited", False),
+        ("CP-5:from:CP-4", "CP-5", "will_refuse", False),
     ]
     assert [r["inherited_from"] for r in result["expectations"]] == [
         [],
-        ["CP-4"],
-        ["CP-4", "CP-3C"],
+        [],
+        [],
+        ["CP-4", "CP-2D"],
+        ["CP-4", "CP-2D", "CP-3C"],
     ]
     # The retained producer's id stays counted: kept rows inherit from it (one item per cause).
-    assert result["counted"] == ["run:run-financials-management-claims", "CP-4:cp4-declared-none"]
+    assert result["counted"] == [
+        "run:run-financials-management-claims",
+        "CP-4:cp4-declared-none",
+        "CP-2D:cp2d-declared-legal-none",
+        "CP-3C:cp3c-no-step-up",
+    ]
     assert "CP-4:cp4-declared-none" not in [r["id"] for r in result["expectations"]]
     assert {"module": "CP-4", "outcome": "unconfirmed"} in result["retained_outcomes"]
     # CP-4 is retained, so nothing offers to run without it; no other module is declared out.
@@ -1182,7 +1193,11 @@ def test_a_resume_keeps_a_retained_producers_counted_id_and_still_requires_accep
     folder, request, _ = stopped_run(tmp_path, provider, kept, context=declared_none)
     result = bridge.review(resumed(folder, request))
     assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
-    assert result["counted"] == ["CP-4:cp4-declared-none"]
+    assert result["counted"] == [
+        "CP-4:cp4-declared-none",
+        "CP-2D:cp2d-declared-legal-none",
+        "CP-3C:cp3c-no-step-up",
+    ]
     # The producer's own forecast row stays dropped; its actual outcome stays shown.
     ids = [r["id"] for r in result["expectations"]]
     assert "CP-4:cp4-declared-none" not in ids
@@ -1197,7 +1212,8 @@ def test_a_resume_does_not_count_a_retained_producer_that_no_kept_row_inherits_f
     tmp_path, provider
 ):
     # R-SB2-6c, other side. The run asks for CP-0..CP-4 and CP-2D only, so CP-3C and CP-5 are not
-    # in it; the one module that runs again (CP-2D) inherits nothing from CP-4.
+    # in it; the one module that runs again (CP-2D) inherits nothing from CP-4. CP-2D has its own
+    # counted F2 row (legal documents "none"); CP-3C is not asked for, so no F4 row.
     def declared_none(data):
         data["attachments"]["legal_documents"] = "none"
 
@@ -1211,7 +1227,10 @@ def test_a_resume_does_not_count_a_retained_producer_that_no_kept_row_inherits_f
     assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4"]
     assert all(not r["inherited_from"] for r in result["expectations"])
     assert "CP-4:cp4-declared-none" not in result["counted"]
-    assert result["counted"] == ["run:run-financials-management-claims"]
+    assert result["counted"] == [
+        "run:run-financials-management-claims",
+        "CP-2D:cp2d-declared-legal-none",
+    ]
     assert {"module": "CP-4", "outcome": "unconfirmed"} in result["retained_outcomes"]
 
 
@@ -1331,9 +1350,29 @@ CHAINS = [
         ["CP-2D:cp2d-non-usd", "CP-2H:cp2h-no-ratings"],
     ),
     ("CP-2D", "CP-2G", "CP-4C", ["CP-2D", "CP-4C"], ["CP-2D:cp2d-non-usd"]),
-    ("CP-2D", "CP-3C", "CP-4C", ["CP-2D", "CP-3C", "CP-4C"], ["CP-2D:cp2d-non-usd"]),
+    # CP-3C has its own counted F4 row (no step-up, R-ALIVE) and CP-4C inherits from it, so the
+    # retained middle's id stays counted beside the root's.
+    (
+        "CP-2D",
+        "CP-3C",
+        "CP-4C",
+        ["CP-2D", "CP-3C", "CP-4C"],
+        ["CP-2D:cp2d-non-usd", "CP-3C:cp3c-no-step-up"],
+    ),
     ("CP-4", "CP-3", "CP-6", ["CP-4", "CP-6"], ["CP-4:cp4-declared-none"]),
-    ("CP-4", "CP-3C", "CP-6", ["CP-4", "CP-3C", "CP-6"], ["CP-4:cp4-declared-none"]),
+    (
+        "CP-4",
+        "CP-3C",
+        "CP-6",
+        ["CP-4", "CP-3C", "CP-6"],
+        # CP-3C requires CP-2D, so the run holds it: its F2 row (legal "none") and CP-3C's F4 row
+        # (no step-up) are counted too, both reaching CP-6 through retained modules.
+        [
+            "CP-4:cp4-declared-none",
+            "CP-2D:cp2d-declared-legal-none",
+            "CP-3C:cp3c-no-step-up",
+        ],
+    ),
     ("CP-4", "CP-5", "CP-6", ["CP-4", "CP-5", "CP-6"], ["CP-4:cp4-declared-none"]),
 ]
 
@@ -1381,7 +1420,13 @@ def test_a_three_hop_chain_keeps_its_root_counted(tmp_path, provider):
     ordered, result = resume_of_chain(tmp_path, provider, modules, "CP-6", ROOTS["CP-4"][::2])
     assert ordered.index("CP-4") < ordered.index("CP-3C") < ordered.index("CP-3")
     assert {"CP-4", "CP-3C", "CP-3"} <= set(result["retained_modules"])
-    assert result["counted"] == ["CP-4:cp4-declared-none"]
+    # CP-3C requires CP-2D, so the run holds it: its F2 row (legal "none") and CP-3C's F4 row (no
+    # step-up) are counted too; both reach CP-6 through retained modules.
+    assert result["counted"] == [
+        "CP-4:cp4-declared-none",
+        "CP-2D:cp2d-declared-legal-none",
+        "CP-3C:cp3c-no-step-up",
+    ]
     with pytest.raises(HTTPException):
         require_acceptance(result, False)
 

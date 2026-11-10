@@ -223,7 +223,7 @@ src/deploy_workflow/workflow.py
 tests/cp2d_runs.py
 tests/fixtures/run-expectations-pages/encrypted-pdfs.json
 tests/fixtures/run-expectations/document-key.json
-tests/fixtures/run-expectations/outcome-key.json
+edited tests/fixtures/run-expectations/outcome-key.json
 tests/fixtures/run-expectations/synthetic/01-credit-agreement-preliminary-statements.txt
 tests/fixtures/run-expectations/synthetic/02-credit-agreement-draft.txt
 tests/fixtures/run-expectations/synthetic/03-edgar-exhibit-credit-agreement-unmarked.txt
@@ -319,7 +319,7 @@ tests/test_cp5_checks_once.py
 edited tests/test_cpos_app.py
 tests/test_cpos_comparison.py
 tests/test_cpos_handoffs.py
-tests/test_cpos_launch.py
+edited tests/test_cpos_launch.py
 edited tests/test_delivery_low_s04.py
 tests/test_downstream_evidence_tags.py
 tests/test_earnings.py
