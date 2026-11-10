@@ -977,5 +977,153 @@
    }
   },
   "why": "Both tied runs are screened on their own values: 17 (3.20) passes, 18 (4.80) is out of bounds; 16 (3.50, older) is not screened. recorded counts the whole input (12 rows with a meaningful net leverage); no screened Consumer row lacks it, so hidden 0."
+ },
+ {
+  "name": "pro forma max 5, any",
+  "focus": "RF17",
+  "filters": {
+   "runs": "any",
+   "leverageProFormaMax": "5"
+  },
+  "expected_ids": [
+   "aldermoor-2023-001",
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage_pro_forma": {
+    "recorded": 3,
+    "hidden": 15
+   }
+  },
+  "why": "Pro forma figures: aldermoor-2023 3.70, brackenfell 5.60, jasper 4.90; hartley -0.4 (negative), dunmore blank and elmstead 'Not supplied' are not figures. Pass max 5: aldermoor-2023, jasper. recorded 3; all 18 rows are in play under Any, 15 record no figure and fail the bound, so hidden 15 (brackenfell records 5.60 and is out of bounds, not hidden)."
+ },
+ {
+  "name": "as marketed min 3.5, any",
+  "focus": "other",
+  "filters": {
+   "runs": "any",
+   "leverageAsMarketedMin": "3.5"
+  },
+  "expected_ids": [
+   "brackenfell-hy-001",
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage_as_marketed": {
+    "recorded": 4,
+    "hidden": 14
+   }
+  },
+  "why": "As-marketed figures: brackenfell 3.50, jasper 3.80, fairholt 3.00, cobalt 1.60. Pass min 3.5 (inclusive): brackenfell, jasper. recorded 4, hidden 18-4 = 14; fairholt and cobalt are recorded and below the bound so not hidden."
+ },
+ {
+  "name": "pro forma max 5 and as marketed min 3.5, any",
+  "focus": "other",
+  "filters": {
+   "runs": "any",
+   "leverageProFormaMax": "5",
+   "leverageAsMarketedMin": "3.5"
+  },
+  "expected_ids": [
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage_pro_forma": {
+    "recorded": 3,
+    "hidden": 0
+   },
+   "leverage_as_marketed": {
+    "recorded": 4,
+    "hidden": 1
+   }
+  },
+  "why": "Pro forma max 5 passes aldermoor-2023, jasper; as marketed min 3.5 passes brackenfell, jasper; both: jasper. Pro forma line: recorded 3; rows passing the as-marketed bound are brackenfell and jasper, both record a pro forma figure, hidden 0. As-marketed line: recorded 4; rows passing the pro forma bound are aldermoor-2023 (no as-marketed figure, hidden) and jasper, hidden 1."
+ },
+ {
+  "name": "leverage min 3 does not match the as-marketed-only run, any",
+  "focus": "RF18",
+  "filters": {
+   "runs": "any",
+   "leverageMin": "3"
+  },
+  "expected_ids": [
+   "aldermoor-2023-001",
+   "aldermoor-2024-001",
+   "aldermoor-2025-001",
+   "brackenfell-hy-001",
+   "dunmore-001",
+   "elmstead-001",
+   "garrowby-001",
+   "hartley-001",
+   "ironwood-001",
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage": {
+    "recorded": 11,
+    "hidden": 7
+   }
+  },
+  "why": "Leverage reads metrics.leverage only: 3.80,4.60,3.90,4.10,1.80,5.20,4.00,6.00,4.90,3.20,4.40 (11 recorded). Min 3 drops cobalt (1.80). fairholt-001 has leverage_as_marketed 3.00 (which would pass) but no metrics.leverage, so it does not match and is hidden-counted with the other six runs without leverage (fairholt, kestrel, unclassified-a, unclassified-b, larkspur x3): hidden 7."
+ },
+ {
+  "name": "leverage min 4 with pro forma max 5, any",
+  "focus": "RF18",
+  "filters": {
+   "runs": "any",
+   "leverageMin": "4",
+   "leverageProFormaMax": "5"
+  },
+  "expected_ids": [
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage": {
+    "recorded": 11,
+    "hidden": 0
+   },
+   "leverage_pro_forma": {
+    "recorded": 3,
+    "hidden": 5
+   }
+  },
+  "why": "Leverage min 4 passes aldermoor-2024 4.60, brackenfell 4.10, dunmore 5.20, elmstead 4.00, garrowby 6.00, hartley 4.90, jasper 4.40; pro forma max 5 passes aldermoor-2023, jasper; both: jasper. Leverage line: recorded 11; rows passing the pro forma bound (aldermoor-2023, jasper) both record leverage, hidden 0. Pro forma line: recorded 3; among the 7 rows passing leverage, brackenfell and jasper record a figure; aldermoor-2024, dunmore (blank), elmstead (Not supplied), garrowby and hartley (negative) do not, hidden 5."
+ },
+ {
+  "name": "pro forma min -1 does not admit the negative figure, any",
+  "focus": "RF17",
+  "filters": {
+   "runs": "any",
+   "leverageProFormaMin": "-1"
+  },
+  "expected_ids": [
+   "aldermoor-2023-001",
+   "brackenfell-hy-001",
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage_pro_forma": {
+    "recorded": 3,
+    "hidden": 15
+   }
+  },
+  "why": "A negative figure is not meaningful: hartley-001 pro forma -0.4 would satisfy a minimum of -1 if read raw, but it is not recorded and does not satisfy the bound. Blank (dunmore) and 'Not supplied' (elmstead) never satisfy it either. Pass: aldermoor-2023 3.70, brackenfell 5.60, jasper 4.90. recorded 3, hidden 15 (includes hartley, dunmore, elmstead)."
+ },
+ {
+  "name": "pro forma max 5, latest",
+  "focus": "RF17",
+  "filters": {
+   "leverageProFormaMax": "5"
+  },
+  "expected_ids": [
+   "jasper-001"
+  ],
+  "coverage": {
+   "leverage_pro_forma": {
+    "recorded": 3,
+    "hidden": 11
+   }
+  },
+  "why": "Latest drops aldermoor-2023 (older reported run), so only jasper passes. The active credit filter also drops the not-screened aldermoor-2025, unclassified-a and unclassified-b, leaving 13 rows. recorded counts the whole input (3). Of the 13, brackenfell and jasper record a figure, so hidden 13-2 = 11."
  }
 ]
