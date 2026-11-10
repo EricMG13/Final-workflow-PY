@@ -25,22 +25,22 @@ None.
 
 | Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- | --- |
-| FY2023 | 4.20 | 3.85 | x | Synthetic. |
-| FY2024 | 3.60 | 3.25 | x | Synthetic. |
+| FY2023 ended 2023-12-31 | 4.20 | 3.85 | x | Synthetic. |
+| FY2024 ended 2024-12-31 | 3.60 | 3.25 | x | Synthetic. |
 
 ### Chart data: interest cover
 
 | Period | EBITDA / cash interest | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- |
-| FY2023 | 3.10 | x | Synthetic. |
-| FY2024 | 3.40 | x | Synthetic. |
+| FY2023 ended 2023-12-31 | 3.10 | x | Synthetic. |
+| FY2024 ended 2024-12-31 | 3.40 | x | Synthetic. |
 
 ### Chart data: liquidity
 
 | Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- | --- |
-| FY2023 | 300 | 450 | US$m | Synthetic. |
-| FY2024 | 275 | 400 | US$m | Synthetic. |
+| 2023-12-31 | 300 | 450 | US$m | Synthetic. |
+| 2024-12-31 | 275 | 400 | US$m | Synthetic. |
 
 ### Chart data: debt maturities
 
