@@ -1,7 +1,7 @@
 """Exercise the launcher over loopback, without a browser or providers.
 
 With no argument it starts the repository's own server (the uv environment, PYTHONPATH=src).
-With a package folder it starts that package's pinned runtime, as the Windows launcher does.
+With a release folder (app/<version>) it starts that release's start.py, as the launcher does.
 """
 
 import http.client
@@ -26,15 +26,7 @@ redact = runpy.run_path(str(workspace / "src/deploy_workflow/model/redact.py"))
 environment = {k: v for k, v in os.environ.items() if k not in redact["KEY_ENV_NAMES"]}
 if len(sys.argv) > 1:
     package = Path(sys.argv[1]).resolve()
-    launcher = [
-        str(package / "engine/runtime/python.exe"),
-        "-I",
-        "-B",
-        "-X",
-        "utf8",
-        "-m",
-        "issuer_library",
-    ]
+    launcher = [sys.executable, "-I", "-B", "-X", "utf8", str(package / "start.py")]
     context = (package / "engine/smoke-context.json").read_bytes()
 else:
     launcher = [sys.executable, "-B", "-X", "utf8", "-m", "issuer_library"]

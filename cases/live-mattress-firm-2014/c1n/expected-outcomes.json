@@ -1,0 +1,25 @@
+{
+  "scope": "C1n: credit_snapshot, primary, legal documents none, 6 Mattress Firm public filings (3 periodic reports recognised as financial reports; no agreement, presentation or draft)",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-4"
+  ],
+  "run": [],
+  "modules": {
+    "CP-4": [
+      {
+        "rule": "cp4-declared-none",
+        "outcome": "will_refuse",
+        "counted": true,
+        "inherited_from": []
+      }
+    ]
+  },
+  "counted_total": 1,
+  "without": {
+    "CP-4": [
+      "CP-4"
+    ]
+  }
+}
