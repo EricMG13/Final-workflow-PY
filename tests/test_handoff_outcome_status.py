@@ -461,7 +461,8 @@ def test_b1_long_lines_finish_within_2s(own: str, wanted: str) -> None:
     [
         ("# CP-4\nModule Status: Completed\n\nNot blocked: CP-4 has its indenture.\n", "ready"),
         (
-            "# CP-4\nModule Status: Completed\n\nPreviously blocked: CP-4 lacked inputs; resolved.\n",
+            "# CP-4\nModule Status: Completed\n\n"
+            "Previously blocked: CP-4 lacked inputs; resolved.\n",
             "ready",
         ),
         ("# CP-4\nModule Status: Completed\n\nCP-4 blocked earlier\n", "ready"),
@@ -476,3 +477,36 @@ def test_b1_long_lines_finish_within_2s(own: str, wanted: str) -> None:
 )
 def test_b1f1_own_handoff_prose_status_colon_id_never_counts(own: str, wanted: str) -> None:
     assert handoff_outcome.actual_of("CP-4", own, "")[0] == wanted
+
+
+OWN4 = "# CP-4\nbody\n"
+OWN1 = "# CP-1\nbody\n"
+B1K2_CASES = [
+    ("CP-4", None, "Blocked: CP-4, CP-5.\n", "will_refuse", "list-cp4"),
+    ("CP-5", None, "Blocked: CP-4, CP-5.\n", "will_refuse", "list-cp5"),
+    ("CP-4", None, "Blocked: CP-4 because CP-1 data is missing\n", "will_refuse", "because-cp4"),
+    ("CP-1", None, "Blocked: CP-4 because CP-1 data is missing\n", "not_reached", "because-cp1"),
+    ("CP-4", None, "CP-4 BLOCKED: CP-1 covenant data missing.\n", "will_refuse", "reason-cp4"),
+    ("CP-1", OWN1, "CP-4 BLOCKED: CP-1 covenant data missing.\n", "unconfirmed", "reason-cp1-own"),
+    ("CP-1", None, "CP-4 BLOCKED: CP-1 covenant data missing.\n", "not_reached", "reason-cp1"),
+    ("CP-4", None, "- Blocked: CP-4\n", "will_refuse", "bullet"),
+    ("CP-4", None, "**Blocked:** CP-4\n", "will_refuse", "bold"),
+]
+for _neg in ("Not blocked: CP-4.", "No longer blocked: CP-4.", "Unblocked: CP-4."):
+    B1K2_CASES.append(("CP-4", None, _neg + "\n", "not_reached", "neg-" + _neg.split(":")[0]))
+    B1K2_CASES.append(("CP-4", OWN4, _neg + "\n", "unconfirmed", "neg-own-" + _neg.split(":")[0]))
+for _m in ("CP-4", "CP-5", "CP-6", "CP-7"):
+    B1K2_CASES.append(
+        (_m, None, "Blocked: CP-4 & CP-5 / CP-6 and CP-7.\n", "will_refuse", "sep-" + _m)
+    )
+
+
+@pytest.mark.parametrize(
+    ("module", "own", "cp0", "wanted"),
+    [c[:4] for c in B1K2_CASES],
+    ids=["b1k2-" + c[4].replace(" ", "-") for c in B1K2_CASES],
+)
+def test_b1k2_cp0_status_line_start_not_negated_id_list(
+    module: str, own: str | None, cp0: str, wanted: str
+) -> None:
+    assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted
