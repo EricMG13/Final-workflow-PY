@@ -1,0 +1,19 @@
+{
+  "literals": [
+    {
+      "text": "821",
+      "what": "Total uses (and, as the presentation states it, total sources), USD millions; CP-1A Total uses row",
+      "source": "expected.json sources_and_uses.total_uses 821 and total_sources 821 (as_stated): 2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Uses $821\"; uses 440 + 66 + 297 + 18 = 821 foots"
+    },
+    {
+      "text": "767",
+      "what": "Pro forma total debt, USD millions (CP-2 Pro forma capitalisation, Total debt (USD) row, Pro forma column; equals 42 + 720 + 1 + 4)",
+      "source": "expected.json pro_forma_capitalisation total_debt.pro_forma 767: 2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"Total Debt $302 -- -- $466 $767\""
+    },
+    {
+      "text": "720",
+      "what": "New Term Loan, USD millions (sources and uses row and pro forma debt instrument row)",
+      "source": "expected.json sources_and_uses.sources '$720mm New Term Loan' 720: 2014-09-11-ex99-1-public-lender-presentation.htm line 11: \"$720mm New Term Loan 720\""
+    }
+  ]
+}

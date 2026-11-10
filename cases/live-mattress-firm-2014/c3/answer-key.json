@@ -1,0 +1,14 @@
+{
+  "literals": [
+    {
+      "text": "Provisional",
+      "what": "Label every report section drawing on CP-4 and the main limitation must carry (Primary run, draft legal documents, no executed governing document)",
+      "source": "expected.json outcomes.C3.cp4_status and expects: 'every report section drawing on CP-4 says Provisional'; outcomes.C1.each_term_label 'Provisional'"
+    },
+    {
+      "text": "720",
+      "what": "Term Loan B amount, USD millions (keyed term tlb.size; also sources and uses 'New Term Loan 720' and pro forma debt row)",
+      "source": "2014-09-11-ex99-1-public-lender-presentation.htm line 48: \"$720 million Term Loan B\"; line 11: \"$720mm New Term Loan 720\""
+    }
+  ]
+}
