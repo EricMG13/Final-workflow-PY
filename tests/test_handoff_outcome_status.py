@@ -304,10 +304,13 @@ def test_1j_is_the_row_blocked_will_refuse(first_cell: str) -> None:
 NOT_CP4_CELLS = ["CP-4.1", "CP-4a", "CP-40", "CP-4-1", "CP-4 (draft)"]
 
 
+NO_STATUS_OWN = "# CP-4\nbody\n"
+
+
 @pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-blocked-{c}")
 def test_1j_not_the_row_blocked_then_real_row_ready(first_cell: str) -> None:
     cp0 = f"| {first_cell} | BLOCKED |\n| CP-4 | READY |\n"
-    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "ready"
+    assert handoff_outcome.actual_of("CP-4", NO_STATUS_OWN, cp0)[0] == "ready"
 
 
 @pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-ready-{c}")
@@ -316,6 +319,19 @@ def test_1j_not_the_row_ready_alone_is_not_reached(first_cell: str) -> None:
     assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "not_reached"
 
 
+@pytest.mark.parametrize("first_cell", NOT_CP4_CELLS, ids=lambda c: f"1j-not-row-ready-own-{c}")
+def test_1j_not_the_row_ready_alone_with_own_is_unconfirmed(first_cell: str) -> None:
+    cp0 = f"| {first_cell} | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", NO_STATUS_OWN, cp0)[0] == "unconfirmed"
+
+
 def test_1j_lead_probe_cp4_1_blocked_then_cp4_ready() -> None:
+    # The lead's probe expected "ready" for own=None; corrected by the lead (R-SB2-1j
+    # amendment): with no own handoff only BLOCKED/CONDITIONAL count (R-SB2-1 rule 3).
     cp0 = "| CP-4.1 | BLOCKED |\n| CP-4 | READY |\n"
-    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "ready"
+    assert handoff_outcome.actual_of("CP-4", None, cp0)[0] == "not_reached"
+
+
+def test_1j_lead_probe_cp4_1_blocked_then_cp4_ready_with_own_handoff() -> None:
+    cp0 = "| CP-4.1 | BLOCKED |\n| CP-4 | READY |\n"
+    assert handoff_outcome.actual_of("CP-4", NO_STATUS_OWN, cp0)[0] == "ready"
