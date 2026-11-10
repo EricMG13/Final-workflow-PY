@@ -1,0 +1,20 @@
+# C3 forecast notes (hand-derived from run_expectations.py rules; not executed)
+
+Ordered modules: CP-0, CP-1, CP-1A, CP-1D, CP-2, CP-4, CP-3, CP-5, CP-6. Requested = credit_snapshot preset without CP-MODEL (CP-0, CP-1, CP-1A, CP-2, CP-4, CP-3, CP-5, CP-6) plus CP-1D. plan(): R1 CP-0; R2 CP-1, CP-1A; R3 CP-1D (CP-2 and CP-4 both list CP-1D as optional and it is selected, so they wait for it); R4 CP-2, CP-4; R5 CP-3 (needs CP-2; optional CP-1A, CP-1D, CP-4 selected); R6 CP-5; R7 CP-6. Declarations as C1/C2: primary, draft, USD, issue_classification high_yield, same 8 documents, same context (deal_terms carry ABL talk spread 125 to 175 bps, no quotes).
+
+Counted items (3):
+- cp4-declared-draft-none-recognised (CP-4, check, counted): as C1; no file is guessed credit_agreement or indenture with executed False.
+- cp4-declared-draft-or-primary-no-executed-agreement (CP-4, limited, counted): as C1.
+- cp3-talk-no-observed-quote (CP-3, limited, counted): talk is true (ABL talk_spread_bps_low "125" is non-empty) and no observed quote (context quotes empty; no page-1 line starts "quotes as of" or "market quotes"). Fires.
+
+Inherited rows (not counted), by the registry edges (only limited propagates here):
+- CP-3 from CP-4: CP-4's effective outcome is limited (the check does not propagate; the limited item does); CP-4 is an optional producer for CP-3, edge restricted; carried limited. CP-3's own limited and the inherited one: forecast_of takes the worst, limited.
+- CP-5 from CP-4, CP-3: CP-5's fan-in includes both (edge restricted). Order is the ordered list: CP-4 before CP-3.
+- CP-6 from CP-3, CP-5: both required producers (edge block), but the carried outcome is the milder of the producer's limited and the edge's will_refuse, so limited. CP-4 is not a producer of CP-6, so it is not named. Same shape as the A-live key (CP-5 inherited from CP-4, CP-3C).
+Forecast: CP-0, CP-1, CP-1A, CP-1D, CP-2 Ready; CP-4 check/limited, forecast limited; CP-3 limited; CP-5 limited; CP-6 limited. CP-2 inherits nothing (CP-4 is not a producer of CP-2, and its producers CP-0, CP-1, CP-1A, CP-1D are Ready). without {}, counted_total 3, accept_limitations true.
+
+Checked and NOT triggered: cp4-declared-none, cp4-declared-executed-none-recognised, cp4-only-amendment, cp4-governing-terms-rest-on-final-om (needs secondary or research); cp3-no-quotes-no-talk (talk is true, so not); cp2-primary-no-cp1d (CP-1D is in the run); run-financials-management-claims and cp1-no-financial-report-recognised (financial_report present, as C1); chart-strip-usd, cp2d-non-usd, investment-grade; cp3d-no-quotes (CP-3D not in run); cp1c, cp2h, portfolio-workbook rules (modules not in run; pathway credit_snapshot).
+
+Guess dependence (gap, not a value): as C1, I read stripped HTML, not convert_html output. The forecast holds for any reading where the 10-K or a 10-Q is financial_report, no file is a credit_agreement or indenture with a draft mark, and no file is market_quotes.
+
+Literals (2): Provisional; 720. Basis: plan row C3 requires every section drawing on CP-4 to say Provisional (as C1). 720 is the Term Loan B / new term loan amount, shown by CP-4's size term and the S&U and pro forma debt rows, which the report may carry only partly but CP-1A's sources and uses lists it in any reading. Not included: 125 (the ABL appears in S&U as "$125mm New ABL" or as 42 drawn; a run could write only the drawn amount), every pro forma number (C3 passes with both tables or an explicit gap, so none is certain), TBD, DRAFT_LIMITATION (whether the rendered report carries it is unestablished), and the other keyed terms.

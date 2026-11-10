@@ -1,6 +1,6 @@
 # Offline Windows runtime and CP-OS review smoke. Never starts a model run.
 $ErrorActionPreference = 'Stop'
-$Python = Join-Path $PSScriptRoot 'engine\runtime\python.exe'
+$Python = 'C:\Program Files\Statestreet\Python313\python.exe'
 $Bridge = Join-Path $PSScriptRoot 'engine\bridge.py'
 $Store = Join-Path $PSScriptRoot 'engine\store.py'
 $TemporaryRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('IssuerLibrarySmoke-' + [char]0xE9 + '-' + [guid]::NewGuid().ToString('N'))
@@ -8,7 +8,7 @@ try {
   New-Item -ItemType Directory -Path $TemporaryRoot | Out-Null
   $Script = @'
 import hashlib,json,pathlib,sys
-root=pathlib.Path(sys.argv[1]);engine=pathlib.Path(sys.argv[2]);sys.path.insert(0,str(engine/'src'))
+root=pathlib.Path(sys.argv[1]);engine=pathlib.Path(sys.argv[2]);sys.path[:0]=[str(engine.parent/'lib'),str(engine/'src')]
 from deploy_workflow.platform_io import locks
 folder=root/'intake'/('web-'+'a'*32);folder.mkdir(parents=True);(root/'runs').mkdir()
 (folder/'context.json').write_bytes((engine/'smoke-context.json').read_bytes())

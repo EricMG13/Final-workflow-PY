@@ -1,0 +1,27 @@
+{
+  "scope": "C1: credit_snapshot, primary, legal documents draft, 8 Mattress Firm public filings (3 periodic reports recognised as financial reports; presentation, 8-Ks, asset purchase agreement and press release recognised as no agreement)",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-4"
+  ],
+  "run": [],
+  "modules": {
+    "CP-4": [
+      {
+        "rule": "cp4-declared-draft-none-recognised",
+        "outcome": "check",
+        "counted": true,
+        "inherited_from": []
+      },
+      {
+        "rule": "cp4-declared-draft-or-primary-no-executed-agreement",
+        "outcome": "limited",
+        "counted": true,
+        "inherited_from": []
+      }
+    ]
+  },
+  "counted_total": 2,
+  "without": {}
+}

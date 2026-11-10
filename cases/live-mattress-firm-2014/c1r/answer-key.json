@@ -1,0 +1,9 @@
+{
+  "literals": [
+    {
+      "text": "4.25",
+      "what": "Executed Term Loan margin: LIBOR + 4.25% (initial period; upper end of the 4.00% to 4.25% range) compared with the presentation's TBD",
+      "source": "expected.json c1r_executed_terms tlb.margin / tlb.margin_summary_8k: 2014-10-21-ex10-2-term-loan-credit-agreement.htm line 554 (Applicable Rate) and 2014-10-21-8k-credit-agreements.htm line 44: \"varies from 4.00% to 4.25%\""
+    }
+  ]
+}

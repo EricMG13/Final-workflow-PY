@@ -12,7 +12,6 @@ apps/issuer-library/DESIGN.md
 apps/issuer-library/designs/faults.py
 apps/issuer-library/designs/forecast-answer-key.json
 apps/issuer-library/designs/library-answer-key.json
-apps/issuer-library/engine/bridge.py
 apps/issuer-library/web/boot.js
 apps/issuer-library/web/context-embed.css
 apps/issuer-library/web/context-embed.js
@@ -429,6 +428,7 @@ edited apps/issuer-library/designs/build.py
 edited apps/issuer-library/designs/fake_engine/bridge.py
 edited apps/issuer-library/designs/flow_check.py
 edited apps/issuer-library/designs/live_check.py
+edited apps/issuer-library/engine/bridge.py
 edited apps/issuer-library/engine/store.py
 edited apps/issuer-library/web/actions.js
 edited apps/issuer-library/web/index.html
