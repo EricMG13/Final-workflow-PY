@@ -778,6 +778,7 @@ def _inherit(
     state = "return Blocked" if worst == "will_refuse" else f"be {worst.replace('_', ' ')}"
     reason = f"Expected to {state} through {', '.join(names)}, which it reads."
     basis = "owner-path: deploy_vii.registry.edge_rule"
+    # ponytail: keys on will_refuse alone; fine while CP-0 has no will_refuse rule. Upgrade: check that CP-4 is the will_refuse producer.
     if (module, "CP-4") in FORECAST_EDGES and worst == "will_refuse":
         reason = CP5_BLOCKED_REASON
         basis = CP5_BASIS
