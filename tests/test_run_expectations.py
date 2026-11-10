@@ -937,8 +937,6 @@ _R_SB2_2C_POS = [
     "CREDIT AGREEMENT (Execution Version)",
     "CREDIT AGREEMENT (Conformed Copy)",
     "CREDIT AGREEMENT - Execution Version",
-    "Credit Agreement, as amended through March 1, 2015",
-    "CREDIT AGREEMENT as amended through March 1, 2015",
     "Credit Agreement, as amended by the First Amendment",
 ]
 
@@ -1038,7 +1036,6 @@ _R_SB2_2C_FIX1_POS = [
     "Credit Agreement, as amended",
     "CREDIT AGREEMENT, AS AMENDED.",
     "Credit Agreement, as amended to date",
-    "Credit Agreement, as amended and restated as of March 1, 2015",
     "Credit Agreement, as amended from time to time",
     "1st Amended and Restated Credit Agreement",
     "2nd Amended and Restated Credit Agreement",
@@ -1113,3 +1110,106 @@ def test_r_sb2_2c_this_without_a_tail_and_other_openers_are_not_credit_agreement
 def test_r_sb2_2c_this_lender_presentation_is_not_a_lender_presentation() -> None:
     title = "This Lender Presentation dated September 11, 2014"
     assert guess_kind("x.htm", [title + "\n"]).kind != "lender_presentation"
+
+
+# --- R-SB2-2d: the as-amended tail is closed (answer key from the lead's ruling R-SB2-2d and the
+# BODY-NEW rows of probes/pr71/main_vs_head.py). After `as amended` (optionally `and restated`) the
+# rest of the line is punctuation/end, or through|by|to|on|as of|from time to time ... to the end of
+# the line with no comma inside it and at most 80 characters; a "This" opener never takes it.
+# Flipped by the ruling (comma inside the tail), old -> new, moved out of the R-SB2-2c lists:
+#   _R_SB2_2C_POS  "Credit Agreement, as amended through March 1, 2015": credit_agreement -> not
+#   _R_SB2_2C_POS  "CREDIT AGREEMENT as amended through March 1, 2015": credit_agreement -> not
+#   _R_SB2_2C_FIX1_POS "Credit Agreement, as amended and restated as of March 1, 2015": -> not
+# Accepted limit, deliberately NOT keyed either way: "This [qualifiers] Credit Agreement dated as
+# of ... requires ..." (the dated/among tails are open).
+_R_SB2_2D_POS = [
+    "Credit Agreement, as amended to date",
+    "Credit Agreement, as amended through Amendment No. 3",
+    "Credit Agreement, as amended by the First Amendment",
+    "Credit Agreement, as amended from time to time",
+    "Credit Agreement as amended from time to time",
+    "Credit Agreement, as amended from time to time and supplemented by every rider",
+]
+_R_SB2_2D_TAIL_81 = (
+    " from time to time and supplemented by every rider issued under it on later dates or times"
+)
+_R_SB2_2D_NEG_BODY = [
+    "Credit Agreement, as amended by the First Amendment, contains customary covenants.",
+    "Credit Agreement, as amended from time to time, requires the Company to keep a ratio.",
+    "Credit Agreement, as amended through March 1, 2015",
+    "CREDIT AGREEMENT as amended through March 1, 2015",
+    "Credit Agreement, as amended and restated as of March 1, 2015",
+    "Credit Agreement, as amended" + _R_SB2_2D_TAIL_81,
+]
+_R_SB2_2D_QUALIFIERS = ["Revolving", "Senior Secured"]
+_R_SB2_2D_TAILS = [
+    ", as amended through June 2016, requires a minimum ratio.",
+    ", as amended by the First Amendment, contains customary covenants.",
+]
+_R_SB2_2D_FRAMES = [
+    "{t}",
+    "Exhibit 10.1\nExecution Version\n{t}",
+    "<b>EXHIBIT 10.1</b>\n{t}",
+]
+_R_SB2_2D_BODY_NEW = [
+    frame.format(t=f"{this} {q} Credit Agreement{tail}")
+    for this in ("This", "THIS")
+    for q in _R_SB2_2D_QUALIFIERS
+    for tail in _R_SB2_2D_TAILS
+    for frame in _R_SB2_2D_FRAMES
+]
+_R_SB2_2D_THIS_AS_AMENDED = [
+    "This Credit Agreement, as amended to date",
+    "This Credit Agreement, as amended through Amendment No. 3",
+    "THIS CREDIT AGREEMENT, AS AMENDED",
+    "This Revolving Credit Agreement, as amended",
+    "This Amended and Restated Credit Agreement, as amended from time to time",
+]
+
+
+def test_r_sb2_2d_key_lengths() -> None:
+    positive = "Credit Agreement, as amended from time to time and supplemented by every rider"
+    assert len(positive) <= 80
+    assert len(_R_SB2_2D_TAIL_81) >= 83
+
+
+@pytest.mark.parametrize(
+    "title", _R_SB2_2D_POS, ids=[f"r_sb2_2d_pos_{i}" for i in range(len(_R_SB2_2D_POS))]
+)
+def test_r_sb2_2d_closed_as_amended_tails_are_credit_agreements(title: str) -> None:
+    assert guess_kind("x.htm", [_EX + title + "\n"]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2D_NEG_BODY,
+    ids=[f"r_sb2_2d_neg_{i}" for i in range(len(_R_SB2_2D_NEG_BODY))],
+)
+def test_r_sb2_2d_as_amended_body_sentences_and_long_or_comma_tails_are_not_credit_agreements(
+    title: str,
+) -> None:
+    guess = guess_kind("x.htm", [_EX + title + "\n"])
+    assert guess.kind != "credit_agreement"
+    assert guess.executed is not True
+
+
+@pytest.mark.parametrize(
+    "page",
+    _R_SB2_2D_BODY_NEW,
+    ids=[f"r_sb2_2d_body_new_{i}" for i in range(len(_R_SB2_2D_BODY_NEW))],
+)
+def test_r_sb2_2d_probe_body_new_rows_are_not_credit_agreements(page: str) -> None:
+    guess = guess_kind("x.htm", [page])
+    assert guess.kind != "credit_agreement"
+    assert guess.executed is not True
+
+
+@pytest.mark.parametrize(
+    "title",
+    _R_SB2_2D_THIS_AS_AMENDED,
+    ids=[f"r_sb2_2d_this_neg_{i}" for i in range(len(_R_SB2_2D_THIS_AS_AMENDED))],
+)
+def test_r_sb2_2d_this_opener_never_takes_an_as_amended_tail(title: str) -> None:
+    guess = guess_kind("x.htm", [_EX + title + "\n"])
+    assert guess.kind != "credit_agreement"
+    assert guess.executed is not True
