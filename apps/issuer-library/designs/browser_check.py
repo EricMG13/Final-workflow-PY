@@ -812,19 +812,25 @@ def new_run(  # noqa: PLR0915, RUF100
     note(
         ISSUER in text
         and "Source readiness" in text
-        and "CP-0" not in text
+        and "CP-0" not in page.inner_text("#run-review .review-modules")
         and "gpt-6.1-sol" in text,
         f"{name}: review shows the launcher's plan",
     )
     note(page.is_disabled("#start-run"), f"{name}: Start stays disabled before approval")
     note(not any(Path(workspace, "runs").iterdir()), f"{name}: review created no run")
-    page.locator("#run-review details").first.click()
+    page.locator('#run-review details:has(summary:text-matches("^Source files"))').click()
     note(
         "chart.png" in page.inner_text("#run-review"),
         f"{name}: review lists the file no module can read",
     )
     page.screenshot(path=str(S / f"{name}-review.png"))
     page.check("#run-confirm")
+    if page.locator("#run-accept").count():
+        note(
+            page.is_disabled("#start-run"),
+            f"{name}: Start stays disabled until the acceptance is ticked",
+        )
+        page.check("#run-accept")
     page.click("#start-run")
     page.wait_for_selector("#progress-step:not([hidden])")
     page.wait_for_selector("#open-run:not([hidden])", timeout=180000)
