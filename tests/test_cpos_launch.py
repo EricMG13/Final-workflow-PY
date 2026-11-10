@@ -28,6 +28,9 @@ from deploy_workflow.owners.cpos_launch import (
     METHODS,
     Accepted,
     LaunchRefused,
+    _chart_route,
+    _selector,
+    chart_issues,
     checker,
     main,
     prepare,
@@ -101,16 +104,16 @@ READER_BOTTOM_LINE = "The synthetic issuer shows one observed item."
 CHART_TABLES = {
     "Chart data: leverage": """| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- | --- |
-| FY2023 | 4.20 | 3.85 | x | Synthetic. |
-| FY2024 | 3.60 | 3.25 | x | Synthetic. |""",
+| FY2023 ended 2023-12-31 | 4.20 | 3.85 | x | Synthetic. |
+| FY2024 ended 2024-12-31 | 3.60 | 3.25 | x | Synthetic. |""",
     "Chart data: interest cover": """| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- |
-| FY2023 | 3.10 | x | Synthetic. |
-| FY2024 | 3.40 | x | Synthetic. |""",
+| FY2023 ended 2023-12-31 | 3.10 | x | Synthetic. |
+| FY2024 ended 2024-12-31 | 3.40 | x | Synthetic. |""",
     "Chart data: liquidity": """| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- | --- |
-| FY2023 | 300 | 450 | US$m | Synthetic. |
-| FY2024 | 275 | 400 | US$m | Synthetic. |""",
+| 2023-12-31 | 300 | 450 | US$m | Synthetic. |
+| 2024-12-31 | 275 | 400 | US$m | Synthetic. |""",
     "Chart data: debt maturities": """| Period | Debt maturing | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- |
 | FY2026 | 500 | US$m | Synthetic. |
@@ -120,7 +123,9 @@ CHART_TABLES = {
 NON_USD_TABLES = {
     "Chart data: liquidity": """| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- | --- |
-| FY2024 | Not supplied: reported in EUR m | Not supplied: reported in EUR m | EUR m | Synthetic. |""",
+"""
+    "| 2024-12-31 | Not supplied: reported in EUR m | Not supplied: reported in EUR m "
+    "| EUR m | Synthetic. |",
     "Chart data: debt maturities": """| Period | Debt maturing | Reporting unit | Basis and limitation |
 | --- | --- | --- | --- |
 | FY2026 | Not supplied: reported in EUR m | EUR m | Synthetic. |""",
@@ -944,7 +949,11 @@ def test_an_all_gaps_non_usd_issuer_passes_with_no_chart_values(tmp_path, monkey
     [
         ("| 3.85 |", "| 3.85x |", "3.85x"),
         ("| 300 | 450 | US$m |", "| 300 | 450 | EUR m |", "EUR m"),
-        ("| FY2023 | 3.10 | x | Synthetic. |", "| FY2023 | 3.10 | x |  |", "Basis and limitation"),
+        (
+            "| FY2023 ended 2023-12-31 | 3.10 | x | Synthetic. |",
+            "| FY2023 ended 2023-12-31 | 3.10 | x |  |",
+            "Basis and limitation",
+        ),
         ("### Chart data: liquidity", "### Liquidity data", "Chart data: liquidity"),
         ("| Period | Debt maturing |", "| Year | Debt maturing |", "Period"),
         ("| FY2026 | 500 |", "| FY2026 | Not supplied: |", "Not supplied: |"),
@@ -956,6 +965,166 @@ def test_checker_refuses_each_broken_chart_table(tmp_path, old, new, complaint):
     assert old in raw
     issues = _checked_handoff(task, raw.replace(old, new).encode(), checker(prepared.layout))
     assert any(complaint in issue for issue in issues), issues
+
+
+RATIO_KINDS = (
+    "FY2024 ended 2024-09-30",
+    "LTM ended 2024-12-28",
+    "H1 2025 ended 2025-06-30",
+    "H2 2024 ended 2024-12-31",
+    "9M 2025 ended 2025-09-30",
+    "Q1 2025 ended 2024-12-28",
+    "Q4 2024 ended 2024-09-30",
+    "FY2013 ended 2014-01-28",
+)
+RATIO_REFUSED = (
+    "FY2024",
+    "Rolling reported periods to 2024-12-28",
+    "June 30, 2025",
+    "LTM June 2025",
+    "2024-12-28",
+    "LTM ended 2025-02-30",
+    "LTM ended 2025-13-01",
+    "ltm ended 2024-12-28",
+    "FY 2024 ended 2024-09-30",
+    "Q5 2024 ended 2024-09-30",
+    "H3 2024 ended 2024-09-30",
+    "LTM ended 2024-12-28 (restated)",
+    "LTM  ended 2024-12-28",
+    "FY24 ended 2024-09-30",
+    "6M 2025 ended 2025-06-30",
+)
+LIQUIDITY_REFUSED = (
+    "FY2024",
+    "June 30, 2025",
+    "2025-02-30",
+    "LTM ended 2024-12-28",
+    "2024-12-28 balance sheet",
+)
+RATIO_MESSAGE = (
+    "`### {heading}` {period}: Period must be `<kind> ended YYYY-MM-DD` with a real date; "
+    "kind is `FY<yyyy>`, `LTM`, `H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`."
+)
+LIQUIDITY_MESSAGE = (
+    "`### Chart data: liquidity` {period}: Period must be the balance-sheet date as "
+    "`YYYY-MM-DD`, a real date."
+)
+FIGURES = {
+    "leverage": "S.1",
+    "interest cover": "S.2",
+    "liquidity": "S.3",
+    "debt maturities": "S.4",
+}
+HEADERS = {
+    "leverage": (
+        "| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit "
+        "| Basis and limitation |"
+    ),
+    "interest cover": "| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |",
+    "liquidity": (
+        "| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |"
+    ),
+    "debt maturities": "| Period | Debt maturing | Reporting unit | Basis and limitation |",
+}
+
+
+def one_row(name, period, value="1.0", unit=None):
+    """A hand-written chart table with one data row, the Period and value cells as given."""
+    unit = unit or {"leverage": "x", "interest cover": "x"}.get(name, "US$m")
+    cells = {
+        "leverage": f"| {period} | {value} | {value} | {unit} | Synthetic. |",
+        "interest cover": f"| {period} | {value} | {unit} | Synthetic. |",
+        "liquidity": f"| {period} | {value} | {value} | {unit} | Synthetic. |",
+        "debt maturities": f"| {period} | {value} | {unit} | Synthetic. |",
+    }[name]
+    separator = "| " + " | ".join("---" for _ in HEADERS[name].strip("|").split("|")) + " |"
+    text = f"## Findings\n\n### Chart data: {name}\n\n{HEADERS[name]}\n{separator}\n{cells}\n"
+    return text, _chart_route("model-chart-strip", FIGURES[name])
+
+
+@pytest.mark.parametrize("name", ["leverage", "interest cover"])
+@pytest.mark.parametrize("period", RATIO_KINDS)
+def test_a_ratio_period_in_the_fixed_format_has_no_issue(name, period):
+    text, route = one_row(name, period)
+    assert chart_issues(text, route) == ()
+
+
+@pytest.mark.parametrize("name", ["leverage", "interest cover"])
+@pytest.mark.parametrize("period", RATIO_REFUSED)
+def test_a_ratio_period_outside_the_fixed_format_is_refused_as_written(name, period):
+    text, route = one_row(name, period)
+    expected = RATIO_MESSAGE.format(heading=f"Chart data: {name}", period=period)
+    assert chart_issues(text, route) == (expected,)
+
+
+@pytest.mark.parametrize("period", ["2024-12-28", "2024-02-29"])
+def test_a_liquidity_date_has_no_issue(period):
+    text, route = one_row("liquidity", period)
+    assert chart_issues(text, route) == ()
+
+
+@pytest.mark.parametrize("period", LIQUIDITY_REFUSED)
+def test_a_liquidity_period_that_is_not_a_real_date_is_refused_as_written(period):
+    text, route = one_row("liquidity", period)
+    assert chart_issues(text, route) == (LIQUIDITY_MESSAGE.format(period=period),)
+
+
+@pytest.mark.parametrize("period", ["FY2026", "Next twelve months from 2014-07-29"])
+def test_a_debt_maturities_period_stays_free_text(period):
+    text, route = one_row("debt maturities", period)
+    assert chart_issues(text, route) == ()
+
+
+def test_a_bad_period_and_a_bad_value_give_the_period_issue_first():
+    text, route = one_row("leverage", "FY2024", value="3.85x")
+    assert chart_issues(text, route) == (
+        (
+            "`### Chart data: leverage` FY2024: Period must be `<kind> ended YYYY-MM-DD` with a "
+            "real date; kind is `FY<yyyy>`, `LTM`, `H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or "
+            "`Q<1-4> <yyyy>`."
+        ),
+        (
+            "`### Chart data: leverage` FY2024: `3.85x |` must be a plain number "
+            "or `Not supplied: <reason>`."
+        ),
+        (
+            "`### Chart data: leverage` FY2024: `3.85x |` must be a plain number "
+            "or `Not supplied: <reason>`."
+        ),
+    )
+
+
+def test_a_non_usd_liquidity_row_still_needs_the_date_period():
+    gap = "Not supplied: reported in EUR m"
+    text, route = one_row("liquidity", "FY2024", value=gap, unit="EUR m")
+    assert chart_issues(text, route) == (LIQUIDITY_MESSAGE.format(period="FY2024"),)
+    text, route = one_row("liquidity", "2024-12-31", value=gap, unit="EUR m")
+    assert chart_issues(text, route) == ()
+
+
+RATIO_SENTENCE = (
+    "Each Period cell is `<kind> ended YYYY-MM-DD`, where kind is `FY<yyyy>`, `LTM`, "
+    "`H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`; a ratio of period-end debt to "
+    "trailing-twelve-month EBITDA is an `LTM` row."
+)
+LIQUIDITY_SENTENCE = "Each Period cell is the balance-sheet date as `YYYY-MM-DD`."
+
+
+@pytest.mark.parametrize(
+    ("name", "present", "absent"),
+    [
+        ("leverage", RATIO_SENTENCE, LIQUIDITY_SENTENCE),
+        ("interest cover", RATIO_SENTENCE, LIQUIDITY_SENTENCE),
+        ("liquidity", LIQUIDITY_SENTENCE, "ended YYYY-MM-DD"),
+        ("debt maturities", None, "Each Period cell"),
+    ],
+)
+def test_the_chart_instruction_states_the_period_format(name, present, absent):
+    selector = _selector(_chart_route("model-chart-strip", FIGURES[name]))
+    assert "one row per period. " in selector
+    if present:
+        assert "one row per period. " + present in selector
+    assert absent not in selector
 
 
 def test_the_instructions_give_the_exact_chart_table_header(tmp_path):
