@@ -12,6 +12,8 @@ import html
 import importlib.util
 import json
 import re
+import shutil
+import subprocess
 import sys
 from collections.abc import Iterator
 from pathlib import Path
@@ -48,7 +50,7 @@ def through_the_editor(browser: Any, path: Path) -> tuple[dict[str, Any], str]:
         frame = screen.page.frame_locator("#context-editor")
         frame.locator("#load").wait_for(state="attached", timeout=15000)
         frame.locator("#load").set_input_files(str(path))
-        frame.locator("#loadmsg").filter(has_text="Loaded").wait_for(timeout=15000)
+        frame.locator("#loadmsg").filter(has_text=re.compile(r"^Loaded")).wait_for(timeout=15000)
         note = frame.locator("#loadmsg").inner_text()
         screen.page.click("#use-context")
         screen.page.wait_for_function("window.__ctx.length>0", timeout=15000)
@@ -348,3 +350,110 @@ def test_fill_form_refuses_with_the_note_when_the_form_rejects_the_file(
     rejected.write_text(json.dumps({"schema": "context/9"}), encoding="utf-8")
     with pytest.raises(live_check.Refusal, match=r"Not loaded.*context/9"):
         real_fill_form(browser, rejected, tmp_path)
+
+
+def test_the_release_sync_regenerates_exactly_the_committed_context_form(tmp_path: Path) -> None:
+    """packaging/build.py runs sync_assets.py, which rebuilds web/context-form.html from
+    docs/templates/context-form.html; if they differ a release build undoes the form's fixes.
+    The script runs unchanged in a scratch copy of what it reads, so nothing here is written."""
+    app = tmp_path / "apps/issuer-library"
+    (app / "packaging").mkdir(parents=True)
+    (app / "web").mkdir()
+    shutil.copy(DESIGNS.parent / "packaging/sync_assets.py", app / "packaging")
+    for name in ("context-embed.css", "context-embed.js"):
+        shutil.copy(DESIGNS.parent / "web" / name, app / "web")
+    shutil.copytree(ROOT / "src/deploy_vii/assets", tmp_path / "src/deploy_vii/assets")
+    (tmp_path / "docs/templates").mkdir(parents=True)
+    shutil.copy(ROOT / "docs/templates/context-form.html", tmp_path / "docs/templates")
+    (tmp_path / "examples/issuer-library").mkdir(parents=True)
+    shutil.copy(ROOT / "examples/issuer-library/catalog.json", tmp_path / "examples/issuer-library")
+    subprocess.run(
+        [sys.executable, "-I", str(app / "packaging/sync_assets.py")], check=True, cwd=tmp_path
+    )
+    committed = (DESIGNS.parent / "web/context-form.html").read_text()
+    assert (app / "web/context-form.html").read_text() == committed
+
+
+# Conditional sections: build() drops these on load although they were entered. The server
+# refuses every one of these files, so the form must refuse the load, naming field and value.
+PEER = {"name": "Sealy", "ticker": "ZZ", "ev_m": "", "ebitda_m": "", "as_of": "", "source": ""}
+PEER_FIG = PEER | {"ev_m": "5400", "ebitda_m": "600", "as_of": "2014-06-30", "source": "10-K"}
+PREC = {
+    "target": "Tempur",
+    "acquirer": "A",
+    "date": "2013-01-01",
+    "ev_m": "100",
+    "ebitda_m": "10",
+    "source": "PR",
+}
+CONDITIONAL = {
+    "peers-source-none": (
+        {"valuation.peer_source": "none", "valuation.peers": [PEER]},
+        "valuation.peers",
+        "Sealy",
+    ),
+    "peers-source-cp_dr_public": (
+        {"valuation.peer_source": "cp_dr_public", "valuation.peers": [PEER]},
+        "valuation.peers",
+        "Sealy",
+    ),
+    "user_list-peer-figure": (
+        {"valuation.peer_source": "user_list", "valuation.peers": [PEER_FIG]},
+        "valuation.peers[0].ev_m",
+        "5400",
+    ),
+    "precedents-basis-auto": (
+        {"valuation.basis": "auto", "valuation.precedents": [PREC]},
+        "valuation.precedents",
+        "Tempur",
+    ),
+    "market-cap-basis-auto": (
+        {"valuation.basis": "auto", "valuation.issuer_market.market_cap_m": "900"},
+        "valuation.issuer_market.market_cap_m",
+        "900",
+    ),
+    "user-multiple-basis-auto": (
+        {"valuation.basis": "auto", "valuation.user_multiple.value": "7.5"},
+        "valuation.user_multiple.value",
+        "7.5",
+    ),
+    "ticker-unlisted": (
+        {"identity.listed_equity": False, "identity.ticker": "MFRM"},
+        "identity.ticker",
+        "MFRM",
+    ),
+    "issuer_trading-unlisted": (
+        {"identity.listed_equity": False, "valuation.basis": "issuer_trading"},
+        "valuation.basis",
+        "issuer_trading",
+    ),
+    # A JSON null is not a boolean; the server refuses it, the form turned it into false.
+    "attachment-null": ({"attachments.prior_case": None}, "attachments.prior_case", "null"),
+    "listed_equity-null": ({"identity.listed_equity": None}, "identity.listed_equity", "null"),
+}
+
+
+def c2_variant(edits: dict[str, Any], tmp_path: Path) -> tuple[Path, bytes]:
+    saved = json.loads(C2.read_text("utf-8"))
+    for path, value in edits.items():
+        *parents, last = path.split(".")
+        node = saved
+        for step in parents:
+            node = node[step]
+        node[last] = value
+    changed = tmp_path / "changed.json"
+    changed.write_text(json.dumps(saved), encoding="utf-8")
+    return changed, changed.read_bytes()
+
+
+@pytest.mark.parametrize("case", CONDITIONAL)
+def test_a_value_the_form_cannot_hold_refuses_the_load_visibly(
+    browser: Any, tmp_path: Path, case: str
+) -> None:
+    from deploy_workflow.context import load_context  # the key: the server refuses the file
+
+    edits, path, value = CONDITIONAL[case]
+    changed, raw = c2_variant(edits, tmp_path)
+    with pytest.raises(Exception, match=r"(?s).+"):
+        load_context(raw)
+    assert_refused(path, value, load_and_use(browser, changed))
