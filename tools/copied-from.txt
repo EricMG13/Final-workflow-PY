@@ -131,7 +131,7 @@ src/deploy_workflow/handoff_delivery.py
 src/deploy_workflow/host.py
 src/deploy_workflow/html_text.py
 src/deploy_workflow/inline_xbrl.py
-src/deploy_workflow/markdown_delivery.py
+edited src/deploy_workflow/markdown_delivery.py
 src/deploy_workflow/model/budget.py
 src/deploy_workflow/model/copilot_adapter.py
 src/deploy_workflow/model/handoff.py
@@ -321,7 +321,7 @@ tests/test_cp5_checks_once.py
 edited tests/test_cpos_app.py
 tests/test_cpos_comparison.py
 tests/test_cpos_handoffs.py
-tests/test_cpos_launch.py
+edited tests/test_cpos_launch.py
 edited tests/test_delivery_low_s04.py
 tests/test_downstream_evidence_tags.py
 tests/test_earnings.py
