@@ -3075,3 +3075,36 @@ def test_a_quitting_library_discovers_nothing_but_still_notices_a_finish(
     refused = call(client_of(app), "POST", "/api/refresh", "{}")
     assert refused.status_code == 503 and refused.text == server_module.LIBRARY_QUITTING + "\n"
     assert seen["total"] == 0, "a quitting library discovered"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="the POSIX lock open")
+def test_a_transient_lock_open_error_keeps_a_held_lock_job_active(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Answer key: sb2/probes/i24rr_emfile_live_descendant.py and
+    # i24rr_transient_open_error_finishes_held_lock.py. EMFILE at the settle's lock open says
+    # nothing about the holder, so the job stays active, not finished as "nothing to settle".
+    import errno
+
+    monkeypatch.setattr(notify, "tab_watching", lambda lib: False)
+    job_id = "web-" + "f4" * 16
+    app, root, _, notices = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    (folder / "status.json").write_text('{"state":"running","message":"synthetic"}')
+    holder = jobs_module.hold_worker_lock(folder / "worker.lock")
+    real_open = os.open
+
+    def open_failing_on_the_lock(path: Any, *args: Any, **kwargs: Any) -> int:
+        if Path(path).name == "worker.lock":
+            raise OSError(errno.EMFILE, os.strerror(errno.EMFILE))
+        return real_open(path, *args, **kwargs)
+
+    app.active_jobs.add(job_id)
+    monkeypatch.setattr(jobs_module.os, "open", open_failing_on_the_lock)
+    try:
+        jobs_module.finish_job(app, folder, job_id)
+    finally:
+        monkeypatch.undo()
+        os.close(holder)
+    assert jobs_module.still_active(app, job_id), "a held lock's job left active_jobs on EMFILE"
+    assert state_of(folder)["state"] == "running" and not notices

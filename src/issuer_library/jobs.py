@@ -148,6 +148,21 @@ def refuse_non_regular_descriptor(descriptor: int, path: Path) -> None:
         raise OSError(f"not a regular file: {path.name}")
 
 
+# Lock-open errors that a retry cannot cure; any other (EMFILE, ENOMEM, EIO ...) may pass.
+PERMANENT_OPEN_ERRORS = frozenset(
+    {
+        errno.ENOENT,
+        errno.ENOTDIR,
+        errno.EACCES,
+        errno.EPERM,
+        errno.EROFS,
+        errno.ELOOP,
+        errno.EISDIR,
+        errno.ENXIO,
+        errno.EOPNOTSUPP,
+    }
+)
+
 if sys.platform == "win32":
 
     def hold_worker_lock(path: Path) -> int:
@@ -242,10 +257,11 @@ else:
         """Hold the lock of a gone worker; yield a check that the file is still the path's.
 
         None (nothing is proven, so nothing may be settled) when a worker holds the lock.
-        nothing_to_settle when the run folder is gone or the lock cannot be opened at all (logged
-        once, here): see settle_job. A missing file is created, as hold_worker_lock does, so that
-        no start can take the lock while the caller decides (a start then refuses; none is paid
-        for). The descriptor is read-only, as in worker_alive: flock needs no write access, so a
+        nothing_to_settle when the run folder is gone or the lock cannot be opened for a permanent
+        reason (logged here); a transient open error gives None, as nothing is known: see
+        settle_job. A missing file is created, as hold_worker_lock does, so that no start can
+        take the lock while the caller decides (a start then refuses; none is paid for).
+        The descriptor is read-only, as in worker_alive: flock needs no write access, so a
         read-only lock file can still be proven dead. The check, made after the caller's read,
         catches a lock file removed and replaced meanwhile, which holding the old inode alone
         does not prevent.
@@ -257,6 +273,11 @@ else:
             yield nothing_to_settle
             return
         except OSError as error:
+            if error.errno not in PERMANENT_OPEN_ERRORS:
+                # EMFILE, ENFILE, ENOMEM, EIO: nothing is known of the holder; watch_worker retries.
+                log.warning("The run lock %s cannot be checked: %s", path, error)
+                yield None
+                return
             log.warning("The run lock %s cannot be opened; its job is not settled: %s", path, error)
             yield nothing_to_settle
             return
