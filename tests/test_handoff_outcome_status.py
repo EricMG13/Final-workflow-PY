@@ -454,3 +454,25 @@ def test_b1_long_lines_finish_within_2s(own: str, wanted: str) -> None:
     got = handoff_outcome.actual_of("CP-4", own, "")[0]
     assert time.monotonic() - start < 2
     assert got == wanted
+
+
+@pytest.mark.parametrize(
+    ("own", "wanted"),
+    [
+        ("# CP-4\nModule Status: Completed\n\nNot blocked: CP-4 has its indenture.\n", "ready"),
+        (
+            "# CP-4\nModule Status: Completed\n\nPreviously blocked: CP-4 lacked inputs; resolved.\n",
+            "ready",
+        ),
+        ("# CP-4\nModule Status: Completed\n\nCP-4 blocked earlier\n", "ready"),
+        ("# CP-4\nbody\n\nNot blocked: CP-4.\n", "unconfirmed"),
+    ],
+    ids=[
+        "b1f1-not-blocked-colon-id",
+        "b1f1-previously-blocked-colon-id",
+        "b1f1-id-then-status-control",
+        "b1f1-no-status-colon-id-prose",
+    ],
+)
+def test_b1f1_own_handoff_prose_status_colon_id_never_counts(own: str, wanted: str) -> None:
+    assert handoff_outcome.actual_of("CP-4", own, "")[0] == wanted
