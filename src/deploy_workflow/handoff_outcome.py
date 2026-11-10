@@ -12,7 +12,9 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
    \\r\\n only; fences per CommonMark: an
    opening line is indented at most 3 spaces and starts with 3+ backticks or tildes, a backtick
    fence's info string has no backtick, and it closes only on a line of the same character,
-   at least as long a run and only whitespace after; unclosed runs to the end), plus a
+   at least as long a run and only whitespace after; unclosed runs to the end; `> ` quote
+   prefixes are stripped first, and a fence opened in a quote ends at the first unquoted
+   line; CP-0 text is fenced the same way), plus a
    status word after the module id (below). The most severe value wins:
    will_refuse > limited > ready.
 
@@ -44,13 +46,15 @@ A CP-0 status is the most severe status word in any cell of a table row whose fi
 module id alone or the id plus a label (id, optional whitespace, then a colon or a dash after
 whitespace; case-insensitive; `*`, backticks and a leading list marker `- ` or `N. ` are
 dropped from the cell first; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
-a row of another module never counts, nor is it read as text); in other text it is the first status
-word within 70 characters after the module id (not followed by `.digit`, `-digit` or a letter),
-with no other module id between, and, in CP-0 prose only, a status word (any letter case)
-followed by `:` and a list of module ids that includes it (`Blocked: CP-1, CP-4 and CP-5`; same
-id boundary; the word starts the line after list/markup characters only, is not negated, and the
-ids stop at the first word that is not an id or a separator). A `Module
-Status:` value counts when it begins with a known phrase followed by a period or the line's end
+a row of another module never counts, nor is it read as text); in other text every status
+word within 70 characters after a mention of the module id (not followed by `.digit`, `-digit` or
+a letter), with no other module id and no sentence end (`.` or `;` before a space or the line's
+end) between, so the worst class over all mentions wins, and, in CP-0 prose only, a status word
+(any letter case) followed by `:` and a list of module ids that includes it (`Blocked: CP-1, CP-4
+and CP-5`; same id boundary; the word starts a line after list/markup characters (`#`
+too) only, ids in any letter case, is not negated, and the ids stop at the first word that is not
+an id or a separator). A `Module Status:` value counts when it begins with a known phrase followed
+by a period or the line's end
 (the rest of the line is ignored).
 
 `unconfirmed` and `not_reached` are not evidence: against any forecast the
@@ -137,14 +141,18 @@ def unfenced(text: str) -> list[str]:
     closing = next((i for i, x in enumerate(lines[1:], 1) if x.strip() == "---"), 0)
     head = closing + 1 if lines[0].strip() == "---" else 0
     kept = lines[:head]
-    fence = ("", 0)  # (character, run length) of the open fence
+    fence = ("", 0, False)  # (character, run length, opened inside a blockquote) of the open fence
     for line in lines[head:]:
-        char, run, rest = fence_run(line)
+        body = re.sub(r"^(?:[ ]{0,3}>[ ]?)+", "", line)  # the line without its `> ` prefixes
+        quoted = body != line
+        if fence[0] and fence[2] and not quoted:  # a line outside the quote ends its fence
+            fence = ("", 0, False)
+        char, run, rest = fence_run(body if fence[2] or not fence[0] else line)
         if fence[0]:
             if char == fence[0] and run >= fence[1] and not rest.strip():
-                fence = ("", 0)
+                fence = ("", 0, False)
         elif run >= 3 and not (char == "`" and "`" in rest):
-            fence = (char, run)
+            fence = (char, run, quoted)
         else:
             kept.append(line)
     return kept
@@ -152,11 +160,12 @@ def unfenced(text: str) -> list[str]:
 
 def status_words(module: str, text: str, words: tuple[str, ...], both: bool = False) -> list[str]:
     """The module's status words: those in any cell of a table row whose first cell is the module id
-    alone or id plus a label (markup and list marker dropped); else the first within 70 characters
-    after the id, no other module id between (another module's row is not read), and any word
+    alone or id plus a label (markup and list marker dropped); else, for every mention of the id,
+    every status word within 70 characters after it, no other module id and no sentence end (`.` or
+    `;` before a space or line end) between (another module's row is not read), and any word
     followed by `:` and a list of ids that includes the module (`Blocked: CP-1, CP-4`; any letter
     case, and only with `both`, i.e. CP-0 text). That form counts only when the status word starts
-    the line after list/markup characters (`-*+>_`, backticks, `N.`), so `Not blocked:` and
+    the line after list/markup characters (`-*+>_#`, backticks, `N.`), so `Not blocked:` and
     `Unblocked:` never count; the ids are read up to the first word that is not an id or a
     separator (`,` `&` `/` `and`), so `Blocked: CP-4 because CP-1 ...` lists only CP-4.
     With `both` the row words and the prose words are all returned."""
@@ -176,18 +185,22 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
         return rows
     prose = "\n".join(rest)
     ident = r"CP-\w+(?!\w|\.\d|-\d)"
-    found = re.search(
-        rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?:(?!CP-)[^\n]){{0,70}}?\b({alt})\b", prose
-    )
+    gap = r"(?:(?!CP-|[.;](?:\s|$))[^\n])"
+    found = [
+        w[1]
+        for m in re.finditer(rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?=({gap}{{0,91}}\w*))", prose)
+        for w in re.finditer(rf"\b({alt})\b", m[1])
+        if w.start() <= 70
+    ]
     sep = r"(?:[ \t]*[,&/][ \t]*|[ \t]+)(?:and[ \t]+)?"
-    lead = r"(?m)^(?:[ \t>*+_`-]|\d+\.)*"
+    lead = r"(?m)^(?:[ \t>*+_`#-]|\d+\.)*"
     listed = rf"{lead}({alt})[*_`]*[ \t]*:[ \t*_`]*((?:{ident}{sep})*{ident})"
-    rows += [found[1]] if found else []
+    rows += found
     if both:  # the status-colon-id form is read in CP-0 prose only, never in a module's own handoff
         rows += [
             m[1].upper()
             for m in re.finditer(listed, prose, re.IGNORECASE)
-            if module.upper() in (i.upper() for i in re.findall(ident, m[2]))
+            if module.upper() in (i.upper() for i in re.findall(ident, m[2], re.IGNORECASE))
         ]
     return rows
 
@@ -225,6 +238,7 @@ def actual_of(
         return stated
     # CP-0 rows and prose are both read; the worst class wins. With no own handoff only BLOCKED and
     # CONDITIONAL count (rule 3); with one, CONDITIONAL gives nothing.
+    cp0 = "\n".join(unfenced(cp0))
     read = [
         (STATUS.get(word, "will_refuse"), word)
         for word in status_words(module, cp0, (*STATUS, "CONDITIONAL"), both=True)
