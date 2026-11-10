@@ -1090,3 +1090,45 @@ def test_a_snapshot_that_cannot_be_written_stops_the_run_before_the_engine(
     with pytest.raises(OSError, match="No space left"):
         bridge.start(folder)
     assert seen == [], "the engine was called after a snapshot write failed"
+
+
+def swapped_context_start(tmp_path, monkeypatch, *, pre_existing):
+    """`bridge.start` with the intake context changed just after `launch` pinned it."""
+    folder, value = job(tmp_path)
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    approved_review(folder, ACCEPTED)
+    run_dir = Path(value["workspace"]) / "runs" / value["id"]
+    if pre_existing:
+        run_dir.mkdir()
+        (run_dir / "sentinel.txt").write_text("kept")
+    seen = watched_start(folder, run_dir, monkeypatch)
+    real_launch = bridge.launch
+
+    def launch(request, directory, out):
+        prepared = real_launch(request, directory, out)
+        if Path(out).resolve() == run_dir.resolve():
+            context = folder / "context.json"
+            context.write_bytes(context.read_bytes() + b" ")  # After the pin, before Start reads
+        return prepared
+
+    monkeypatch.setattr(bridge, "launch", launch)
+    with pytest.raises(ValueError, match="review is stale"):
+        bridge.start(folder)
+    return folder, run_dir, seen
+
+
+@pytest.mark.parametrize("pre_existing", [False, True])
+def test_a_context_changed_after_launch_pinned_it_is_stale_and_records_nothing(
+    tmp_path, monkeypatch, pre_existing
+):
+    """The review id is still equal here (it ignores context bytes read later): only the
+    context pin check can refuse this."""
+    folder, run_dir, seen = swapped_context_start(tmp_path, monkeypatch, pre_existing=pre_existing)
+    assert seen == [], "the engine was called for a stale context"
+    assert not (folder / "start-authorization.md").exists()
+    assert not (run_dir / "expectations.json").exists()
+    assert not (run_dir / "context.json").exists()
+    if pre_existing:
+        assert (run_dir / "sentinel.txt").read_text() == "kept"
+    else:
+        assert not run_dir.exists(), "launch's own run folder was left behind"

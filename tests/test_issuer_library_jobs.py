@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import errno
 import hashlib
 import json
 import logging
@@ -3269,3 +3270,52 @@ def test_a_review_written_before_expectations_must_be_made_again(tmp_path: Path)
     save_json(path, {**old, "counted": []})  # A fresh review lists its counted items.
     assert post_start(client, accept_body(job_id)).status_code == 202
     wait_idle(app)
+
+
+def test_a_lock_error_other_than_contention_keeps_the_job_watched(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    """ENOLCK (a network share) once, at the lock call that proves a worker dead: the watcher
+    must survive, the job stay active until the error clears, then settle and leave."""
+    monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
+    app, root, _, _ = clocked_app(tmp_path)
+    job_id = "web-" + "ab" * 16
+    folder = root / "intake" / job_id
+    folder.mkdir(parents=True)
+    (folder / "status.json").write_text('{"state":"running","message":"x"}')
+    (folder / "worker.lock").write_bytes(b"")
+    real = jobs_module.fcntl
+    failures: list[int] = []
+
+    def flock(descriptor: int, operation: int) -> None:
+        if threading.current_thread().name == "watcher" and not failures:
+            failures.append(1)
+            raise OSError(errno.ENOLCK, "No locks available")
+        real.flock(descriptor, operation)
+
+    monkeypatch.setattr(
+        jobs_module,
+        "fcntl",
+        SimpleNamespace(flock=flock, LOCK_EX=real.LOCK_EX, LOCK_NB=real.LOCK_NB),
+    )
+    died: list[str] = []
+    monkeypatch.setattr(threading, "excepthook", lambda args: died.append(repr(args.exc_value)))
+    app.active_jobs.add(job_id)
+
+    class Done:
+        def wait(self) -> int:
+            return 0
+
+    caplog.set_level(logging.WARNING)
+    watcher = threading.Thread(
+        target=jobs_module.watch, args=(app, job_id, folder, Done()), name="watcher", daemon=True
+    )
+    watcher.start()
+    watcher.join(5)
+    assert failures == [1], "the injected lock error never fired"
+    assert died == [], f"the watch thread died on a lock error: {died}"
+    assert not watcher.is_alive(), "the watcher never settled the job after the error cleared"
+    with app.lock:
+        assert job_id not in app.active_jobs
+    assert state_of(folder)["state"] == "interrupted"
+    assert any("No locks available" in message for message in adoption_warnings(caplog))
