@@ -186,7 +186,7 @@ def status_words(module: str, text: str, words: tuple[str, ...], both: bool = Fa
         return rows
     prose = "\n".join(rest)
     ident = r"CP-\w+(?!\w|\.\d|-\d)"
-    gap = r"(?:(?!(?i:cp-)|;(?:\s|$)|\.(?:[ \t]+[A-Z]|\s*(?:\n|$)))[^\n])"
+    gap = r"(?:(?!\b(?i:cp-)|;(?:\s|$)|\.(?:[ \t]+[A-Z]|\s*(?:\n|$)))[^\n])"
     found = [
         w[1]
         for m in re.finditer(rf"\b{re.escape(module)}\b(?!\.\d|-\d)(?=({gap}{{0,91}}\w*))", prose)
