@@ -10,6 +10,14 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — Phase 1 closing checkpoint: full offline suite and gates on main ba7f5be6, 0 new failures (SB3, branch `claude/sb3-phase1-checkpoint`)
+
+- Scope: one Mac, one commit (`ba7f5be6`, merge of #83), offline; no provider was run. Windows not run. PRs merged after ba7f5be6 (#84, #87–#91, #93–#99 at the time of writing) are covered only by their own PR gates and CI.
+- Gates (`.superpowers/checkpoint/final-ba7f5be6.gates`): full=0, browser=0, quality_gate=0, suite=0.
+- Whole suite in 6 shards (`final-ba7f5be6/shard-*.out`, summary `final-ba7f5be6.suite.log`): 115 failed + 3 errors = 118 failures, 15,657 passed, 0 new. Shards: 9F/1E, 18F/1E, 3F, 28F, 32F, 25F/1E.
+- "0 new" is measured against `known-plus-local.txt`: the committed `tests/nightly-known-failures.txt` at ba7f5be6 plus the 20 local-data ids in `local-data-20.txt` (untracked), which fail only because this Mac lacks the retained data they read. Their classification is the bc34228c checkpoint below (`new-failures/classification.md`: 0 caused by the build; 6 upstream, listed by #82; 20 local-data, not listed in the repo).
+- Not verified: the 20 local-data ids were passed as known through an untracked list and are not proven on a machine that has the data; Windows; the CI runner; PRs merged after ba7f5be6 beyond their own gates.
+
 ## 2026-11-10 — New run: a failed first recent-runs render is retried on the next refresh (branch `claude/sb2-first-render-poll`)
 
 - **Rule:** in `apps/issuer-library/web/actions.js`, `recent()` sets `listFailed` when the list fetch or render fails and clears it when the fetch succeeds; `controls()` keeps New run's 2-second poll while `listFailed` and New run is visible. The failure text now reads "Retrying while New run is open."
