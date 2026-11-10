@@ -740,3 +740,20 @@ def test_an_n_mismatch_refusal_ends_the_run_with_exit_2_not_a_recorded_fault(
     assert code == 2, f"exit status {code}"
     assert page.evaluate("window.__starts") == 0, "Start was clicked"
     assert [f.kind for f in bc.FAULTS.items] == [], "the refusal was recorded as a fault"
+
+
+# PR2 ruling: --accept-limitations needs a frozen count to check N against, which only --case
+# supplies. A paid run without one is refused at argument parsing; a rehearsal (no spend) is not.
+def test_a_paid_accept_limitations_run_without_a_case_is_refused_at_parse(tmp_path: Path) -> None:
+    done = refuse(tmp_path, "--cap", "1", "--accept-limitations")
+    assert done.returncode == 2, (done.returncode, done.stderr[-300:])
+    assert "--case" in done.stderr and len(done.stderr.splitlines()) == 1, done.stderr
+    assert not (tmp_path / "out").exists(), "something was launched"
+
+
+def test_a_rehearsed_accept_limitations_run_without_a_case_is_not_refused_at_parse(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("FW_PYTHON", sys.executable)
+    args = live_check.parse(["--cap", "1", "--accept-limitations", "--rehearse"])
+    assert args.accept_limitations is True and args.case_data is None
