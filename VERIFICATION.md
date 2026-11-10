@@ -10,6 +10,15 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — Phase 1 checkpoint: full offline suite on main bc34228c, new failures classified (branch `claude/sb3-known-failures`)
+
+- Scope: one Mac, offline, not run on the CI runner.
+- Full offline suite on main bc34228c: 118 failures, 92 known, 26 new.
+- Of the 26: 6 fail identically in an upstream clone at dd3dfa18 (class A, now listed in `tests/nightly-known-failures.txt`, causes A1-A5 as in the classification document); 20 depend on machine-local Deploy Workflow data and also fail upstream on this machine (not listed, since they skip on CI): C1 13 ids (live-run stores under `Deploy Workflow/artifacts/model-testing/cp1h-live-*`), C2 1 id (public corpus v1 miss count), C3 6 ids (corpus plus untracked `work/model-testing/mapping/output/*-report.md`).
+- 0 caused by the Python build.
+- Evidence: `.superpowers/checkpoint/new-failures/classification.md` and its `NN.wt.out` / `NN.upstream.out` files.
+- Not verified: the CI runner; whether to list the class-C ids for local full runs (owner's call); A4's cause (not traced); A5 found by code reading, not bisected.
+
 ## 2026-11-10 — Plan 3 live check C2: Primary pro forma pathway, Mattress Firm pre-closing (SB3, branch `claude/sb3-c2-record`)
 
 - **Scope:** public proxy for a private Primary deal, older source (2014), Mattress Firm Holding Corp. as of 2014-09-11 only. One live run: build `d52c4ef2`, `sol-medium`, modules CP-0 CP-1 CP-1A CP-1D CP-2, cap USD 15, launched only on the owner's go-ahead in the SB3 session. Run `web-f126f83e49773a9e5d16ee6af9284481`, USD 1.71466120, retained at `.superpowers/live/plan-3/c2-d52c4ef2/`. Key frozen before the run in `cases/live-mattress-firm-2014/c2/`.
@@ -17,7 +26,7 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
 - **Result:** the run completed and wrote its report. live_check exited 1: 75 passed, 21 faults. Purpose by purpose:
   - **Pro forma capitalisation and leverage: PASS.** Pro forma total debt 767, TLB 720, ABL 42 and as-marketed 3.29x (LP 3.3x) reach the report byte-equal to the CP-2 handoff, labelled, with missing values kept missing. The balance-sheet date 2014-07-29 matches the key. Differences:
     - Equipment and other notes (1 + 4) were withheld as Not supplied: a run Low, a gap rather than an invention.
-    - The key's 466 adjustment does not foot; a key correction is pending.
+    - The key's 466 adjustment does not foot (302 + 466 = 768, against 767); it is what the source prints, so the key needs no change and keeps its note.
   - **Sources and uses: FAIL as delivered.** The table was not routed to the report. Total sources is 903, not 821, because `PRO_FORMA_CP1A` said to use the user-entered facility sizes, which put the 125 ABL commitment in place of the 42 draw. The model labelled the row "commitment, not draw" and logged the gap. Uses (821) equal the key.
   - Every module took one repair turn, all for the same instruction conflict: the view heading was placed before the reader summary's tables. None was a pro forma repair; all three pro forma checks passed on the first draft.
 - **Faults (assessment by mx-precise, offline on a copy, no rerun; SDD `c2-assessment.md`):**
@@ -38,7 +47,7 @@ Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md
   - R-C2-5: each tab states its own unit.
   - R-C2-6: the view heading comes after the reader summary's tables.
   - R-C2-7: keep the source unit; convert with `calculate` and say so.
-  - Key: literal 821 moves to the routed S&U tab; 466 is corrected to what the source prints.
+  - Key: literal 821 moves to the routed S&U tab; 466 already is what the source prints, so it is unchanged (controller ruling u7).
   - Plan 4 needs only the pro forma leverage rows, which passed.
 - **Input differed from the frozen case (found afterwards):** the run's `intake/web-f126f83e…/context.json` has `deal_terms[0].instrument` `""` where `cases/live-mattress-firm-2014/c2/context.json` has `"ABL revolver"` (size 125 kept; Term loan B kept). live_check loads the case file through the app's context editor, so the app's import probably dropped it; it has not been traced. The model still identified the ABL from the documents. Reported to the lead.
 - **Not verified:**
