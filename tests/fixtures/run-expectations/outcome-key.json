@@ -1,6 +1,6 @@
 {
  "schema": "outcome-key/1",
- "note": "synthetic scenarios; hand-written. Outcomes are per scope; every requested module not listed under expected.modules is Ready. Counted = counted for acceptance (Will refuse, Gap, Limited, Check); Information and inherited rows are not counted. Row fields: rule (short id), outcome, counted, optional detail, section, inherited (true) and inherited_from (the direct producers whose effective outcome is non-Ready, in module order; compare as a set). Assumptions the plan leaves open, applied consistently: (1) only Will refuse and Limited propagate; Gap and Check never do; (2) propagation is transitive through effective outcomes (a consumer inherits from each direct producer's effective outcome), one inherited row per consumer; (3) the CP-1 chart-strip row (id CP-1:chart-strip-usd, propagates false) does not propagate; (4) one section-omitted row per omitted report section, from _layout observed offline at write time (omitted: credit_snapshot what-changed; earnings_update company-profile, portfolio-fit, what-changed; relative_value yield-against-maturity, what-changed; covenant_refinancing none; distressed_restructuring liquidity-runway, portfolio-fit, what-changed; portfolio_decision what-changed). Module lists are the launcher's ordered lists: PATHWAY_MODULES minus CP-MODEL and CP-8, ordered by deploy_vii.registry.plan. Clean scenarios declare legal documents executed (with an executed agreement) where CP-4 or CP-2D is in the pathway (CP-2D needs covenant documents), give peers (user_list) where CP-1C is, ratings where CP-2H is, an observed quote where CP-3 or CP-3D is, and a portfolio workbook with a portfolio file for portfolio_decision. Wording and rows of the A-live scenario are set by R-ALIVE-rulings.md (lead, 2026-11-10): F1 CP-5 inherits Will refuse from CP-4; F2 CP-2D Limited when legal documents are none; F4 CP-3C Limited when assumptions.cp3c is null (summary field cp3c_null; any other scenario enters a step-up). The rule-* scenarios that sit on CP-2D declare executed legal documents so F2 does not fire there. Portfolio workbook declared false: Gap on CP-6 (scenario rule-portfolio-workbook-false; justification in its note).",
+ "note": "synthetic scenarios; hand-written. Outcomes are per scope; every requested module not listed under expected.modules is Ready. Counted = counted for acceptance (Will refuse, Gap, Limited, Check); Information and inherited rows are not counted. Row fields: rule (short id), outcome, counted, optional detail, section, inherited (true) and inherited_from (the direct producers whose effective outcome is non-Ready, in module order; compare as a set). Assumptions the plan leaves open, applied consistently: (1) only Will refuse and Limited propagate; Gap and Check never do; (2) propagation is transitive through effective outcomes (a consumer inherits from each direct producer's effective outcome), one inherited row per consumer; (3) the CP-1 chart-strip row (id CP-1:chart-strip-usd, propagates false) does not propagate; (4) one section-omitted row per omitted report section, from _layout observed offline at write time (omitted: credit_snapshot what-changed; earnings_update company-profile, portfolio-fit, what-changed; relative_value yield-against-maturity, what-changed; covenant_refinancing none; distressed_restructuring liquidity-runway, portfolio-fit, what-changed; portfolio_decision what-changed). Module lists are the launcher's ordered lists: PATHWAY_MODULES minus CP-MODEL and CP-8, ordered by deploy_vii.registry.plan. Clean scenarios declare legal documents executed (with an executed agreement) only where CP-4 is in the pathway, give peers (user_list) where CP-1C is, ratings where CP-2H is, an observed quote where CP-3 or CP-3D is, and a portfolio workbook with a portfolio file for portfolio_decision. Rows set by R-ALIVE-rulings.md (lead, 2026-11-10), applied unconditionally: F1 CP-5 inherits Will refuse from CP-4 (a-live); F2 CP-2D Limited, counted, when legal documents are none; F4 CP-3C Limited, counted, when assumptions.cp3c is null (every scenario here leaves it null). Inherited rows are re-derived from the registry edges. Portfolio workbook declared false: Gap on CP-6 (scenario rule-portfolio-workbook-false; justification in its note).",
  "scenarios": [
   {
    "id": "rf1-draft-declared",
@@ -56,6 +56,7 @@
       }
      ],
      "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
       {
        "rule": "inherited",
        "outcome": "Limited",
@@ -67,19 +68,10 @@
       }
      ],
      "CP-5": [
-      {
-       "rule": "inherited",
-       "outcome": "Limited",
-       "counted": false,
-       "inherited": true,
-       "inherited_from": [
-        "CP-4",
-        "CP-3C"
-       ]
-      }
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C", "CP-4"]}
      ]
     },
-    "counted_total": 2,
+    "counted_total": 3,
     "without": []
    },
    "note": "Declaration drives: Limited (Provisional) plus a Check; never Will refuse. Inheritance assumes transitive propagation of Limited (see report); CP-3C and CP-5 rows are information."
@@ -129,9 +121,15 @@
        "outcome": "Check",
        "counted": true
       }
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
      ]
     },
-    "counted_total": 1,
+    "counted_total": 2,
     "without": []
    },
    "note": "The 10-K's exhibit index naming the credit agreement does not make it one: classed financial_report; CP-4 Check; no Run-without offer. A Check never propagates."
@@ -179,8 +177,15 @@
    ],
    "expected": {
     "run": [],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
+     ]
+    },
+    "counted_total": 1,
     "without": []
    },
    "note": "'PRELIMINARY STATEMENTS' is not a draft mark: CP-4 Ready, nothing counted."
@@ -235,9 +240,15 @@
        "outcome": "Check",
        "counted": true
       }
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
      ]
     },
-    "counted_total": 1,
+    "counted_total": 2,
     "without": []
    },
    "note": "Unmarked EDGAR exhibit: executed is None, so the declared-executed Check fires."
@@ -300,6 +311,7 @@
       }
      ],
      "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
       {
        "rule": "inherited",
        "outcome": "Limited",
@@ -311,19 +323,10 @@
       }
      ],
      "CP-5": [
-      {
-       "rule": "inherited",
-       "outcome": "Limited",
-       "counted": false,
-       "inherited": true,
-       "inherited_from": [
-        "CP-4",
-        "CP-3C"
-       ]
-      }
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C", "CP-4"]}
      ]
     },
-    "counted_total": 2,
+    "counted_total": 3,
     "without": []
    },
    "note": "Never Ready. The Check also fires because no document is recognised as executed (the amendment has executed None); whether an executed amendment would satisfy the declaration is not tested here."
@@ -390,6 +393,7 @@
       }
      ],
      "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
       {
        "rule": "inherited",
        "outcome": "Limited",
@@ -413,7 +417,7 @@
       }
      ]
     },
-    "counted_total": 2,
+    "counted_total": 3,
     "without": []
    },
    "note": "The CP-1 row is the chart strip only (id CP-1:chart-strip-usd, propagates false): it does not propagate to CP-1's consumers (coordinator ruling). Declared USD labels must not be invented."
@@ -511,8 +515,7 @@
     "quotes": [],
     "talk": false,
     "ratings": 0,
-    "deal_terms": 0,
-    "cp3c_null": true
+    "deal_terms": 0
    },
    "documents": [
     {
@@ -525,51 +528,17 @@
     "run": [],
     "modules": {
      "CP-4": [
-      {
-       "rule": "cp4-declared-none",
-       "outcome": "Will refuse",
-       "counted": true,
-       "detail": "No executed governing document"
-      }
+      {"rule": "cp4-declared-none", "outcome": "Will refuse", "counted": true, "detail": "No executed governing document"}
      ],
      "CP-3C": [
-      {
-       "rule": "cp3c-no-step-up",
-       "outcome": "Limited",
-       "counted": true,
-       "detail": "no repricing step-up entered"
-      },
-      {
-       "rule": "inherited",
-       "outcome": "Limited",
-       "counted": false,
-       "inherited": true,
-       "inherited_from": [
-        "CP-2D",
-        "CP-4"
-       ]
-      }
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-4"]}
      ],
      "CP-5": [
-      {
-       "rule": "inherited",
-       "outcome": "Will refuse",
-       "counted": false,
-       "inherited": true,
-       "inherited_from": [
-        "CP-2D",
-        "CP-3C",
-        "CP-4"
-       ]
-      }
+      {"rule": "inherited", "outcome": "Will refuse", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C", "CP-4"]}
      ],
      "CP-2D": [
-      {
-       "rule": "cp2d-declared-legal-none",
-       "outcome": "Limited",
-       "counted": true,
-       "detail": "covenant documents are a required CP-2D input"
-      }
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
      ]
     },
     "counted_total": 3,
@@ -605,7 +574,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -624,11 +593,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -653,9 +617,22 @@
        "outcome": "Gap",
        "counted": true
       }
+     ],
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
+     ],
+     "CP-3": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
      ]
     },
-    "counted_total": 1,
+    "counted_total": 3,
     "without": []
    },
    "note": "Gap does not propagate (assumption, see report)."
@@ -681,7 +658,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -696,11 +673,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -724,7 +696,8 @@
        "rule": "cp3-no-quotes-no-talk",
        "outcome": "Gap",
        "counted": true
-      }
+      },
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
      ],
      "CP-3D": [
       {
@@ -732,9 +705,19 @@
        "outcome": "Gap",
        "counted": true
       }
+     ],
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
      ]
     },
-    "counted_total": 2,
+    "counted_total": 4,
     "without": []
    },
    "note": "Gap does not propagate (assumption)."
@@ -760,7 +743,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -775,11 +758,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -811,7 +789,8 @@
        "rule": "cp3-talk-no-observed-quote",
        "outcome": "Limited",
        "counted": true
-      }
+      },
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
      ],
      "CP-3D": [
       {
@@ -821,18 +800,17 @@
       }
      ],
      "CP-5": [
-      {
-       "rule": "inherited",
-       "outcome": "Limited",
-       "counted": false,
-       "inherited": true,
-       "inherited_from": [
-        "CP-3"
-       ]
-      }
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
+     ],
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
      ]
     },
-    "counted_total": 3,
+    "counted_total": 5,
     "without": []
    },
    "note": "Talk present, no observed quote and no quotes file: CP-3 Limited; CP-3D Gap (no quotes in the context). CP-3 consumes CP-3D optionally but Gap does not propagate (assumption)."
@@ -1111,6 +1089,7 @@
       }
      ],
      "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
       {
        "rule": "inherited",
        "outcome": "Limited",
@@ -1122,19 +1101,10 @@
       }
      ],
      "CP-5": [
-      {
-       "rule": "inherited",
-       "outcome": "Limited",
-       "counted": false,
-       "inherited": true,
-       "inherited_from": [
-        "CP-4",
-        "CP-3C"
-       ]
-      }
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C", "CP-4"]}
      ]
     },
-    "counted_total": 2,
+    "counted_total": 3,
     "without": []
    },
    "note": "The Check fires too because no document is recognised as executed."
@@ -1669,7 +1639,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -1688,11 +1658,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -1718,9 +1683,22 @@
        "counted": true,
        "detail": "pro forma base row"
       }
+     ],
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
+     ],
+     "CP-3": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
      ]
     },
-    "counted_total": 1,
+    "counted_total": 3,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption)."
@@ -1746,7 +1724,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -1765,11 +1743,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -1787,8 +1760,22 @@
       "section": "what-changed"
      }
     ],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
+     ],
+     "CP-3": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
+     ]
+    },
+    "counted_total": 2,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed."
@@ -1814,7 +1801,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -1833,11 +1820,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -1855,8 +1837,22 @@
       "section": "what-changed"
      }
     ],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
+     ],
+     "CP-3": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
+     ]
+    },
+    "counted_total": 2,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed."
@@ -1882,7 +1878,7 @@
    "context": {
     "issue_classification": "high_yield",
     "reporting_currency": "USD",
-    "legal_documents": "executed",
+    "legal_documents": "none",
     "management_bridge": false,
     "portfolio_workbook": false,
     "prior_case": false,
@@ -1901,11 +1897,6 @@
      "name": "annual-report-10-K.pdf",
      "kind": "financial_report",
      "executed": null
-    },
-    {
-     "name": "credit-agreement-executed.pdf",
-     "kind": "credit_agreement",
-     "executed": true
     }
    ],
    "expected": {
@@ -1923,8 +1914,22 @@
       "section": "what-changed"
      }
     ],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-2D": [
+      {"rule": "cp2d-declared-legal-none", "outcome": "Limited", "counted": true, "detail": "covenant documents are a required CP-2D input"}
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"},
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D"]}
+     ],
+     "CP-3": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3C"]}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-2D", "CP-3", "CP-3C"]}
+     ]
+    },
+    "counted_total": 2,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed."
@@ -1980,9 +1985,15 @@
        "counted": true,
        "detail": "pro forma base row"
       }
+     ],
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
      ]
     },
-    "counted_total": 1,
+    "counted_total": 2,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed. Primary without CP-1D in the module list gives a CP-2 Gap from the task-3 table; Gap is not propagated (assumption). This pathway omits no report section."
@@ -2030,8 +2041,15 @@
    ],
    "expected": {
     "run": [],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
+     ]
+    },
+    "counted_total": 1,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
@@ -2079,8 +2097,15 @@
    ],
    "expected": {
     "run": [],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
+     ]
+    },
+    "counted_total": 1,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."
@@ -2128,8 +2153,15 @@
    ],
    "expected": {
     "run": [],
-    "modules": {},
-    "counted_total": 0,
+    "modules": {
+     "CP-3C": [
+      {"rule": "cp3c-no-step-up", "outcome": "Limited", "counted": true, "detail": "no repricing step-up entered"}
+     ],
+     "CP-5": [
+      {"rule": "inherited", "outcome": "Limited", "counted": false, "inherited": true, "inherited_from": ["CP-3C"]}
+     ]
+    },
+    "counted_total": 1,
     "without": []
    },
    "note": "Clean: everything declared is recognised or not needed. This pathway omits no report section."

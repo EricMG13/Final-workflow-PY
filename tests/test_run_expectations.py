@@ -16,7 +16,7 @@ import pytest
 from pypdf.errors import DependencyError
 
 from deploy_vii.contracts import Run
-from deploy_workflow.context import RunContext, load_context
+from deploy_workflow.context import ContextRefused, RunContext, load_context
 from deploy_workflow.model.handoff import _pages
 from deploy_workflow.owners.cpos_launch import _html_page_rows, _layout
 from deploy_workflow.run_expectations import (
@@ -251,7 +251,7 @@ def build_context(summary: dict[str, Any], run_type: str, pathway: str) -> RunCo
         prior_case=summary["prior_case"],
     )
     base["valuation"]["peer_source"] = summary["peer_source"]
-    if not summary.get("cp3c_null"):  # R-ALIVE F4: a step-up is entered unless the key says not
+    if summary.get("cp3c_entered"):  # R-ALIVE F4: the key leaves the step-up null unless it says so
         base["assumptions"]["cp3c"] = full["assumptions"]["cp3c"]
     if summary["peer_source"] == "user_list":
         base["valuation"]["peers"] = [
@@ -468,9 +468,18 @@ def test_f2_cp2d_is_limited_and_counted_when_legal_documents_are_none() -> None:
     assert (row["reason"], row["fix"]) == (CP2D_REASON, CP2D_FIX)
 
 
-def test_f2_cp2d_row_is_absent_when_legal_documents_are_executed() -> None:
-    rows = a_live_rows(legal_documents="executed")
+@pytest.mark.parametrize("declared", ["executed", "draft"])
+def test_f2_cp2d_row_is_absent_when_legal_documents_are_declared_otherwise(declared: str) -> None:
+    rows = a_live_rows(legal_documents=declared)
     assert not [i for i in rows.values() if i["scope"] == "CP-2D"]
+
+
+def test_f2_only_a_declared_none_counts_a_blank_field_is_not_a_declaration() -> None:
+    """Lead scope: a blank or undeclared legal-documents field gives no F2 row. The context
+    reader has no blank value (the field is executed, draft or none), so a blank is refused
+    before any rule reads it and cannot be mistaken for `none`."""
+    with pytest.raises(ContextRefused, match="legal_documents"):
+        a_live_rows(legal_documents="")
 
 
 def test_f4_cp3c_has_a_counted_limited_row_without_a_step_up_and_keeps_the_inherited_one() -> None:
@@ -484,7 +493,7 @@ def test_f4_cp3c_has_a_counted_limited_row_without_a_step_up_and_keeps_the_inher
 
 
 def test_f4_cp3c_row_is_absent_when_a_step_up_is_entered() -> None:
-    rows = [i for i in a_live_rows(cp3c_null=False).values() if i["scope"] == "CP-3C"]
+    rows = [i for i in a_live_rows(cp3c_entered=True).values() if i["scope"] == "CP-3C"]
     assert [bool(i["inherited_from"]) for i in rows] == [True]  # only the inherited row remains
 
 
