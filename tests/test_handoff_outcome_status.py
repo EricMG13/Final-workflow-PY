@@ -711,6 +711,9 @@ RM_CASES = [
     ("rm-sentence-end-line", RM_OWN, "CP-4 READY.\nBLOCKED items are listed below\n", "ready"),
     ("rm-semicolon", RM_OWN, "CP-4 READY; BLOCKED for filing\n", "ready"),
     ("rm-lower-cp-between", RM_OWN, "CP-4 READY, cp-5 BLOCKED\n", "ready"),
+    ("rm1-tcp-in-word", RM_OWN, "CP-4 READY over tcp-5 BLOCKED\n", "will_refuse"),
+    ("rm1-xcp-in-word", RM_OWN, "CP-4 READY over xcp-5 BLOCKED\n", "will_refuse"),
+    ("rm1-ipcp-2-in-word", RM_OWN, "CP-4 READY over ipcp-2 BLOCKED\n", "will_refuse"),
     ("rm-known-limit-negation", RM_OWN, "CP-4 READY, not BLOCKED\n", "will_refuse"),
     (
         "rm-known-limit-same-mention-semicolon",
