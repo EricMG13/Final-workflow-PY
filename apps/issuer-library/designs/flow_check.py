@@ -46,6 +46,20 @@ PERCENT = re.compile(
     r"(?<![\w/.])((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)(?:%|\s+(?:percent|per cent|pct)\b)",
     re.IGNORECASE,
 )
+# Units, not figures (A-live H1/H2, R-C2-4). A basis-point figure is sourced by the same value / 100
+# printed as a percent in what the module read; a divisor directly after / or ÷ that is exactly
+# 100, 1000, 10000 or 0.001; a number directly after a standard's prefix; E-notation results.
+# ponytail: ceiling. Only these four shapes are admitted, by exact decimal equality: no other
+# conversion (x10, x1000, millions to thousands), no divisor beyond the four, no standard prefix
+# beyond the five, and a hand rescale or a sum of one stays flagged. The upgrade path is to read
+# the unit from the calculate tool's own call record rather than from the handoff text.
+NUMBER_TEXT = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+BPS = re.compile(rf"(?<![\w/.])({NUMBER_TEXT})\s*(?:bps|basis points)\b", re.IGNORECASE)
+DIVISOR = re.compile(rf"([/÷]\s*)({NUMBER_TEXT})(?!\w)")
+UNIT_DIVISORS = frozenset(Decimal(d) for d in ("100", "1000", "10000", "0.001"))
+STANDARD = re.compile(r"\b(?:ASC|ASU|IFRS|IAS|SFAS)\s+\d+(?:[-.]\d+)*")
+E_NOTATION = re.compile(r"(?<![\w.])(\d+(?:\.\d+)?)[eE]([+-]?\d{1,2})(?![\w.])")
+BPS_TAG = "bps:"  # evidence entry: this many basis points is printed as a percent in the source
 EXACT = Context(prec=200)  # a result printed to 40 places must not overflow the default 28
 LEADING_ZERO = re.compile(r"0\d+")
 # The completed record does not name its delivery folder, so every folder is checked.
@@ -56,6 +70,43 @@ MODULE = re.compile(r"CP-[A-Z0-9]+")
 def _call_args(args: str) -> str:
     comma = ARG_COMMA_SPACED if ", " in args else ARG_COMMA
     return comma.sub(lambda k: k[0] if k[1] else " ", args)
+
+
+def _plain(value: Decimal) -> str:
+    text = f"{value:f}"
+    return text.rstrip("0").rstrip(".") if "." in text else text
+
+
+def _unit_divisor(text: str) -> bool:
+    try:
+        return Decimal(text.replace(",", "")) in UNIT_DIVISORS
+    except ArithmeticError:
+        return False
+
+
+def _figures(text: str) -> set[str]:
+    """numbers(text) and, per percent printed in it, the basis points it equals (tagged)."""
+    tagged = {
+        BPS_TAG + _plain(Decimal(m[1].replace(",", "")).scaleb(2, EXACT))
+        for m in PERCENT.finditer(text)
+    }
+    return numbers(text) | tagged
+
+
+def _without_units(text: str, evidence: set[str]) -> str:
+    """The handoff text minus standards' names, unit divisors and basis points the source prints as
+    a percent. Only those occurrences go; the same number elsewhere is still a figure."""
+    text = STANDARD.sub(" ", text)
+    text = DIVISOR.sub(lambda m: m[1] + " " if _unit_divisor(m[2]) else m[0], text)
+    return BPS.sub(
+        lambda m: " " if BPS_TAG + _plain(Decimal(m[1].replace(",", ""))) in evidence else m[0],
+        text,
+    )
+
+
+def _exact(result: str) -> str:
+    """A calculate result printed in E-notation (7.67E+5) as the exact decimal (767000)."""
+    return E_NOTATION.sub(lambda m: f"{Decimal(m[1]).scaleb(int(m[2]), EXACT):f}", result)
 
 
 def numbers(text: str) -> set[str]:
@@ -79,7 +130,7 @@ def rounded(values: set[str], calculated: bool = False) -> set[str]:
     value is expanded to every place count up to its own decimals.
     """
     out = set(values)
-    for value in values:
+    for value in (v for v in values if not v.startswith(BPS_TAG)):
         if "." in value and (calculated or len(value.split(".")[1]) >= 6):
             for places in range(len(value.split(".")[1]) + 1 if calculated else 7):
                 for mode in (ROUND_HALF_UP, ROUND_HALF_EVEN):
@@ -200,7 +251,7 @@ def _shared_numbers(run: Path, sources: Path | None, names: set[str]) -> set[str
     texts += [_decode(run / "context.json")] if (run / "context.json").exists() else []
     for name in sorted(names) if sources is not None else []:
         texts.append(_decode(_named_source(sources, name)))
-    return set().union(*(numbers(t) for t in texts)) if texts else set()
+    return set().union(*(_figures(t) for t in texts)) if texts else set()
 
 
 def _calls(folder: Path) -> dict[str, Any]:
@@ -217,6 +268,15 @@ def _calls(folder: Path) -> dict[str, Any]:
         }
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         return {}
+
+
+def _call_operands(arguments: Any) -> set[str]:
+    """Operands of a call; the divisor of a ratio that is a unit divisor is not a figure."""
+    if isinstance(arguments, dict) and arguments.get("operation") == "ratio":
+        values = arguments.get("values")
+        if isinstance(values, list) and len(values) == 2 and _unit_divisor(str(values[1])):
+            return _operands({**arguments, "values": values[:1]})
+    return _operands(arguments)
 
 
 def _operands(node: Any) -> set[str]:
@@ -239,14 +299,14 @@ def _read_numbers(folder: Path, base: set[str]) -> tuple[set[str], set[str]]:
             if c["name"] == "calculate":
                 pending.append(c)
             elif c["name"] not in ("write_handoff", "edit_handoff"):
-                evidence |= numbers(c["text"])
+                evidence |= _figures(c["text"])
     changed = True
     while changed:
         changed, known = False, rounded(evidence)
         for c in list(pending):
             arguments = calls.get(c["call_id"])
-            if arguments is not None and _operands(arguments) <= known:
-                results = numbers(c["text"])
+            if arguments is not None and _call_operands(arguments) <= known:
+                results = numbers(_exact(c["text"]))
                 evidence |= rounded(results, calculated=True)
                 percent |= rounded(
                     {f"{Decimal(r).scaleb(2, EXACT):f}" for r in results if "." in r},
@@ -281,7 +341,7 @@ def _received(run: Path, request: dict[str, Any]) -> set[str]:
     texts = [h["markdown"] for h in request["handoffs"].values()]
     # A copy that does not hash to its digest is reported by _checked_inputs and never read.
     texts += [_verified(run / "inputs" / digest, digest) for digest in request["sources"].values()]
-    return set().union(*(numbers(t) for t in texts)) if texts else set()
+    return set().union(*(_figures(t) for t in texts)) if texts else set()
 
 
 def run_faults(run: Path, sources: Path | None = None) -> list[str]:
@@ -330,7 +390,7 @@ def run_faults(run: Path, sources: Path | None = None) -> list[str]:
         if invocations:
             text = data.decode("utf-8", "replace")
             marked = {n for m in PERCENT.finditer(text) for n in numbers(m[1])}
-            unknown = numbers(PERCENT.sub(" ", text)) | (marked - percent)
+            unknown = numbers(PERCENT.sub(" ", _without_units(text, evidence))) | (marked - percent)
             faults += [
                 f"{module}: number {n} in the handoff is not in what the module read or received"
                 for n in sorted(unknown - evidence)
