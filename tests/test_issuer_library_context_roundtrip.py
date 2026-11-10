@@ -723,7 +723,8 @@ CANNOT_HOLD = {
         "ABL",
     ),
 }
-# The server accepts both: the form would blank tenor on a non-Primary run, or cannot hold a line feed.
+# The server accepts both: the form would blank tenor on a non-Primary run,
+# or cannot hold a line feed.
 SERVER_ACCEPTS = {"instr-lf-interior", "secondary-talk-term2"}
 
 
