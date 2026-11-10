@@ -13,6 +13,7 @@ import datetime
 import errno
 import hashlib
 import json
+import math
 import os
 import re
 import secrets
@@ -274,17 +275,24 @@ def _period_ok(table: str, cell: str) -> bool:
     return found is not None and _real_date(found["date"])
 
 
+def _header(table: str) -> list[str]:
+    """The one header a readable chart table has: Period, its value columns, unit, basis."""
+    columns = [column for _, column in _TABLES[table][2]]
+    return ["Period", *columns, "Reporting unit", "Basis and limitation"]
+
+
 def _scan(doc: _Doc) -> tuple[dict[str, list[_Row]], bool]:
     """Readable chart tables by key, and whether a table was dropped for an off-format Period.
 
-    A table is unreadable when its heading repeats, a row has the wrong cell count (checked
-    first; no gap), or a row with the right count has a Period outside the fixed format (gap).
+    A table is unreadable when its heading repeats, its header is not exactly `_header`, or a
+    row has the wrong cell count (checked first): none of these adds the gap. A row with the
+    right count and a Period outside the fixed format also makes it unreadable, with the gap.
     """
     tables: dict[str, list[_Row]] = {}
     seen: set[str] = set()
     bad: set[str] = set()
     off_format = False
-    current, header = "", None
+    current, header, exact = "", None, False
     for number, line in enumerate(doc.lines, 1):
         text = line.strip()
         if text.startswith("#"):
@@ -296,7 +304,10 @@ def _scan(doc: _Doc) -> tuple[dict[str, list[_Row]], bool]:
             cells = [c.strip() for c in text.strip("|").split("|")]
             if header is None:
                 header = cells
-            elif all(re.fullmatch(r":?-+:?", c) for c in cells):
+                exact = cells == _header(current)
+                if not exact:
+                    bad.add(current)
+            elif not exact or all(re.fullmatch(r":?-+:?", c) for c in cells):
                 continue
             elif len(cells) != len(header):
                 bad.add(current)
@@ -314,7 +325,7 @@ def _chart_rows(doc: _Doc) -> dict[str, list[_Row]]:
 
 
 def _number(cell: str) -> bool:
-    return _NUMBER.fullmatch(cell) is not None
+    return _NUMBER.fullmatch(cell) is not None and math.isfinite(float(cell.replace(",", "")))
 
 
 def _row_metrics(table: str, row: _Row) -> Json:
