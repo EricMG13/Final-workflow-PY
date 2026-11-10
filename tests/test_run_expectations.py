@@ -430,3 +430,72 @@ def test_check_and_gap_never_propagate_but_will_refuse_does() -> None:
     gap = next(s for s in SCENARIOS if s["id"] == "rule-cp2h-no-ratings")
     items = run_scenario(gap)
     assert not [i for i in items if i["inherited_from"]]
+
+
+# --- R-SB2-2: executed credit agreements with a qualifier or a dated file name -----------------
+# Answer key from the lead's ruling R-SB2-2 and the real exhibits in the Mattress Firm case.
+
+MATTRESS = ROOT / "cases/primary-proxy-mattress-firm-2014"
+ABL_FILE = "2014-10-21-ex10-1-abl-credit-agreement.htm"
+TERM_FILE = "2014-10-21-ex10-2-term-loan-credit-agreement.htm"
+
+
+def case_pages(name: str) -> list[str]:
+    raw = (MATTRESS / "documents" / name).read_bytes()
+    return _pages(f"{name}.jsonl", _html_page_rows(name, raw))[:3]
+
+
+def cover(title: str) -> str:
+    return f"Exhibit 10.1\nExecution Version\n$125,000,000\n{title}\nDated as of October 20, 2014\namong\n"
+
+
+@pytest.mark.parametrize("name", [ABL_FILE, TERM_FILE])
+def test_r_sb2_2_real_exhibits_are_executed_credit_agreements(name: str) -> None:
+    guess = guess_kind(name, case_pages(name))
+    assert (guess.kind, guess.executed) == ("credit_agreement", True)
+
+
+@pytest.mark.parametrize("title", ["ABL CREDIT AGREEMENT", "TERM LOAN CREDIT AGREEMENT"])
+def test_r_sb2_2_qualified_cover_title_is_a_credit_agreement(title: str) -> None:
+    assert guess_kind("x.htm", [cover(title)]).kind == "credit_agreement"
+
+
+@pytest.mark.parametrize(
+    "name",
+    [ABL_FILE, TERM_FILE, "2014-10-21-credit-agreement.htm"],
+)
+@pytest.mark.parametrize("pages", [[""], []])
+def test_r_sb2_2_dated_file_name_fallback(name: str, pages: list[str]) -> None:
+    assert guess_kind(name, pages).kind == "credit_agreement"
+
+
+def test_r_sb2_2_cp4_does_not_forecast_none_recognised_for_the_case() -> None:
+    context = load_context((MATTRESS / "context-after-closing.json").read_bytes())
+    guesses = [
+        guess_kind(p.name, case_pages(p.name)) for p in sorted((MATTRESS / "documents").iterdir())
+    ]
+    ordered = ("CP-0", "CP-4")
+    items = expectations(ordered, guesses, context, edges_for(ordered))
+    assert not [i for i in items if "cp4-declared-executed-none-recognised" in i["id"]]
+
+
+@pytest.mark.parametrize(
+    "title", ["FIRST AMENDMENT TO CREDIT AGREEMENT", "AMENDMENT NO. 1 TO CREDIT AGREEMENT"]
+)
+def test_r_sb2_2_amendment_to_credit_agreement_stays_an_amendment(title: str) -> None:
+    assert guess_kind("x.htm", [cover(title)]).kind == "amendment"
+
+
+def test_r_sb2_2_credit_agreement_mentioned_in_an_8k_sentence_is_not_one() -> None:
+    sentence = (
+        "On October 20, 2014, Mattress Holding Corp. entered into an ABL credit agreement "
+        "with Barclays Bank PLC, as administrative agent."
+    )
+    assert guess_kind("x.htm", [sentence]).kind != "credit_agreement"
+    name = "2014-10-21-8k-credit-agreements.htm"
+    assert guess_kind(name, case_pages(name)).kind != "credit_agreement"
+
+
+def test_r_sb2_2_form_of_credit_agreement_is_not_executed() -> None:
+    guess = guess_kind("x.htm", [cover("FORM OF CREDIT AGREEMENT")])
+    assert not (guess.kind == "credit_agreement" and guess.executed is True)
