@@ -1,5 +1,6 @@
 """Manifest writer against the hand-written answer key (tests/fixtures/library-manifest/writer)."""
 
+import copy
 import hashlib
 import importlib.util
 import json
@@ -803,6 +804,83 @@ def test_facility_and_source_case_gives_the_hand_written_answers(tmp_path, c):
     assert issues == [] and rejected == []
 
 
+PRO_FORMA = json.loads((KEYS / "pro-forma-cases.json").read_text(encoding="utf-8"))["cases"]
+PRO_FORMA_METRICS = ("leverage_pro_forma", "leverage_as_marketed")
+PRO_FORMA_SOURCES = ("cp2_leverage_pro_forma", "cp2_leverage_as_marketed")
+
+
+def pro_forma_workspace(c, tmp_path):
+    """The `primary` workspace with the case's CP-2.md (None: removed) and context run_type."""
+    root, run_id = workspace("primary", tmp_path)
+    run = root / "runs" / run_id
+    text = (run / "context.json").read_text(encoding="utf-8")
+    old = '    "run_type": "primary",\n'
+    new = "" if c["run_type"] == "__missing__" else old.replace("primary", c["run_type"])
+    assert old in text
+    (run / "context.json").write_text(text.replace(old, new), encoding="utf-8")
+    if c["cp2"] is None:
+        (run / "CP-2.md").unlink()
+    else:
+        (run / "CP-2.md").write_text("\n".join(c["cp2"]), encoding="utf-8")
+    return root, run_id
+
+
+def test_primary_case_build_matches_full_key(tmp_path):
+    root, run_id = workspace("primary", tmp_path)
+    assert lm.build(root, run_id) == key("primary")
+
+
+def test_primary_case_is_written_and_admitted(tmp_path):
+    root, run_id = workspace("primary", tmp_path)
+    run, issues, rejected = write_then_discover(root, run_id)
+    assert issues == [] and rejected == []
+    assert sorted(run.metrics) == sorted(key("primary")["run"]["metrics"])
+    metrics_are_stated_by_their_pinned_quote(root, run_id)
+
+
+def everything_but_pro_forma(manifest):
+    out = copy.deepcopy(manifest)
+    for name in PRO_FORMA_METRICS:
+        out["run"]["metrics"].pop(name, None)
+    for name in PRO_FORMA_SOURCES:
+        out["sources"].pop(name, None)
+    return out
+
+
+@pytest.mark.parametrize("c", PRO_FORMA, ids=[c["id"] for c in PRO_FORMA])
+def test_pro_forma_case_gives_the_hand_written_answers(tmp_path, c):
+    """Each case of pro-forma-cases.json: the two metrics and their pins, nothing else changed."""
+    root, run_id = pro_forma_workspace(c, tmp_path)
+    manifest, want, run = lm.build(root, run_id), c["expect"], root / "runs" / run_id
+    cp2 = c["cp2"]
+    cp2_sha = None if cp2 is None else hashlib.sha256((run / "CP-2.md").read_bytes()).hexdigest()
+    assert all(cp2[p["line"] - 1] == p["quote"] for p in want["pins"].values())
+    got = {k: v for k, v in manifest["run"]["metrics"].items() if k in PRO_FORMA_METRICS}
+    assert got == want["metrics"]
+    pins = {k: v for k, v in manifest["sources"].items() if k in PRO_FORMA_SOURCES}
+    assert pins == {
+        name: {"path": f"runs/{run_id}/CP-2.md", "sha256": cp2_sha} | pin
+        for name, pin in want["pins"].items()
+    }
+    # No other key changed: the primary key, less the marketed metric, with only what the case
+    # edits (CP-2 handoff pin and its requirement, the context sha and line) restated.
+    expected = everything_but_pro_forma(key("primary"))
+    ctx_sha = hashlib.sha256((run / "context.json").read_bytes()).hexdigest()
+    ctx_line = 13 if c["run_type"] == "__missing__" else 14
+    expected["sources"]["ctx_identity"] |= {"sha256": ctx_sha, "line": ctx_line}
+    (req,) = [r for r in expected["checklist"]["requirements"] if r["id"] == "analysis-CP-2"]
+    if cp2 is None:
+        del expected["sources"]["handoff_CP-2"]
+        req |= {"done": False, "evidence": []}
+    else:
+        expected["sources"]["handoff_CP-2"] |= {"sha256": cp2_sha, "quote": cp2[0]}
+    assert everything_but_pro_forma(manifest) == expected
+    run_found, issues, rejected = write_then_discover(root, run_id)
+    assert issues == [] and rejected == []
+    assert sorted(run_found.metrics) == sorted(["leverage", "net_leverage", *want["metrics"]])
+    metrics_are_stated_by_their_pinned_quote(root, run_id)
+
+
 def test_the_format_gap_follows_the_expectation_gaps_when_the_model_is_published(tmp_path):
     root, run_id = workspace("synthetic", tmp_path)
     edit(root, run_id, "CP-1.md", lambda _: chart_text(leverage_table(lev("FY2025"))))
@@ -1113,3 +1191,22 @@ def test_whatever_the_chart_rows_say_the_written_manifest_is_admitted_or_absent(
         assert library.exists()
         assert issues == [] and rejected == []
         metrics_are_stated_by_their_pinned_quote(root, run_id)
+
+
+@pytest.mark.parametrize("run_type", ["primary", "secondary", "__missing__"])
+def test_run_with_an_unreadable_unrequested_cp2_builds_without_pro_forma(tmp_path, run_type):
+    """A CP-2.md the run does not request is never read, even on a Primary run: build succeeds.
+
+    Compared with the hand-written `primary` key: its metrics less the two pro forma ones.
+    """
+    c = {"run_type": run_type, "cp2": ["placeholder"]}
+    root, run_id = pro_forma_workspace(c, tmp_path)
+    run = root / "runs" / run_id
+    workflow = json.loads((run / "workflow.json").read_text(encoding="utf-8"))
+    workflow["run"]["requested_modules"] = ["CP-1"]
+    (run / "workflow.json").write_text(json.dumps(workflow, indent=2), encoding="utf-8")
+    (run / "CP-2.md").write_bytes(b"\xff\xfe not utf-8\n")
+    manifest = lm.build(root, run_id)
+    want = everything_but_pro_forma(key("primary"))["run"]["metrics"]
+    assert manifest["run"]["metrics"] == want
+    assert not [s for s in manifest["sources"] if s.startswith("cp2_")]

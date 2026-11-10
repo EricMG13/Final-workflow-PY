@@ -5,6 +5,7 @@ import importlib.util
 import io
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -192,6 +193,36 @@ def test_worker_imports_from_release_lib(built: tuple[Path, Path]) -> None:
     assert set(origins) == {"pydantic", "pydantic_core", "copilot"}
     for name, origin in origins.items():
         assert Path(origin).resolve().is_relative_to((release / "lib").resolve()), (name, origin)
+
+
+MANIFEST_PROBE = """
+import runpy, sys
+try:
+    runpy.run_path(sys.argv[1], run_name="bridge_probe")
+except ImportError:
+    if "library_manifest" not in sys.modules:
+        raise
+import library_manifest
+print(library_manifest.__file__)
+"""
+
+
+def test_packaged_bridge_imports_library_manifest(built: tuple[Path, Path], tmp_path: Path) -> None:
+    """The release lib holds Windows wheels that do not load here, so the engine is copied
+    beside no lib and resolves pydantic from this environment; the engine files are the release's.
+    A bridge import that fails before `library_manifest` is bound fails the test."""
+    _, release = built
+    engine = tmp_path / "engine"
+    shutil.copytree(release / "engine", engine)
+    ran = subprocess.run(
+        [sys.executable, "-I", "-B", "-X", "utf8", "-c", MANIFEST_PROBE, str(engine / "bridge.py")],
+        env={},
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert ran.returncode == 0, ran.stderr
+    assert Path(ran.stdout.strip()).resolve() == (engine / "library_manifest.py").resolve()
 
 
 GOOD = b"wheel-bytes"

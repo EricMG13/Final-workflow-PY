@@ -1,0 +1,93 @@
+{
+  "schema": "issuer-library-run/1",
+  "run": {
+    "id": "synthetic-primary-001",
+    "issuer": "lanternfreight",
+    "name": "Lantern Freight Holdings plc",
+    "identity_source": "ctx_identity",
+    "sector": "Unclassified",
+    "workflow": "Credit snapshot",
+    "title": "Credit snapshot as of 2025-03-31",
+    "date": "2025-03-31",
+    "period": "fy-2024",
+    "period_kind": "Annual",
+    "currency": "USD",
+    "summary": "No completion receipt for this run.",
+    "handoff": "runs/synthetic-primary-001/CP-1.md",
+    "gaps": [
+      "HTML Model not published by app runs"
+    ],
+    "artifacts": [],
+    "ratings": [],
+    "facilities": [],
+    "metrics": {
+      "leverage": {
+        "value": "3.90",
+        "unit": "x",
+        "period": "LTM ended 2025-03-31",
+        "basis": "Fictional historical consolidated basis; gross debt.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "net_leverage": {
+        "value": "3.40",
+        "unit": "x",
+        "period": "LTM ended 2025-03-31",
+        "basis": "Fictional historical consolidated basis; gross debt.",
+        "source": "cp1_leverage",
+        "provenance": "calculated"
+      },
+      "leverage_as_marketed": {
+        "value": "4.25",
+        "unit": "x",
+        "period": "Trailing period ended March 31, 2025; fictional historical basis, with management completion illustration separately identified",
+        "basis": "As marketed",
+        "source": "cp2_leverage_as_marketed",
+        "provenance": "calculated"
+      }
+    }
+  },
+  "sources": {
+    "ctx_identity": {
+      "path": "runs/synthetic-primary-001/context.json",
+      "sha256": "a39be25b5458e13e02a8ca5fe21f92787cd7447daf3fa8dd8037c4c6b72cc12d",
+      "line": 14,
+      "quote": "    \"issuer_name\": \"Lantern Freight Holdings plc\","
+    },
+    "cp1_leverage": {
+      "path": "runs/synthetic-primary-001/CP-1.md",
+      "sha256": "58ad600fbb76d1a6c258bc3a71080a0e4daa6d16bf7e0910e2078f24e3257d00",
+      "line": 9,
+      "quote": "| LTM ended 2025-03-31 | 3.90 | 3.40 | x | Fictional historical consolidated basis; gross debt. |"
+    },
+    "cp2_leverage_as_marketed": {
+      "path": "runs/synthetic-primary-001/CP-2.md",
+      "sha256": "a9b544bcb0acdbff058f3a26ef780a588d23f5c9e72348379152a7d307eb712a",
+      "line": 16,
+      "quote": "| As marketed | 680000 | 160000 | 4.25 | USD thousands; ratio x | CP-1 and CP-1D |"
+    },
+    "handoff_CP-1": {
+      "path": "runs/synthetic-primary-001/CP-1.md",
+      "sha256": "58ad600fbb76d1a6c258bc3a71080a0e4daa6d16bf7e0910e2078f24e3257d00",
+      "line": 1,
+      "quote": "SYNTHETIC FIXTURE: fictional Primary CP-1 handoff for Lantern Freight Holdings plc; not retained model output."
+    },
+    "handoff_CP-2": {
+      "path": "runs/synthetic-primary-001/CP-2.md",
+      "sha256": "a9b544bcb0acdbff058f3a26ef780a588d23f5c9e72348379152a7d307eb712a",
+      "line": 1,
+      "quote": "SYNTHETIC FIXTURE: fictional Primary CP-2 handoff for Lantern Freight Holdings plc; not retained model output."
+    }
+  },
+  "checklist": {
+    "scope": "App run synthetic-primary-001: requested modules and delivery",
+    "requirements": [
+      {"id": "sources", "stage": "sources", "done": false, "evidence": []},
+      {"id": "analysis-CP-1", "stage": "analysis", "done": true, "evidence": ["handoff_CP-1"]},
+      {"id": "analysis-CP-2", "stage": "analysis", "done": true, "evidence": ["handoff_CP-2"]},
+      {"id": "verification", "stage": "verification", "done": false, "evidence": []},
+      {"id": "downstream", "stage": "downstream", "done": false, "evidence": []},
+      {"id": "delivery", "stage": "delivery", "done": false, "evidence": []}
+    ]
+  }
+}
