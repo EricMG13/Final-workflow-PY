@@ -954,6 +954,7 @@ def new_run(  # noqa: PLR0915, RUF100
         key is not None and link.count() == 1,
         f"{name}: the library lists the new run with its Overview link",
     )
+    library_entry_values(page, name, key)
     # A run that appears on disk while the app is open is offered, not forced.
     added = Path(workspace, "runs", "added-001")
     added.mkdir()
@@ -997,6 +998,46 @@ def run_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
     library_detail_links(page, name, port, folder)
     line = f"N/A {name}: library counts and screening cases of the repo store: {NOT_APPLICABLE}"
     print(redact(line, secrets()), flush=True)
+
+
+def library_entry_values(page: Any, name: str, run: str) -> None:
+    """4C L6: the fake-engine run's own manifest reaches its Library detail (synthetic CP-1).
+
+    The walk's context as-of is 2025-03-31, on or after 2024-12-31, so the FY2024 rows of
+    reader-fixture/CP-1.md apply. Values and the pinned line are hand-copied from that file."""
+    page.click(f"[data-library-select='{run}']")
+    detail = page.locator("#run-detail")
+    detail.wait_for(state="visible")
+    items = {
+        label: " ".join(
+            detail.locator(".metric-item", has=page.locator(f"text='{label}'"))
+            .first.inner_text()
+            .split()
+        )
+        for label in ("Leverage", "Net leverage", "Interest coverage", "Closing cash")
+        + ("Undrawn facilities",)
+    }
+    for label, value, period in (
+        ("Leverage", "3.60", "FY2024 ended 2024-12-31"),
+        ("Net leverage", "3.25", "FY2024 ended 2024-12-31"),
+        ("Interest coverage", "3.40", "FY2024 ended 2024-12-31"),
+        ("Closing cash", "275", "2024-12-31"),
+        ("Undrawn facilities", "400", "2024-12-31"),
+    ):
+        note(
+            value in items[label] and f"{period} \u00b7 Synthetic." in items[label],
+            f"{name}: Library detail shows {label} {value}, {period}, Synthetic ({items[label]})",
+        )
+    pinned = "| FY2024 ended 2024-12-31 | 3.60 | 3.25 | x | Synthetic. |"  # CP-1.md line 29
+    detail.locator(".metric-item", has=page.locator("text='Leverage'")).first.locator(
+        ".tertiary-action"
+    ).click()
+    page.wait_for_timeout(500)
+    shown = " ".join(page.inner_text("body").split())
+    note(
+        pinned in shown,
+        f"{name}: View source for Leverage opens the pinned CP-1 line {pinned}",
+    )
 
 
 def overview_row(page: Any, name: str, port: int, want: dict[str, Any]) -> None:
