@@ -647,9 +647,9 @@ def build(workspace: Path, run_id: str) -> Json:
         run["handoff"] = handoff.rel
     published = bool(receipt and receipt[1].get("cp_model_published") is True)
     metrics, off_format = _chart_metrics(cp1, as_of, sink)
-    metrics |= _pro_forma_metrics(
-        _doc_if(workspace, f"{base}/CP-2.md"), ctx_run.get("run_type"), sink
-    )
+    is_primary = ctx_run.get("run_type") == "primary"
+    cp2 = _doc_if(workspace, f"{base}/CP-2.md") if is_primary else None
+    metrics |= _pro_forma_metrics(cp2, ctx_run.get("run_type"), sink)
     run["ratings"] = _ratings(ctx, sink)
     run["facilities"], facility_gaps = _facilities(ctx, sink)
     gaps = _gaps(expectations, published) + ([_FORMAT_GAP] if off_format else []) + facility_gaps
