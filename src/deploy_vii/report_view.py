@@ -518,6 +518,7 @@ _PRESETS: tuple[tuple[PathwayId, str, str, tuple[str, ...]], ...] = (
             "relative-value",
             "company-profile",
             "transaction-summary",
+            "pro-forma",
             "portfolio-fit",
             "committee-challenge",
             "what-changed",
@@ -1167,6 +1168,7 @@ class _Spec:
     pinned: bool = False
     route_label: str | None = None
     dated: bool = False  # the head states the as-of date beside the scale
+    layout_only: bool = False  # chosen only by an explicit layout, never by the full-preset build
 
 
 # Heads and owner codes as FP 01 prints them (``rbot-fp-01-credit-snapshot.dc.html``). The
@@ -1199,6 +1201,17 @@ _CREDIT_SNAPSHOT: Mapping[str, _Spec] = MappingProxyType(
         ),
         "transaction-summary": _Spec(
             "Transaction summary and new debt issues", "Primary", "prose", (), collapsed=True
+        ),
+        # Beside, not inside, transaction-summary: a prose spec rejects table routes. Collapsed like
+        # that block (supporting detail). Layout-only: the CP-OS markdown path selects it through
+        # its layout; the full-preset build skips it so it never shows "CP-2 has not run".
+        "pro-forma": _Spec(
+            "Pro forma capitalisation and leverage",
+            "CP-2",
+            "dense",
+            ("CP-2",),
+            collapsed=True,
+            layout_only=True,
         ),
         "portfolio-fit": _Spec("Portfolio Fit", "FIT", "prose", (), collapsed=True),
         "committee-challenge": _Spec(
@@ -2570,6 +2583,9 @@ def build(view: View, pathway: Pathway, maps: Iterable["BindingMap"]) -> ReportV
     maps = tuple(maps)
     if pathway.id != view.run.pathway:
         raise ValueError("The Pathway differs from the run's Pathway")
+    pathway = pathway.model_copy(
+        update={"blocks": tuple(b for b in pathway.blocks if not _spec_of(b).layout_only)}
+    )
     for module in view.modules:
         if module.module_id == "CP-4":
             _validate_cp4_layout(module)
