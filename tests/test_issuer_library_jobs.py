@@ -732,7 +732,7 @@ RESUME_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns'],'resume_of':job.get('resume_of')}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd'],'max_turns':job['max_turns'],'resume_of':job.get('resume_of')}))
 else:
  with (folder/'synthetic-starts.txt').open('a') as stream: stream.write('one\\n')
  while (folder/'hold').exists(): time.sleep(.02)
@@ -1083,7 +1083,7 @@ HELD_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[]}))
 else:
  deadline=time.time()+60
  while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
@@ -1408,7 +1408,7 @@ RECORDING_BRIDGE = """import json,os,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[]}))
 else:
  ws=folder.parent.parent
  with (ws/'worker-starts.txt').open('a') as s: s.write(folder.name+' '+str(os.getpid())+'\\n')
@@ -1612,7 +1612,7 @@ folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
  time.sleep(SECONDS)
- print(json.dumps({'ok':True,'review_id':'rid','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'rid','id':job['id'],'provider_ready':True,'counted':[]}))
 """
 HELD_REVIEW_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
@@ -1620,7 +1620,7 @@ job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
  deadline=time.time()+60
  while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[]}))
 else:
  (folder/'synthetic-starts.txt').write_text('one\\n')
  (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'Synthetic only'}))
@@ -2142,7 +2142,7 @@ HOLD_FILE_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
 else:
  while (folder/'hold').exists(): time.sleep(.02)
  (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'synthetic'}))
@@ -2151,7 +2151,7 @@ EXIT_GATE_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
 else:
  (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'synthetic'}))
  while (folder/'exit-gate').exists(): time.sleep(.02)
@@ -2722,7 +2722,7 @@ def test_start_with_a_malformed_counted_is_the_invalid_review_answer(
 ) -> None:
     app, root, client, job_id = reviewed_with_counted(tmp_path, counted)
     response = post_start(client, accept_body(job_id, **fields))
-    assert response.status_code == 409 and response.json()["detail"] == REVIEW_AGAIN
+    assert response.status_code == 409 and response.text == REVIEW_AGAIN + "\n"
     assert_nothing_started(app, root, job_id)
 
 
@@ -2780,7 +2780,7 @@ def test_a_review_written_before_expectations_must_be_made_again(tmp_path: Path)
     save_json(path, old)
     for fields in ({}, {"accept_limitations": True}):
         response = post_start(client, accept_body(job_id, **fields))
-        assert response.status_code == 409 and response.json()["detail"] == REVIEW_AGAIN
+        assert response.status_code == 409 and response.text == REVIEW_AGAIN + "\n"
         assert_nothing_started(app, root, job_id)
     save_json(path, {**old, "counted": []})  # A fresh review lists its counted items.
     assert post_start(client, accept_body(job_id)).status_code == 202

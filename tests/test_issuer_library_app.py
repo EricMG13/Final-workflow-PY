@@ -261,6 +261,7 @@ def review_reply(ready: bool) -> dict[str, Any]:
         "max_turns": 7,
         "prices_as_of": "2026-11-01",
         "provider_ready": ready,
+        "counted": [],
         "provider_key": "OPENAI_API_KEY",
         "sources": [{"path": "filings/annual.txt", "sha256": "c" * 64}],
         "ignored": ["chart.png"],
