@@ -5,6 +5,7 @@
   "checked": "all 20 modules x run_type secondary/primary x legal_documents executed/draft, instructions composed with the unchanged origin/main code and a placeholder run (issuer 'Issuer X'); anchors counted by str.count.",
   "sentences": {
     "R-C2-3": "The helper scripts this method names (for example `prepare_invocation.py`, `confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available in this app and none is run. Record that once, as a limitation; set `qa_status` from the method's own criteria; the scripts' absence alone does not make the module Restricted.",
+    "R-26": "Lead ruling R-26 (R-SB4-plan-4-rulings.md, 2026-11-10): the CP-1 chart bullets for leverage, interest cover and liquidity gain a Period-cell format sentence (see the R-26 entries under non_primary CP-1); debt maturities gains none.",
     "R-C2-7": "Keep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion."
   },
   "non_primary": {
@@ -28,6 +29,24 @@
         "where": "directly after the paragraph 'Use calculate for all new arithmetic. ... explicit gap.' (which ends with a blank line); a new paragraph (sentence, then a blank line) is inserted before 'A handoff is rejected unless it does all of this:'",
         "old": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nA handoff is rejected unless it does all of this:\n",
         "new": "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, source locators and limitations. Absent evidence stays an explicit gap.\n\nKeep the source's reporting unit and state it; do not rescale an amount by hand (no multiplying or dividing by 1000 in your head); when a different unit is needed, do the conversion with `calculate` and state the conversion.\n\nA handoff is rejected unless it does all of this:\n"
+      },
+      {
+        "rule": "R-26",
+        "where": "the `### Chart data: leverage` bullet of the CP-1 instruction: a sentence inserted between 'one row per period.' and 'Value cells' (S.1)",
+        "old": "- `### Chart data: leverage`: exactly one Markdown table headed `| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |`, one row per period. Value cells",
+        "new": "- `### Chart data: leverage`: exactly one Markdown table headed `| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |`, one row per period. Each Period cell is `<kind> ended YYYY-MM-DD`, where kind is `FY<yyyy>`, `LTM`, `H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`; a ratio of period-end debt to trailing-twelve-month EBITDA is an `LTM` row. Value cells"
+      },
+      {
+        "rule": "R-26",
+        "where": "the `### Chart data: interest cover` bullet of the CP-1 instruction: a sentence inserted between 'one row per period.' and 'Value cells' (S.2)",
+        "old": "- `### Chart data: interest cover`: exactly one Markdown table headed `| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |`, one row per period. Value cells",
+        "new": "- `### Chart data: interest cover`: exactly one Markdown table headed `| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |`, one row per period. Each Period cell is `<kind> ended YYYY-MM-DD`, where kind is `FY<yyyy>`, `LTM`, `H1 <yyyy>`, `H2 <yyyy>`, `9M <yyyy>` or `Q<1-4> <yyyy>`; a ratio of period-end debt to trailing-twelve-month EBITDA is an `LTM` row. Value cells"
+      },
+      {
+        "rule": "R-26",
+        "where": "the `### Chart data: liquidity` bullet of the CP-1 instruction: a sentence inserted between 'one row per period.' and 'Value cells' (S.3)",
+        "old": "- `### Chart data: liquidity`: exactly one Markdown table headed `| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |`, one row per period. Value cells",
+        "new": "- `### Chart data: liquidity`: exactly one Markdown table headed `| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |`, one row per period. Each Period cell is the balance-sheet date as `YYYY-MM-DD`. Value cells"
       }
     ],
     "CP-1A": [
