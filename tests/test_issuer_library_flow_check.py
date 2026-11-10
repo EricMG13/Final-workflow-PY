@@ -404,3 +404,40 @@ def test_completed_record_without_modules_is_a_fault(tmp_path: Path) -> None:
     record = next(run.glob("completed-*.json"))
     record.write_text(json.dumps({"kind": "cpos-markdown-delivery/1"}))
     assert flow.run_faults(run, sources) == [f"completed record {record.name} has no modules"]
+
+
+def c1_rounding_run(tmp_path: Path, printed: str, *, calculated: bool = True) -> list[str]:
+    """CP-1 read 767 and 200; optionally calculated 3.835; its handoff prints `printed`."""
+    run, sources = make_run(tmp_path)
+    folder = run / "live/modules" / sha(b"CP-1")
+    tools = json.loads((folder / "0.tools.json").read_text())
+    tools.append({"call_id": "r2", "name": "read_pages", "text": "Debt 767. EBITDA 200."})
+    if not calculated:
+        tools.append({"call_id": "r3", "name": "read_pages", "text": "Ratio 3.835."})
+    (folder / "0.tools.json").write_text(json.dumps(tools))
+    if calculated:
+        add_calls(run, "CP-1", [("c1", ["767", "200"], "3.835")])
+    set_handoff(
+        run, "CP-1", CP1 + f"Proposed debt / EBITDA: 767 / 200 = 3.835, displayed {printed}.\n"
+    )
+    return flow.run_faults(run, sources)
+
+
+def test_calculate_result_covers_its_two_decimal_rounding(tmp_path: Path) -> None:
+    faults = c1_rounding_run(tmp_path, "3.84")
+    assert not any("number 3.84" in f for f in faults)
+
+
+def test_calculate_result_does_not_cover_a_wrong_rounding(tmp_path: Path) -> None:
+    faults = c1_rounding_run(tmp_path, "3.83")
+    assert any("number 3.83" in f for f in faults)
+
+
+def test_calculate_result_covers_itself(tmp_path: Path) -> None:
+    faults = c1_rounding_run(tmp_path, "3.835")
+    assert not any("number 3.835" in f for f in faults)
+
+
+def test_reported_three_decimal_figure_is_not_expanded(tmp_path: Path) -> None:
+    faults = c1_rounding_run(tmp_path, "3.84", calculated=False)
+    assert any("number 3.84" in f for f in faults)

@@ -73,6 +73,17 @@ STAGE2 = "not applicable before Stage 2"
 # Worst first. The status -> outcome table lives in src/deploy_workflow/handoff_outcome.py.
 SEVERITY = ("will_refuse", "gap", "limited", "check", "information", "ready")
 handoff_outcome = runpy.run_path(str(R / "src/deploy_workflow/handoff_outcome.py"))
+# The report's text with svg removed and a newline after every table cell and block element, so
+# adjacent cells do not run together ("September 11, 2014Rounded"). A detached clone has no layout,
+# so innerText is not available; the separators are inserted into the clone.
+REPORT_TEXT_JS = (
+    "el => { const c = el.cloneNode(true);"
+    " c.querySelectorAll('svg').forEach(n => n.remove());"
+    " c.querySelectorAll('td, th, tr, p, div, li, h1, h2, h3, h4, h5, h6, section, article,"
+    " header, footer, dt, dd, figcaption, caption, blockquote, pre, br')"
+    ".forEach(n => n.after('\\n'));"
+    " return c.textContent; }"
+)
 BUNDLE = ("report.html", "view.json", "report-view.json", "delivery.json")
 
 
@@ -627,10 +638,7 @@ def check_run(
         case_outcomes(bc, args, ws, summary)
     if args.rehearse:
         return
-    shown = report.locator("#view-root").evaluate(
-        "el => { const c = el.cloneNode(true); c.querySelectorAll('svg').forEach(n => n.remove());"
-        " return c.textContent; }"
-    )
+    shown = report.locator("#view-root").evaluate(REPORT_TEXT_JS)
     handoffs = [p.read_text() for p in sorted(run.glob("deliveries/*/CP-*.md"))]
     problems = flow_check.run_faults(run, args.sources) + flow_check.report_faults(shown, handoffs)
     case = args.case_data
