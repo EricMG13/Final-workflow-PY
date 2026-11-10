@@ -65,14 +65,15 @@ def numbers(text: str) -> set[str]:
     return found
 
 
-def rounded(values: set[str]) -> set[str]:
-    """The roundings a reader may print of a long calculation result (4.50682961... -> 4.51).
+def rounded(values: set[str], calculated: bool = False) -> set[str]:
+    """The roundings a reader may print of a calculation result (4.50682961... -> 4.51).
 
-    Only values with 6 or more decimals are expanded: they are kernel results, not reported figures.
+    Unless `calculated` (the values are `calculate` results), only values with 6 or more decimals
+    are expanded: they are kernel results, not reported figures.
     """
     out = set(values)
     for value in values:
-        if "." in value and len(value.split(".")[1]) >= 6:
+        if "." in value and (calculated or len(value.split(".")[1]) >= 6):
             for places in range(7):
                 for mode in (ROUND_HALF_UP, ROUND_HALF_EVEN):
                     out |= numbers(f"{Decimal(value).quantize(Decimal(1).scaleb(-places), mode):f}")
@@ -235,7 +236,7 @@ def _read_numbers(folder: Path, base: set[str]) -> set[str]:
         for c in list(pending):
             arguments = calls.get(c["call_id"])
             if arguments is not None and _operands(arguments) <= known:
-                evidence |= numbers(c["text"])
+                evidence |= rounded(numbers(c["text"]), calculated=True)
                 pending.remove(c)
                 changed = True
     return evidence

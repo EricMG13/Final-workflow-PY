@@ -628,6 +628,25 @@ fixtures; combined markups on one `Module Status:` line (read unconfirmed; quest
   - Windows-only, for the owner: `Credit OS.cmd` under cmd.exe; a start from a UNC share; a full import of pydantic and the Copilot SDK from `lib/` in the server and the worker (macOS checks resolution only, because `pydantic_core` is `win_amd64`); `Smoke-test.ps1`; `smoke_test.py` in release mode; a UNC package default on a work PC.
   - The full weekly suite.
 
+## 2026-11-10 — Plan 2: C1 live-check harness faults, lead rulings R-SB2-1a(3)/1c/1d (SB2, branch `claude/sb2-c1-harness-a`)
+
+Scope: `handoff_outcome.py`, `designs/flow_check.py`, `designs/live_check.py` (`REPORT_TEXT_JS`),
+answer-key tests. Cause: SB3's paid C1 run (`web-8a674922…`, sol-medium) re-read offline: CP-1's
+`calculate` result 3.835 did not cover the 3.84 its handoff printed; the report text ran table
+cells together ("September 11, 2014Rounded", "-83,297Not calculable"), so 11 and 83 were flagged.
+Rulings (keys by agents other than the implementer): a calculate result's printed roundings are
+evidence once its operands are; report text keeps cell/block separators; `Module Status:` strips
+repeat (combined markups, `*` runs, `> `, any-case label); fenced examples never count;
+front-matter values in any case, quoted or with `# comment`; BOM ignored.
+Checks: keys red then green; offline re-read on a copy (no provider): C1 flow faults 10800 and
+162600 only (out of scope), CP-4 limited, CP-1 limited (forecast ready: a real disagreement);
+back-test output unchanged; `validate.py` quick exit 0, browser 86/0; quality gate 0; mx-precise
+review APPROVE (Low: O(n²) strip loop on a 1 MB line). Not verified: a live run after this change.
+Lead review of #55 (Medium): the fence rule toggled on any line starting with three backticks, so
+inline triple-backtick text, `~~~` fences and longer fences misread. Fixed per CommonMark (R-SB2-1h):
+opening needs indent <= 3 and 3+ same chars (no backtick in a backtick fence's info), closing needs
+same char, run >= opening, only whitespace after; unclosed runs to the end. probe_inline_triple exit 0.
+
 ## 2026-11-10 — Plan 2: guess_kind recognises executed credit agreements, lead ruling R-SB2-2 (SB2, branch `claude/sb2-guess-kind`)
 
 Scope: `src/deploy_workflow/run_expectations.py` only (answer-key tests in 22b96bb3, written by another

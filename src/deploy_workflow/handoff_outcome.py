@@ -3,9 +3,15 @@
 Standard library only: live_check loads this file by path, tools/expectations_backtest imports it.
 
 1. The module's own handoff is read first. Its evidence is exact `key: value` lines in the
-   handoff's leading `---` front-matter block (prose never counts), a line that starts with the
-   label `Module Status:` (bold, backticks, a list marker and a final period
-   allowed; case-insensitive; a table row never counts), plus a
+   handoff's leading `---` front-matter block (prose never counts; values match in any letter
+   case, may be single- or double-quoted and may end in ` # comment`; a leading BOM is
+   ignored), a line that starts with the label `Module Status:` (case-insensitive; bold,
+   backticks, a `> ` quote, a list marker and a final period allowed; a table row never counts;
+   a line inside a code fence never counts, nor does a status word there, front matter
+   excepted; fences per CommonMark: an
+   opening line is indented at most 3 spaces and starts with 3+ backticks or tildes, a backtick
+   fence's info string has no backtick, and it closes only on a line of the same character,
+   at least as long a run and only whitespace after; unclosed runs to the end), plus a
    status word after the module id (below). The most severe value wins:
    will_refuse > limited > ready.
 
@@ -38,12 +44,12 @@ import re
 
 STATUS = {"BLOCKED": "will_refuse", "READY_WITH_LIMITATIONS": "limited", "READY": "ready"}
 FIELDS = {
-    ("qa_status", "Blocked"): "will_refuse",
-    ("committee_status", "Blocked"): "will_refuse",
-    ("qa_status", "Restricted"): "limited",
-    ("committee_status", "Restricted"): "limited",
-    ("review_status", "Provisional"): "limited",
-    ("committee_status", "Committee Ready"): "ready",
+    ("qa_status", "blocked"): "will_refuse",
+    ("committee_status", "blocked"): "will_refuse",
+    ("qa_status", "restricted"): "limited",
+    ("committee_status", "restricted"): "limited",
+    ("review_status", "provisional"): "limited",
+    ("committee_status", "committee ready"): "ready",
 }
 SEVERITY = {"ready": 0, "limited": 1, "will_refuse": 2}
 COMPATIBLE = {
@@ -58,7 +64,7 @@ COMPATIBLE = {
 
 def front_matter(text: str) -> list[tuple[str, str]]:
     """The `key: value` lines of the leading `---` block; [] when there is no closed block."""
-    lines = text.split("\n")
+    lines = text.removeprefix("\ufeff").split("\n")
     if lines[0].strip() != "---":
         return []
     pairs: list[tuple[str, str]] = []
@@ -67,6 +73,9 @@ def front_matter(text: str) -> list[tuple[str, str]]:
             return pairs
         key, sep, value = line.partition(":")
         if sep:
+            value = re.sub(r"\s+#.*$", "", value.strip())
+            if len(value) > 1 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1]
             pairs.append((key.strip(), value.strip()))
     return []
 
@@ -79,15 +88,44 @@ MODULE_STATUS = {
 
 
 def module_status(line: str) -> str | None:
-    """The status phrase of a `Module Status:` line, or None. Markup that does not change the
-    words is dropped: ** around the label or value, backticks, a list marker, one final period."""
-    line = line.strip().replace("**", "").strip("`").strip()
-    line = re.sub(r"^[-*][ \t]+", "", line)
+    """The status value, as written, of a `Module Status:` line, or None. Markup that does not
+    change the words is dropped until the text stops changing: runs of *, backticks, a `> `
+    blockquote, a list marker, one final period. The label may be in any letter case."""
+    previous = None
+    while line != previous:
+        previous = line
+        line = line.strip().replace("*", "").strip("`").removesuffix(".")
+        line = re.sub(r"^(?:>|-)[ \t]+", "", line)
     label, sep, value = line.partition(":")
-    if not sep or label.strip() != "Module Status":
+    value = value.strip("` \t")
+    if not sep or label.strip().lower() != "module status":
         return None
-    value = value.strip().strip("`").strip().removesuffix(".").strip().lower()
-    return value if value in MODULE_STATUS else None
+    return value if value.lower() in MODULE_STATUS else None
+
+
+def fence_run(line: str) -> tuple[str, int, str]:
+    """(character, run length, rest) of a possible fence line (indent <= 3), else ("", 0, "")."""
+    stripped = line.lstrip(" ")
+    if len(line) - len(stripped) > 3 or stripped[:1] not in ("`", "~"):
+        return "", 0, ""
+    rest = stripped.lstrip(stripped[0])
+    return stripped[0], len(stripped) - len(rest), rest
+
+
+def unfenced(text: str) -> list[str]:
+    """The lines of `text` outside code fences (the fence lines themselves are dropped)."""
+    kept: list[str] = []
+    fence = ("", 0)  # (character, run length) of the open fence
+    for line in text.removeprefix("\ufeff").splitlines():
+        char, run, rest = fence_run(line)
+        if fence[0]:
+            if char == fence[0] and run >= fence[1] and not rest.strip():
+                fence = ("", 0)
+        elif run >= 3 and not (char == "`" and "`" in rest):
+            fence = (char, run)
+        else:
+            kept.append(line)
+    return kept
 
 
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
@@ -101,14 +139,17 @@ def own_status(module: str, own: str) -> tuple[str, str] | None:
     """The most severe (class, how) the module's own handoff states, or None."""
     name = f"{module} handoff"
     found = [
-        (FIELDS[pair], f"{pair[0]}: {pair[1]} in {name}")
-        for pair in front_matter(own)
-        if pair in FIELDS
+        (FIELDS[(key, value.lower())], f"{key}: {value} in {name}")
+        for key, value in front_matter(own)
+        if (key, value.lower()) in FIELDS
     ]
-    for line in own.splitlines():
-        if not line.lstrip().startswith("|") and (phrase := module_status(line)):
-            found.append((MODULE_STATUS[phrase], f"Module Status: {phrase} in {name}"))
-    if word := status_word(module, own, tuple(STATUS)):
+    prose = unfenced(own)
+    found.extend(
+        (MODULE_STATUS[value.lower()], f"Module Status: {value} in {name}")
+        for line in prose
+        if (value := module_status(line))
+    )
+    if word := status_word(module, "\n".join(prose), tuple(STATUS)):
         found.append((STATUS[word], f"{word} in {name}"))
     # ready only when nothing limited or will_refuse is present: max by severity gives that.
     return max(found, key=lambda f: SEVERITY[f[0]], default=None)
