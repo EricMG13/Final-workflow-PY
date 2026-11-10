@@ -15,7 +15,8 @@
     "summary": "No completion receipt for this run.",
     "handoff": "runs/synthetic-edge-001/CP-1.md",
     "gaps": [
-      "HTML Model not published by app runs"
+      "HTML Model not published by app runs",
+      "A facility row has no facility id; it is not shown"
     ],
     "artifacts": [],
     "ratings": [
@@ -33,7 +34,7 @@
         "terms": {
           "size_m": {
             "value": "200",
-            "unit": "USD m",
+            "unit": "m",
             "period": "2025-06-30",
             "basis": "Entered by the user in the run context",
             "source": "ctx_term_1_size_m",
