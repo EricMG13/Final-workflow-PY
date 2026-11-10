@@ -10,6 +10,13 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — New run: a failed first recent-runs render is retried on the next refresh (branch `claude/sb2-first-render-poll`)
+
+- **Rule:** in `apps/issuer-library/web/actions.js`, `recent()` sets `listFailed` when the list fetch or render fails and clears it when the fetch succeeds; `controls()` keeps New run's 2-second poll while `listFailed` and New run is visible. The failure text now reads "Retrying while New run is open."
+- **Reason:** the poll started only when a run was active, so a failed first render left no interval and the list stayed on the error until the page was reopened.
+- **Key:** `test_a_failed_first_render_is_retried_on_the_next_refresh` (key commits ab016fbe and 3926c637; the second changed only how the fault script is installed, not its steps or assertions), failing at the missing poll before the change; `tests/test_issuer_library_app.py` 64 passed after, including the hidden-stops-polling and retried-render tests.
+- **Not verified:** a real browser; a list that keeps failing (the poll then repeats every 2 seconds while New run is open).
+
 ## 2026-11-10 — CI flake on #82: failed-render retry test raced the first list render (SB2, branch `claude/sb2-flake82`)
 
 - The flake: `test_a_failed_render_is_retried_on_the_next_refresh`, CI run 42788732481, attempt 1.
