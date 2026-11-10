@@ -7,15 +7,20 @@ delivery folders. Candidate output remains explicitly qualified.
 
 ## Windows: double-click launch
 
-1. Extract the entire Windows ZIP and keep `Issuer Library.cmd` beside its `engine` and
-   `web` folders. Choose the appropriate Windows ZIP (amd64 for Intel/AMD, arm64 for
-   Windows on ARM).
-2. Double-click **Issuer Library.cmd**. It starts the bundled Python runtime without a
-   console window, opens the default browser and runs only on `127.0.0.1`. No Python
-   installation, Node, downloads or internet are needed.
+1. The owner keeps one folder on the network drive: `Credit OS.cmd`, `default-workspace.json`
+   (made from `default-workspace.json.example`) and `app\<version>\`, one folder per release
+   (`start.py`, `lib\`, `web\`, `engine\`, `Smoke-test.ps1`, this README and the licences).
+   There is no `.exe`. Nothing is installed on your PC.
+2. Double-click **Credit OS.cmd**. It starts the company Python
+   (`C:\Program Files\Statestreet\Python313\pythonw.exe -I -B -X utf8`) on
+   `app\<version>\start.py` without a console window, opens the default browser and runs only
+   on `127.0.0.1`. If the company Python or the release folder is missing, it says so. Nothing
+   is downloaded at launch.
 3. In **Settings** on the left rail, enter the full folder containing `runs/` and
-   `deliverables/`, then choose **Save and reload**. The default is the Windows
-   Documents known folder plus `FinalWorkflow`; existing folders are not moved.
+   `deliverables/`, then choose **Save and reload**. The workspace is, in order: the IT
+   policy file (which locks it), your saved setting, the package's `default-workspace.json`
+   (which does not lock it), then the Windows Documents known folder plus `FinalWorkflow`.
+   Existing folders are not moved.
 4. The rail reaches every part of the one app: Issuer library, Research workspace,
    Reports, Run activity, New run, Search (`/`), Settings and Help. Choose a run
    in the library to read its overview, modules, calendar, reports and evidence. A report
@@ -27,11 +32,12 @@ delivery folders. Candidate output remains explicitly qualified.
    Launching the package again reopens the same per-user instance. Quitting or
    changing workspace is refused while a model run is active.
 
-The Windows packages are pilot builds, not signed enterprise releases. Windows
-execution, browser rendering and enterprise rollout still need Windows acceptance.
-IT can sign the launcher script and the bundled runtime, or wrap the launcher in its
-own signed shortcut, and distribute the package using its normal software deployment
-process. No firewall opening or Windows service is needed.
+The package is a pilot build, not a signed enterprise release. Windows execution, browser
+rendering and enterprise rollout still need Windows acceptance. IT can distribute it by its
+normal software deployment process. No firewall opening or Windows service is needed.
+To update, the owner copies a new `app\<version>\` folder and changes the one version line
+in `Credit OS.cmd`; running copies keep their version until restarted. Known limit: no `%` or
+`^` in the share path.
 
 ## New run: context, issuer folder, review, Start
 
@@ -80,16 +86,13 @@ overwritten. A stopped web run shows the handoffs it accepted and publishes no r
 is not resumed from the app; the command line can resume the run folder.
 A crash/interruption is retained and does not trigger an automatic paid restart.
 
-The Windows package contains pinned Python 3.13.15 and its dependency wheels,
-verified against upstream SHA-256 digests at build time. It needs no Python/pip
-installation or launch-time downloads. `Smoke-test.ps1` checks packaged imports,
-Windows locking, the workspace read and offline context review; it never starts a model run. Run it
-on the target Windows host as part of acceptance. Native Windows execution and
-paid model success have not been demonstrated on this macOS build host.
-The package does not contain `github-copilot-sdk` or the Copilot CLI runtime it
-downloads, so the `copilot-*` configurations are not available from a package; a
-Copilot run from a package fails when the engine imports the SDK. Run those
-configurations from a repository checkout as `docs/COPILOT.md` describes.
+`Smoke-test.ps1`, in the release folder, uses the company `python.exe` to check the
+packaged imports, Windows locking, the workspace read and offline context review; it never
+starts a model run. Run it on the target Windows host as part of acceptance. Native Windows
+execution and paid model success have not been demonstrated on this macOS build host.
+The package includes `github-copilot-sdk` (pure Python) but not the Copilot CLI. A `copilot-*`
+run needs `COPILOT_GITHUB_TOKEN` and `COPILOT_CLI_PATH` (the CLI executable) in the launching
+environment, as `docs/COPILOT.md` describes; colleagues' copies have no token.
 
 ## Standard locations and enterprise configuration
 
@@ -203,7 +206,6 @@ referenced handoffs exist; incomplete writes remain visible as discovery notices
 
 The server is Python: `src/issuer_library`, a FastAPI application served by uvicorn on
 loopback only. Build and tests need Python 3.13 and uv 0.12.5; no compiler or Node.
-Windows runtime dependencies are bundled.
 
 ```sh
 uv sync --locked
@@ -215,20 +217,20 @@ uv run python apps/issuer-library/packaging/build.py
 
 The smoke test starts the repository's server over loopback and checks launch, retained
 reports, the workspace store, a second launch, settings, an offline review, the Start gate,
-periodic discovery, quit and restart. With a package folder as its argument it runs the
-same checks against that package's runtime, on Windows. The runtime packager downloads
-official Python and the pinned PyPI wheels, FastAPI and uvicorn among them, into a
-verified cache; rebuilds reuse that cache. No provider execution occurs. Outputs go to
-`artifacts/issuer-library` at the repository root. Each package holds the launcher
-script, the `web/` front end and the `engine/` folder with the pinned runtime, the engine
-scripts and the `src/` packages; `python313._pth` puts `..\src` on the isolated
-interpreter's path. Packaging copies the deliverables' actual design tokens, styles, brand
+periodic discovery, quit and restart. With a release folder as its argument
+(`smoke_test.py <release folder>`) it runs the same checks against that release, on Windows.
+The build writes `artifacts/issuer-library/CreditOS`. Its wheels are the
+`uv export --locked --no-dev --no-emit-project` list, each cp313 `win_amd64` or `none-any`;
+the URL and SHA-256 come from `uv.lock`, the hash is checked on download, and downloads are
+cached under `artifacts/issuer-library/runtime-cache`. The version is
+`<YYYY.MM.DD>-<12 hex>` from HEAD, written to `engine\VERSION`; a build from a dirty tree
+carries HEAD's version. `start.py` puts `lib\` and `engine\src` on `sys.path`. No provider
+execution occurs. Packaging copies the deliverables' actual design tokens, styles, brand
 image and licensed fonts, plus the verified legacy adapter. Screening logic extends the
 existing example with exact decimal comparison. Frontend composition lives in `web/`.
-Windows amd64/arm64 packages are produced; macOS and Linux development runs the server
-from the repository. No issuer runs, uploaded PDFs, provider credentials or complete
-reports enter the ZIP. A clearly fictional context is included only for the explicit
-offline smoke test.
+macOS and Linux development runs the server from the repository. No issuer runs, uploaded
+PDFs, provider credentials or complete reports enter the package. A clearly fictional
+context is included only for the explicit offline smoke test.
 
 `--state-dir` provides an isolated state directory for tests. `--port` overrides
 the stable per-user loopback port if another application occupies it. A running
@@ -257,7 +259,7 @@ but do not establish visual layout or Windows launcher acceptance. See the singl
 repository `VERIFICATION.md` record for actual scope.
 
 The server finds the engine beside itself: `apps/issuer-library/engine` in the
-repository, `engine/` in a package. Only an offline check sets `ISSUER_LIBRARY_ENGINE_ROOT`,
+repository, `engine/` in a release. Only an offline check sets `ISSUER_LIBRARY_ENGINE_ROOT`,
 to serve a fake engine. The CP-OS worker runs under the same interpreter as
 the server. Do not turn the loopback application into a remotely exposed multi-user
 service.
