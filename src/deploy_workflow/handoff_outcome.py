@@ -35,8 +35,10 @@ Standard library only: live_check loads this file by path, tools/expectations_ba
    the run stopped at this module (`refused`, even if CP-0 says READY), else not_reached.
 4. An accepted handoff with no status anywhere: unconfirmed. CP-0 itself: always unconfirmed.
 
-A CP-0 status is the most severe status word in any cell of a table row whose first cell begins
-with the module id (a row of another module never counts); in other text it is the first status
+A CP-0 status is the most severe status word in any cell of a table row whose first cell is the
+module id alone or the id plus a label (id, optional whitespace, then a colon or a dash after
+whitespace; case-insensitive; so `CP-4.1`, `CP-4a`, `CP-4-1` and `CP-4 (draft)` are not CP-4's;
+a row of another module never counts, nor is it read as text); in other text it is the first status
 word within 70 characters after the module id, with no other module id between. A `Module
 Status:` value counts when it begins with a known phrase followed by a period or the line's end
 (the rest of the line is ignored).
@@ -147,8 +149,8 @@ def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
     rest: list[str] = []
     for line in text.split("\n"):
         first = line.lstrip().startswith("|") and line.split("|")[1].replace("*", "").strip(" `")
-        if first and re.match(r"CP-", first):
-            if re.match(rf"{re.escape(module)}\b", first):
+        if first and re.match(r"CP-", first, re.IGNORECASE):
+            if re.fullmatch(rf"{re.escape(module)}(?:\s*:.*|\s+[-–—].*)?", first, re.IGNORECASE):
                 rows += re.findall(rf"\b({alt})\b", line)
         else:
             rest.append(line)
