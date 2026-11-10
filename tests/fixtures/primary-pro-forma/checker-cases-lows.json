@@ -1,0 +1,273 @@
+{
+ "frozen": "2026-11-10",
+ "authored_by": "key-writer subagent (lows key); expected outcomes from SDD/task-11-contract.md incl. Rulings 2026-11-10; not the author of Task 11 code",
+ "source_probe": "SDD/pr53-probes/probe_checker_adversarial.py",
+ "cases": [
+  {
+   "id": "low-fp-cap-cash-only",
+   "covers": "Probe FALSE_PASS: capitalisation holds only the Cash row (cites CP-1A); no debt row, no Total debt row.",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_rows"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L3: \"A capitalisation table needs at least one debt row and one `Total debt (CCY)` row per currency its debt rows use. A table without debt rows (Cash only) is `pro_forma_rows`\""
+  },
+  {
+   "id": "low-fp-cap-total-usd-currency-eur",
+   "covers": "Probe FALSE_PASS: row 'Total debt (USD)' has Currency EUR.",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | EUR | 42 | 803 | 845 | documented | CP-1A total of sources |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_cell"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L4: \"A `Total debt (CCY)` row's Currency cell must equal CCY; a mismatch is `pro_forma_cell`.\""
+  },
+  {
+   "id": "low-fp-cap-total-gbp-no-gbp-debt",
+   "covers": "Probe FALSE_PASS: extra 'Total debt (GBP)' row, no GBP debt row.",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n| Total debt (GBP) | GBP | 1 | 1 | 1 | documented | CP-1A |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_rows"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L5: \"A `Total debt (CCY)` row for a currency that no debt row uses is `pro_forma_rows`.\""
+  },
+  {
+   "id": "low-fp-su-outside-findings",
+   "covers": "Probe FALSE_PASS: Sources and uses table under '## Calculations'; '## Findings' holds 'none'.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "## Findings\n\nnone\n\n## Calculations\n\n### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "wrap": false,
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_table_missing"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L1: \"the checker reads pro forma tables ... only under `## Findings`. A table found only elsewhere is `pro_forma_table_missing`.\""
+  },
+  {
+   "id": "low-fp-cell-decimal-comma-8,3",
+   "covers": "Probe FALSE_PASS: Amount '8,3'.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 8,3 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_cell"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L6: \"Each thousands group after a comma has exactly 3 digits. `8,3` and `1,,,` are `pro_forma_cell`.\""
+  },
+  {
+   "id": "low-fp-cell-commas-1,,,",
+   "covers": "Probe FALSE_PASS: Amount '1,,,'.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 1,,, | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_cell"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L6: \"`8,3` and `1,,,` are `pro_forma_cell`.\""
+  },
+  {
+   "id": "low-fp-cell-not-supplied-dash",
+   "covers": "Probe FALSE_PASS: Amount 'Not supplied: -'.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: - | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_cell"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L7: \"A `Not supplied:` reason must contain at least one letter or digit. `Not supplied: -` is `pro_forma_cell`.\""
+  },
+  {
+   "id": "low-fp-fx-line-after-table",
+   "covers": "Probe FALSE_PASS: FX line moved after the capitalisation table.",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n| Senior Notes | EUR | 0 | 300 | 300 | documented | CP-1A Sources and uses |\n| Total debt (EUR) | EUR | 0 | 300 | 300 | documented | CP-1A total of sources |\n| Total debt (all currencies) | USD | 42 | 1103 | 1145 | user-entered | CP-1A totals converted at the FX rate |\nFX rate: 1.25 (ECB)\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_fx"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L2: \"the `FX rate: …` line sits above its table ... A line found only after the table is `pro_forma_fx`.\""
+  },
+  {
+   "id": "low-ff-bold-heading",
+   "covers": "Probe FALSE_FAIL (valid input): bold-heading",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### **Sources and uses**\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L9: \"Headings and labels are matched after stripping `**`/`__` emphasis and surrounding whitespace. This covers a bold heading\""
+  },
+  {
+   "id": "low-ff-heading-trailing-space",
+   "covers": "Probe FALSE_FAIL (valid input): heading-trailing-space",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses \n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L9: \"... a heading with trailing whitespace\""
+  },
+  {
+   "id": "low-ff-bold-date-line",
+   "covers": "Probe FALSE_FAIL (valid input): bold-date-line",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\n**Balance-sheet date:** 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L9: \"... a bold `Balance-sheet date:` line\""
+  },
+  {
+   "id": "low-ff-bulleted-date-ltm-lines",
+   "covers": "Probe FALSE_FAIL (valid input): bulleted-date-ltm-lines",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\n- Balance-sheet date: 2014-06-30\n- LTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L10: \"A list marker (`- ` or `* `) before a date, LTM or FX label line is accepted.\""
+  },
+  {
+   "id": "low-ff-alignment-separator",
+   "covers": "Probe FALSE_FAIL (valid input): alignment-separator",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n|:---|:---|---:|:---:|---|---|\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L13: \"An alignment separator row (`:---`, `---:`, `:---:`) is a separator row.\""
+  },
+  {
+   "id": "low-ff-escaped-pipe-source",
+   "covers": "Probe FALSE_FAIL (valid input): escaped-pipe-source",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K \\| refinancing |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L11: \"`\\|` inside a cell is a literal pipe (GFM), not a column break.\""
+  },
+  {
+   "id": "low-ff-fx-line-with-pair",
+   "covers": "Probe FALSE_FAIL (valid input): fx-line-with-pair",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\nFX rate: EUR/USD 1.25 (ECB reference rate, 2014-06-30)\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| Total debt (USD) | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n| Senior Notes | EUR | 0 | 300 | 300 | documented | CP-1A Sources and uses |\n| Total debt (EUR) | EUR | 0 | 300 | 300 | documented | CP-1A total of sources |\n| Total debt (all currencies) | USD | 42 | 1103 | 1145 | user-entered | CP-1A totals converted at the FX rate |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L12: \"An `FX rate:` value may name the pair before the rate, e.g. `EUR/USD 1.25 (…)`.\""
+  },
+  {
+   "id": "low-ff-bold-total-row-label",
+   "covers": "Probe FALSE_FAIL (valid input): bold-total-row-label",
+   "module": "CP-2",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Pro forma capitalisation\n\nBalance-sheet date: 2014-06-30\nLTM period: LTM Q2 2014\n\n| Instrument | Currency | Balance sheet | Transaction adjustment | Pro forma | Basis | Source |\n| --- | --- | --- | --- | --- | --- | --- |\n| Cash | USD | 18 | -18 | Not supplied: not stated | documented | CP-1A Sources and uses, cash to balance sheet, fees and OID |\n| ABL | USD | 42 | 83 | 125 | documented | CP-1 handoff; CP-1A Sources and uses |\n| Term Loan B | USD | 0 | 720 | 720 | documented | CP-1A Sources and uses |\n| **Total debt (USD)** | USD | 42 | 803 | 845 | documented | CP-1A total of sources |\n\n### EBITDA ladder\n\n| Row | Amount | Reporting unit | Definition or basis | Source |\n| --- | --- | --- | --- | --- |\n| (a) Starting EBITDA | 100 | USD millions | Adjusted EBITDA as reported in the filing | CP-1 handoff, income statement |\n| (b) Documented acquisition and disposal adjustments | 40 | USD millions | Acquired EBITDA 40 from the completed acquisition, documented | CP-1 handoff, acquisition note |\n| Base EBITDA, (a) + (b) | 140 | USD millions | (a) + (b) | calculate: 100 + 40 |\n| (c) Unrealised run-rate savings, not in base | 30 | USD millions | Run-rate claimed 50 less 20 already in the LTM | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Supported, not in base | Not supplied: no Supported add-back | USD millions | No add-back received a Supported verdict | CP-1D handoff |\n| (d) Management add-backs: Challenged, not in base | Not supplied: no Challenged add-back | USD millions | No add-back received a Challenged verdict | CP-1D handoff |\n| (d) Management add-backs: Rejected, not in base | 10 | USD millions | Rejected add-back of 10 | CP-1D handoff, Add-back LTM register |\n| (d) Management add-backs: Insufficient Information, not in base | Not supplied: no Insufficient Information add-back | USD millions | No add-back received that verdict | CP-1D handoff |\n| As marketed | 195 | USD millions | Management's quoted marketed EBITDA | Marketing presentation, quoted |\n| (e) Difference from As marketed | 55 | USD millions | Marketed 195 less base 140; the gap is 30 run-rate + 10 rejected + 15 unexplained by sources | calculate: 195 - 140 |\n\n### Pro forma leverage\n\n| Basis | Total debt | EBITDA | Total debt / EBITDA | Reporting unit | Source |\n| --- | --- | --- | --- | --- | --- |\n| Reported | 302 | 151.7 | 2.0 | USD millions | CP-1 handoff |\n| Pro forma, excluding unrealised add-backs | 845 | 140 | 6.0 | USD millions | CP-1A total debt; CP-2 ladder Base EBITDA |\n| As marketed | 845 | 195 | 4.3 | USD millions | Marketing presentation, quoted |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L9: \"... and a bold `Total debt (USD)` row label.\""
+  },
+  {
+   "id": "low-ff-crlf",
+   "covers": "Probe FALSE_FAIL (valid input): crlf",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\r\n\r\n| Side | Item | Amount | Currency | Basis | Source |\r\n| --- | --- | --- | --- | --- | --- |\r\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\r\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\r\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\r\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\r\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\r\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\r\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\r\n\r\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L13: \"CRLF line endings are read as LF.\""
+  },
+  {
+   "id": "low-ff-indented-rows",
+   "covers": "Probe FALSE_FAIL (valid input): indented-rows",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n  | Side | Item | Amount | Currency | Basis | Source |\n  | --- | --- | --- | --- | --- | --- |\n  | Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n  | Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n  | Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n  | Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n  | Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n  | Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n  | Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": true,
+    "issues": []
+   },
+   "basis": "Rulings 2026-11-10 R-L13: \"Table rows indented by up to 3 spaces are table rows.\""
+  },
+  {
+   "id": "low-ff-unicode-minus",
+   "covers": "Probe FALSE_FAIL: Amount U+2212 10.",
+   "module": "CP-1A",
+   "run_type": "primary",
+   "pathway": "credit_snapshot",
+   "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | −10 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+   "expected": {
+    "accepted": false,
+    "issues": [
+     "pro_forma_cell"
+    ]
+   },
+   "basis": "Rulings 2026-11-10 R-L8: \"The minus sign is ASCII `-` only. U+2212 is `pro_forma_cell`\""
+  }
+ ]
+}

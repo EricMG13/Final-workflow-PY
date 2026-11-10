@@ -3,6 +3,7 @@
 import importlib.util
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -15,15 +16,37 @@ spec.loader.exec_module(bridge)
 
 from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
 from deploy_workflow.model.turn import ToolCall, Turn, Usage
-from deploy_workflow.owners.cpos_launch import OPENING
+from deploy_workflow.owners.cpos_launch import OPENING, PRO_FORMA
 
 calls = []
 
 
-def complete(self: LiveAdapter, request: Any, **kwargs: Any) -> AdapterReply:
-    context = json.loads(request.messages[1].text)
-    job = json.loads((Path(sys.argv[2]) / "job.json").read_text())
-    plan = json.loads((Path(job["workspace"]) / "runs" / job["id"] / "workflow.json").read_text())
+KEY = Path(os.environ["CHECK_ROOT"]) / "tests/fixtures/primary-pro-forma/checker-cases.json"
+# Frozen cases whose expected result is accepted, one per module; FAKE_MALFORMED=CP-2 writes the
+# rejected case below instead (a missing Cash row, which a model can repair by adding it).
+ACCEPTED = {
+    "CP-1A": "cp1a-sources-uses-valid-user-entered",
+    "CP-1D": "cp1d-register-valid",
+    "CP-2": "cp2-full-valid",
+}
+MALFORMED = {"CP-2": "cap-no-cash-row"}
+
+
+def key_findings(case_id: str) -> str:
+    """The frozen key's findings for one case; an unknown id raises."""
+    cases = {c["id"]: c for c in json.loads(KEY.read_text(encoding="utf-8"))["cases"]}
+    return str(cases[case_id]["findings"])
+
+
+def pro_forma_findings(module: str, instructions: str) -> str:
+    """The key's findings when the instructions carry this module's pro forma paragraph."""
+    if module not in PRO_FORMA or PRO_FORMA[module] not in instructions:
+        return ""
+    malformed = os.environ.get("FAKE_MALFORMED") == module
+    return key_findings((MALFORMED if malformed else ACCEPTED)[module]).strip()
+
+
+def handoff_markdown(context: dict[str, Any], plan: dict[str, Any], instructions: str) -> str:
     run = plan["run"]
     lines = [
         f"# {context['module_id']}",
@@ -54,8 +77,12 @@ def complete(self: LiveAdapter, request: Any, **kwargs: Any) -> AdapterReply:
         lines += ["| --- | --- | --- |", "| A fake engine finding only. | Low | Fake data. |", ""]
         lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
         lines += ["| One item was observed. | None. | Low |", ""] + opening
+    held = pro_forma_findings(context["module_id"], instructions)
+    held_headings = set(re.findall(r"^### (.+)$", held, re.MULTILINE))
+    if held:
+        lines += [held, ""]
     for route in plan["layout"]["routes"]:
-        if route["module_id"] == context["module_id"]:
+        if route["module_id"] == context["module_id"] and route["heading"] not in held_headings:
             lines += [f"### {route['heading']}", ""]
             if route["kind"] == "chart":
                 continue
@@ -66,12 +93,20 @@ def complete(self: LiveAdapter, request: Any, **kwargs: Any) -> AdapterReply:
             )
     for heading in ("Calculations", "Gaps", "Next module"):
         lines += [f"## {heading}", "", "None.", ""]
+    return "\n".join(lines)
+
+
+def complete(self: LiveAdapter, request: Any, **kwargs: Any) -> AdapterReply:
+    context = json.loads(request.messages[1].text)
+    job = json.loads((Path(sys.argv[2]) / "job.json").read_text())
+    plan = json.loads((Path(job["workspace"]) / "runs" / job["id"] / "workflow.json").read_text())
+    markdown = handoff_markdown(context, plan, request.messages[0].text)
     calls.append(context["module_id"])
     if len(calls) > int(os.environ.get("FAKE_REJECT_AFTER", "1000000")):
-        lines = ["# Not a handoff"]
+        markdown = "# Not a handoff"
     turn = Turn(
         "",
-        (ToolCall(str(len(calls)), "write_handoff", {"markdown": "\n".join(lines)}),),
+        (ToolCall(str(len(calls)), "write_handoff", {"markdown": markdown}),),
         Usage(
             input_tokens=10,
             cached_read_tokens=0,
@@ -88,5 +123,7 @@ def complete(self: LiveAdapter, request: Any, **kwargs: Any) -> AdapterReply:
     return AdapterReply("ok", turn, None, 200, None, None, 1, 2, turn.usage, billed_usd=None)
 
 
-LiveAdapter.complete = complete
-bridge.main()
+if __name__ == "__main__":
+    adapter: Any = LiveAdapter
+    adapter.complete = complete
+    bridge.main()

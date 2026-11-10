@@ -8,6 +8,7 @@ Synthetic data only; nothing reaches a server or a provider. Marked browser: rea
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable, Iterator
 from typing import Any
 
@@ -86,12 +87,19 @@ def drop(row: dict[str, Any], *keys: str) -> dict[str, Any]:
 
 
 def launched(new_run: Any, status: dict[str, Any]) -> NewRun:
+    """Launch, then wait for the first status reply to be drawn: the list and lines it reads."""
     run: NewRun = new_run(status=status)
     run.launch()
+    until(run.page, "document.querySelectorAll('#run-progress .summary-line').length>0")
+    until(run.page, "document.querySelectorAll('#module-stages li').length>0")
     return run
 
 
 def open_row(run: NewRun, run_id: str | None = None) -> None:
+    """Click a recent-runs row once the list has drawn it (the list is fetched after the visit)."""
+    want = json.dumps(run_id)
+    shown = "[...document.querySelectorAll('#recent-jobs tbody th button')]"
+    until(run.page, f"{shown}.some(b=>{want}===null||b.title==={want})")
     run.page.evaluate(OPEN_ROW, run_id)
     run.settle()
 
@@ -119,6 +127,25 @@ def notes(run: NewRun) -> list[str]:
     return run.screen.texts("#run-review .matrix-note")
 
 
+def test_opening_a_row_waits_for_a_list_reply_that_is_still_in_flight(new_run: Any) -> None:
+    """The failing CI case, forced: the list answers after the helper's old 50 ms settle."""
+    run = new_run(rows=[])
+
+    def slowly(route: Any) -> None:
+        run.page.wait_for_timeout(400)
+        route.fallback()
+
+    run.page.route("**/api/runs/list*", slowly)
+    run.rows = [ROW_STOPPED]
+    run.page.evaluate("location.hash='#W-Library/cases'")
+    run.page.evaluate("location.hash='#W-NewRun/run'")
+    run.settle()
+    assert run.screen.attrs("#recent-jobs tbody th button", "title") == []
+    open_row(run)
+    assert run.hidden("progress-step") is False
+    assert run.text("resume-hint") == WITH_SPEND
+
+
 def test_a_stop_between_modules_keeps_the_accepted_module_ticked(new_run: Any) -> None:
     progress = {"step": "stopped", "stopped_during": "accepted", "module": "CP-0", "accepted": 1}
     run = launched(
@@ -126,6 +153,7 @@ def test_a_stop_between_modules_keeps_the_accepted_module_ticked(new_run: Any) -
         {"state": "failed", "reason": "provider", "message": "handoff refused",
          "progress": progress, "run_available": True, "id": ID},
     )  # fmt: skip
+    until(run.page, "document.querySelectorAll('#run-progress .summary-line').length>1")
     assert run.progress()[1] == f"Stopped after Source readiness{SPACED}(1{SPACED}of{SPACED}2)."
     stages = run.stages()
     assert [s["status"] for s in stages] == ["complete", "incomplete", "incomplete"]
@@ -174,6 +202,7 @@ def test_recent_runs_are_newest_started_first_whatever_their_state(new_run: Any)
     undated = drop({**ROW_DONE, "id": "web-" + "3" * 32, "issuer": "Undated Co"}, "started_at")
     run = new_run(rows=[older, undated, ROW_DONE, newest])
     run.revisit()
+    until(run.page, "document.querySelectorAll('#recent-jobs tbody th button').length==4")
     assert run.screen.attrs("#recent-jobs tbody th button", "title") == [
         newest["id"], ROW_DONE["id"], older["id"], undated["id"],
     ]  # fmt: skip
@@ -393,6 +422,7 @@ def test_a_resume_that_keeps_nothing_says_why(new_run: Any) -> None:
 
 def test_the_page_list_poll_never_speaks_for_a_tab_that_can_notify(new_run: Any) -> None:
     run = new_run(rows=[ROW_RUNNING], status=ROW_RUNNING)
+    until(run.page, "[...window.__timers.values()].some(fn=>fn.name==='poll')")
     # Only the page's own poll runs: the app-wide watcher legitimately asks with notice enabled.
     run.page.evaluate(
         "()=>{window.Notification=class{static permission='granted';"
@@ -427,6 +457,7 @@ def test_the_report_delivery_step_is_grey_ahead_blue_delivering_ticked_delivered
     new_run: Any, status: dict[str, Any], want: tuple[str, str | None, bool, bool]
 ) -> None:
     run = launched(new_run, status)
+    until(run.page, "document.querySelectorAll('#module-stages li').length>0")
     stages = run.stages()
     step = stages[-1]
     assert step["name"] == "Report delivery"
