@@ -564,6 +564,12 @@ def fill_form(page: Any, args: argparse.Namespace) -> None:
     frame = page.frame_locator("#context-editor")
     frame.locator("#load").wait_for(state="attached", timeout=15000)
     frame.locator("#load").set_input_files(str(args.context))
+    note = frame.locator("#loadmsg")
+    expect(note).to_have_text(re.compile(r"\S"), timeout=15000)
+    if "unknown value" in note.inner_text():
+        raise Refusal(
+            f"the form dropped a context value (unknown value): {note.inner_text()[:500]}"
+        )
     expect(page.locator("#context-readiness")).to_contain_text(
         "Required fields complete", timeout=15000
     )

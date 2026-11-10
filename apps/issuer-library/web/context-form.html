@@ -607,11 +607,12 @@ const NUMA = 'inputmode="decimal"';
 const P = t => ` placeholder="${t}"`;
 const NP = t => NUMA + P(t);
 const INSTRUMENTS = ['Term loan B','Term loan A','Revolver','Senior secured notes','Senior unsecured notes','Other'];
+document.body.insertAdjacentHTML('beforeend', '<datalist id="instruments">' + INSTRUMENTS.map(o => `<option value="${o}">`).join('') + '</datalist>');
 
 const ROWS = {
   deal: {box:'rows-deal', title:'Facility', max:20, make() {
     const p = 'd' + (++uid);
-    return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + S(p+'b','instrument','Instrument',INSTRUMENTS) +
+    return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + F(p+'b','instrument','Instrument','list="instruments"' + P('e.g. Term loan B'),'Pick a suggestion or type your own.') +
       F(p+'c','currency','Currency','value="USD" maxlength="3"' + P('e.g. USD'),'Three uppercase letters.') + F(p+'d','size_m','Size (m)',NP('e.g. 1250'),'Millions of the stated currency.') + F(p+'e','tenor_years','Tenor (years)',NP('e.g. 7'),'Years.','pf') +
       F(p+'f','talk_spread_bps_low','Talk spread low (bps)',NP('e.g. 325'),'Basis points over the reference rate.','pf') + F(p+'g','talk_spread_bps_high','Talk spread high (bps)',NP('e.g. 350'),'Basis points over the reference rate.','pf') +
       F(p+'h','talk_oid_low','Talk OID low',NP('e.g. 99.0'),'Price per 100.','pf') + F(p+'i','talk_oid_high','Talk OID high',NP('e.g. 99.5'),'Price per 100.','pf') + F(p+'j','floor_pct','Floor (%)',NP('e.g. 0.50'),'Percent.') +
