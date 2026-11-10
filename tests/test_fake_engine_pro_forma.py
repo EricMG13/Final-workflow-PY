@@ -198,3 +198,38 @@ def test_fake_cp2_handoff_reaches_the_delivered_pro_forma_block_cell_for_cell(
     assert table_of(block) == DELIVERED["capitalisation"]
     assert len(block.tabs) == 1
     assert table_of(block.tabs[0]) == DELIVERED["leverage"]
+
+
+def test_fake_cp1a_and_cp2_handoffs_reach_the_block_with_the_sources_and_uses_tab(
+    fake: Any, tmp_path: Path
+) -> None:
+    """R-C2-2 (key rc2/delivered-block-rc2.json): a Primary run of CP-1A and CP-2 through the fake
+    engine's handoffs, the app's layout and delivery. The block holds the capitalisation, the
+    leverage tab (the unchanged key's cells) and then the Sources and uses tab; the block note is
+    the key's (rc2/delivered-notes.json)."""
+    from test_cpos_pro_forma_delivery import (
+        PAIR_NOTE,
+        PAIR_RUN,
+        SU_TAB,
+        deliver_texts,
+        layout_of_pair,
+    )
+
+    from deploy_vii.report_view import ReportView
+
+    layout = layout_of_pair()
+    texts = {}
+    for module in ("CP-1A", "CP-2"):
+        routes = tuple((r.heading, r.kind) for r in layout.routes if r.module_id == module)
+        chosen = plan(module, routes)
+        chosen["run"]["issuer_name"] = PAIR_RUN.issuer_name
+        texts[module] = fake.handoff_markdown(
+            context(module), chosen, instructions_for(module, True)
+        )
+    report = ReportView.model_validate_json(deliver_texts(tmp_path, texts)["report-view.json"])
+    block = next(b for b in report.blocks if b.block_id == "pro-forma")
+    assert table_of(block) == DELIVERED["capitalisation"]
+    assert [t.label for t in block.tabs] == ["Pro forma leverage — Basis", SU_TAB["label"]]
+    assert table_of(block.tabs[0]) == DELIVERED["leverage"]
+    assert table_of(block.tabs[1]) == {"header": SU_TAB["header"], "rows": SU_TAB["rows"]}
+    assert block.note == PAIR_NOTE

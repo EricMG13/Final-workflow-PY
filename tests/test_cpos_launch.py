@@ -36,6 +36,13 @@ from deploy_workflow.owners.cpos_launch import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+# R-C2-6 (frozen key rc2/instruction-text.json): the view heading goes after the two tables of the
+# Reader summary. The instruction sentence and the repair message take the key's text; "{opening}"
+# is the module's view heading.
+_R_C2_6 = json.loads(
+    (ROOT / "tests/fixtures/primary-pro-forma/rc2/instruction-text.json").read_text()
+)["R-C2-6"]["replacements"]
+OPENING_SENTENCE, OPENING_REPAIR = (part["new"] for part in _R_C2_6)
 RULING = ROOT / "docs/rulings/2026-11-05-live-loop-tests.md"  # configs: sol-medium
 ISSUER = "Northbridge Synthetic Group"
 AS_OF = "2025-03-31"
@@ -742,7 +749,7 @@ def test_cp2_instructions_carry_the_reader_standard_and_its_opening(tmp_path):
         return (tmp_path / "out" / prepared.plan.instructions[module].path).read_text()
 
     cp2 = read("CP-2")
-    assert "place `### Credit view` directly after `### Reader summary`" in cp2
+    assert OPENING_SENTENCE.replace("{opening}", "Credit view") in cp2
     assert "CANON_SHARED.md" in cp2
     assert "State each limitation once" in cp2 and "currency and unit" in cp2
     # The user's Microsoft 365 Copilot custom instruction, which Deploy V's M365 runs carried.
@@ -775,7 +782,7 @@ def test_every_module_has_an_opening_and_its_instructions_require_it(tmp_path):
     )
     for module, ref in prepared.plan.instructions.items():
         text = (tmp_path / "out" / ref.path).read_text()
-        assert f"place `### {OPENING[module]}` directly after `### Reader summary`" in text, module
+        assert OPENING_SENTENCE.replace("{opening}", OPENING[module]) in text, module
         assert ("State each limitation once" in text) == (module == "CP-2"), module
 
 
@@ -788,7 +795,7 @@ def test_cp2_instructions_place_the_credit_view_after_the_reader_summary(tmp_pat
         cap="50",
     )
     read = lambda m: (tmp_path / "out" / prepared.plan.instructions[m].path).read_text()
-    assert "place `### Credit view` directly after `### Reader summary`" in read("CP-2")
+    assert OPENING_SENTENCE.replace("{opening}", "Credit view") in read("CP-2")
     assert "first under `## Findings`" in read("CP-2") and "first under `## Findings`" in read(
         "CP-4"
     )
@@ -832,9 +839,7 @@ def test_checker_rejects_cp2_that_does_not_open_with_its_view(tmp_path, pathway,
     raw = answer(context, list(prepared.plan.layout.routes))
     assert old in raw
     issues = _checked_handoff(task, raw.replace(old, new).encode(), checker(prepared.layout))
-    assert any(
-        "Place ### Credit view directly after ### Reader summary" in issue for issue in issues
-    ), issues
+    assert any(OPENING_REPAIR.replace("{opening}", "Credit view") in i for i in issues), issues
 
 
 @pytest.mark.parametrize(
@@ -847,9 +852,7 @@ def test_checker_enforces_the_opening_on_every_module(tmp_path, module, pathway)
     assert view in raw
     assert _checked_handoff(task, raw.encode(), checker(prepared.layout)) == ()
     issues = _checked_handoff(task, raw.replace(view, "").encode(), checker(prepared.layout))
-    assert any(
-        f"Place ### {OPENING[module]} directly after ### Reader summary" in i for i in issues
-    ), issues
+    assert any(OPENING_REPAIR.replace("{opening}", OPENING[module]) in i for i in issues), issues
 
 
 def test_every_selected_method_file_exists():

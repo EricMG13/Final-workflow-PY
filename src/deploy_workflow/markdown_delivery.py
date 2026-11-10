@@ -693,6 +693,33 @@ def _section_sentences(bound: tuple[Binding, ...], modules: list[ModuleView]) ->
     return tuple(dict.fromkeys(t.limitation for t in found if t is not None and t.limitation))
 
 
+def _block_note(
+    labels: tuple[str, ...],
+    bound: tuple[Binding, ...],
+    modules: list[ModuleView],
+    metadata: Mapping[str, Mapping[str, tuple[str, str]]],
+) -> str | None:
+    """The note of a table block. A block of several tables (tabs) prefixes each table's whole
+    section prose with that table's section heading, so no unit sentence reads as the unit of
+    another table's tab; a table whose header has a `Reporting unit` column says its unit is
+    stated per row. A block of one table keeps its section sentences as written."""
+    tables = {(m.module_id, t.table_id): t for m in modules for t in m.tables}
+    coords = dict.fromkeys((e.fact_coord.module_id, str(e.fact_coord.table_id)) for e in bound)
+    if len(coords) < 2:
+        return " · ".join(dict.fromkeys([*labels, *_section_sentences(bound, modules)])) or None
+    parts = list(labels)
+    for coord in coords:
+        table = tables.get(coord)
+        if table is None:
+            continue
+        name = metadata[coord[0]][coord[1]][0]
+        if "Reporting unit" in (table.row_header, *(c.label for c in table.columns)):
+            parts.append(f"{name}: unit stated per row")
+        if table.limitation:
+            parts.append(f"{name}: {table.limitation}")
+    return " · ".join(dict.fromkeys(parts)) or None
+
+
 def _registers(
     bound: tuple[Binding, ...],
     modules: list[ModuleView],
@@ -1230,6 +1257,15 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                 )
             )
         else:
+            # Tables go in route order (the layout's), not in handoff order: the block's primary
+            # table is its first route's. The sort is stable, so one module's tables keep theirs.
+            rank: dict[tuple[str, str], int] = {}
+            for position, route in enumerate(layout.routes):
+                rank.setdefault((route.module_id, route.block_id), position)
+            last = len(layout.routes)  # entries no route selected (evidence) follow the routed
+            bound = tuple(
+                sorted(bound, key=lambda e: rank.get((e.fact_coord.module_id, block_id), last))
+            )
             slots = _registers(bound, module_views, refs)
             primary, *further = slots
             tabs = tuple(
@@ -1248,10 +1284,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     row_header=primary.row_header,
                     columns=primary.columns,
                     rows=primary.rows,
-                    note=" · ".join(
-                        dict.fromkeys([*labels, *_section_sentences(bound, module_views)])
-                    )
-                    or None,
+                    note=_block_note(labels, bound, module_views, metadata),
                     tab_label=primary.label if tabs else None,
                     tabs=tabs,
                 )
