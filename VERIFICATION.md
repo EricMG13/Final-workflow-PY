@@ -10,6 +10,10 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — A-live PR 1 (F1/F2/F4, Returns Blocked) (R-ALIVE-rulings.md, branch `claude/sb2-alive-forecast`)
+
+Offline forecast change against the key written first by another agent (d01fe3a2, 8b901cb2; not edited): CP-5 inherits Returns Blocked from a Blocked CP-4 (forecast-only edge, registry untouched); counted Limited rules for CP-2D (legal documents `none`) and CP-3C (no step-up); the CP-4 wording and the on-screen label. Scope: forecast rules only, one issuer/date (TDG FY2024, older public source); no live run. 25 red tests green; the five named test files 607 passed, 1 skipped (paid). Not verified: any live module behaviour; cpos_launch.py "Will refuse" docstring left as is.
+
 ## 2026-11-10 — pr_size: an edited copy counts against the merge base when the base holds it (R-PRSIZE-1, branch `sb3-prsize`)
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
