@@ -8,6 +8,7 @@ message the app receives on #use-context, which it later posts to /api/runs/revi
 
 from __future__ import annotations
 
+import html
 import importlib.util
 import json
 import sys
@@ -140,19 +141,37 @@ def test_fill_form_refuses_while_the_form_shows_an_unknown_value_note(
     shell = (
         '<button id="library-new-run">New</button><div id="context-readiness">'
         'Required fields complete</div><button id="use-context">Use</button>'
-        f"<iframe id=\"context-editor\" srcdoc='{frame}'></iframe>"
+        '<div id="source-step" hidden>Sources</div><input id="run-sources" type="file" webkitdirectory>'
+        '<div id="upload-list"></div><select id="run-model"><option>cfg</option></select>'
+        '<input id="run-budget"><details class="run-advanced"><summary>More</summary>'
+        '<input id="run-modules"></details><button id="review-run">Review</button>'
+        '<div id="review-step" hidden>Review</div><div id="new-run-message"></div><script>'
+        "document.getElementById('use-context').onclick=()=>{"
+        "document.getElementById('source-step').hidden=false};"
+        "document.getElementById('run-sources').onchange=e=>{"
+        "document.getElementById('upload-list').textContent=e.target.files.length+' files'};"
+        "document.getElementById('review-run').onclick=()=>{"
+        "document.getElementById('review-step').hidden=false};</script>"
+        f'<iframe id="context-editor" srcdoc="{html.escape(frame, quote=True)}"></iframe>'
     )
     context = tmp_path / "context.json"
     context.write_text("{}", encoding="utf-8")
     sources = tmp_path / "sources"
     sources.mkdir()
+    (sources / "a.txt").write_text("x", encoding="utf-8")
     page = browser.new_page()
     page.set_default_timeout(3000)
     page.route(
         "http://127.0.0.1:1/**",
         lambda route: route.fulfill(body=shell, content_type="text/html"),
     )
-    args = SimpleNamespace(port=1, context=context, sources=sources)
+    page.goto("http://127.0.0.1:1/")
+    editor = page.frame_locator("#context-editor")
+    editor.locator("#load").set_input_files(str(context))
+    assert "unknown value" in editor.locator("#loadmsg").inner_text()  # the fixture shows the note
+    args = SimpleNamespace(
+        port=1, context=context, sources=sources, config="cfg", cap=1, modules="CP-1"
+    )
     try:
         with pytest.raises(live_check.Refusal, match="unknown value"):
             live_check.fill_form(page, args)
