@@ -1193,11 +1193,9 @@ def test_whatever_the_chart_rows_say_the_written_manifest_is_admitted_or_absent(
         metrics_are_stated_by_their_pinned_quote(root, run_id)
 
 
-@pytest.mark.parametrize("run_type", ["secondary", "__missing__"])
-def test_non_primary_run_with_an_unreadable_unrequested_cp2_builds_without_pro_forma(
-    tmp_path, run_type
-):
-    """A CP-2.md the run does not request and may not use is never read: build still succeeds.
+@pytest.mark.parametrize("run_type", ["primary", "secondary", "__missing__"])
+def test_run_with_an_unreadable_unrequested_cp2_builds_without_pro_forma(tmp_path, run_type):
+    """A CP-2.md the run does not request is never read, even on a Primary run: build succeeds.
 
     Compared with the hand-written `primary` key: its metrics less the two pro forma ones.
     """
