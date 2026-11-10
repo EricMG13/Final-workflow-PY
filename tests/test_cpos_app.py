@@ -1215,6 +1215,219 @@ def test_a_resume_does_not_count_a_retained_producer_that_no_kept_row_inherits_f
     assert {"module": "CP-4", "outcome": "unconfirmed"} in result["retained_outcomes"]
 
 
+def chain_resume(tmp_path, provider, *, quotes):
+    """Credit snapshot, legal documents "none", a filed annual report (no counted run-scope item)
+    and, if `quotes`, a market quotes file. CP-4 forecasts Will refuse; CP-3 and CP-5 read CP-4;
+    CP-6 reads CP-3 and CP-5, not CP-4. Everything but CP-6 is retained, so CP-6 alone runs again."""
+
+    def declared_none(data):
+        data["attachments"]["legal_documents"] = "none"
+        sources = tmp_path / "workspace" / "intake" / ("web-" + "a" * 32) / "sources"
+        (sources / "annual-report.txt").write_text("Annual Report 2025\nRevenue was 100.\n")
+        if quotes:
+            (sources / "quotes.txt").write_text("Market quotes as of 2025-12-31\nBond 98.5\n")
+
+    kept = {"CP-0", "CP-1", "CP-1A", "CP-2", "CP-4", "CP-3", "CP-5"}
+    folder, request, _ = stopped_run(
+        tmp_path, provider, kept, context=declared_none, pathway="credit_snapshot"
+    )
+    return bridge.review(resumed(folder, request))
+
+
+def test_a_chain_through_retained_middles_keeps_its_root_cause_counted(tmp_path, provider):
+    # R-SB2-6c, M1. CP-6 runs again and inherits (via the retained CP-3 and CP-5) the Will refuse
+    # that CP-4 forecast. `inherited_from` of its row names only CP-3 and CP-5, yet the root cause
+    # is CP-4: one item for it, and an unaccepted start is refused.
+    result = chain_resume(tmp_path, provider, quotes=True)
+    assert result["retained_modules"] == ["CP-0", "CP-1", "CP-1A", "CP-2", "CP-4", "CP-3", "CP-5"]
+    assert [r["scope"] for r in result["expectations"] if r["inherited_from"]] == ["CP-6"]
+    assert result["counted"] == ["CP-4:cp4-declared-none"]
+    with pytest.raises(HTTPException):
+        require_acceptance(result, False)
+
+
+def test_a_retained_middles_own_gap_is_not_a_root_cause_to_count(tmp_path, provider):
+    # R-SB2-6c, M1 second case: no quotes file, so CP-3 forecasts its own gap
+    # (CP-3:cp3-no-quotes-no-talk). A gap never propagates, so no kept row inherits from it; the
+    # only root cause reaching CP-6 is CP-4's Will refuse. "One item per root cause; the
+    # producer's own forecast row stays dropped": the retained CP-3's gap row is dropped and,
+    # with nothing inheriting it, not counted.
+    result = chain_resume(tmp_path, provider, quotes=False)
+    assert result["counted"] == ["CP-4:cp4-declared-none"]
+    assert "CP-3:cp3-no-quotes-no-talk" not in [r["id"] for r in result["expectations"]]
+    with pytest.raises(HTTPException):
+        require_acceptance(result, False)
+
+
+# --- R-SB2-6c restated: a retained root cause stays counted while a re-running module is reachable
+# from it through propagating inheritance (Will refuse or Limited), through any retained middles.
+
+ROOTS = {  # root module -> (edit to the context that fires its counted, propagating row, its id)
+    "CP-2D": (lambda d: d["run"].update(reporting_currency="EUR"), "CP-2D:cp2d-non-usd"),
+    "CP-3": (
+        lambda d: d["quotes"].append(
+            {
+                "facility_id": "F1",
+                "kind": "indicative_talk",
+                "bid": "",
+                "ask": "",
+                "price": "",
+                "yield_pct": "",
+                "spread_bps": "350",
+                "as_of": "2025-12-31",
+                "provider": "desk",
+            }
+        ),
+        "CP-3:cp3-talk-no-observed-quote",
+    ),
+    "CP-4": (lambda d: d["attachments"].update(legal_documents="none"), "CP-4:cp4-declared-none"),
+}
+
+
+def order_of(tmp_path, modules):
+    """The run order the plain review gives for `modules` (used to choose what to retain only)."""
+    scratch = tmp_path / f"order{len(list(tmp_path.glob('order*')))}"
+    scratch.mkdir()
+    folder, _ = job(scratch, modules=modules)
+    return bridge.review(folder)["modules"]
+
+
+def resume_of_chain(tmp_path, provider, modules, rerun, edit=None, quotes=True):
+    """A stop at `rerun`: every module before it in the run's order is retained, it and the rest
+    run again. A filed annual report (and a quotes file) keeps run-scope and gap rows out of the
+    way. The run order is read from the plain review only to choose what to retain."""
+    ordered = order_of(tmp_path, modules)
+
+    def context(data):
+        if edit:
+            edit(data)
+        sources = tmp_path / "workspace" / "intake" / ("web-" + "a" * 32) / "sources"
+        (sources / "annual-report.txt").write_text("Annual Report 2025\nRevenue was 100.\n")
+        if quotes:
+            (sources / "quotes.txt").write_text("Market quotes as of 2025-12-31\nBond 98.5\n")
+
+    kept = set(ordered[: ordered.index(rerun)])
+    folder, request, _ = stopped_run(tmp_path, provider, kept, context=context, modules=modules)
+    return ordered, bridge.review(resumed(folder, request))
+
+
+# Hand-derived from edges_for (registry) and the rules. Each row: root, middle, consumer, the
+# modules asked for, and the counted ids a resume must hold (the root; plus the consumer's own
+# counted row where it has one: CP-2H has no ratings).
+CHAINS = [
+    (
+        "CP-2D",
+        "CP-2G",
+        "CP-2H",
+        ["CP-2D", "CP-2H"],
+        ["CP-2D:cp2d-non-usd", "CP-2H:cp2h-no-ratings"],
+    ),
+    ("CP-2D", "CP-2G", "CP-4C", ["CP-2D", "CP-4C"], ["CP-2D:cp2d-non-usd"]),
+    ("CP-2D", "CP-3C", "CP-4C", ["CP-2D", "CP-3C", "CP-4C"], ["CP-2D:cp2d-non-usd"]),
+    ("CP-4", "CP-3", "CP-6", ["CP-4", "CP-6"], ["CP-4:cp4-declared-none"]),
+    ("CP-4", "CP-3C", "CP-6", ["CP-4", "CP-3C", "CP-6"], ["CP-4:cp4-declared-none"]),
+    ("CP-4", "CP-5", "CP-6", ["CP-4", "CP-5", "CP-6"], ["CP-4:cp4-declared-none"]),
+]
+
+
+@pytest.mark.parametrize(("root", "middle", "consumer", "asked", "counted"), CHAINS)
+def test_an_indirect_chain_keeps_its_root_counted(
+    tmp_path, provider, root, middle, consumer, asked, counted
+):
+    modules = ["CP-0", "CP-1", *asked]
+    ordered, result = resume_of_chain(tmp_path, provider, modules, consumer, ROOTS[root][0])
+    # The chain is real in this run: both the root and the middle are retained, the consumer is not.
+    assert ordered.index(root) < ordered.index(middle) < ordered.index(consumer)
+    assert {root, middle} <= set(result["retained_modules"])
+    assert consumer not in result["retained_modules"]
+    assert result["counted"] == counted
+    with pytest.raises(HTTPException):
+        require_acceptance(result, False)
+
+
+@pytest.mark.parametrize("consumer", ["CP-8", "CP-MEMO"])
+def test_chains_ending_in_a_module_no_run_can_launch_cannot_be_stopped_and_resumed(
+    tmp_path, provider, consumer
+):
+    # Chains (CP-2D|CP-3)->CP-6->(CP-8|CP-MEMO): the registry reads them, but a run cannot ask for
+    # CP-8 or CP-MEMO ("no launchable method"), so no stop can leave one to run again.
+    with pytest.raises(Exception, match=f"no launchable method for {consumer}"):
+        order_of(tmp_path, ["CP-0", "CP-1", "CP-6", consumer])
+
+
+def test_a_three_hop_chain_keeps_its_root_counted(tmp_path, provider):
+    # CP-4 -> CP-3C -> CP-3 -> CP-6 (edges_for: CP-3C reads CP-4, CP-3 reads CP-3C, CP-6 reads
+    # CP-3). CP-6 does not read CP-4 or CP-3C; both and CP-3 are retained. (CP-5 also sits
+    # between them, so this is a 3-hop chain, not a shortcut-free one.)
+    modules = ["CP-0", "CP-1", "CP-4", "CP-3C", "CP-3", "CP-6"]
+    ordered, result = resume_of_chain(tmp_path, provider, modules, "CP-6", ROOTS["CP-4"][0])
+    assert ordered.index("CP-4") < ordered.index("CP-3C") < ordered.index("CP-3")
+    assert {"CP-4", "CP-3C", "CP-3"} <= set(result["retained_modules"])
+    assert result["counted"] == ["CP-4:cp4-declared-none"]
+    with pytest.raises(HTTPException):
+        require_acceptance(result, False)
+
+
+def test_the_shortcut_free_three_hop_chain_keeps_its_root_counted(tmp_path, provider):
+    # CP-2D -> CP-2G -> CP-2H -> CP-3D, the one launchable chain of three hops where no later link
+    # reads an earlier one directly (edges_for; the CP-8 and CP-MEMO ends cannot be launched). CP-2H
+    # also has its own no-ratings gap, retained and not counted; CP-3D has a quotes file.
+    modules = ["CP-0", "CP-1", "CP-2D", "CP-2H", "CP-3D"]
+    ordered, result = resume_of_chain(tmp_path, provider, modules, "CP-3D", ROOTS["CP-2D"][0])
+    assert ordered.index("CP-2D") < ordered.index("CP-2G") < ordered.index("CP-2H")
+    assert ordered.index("CP-2H") < ordered.index("CP-3D")
+    assert {"CP-2D", "CP-2G", "CP-2H"} <= set(result["retained_modules"])
+    assert result["counted"] == ["CP-2D:cp2d-non-usd"]
+
+
+def test_a_gap_only_middle_does_not_carry_a_root_cause(tmp_path, provider):
+    # No CP-4 in the run, no quotes: the retained CP-3 has only a gap row, which never propagates,
+    # so CP-6 (running again) inherits nothing and the gap id is not counted.
+    _, result = resume_of_chain(
+        tmp_path, provider, ["CP-0", "CP-1", "CP-2", "CP-3", "CP-5", "CP-6"], "CP-6", quotes=False
+    )
+    assert "CP-3" in result["retained_modules"]
+    assert all(not r["inherited_from"] for r in result["expectations"])
+    assert result["counted"] == []
+    require_acceptance(result, False)  # nothing to accept
+
+
+def test_every_registry_chain_from_a_root_keeps_it_counted(tmp_path, provider):
+    # Property over the registry: for each root with a counted propagating row, for each launchable
+    # module Y after it, the root's id is in the resume's counted exactly when Y or a later module
+    # (all run again) is reachable from the root through edges_for. Expected values come from the
+    # registry edges only, so a new edge is checked without touching this test.
+    from deploy_vii.registry import modules as registry_modules
+    from deploy_workflow.run_expectations import edges_for
+
+    checked = 0
+    for root, (edit, root_id) in ROOTS.items():
+        for target in (m.module_id for m in registry_modules()):
+            sub = tmp_path / f"{root}-{target}"
+            sub.mkdir()
+            asked = ["CP-0", "CP-1", root, target]
+            try:
+                ordered = order_of(sub, asked)
+            except Exception as error:  # noqa: BLE001 - only an unlaunchable module is skipped
+                assert "no launchable method" in str(error), error
+                continue
+            if root not in ordered or target == root or ordered.index(target) < ordered.index(root):
+                continue
+            edges = edges_for(ordered)
+            reach, grew = {root}, True
+            while grew:
+                grew = False
+                for module in ordered:
+                    if module not in reach and set(edges.get(module, {})) & reach:
+                        reach.add(module)
+                        grew = True
+            reruns = set(ordered[ordered.index(target) :])
+            _, result = resume_of_chain(sub, provider, asked, target, edit)
+            assert (root_id in result["counted"]) == bool((reach - {root}) & reruns), (root, target)
+            checked += 1
+    assert checked >= 15
+
+
 def test_a_plain_review_has_no_reruns_and_no_retained_outcomes(tmp_path, monkeypatch):
     # Ruling 10 and 11: neither key is a resume-only key; a plain review carries both, empty.
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
