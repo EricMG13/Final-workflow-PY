@@ -310,6 +310,16 @@ def review(directory: Path) -> dict[str, Any]:
     selected = CONFIGS[job["config"]]
     reruns, outcomes = resume_view(job, prepared)
     kept = [row for row in prepared.expectations if row["scope"] not in prepared.retained_modules]
+    # R-SB2-6c: a retained producer's own row is dropped, but its counted id stays while a kept
+    # row inherits from it, so the resume still needs the acceptance that cause requires.
+    inheriting = {module for row in kept for module in row["inherited_from"]}
+    counted = counted_ids(
+        [
+            row
+            for row in prepared.expectations
+            if row["scope"] not in prepared.retained_modules or row["scope"] in inheriting
+        ]
+    )
     return {
         "ok": True,
         "review_id": review_id(job, revision, prepared),
@@ -349,7 +359,7 @@ def review(directory: Path) -> dict[str, Any]:
         ).identity.issue_classification,
         "documents": list(prepared.documents),
         "expectations": kept,
-        "counted": counted_ids(kept),
+        "counted": counted,
         "without": without_for(prepared.ordered, kept),
         "reruns": reruns,
         "retained_outcomes": outcomes,
