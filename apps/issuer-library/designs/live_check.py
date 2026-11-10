@@ -156,7 +156,7 @@ def literal_faults(shown: str, literals: list[dict[str, str]]) -> list[str]:
 
 
 def entered_leaves(value: Any, path: str = "") -> dict[str, Any]:
-    """Every non-blank leaf by path; the form may add blank keys but never change an entered value."""
+    """Every non-blank leaf by path: the form may add blank keys, never change an entered value."""
     if isinstance(value, dict):
         pairs = ((f"{path}.{k}", v) for k, v in value.items())
     elif isinstance(value, list):
