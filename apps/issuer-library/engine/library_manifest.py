@@ -378,28 +378,45 @@ def _user_terms(sink: _Sink, row: Json, fields: Any, prefix: str, path: tuple[An
     return terms
 
 
-def _facility(fid: str, deals: list[Json], quotes: list[Json], sink: _Sink, cur: str) -> Json:
+def _fid(row: Json) -> str:
+    """The row's facility id as written, or "" when it is missing, not text or blank."""
+    value = row.get("facility_id")
+    return value if isinstance(value, str) and value.strip() else ""
+
+
+def _facility(fid: str, deals: list[Json], quotes: list[Json], sink: _Sink) -> Json:
     terms: Json = {}
-    for i, deal in enumerate(deals):
-        if deal.get("facility_id") == fid:
-            fields = (("size_m", f"{deal.get('currency') or cur} m"), *_TERM_FIELDS)
-            terms = _user_terms(sink, deal, fields, f"ctx_term_{i}", ("deal_terms", i))
-            break
+    own = [(i, d) for i, d in enumerate(deals) if _fid(d) == fid]
+    if len(own) == 1:  # an id entered on several rows shows no terms: none is chosen
+        i, deal = own[0]
+        currency = deal.get("currency")
+        unit = f"{currency} m" if isinstance(currency, str) and currency.strip() else "m"
+        fields = (("size_m", unit), *_TERM_FIELDS)
+        terms = _user_terms(sink, deal, fields, f"ctx_term_{i}", ("deal_terms", i))
     shown = [
         {
             "kind": q.get("kind", ""),
             "terms": _user_terms(sink, q, _QUOTE_FIELDS, f"ctx_quote_{j}", ("quotes", j)),
         }
         for j, q in enumerate(quotes)
-        if q.get("facility_id") == fid
+        if _fid(q) == fid
     ]
     return {"facility_id": fid, "terms": terms, "quotes": shown}
 
 
-def _facilities(ctx: Json, sink: _Sink, currency: str) -> list[Json]:
+def _facilities(ctx: Json, sink: _Sink) -> tuple[list[Json], list[str]]:
+    """The facilities, and the gaps for duplicated and blank ids (duplicates first)."""
     deals, quotes = _rows(ctx, "deal_terms", "context"), _rows(ctx, "quotes", "context")
-    ids = dict.fromkeys(r["facility_id"] for r in deals + quotes if r.get("facility_id"))
-    return [_facility(fid, deals, quotes, sink, currency) for fid in ids]
+    ids = dict.fromkeys(_fid(r) for r in deals + quotes if _fid(r))
+    counts = [_fid(d) for d in deals if _fid(d)]
+    gaps = [
+        f"Facility {fid} is entered on more than one row; its terms are not shown"
+        for fid in ids
+        if counts.count(fid) > 1
+    ]
+    if any(not _fid(r) for r in deals + quotes):
+        gaps.append("A facility row has no facility id; it is not shown")
+    return [_facility(fid, deals, quotes, sink) for fid in ids], gaps
 
 
 def _ratings(ctx: Json, sink: _Sink) -> list[Json]:
@@ -545,7 +562,7 @@ def build(workspace: Path, run_id: str) -> Json:
     modules = _need(_need(wf, "run", dict, "workflow"), "requested_modules", list, "workflow")
     for module in modules:
         _check_module(module)
-    first = next(iter(_need(wf, "sources", dict, "workflow")), None)
+    named = [n for n in _need(wf, "sources", dict, "workflow") if n != "context"]
     receipt = _receipt(workspace, base)
     chosen = _chosen(_deliveries(workspace, base), receipt[1]["report_sha256"] if receipt else None)
     handoffs = {m: _doc_if(workspace, f"{base}/{m}.md") for m in modules}
@@ -563,13 +580,16 @@ def build(workspace: Path, run_id: str) -> Json:
         run["handoff"] = handoff.rel
     published = bool(receipt and receipt[1].get("cp_model_published") is True)
     metrics, off_format = _chart_metrics(cp1, as_of, sink)
-    gaps = _gaps(expectations, published) + ([_FORMAT_GAP] if off_format else [])
-    run |= {"gaps": gaps, "artifacts": []}
     run["ratings"] = _ratings(ctx, sink)
-    run["facilities"] = _facilities(ctx, sink, ctx_run["reporting_currency"])
+    run["facilities"], facility_gaps = _facilities(ctx, sink)
+    gaps = _gaps(expectations, published) + ([_FORMAT_GAP] if off_format else []) + facility_gaps
+    run |= {"gaps": list(dict.fromkeys(gaps)), "artifacts": []}
     run["metrics"] = metrics
-    line = _line_of(wf_doc, "sources", first, "sha256") if first else None
-    sources = sink.evidence([("wf_source_0", wf_doc, line)] if first else [])
+    cited: list[_Item] = [
+        (f"wf_source_{n}", wf_doc, _line_of(wf_doc, "sources", k, "sha256"))
+        for n, k in enumerate(named)
+    ]
+    sources = sink.evidence(cited)
     scope = f"App run {run_id}: requested modules and delivery"
     checklist = {
         "scope": scope,
