@@ -731,6 +731,23 @@ will_refuse). Not verified: `outcome_faults` itself re-run (it only forwards `ac
 Batch review fix 1: the `Blocked: CP-1, CP-4` form is read in CP-0 prose only, not in a module's own handoff (`Not blocked: CP-4.` there no longer gives will_refuse); probe `hb_own_listed_case.py` exit 1 before, 0 after.
 R-SB2-1k refinement: the `Blocked: CP-1, CP-4` form counts only when the status word starts the line (list/markup characters only), is not negated (`Not blocked:`, `No longer blocked:`, `Unblocked:`), and the ids stop at the first word that is not an id or `,` `&` `/` `and`; 7 `b1k2-` cases red before, 157 passed after; probes `hb_cp0_status_owned_by_prior_id.py`, `hb_own_listed_case.py`, `probe_1j_rows.py` exit 0.
 
+## 2026-11-10 Plan 2 Task 6a (start requires and records acceptance; branch `claude/sb2-task6-acceptance`)
+
+Scope: `src/issuer_library/jobs.py` (`start_run`), `apps/issuer-library/engine/bridge.py` (`start`).
+Change: `start_run` accepts `accept_limitations` (boolean only), reads `counted` inside `lib.lock` before
+`start.claim`: missing or malformed gives 409 "Review this run again before starting"; non-empty without
+acceptance gives 400 "Accept the listed limitations before starting". `bridge.start`, after the stale
+re-check and before `run_live_handoffs`, adds `accepted: <ids>|none` to the receipt, writes
+`runs/<id>/expectations.json` (six keys from the approved review) and `runs/<id>/context.json` (byte copy;
+sha256 must equal the plan's `context` pin, else the stale error and the run folder `launch` just made is
+removed). `launch` writes neither file. The receipt parser (`check_ruling`) reads only lifts/by/date/configs
+lines, each exactly once; the extra line is ignored.
+Checks: key tests 25 RED, 12 now GREEN, 13 still RED (see below); quality_gate exit 0; pr_size exit 1 ("copy mismatch:
+tests/test_cpos_app.py", the key commit changed a mirrored test file); full four-file pytest exit 1,
+45 failed: 13 key tests (the REVIEW_AGAIN 409 is asserted with `.json()["detail"]` but the app answers
+plain text) and 32 legacy fake-bridge tests whose review prints no `counted` (409 under the fail-closed ruling).
+Not verified: the 45 failures above; the browser UI sending `accept_limitations`; a real run's receipt.
+
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
 
 Defect (Low, concurrency): `hold_worker_lock` flocks `worker.lock`; a child forked by another thread
