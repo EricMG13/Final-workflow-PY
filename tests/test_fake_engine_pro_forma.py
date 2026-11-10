@@ -161,3 +161,40 @@ def test_other_runs_and_modules_are_unchanged(
     # Non-Primary CP-2 (no paragraph) and CP-3 (no paragraph at all) write the old text.
     text = fake.handoff_markdown(context(module), plan(module, routes), "Method.\n\nEnd.")
     assert text == PLAIN.replace("# CP-3", f"# {module}").replace("OPENING", OPENING[module])
+
+
+DELIVERED = json.loads(
+    (ROOT / "tests/fixtures/primary-pro-forma/delivered-block.json").read_text(encoding="utf-8")
+)["pro-forma"]
+
+
+def table_of(table: Any) -> dict[str, Any]:
+    return {
+        "header": [table.row_header, *table.columns],
+        "rows": [[r.label, *(c.text for c in r.cells)] for r in table.rows],
+    }
+
+
+def test_fake_cp2_handoff_reaches_the_delivered_pro_forma_block_cell_for_cell(
+    fake: Any, tmp_path: Path
+) -> None:
+    """The fake engine's Primary CP-2 handoff through the app's own layout and delivery functions
+    (no server): the delivered capitalisation table and leverage tab are the frozen key's."""
+    from test_cpos_pro_forma_delivery import CP2_RUN, deliver
+
+    from deploy_vii.report_view import ReportView
+    from deploy_workflow.owners.cpos_launch import _layout
+
+    layout, _ = _layout(
+        CP2_RUN, ("CP-2",), (), "cfg", run_type="primary", legal_documents="executed"
+    )
+    routes = tuple((r.heading, r.kind) for r in layout.routes if r.module_id == "CP-2")
+    chosen = plan("CP-2", routes)
+    chosen["run"]["issuer_name"] = CP2_RUN.issuer_name  # the run delivery checks the title against
+    text = fake.handoff_markdown(context("CP-2"), chosen, instructions_for("CP-2", True))
+    files = deliver(tmp_path, CP2_RUN, "CP-2", text, "primary")
+    report = ReportView.model_validate_json(files["report-view.json"])
+    block = next(b for b in report.blocks if b.block_id == "pro-forma")
+    assert table_of(block) == DELIVERED["capitalisation"]
+    assert len(block.tabs) == 1
+    assert table_of(block.tabs[0]) == DELIVERED["leverage"]
