@@ -693,19 +693,27 @@ def _section_sentences(bound: tuple[Binding, ...], modules: list[ModuleView]) ->
     return tuple(dict.fromkeys(t.limitation for t in found if t is not None and t.limitation))
 
 
+# R-C2-5 (ruled for the pro-forma block only): its tabs come from several handoff tables, so each
+# table's prose carries its table's name. ponytail: a new block built from several tables of
+# differing units must be added here; every other block keeps its note as written.
+UNIT_SCOPED_NOTE_BLOCKS = frozenset({"pro-forma"})
+
+
 def _block_note(
+    block_id: str,
     labels: tuple[str, ...],
     bound: tuple[Binding, ...],
     modules: list[ModuleView],
     metadata: Mapping[str, Mapping[str, tuple[str, str]]],
 ) -> str | None:
-    """The note of a table block. A block of several tables (tabs) prefixes each table's whole
-    section prose with that table's section heading, so no unit sentence reads as the unit of
-    another table's tab; a table whose header has a `Reporting unit` column says its unit is
-    stated per row. A block of one table keeps its section sentences as written."""
+    """The note of a table block. A block in UNIT_SCOPED_NOTE_BLOCKS with several tables (tabs)
+    prefixes each table's whole section prose with that table's section heading, so no unit
+    sentence reads as the unit of another table's tab; a table whose header has a `Reporting unit`
+    column says its unit is stated per row. Any other block keeps its section sentences as
+    written."""
     tables = {(m.module_id, t.table_id): t for m in modules for t in m.tables}
     coords = dict.fromkeys((e.fact_coord.module_id, str(e.fact_coord.table_id)) for e in bound)
-    if len(coords) < 2:
+    if block_id not in UNIT_SCOPED_NOTE_BLOCKS or len(coords) < 2:
         return " · ".join(dict.fromkeys([*labels, *_section_sentences(bound, modules)])) or None
     parts = list(labels)
     for coord in coords:
@@ -1281,7 +1289,7 @@ def markdown_files(  # noqa: C901, PLR0912, PLR0915 - pre-existing complexity
                     row_header=primary.row_header,
                     columns=primary.columns,
                     rows=primary.rows,
-                    note=_block_note(labels, bound, module_views, metadata),
+                    note=_block_note(block_id, labels, bound, module_views, metadata),
                     tab_label=primary.label if tabs else None,
                     tabs=tabs,
                 )

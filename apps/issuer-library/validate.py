@@ -60,6 +60,7 @@ PYTHON_TESTS = (
     "tests/test_cpos_handoffs.py",
     "tests/test_cpos_comparison.py",
     "tests/test_markdown_delivery.py",
+    "tests/test_markdown_delivery_sections.py",
     "tests/test_pathway_handoff_charts.py",
     "tests/product/test_context.py",
     "tests/test_run_expectations.py",
