@@ -1189,3 +1189,228 @@ def test_reruns_follow_the_plan_order_not_the_alphabet(tmp_path, provider):
     (module_dir(folder, "CP-1") / "1.review.json").write_bytes(b"{not json")
     result = reruns_of(folder, request)
     assert [r["module"] for r in result["reruns"]] == ["CP-1", "CP-1A", "CP-2", "CP-4", "CP-2D"]
+
+
+ACCEPTED = ["CP-4:legal-none", "CP-2:quotes-none"]
+
+
+def approved_review(folder, counted):
+    """The approved review.json with distinctive values a recompute could not produce."""
+    review = bridge.review(folder)
+    review.update(
+        issue_classification="distinctive-classification",
+        documents=["distinctive-document.pdf"],
+        expectations=[
+            {"id": counted_id, "scope": "CP-4", "marker": "distinctive"} for counted_id in counted
+        ],
+        counted=list(counted),
+        without={"CP-9": ["CP-9", "CP-10"]},
+    )
+    bridge.write_json(folder / "review.json", review)
+    return review
+
+
+def watched_start(folder, run_dir, monkeypatch):
+    """Run `bridge.start` with the engine seam recording what exists when the engine is called."""
+    seen = []
+
+    def engine(manifest, directory, **kwargs):
+        seen.append(
+            {
+                "receipt": (folder / "start-authorization.md").is_file(),
+                "expectations": (run_dir / "expectations.json").is_file(),
+                "context": (run_dir / "context.json").is_file(),
+            }
+        )
+        report = directory / "deliveries" / "fake" / "report.html"
+        report.parent.mkdir(parents=True)
+        report.write_text("synthetic seam")
+        return report
+
+    monkeypatch.setattr(bridge, "run_live_handoffs", engine)
+    return seen
+
+
+def accepted_start(tmp_path, monkeypatch, counted):
+    folder, value = job(tmp_path)
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    review = approved_review(folder, counted)
+    run_dir = Path(value["workspace"]) / "runs" / value["id"]
+    seen = watched_start(folder, run_dir, monkeypatch)
+    bridge.start(folder)
+    return folder, run_dir, review, seen
+
+
+@pytest.mark.parametrize(
+    ("counted", "line"),
+    [(ACCEPTED, "accepted: CP-4:legal-none, CP-2:quotes-none"), ([], "accepted: none")],
+)
+def test_the_start_receipt_lists_the_accepted_ids_in_review_order(
+    tmp_path, monkeypatch, counted, line
+):
+    folder, _, review, _ = accepted_start(tmp_path, monkeypatch, counted)
+    lines = (folder / "start-authorization.md").read_text().splitlines()
+    assert line in lines
+    assert lines.count(line) == 1
+    for kept in ("lifts: live-provider-pause", "by: user", "configs: sol-medium"):
+        assert kept in lines
+    assert f"review: {review['review_id']}" in lines
+    assert any(item.startswith("date: ") for item in lines)
+
+
+def test_the_run_keeps_the_approved_expectations_under_one_review_id(tmp_path, monkeypatch):
+    folder, run_dir, review, _ = accepted_start(tmp_path, monkeypatch, ACCEPTED)
+    kept = json.loads((run_dir / "expectations.json").read_text())
+    assert set(kept) == {
+        "review_id",
+        "issue_classification",
+        "documents",
+        "expectations",
+        "counted",
+        "without",
+    }
+    assert kept == {
+        "review_id": review["review_id"],
+        "issue_classification": "distinctive-classification",
+        "documents": ["distinctive-document.pdf"],
+        "expectations": [
+            {"id": "CP-4:legal-none", "scope": "CP-4", "marker": "distinctive"},
+            {"id": "CP-2:quotes-none", "scope": "CP-4", "marker": "distinctive"},
+        ],
+        "counted": ACCEPTED,
+        "without": {"CP-9": ["CP-9", "CP-10"]},
+    }
+    receipt = (folder / "start-authorization.md").read_text().splitlines()
+    assert f"review: {kept['review_id']}" in receipt
+
+
+def test_the_run_keeps_the_reviewed_context_bytes_matching_the_plan_pin(tmp_path, monkeypatch):
+    folder, run_dir, _, _ = accepted_start(tmp_path, monkeypatch, ACCEPTED)
+    reviewed_bytes = (folder / "context.json").read_bytes()
+    assert (run_dir / "context.json").read_bytes() == reviewed_bytes
+    request = json.loads((folder / "job.json").read_text())
+    pin = bridge.launch(request, folder, tmp_path / "preview").plan.sources["context"].sha256
+    assert hashlib.sha256((run_dir / "context.json").read_bytes()).hexdigest() == pin
+    assert hashlib.sha256(reviewed_bytes).hexdigest() == pin
+
+
+def test_receipt_expectations_and_context_exist_before_the_engine_is_called(tmp_path, monkeypatch):
+    _, _, _, seen = accepted_start(tmp_path, monkeypatch, ACCEPTED)
+    assert seen == [{"receipt": True, "expectations": True, "context": True}]
+
+
+def change_cap(folder, value):
+    bridge.write_json(folder / "job.json", {**value, "cap_usd": "60"})
+
+
+def change_source(folder, value):
+    changed = folder / "sources" / value["sources"][0]["path"]
+    changed.write_text("changed after the review")
+    sources = [
+        {**item, "sha256": hashlib.sha256(changed.read_bytes()).hexdigest()}
+        if item is value["sources"][0]
+        else item
+        for item in value["sources"]
+    ]
+    bridge.write_json(folder / "job.json", {**value, "sources": sources})
+
+
+def change_context(folder, value):
+    data = json.loads((folder / "context.json").read_text())
+    data["identity"]["issuer_name"] = "A different issuer after the review"
+    (folder / "context.json").write_text(json.dumps(data))
+
+
+@pytest.mark.parametrize("change", [change_cap, change_source, change_context])
+def test_an_input_changed_after_the_review_is_stale_and_records_nothing(
+    tmp_path, monkeypatch, change
+):
+    folder, value = job(tmp_path)
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    approved_review(folder, ACCEPTED)
+    run_dir = Path(value["workspace"]) / "runs" / value["id"]
+    seen = watched_start(folder, run_dir, monkeypatch)
+    change(folder, value)
+    with pytest.raises(ValueError, match="review is stale"):
+        bridge.start(folder)
+    assert seen == [], "the engine was called for a stale review"
+    assert not (folder / "start-authorization.md").exists()
+    assert not run_dir.exists(), "a stale start left a run folder (expectations or context)"
+
+
+@pytest.mark.parametrize("target", ["expectations.json", "context.json"])
+def test_a_snapshot_that_cannot_be_written_stops_the_run_before_the_engine(
+    tmp_path, monkeypatch, target
+):
+    folder, value = job(tmp_path)
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    approved_review(folder, ACCEPTED)
+    run_dir = Path(value["workspace"]) / "runs" / value["id"]
+    seen = watched_start(folder, run_dir, monkeypatch)
+    real = bridge.replace
+
+    def failing(source, destination):
+        if Path(destination).name == target:
+            raise OSError(28, "No space left on device")
+        return real(source, destination)
+
+    monkeypatch.setattr(bridge, "replace", failing)
+    with pytest.raises(OSError, match="No space left"):
+        bridge.start(folder)
+    assert seen == [], "the engine was called after a snapshot write failed"
+
+
+def swapped_context_start(tmp_path, monkeypatch, *, pre_existing):
+    """`bridge.start` with the intake context changed just after `launch` pinned it."""
+    folder, value = job(tmp_path)
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    approved_review(folder, ACCEPTED)
+    run_dir = Path(value["workspace"]) / "runs" / value["id"]
+    if pre_existing:
+        run_dir.mkdir()
+        (run_dir / "sentinel.txt").write_text("kept")
+    seen = watched_start(folder, run_dir, monkeypatch)
+    real_launch = bridge.launch
+
+    def launch(request, directory, out):
+        prepared = real_launch(request, directory, out)
+        if Path(out).resolve() == run_dir.resolve():
+            context = folder / "context.json"
+            context.write_bytes(context.read_bytes() + b" ")  # After the pin, before Start reads
+        return prepared
+
+    monkeypatch.setattr(bridge, "launch", launch)
+    with pytest.raises(ValueError, match="review is stale"):
+        bridge.start(folder)
+    return folder, run_dir, seen
+
+
+@pytest.mark.parametrize("pre_existing", [False, True])
+def test_a_context_changed_after_launch_pinned_it_is_stale_and_records_nothing(
+    tmp_path, monkeypatch, pre_existing
+):
+    """The review id is still equal here (it ignores context bytes read later): only the
+    context pin check can refuse this."""
+    folder, run_dir, seen = swapped_context_start(tmp_path, monkeypatch, pre_existing=pre_existing)
+    assert seen == [], "the engine was called for a stale context"
+    assert not (folder / "start-authorization.md").exists()
+    assert not (run_dir / "expectations.json").exists()
+    assert not (run_dir / "context.json").exists()
+    if pre_existing:
+        assert (run_dir / "sentinel.txt").read_text() == "kept"
+    else:
+        assert not run_dir.exists(), "launch's own run folder was left behind"
+
+
+def test_the_kept_expectations_have_exactly_the_six_keys_of_the_approved_review():
+    """Ruling 12: `reruns` and `retained_outcomes` stay in review.json only."""
+    assert len(bridge.EXPECTATION_KEYS) == 6
+    assert set(bridge.EXPECTATION_KEYS) == {
+        "review_id",
+        "issue_classification",
+        "documents",
+        "expectations",
+        "counted",
+        "without",
+    }
+    assert not {"reruns", "retained_outcomes"} & set(bridge.EXPECTATION_KEYS)

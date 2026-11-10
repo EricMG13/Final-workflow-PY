@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import errno
 import hashlib
 import json
 import logging
@@ -732,7 +733,7 @@ RESUME_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns'],'resume_of':job.get('resume_of')}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd'],'max_turns':job['max_turns'],'resume_of':job.get('resume_of')}))
 else:
  with (folder/'synthetic-starts.txt').open('a') as stream: stream.write('one\\n')
  while (folder/'hold').exists(): time.sleep(.02)
@@ -1083,7 +1084,7 @@ HELD_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[]}))
 else:
  deadline=time.time()+60
  while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
@@ -1408,7 +1409,7 @@ RECORDING_BRIDGE = """import json,os,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[]}))
 else:
  ws=folder.parent.parent
  with (ws/'worker-starts.txt').open('a') as s: s.write(folder.name+' '+str(os.getpid())+'\\n')
@@ -2063,7 +2064,7 @@ folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
  time.sleep(SECONDS)
- print(json.dumps({'ok':True,'review_id':'rid','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'rid','id':job['id'],'provider_ready':True,'counted':[]}))
 """
 HELD_REVIEW_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
@@ -2071,7 +2072,7 @@ job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
  deadline=time.time()+60
  while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[]}))
 else:
  (folder/'synthetic-starts.txt').write_text('one\\n')
  (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'Synthetic only'}))
@@ -2593,7 +2594,7 @@ HOLD_FILE_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
 else:
  while (folder/'hold').exists(): time.sleep(.02)
  (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'synthetic'}))
@@ -2602,7 +2603,7 @@ EXIT_GATE_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd'],'max_turns':job['max_turns']}))
 else:
  (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'synthetic'}))
  while (folder/'exit-gate').exists(): time.sleep(.02)
@@ -3108,3 +3109,351 @@ def test_a_transient_lock_open_error_keeps_a_held_lock_job_active(
         os.close(holder)
     assert jobs_module.still_active(app, job_id), "a held lock's job left active_jobs on EMFILE"
     assert state_of(folder)["state"] == "running" and not notices
+
+
+# PR1 answer key (R-SB2-7 ruling 4): Start validates the optional `accept_limitations` (a JSON
+# boolean) and otherwise behaves the same whether it is true, false or absent. Nothing is
+# recorded as accepted: the fake worker writes a receipt, and no `accepted:` line may reach it.
+ACCEPT_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+counted=json.loads((pathlib.Path(__file__).parent/'counted.json').read_text())
+if sys.argv[1]=='review':
+ rows=[{'id':i,'scope':i.split(':')[0],'outcome':'will_refuse','reason':'r','fix':'f','basis':'b',
+  'evidence':'per method','counted':True,'inherited_from':[]} for i in counted]
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,
+  'cap_usd':job['cap_usd'],'expectations':rows,'counted':counted}))
+else:
+ with (folder/'synthetic-starts.txt').open('a') as stream: stream.write('one\\n')
+ (folder/'start-authorization.md').write_text('review_id: review-fingerprint\\nconfirm: true\\n')
+ time.sleep(.15)
+ (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'Synthetic seam.'}))
+"""
+COUNTED_ITEMS = ["CP-4:legal-none", "CP-4:from:CP-0"]
+
+
+def accept_app(tmp_path: Path, counted: list[str]) -> tuple[Application, Path, TestClient, str]:
+    app, root = make_app(tmp_path)
+    engine = tmp_path / "accept-engine"
+    engine.mkdir()
+    (engine / "bridge.py").write_text(ACCEPT_BRIDGE)
+    (engine / "store.py").write_text(FAKE_STORE)
+    (engine / "counted.json").write_text(json.dumps(counted))
+    app.engine = Engine(root=engine, python=sys.executable)
+    client = client_of(app)
+    response = review_request(client, '["annual.txt"]')
+    assert response.status_code == 200, response.text
+    return app, root, client, response.json()["id"]
+
+
+def accept_start(job_id: str, **extra: Any) -> str:
+    body = {"id": job_id, "review_id": "review-fingerprint", "confirm": True, **extra}
+    return json.dumps(body)
+
+
+def workspace_outcome(
+    app: Application, root: Path, client: TestClient, job_id: str, body: str
+) -> Any:
+    """Status, body, every file below the workspace (job id masked) and the worker's receipt."""
+    response = client.post("/api/runs/start", content=body, headers=POST_HEADERS)
+    wait_idle(app)
+    folder = root / "intake" / job_id
+    files = sorted(
+        str(path.relative_to(root)).replace(job_id, "JOB")
+        for path in root.rglob("*")
+        if path.is_file()
+    )
+    texts = {
+        name: (folder / name).read_text()
+        for name in ("synthetic-starts.txt", "start-authorization.md")
+        if (folder / name).is_file()
+    }
+    everything = "".join(
+        path.read_text(errors="replace") for path in root.rglob("*") if path.is_file()
+    )
+    return (response.status_code, response.text.replace(job_id, "JOB"), files, texts, everything)
+
+
+# The Task 6a gate supersedes #74's "accept_limitations has no effect" condition for a review that
+# counts items (R-SB2-6 ruling 2); it still holds when nothing is counted.
+@pytest.mark.parametrize("counted", [[]], ids=["counts-none"])
+def test_start_is_the_same_with_accept_limitations_true_false_or_absent(
+    tmp_path: Path, counted: list[str]
+) -> None:
+    outcomes = {}
+    for name, extra in {
+        "absent": {},
+        "true": {"accept_limitations": True},
+        "false": {"accept_limitations": False},
+    }.items():
+        app, root, client, job_id = accept_app(tmp_path / name, counted)
+        outcomes[name] = workspace_outcome(app, root, client, job_id, accept_start(job_id, **extra))
+    status, body, files, texts, _ = outcomes["absent"]
+    assert status == 202 and '"state":"running"' in body.replace(" ", "")
+    assert texts["synthetic-starts.txt"] == "one\n" and "start.claim" in "".join(files)
+    for name in ("true", "false"):
+        assert outcomes[name][:4] == outcomes["absent"][:4], f"accept_limitations={name} differs"
+    for name, outcome in outcomes.items():
+        assert "accepted:" not in outcome[4], f"{name}: an accepted line was recorded"
+        assert "accept_limitations" not in outcome[4], f"{name}: the field was recorded"
+
+
+@pytest.mark.parametrize(
+    ("fields", "status"),
+    [({}, 400), ({"accept_limitations": False}, 400), ({"accept_limitations": True}, 202)],
+    ids=["absent", "false", "true"],
+)
+def test_a_stored_review_that_counts_items_needs_acceptance_to_start(
+    tmp_path: Path, fields: dict[str, Any], status: int
+) -> None:
+    """The gate reads the stored review's `counted`, never the request or the page's reply."""
+    app, root, client, job_id = accept_app(tmp_path, COUNTED_ITEMS)
+    response = client.post(
+        "/api/runs/start", content=accept_start(job_id, **fields), headers=POST_HEADERS
+    )
+    assert response.status_code == status, response.text
+    if status == 400:
+        assert response.text == "Accept the listed limitations before starting\n"
+        assert_nothing_started(app, root, job_id)
+    else:
+        wait_idle(app)
+        assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
+
+
+@pytest.mark.parametrize("value", ["true", "false", 1, 0, None, [], {}, "", 1.0])
+def test_a_non_boolean_accept_limitations_is_refused_before_any_claim(
+    tmp_path: Path, value: Any
+) -> None:
+    _, root, client, job_id = accept_app(tmp_path, COUNTED_ITEMS)
+    response = client.post(
+        "/api/runs/start",
+        content=accept_start(job_id, accept_limitations=value),
+        headers=POST_HEADERS,
+    )
+    assert response.status_code == 400, f"{value!r} accepted: {response.text}"
+    folder = root / "intake" / job_id
+    assert not (folder / "start.claim").exists() and not (folder / "synthetic-starts.txt").exists()
+
+
+@pytest.mark.parametrize("extra", [{"accepted": True}, {"accept_limitation": True}, {"x": 1}])
+def test_an_unknown_start_key_is_still_refused_beside_accept_limitations(
+    tmp_path: Path, extra: dict[str, Any]
+) -> None:
+    _, root, client, job_id = accept_app(tmp_path, COUNTED_ITEMS)
+    body = accept_start(job_id, accept_limitations=True, **extra)
+    response = client.post("/api/runs/start", content=body, headers=POST_HEADERS)
+    assert response.status_code == 400, response.text
+    assert not (root / "intake" / job_id / "start.claim").exists()
+
+
+MISSING = object()
+LISTED = ["CP-4:legal-none", "CP-2:quotes-none"]
+ACCEPT_REFUSAL = "Accept the listed limitations before starting"
+REVIEW_AGAIN = "Review this run again before starting"
+
+
+def reviewed_with_counted(
+    tmp_path: Path, counted: object
+) -> tuple[Application, Path, TestClient, str]:
+    """A reviewed job whose approved review.json lists `counted` (MISSING leaves the key out)."""
+    app, root, client, job_id = reviewed(tmp_path)
+    path = root / "intake" / job_id / "review.json"
+    review = json.loads(path.read_bytes())
+    if counted is MISSING:
+        review.pop("counted", None)
+    else:
+        review["counted"] = counted
+    save_json(path, review)
+    return app, root, client, job_id
+
+
+def accept_body(job_id: str, **fields: Any) -> str:
+    return json.dumps({"id": job_id, "review_id": "review-fingerprint", "confirm": True, **fields})
+
+
+def assert_nothing_started(app: Application, root: Path, job_id: str) -> None:
+    folder = root / "intake" / job_id
+    assert not (folder / "start.claim").exists(), "a refused start took the one-shot claim"
+    assert not (folder / "synthetic-starts.txt").exists(), "a worker was launched"
+    assert not (root / "runs" / job_id).exists(), "a refused start created runs/<id>"
+    assert not app.active_jobs, "a refused start marked the job active"
+
+
+def post_start(client: TestClient, body: str) -> Any:
+    return client.post("/api/runs/start", content=body, headers=POST_HEADERS)
+
+
+@pytest.mark.parametrize("fields", [{}, {"accept_limitations": False}])
+def test_start_with_counted_limitations_needs_acceptance(
+    tmp_path: Path, fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, LISTED)
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 400 and ACCEPT_REFUSAL in response.text
+    assert_nothing_started(app, root, job_id)
+
+
+def test_start_with_counted_limitations_accepted_starts(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, LISTED)
+    response = post_start(client, accept_body(job_id, accept_limitations=True))
+    assert response.status_code == 202 and response.json()["state"] == "running"
+    assert (root / "intake" / job_id / "start.claim").exists()
+    wait_idle(app)
+    assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
+
+
+@pytest.mark.parametrize(
+    "fields", [{}, {"accept_limitations": False}, {"accept_limitations": True}]
+)
+def test_start_with_nothing_counted_needs_no_acceptance(
+    tmp_path: Path, fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, [])
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 202 and response.json()["state"] == "running"
+    assert (root / "intake" / job_id / "start.claim").exists()
+    wait_idle(app)
+
+
+@pytest.mark.parametrize(
+    "fields",
+    [
+        {"accept_limitations": "true"},
+        {"accept_limitations": 1},
+        {"accept_limitations": None},
+        {"accept_limitations": True, "extra": 1},
+    ],
+)
+@pytest.mark.parametrize("counted", [[], LISTED])
+def test_start_refuses_a_non_boolean_acceptance_or_unknown_key(
+    tmp_path: Path, counted: list[str], fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, counted)
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 400, response.text
+    assert "Explicit confirmation of a reviewed run is required" in response.text
+    assert_nothing_started(app, root, job_id)
+
+
+@pytest.mark.parametrize(
+    "counted", [MISSING, None, "CP-4:legal-none", [1], [["CP-4:legal-none"]], {"a": "b"}]
+)
+@pytest.mark.parametrize("fields", [{}, {"accept_limitations": True}])
+def test_start_with_a_malformed_counted_is_the_invalid_review_answer(
+    tmp_path: Path, counted: object, fields: dict[str, Any]
+) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, counted)
+    response = post_start(client, accept_body(job_id, **fields))
+    assert response.status_code == 409 and response.text == REVIEW_AGAIN + "\n"
+    assert_nothing_started(app, root, job_id)
+
+
+def test_a_refused_acceptance_leaves_the_job_startable(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed_with_counted(tmp_path, LISTED)
+    for fields in ({}, {"accept_limitations": False}, {"accept_limitations": "yes"}):
+        assert post_start(client, accept_body(job_id, **fields)).status_code == 400
+        assert_nothing_started(app, root, job_id)
+    again = post_start(client, accept_body(job_id, accept_limitations=True))
+    assert again.status_code == 202, again.text
+    wait_idle(app)
+    assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
+
+
+OLD_REVIEW_KEYS = [
+    "ok",
+    "review_id",
+    "id",
+    "engine_revision",
+    "issuer",
+    "issuer_id",
+    "pathway",
+    "as_of",
+    "modules",
+    "module_details",
+    "config",
+    "provider",
+    "model",
+    "effort",
+    "cap_usd",
+    "hold_usd",
+    "max_turns",
+    "resume_of",
+    "retained_modules",
+    "retained_note",
+    "prices_as_of",
+    "provider_ready",
+    "provider_key",
+    "sources",
+    "ignored",
+    "report_sections",
+    "omitted",
+    "scope",
+]
+
+
+def test_a_review_written_before_expectations_must_be_made_again(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    path = root / "intake" / job_id / "review.json"
+    current = json.loads(path.read_bytes())
+    old = {key: current.get(key, "x") for key in OLD_REVIEW_KEYS}
+    old.update(review_id="review-fingerprint", provider_ready=True)
+    for key in ("issue_classification", "documents", "expectations", "counted", "without"):
+        assert key not in old
+    save_json(path, old)
+    for fields in ({}, {"accept_limitations": True}):
+        response = post_start(client, accept_body(job_id, **fields))
+        assert response.status_code == 409 and response.text == REVIEW_AGAIN + "\n"
+        assert_nothing_started(app, root, job_id)
+    save_json(path, {**old, "counted": []})  # A fresh review lists its counted items.
+    assert post_start(client, accept_body(job_id)).status_code == 202
+    wait_idle(app)
+
+
+def test_a_lock_error_other_than_contention_keeps_the_job_watched(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    """ENOLCK (a network share) once, at the lock call that proves a worker dead: the watcher
+    must survive, the job stay active until the error clears, then settle and leave."""
+    monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
+    app, root, clock, _ = clocked_app(tmp_path)
+    app.pause = clock.add  # The tab-watch grace wait runs on the fake clock, not real time.
+    job_id = "web-" + "ab" * 16
+    folder = root / "intake" / job_id
+    folder.mkdir(parents=True)
+    (folder / "status.json").write_text('{"state":"running","message":"x"}')
+    (folder / "worker.lock").write_bytes(b"")
+    real = jobs_module.fcntl
+    failures: list[int] = []
+
+    def flock(descriptor: int, operation: int) -> None:
+        if threading.current_thread().name == "watcher" and not failures:
+            failures.append(1)
+            raise OSError(errno.ENOLCK, "No locks available")
+        real.flock(descriptor, operation)
+
+    monkeypatch.setattr(
+        jobs_module,
+        "fcntl",
+        SimpleNamespace(flock=flock, LOCK_EX=real.LOCK_EX, LOCK_NB=real.LOCK_NB),
+    )
+    died: list[str] = []
+    monkeypatch.setattr(threading, "excepthook", lambda args: died.append(repr(args.exc_value)))
+    app.active_jobs.add(job_id)
+
+    class Done:
+        def wait(self) -> int:
+            return 0
+
+    caplog.set_level(logging.WARNING)
+    watcher = threading.Thread(
+        target=jobs_module.watch, args=(app, job_id, folder, Done()), name="watcher", daemon=True
+    )
+    watcher.start()
+    watcher.join(5)
+    assert failures == [1], "the injected lock error never fired"
+    assert died == [], f"the watch thread died on a lock error: {died}"
+    assert not watcher.is_alive(), "the watcher never settled the job after the error cleared"
+    with app.lock:
+        assert job_id not in app.active_jobs
+    assert state_of(folder)["state"] == "interrupted"
+    assert any("No locks available" in message for message in adoption_warnings(caplog))

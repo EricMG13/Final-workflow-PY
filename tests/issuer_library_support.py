@@ -25,7 +25,7 @@ FAKE_BRIDGE = """import json,sys,pathlib,time
 folder=pathlib.Path(sys.argv[2])
 job=json.loads((folder/'job.json').read_text())
 if sys.argv[1]=='review':
- print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'cap_usd':job['cap_usd']}))
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True,'counted':[],'cap_usd':job['cap_usd']}))
 else:
  with (folder/'synthetic-starts.txt').open('a') as stream: stream.write('one\\n')
  time.sleep(.15)

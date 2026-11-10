@@ -5,6 +5,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -13,6 +14,7 @@ from contextlib import nullcontext
 from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
+from typing import Any
 
 import pytest
 
@@ -295,9 +297,7 @@ def test_a_failure_before_the_signal_keeps_its_kind(monkeypatch, tmp_path) -> No
 A_LIVE = ROOT / "cases/live-tdg-fy2024/a-live"
 
 
-def test_accept_limitations_fails_fast_until_stage_2(tmp_path: Path) -> None:
-    done = refuse(tmp_path, "--case", str(A_LIVE), "--accept-limitations", "--rehearse")
-    assert done.returncode == 2 and "Stage 2" in done.stderr and len(done.stderr.splitlines()) == 1
+# R-SB2-7 ruling 5 retired the Stage 2 refusal of --accept-limitations; see the parse test below.
 
 
 def test_case_defaults_come_from_the_frozen_case_and_missing_files_refuse(tmp_path: Path) -> None:
@@ -568,3 +568,220 @@ def test_the_server_is_started_on_a_free_port_not_a_fixed_one(monkeypatch, tmp_p
     args = SimpleNamespace(rehearse=True, case_data=None)
     live_check.run_walk(bc, args, tmp_path, {}, {})
     assert walked == [41234] and not hasattr(live_check, "PORT")
+
+
+# PR1 answer key (R-SB2-7 ruling 5): --accept-limitations is accepted at argument parsing and the
+# walk ticks the acceptance box when the Review step shows one. Without the flag and with N > 0
+# the walk refuses before Start, naming the flag and N; it never ticks the box by itself.
+# There is no seam for the walk besides `walk` itself, so it runs on a real page holding only the
+# contract's ids (#run-confirm, #run-accept inside a label, #start-run, #progress-step, #open-run).
+def review_page(browser: Any, items: int) -> Any:
+    """Start is enabled by both ticks (the box only exists when items are counted)."""
+    box = (
+        f'<label><input id="run-accept" type="checkbox">I accept these {items} items</label>'
+        if items
+        else ""
+    )
+    page = browser.new_page()
+    page.set_default_timeout(3000)
+    page.set_content(
+        f"""<section id="review-step"><label><input id="run-confirm" type="checkbox">approve
+        </label>{box}<button id="start-run" disabled>Start run</button></section>
+        <section id="progress-step" hidden><div id="run-progress">Complete: done</div>
+        <button id="open-run" hidden>Open</button></section>
+        <script>window.__starts=0;
+        const sync=()=>{{const a=document.getElementById('run-accept');
+          document.getElementById('start-run').disabled=
+            !document.getElementById('run-confirm').checked||(a!==null&&!a.checked);}};
+        document.addEventListener('change',sync);
+        document.getElementById('start-run').addEventListener('click',()=>{{window.__starts++;
+          document.getElementById('progress-step').hidden=false;
+          document.getElementById('open-run').hidden=false;}});</script>"""
+    )
+    return page
+
+
+def walk_on(
+    monkeypatch: pytest.MonkeyPatch, page: Any, flag: bool, frozen: int | None = None
+) -> None:
+    for name in ("fill_form", "check_run"):
+        monkeypatch.setattr(live_check, name, lambda *a, **k: None)
+    monkeypatch.setattr(live_check, "check_review", lambda *a, **k: [])
+    bc = SimpleNamespace(errors_of=lambda page: [], note=lambda *a, **k: None)
+    case = None if frozen is None else {"expected-outcomes": {"counted_total": frozen}}
+    args = SimpleNamespace(accept_limitations=flag, minutes=1, case_data=case)
+    browser = SimpleNamespace(new_page=lambda **options: page)
+    live_check.walk(bc, browser, args, Path("."), {})
+
+
+def test_accept_limitations_parses_without_the_not_available_refusal(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("FW_PYTHON", sys.executable)
+    args = live_check.parse(["--cap", "5", "--accept-limitations", "--rehearse"])
+    assert args.accept_limitations is True
+    done = refuse(tmp_path, "--cap", "5", "--accept-limitations", "--rehearse", keep=True)
+    assert "not available" not in done.stderr and "Stage 2" not in done.stderr
+
+
+@pytest.mark.browser
+def test_the_walk_ticks_the_acceptance_box_when_the_flag_is_given(
+    browser: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    page = review_page(browser, 4)
+    walk_on(monkeypatch, page, True)
+    assert page.evaluate("document.getElementById('run-accept').checked")
+    assert page.evaluate("window.__starts") == 1
+
+
+@pytest.mark.browser
+def test_the_walk_refuses_before_start_without_the_flag_naming_the_flag_and_n(
+    browser: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    page = review_page(browser, 4)
+    with pytest.raises(Exception, match=r"--accept-limitations") as raised:
+        walk_on(monkeypatch, page, False)
+    assert "4" in str(raised.value) and "Timeout" not in type(raised.value).__name__
+    assert page.evaluate("window.__starts") == 0
+    assert not page.evaluate("document.getElementById('run-accept').checked"), "ticked on its own"
+
+
+@pytest.mark.browser
+@pytest.mark.parametrize("flag", [False, True])
+def test_the_walk_needs_no_flag_when_nothing_is_counted(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, flag: bool
+) -> None:
+    page = review_page(browser, 0)
+    walk_on(monkeypatch, page, flag)
+    assert page.evaluate("window.__starts") == 1
+
+
+# PR2 answer key (lead review of #74): the flag accepts exactly the N the case froze, and the walk
+# says which N it accepts. A different N is a Refusal before Start (the box stays unticked).
+@pytest.mark.browser
+def test_the_flag_accepts_the_frozen_number_and_prints_it(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    page = review_page(browser, 4)
+    walk_on(monkeypatch, page, True, frozen=4)
+    assert page.evaluate("document.getElementById('run-accept').checked")
+    assert page.evaluate("window.__starts") == 1
+    assert re.search(r"\b4\b", capsys.readouterr().out), "the accepted N was not printed"
+
+
+@pytest.mark.browser
+@pytest.mark.parametrize(("items", "frozen"), [(4, 3), (4, 5), (0, 2)])
+def test_the_flag_refuses_before_start_when_n_differs_from_the_frozen_count(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, items: int, frozen: int
+) -> None:
+    page = review_page(browser, items)
+    with pytest.raises(live_check.Refusal) as raised:
+        walk_on(monkeypatch, page, True, frozen=frozen)
+    assert str(items) in str(raised.value) and str(frozen) in str(raised.value)
+    assert page.evaluate("window.__starts") == 0, "Start was clicked"
+    assert not page.evaluate("!!document.getElementById('run-accept')?.checked"), "ticked"
+
+
+@pytest.mark.browser
+def test_the_flag_with_nothing_counted_proceeds_and_says_so(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    page = review_page(browser, 0)
+    walk_on(monkeypatch, page, True, frozen=0)
+    assert page.evaluate("window.__starts") == 1
+    out = capsys.readouterr().out.lower()
+    assert "nothing" in out and "counted" in out, out
+
+
+@pytest.mark.browser
+def test_an_n_mismatch_refusal_ends_the_run_with_exit_2_not_a_recorded_fault(
+    browser: Any, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Lead: REFUSE means no Start and exit 2. `walk` runs inside the real `attempt`, which turns
+    any exception into a fault and exit 1; a Refusal must get past it."""
+    import browser_check as bc
+
+    for name in live_check.KEYS:
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("FW_PYTHON", sys.executable)
+    for name, value in {
+        "FAULTS": Faults(),
+        "results": [],
+        "S": tmp_path,
+        "WALK": "",
+        "PY": "",
+        "NEW_SESSION": False,
+        "scan_server_logs": lambda: None,
+        "secrets": list,
+    }.items():
+        monkeypatch.setattr(bc, name, value)
+    for name in ("fill_form", "check_run"):
+        monkeypatch.setattr(live_check, name, lambda *a, **k: None)
+    monkeypatch.setattr(live_check, "check_review", lambda *a, **k: [])
+    page = review_page(browser, 4)
+    stand_in = SimpleNamespace(new_page=lambda **options: page, pages=[])
+
+    def run_walk(bc: Any, args: Any, out: Path, summary: dict[str, Any], held: Any) -> None:
+        args.case_data = {
+            "case": {"label": "stand-in"},
+            "expected-outcomes": {"counted_total": 3},  # the page shows 4
+        }
+        bc.attempt("live", stand_in, lambda: live_check.walk(bc, stand_in, args, out, summary))
+
+    monkeypatch.setattr(live_check, "run_walk", run_walk)
+    saved = {s: signal.getsignal(s) for s in live_check.HALTING}
+    try:
+        code = live_check.main(
+            ["--cap", "1", "--rehearse", "--accept-limitations", "--out", str(tmp_path / "o")]
+        )
+    finally:
+        for sig, handler in saved.items():
+            signal.signal(sig, handler)
+    assert code == 2, f"exit status {code}"
+    assert page.evaluate("window.__starts") == 0, "Start was clicked"
+    assert [f.kind for f in bc.FAULTS.items] == [], "the refusal was recorded as a fault"
+
+
+# PR2 ruling: --accept-limitations needs a frozen count to check N against, which only --case
+# supplies. A paid run without one is refused at argument parsing; a rehearsal (no spend) is not.
+def test_a_paid_accept_limitations_run_without_a_case_is_refused_at_parse(tmp_path: Path) -> None:
+    done = refuse(tmp_path, "--cap", "1", "--accept-limitations")
+    assert done.returncode == 2, (done.returncode, done.stderr[-300:])
+    assert "--case" in done.stderr and len(done.stderr.splitlines()) == 1, done.stderr
+    assert not (tmp_path / "out").exists(), "something was launched"
+
+
+def test_a_rehearsed_accept_limitations_run_without_a_case_is_not_refused_at_parse(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("FW_PYTHON", sys.executable)
+    args = live_check.parse(["--cap", "1", "--accept-limitations", "--rehearse"])
+    assert args.accept_limitations is True and args.case_data is None
+
+
+# The app's form re-serialises the case's context.json, so the run's snapshot is compared with the
+# reviewed intake bytes (byte for byte) and with the case's content (parsed), not the case's bytes.
+CASE_CONTEXT = {"run": {"pathway": "x"}, "identity": {"issuer_name": "A"}}
+
+
+def context_faults(tmp_path: Path, *, run: bytes, intake: bytes, case: dict) -> list[str]:
+    ws, run_dir, review = _workspace(tmp_path)
+    (ws / "intake" / "web-1" / "context.json").write_bytes(intake)
+    (run_dir / "context.json").write_bytes(run)
+    args = _args(tmp_path)
+    args.case_data["context_path"].write_text(json.dumps(case, indent=4))  # not the app's bytes
+    found = live_check.required_outputs(args, ws, run_dir, review, "")
+    return [f for f in found if "context" in f]
+
+
+def test_the_run_context_is_checked_against_the_reviewed_bytes_and_the_case_content(
+    tmp_path: Path,
+) -> None:
+    same = json.dumps(CASE_CONTEXT, sort_keys=True).encode()  # the form's own serialisation
+    assert context_faults(tmp_path / "a", run=same, intake=same, case=CASE_CONTEXT) == []
+    other = same + b" "
+    changed = context_faults(tmp_path / "b", run=other, intake=same, case=CASE_CONTEXT)
+    assert len(changed) == 1 and re.search(r"intake|reviewed", changed[0]), changed
+    different = {**CASE_CONTEXT, "identity": {"issuer_name": "B"}}
+    wrong = context_faults(tmp_path / "c", run=same, intake=same, case=different)
+    assert len(wrong) == 1 and "case" in wrong[0] and not re.search(r"intake|reviewed", wrong[0])

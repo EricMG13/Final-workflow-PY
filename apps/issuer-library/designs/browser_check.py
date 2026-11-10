@@ -812,19 +812,30 @@ def new_run(  # noqa: PLR0915, RUF100
     note(
         ISSUER in text
         and "Source readiness" in text
-        and "CP-0" not in text
+        and "CP-0" not in page.inner_text("#run-review .review-modules")
         and "gpt-6.1-sol" in text,
         f"{name}: review shows the launcher's plan",
     )
     note(page.is_disabled("#start-run"), f"{name}: Start stays disabled before approval")
     note(not any(Path(workspace, "runs").iterdir()), f"{name}: review created no run")
-    page.locator("#run-review details").first.click()
+    page.locator('#run-review details:has(summary:text-matches("^Source files"))').click()
     note(
         "chart.png" in page.inner_text("#run-review"),
         f"{name}: review lists the file no module can read",
     )
     page.screenshot(path=str(S / f"{name}-review.png"))
     page.check("#run-confirm")
+    owed = page.locator("#expected-outcomes tr[data-id]:not(:has(.not-counted))").count()
+    note(
+        page.locator("#run-accept").count() == int(owed > 0),
+        f"{name}: the acceptance box exists exactly when the review counts items ({owed})",
+    )
+    if owed:
+        note(
+            page.is_disabled("#start-run"),
+            f"{name}: Start stays disabled until the acceptance is ticked",
+        )
+        page.check("#run-accept")
     page.click("#start-run")
     page.wait_for_selector("#progress-step:not([hidden])")
     page.wait_for_selector("#open-run:not([hidden])", timeout=180000)
@@ -1170,7 +1181,9 @@ def attempt(walk: str, browser: SignedBrowser, action: Any) -> None:
     opened = len(browser.pages)
     try:
         action()
-    except (Exception, SystemExit) as error:  # noqa: BLE001
+    except (Exception, SystemExit) as error:
+        if getattr(error, "ends_run", False):  # a Refusal before spend: the caller exits 2
+            raise
         artifacts: list[str] = []
         detail = f"{type(error).__name__}: {str(error)[:600]}"
         # Only pages this walk opened; a name already used gets a number, so nothing is overwritten.
