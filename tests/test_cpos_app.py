@@ -1874,6 +1874,36 @@ def test_a_writer_failure_leaves_the_finished_run_as_it_was_and_says_so(
     assert rejected(discovered(run_dir)[1]) == []
 
 
+def test_the_stderr_line_of_a_library_entry_failure_is_redacted_like_the_status_line(
+    tmp_path, provider, monkeypatch, capsys
+):
+    folder, _ = finished_setup(tmp_path, provider)
+    dummy_key = "not-a-real-key-123"
+    dummy_token = "sk-ant-abcdefghijklmnop"
+    for variable in bridge.KEY_VARIABLES.values():
+        monkeypatch.setenv(variable, dummy_key)
+
+    def fails(*args, **kwargs):
+        raise ValueError(f"leaked {dummy_key} and {dummy_token}")
+
+    monkeypatch.setattr(bridge.library_manifest, "write", fails)
+    capsys.readouterr()
+    bridge.start(folder)
+    err = capsys.readouterr().err
+    status_text = (folder / "status.json").read_text()
+    lines = [x for x in err.splitlines() if x.startswith("Library entry not written: ")]
+    parts = [
+        p
+        for p in status_of(folder)["message"].split("; ")
+        if p.startswith("Library entry not written: ")
+    ]
+    assert len(lines) == 1 and len(parts) == 1
+    assert lines[0] == parts[0]
+    for text in (err, status_text):
+        assert dummy_key not in text and dummy_token not in text
+        assert "[redacted]" in text
+
+
 def test_a_stopped_run_writes_no_library_entry(tmp_path, provider):
     _, run_dir, _, _ = stopped_after_the_first_module(tmp_path, provider)
     assert not (run_dir / "library.json").exists()
