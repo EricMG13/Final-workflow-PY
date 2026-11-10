@@ -905,6 +905,7 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
         lock = hold_worker_lock(folder / "worker.lock")
     except OSError as error:
         raise HTTPException(500, f"Could not prepare the run lock; {NOT_STARTED}") from error
+    spawn_failed = False
     try:
         running = {
             "state": "running",
@@ -919,6 +920,7 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
         try:
             return lib.engine.start(folder, lock)
         except OSError as error:
+            spawn_failed = True
             message = f"CP-OS runtime could not start; {NOT_STARTED}"
             try:
                 save_json(
@@ -931,6 +933,21 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
             raise HTTPException(503, message) from error
     finally:
         release_lock(lock)
+        if spawn_failed:
+            remove_failed_run_lock(folder / "worker.lock", job_id)
+
+
+def remove_failed_run_lock(path: Path, job_id: str) -> None:
+    """Unlink the lock of a start whose spawn failed, so a stray fork's copy locks a dead inode.
+
+    No worker holds this inode, and the next start creates a fresh file under lib.lock.
+    """
+    try:
+        os.remove(path)
+    except FileNotFoundError:
+        pass
+    except OSError as error:
+        log.warning("Remove the run lock of %s after a failed start: %s", job_id, error)
 
 
 def read_job_state(folder: Path) -> str | None:
