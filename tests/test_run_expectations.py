@@ -937,6 +937,8 @@ _R_SB2_2C_POS = [
     "CREDIT AGREEMENT (Execution Version)",
     "CREDIT AGREEMENT (Conformed Copy)",
     "CREDIT AGREEMENT - Execution Version",
+    "Credit Agreement, as amended through March 1, 2015",
+    "CREDIT AGREEMENT as amended through March 1, 2015",
     "Credit Agreement, as amended by the First Amendment",
 ]
 
@@ -1036,6 +1038,7 @@ _R_SB2_2C_FIX1_POS = [
     "Credit Agreement, as amended",
     "CREDIT AGREEMENT, AS AMENDED.",
     "Credit Agreement, as amended to date",
+    "Credit Agreement, as amended and restated as of March 1, 2015",
     "Credit Agreement, as amended from time to time",
     "1st Amended and Restated Credit Agreement",
     "2nd Amended and Restated Credit Agreement",
@@ -1116,10 +1119,8 @@ def test_r_sb2_2c_this_lender_presentation_is_not_a_lender_presentation() -> Non
 # BODY-NEW rows of probes/pr71/main_vs_head.py). After `as amended` (optionally `and restated`) the
 # rest of the line is punctuation/end, or through|by|to|on|as of|from time to time ... to the end of
 # the line with no comma inside it and at most 80 characters; a "This" opener never takes it.
-# Flipped by the ruling (comma inside the tail), old -> new, moved out of the R-SB2-2c lists:
-#   _R_SB2_2C_POS  "Credit Agreement, as amended through March 1, 2015": credit_agreement -> not
-#   _R_SB2_2C_POS  "CREDIT AGREEMENT as amended through March 1, 2015": credit_agreement -> not
-#   _R_SB2_2C_FIX1_POS "Credit Agreement, as amended and restated as of March 1, 2015": -> not
+# The one comma allowed inside the tail is a date comma (<Month> <d>, <yyyy>) and the tail ends at
+# that year (R-SB2-2d clarification); the three R-SB2-2c comma-date positives stay positive.
 # Accepted limit, deliberately NOT keyed either way: "This [qualifiers] Credit Agreement dated as
 # of ... requires ..." (the dated/among tails are open).
 _R_SB2_2D_POS = [
@@ -1129,6 +1130,8 @@ _R_SB2_2D_POS = [
     "Credit Agreement, as amended from time to time",
     "Credit Agreement as amended from time to time",
     "Credit Agreement, as amended from time to time and supplemented by every rider",
+    "Credit Agreement, as amended through March 1, 2015.",
+    "Credit Agreement, as amended as of May 1, 2015",
 ]
 _R_SB2_2D_TAIL_81 = (
     " from time to time and supplemented by every rider issued under it on later dates or times"
@@ -1136,9 +1139,9 @@ _R_SB2_2D_TAIL_81 = (
 _R_SB2_2D_NEG_BODY = [
     "Credit Agreement, as amended by the First Amendment, contains customary covenants.",
     "Credit Agreement, as amended from time to time, requires the Company to keep a ratio.",
-    "Credit Agreement, as amended through March 1, 2015",
-    "CREDIT AGREEMENT as amended through March 1, 2015",
-    "Credit Agreement, as amended and restated as of March 1, 2015",
+    "Credit Agreement, as amended through March 1, 2015, requires the Company to keep a ratio.",
+    "Credit Agreement, as amended through Amendment No. 3, dated May 1",
+    "Credit Agreement, as amended through March 1, the Company",
     "Credit Agreement, as amended" + _R_SB2_2D_TAIL_81,
 ]
 _R_SB2_2D_QUALIFIERS = ["Revolving", "Senior Secured"]
@@ -1164,6 +1167,7 @@ _R_SB2_2D_THIS_AS_AMENDED = [
     "THIS CREDIT AGREEMENT, AS AMENDED",
     "This Revolving Credit Agreement, as amended",
     "This Amended and Restated Credit Agreement, as amended from time to time",
+    "This Credit Agreement, as amended through March 1, 2015",
 ]
 
 
