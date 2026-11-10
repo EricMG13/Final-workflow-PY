@@ -148,6 +148,21 @@ def refuse_non_regular_descriptor(descriptor: int, path: Path) -> None:
         raise OSError(f"not a regular file: {path.name}")
 
 
+# Lock-open errors that a retry cannot cure; any other (EMFILE, ENOMEM, EIO ...) may pass.
+PERMANENT_OPEN_ERRORS = frozenset(
+    {
+        errno.ENOENT,
+        errno.ENOTDIR,
+        errno.EACCES,
+        errno.EPERM,
+        errno.EROFS,
+        errno.ELOOP,
+        errno.EISDIR,
+        errno.ENXIO,
+        errno.EOPNOTSUPP,
+    }
+)
+
 if sys.platform == "win32":
 
     def hold_worker_lock(path: Path) -> int:
@@ -184,6 +199,16 @@ if sys.platform == "win32":
                 return True
             raise
         return False
+
+    @contextmanager
+    def dead_worker_proof(path: Path) -> Iterator[Callable[[], bool] | None]:
+        """Yield a still-valid check when no worker holds the lock, else None (also if unknown)."""
+        try:
+            alive = worker_alive(path)
+        except OSError as error:
+            log.warning("The run lock %s cannot be checked: %s", path, error)
+            alive = True
+        yield None if alive else (lambda: True)
 
 else:
 
@@ -226,6 +251,61 @@ else:
             finally:
                 os.close(descriptor)
         raise OSError(f"The run lock {path} was replaced repeatedly; its holder is unknown")
+
+    @contextmanager
+    def dead_worker_proof(path: Path) -> Iterator[Callable[[], bool] | None]:
+        """Hold the lock of a gone worker; yield a check that the file is still the path's.
+
+        None (nothing is proven, so nothing may be settled) when a worker holds the lock.
+        nothing_to_settle when the run folder is gone or the lock cannot be opened for a permanent
+        reason (logged here); a transient open error gives None, as nothing is known: see
+        settle_job. A missing file is created, as hold_worker_lock does, so that no start can
+        take the lock while the caller decides (a start then refuses; none is paid for).
+        The descriptor is read-only, as in worker_alive: flock needs no write access, so a
+        read-only lock file can still be proven dead. The check, made after the caller's read,
+        catches a lock file removed and replaced meanwhile, which holding the old inode alone
+        does not prevent.
+        """
+        flags = os.O_RDONLY | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK
+        try:
+            descriptor = os.open(path, flags, 0o600)
+        except FileNotFoundError:  # The run folder itself is gone.
+            yield nothing_to_settle
+            return
+        except OSError as error:
+            if error.errno not in PERMANENT_OPEN_ERRORS:
+                # EMFILE, ENFILE, ENOMEM, EIO: nothing is known of the holder; watch_worker retries.
+                log.warning("The run lock %s cannot be checked: %s", path, error)
+                yield None
+                return
+            log.warning("The run lock %s cannot be opened; its job is not settled: %s", path, error)
+            yield nothing_to_settle
+            return
+        try:
+            refuse_non_regular_descriptor(descriptor, path)
+        except OSError as error:  # The descriptor is closed.
+            log.warning("The run lock %s cannot be used; its job is not settled: %s", path, error)
+            yield nothing_to_settle
+            return
+        try:
+            try:
+                fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                yield None
+                return
+
+            def still_the_path() -> bool:
+                try:
+                    named, held = os.lstat(path), os.fstat(descriptor)
+                except OSError:
+                    return False
+                return (named.st_dev, named.st_ino) == (held.st_dev, held.st_ino) and bool(
+                    held.st_nlink
+                )
+
+            yield still_the_path
+        finally:
+            os.close(descriptor)
 
 
 def local_engine() -> Engine:
@@ -927,8 +1007,9 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
             raise HTTPException(500, f"Could not retain start state; {NOT_STARTED}") from error
         try:
             return lib.engine.start(folder, lock)
-        except OSError as error:
+        except Exception as error:  # Any spawn failure refuses; BaseException still propagates.
             spawn_failed = True
+            log.warning("Run %s: the worker could not be started: %s", job_id, error, exc_info=True)
             message = f"CP-OS runtime could not start; {NOT_STARTED}"
             try:
                 save_json(
@@ -940,8 +1021,13 @@ def launch_worker(lib: Application, folder: Path, job_id: str) -> subprocess.Pop
                 )
             raise HTTPException(503, message) from error
     finally:
+        # On POSIX the file goes before the lock is released, so no settle can win the lock and
+        # then hold the path's inode past a retry; Windows cannot delete a file that is held.
+        unlink_first = spawn_failed and sys.platform != "win32"
+        if unlink_first:
+            remove_failed_run_lock(folder / "worker.lock", job_id)
         release_lock(lock)
-        if spawn_failed:
+        if spawn_failed and not unlink_first:
             remove_failed_run_lock(folder / "worker.lock", job_id)
 
 
@@ -977,9 +1063,35 @@ def job_state(folder: Path) -> str | None:
         return None
 
 
+def nothing_to_settle() -> bool:
+    """dead_worker_proof's answer when no lock can be taken because the run is gone or unusable."""
+    return False
+
+
+class WorkerMayStillRun(Exception):
+    """settle_job could not prove the worker gone; the job is left as it is, to be checked again."""
+
+
 def settle_job(folder: Path) -> None:
-    """Mark a job interrupted when its worker has ended while its status still says running."""
-    if job_state(folder) == "running":
+    """Mark a job interrupted when its worker has ended while its status still says running.
+
+    The worker's lock is held while status.json is read and rewritten, and the lock file is
+    checked to still be the path's before the write, so a verdict that has gone stale (a retry
+    started a worker meanwhile) never settles a live job: WorkerMayStillRun, and the caller
+    checks again later. When the run folder is gone, or its lock file cannot be opened at all,
+    there is nothing to settle: status.json is left as it is and the job is finished. That is
+    safe because no worker can be settled live: a worker holds its lock through an open
+    descriptor, and a start needs the same file to open read-write, so none can start either.
+    """
+    with dead_worker_proof(folder / "worker.lock") as still_valid:
+        if still_valid is None:
+            raise WorkerMayStillRun(folder.name)
+        if still_valid is nothing_to_settle:
+            return
+        if job_state(folder) != "running":
+            return
+        if not still_valid():
+            raise WorkerMayStillRun(folder.name)
         interrupted = {
             "state": "interrupted",
             "message": "The worker exited without a final result. Retained evidence remains "
@@ -1037,9 +1149,18 @@ def list_runs(lib: Application, notify_values: list[str]) -> Response:
 
 
 def finish_job(lib: Application, folder: Path, job_id: str) -> None:
-    """Settle a job whose worker has ended, end its activity, refresh and notice the finish."""
+    """Settle a job whose worker has ended, end its activity, refresh and notice the finish.
+
+    When a worker may still run the job stays in active_jobs and nothing is finished: see
+    still_active.
+    """
+    unproven = False
     try:
-        settle_job(folder)
+        try:
+            settle_job(folder)
+        except WorkerMayStillRun:
+            unproven = True
+            return
         # Stored before the lock: a poll served the final state after the mark is taken must
         # still count as after the finish, which tab_served decides from this value.
         lib.finished = lib.now()
@@ -1053,7 +1174,7 @@ def finish_job(lib: Application, folder: Path, job_id: str) -> None:
         if not saw_finish and not notify.tab_watching(lib):
             notice_finish(lib, folder, job_id)
     finally:
-        if lib.on_finished is not None:
+        if not unproven and lib.on_finished is not None:
             lib.on_finished(job_id)
 
 
@@ -1068,10 +1189,18 @@ def notice_finish(lib: Application, folder: Path, job_id: str) -> None:
         log.warning("Run %s: native notice failed: %s", job_id, error)
 
 
+def still_active(lib: Application, job_id: str) -> bool:
+    """Whether the job is still active: finish_job leaves it so when a worker may still run."""
+    with lib.lock:
+        return job_id in lib.active_jobs
+
+
 def watch(lib: Application, job_id: str, folder: Path, process: subprocess.Popen[bytes]) -> None:
     """When the worker exits without a final status, say so; never retry a paid run."""
     process.wait()
     finish_job(lib, folder, job_id)
+    if still_active(lib, job_id):
+        watch_worker(lib, job_id, folder)  # Something still holds the worker lock.
 
 
 def adopt_jobs_locked(lib: Application, workspace: str) -> None:
@@ -1112,8 +1241,11 @@ def adopt_jobs_locked(lib: Application, workspace: str) -> None:
             )
             continue
         if not alive:
-            settle_job(folder)
-            continue
+            try:
+                settle_job(folder)
+                continue
+            except WorkerMayStillRun:
+                pass  # A worker started meanwhile: watch it like a live one.
         lib.active_jobs.add(name)
         threading.Thread(target=watch_worker, args=(lib, name, folder), daemon=True).start()
 
@@ -1124,12 +1256,15 @@ def watch_worker(lib: Application, job_id: str, folder: Path) -> None:
     while True:
         time.sleep(WORKER_POLL)
         try:
-            if not worker_alive(folder / "worker.lock"):
-                break
+            gone = not worker_alive(folder / "worker.lock")
             reported = None
         except OSError as error:
             # An unreadable lock keeps the job active and is checked again; say so once per error.
             if str(error) != reported:
                 log.warning("Run %s: its worker lock cannot be checked yet: %s", job_id, error)
                 reported = str(error)
-    finish_job(lib, folder, job_id)
+            continue
+        if gone:
+            finish_job(lib, folder, job_id)
+            if not still_active(lib, job_id):
+                return
