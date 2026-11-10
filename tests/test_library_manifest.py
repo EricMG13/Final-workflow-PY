@@ -1191,3 +1191,24 @@ def test_whatever_the_chart_rows_say_the_written_manifest_is_admitted_or_absent(
         assert library.exists()
         assert issues == [] and rejected == []
         metrics_are_stated_by_their_pinned_quote(root, run_id)
+
+
+@pytest.mark.parametrize("run_type", ["secondary", "__missing__"])
+def test_non_primary_run_with_an_unreadable_unrequested_cp2_builds_without_pro_forma(
+    tmp_path, run_type
+):
+    """A CP-2.md the run does not request and may not use is never read: build still succeeds.
+
+    Compared with the hand-written `primary` key: its metrics less the two pro forma ones.
+    """
+    c = {"run_type": run_type, "cp2": ["placeholder"]}
+    root, run_id = pro_forma_workspace(c, tmp_path)
+    run = root / "runs" / run_id
+    workflow = json.loads((run / "workflow.json").read_text(encoding="utf-8"))
+    workflow["run"]["requested_modules"] = ["CP-1"]
+    (run / "workflow.json").write_text(json.dumps(workflow, indent=2), encoding="utf-8")
+    (run / "CP-2.md").write_bytes(b"\xff\xfe not utf-8\n")
+    manifest = lm.build(root, run_id)
+    want = everything_but_pro_forma(key("primary"))["run"]["metrics"]
+    assert manifest["run"]["metrics"] == want
+    assert not [s for s in manifest["sources"] if s.startswith("cp2_")]
