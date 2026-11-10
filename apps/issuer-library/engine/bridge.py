@@ -52,6 +52,16 @@ UNKNOWN_SPEND_NOTE = "Recorded spend could not be read and may be above zero."
 RUN_PATH_ROOM = 160
 
 
+EXPECTATION_KEYS = (
+    "review_id",
+    "issue_classification",
+    "documents",
+    "expectations",
+    "counted",
+    "without",
+)
+
+
 def write_file(path: Path, raw: bytes) -> None:
     handle, name = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
     try:
@@ -335,7 +345,12 @@ def start(directory: Path) -> None:
     prepared = launch(job, directory, out)
     # The plan about to run must be the one that was approved: files read since the review (the
     # stopped run's record, the sources) may have changed, and nothing is paid for before this.
-    if review_id(job, engine_revision(), prepared) != approved["review_id"]:
+    context = (directory / "context.json").read_bytes()
+    pin = prepared.plan.sources["context"].sha256
+    if (
+        review_id(job, engine_revision(), prepared) != approved["review_id"]
+        or hashlib.sha256(context).hexdigest() != pin
+    ):
         if not existed:
             shutil.rmtree(out, ignore_errors=True)  # Only what launch just wrote; nothing ran.
         raise ValueError("review is stale; review the inputs again before starting")
@@ -345,8 +360,15 @@ def start(directory: Path) -> None:
         stream.write(
             f"lifts: live-provider-pause\nby: user\ndate: {date.today()}\n"
             f"configs: {job['config']}\nreview: {approved['review_id']}\n"
+            f"accepted: {', '.join(approved['counted']) or 'none'}\n"
         )
     run_dir = prepared.directory
+    # Kept before any provider call: a write failure raises here and nothing is paid.
+    write_json(
+        run_dir / "expectations.json",
+        {key: approved[key] for key in EXPECTATION_KEYS},
+    )
+    write_file(run_dir / "context.json", context)
 
     def spent() -> str:
         return str(Budget(prepared.plan.provider_cap_usd, run_dir / "live").spent)

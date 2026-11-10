@@ -843,6 +843,19 @@ def resume_in(lib: Application, request: dict[str, Any], workspace: str) -> Resp
     return Response(result, media_type="application/json")
 
 
+START_KEYS = {"id", "review_id", "confirm", "accept_limitations"}
+
+
+def require_acceptance(review: dict[str, Any], accepted: bool) -> None:
+    """Refuse a start that has not accepted the review's counted limitations; fail closed on a
+    review.json written before they were listed."""
+    counted = review.get("counted")
+    if not isinstance(counted, list) or not all(isinstance(item, str) for item in counted):
+        raise HTTPException(409, "Review this run again before starting")
+    if counted and not accepted:
+        raise HTTPException(400, "Accept the listed limitations before starting")
+
+
 def start_run(lib: Application, raw: bytes) -> Response:
     """Launch the worker for a reviewed run once; a duplicate request makes no second call."""
     refusal = "Explicit confirmation of a reviewed run is required"
@@ -850,7 +863,7 @@ def start_run(lib: Application, raw: bytes) -> Response:
         request = json.loads(raw) if len(raw) <= REQUEST_LIMIT else None
     except ValueError:
         request = None
-    if not isinstance(request, dict) or set(request) - {"id", "review_id", "confirm"}:
+    if not isinstance(request, dict) or set(request) - START_KEYS:
         raise HTTPException(400, refusal)
     job_id, review_id = request.get("id", ""), request.get("review_id", "")
     if (
@@ -858,6 +871,7 @@ def start_run(lib: Application, raw: bytes) -> Response:
         or not isinstance(review_id, str)
         or request.get("confirm", False) is not True
         or not JOB_ID.fullmatch(job_id)
+        or not isinstance(request.get("accept_limitations", False), bool)
     ):
         raise HTTPException(400, refusal)
     with lib.lock:
@@ -878,6 +892,7 @@ def start_run(lib: Application, raw: bytes) -> Response:
             or review.get("provider_ready") is not True
         ):
             raise HTTPException(409, "Review is invalid or the provider is not configured")
+        require_acceptance(review, request.get("accept_limitations", False))
         try:
             create(folder / "start.claim", b"")
         except FileExistsError as error:
