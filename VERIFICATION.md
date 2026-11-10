@@ -824,4 +824,5 @@ never begins (case-insensitively) with The/This/Our/Such/A/An/Under/Pursuant/In/
 suffix (1st, 22nd, 113th; not 0th, 11st, 1th, 12nd). The `the|this` lead-in stays: it still serves file names, which the
 opener guard does not touch. Cost: bare `The Credit Agreement` / `This Amended and Restated Credit Agreement` title lines,
 accepted on main, are unrecognised (fail-safe, by ruling). Back-test: byte-identical.
+"This" amendment (lead, key 20fb148a not edited; 6 `r_sb2_2c_this_*` red before, green after): a line opening with "This" IS a credit-agreement title when a non-empty recognised tail follows "Credit Agreement" (the tails plus `is entered into as of ...` / `is made as of ...`, after an optional defined term); bare `This Credit Agreement`, a body sentence and every other opener stay not-a-title; lender presentations unchanged. As on main, `This Amended and Restated Credit Agreement` with a tail is a title. Back-test: byte-identical.
 Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.

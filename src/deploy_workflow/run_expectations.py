@@ -118,6 +118,10 @@ _TAIL = (
 )
 _DEFINED_TERM = r"\((?:this|the) [\"“][^\"“”]+[\"”]\)"  # (this "Agreement"), straight or curly.
 _TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_DEFINED_TERM})?(?:\s+{_TAIL})?$")
+# An executed agreement's preamble: "This ... Credit Agreement" is a title with a tail.
+_THIS_TITLE_END = _rx(
+    rf"[.,;:]?(?:\s+{_DEFINED_TERM})?[.,;:]?\s*(?:{_TAIL}|is (?:entered into|made) as of\b.*)"
+)
 _ENDS_AT_PHRASE = frozenset({"credit_agreement", "lender_presentation"})  # Title lines only.
 # A title line never begins with a determiner or preposition: that is a body sentence.
 _NOT_A_TITLE = _rx(r"(?:the|this|our|such|an?|under|pursuant|in|as)\b")
@@ -134,7 +138,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "credit_agreement",
         _rx(
-            rf"(?:(?:the|this) (?:amended and restated )?|{_CREDIT_QUALIFIER})"
+            rf"(?:(?:the|this) (?:amended and restated )?|(?:this )?{_CREDIT_QUALIFIER})"
             r"credit agreement\b(?! joinder\b)"
         ),
     ),
@@ -238,6 +242,11 @@ def _hits(lines: list[str], *, page: bool = True) -> dict[str, str]:
                     or (
                         _TITLE_END.fullmatch(candidate, match.end())
                         and not _NOT_A_TITLE.match(candidate)
+                    )
+                    or (
+                        kind == "credit_agreement"
+                        and candidate[:4].lower() == "this"
+                        and _THIS_TITLE_END.fullmatch(candidate, match.end())
                     )
                 ):
                     found.setdefault(kind, match.group(0))
