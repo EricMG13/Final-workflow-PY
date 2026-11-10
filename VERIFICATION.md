@@ -737,7 +737,13 @@ Scope: Plan 2 Task 7 items 2 and 6 only. The Review step opens with `#expected-o
 
 Checks (exit codes): the four test files (new_run, jobs, live_check, app) 340 passed, 2 skipped, exit 0; the 27 new tests 3 times, 0 failures; `tools/pr_size.py` 479, exit 0; `tools/quality_gate.py --base <merge-base>` 0 findings, exit 0.
 
-Not verified: `validate.py` quick and browser (the controller runs them); `browser_check`'s New run walk against a reply that counts items (the fake engine's review carries no expectations); a real bridge review reply; real-browser layout of the table.
+The browser walk goes through the real bridge review. Its review counts 4 items (`run:run-financials-management-claims`, `CP-1:cp1-no-financial-report-recognised`, `CP-4:cp4-declared-none`, `CP-3:cp3-no-quotes-no-talk`), so the walk exercises N > 0 ("Start stays disabled until the acceptance is ticked" passes in both walks).
+
+Commit 841d1d00 re-anchored two browser_check review checks to the module list and the Source files disclosure, because the verbatim caption contains "CP-0" and the first disclosure is now a table row's. `validate.py browser` gives 88 passed, 0 failed, exit 0.
+
+Info: without `--accept-limitations` and with counted items, live_check fails the walk with a RuntimeError before Start (recorded as an exception fault, exit 1), rather than a Refusal (exit 2). The box is never ticked.
+
+Not verified: `validate.py` quick and browser (the controller runs them); a real bridge review reply; real-browser layout of the table.
 
 ## 2026-11-10 Run lock items 2 and 4: a stale liveness verdict never settles a live job; any spawn exception refuses; POSIX only for item 2 (branch `claude/sb2-run-lock-items24`)
 
