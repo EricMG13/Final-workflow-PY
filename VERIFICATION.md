@@ -10,6 +10,42 @@ entries below retain their historical case scope.
 
 Older entries are in [docs/VERIFICATION-ARCHIVE.md](docs/VERIFICATION-ARCHIVE.md), verbatim and in their original order; new entries go here.
 
+## 2026-11-10 — Plan 3 live check C2: Primary pro forma pathway, Mattress Firm pre-closing (SB3, branch `claude/sb3-c2-record`)
+
+- **Scope:** public proxy for a private Primary deal, older source (2014), Mattress Firm Holding Corp. as of 2014-09-11 only. One live run: build `d52c4ef2`, `sol-medium`, modules CP-0 CP-1 CP-1A CP-1D CP-2, cap USD 15, launched only on the owner's go-ahead in the SB3 session. Run `web-f126f83e49773a9e5d16ee6af9284481`, USD 1.71466120, retained at `.superpowers/live/plan-3/c2-d52c4ef2/`. Key frozen before the run in `cases/live-mattress-firm-2014/c2/`.
+- **Rehearsal, before the paid run:** fake engine with provider keys unset (rehearsal scope only, not model evidence), at `d52c4ef2` after #70. It reached delivery: 75 passed, 5 forecast faults, all because fake handoffs state no status. The delivered `pro-forma` block (`report-view.json` sha256 `1d8f32a8…`) equals the key's `cp2-full-valid` tables cell for cell. With `FAKE_MALFORMED=CP-2`, the checker's repair text read: `Pro forma rows wrong: Pro forma capitalisation: write exactly one `Cash` row.`
+- **Result:** the run completed and wrote its report. live_check exited 1: 75 passed, 21 faults. Purpose by purpose:
+  - **Pro forma capitalisation and leverage: PASS.** Pro forma total debt 767, TLB 720, ABL 42 and as-marketed 3.29x (LP 3.3x) reach the report byte-equal to the CP-2 handoff, labelled, with missing values kept missing. The balance-sheet date 2014-07-29 matches the key. Differences:
+    - Equipment and other notes (1 + 4) were withheld as Not supplied: a run Low, a gap rather than an invention.
+    - The key's 466 adjustment does not foot; a key correction is pending.
+  - **Sources and uses: FAIL as delivered.** The table was not routed to the report. Total sources is 903, not 821, because `PRO_FORMA_CP1A` said to use the user-entered facility sizes, which put the 125 ABL commitment in place of the 42 draw. The model labelled the row "commitment, not draw" and logged the gap. Uses (821) equal the key.
+  - Every module took one repair turn, all for the same instruction conflict: the view heading was placed before the reader summary's tables. None was a pro forma repair; all three pro forma checks passed on the first draft.
+- **Faults (assessment by mx-precise, offline on a copy, no rerun; SDD `c2-assessment.md`):**
+  - Forecast: CP-1 and CP-1A came out limited via CP-0. This is the accepted A-live F3 disagreement.
+  - Forecast: CP-1D came out Restricted because its instructions name scripts the app does not expose. New; fixed by R-C2-3.
+  - Untraced numbers (15), none unsourced or wrong:
+    - 8 hand ×1000 rescales (run Lows; R-C2-7).
+    - 2 conversions stated in the handoff but done with `calculate`, written in E-notation (R-C2-4).
+    - 4 sums with a hand-scaled operand.
+    - 1 unit divisor, 0.001.
+    - "ASC 842", a standard's name.
+  - Literal 821: present in the source and in the CP-1A handoff, but not in a routed section (R-C2-2).
+- **Lead rulings R-C2-1 to R-C2-7:**
+  - R-C2-1: funded amounts only, failing closed to Not supplied.
+  - R-C2-2: route CP-1A Sources and uses as a tab of the pro-forma block.
+  - R-C2-3: a missing script alone does not restrict a module.
+  - R-C2-4: flow_check reads stated conversions and standards' names (SB2).
+  - R-C2-5: each tab states its own unit.
+  - R-C2-6: the view heading comes after the reader summary's tables.
+  - R-C2-7: keep the source unit; convert with `calculate` and say so.
+  - Key: literal 821 moves to the routed S&U tab; 466 is corrected to what the source prints.
+  - Plan 4 needs only the pro forma leverage rows, which passed.
+- **Input differed from the frozen case (found afterwards):** the run's `intake/web-f126f83e…/context.json` has `deal_terms[0].instrument` `""` where `cases/live-mattress-firm-2014/c2/context.json` has `"ABL revolver"` (size 125 kept; Term loan B kept). live_check loads the case file through the app's context editor, so the app's import probably dropped it; it has not been traced. The model still identified the ABL from the documents. Reported to the lead.
+- **Not verified:**
+  - the rendered report in a browser: the block note "USD millions" over a thousands tab was read from `report-view.json` (R-C2-5);
+  - the fixes above, live. Live proof rides on C1r, after R-C2-1/-2/-6/-7 merge;
+  - the cause of the dropped instrument name.
+
 ## 2026-11-10 — pr_size: an edited copy counts against the merge base when the base holds it (R-PRSIZE-1, branch `sb3-prsize`)
 
 - **Rule:** in `tools/pr_size.py`, an `edited <path>` entry whose file exists at `git merge-base <base> HEAD` counts its numstat for merge-base...HEAD; one absent there counts its whole drift from the source revision, with the binary fallbacks as before. Plain copies keep the byte-identity check; fixtures, lockfiles and binaries stay excluded. The limit stays 800; `tools/copied-from.txt` stays the provenance record.
@@ -928,3 +964,13 @@ accepted on main, are unrecognised (fail-safe, by ruling). Back-test: byte-ident
 "This" amendment (lead, key 20fb148a not edited; 6 `r_sb2_2c_this_*` red before, green after): a line opening with "This" IS a credit-agreement title when a non-empty recognised tail follows "Credit Agreement" (the tails plus `is entered into as of ...` / `is made as of ...`, after an optional defined term); bare `This Credit Agreement`, a body sentence and every other opener stay not-a-title; lender presentations unchanged. As on main, `This Amended and Restated Credit Agreement` with a tail is a title. Back-test: byte-identical.
 R-SB2-2d (lead, key 6f19d3c1/75a5d8dd not edited; 36 `r_sb2_2d_*` red before): the as-amended tail is closed. After `as amended` (optionally `and restated`) only punctuation/end, or `through|by|to|on|as of|from time to time ...` to line end, at most 80 characters, no comma except one date comma `<Month> <d>, <yyyy>` ending the tail; a "This" opener never takes an as-amended tail. Accepted limit: `This [qualifiers] Credit Agreement dated as of … requires …` stays a title — dated/among tails are open, as on main for the unqualified form.
 Not verified: ordinals above Ninety-Ninth in words; tails other than the four listed.
+
+## 2026-11-10 Plan 2 Task 6b (a resume's review names re-runs and shows retained outcomes, branch `claude/sb2-task6b-resume`)
+
+- **Scope:** offline `bridge.review` only; no provider call. A resume's review gains `reruns` (every module the stopped run holds an accepted answer for that is not retained, with the bare `why`, "it follows <stop title>, which runs again", the record's own problem, or "added to this run" when the stopped run has no `instructions/<module>.md` for the stop module) and `retained_outcomes` (`handoff_outcome.actual_of` over the retained answer, with the retained CP-0 text). `expectations` and `counted` drop rows whose scope is a retained module; `without` is `without_for(ordered, remaining rows)`, so a retained module has no entry. A plain review carries both lists empty. The fake-engine bridge needed no edit: it returns the real review.
+- **Key:** `d95aece9` and `47a520a2` (tests only). RED at `d95aece9`: 9 failures (`KeyError: 'reruns'`/`'retained_outcomes'`). GREEN: `tests/test_cpos_app.py` 65 passed; the four-file run 322 passed, 2 skipped; the 31 resume/6b tests pass 3 of 3.
+- **R-SB2-6c:** a resume's `counted` is every id the plain review counts on a module that runs again, plus every counted propagating (will_refuse/limited) id on a retained module from which a module that runs again is reachable through the registry edges (`edges_for(ordered)`), through any number of retained middles; ids in the plain review's order, no duplicates. A retained module's own forecast row stays out of `expectations`; a retained gap does not propagate and is not counted; a retained root with no re-running consumer is not counted. Keys `489e021a`, `87a674e4`; lead's probe and the reviewer's chain probe run at the fix commit.
+- **Not verified:** a real stopped run's review in the browser; the `instructions/` test for "added to this run" beyond the fixture; `expectations.json` keeps its six keys (PR2's key).
+
+## 2026-11-10 flow_check units (A-live H1/H2 + R-C2-4) (branch `claude/sb2-flow-check-units`)
+flow_check units (A-live H1/H2 + R-C2-4), `apps/issuer-library/designs/flow_check.py` only, key 018b7619 not edited: bps sourced by the exact percent/100 the module read; unit divisors (exactly 100/1000/10000/0.001, Decimal) after `/` or `÷` and the divisor operand of a `ratio` call; E-notation calculate results read exactly; ASC/ASU/IFRS/IAS/SFAS names. Hand rescales stay flagged. The `ratio 233.1 ÷ 1000` row was a key error: fixed by key commits 7bbf9036 and 06125824. Fix round 1 (review F1/F2/F3): a divisor must be the whole number (`/ 100.5m`, `/ 1000.25x`, `÷ 10000.7bn` stay flagged), a standard prefix needs same-line whitespace. Key row `Adjusted per ASC\n\n1234 total` was corrected to 5678 by f6e5a38d, because 1234 is in units_run's base source; the flow_check and report_text test files all pass (117). The reviewer's original probe has the same 1234 defect; its 5678 copy `fcu_probes_5678.py` and `fcu_reprobe.py` both exit 0. Not verified: live paid runs; conversions beyond the four shapes.
