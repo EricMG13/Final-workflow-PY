@@ -1,0 +1,46 @@
+{
+  "frozen": "2026-11-10",
+  "authored_by": "key-writer subagent (rc2 key); written by hand from the handoff text, not by the delivery code",
+  "rule": "Controller rulings n1-n6 (2026-11-10): each table's whole section-prose element is prefixed '<section heading>: '; a table whose header has a `Reporting unit` column also gets '<heading>: unit stated per row' as its own element before its prose; a table with no prose adds no prose element; route order; no sentence detection.",
+  "how_the_note_is_composed_today": {
+    "code": "src/deploy_workflow/markdown_delivery.py:1251-1253 (origin/main 0c9c893a): ' · '.join(dict.fromkeys([*labels, *_section_sentences(bound, module_views)]))",
+    "labels": "the route labels of the block; the three pro-forma routes set none, so nothing from labels",
+    "section_sentences": "for each bound table, in bound order, table.limitation (markdown_delivery.py:273-276 sets it to the table's own section prose paragraphs, joined by one space; a paragraph is consecutive non-table lines; `**x**` and backticks removed by plain()). Prose before and after the table inside the section both count. Identical strings are listed once. Elements are joined by ' · '.",
+    "stays": [
+      "the Balance-sheet date and LTM period lines",
+      "every limitation and citation sentence in the table's section",
+      "the ' · ' separator between tables",
+      "emphasis stripped",
+      "a table with no section prose adds no element"
+    ],
+    "verified": "The composition above, applied to the C2 run's CP-2.md, reproduces the retained delivered note byte for byte (the 'old' value below equals report-view.json block pro-forma note)."
+  },
+  "bound_order_warning": "`bound` is built from entries.values(), i.e. in handoff (module) order, not route order (markdown_delivery.py ~1203). CP-1A runs before CP-2, so unless the implementer orders by route, the S&U table becomes the block's primary and the note and tabs come out S&U-first. The values below assume route order: capitalisation, leverage, then S&U.",
+  "cases": {
+    "c2_real_cp2_plus_cp1a": {
+      "inputs": [
+        "CP-2.md lines 89-92, 102 (capitalisation prose), 131 (leverage prose); CP-1A.md lines 97 and 112 (S&U prose: the section under '### Sources and uses' runs to line 113)",
+        "run copy: .superpowers/sdd/plan-3/c2-assess/run/ws/runs/web-f126f83e49773a9e5d16ee6af9284481/"
+      ],
+      "old_note_cp2_alone_equals_retained_delivery": "Balance-sheet date: 2014-07-29 LTM period: Trailing period ended July 29, 2014; historical consolidated basis, with management acquisition-completion illustration separately identified All amounts below are USD millions. Proposed figures retain management's rounded precision. The term row maps the existing term facility to its proposed replacement; it does not assert unchanged contractual identity. The equipment row is not plugged to force a total. Cash use follows the sources-and-uses illustration; final cash is withheld because fees/OID and the closing roll-forward are unresolved. The total is the source-reported indicative debt total, not an independently tied instrument sum. The USD 125 million ABL commitment is not substituted for its illustrated USD 42 million draw. Proposed total debt and the balance-sheet reconciliation adjustment mix source rounding precision; the latter is an illustrative difference, not a closing ledger entry. [CP-1A: funding versus facility-size distinction; CP-1D: Conflict preservation.] · The unadjusted combined historical denominator is unavailable; the rows are different perimeters, not a like-for-like leverage trend. The separately inherited proposed sensitivity of USD 199.7 million and 3.84x removes identified Sleep Train/bolt-on savings and the store uplift from the relevant management case, but retains other unverified target earnings and completed-acquisition adjustments. It therefore cannot fill the missing base row. [CP-1D: C4 and Leverage sensitivity.]",
+      "expected_block_note": "Pro forma capitalisation: Balance-sheet date: 2014-07-29 LTM period: Trailing period ended July 29, 2014; historical consolidated basis, with management acquisition-completion illustration separately identified All amounts below are USD millions. Proposed figures retain management's rounded precision. The term row maps the existing term facility to its proposed replacement; it does not assert unchanged contractual identity. The equipment row is not plugged to force a total. Cash use follows the sources-and-uses illustration; final cash is withheld because fees/OID and the closing roll-forward are unresolved. The total is the source-reported indicative debt total, not an independently tied instrument sum. The USD 125 million ABL commitment is not substituted for its illustrated USD 42 million draw. Proposed total debt and the balance-sheet reconciliation adjustment mix source rounding precision; the latter is an illustrative difference, not a closing ledger entry. [CP-1A: funding versus facility-size distinction; CP-1D: Conflict preservation.] · Pro forma leverage: unit stated per row · Pro forma leverage: The unadjusted combined historical denominator is unavailable; the rows are different perimeters, not a like-for-like leverage trend. The separately inherited proposed sensitivity of USD 199.7 million and 3.84x removes identified Sleep Train/bolt-on savings and the store uplift from the relevant management case, but retains other unverified target earnings and completed-acquisition adjustments. It therefore cannot fill the missing base row. [CP-1D: C4 and Leverage sensitivity.] · Sources and uses: Amounts are USD millions throughout this table. Basis labels identify origin, not certainty. The two user-entered facility commitments are used at face size as required; other rows are the LP page:5 management illustration, not independently verified cash at closing. All source rows above the total are included in the primary total; no balancing item is inserted. Analyst Interpretation — differences logged, not resolved. Both the document and user settings state ABL facility size USD 125 million and term-loan size USD 720 million; there is no conflicting facility-size disclosure to substitute. The document's ABL cash drawing is USD 42 million, not a different facility size. The commitment/draw distinction is USD 83 million. Using the requested commitment sizes produces a calculated USD 82 million excess of total sources over uses; this is not excess closing cash or verified availability. The documentary source components separately sum to USD 820 million, whereas LP prints total sources USD 821 million. That USD 1 million difference is unresolved. These two differences must not be offset through an invented fee, equity, cash or borrowing plug. Final funding requires a dated, unrounded cash-versus-noncash and commitment-versus-draw bridge.",
+      "elements_in_order": [
+        "'Pro forma capitalisation: ' + the capitalisation section prose",
+        "'Pro forma leverage: unit stated per row' (its header has a Reporting unit column)",
+        "'Pro forma leverage: ' + the leverage section prose",
+        "'Sources and uses: ' + the S&U section prose"
+      ],
+      "note": "The S&U prose includes line 112 ('Analyst Interpretation ...'), which lies after the table, because the section prose travels with the table. The lead's reference to lines 95-110 covers the table only. In this run's S&U the ABL row is the 125 commitment and Total sources is 903: the note quotes the handoff as written and does not endorse it."
+    },
+    "fake_cp2_full_valid_plus_cp1a_valid": {
+      "inputs": [
+        "checker-cases.json cp2-full-valid (capitalisation prose: one paragraph, two lines; leverage section: no prose; units per row, 'USD millions')",
+        "cp1a-sources-uses-valid-user-entered (no prose; no unit column)"
+      ],
+      "old_note_cp2_alone": "Balance-sheet date: 2014-06-30 LTM period: LTM Q2 2014",
+      "expected_block_note": "Pro forma capitalisation: Balance-sheet date: 2014-06-30 LTM period: LTM Q2 2014 · Pro forma leverage: unit stated per row",
+      "note": "Capitalisation prose is prefixed as a whole; leverage has a Reporting unit column so it gets the per-row element, and no prose; S&U has no Reporting unit column and no prose, so nothing."
+    }
+  },
+  "table_name_used": "the section heading as written in the handoff (n1)"
+}

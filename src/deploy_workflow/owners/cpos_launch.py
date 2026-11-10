@@ -184,9 +184,10 @@ BLOCK_OWNERS: dict[str, tuple[str, ...]] = {
 }
 # CP-8 owns this section and compares two completed deliveries; a single run has nothing to compare.
 SECOND_RUN_ONLY = "what-changed"
-# The H3 that opens every module's `## Findings`: prose stating the module's view in plain English
-# before any table (owner ruling, 2026-11-05; Deploy V's M365 runs for VMO2 and Wood Mackenzie open
-# each module's analysis that way). "Credit view" (CP-1C, CP-2) and "Downside view" (CP-2A) are the
+# The H3 that follows the two tables of `### Reader summary` (R-C2-6) and precedes any other
+# table: its first content is prose stating the module's view in plain English
+# (owner ruling, 2026-11-05; Deploy V's M365 runs for VMO2 and Wood Mackenzie open each module's
+# analysis that way). "Credit view" (CP-1C, CP-2) and "Downside view" (CP-2A) are the
 # M365 headings. A module added to METHODS needs an entry here; a test fails otherwise.
 # This launcher route only: the owner route (`deploy_vii.cp2_synthesis`, Python-composed
 # Markdown) is unchanged.
@@ -310,6 +311,25 @@ PROVISIONAL_ISSUES = {
     "provisional_main_limitation_missing": "Provisional label missing in Main limitation",
     "consumer_provisional_missing": "Provisional label missing from a Provisional CP-4 term",
 }
+# R-C2-7: a hand rescale of an amount (x1000 in the model's head) was the cause of most untraced
+# numbers in the C2 run. The sentence is in CP-1's instruction in every run type and, through the
+# cell rule, in each Primary pro forma instruction.
+UNIT_SENTENCE = (
+    "Keep the source's reporting unit and state it; do not rescale an amount by hand (no "
+    "multiplying or dividing by 1000 in your head); when a different unit is needed, do the "
+    "conversion with `calculate` and state the conversion."
+)
+# R-C2-3: the app exposes none of the scripts a method names (`prepare_invocation.py`,
+# `validate_handoff.py` and the like). Without this sentence a module recorded the missing scripts
+# as a reason to mark itself Restricted (C2, CP-1D). Composed for every module whose method text
+# names a script file.
+SCRIPT_NAME = re.compile(r"[\w./-]+\.(?:py|sh)\b")
+SCRIPTS_SENTENCE = (
+    "The helper scripts this method names (for example `prepare_invocation.py`, "
+    "`confidence_score.py`, `completeness_check.py` and `validate_handoff.py`) are not available "
+    "in this app and none is run. Record that once, as a limitation; set `qa_status` from the "
+    "method's own criteria; the scripts' absence alone does not make the module Restricted."
+)
 PRO_FORMA_CELL_RULE = (
     "Every amount cell, `Total debt / EBITDA` included, is either a plain number such as `1234.5` "
     "or `-10` (digits, optional thousands commas and decimals, a negative with a leading minus; "
@@ -320,7 +340,7 @@ PRO_FORMA_CELL_RULE = (
     "or `0.5`, with no plus sign and no bare leading point. A `Reporting unit` or `Currency` cell "
     "is never blank. "
     "Take every figure from the sources and handoffs or from `calculate`; plug nothing and "
-    "invent no haircut."
+    f"invent no haircut. {UNIT_SENTENCE}"
 )
 LADDER_ROWS = (
     "(a) Starting EBITDA",
@@ -385,13 +405,29 @@ def _header(header: Sequence[str]) -> str:
 PRO_FORMA_CP1A = (
     "Pro forma sources and uses (Primary run). Under `## Findings`, write "
     f"`### {SOURCES_USES_HEADING}` once, with one table headed {_header(SOURCES_USES_HEADER)}. "
-    "Side is `Source` or `Use`. Basis is `documented` or `user-entered`. Use the facility sizes "
-    "the user entered, labelled `user-entered`; when a document states a different size, give it "
-    "on its own `documented` row and log the difference, never resolve it. Source names what the "
-    "row came from. Write at least one `Source` row and one `Use` row, then exactly one row with "
-    "Item `Total sources` (Side `Source`) and exactly one with Item `Total uses` (Side `Use`), "
-    "each total from `calculate`. Write labels exactly as shown: `Total sources`, not "
-    f"`Total Sources`. {FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
+    "Side is `Source`, `Use` or `Memo`. Basis is `documented` or `user-entered`. A `Source` row "
+    "holds a funded amount taken from the source (what is drawn or issued at closing), never a "
+    "facility commitment. The user-entered facility size is a commitment: write it on a `Memo` "
+    "row whose Item ends with `(commitment)` and whose Basis is `documented` or `user-entered`; "
+    "a `Memo` row is not a source or use of funds and is in no total. When the source states no "
+    "funded amount for a row, write `Not supplied: <reason>` in Amount. Where documents differ, "
+    "log the difference in prose and never resolve it. Source names what the "
+    "row came from. Write at least one `Source` row and one `Use` row (a `Memo` row is neither). "
+    "For each of Source and Use: when every row of that side holds a number, write exactly one "
+    "total row (Item `Total sources` with Side `Source`, Item `Total uses` with Side `Use`); "
+    "when any row of that side is `Not supplied`, write no total row for that side. Take each "
+    "total from `calculate`; where the source prints a total the rows do not reach, plug "
+    "nothing: write the printed total, say so in Source, and log the difference in prose. "
+    "Write labels exactly as shown: `Total sources`, not "
+    "`Total Sources`. A row whose Item contains `total`, in any case or position (`Total "
+    "Sources`, `Sources total`, `Subtotal sources`, `TOTAL`), is a total row: it must be "
+    "exactly `Total sources` with Side `Source` or `Total uses` with Side `Use`, and no other "
+    "row on any Side, `Memo` included, may have `total` in its Item, or the table is refused. "
+    "An Item ending `(commitment)` belongs only on a `Memo` row; on a `Source` or `Use` row it "
+    "is refused. When every row of a side holds a number, that side's total is a number too "
+    "(from `calculate`, or the printed total with any difference logged in prose); a "
+    "`Not supplied` total there is refused. "
+    f"{FINDINGS_ONLY} {PRO_FORMA_CELL_RULE}\n\n"
 )
 PRO_FORMA_CP1D = (
     "Pro forma add-back register (Primary run). Under `## Findings`, write "
@@ -668,23 +704,27 @@ def _front_routes(ordered: tuple[str, ...]) -> tuple[MarkdownRoute, ...]:
 PRO_FORMA_BLOCK = "pro-forma"
 
 
-def _pro_forma_routes() -> list[MarkdownRoute]:
-    """CP-2's capitalisation table (primary) then leverage table (a tab), whole tables unchanged.
+def _pro_forma_routes(ordered: tuple[str, ...]) -> list[MarkdownRoute]:
+    """CP-2's capitalisation table (primary) then leverage table (a tab), then, when CP-1A also
+    runs, its Sources and uses table (a further tab, R-C2-2); whole tables unchanged.
 
     delivery matches `table_header` against the table's first header cell (its `row_header`).
     """
+    tables = [
+        ("CP-2", CAPITALISATION_HEADING, CAPITALISATION_HEADER),
+        ("CP-2", LEVERAGE_HEADING, LEVERAGE_HEADER),
+    ]
+    if "CP-1A" in ordered:
+        tables.append(("CP-1A", SOURCES_USES_HEADING, SOURCES_USES_HEADER))
     return [
         MarkdownRoute(
-            module_id="CP-2",
+            module_id=module,
             heading=heading,
             kind="table",
             block_id=PRO_FORMA_BLOCK,
             table_header=header[0],
         )
-        for heading, header in (
-            (CAPITALISATION_HEADING, CAPITALISATION_HEADER),
-            (LEVERAGE_HEADING, LEVERAGE_HEADER),
-        )
+        for module, heading, header in tables
     ]
 
 
@@ -706,7 +746,7 @@ def _layout(  # noqa: PLR0913 - signature fixed by the plan: keywords run_type, 
     for block_id in preset.blocks:
         if block_id == PRO_FORMA_BLOCK:  # Only a Primary run's CP-2 fills it; else not a section.
             if run_type == "primary" and "CP-2" in ordered:
-                routes += _pro_forma_routes()
+                routes += _pro_forma_routes(ordered)
             continue
         spec = _spec_of(block_id)
         owners = BLOCK_OWNERS.get(block_id, spec.producers)
@@ -796,6 +836,10 @@ def _instructions(
         f"=== {name} sha256 {_sha(text.encode())} ===\n{text}" for name, text in sections
     )
     opening = OPENING.get(module)
+    units = f"{UNIT_SENTENCE}\n\n" if module == "CP-1" else ""  # R-C2-7, in every run type
+    scripts = (  # R-C2-3: the method names a script this app does not expose
+        f"{SCRIPTS_SENTENCE}\n\n" if any(SCRIPT_NAME.search(text) for _, text in sections) else ""
+    )
     return (
         f"# {module} for {run.issuer_name} ({run.issuer_id}), as of {run.as_of}\n\n"
         f"Pathway: {run.pathway}. Run the complete selected method below on this issuer's supplied "
@@ -808,13 +852,15 @@ def _instructions(
         "whole filings: reads stop once this module's context is full.\n\n"
         "Use calculate for all new arithmetic. Keep exact amounts, units, currencies, periods, "
         "source locators and limitations. Absent evidence stays an explicit gap.\n\n"
-        "A handoff is rejected unless it does all of this:\n"
+        + units
+        + scripts
+        + "A handoff is rejected unless it does all of this:\n"
         f"- name {run.issuer_name} in `## Request`, and state the as-of date {run.as_of} there;\n"
         "- list each issuer source it relied on in `## Sources`, with its exact name and sha256;\n"
         "- list each supplied handoff in `## Sources`, with its module and exact sha256"
         + (
-            f";\n- place `### {opening}` directly after `### Reader summary`, once: prose that "
-            "states the view, before any table.\n\n"
+            f";\n- place `### {opening}` once, after the two tables of `### Reader summary` and "
+            "before any other table: its first content is prose that states the view.\n\n"
             if opening
             else ".\n\n"
         )
@@ -1416,6 +1462,72 @@ def _by_label(rows: list[list[str]]) -> dict[str, list[str]]:
     return {row[0]: row for row in reversed(rows)}  # The first of any repeat wins.
 
 
+COMMITMENT = "(commitment)"
+
+
+def _sources_uses_total_issues(heading: str, rows: list[list[str]]) -> list[str]:
+    """R-C2-1 fail closed. A side's total is written only when every row of that side holds a
+    number: one `Not supplied` row means no total for that side, and a side of numbers carries a
+    total that is a number. An Item containing "total" in any case is a total row on any Side
+    (Memo included) and must be the exact label on its own Side; `(commitment)` ends only a Memo
+    row's Item. A `Memo` row is neither a Source nor a Use row, so it is in no count and no total.
+    Nothing is summed (a commitment inside a total is told by the instruction only)."""
+    totals = {"Total sources": "Source", "Total uses": "Use"}
+    exact = {(side, item) for item, side in totals.items()}
+    plain = [row for row in rows if "total" not in row[1].lower()]
+    issues = [
+        _pf(
+            "pro_forma_rows",
+            heading,
+            f'row `{row[0]} / {row[1]}`: an Item containing "total" in any case is a total row, '
+            "and the only total rows are `Total sources` with Side Source and `Total uses` with "
+            "Side Use, written exactly as shown.",
+        )
+        for row in rows
+        if "total" in row[1].lower() and (row[0], row[1]) not in exact
+    ]
+    issues += [
+        _pf(
+            "pro_forma_rows",
+            heading,
+            f"row `{row[0]} / {row[1]}`: an Item ending `{COMMITMENT}` belongs only on a Memo "
+            "row; a Source or Use row holds a funded amount, never a commitment.",
+        )
+        for row in plain
+        if row[0] in ("Source", "Use") and row[1].endswith(COMMITMENT)
+    ]
+    for side in ("Source", "Use"):
+        item = next(i for i, s in totals.items() if s == side)
+        side_rows = [row for row in plain if row[0] == side]
+        if not side_rows:
+            issues.append(_pf("pro_forma_rows", heading, f"write at least one {side} row."))
+        written = [row for row in rows if (row[0], row[1]) == (side, item)]
+        if any(NOT_SUPPLIED_WITH_REASON.fullmatch(row[2]) for row in side_rows):
+            if written:
+                issues.append(
+                    _pf(
+                        "pro_forma_rows",
+                        heading,
+                        f"write no `{item}` row: a {side} row is `Not supplied`, and a total is "
+                        f"written only when every {side} row holds a number.",
+                    )
+                )
+        elif len(written) != 1:
+            issues.append(
+                _pf("pro_forma_rows", heading, f"write exactly one `{item}` row with Side {side}.")
+            )
+        elif NOT_SUPPLIED_WITH_REASON.fullmatch(written[0][2]):
+            issues.append(
+                _pf(
+                    "pro_forma_rows",
+                    heading,
+                    f"`{item}` is `Not supplied` but every {side} row holds a number: write the "
+                    "total as a number from `calculate`.",
+                )
+            )
+    return issues
+
+
 def _sources_uses_issues(lines: list[str]) -> list[str]:
     heading, header = SOURCES_USES_HEADING, SOURCES_USES_HEADER
     table = _pro_forma_table(lines, heading, header)
@@ -1423,7 +1535,7 @@ def _sources_uses_issues(lines: list[str]) -> list[str]:
         return [_missing(heading, header)]
     rows, issues = _whole_rows(heading, header, table)
     rules = {
-        "Side": _one_of("Source", "Use"),
+        "Side": _one_of("Source", "Use", "Memo"),
         "Item": _named,
         "Amount": _amount,
         "Currency": _named,
@@ -1431,17 +1543,17 @@ def _sources_uses_issues(lines: list[str]) -> list[str]:
         "Source": _named,
     }
     issues += _cell_issues(heading, header, rows, rules, lambda row: f"{row[0]} / {row[1]}")
-    totals = {"Total sources": "Source", "Total uses": "Use"}
-    plain = [row for row in rows if row[1] not in totals]
-    for side in ("Source", "Use"):
-        if not any(row[0] == side for row in plain):
-            issues.append(_pf("pro_forma_rows", heading, f"write at least one {side} row."))
-    for item, side in totals.items():
-        if sum(1 for row in rows if (row[0], row[1]) == (side, item)) != 1:
-            issues.append(
-                _pf("pro_forma_rows", heading, f"write exactly one `{item}` row with Side {side}.")
-            )
-    return issues
+    issues += [
+        _pf(
+            "pro_forma_cell",
+            heading,
+            f"row `{row[0]} / {row[1]}`, column Item: a Memo row holds a commitment, so its "
+            f"Item ends with `{COMMITMENT}`.",
+        )
+        for row in rows
+        if row[0] == "Memo" and not row[1].endswith(COMMITMENT)
+    ]
+    return issues + _sources_uses_total_issues(heading, rows)
 
 
 def _add_back_issues(lines: list[str]) -> list[str]:
@@ -1699,8 +1811,8 @@ def checker(layout: MarkdownLayout) -> Check:
         opening = OPENING.get(task.module_id)
         if opening and not _opens_with(text.splitlines(), opening):
             issues.append(
-                f"Place ### {opening} directly after ### Reader summary, once: prose that "
-                "states the view, before any table."
+                f"Place ### {opening} once, after the two tables of ### Reader summary and "
+                "before any other table: its first content is prose that states the view."
             )
         routes = tuple(r for r in layout.routes if r.module_id == task.module_id)
         try:

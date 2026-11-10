@@ -1,0 +1,335 @@
+{
+  "frozen": "2026-11-10",
+  "authored_by": "key-writer subagent (rc2 key, round r1); expected outcomes from the lead's review rulings on #84, not from the checker",
+  "source_probe": "SDD/pr84-probes/probe_su_total_variants.py (shapes: Total Sources, Total sources (printed), Sources total, Total sources on Side Use, commitment row); other shapes added by hand. Numbers 83, 720, 803, 760, 25, 18, 125 are those of the existing key.",
+  "cases": [
+    {
+      "id": "rc2r1-total-sources-capital-s-ns",
+      "covers": "Item `Total Sources` on Side Source. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total Sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-sources-capital-s-an",
+      "covers": "Item `Total Sources` on Side Source. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | Total Sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-sources-printed-ns",
+      "covers": "Item `Total sources (printed)` on Side Source. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources (printed) | 803 | USD | documented | 8-K, printed total |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-sources-printed-an",
+      "covers": "Item `Total sources (printed)` on Side Source. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | Total sources (printed) | 803 | USD | documented | 8-K, printed total |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-sources-total-ns",
+      "covers": "Item `Sources total` on Side Source. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Sources total | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-sources-total-an",
+      "covers": "Item `Sources total` on Side Source. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | Sources total | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-bare-upper-ns",
+      "covers": "Item `TOTAL` on Side Source. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | TOTAL | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-bare-upper-an",
+      "covers": "Item `TOTAL` on Side Source. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | TOTAL | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-subtotal-sources-ns",
+      "covers": "Item `Subtotal sources` on Side Source. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Subtotal sources | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling words: an Item 'containing the word total (any case, any position)' is a total row. 'Subtotal' contains `total` at a position other than the start, so under 'any position' it is a total row and not the exact label, hence refused. Reading 'word' as a whole word would accept it; I take 'any position' as the substring reading, which also keeps a subtotal from double-counting. See UNDECIDED r1. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-subtotal-sources-an",
+      "covers": "Item `Subtotal sources` on Side Source. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | Subtotal sources | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling words: an Item 'containing the word total (any case, any position)' is a total row. 'Subtotal' contains `total` at a position other than the start, so under 'any position' it is a total row and not the exact label, hence refused. Reading 'word' as a whole word would accept it; I take 'any position' as the substring reading, which also keeps a subtotal from double-counting. See UNDECIDED r1. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-sources-on-use-ns",
+      "covers": "Item `Total sources` on Side Use. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Use | Total sources | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-sources-on-use-an",
+      "covers": "Item `Total sources` on Side Use. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Total sources | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-uses-on-source-ns",
+      "covers": "Item `Total uses` on Side Source. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total uses | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-total-uses-on-source-an",
+      "covers": "Item `Total uses` on Side Source. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | Total uses | 803 | USD | documented | calculate |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: an Item containing `total` (any case, any position) is a total row and must be the exact label on its own Side or the table is refused, on every side. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-memo-item-has-total-ns",
+      "covers": "Memo row whose Item contains `total` (`Total facility size (commitment)`). On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Memo | Total facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: the rule applies 'on every side'. A Memo row is a side; an Item containing `total` is a total row, whose exact label exists only on Side Source (`Total sources`) and Side Use (`Total uses`). A Memo row cannot carry it, so refused. See UNDECIDED r1. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-memo-item-has-total-an",
+      "covers": "Memo row whose Item contains `total` (`Total facility size (commitment)`). On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | Total facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), MEDIUM ruling: the rule applies 'on every side'. A Memo row is a side; an Item containing `total` is a total row, whose exact label exists only on Side Source (`Total sources`) and Side Use (`Total uses`). A Memo row cannot carry it, so refused. See UNDECIDED r1. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-commitment-on-source-row-ns",
+      "covers": "Item ending `(commitment)` on a Source row. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), LOW ruling: the `(commitment)` marker belongs only on Memo rows; a Source row carrying it is refused. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-commitment-on-source-row-an",
+      "covers": "Item ending `(commitment)` on a Source row. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Source | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), LOW ruling: the `(commitment)` marker belongs only on Memo rows; a Source row carrying it is refused. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-commitment-on-use-row-ns",
+      "covers": "Item ending `(commitment)` on a Use row. On a side with a `Not supplied` row (the Source side has the ABL row Not supplied; no legitimate total is possible).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Use | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), LOW ruling: same, on a Use row. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-commitment-on-use-row-an",
+      "covers": "Item ending `(commitment)` on a Use row. On a side whose rows are all numbers (the legitimate `Total sources` and `Total uses` are present, so only the new rule can refuse the table).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), LOW ruling: same, on a Use row. Code: pro_forma_rows, the code R-L17 label and Side failures raise (see cp1a-total-uses-side-source)."
+    },
+    {
+      "id": "rc2r1-not-supplied-total-on-all-number-side",
+      "covers": "Total sources is `Not supplied` while every Source row holds a number.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | Not supplied: the source prints no total | USD | documented | 8-K |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), Info 4: when every row of a side has a number, its total must be a number; a `Not supplied` total there is refused. Code pro_forma_rows (see UNDECIDED r2)."
+    },
+    {
+      "id": "rc2r1-numeric-total-on-all-number-side-control",
+      "covers": "Control: numeric Total sources and Total uses, every row numeric.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "Lead review of #84 (task-11-contract.md, 'Lead review of #84'), Info 4 control; identical to the accepted shape of `rc2-memo-funded-rows-both-totals` without the Memo row."
+    }
+  ]
+}

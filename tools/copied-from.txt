@@ -129,7 +129,7 @@ src/deploy_workflow/handoff_delivery.py
 src/deploy_workflow/host.py
 src/deploy_workflow/html_text.py
 src/deploy_workflow/inline_xbrl.py
-src/deploy_workflow/markdown_delivery.py
+edited src/deploy_workflow/markdown_delivery.py
 src/deploy_workflow/model/budget.py
 src/deploy_workflow/model/copilot_adapter.py
 src/deploy_workflow/model/handoff.py

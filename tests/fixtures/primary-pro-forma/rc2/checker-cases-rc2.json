@@ -1,0 +1,207 @@
+{
+  "frozen": "2026-11-10",
+  "authored_by": "key-writer subagent (rc2 key); expected outcomes from R-C2-rulings.md and the controller's Q1-Q4 rulings; not the author of the checker. Expected under the rulings, not under the current checker: the current checker rejects Side `Memo` and requires both totals.",
+  "source_probe": "SDD/c2-assessment.md; SDD/c2-assess/run/ws/runs/web-f126f83e49773a9e5d16ee6af9284481/CP-1A.md lines 95-115",
+  "cases": [
+    {
+      "id": "rc2-memo-funded-rows-both-totals",
+      "covers": "Memo commitment row beside funded rows; both totals written (every Source and Use row holds a number).",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q1: Memo is a legal Side, Item ends '(commitment)'; Q2: every row of each side holds a number, so exactly one total per side."
+    },
+    {
+      "id": "rc2-memo-commitment-counted-in-total-known-limit",
+      "covers": "The commitment (125) added into Total sources (903 = 42 + 720 + 18 + 40 + 125) while the funded side is complete. The numbers are those of the C2 run.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 42 | USD | documented | LP page:5, proposed sources; USD millions |\n| Source | Term loan B | 720 | USD | documented | LP page:5 |\n| Source | Cash from balance sheet | 18 | USD | documented | LP page:5 |\n| Source | Mattress Firm equity issued to seller — noncash | 40 | USD | documented | LP pages 4–5 |\n| Source | Total sources | 903 | USD | user-entered | calculate: 42 + 720 + 18 + 40 + 125 |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Context page:1, abl-revolver size_m |\n| Use | Purchase of Sleep Train | 440 | USD | documented | LP page:5 |\n| Use | Purchase of bolt-ons | 66 | USD | documented | LP page:5 |\n| Use | Mattress Firm existing debt | 297 | USD | documented | LP page:5 |\n| Use | Illustrative fees and expenses | 18 | USD | documented | LP page:5 |\n| Use | Total uses | 821 | USD | documented | calculate: 440 + 66 + 297 + 18 |\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "Structure-only checker: pro_forma_issues docstring 'no number is summed or compared' (cpos_launch.py, pro_forma_issues). A total that includes the Memo row cannot be detected, so the checker accepts. Q3 known limit: enforced by the instruction only. This is the wrong answer R-C2-1 forbids; if the lead wants it rejected a summing check is needed (see UNDECIDED u1).",
+      "known_limit": true
+    },
+    {
+      "id": "rc2-source-not-supplied-no-total-sources",
+      "covers": "One Source row is Not supplied and no Total sources row; Use side complete with Total uses.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2: any row of a side Not supplied means no total for that side."
+    },
+    {
+      "id": "rc2-source-not-supplied-with-total-sources",
+      "covers": "One Source row is Not supplied but Total sources is written.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2: a total present while a row of that side is Not supplied is rejected (pro_forma_rows)."
+    },
+    {
+      "id": "rc2-all-source-numbers-no-total-sources",
+      "covers": "Every Source row holds a number and Total sources is missing.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2: a total missing while every row of the side holds a number is rejected (pro_forma_rows)."
+    },
+    {
+      "id": "rc2-all-use-numbers-no-total-uses",
+      "covers": "Every Use row holds a number and Total uses is missing.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2, Use side."
+    },
+    {
+      "id": "rc2-memo-side-lowercase",
+      "covers": "Side written `memo`.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_cell"
+        ]
+      },
+      "basis": "Existing exact-label rule: Side is matched by _one_of (cpos_launch.py, _one_of), so `memo` is not one of Source, Use, Memo (pro_forma_cell), as `cp1a-side-sources` is rejected today. Q1."
+    },
+    {
+      "id": "rc2-use-not-supplied-no-total-uses",
+      "covers": "One Use row Not supplied, no Total uses; Source side complete with Total sources.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | Not supplied: the source states no fees | USD | documented | 8-K |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2 on the Use side."
+    },
+    {
+      "id": "rc2-use-not-supplied-with-total-uses",
+      "covers": "One Use row Not supplied but Total uses is written.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | Not supplied: the source states no fees | USD | documented | 8-K |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2 on the Use side."
+    },
+    {
+      "id": "rc2-both-sides-not-supplied-no-totals",
+      "covers": "A Not supplied row on each side and no total on either side.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | Not supplied: the source states no funded ABL amount | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | Not supplied: the source states no fees | USD | documented | 8-K |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "R-C2-1 (a) fail closed: funded amounts on Source rows, the commitment on a Memo row, in no total; Q1/Q2 controller rulings. Q2: each side judged on its own rows."
+    },
+    {
+      "id": "rc2-only-memo-rows-on-source-side-no-total",
+      "covers": "The only Source-side row is a Memo row; no Total sources.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Existing at-least-one rule: `plain` rows are non-total rows and the check requires a row whose Side is Source (_sources_uses_issues); a Memo row has Side Memo, so it does not count (Q1: not counted as a Source or Use row)."
+    },
+    {
+      "id": "rc2-only-memo-rows-on-source-side-with-total",
+      "covers": "The only Source-side row is a Memo row and Total sources is written.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Entered by the user |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "basis": "Same at-least-one rule; the total does not supply a Source row."
+    },
+    {
+      "id": "rc2-memo-basis-estimated",
+      "covers": "Memo row Basis `estimated`.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL drawn at closing | 83 | USD | documented | ABL Credit Agreement, Section 2.1 |\n| Source | Term Loan B | 720 | USD | documented | Term Loan Credit Agreement |\n| Source | Total sources | 803 | USD | documented | calculate: 83 + 720 |\n| Memo | ABL facility size (commitment) | 125 | USD | estimated | Entered by the user |\n| Use | Refinance 2012 facilities | 760 | USD | documented | 8-K, refinancing description |\n| Use | Fees and OID | 25 | USD | user-entered | Entered by the user |\n| Use | Cash to balance sheet | 18 | USD | documented | 8-K |\n| Use | Total uses | 803 | USD | documented | calculate: 760 + 25 + 18 |\n\n",
+      "expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_cell"
+        ]
+      },
+      "basis": "Q3: the Basis rule is unchanged, documented or user-entered; applies to the Memo row."
+    },
+    {
+      "id": "rc2-c2-real-shape",
+      "covers": "Hand-written from CP-1A.md lines 99-110 of the C2 run: ABL 42 documented funded, 125 as a Memo commitment, Total sources 821 as printed against components 820; the 1 difference is logged in prose and not plugged.",
+      "module": "CP-1A",
+      "run_type": "primary",
+      "pathway": "credit_snapshot",
+      "findings": "### Sources and uses\n\n| Side | Item | Amount | Currency | Basis | Source |\n| --- | --- | --- | --- | --- | --- |\n| Source | ABL facility drawing at closing | 42 | USD | documented | LP page:5, proposed sources; USD millions |\n| Source | Term loan B | 720 | USD | documented | LP page:5; USD millions |\n| Source | Cash from balance sheet | 18 | USD | documented | LP page:5; USD millions |\n| Source | Mattress Firm equity issued to seller — noncash | 40 | USD | documented | LP pages 4–5; USD millions |\n| Source | Total sources | 821 | USD | documented | LP page:5, printed total; the rows above sum to 820; USD millions |\n| Memo | ABL facility size (commitment) | 125 | USD | user-entered | Context page:1, abl-revolver size_m; USD millions |\n| Use | Purchase of Sleep Train | 440 | USD | documented | LP page:5, proposed total consideration; USD millions |\n| Use | Purchase of bolt-ons | 66 | USD | documented | LP page:5; USD millions |\n| Use | Mattress Firm existing debt | 297 | USD | documented | LP page:5; USD millions |\n| Use | Illustrative fees and expenses | 18 | USD | documented | LP page:5; USD millions |\n| Use | Total uses | 821 | USD | documented | calculate: 440 + 66 + 297 + 18; USD millions |\n\n**Analyst Interpretation — difference logged, not resolved.** LP prints total sources of USD 821 million and its source rows sum to USD 820 million. That USD 1 million difference is unresolved and is not offset by a balancing row. The ABL commitment of USD 125 million is a Memo row and is in no total.\n\n",
+      "expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "basis": "Rulings R-C2-1 and the C2 run's own numbers: CP-1A.md lines 99-110, Total uses 821 equals the sum 440 + 66 + 297 + 18; printed Total sources 821 against 820 summed (c2-assessment.md section 1a). Checker is structure-only, so the 1 difference is a prose duty of the instruction, not a checker result.",
+      "hand_written": true
+    }
+  ]
+}
