@@ -2629,7 +2629,7 @@ def test_a_quitting_library_discovers_nothing_but_still_notices_a_finish(
 MISSING = object()
 LISTED = ["CP-4:legal-none", "CP-2:quotes-none"]
 ACCEPT_REFUSAL = "Accept the listed limitations before starting"
-INVALID_REVIEW = "Review is invalid or the provider is not configured"
+REVIEW_AGAIN = "Review this run again before starting"
 
 
 def reviewed_with_counted(
@@ -2722,7 +2722,7 @@ def test_start_with_a_malformed_counted_is_the_invalid_review_answer(
 ) -> None:
     app, root, client, job_id = reviewed_with_counted(tmp_path, counted)
     response = post_start(client, accept_body(job_id, **fields))
-    assert response.status_code == 409 and INVALID_REVIEW in response.text
+    assert response.status_code == 409 and response.json()["detail"] == REVIEW_AGAIN
     assert_nothing_started(app, root, job_id)
 
 
@@ -2735,3 +2735,28 @@ def test_a_refused_acceptance_leaves_the_job_startable(tmp_path: Path) -> None:
     assert again.status_code == 202, again.text
     wait_idle(app)
     assert (root / "intake" / job_id / "synthetic-starts.txt").read_text() == "one\n"
+
+
+OLD_REVIEW_KEYS = (
+    "ok review_id id engine_revision issuer issuer_id pathway as_of modules module_details config "
+    "provider model effort cap_usd hold_usd max_turns resume_of retained_modules retained_note "
+    "prices_as_of provider_ready provider_key sources ignored report_sections omitted scope"
+).split()
+
+
+def test_a_review_written_before_expectations_must_be_made_again(tmp_path: Path) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    path = root / "intake" / job_id / "review.json"
+    current = json.loads(path.read_bytes())
+    old = {key: current.get(key, "x") for key in OLD_REVIEW_KEYS}
+    old.update(review_id="review-fingerprint", provider_ready=True)
+    for key in ("issue_classification", "documents", "expectations", "counted", "without"):
+        assert key not in old
+    save_json(path, old)
+    for fields in ({}, {"accept_limitations": True}):
+        response = post_start(client, accept_body(job_id, **fields))
+        assert response.status_code == 409 and response.json()["detail"] == REVIEW_AGAIN
+        assert_nothing_started(app, root, job_id)
+    save_json(path, {**old, "counted": []})  # A fresh review lists its counted items.
+    assert post_start(client, accept_body(job_id)).status_code == 202
+    wait_idle(app)
