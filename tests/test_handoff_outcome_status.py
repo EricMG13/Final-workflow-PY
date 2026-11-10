@@ -577,15 +577,48 @@ RF_CASES = [
         "ready",
     ),
     ("rf-1m-period", "CP-5", None, "Ready: CP-5. Blocked: CP-6.\n", "not_reached"),
-    ("rf-1m-period-cp6", "CP-6", None, "Ready: CP-5. Blocked: CP-6.\n", "will_refuse"),
+    ("rf-1m-period-cp6", "CP-6", None, "Ready: CP-5. Blocked: CP-6.\n", "not_reached"),
     ("rf-1m-semicolon", "CP-5", None, "Ready: CP-5; Blocked: CP-6.\n", "not_reached"),
-    ("rf-1m-semicolon-cp6", "CP-6", None, "Ready: CP-5; Blocked: CP-6.\n", "will_refuse"),
+    ("rf-1m-semicolon-cp6", "CP-6", None, "Ready: CP-5; Blocked: CP-6.\n", "not_reached"),
     ("rf-1m-newline", "CP-5", None, "Ready: CP-5\nBlocked: CP-6\n", "not_reached"),
     ("rf-1m-newline-cp6", "CP-6", None, "Ready: CP-5\nBlocked: CP-6\n", "will_refuse"),
     ("rf-1n-fenced-colon", "CP-4", None, "```\nBlocked: CP-4\n```\n", "not_reached"),
     ("rf-1n-fenced-row", "CP-4", None, "```\n| CP-4 | BLOCKED |\n```\n", "not_reached"),
     ("rf-1n-fenced-prose", "CP-4", None, "```\nCP-4 BLOCKED\n```\n", "not_reached"),
     ("rf-1n-outside-fence-counts", "CP-4", None, "```\nx\n```\nBlocked: CP-4\n", "will_refuse"),
+    ("rf1-item-number", "CP-4", None, "Item 3. Blocked: CP-4\n", "not_reached"),
+    ("rf1-eg", "CP-4", None, "See the note e.g. Blocked: CP-4\n", "not_reached"),
+    ("rf1-sentence", "CP-4", None, "The matter is not resolved. Blocked: CP-4\n", "not_reached"),
+    (
+        "rf1-negated-semicolon",
+        "CP-4",
+        None,
+        "Nothing is blocked; Blocked: CP-4 was the old note\n",
+        "not_reached",
+    ),
+    ("rf1-draft-v-ready", "CP-4", "# CP-4\nbody\n", "Draft v. Ready: CP-4\n", "unconfirmed"),
+    ("rf1-line-start-guard", "CP-4", None, "Blocked: CP-4\n", "will_refuse"),
+    (
+        "rf1-m2-cp0-two-statuses",
+        "CP-4",
+        "# CP-4\nbody\n",
+        "CP-4 READY for drafting but BLOCKED for filing\n",
+        "will_refuse",
+    ),
+    (
+        "rf1-m2-own-two-statuses",
+        "CP-4",
+        "# CP-4\nCP-4 READY for drafting, BLOCKED for filing",
+        "",
+        "will_refuse",
+    ),
+    (
+        "rf1-m2-no-own-two-statuses",
+        "CP-4",
+        None,
+        "CP-4 READY for drafting but BLOCKED for filing\n",
+        "will_refuse",
+    ),
     *[(c[0], "CP-4", c[1], c[2], c[3]) for c in RF_BQ_CASES],
 ]
 
@@ -597,3 +630,17 @@ RF_CASES = [
 )
 def test_rf_final_status_reader_batch(module: str, own: str | None, cp0: str, wanted: str) -> None:
     assert handoff_outcome.actual_of(module, own, cp0)[0] == wanted
+
+
+RF_LINEAR_INPUTS = {
+    "spaces": "x." + " " * 1_000_000 + "x",
+    "numbered": "x" + ". 1" * 333_000,
+}
+
+
+@pytest.mark.parametrize("name", list(RF_LINEAR_INPUTS))
+def test_rf1_cp0_reader_is_linear_at_one_megabyte(name: str) -> None:
+    text = RF_LINEAR_INPUTS[name]
+    start = time.perf_counter()
+    handoff_outcome.actual_of("CP-4", "# CP-4\nbody\n", text)
+    assert time.perf_counter() - start < 1.0
