@@ -691,3 +691,16 @@ R-SB2-2 fix 1 (review M1/L1): `_QUALIFIER` admitted connectives and determiners,
 AGREEMENT`, `TERMINATION OF ...` and `Each/Our ... Credit Agreement contains` became credit agreements; the lender rule
 also gained an unasked `the|this` lead-in. Now `_QUALIFIER` excludes to/of/and/under/for/with/each/our/such/any; `the|this` stays on the credit-agreement rule only.
 Reviewer probe `r2_qualifier_admits_connectives.py`: 10 of 10 misclassified before, 0 after (exit 0).
+
+## 2026-11-10 R-SB2-2a positive qualifier lists
+
+`guess_kind`: the capitalised-word denylist `_QUALIFIER` is replaced by two positive lists in
+`run_expectations.py`. Credit agreement: ABL, Term Loan, Revolving, Senior, Secured, Unsecured, First/Second/Third
+Lien, Superpriority, Bridge, DIP, and `[ordinal] Amended and Restated`, in any combination, or `the|this` (optionally
+`amended and restated`); `Credit Agreement Joinder` is excluded. Lender presentation: Public, Private, Bank,
+Syndicate or none, plus `Lenders' Presentation`. Joinder In, Release From, Existing/Prior/Amended openers and
+`Investor ...` no longer match; a 10-K cover with an `Investor Lender Presentation` line stays financial_report.
+Answer key (c281e708, not edited): 27 tests red on the old rule, 201 passed in `test_run_expectations` after.
+Probes `denylist_residue`, `adv_kinds`, `r2_qualifier_residue`, `r2_qualifier_admits_connectives`: exit 0.
+Back-test (`expectations_backtest --out`) with origin/main's rule file vs this one on the same tree: identical.
+Not verified: qualifiers on issuer titles outside the key (a new facility word needs adding to the list).

@@ -67,12 +67,13 @@ def _rx(pattern: str) -> re.Pattern[str]:
     return re.compile(pattern, re.IGNORECASE)
 
 
-# Up to two capitalised qualifiers before a title phrase (ABL, Term Loan, Public); not a form, an
-# amendment title, a connective ("Joinder to ...") or a determiner ("Each Credit Agreement ...").
-_QUALIFIER = (
-    r"(?:(?!(?:the|this|form|amendment|to|of|and|under|for|with|each|our|such|any)\b)"
-    r"(?-i:[A-Z][\w&-]*) ){1,2}"
+# Words that may qualify a title phrase. Positive lists: any other opener ("Joinder In", "Release
+# From", "Existing", "Amended", "Investor") leaves the line unrecognised.
+_CREDIT_QUALIFIER = (
+    r"(?:(?:abl|term loan|revolving|senior|secured|unsecured|(?:first|second|third) lien|"
+    r"superpriority|bridge|dip) )*(?:(?:\w+ )?amended and restated )?"
 )
+_LENDER_QUALIFIER = r"(?:(?:public|private|bank|syndicate) )?"
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -85,7 +86,10 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "credit_agreement",
-        _rx(rf"(?:(?:the|this) |{_QUALIFIER})?(?:amended and restated )?credit agreement\b"),
+        _rx(
+            rf"(?:(?:the|this) (?:amended and restated )?|{_CREDIT_QUALIFIER})"
+            r"credit agreement\b(?! joinder\b)"
+        ),
     ),
     ("indenture", _rx(r"(?:(?:the|this) )?(?:(?:\w+ )?supplemental )?indenture\b")),
     ("amendment", _rx(r"amendment no\.? ?\d+|\w+ amendment to\b")),
@@ -97,7 +101,10 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "prospectus",
         _rx(r"(?:(?:preliminary|base) )?prospectus\b|supplement no\.? ?\d+\b.*\bprospectus\b"),
     ),
-    ("lender_presentation", _rx(rf"(?:{_QUALIFIER})?lender presentation\b")),
+    (
+        "lender_presentation",
+        _rx(rf"{_LENDER_QUALIFIER}lender presentation\b|lenders['’]? presentation\b"),
+    ),
     ("information_memorandum", _rx(r"information memorandum\b")),
     ("term_sheet", _rx(r"term sheet\b|summary of (?:indicative )?terms and conditions\b")),
     ("commitment_letter", _rx(r"commitment letter\b")),
