@@ -1339,11 +1339,10 @@ function lostValues(x, y, path, out) {
     for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) {
       lostValues(Object.hasOwn(x, k) ? x[k] : undefined, Object.hasOwn(y, k) ? y[k] : undefined, Array.isArray(x) ? `${path}[${k}]` : path ? path + '.' + k : k, out);
     }
-  } else if (kids(x) && blank(y)) {
-    for (const k of Object.keys(x)) lostValues(x[k], undefined, Array.isArray(x) ? `${path}[${k}]` : path ? path + '.' + k : k, out);
-  } else if (kids(y) && blank(x)) {
-    for (const k of Object.keys(y)) lostValues(undefined, y[k], Array.isArray(y) ? `${path}[${k}]` : path ? path + '.' + k : k, out);
-  } else if (!(blank(x) && blank(y)) && (typeof x === 'string' && typeof y === 'string' ? x.trim() !== y.trim() : x !== y)) {
+  } else if ((kids(x) || kids(y)) && Object.keys(kids(x) ? x : y).length && blank(kids(x) ? y : x)) {
+    const c = kids(x) ? x : y;
+    for (const k of Object.keys(c)) lostValues(kids(x) ? c[k] : undefined, kids(x) ? undefined : c[k], Array.isArray(c) ? `${path}[${k}]` : path ? path + '.' + k : k, out);
+  } else if (kids(x) || kids(y) || (!(blank(x) && blank(y)) && (typeof x === 'string' && typeof y === 'string' ? x.trim() !== y.trim() : x !== y))) {
     out.push(`${path} ${x === undefined ? 'is missing' : 'has the value ' + JSON.stringify(x)}, but the form would write ${show(y)}`);
   }
   return out;
