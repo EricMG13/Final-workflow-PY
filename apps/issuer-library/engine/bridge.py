@@ -523,8 +523,8 @@ def start(directory: Path) -> None:
         library_manifest.write(workspace, job["id"])
     except Exception as error:  # noqa: BLE001 -- documented fail-open, logged below
         line = " ".join(f"{type(error).__name__}: {error}".split())
-        print(f"Library entry not written: {line}", file=sys.stderr)
         entry = [redact(f"Library entry not written: {line}")]
+        print(entry[0], file=sys.stderr)
     amount, notes = final_spend()
     write_json(
         directory / "status.json",

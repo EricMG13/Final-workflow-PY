@@ -1008,25 +1008,23 @@ def library_entry_values(page: Any, name: str, port: int, workspace: Path, run: 
     page.click(f"[data-library-select='{run}']")
     detail = page.locator("#run-detail")
     detail.wait_for(state="visible")
-    items = {
-        label: " ".join(
-            detail.locator(".metric-item", has=page.locator(f"text='{label}'"))
-            .first.inner_text()
-            .split()
-        )
-        for label in ("Leverage", "Net leverage", "Interest coverage", "Closing cash")
-        + ("Undrawn facilities",)
-    }
+    parts = (
+        "(item) => [item.querySelector('.metric-value').firstChild.textContent.trim(),"
+        " item.querySelector('p').textContent.trim()]"
+    )
     for label, value, period in (
-        ("Leverage", "3.60", "FY2024 ended 2024-12-31"),
-        ("Net leverage", "3.25", "FY2024 ended 2024-12-31"),
-        ("Interest coverage", "3.40", "FY2024 ended 2024-12-31"),
+        ("Leverage", "3.60\u00d7", "FY2024 ended 2024-12-31"),
+        ("Net leverage", "3.25\u00d7", "FY2024 ended 2024-12-31"),
+        ("Interest coverage", "3.40\u00d7", "FY2024 ended 2024-12-31"),
         ("Closing cash", "275", "2024-12-31"),
         ("Undrawn facilities", "400", "2024-12-31"),
     ):
+        item = detail.locator(".metric-item", has=page.locator(f"text='{label}'")).first
+        shown_value, shown_period = item.evaluate(parts)
         note(
-            value in items[label] and f"{period} \u00b7 Synthetic." in items[label],
-            f"{name}: Library detail shows {label} {value}, {period}, Synthetic ({items[label]})",
+            shown_value == value and shown_period == f"{period} \u00b7 Synthetic.",
+            f"{name}: Library detail shows {label} {value}, {period}, Synthetic"
+            f" ({shown_value!r}, {shown_period!r})",
         )
     pinned = "| FY2024 ended 2024-12-31 | 3.60 | 3.25 | x | Synthetic. |"  # CP-1.md line 29
     at = [
@@ -1039,9 +1037,10 @@ def library_entry_values(page: Any, name: str, port: int, workspace: Path, run: 
     ).click()
     page.wait_for_selector("#inspector:not([hidden]) .evidence-fields")
     shown = " ".join(page.inner_text("#inspector").split())
+    where = page.locator("#inspector .evidence-context").inner_text().strip()
     note(
         len(at) == 1
-        and f"Line {at[0]}" in shown
+        and re.search(rf"\bLine {at[0]}$", where) is not None
         and all(
             cell in shown for cell in ("FY2024 ended 2024-12-31", "3.60", "3.25", "Synthetic.")
         ),
