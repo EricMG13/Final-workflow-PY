@@ -66,6 +66,11 @@ PYTHON_TESTS = (
     "tests/test_run_expectations.py",
     "tests/test_expectations_backtest.py",
     "tests/test_issuer_library_single_run.py",
+    "tests/test_delivery_low_s04.py",
+    "tests/test_handoff_delivery.py",
+    "tests/test_model_handoff_delivery.py",
+    "tests/test_portfolio_handoff_delivery.py",
+    "tests/test_relative_value_handoff_delivery.py",
 )
 PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "not live and not browser")
 BROWSER_PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "browser")
