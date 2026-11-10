@@ -11,7 +11,6 @@ import re
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import date
-from pathlib import PurePath
 from typing import Literal, TypedDict
 
 from deploy_vii.registry import dependencies, edge_rule
@@ -75,8 +74,12 @@ MONTHS = (
 
 
 def _cased(*words: str) -> str:
-    """Case-sensitive alternatives: each word as Title Case or UPPER CASE."""
-    forms = {form for w in words for form in (w.title(), w.upper())}
+    """Case-sensitive alternatives: each word as Title Case or UPPER CASE (numeric ordinals as written)."""
+    forms = {
+        form
+        for w in words
+        for form in ((w, w.upper()) if w[0].isdigit() else (w.title(), w.upper()))
+    }
     return "(?-i:" + "|".join(sorted(forms, key=len, reverse=True)) + ")"
 
 
@@ -102,7 +105,8 @@ _TAIL = (
     + "|".join(MONTHS)
     + r") \d{1,2}, \d{4}\W*)"
 )
-_TITLE_END = rf"\s*[.,;:]?(?:\s+{_TAIL})?$"
+_TITLE_END = _rx(rf"\s*[.,;:]?(?:\s+{_TAIL})?$")
+_ENDS_AT_PHRASE = frozenset({"credit_agreement", "lender_presentation"})  # Title lines only.
 # A title line starts with the phrase, so a sentence that merely mentions a document does not count.
 LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -117,7 +121,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "credit_agreement",
         _rx(
             rf"(?:(?:the|this) (?:amended and restated )?|{_CREDIT_QUALIFIER})"
-            rf"credit agreement{_TITLE_END}"
+            r"credit agreement\b(?! joinder\b)"
         ),
     ),
     ("indenture", _rx(r"(?:(?:the|this) )?(?:(?:\w+ )?supplemental )?indenture\b")),
@@ -132,7 +136,7 @@ LINE_PHRASES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "lender_presentation",
-        _rx(rf"(?:{_LENDER_QUALIFIER}lender presentation|lenders['’]? presentation){_TITLE_END}"),
+        _rx(rf"(?:{_LENDER_QUALIFIER}lender presentation|lenders['’]? presentation)"),
     ),
     ("information_memorandum", _rx(r"information memorandum\b")),
     ("term_sheet", _rx(r"term sheet\b|summary of (?:indicative )?terms and conditions\b")),
@@ -203,8 +207,9 @@ def _wraps(previous: str, line: str) -> bool:
     return open_prose and len(line.split()) > 6 and not line.isupper()
 
 
-def _hits(lines: list[str]) -> dict[str, str]:
-    """Kind -> the text that matched, from title lines (a line, or a line joined to the next)."""
+def _hits(lines: list[str], *, page: bool = True) -> dict[str, str]:
+    """Kind -> the text that matched, from title lines (a line, or a line joined to the next).
+    Only a page title line must end at its phrase; a file name does not."""
     found: dict[str, str] = {}
     for index, line in enumerate(lines):
         if index and _wraps(lines[index - 1], line):
@@ -212,7 +217,12 @@ def _hits(lines: list[str]) -> dict[str, str]:
         following = lines[index + 1] if index + 1 < len(lines) else ""
         for candidate in (line, f"{line} {following}"):
             for kind, rx in LINE_PHRASES:
-                if match := rx.match(candidate):
+                match = rx.match(candidate)
+                if match and (
+                    not page
+                    or kind not in _ENDS_AT_PHRASE
+                    or _TITLE_END.fullmatch(candidate, match.end())
+                ):
                     found.setdefault(kind, match.group(0))
     text = "\n".join(lines)
     for kind, rx in COVER_PHRASES:
@@ -230,8 +240,8 @@ def _kind(name: str, lines: list[str], pages: Sequence[str]) -> tuple[str, str]:
     for number, page in enumerate(pages, 1):
         if match := INDEX_PHRASE.search(" ".join(page.split())):
             return "financial_report", f"found {match.group(0)!r} on page {number}"
-    spaced = " ".join(re.split(r"[-_.]+", PurePath(name).stem)).upper()
-    named = _hits([_NAME_PREFIX.sub("", spaced)])
+    spaced = " ".join(re.split(r"[-_.]+", name)).upper()
+    named = _hits([_NAME_PREFIX.sub("", spaced)], page=False)
     if len(named) == 1:
         ((kind, text),) = named.items()
         return kind, f"file name contains {text!r}"
