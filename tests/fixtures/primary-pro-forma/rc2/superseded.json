@@ -1,0 +1,63 @@
+{
+  "frozen": "2026-11-10",
+  "file": "tests/fixtures/primary-pro-forma/checker-cases-lows-r2.json",
+  "note": "Only these four ids. The cases are not edited; this file supersedes their expected result. The findings text is unchanged (each holds `Not supplied: ...` in the ABL Amount and a `Total sources` row).",
+  "superseded": [
+    {
+      "id": "r2-ma-ns-na",
+      "old_expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "new_expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "citation": "R-C2-1 fail closed; lead ruling A4 (a) 2026-11-10"
+    },
+    {
+      "id": "r2-ma-ns-10k",
+      "old_expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "new_expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "citation": "R-C2-1 fail closed; lead ruling A4 (a) 2026-11-10"
+    },
+    {
+      "id": "r2-ma-ns-nonascii-dash-letters",
+      "old_expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "new_expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "citation": "R-C2-1 fail closed; lead ruling A4 (a) 2026-11-10"
+    },
+    {
+      "id": "r2-ma-ns-e-acute",
+      "old_expected": {
+        "accepted": true,
+        "issues": []
+      },
+      "new_expected": {
+        "accepted": false,
+        "issues": [
+          "pro_forma_rows"
+        ]
+      },
+      "citation": "R-C2-1 fail closed; lead ruling A4 (a) 2026-11-10"
+    }
+  ]
+}

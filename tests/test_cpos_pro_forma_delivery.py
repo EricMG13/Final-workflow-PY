@@ -132,6 +132,131 @@ def test_layout_is_unchanged_outside_primary_with_cp2():
     assert hashlib.sha256(json.dumps(kept).encode()).hexdigest() == UNCHANGED_LAYOUTS
 
 
+RC2_DIR = ROOT / "tests/fixtures/primary-pro-forma/rc2"
+SU_TAB = json.loads((RC2_DIR / "delivered-block-rc2.json").read_text())["sources_and_uses"]
+PAIR_NOTE = json.loads((RC2_DIR / "delivered-notes.json").read_text())["cases"][
+    "fake_cp2_full_valid_plus_cp1a_valid"
+]["expected_block_note"]
+PAIR_RUN = RUN.model_copy(update={"requested_modules": ("CP-1A", "CP-2")})
+SU_KEY_CASE = "cp1a-sources-uses-valid-user-entered"
+
+
+def test_layout_adds_sources_and_uses_as_a_third_route_when_cp1a_and_cp2_both_run():
+    """R-C2-2: CP-1A's table is a further tab of the pro-forma block, after the leverage tab."""
+    layout, _ = _layout(
+        PAIR_RUN, ("CP-1A", "CP-2"), (), "cfg", run_type="primary", legal_documents="executed"
+    )
+    routes = [r for r in layout.routes if r.block_id == "pro-forma"]
+    assert [(r.module_id, r.kind, r.heading, r.table_header) for r in routes] == [
+        ("CP-2", "table", "Pro forma capitalisation", "Instrument"),
+        ("CP-2", "table", "Pro forma leverage", "Basis"),
+        ("CP-1A", "table", "Sources and uses", "Side"),
+    ]
+    assert layout.blocks.count("pro-forma") == 1
+
+
+@pytest.mark.parametrize(
+    ("ordered", "run_type"),
+    [(("CP-1A",), "primary"), (("CP-1A", "CP-2"), "secondary"), (("CP-2",), "primary")],
+)
+def test_no_sources_and_uses_route_unless_primary_runs_both_modules(ordered, run_type):
+    """Controller rulings u10/u11: CP-1A alone is not routed (a known limit)."""
+    run = RUN.model_copy(update={"requested_modules": ordered})
+    layout, _ = _layout(run, ordered, (), "cfg", run_type=run_type, legal_documents="executed")
+    assert not [r for r in layout.routes if r.heading == "Sources and uses"]
+
+
+def stub(route) -> str:
+    body = "Prose text.\n\n" if route.kind == "prose" else "| A | B |\n| --- | --- |\n| x | 1 |\n\n"
+    return f"### {route.heading}\n\n{body}"
+
+
+def layout_of_pair():
+    layout, _ = _layout(
+        PAIR_RUN, ("CP-1A", "CP-2"), (), "cfg", run_type="primary", legal_documents="executed"
+    )
+    return layout
+
+
+def deliver_texts(tmp_path: Path, texts: dict[str, str]):
+    """Whole handoffs of the CP-1A and CP-2 Primary run through the app's layout and delivery."""
+    specs = {}
+    for module, text in texts.items():
+        raw = text.encode()
+        (tmp_path / f"{module}.md").write_bytes(raw)
+        specs[module] = HandoffInput(path=f"{module}.md", sha256=hashlib.sha256(raw).hexdigest())
+    request = DeliveryRequest(run=PAIR_RUN, handoffs=specs, layout=layout_of_pair())
+    return markdown_files(request, tmp_path)
+
+
+def deliver_pair(tmp_path: Path, findings: dict[str, str]):
+    """Routes under test carry the given findings; every other routed heading carries a stub."""
+    texts = {}
+    for module in ("CP-1A", "CP-2"):
+        routed = [
+            r
+            for r in layout_of_pair().routes
+            if r.module_id == module and r.block_id != "pro-forma"
+        ]
+        body = "".join(stub(r) for r in routed) + findings[module] + "\n\n"
+        texts[module] = (
+            f"# {module} Acme Corp\n\n## Request\nAcme Corp pro forma.\n\n## Sources\nsrc.pdf\n\n"
+            f"## Findings\n\n{body}{TAIL}"
+        )
+    return deliver_texts(tmp_path, texts)
+
+
+def pair_block(tmp_path: Path):
+    files = deliver_pair(
+        tmp_path,
+        {
+            "CP-1A": CASES[SU_KEY_CASE]["findings"],
+            "CP-2": CASES["cp2-full-valid"]["findings"],
+        },
+    )
+    report = ReportView.model_validate_json(files["report-view.json"])
+    return next(b for b in report.blocks if b.block_id == "pro-forma")
+
+
+def test_sources_and_uses_is_a_tab_after_leverage_with_the_handoffs_cells(tmp_path):
+    """R-C2-2 (key rc2/delivered-block-rc2.json): primary = capitalisation, then the leverage tab,
+    then Sources and uses; the capitalisation and leverage cells are the unchanged key's."""
+    block = pair_block(tmp_path)
+    delivered = json.loads(
+        (ROOT / "tests/fixtures/primary-pro-forma/delivered-block.json").read_text()
+    )["pro-forma"]
+    assert [t.label for t in block.tabs] == ["Pro forma leverage — Basis", SU_TAB["label"]]
+    assert block.tab_label == "Pro forma capitalisation — Instrument"
+    for table, key in (
+        (block, delivered["capitalisation"]),
+        (block.tabs[0], delivered["leverage"]),
+        (block.tabs[1], SU_TAB),
+    ):
+        assert [table.row_header, *table.columns] == key["header"]
+        assert [[r.label, *(c.text for c in r.cells)] for r in table.rows] == key["rows"]
+    assert block.full_analysis_route == "CP-2"
+
+
+def test_the_block_note_names_each_table_and_asserts_no_other_tables_unit(tmp_path):
+    """R-C2-5 (key rc2/delivered-notes.json, rulings n1 to n6)."""
+    assert pair_block(tmp_path).note == PAIR_NOTE
+
+
+def test_a_unit_sentence_stays_with_its_own_table(tmp_path):
+    """The unit sentence of the sources-and-uses prose is prefixed with that table's name, and the
+    capitalisation prose is not read as a unit for it (rulings n1, n5)."""
+    findings = CASES[SU_KEY_CASE]["findings"].replace(
+        "### Sources and uses\n",
+        "### Sources and uses\n\nAmounts are **USD millions** throughout.\n",
+    )
+    files = deliver_pair(tmp_path, {"CP-1A": findings, "CP-2": CASES["cp2-full-valid"]["findings"]})
+    report = ReportView.model_validate_json(files["report-view.json"])
+    note = next(b for b in report.blocks if b.block_id == "pro-forma").note
+    assert note is not None
+    assert note.endswith(" · Sources and uses: Amounts are USD millions throughout.")
+    assert note.count("USD millions") == 1
+
+
 REGISTER = (
     f"### Legal document register\n\n| {' | '.join(REGISTER_HEADER)} |\n"
     f"| {' | '.join(['---'] * len(REGISTER_HEADER))} |\n"
@@ -170,7 +295,12 @@ def test_pro_forma_tables_reach_the_report_unchanged(tmp_path, case_id):
     # The handoff's balance-sheet date and LTM period survive exactly in the block note.
     lines = [l for l in findings.splitlines() if l.startswith(("Balance-sheet date:", "LTM"))]
     assert len(lines) == 2
-    assert block.note == " ".join(lines)  # exact, in the handoff's order, nothing added
+    # R-C2-5: each table's prose carries its table's name; the leverage table states its unit per
+    # row, so the note says that instead of asserting a unit for it. The handoff's own words follow
+    # in the handoff's order, nothing else added (rc2/delivered-notes.json, rulings n1 to n5).
+    assert block.note == (
+        f"Pro forma capitalisation: {' '.join(lines)} · Pro forma leverage: unit stated per row"
+    )
     assert "REGISTER-MARKER-7" not in json.dumps(json.loads(files["report-view.json"])["blocks"])
 
 

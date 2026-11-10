@@ -15,7 +15,6 @@ apps/issuer-library/designs/library-answer-key.json
 apps/issuer-library/web/boot.js
 apps/issuer-library/web/context-embed.css
 apps/issuer-library/web/context-embed.js
-apps/issuer-library/web/context-form.html
 apps/issuer-library/web/hydrate.js
 apps/issuer-library/web/icons/circle-check.svg
 apps/issuer-library/web/icons/triangle-alert.svg
@@ -69,7 +68,6 @@ docs/superpowers/plans/2026-11-05-issuer-library-reader-update.md
 docs/superpowers/plans/2026-11-06-copilot-sdk-adapter.md
 docs/superpowers/plans/2026-11-08-plan-1-library-screening.md
 docs/templates/README.md
-docs/templates/context-form.html
 docs/visualisations/MAP.md
 src/deploy_vii/assets/app.js
 src/deploy_vii/business_context.py
@@ -131,7 +129,7 @@ src/deploy_workflow/handoff_delivery.py
 src/deploy_workflow/host.py
 src/deploy_workflow/html_text.py
 src/deploy_workflow/inline_xbrl.py
-src/deploy_workflow/markdown_delivery.py
+edited src/deploy_workflow/markdown_delivery.py
 src/deploy_workflow/model/budget.py
 src/deploy_workflow/model/copilot_adapter.py
 src/deploy_workflow/model/handoff.py
@@ -225,7 +223,7 @@ src/deploy_workflow/workflow.py
 tests/cp2d_runs.py
 tests/fixtures/run-expectations-pages/encrypted-pdfs.json
 tests/fixtures/run-expectations/document-key.json
-tests/fixtures/run-expectations/outcome-key.json
+edited tests/fixtures/run-expectations/outcome-key.json
 tests/fixtures/run-expectations/synthetic/01-credit-agreement-preliminary-statements.txt
 tests/fixtures/run-expectations/synthetic/02-credit-agreement-draft.txt
 tests/fixtures/run-expectations/synthetic/03-edgar-exhibit-credit-agreement-unmarked.txt
@@ -259,7 +257,7 @@ tests/model/test_pricing.py
 tests/model/test_providers.py
 tests/model/test_redact.py
 tests/model/test_turn.py
-tests/nightly-known-failures.txt
+edited tests/nightly-known-failures.txt
 tests/prompts/probes/injection_cases.py
 tests/prompts/r_cp4_strip.py
 tests/prompts/r_narr_strip.py
@@ -321,7 +319,7 @@ tests/test_cp5_checks_once.py
 edited tests/test_cpos_app.py
 tests/test_cpos_comparison.py
 tests/test_cpos_handoffs.py
-tests/test_cpos_launch.py
+edited tests/test_cpos_launch.py
 edited tests/test_delivery_low_s04.py
 tests/test_downstream_evidence_tags.py
 tests/test_earnings.py
@@ -434,12 +432,14 @@ edited apps/issuer-library/web/screen.css
 edited apps/issuer-library/web/screen.js
 edited apps/issuer-library/web/screening.js
 edited apps/issuer-library/web/views.js
+edited apps/issuer-library/web/context-form.html
 edited docs/VERIFICATION-ARCHIVE.md
 edited docs/superpowers/plans/2026-11-08-plan-2-run-expectations.md
 edited docs/superpowers/plans/2026-11-08-plan-3-primary-transactions.md
 edited docs/superpowers/plans/2026-11-08-plan-4-library-credit-data.md
 edited docs/superpowers/plans/2026-11-08-plan-5-beta-release.md
 edited docs/superpowers/plans/2026-11-08-run-expectations.md
+edited docs/templates/context-form.html
 edited examples/issuer-library/README.md
 edited src/deploy_workflow/owners/cpos_launch.py
 edited src/deploy_workflow/run_expectations.py

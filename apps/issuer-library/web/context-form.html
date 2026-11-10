@@ -596,10 +596,7 @@ function F(id, k, label, attrs, help, cls) {
 function D(id, k, label, help) {
   return F(id, k, label, '', help).replace('type="text"', 'type="date"');
 }
-function S(id, k, label, opts) {
-  return `<div class="f"><label for="${id}">${label}</label><select id="${id}" data-k="${k}"><option value=""></option>` +
-    opts.map(o => `<option>${o}</option>`).join('') + '</select></div>';
-}
+const SUGGEST = 'Pick a suggestion or type your own.';
 function rowShell(title, body, extraCls) {
   return `<div class="row ${extraCls || ''}" data-row><div class="rowhead"><h4 data-title="${title}"></h4><button type="button" class="btn sm" data-remove>Remove</button></div>${body}</div>`;
 }
@@ -607,11 +604,15 @@ const NUMA = 'inputmode="decimal"';
 const P = t => ` placeholder="${t}"`;
 const NP = t => NUMA + P(t);
 const INSTRUMENTS = ['Term loan B','Term loan A','Revolver','Senior secured notes','Senior unsecured notes','Other'];
+const AGENCIES = ['S&P',"Moody's",'Fitch','Other'], OUTLOOKS = ['Positive','Stable','Negative','Developing','Watch'];
+for (const [id, list] of [['instruments', INSTRUMENTS], ['agencies', AGENCIES], ['outlooks', OUTLOOKS], ['modules', MODULE_IDS]]) {
+  document.body.insertAdjacentHTML('beforeend', `<datalist id="${id}">` + list.map(o => `<option value="${o}">${o}</option>`).join('') + '</datalist>');
+}
 
 const ROWS = {
   deal: {box:'rows-deal', title:'Facility', max:20, make() {
     const p = 'd' + (++uid);
-    return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + S(p+'b','instrument','Instrument',INSTRUMENTS) +
+    return rowShell('Facility', '<div class="grid">' + F(p+'a','facility_id','Facility ID',P('e.g. tlb-2031'),'Your own short label; reuse it in quotes.') + F(p+'b','instrument','Instrument','list="instruments"' + P('e.g. Term loan B'),SUGGEST) +
       F(p+'c','currency','Currency','value="USD" maxlength="3"' + P('e.g. USD'),'Three uppercase letters.') + F(p+'d','size_m','Size (m)',NP('e.g. 1250'),'Millions of the stated currency.') + F(p+'e','tenor_years','Tenor (years)',NP('e.g. 7'),'Years.','pf') +
       F(p+'f','talk_spread_bps_low','Talk spread low (bps)',NP('e.g. 325'),'Basis points over the reference rate.','pf') + F(p+'g','talk_spread_bps_high','Talk spread high (bps)',NP('e.g. 350'),'Basis points over the reference rate.','pf') +
       F(p+'h','talk_oid_low','Talk OID low',NP('e.g. 99.0'),'Price per 100.','pf') + F(p+'i','talk_oid_high','Talk OID high',NP('e.g. 99.5'),'Price per 100.','pf') + F(p+'j','floor_pct','Floor (%)',NP('e.g. 0.50'),'Percent.') +
@@ -628,8 +629,8 @@ const ROWS = {
   }},
   rating: {box:'rows-rating', title:'Rating', max:20, make() {
     const p = 'r' + (++uid);
-    return rowShell('Rating', '<div class="grid">' + S(p+'a','agency','Agency',['S&P',"Moody's",'Fitch','Other']) + F(p+'b','rating','Rating',P('e.g. B+ or B1'),'As the agency writes it.') +
-      S(p+'c','outlook','Outlook',['Positive','Stable','Negative','Developing','Watch']) + D(p+'d','as_of','As-of','Date of the rating, YYYY-MM-DD.') + '</div>' +
+    return rowShell('Rating', '<div class="grid">' + F(p+'a','agency','Agency','list="agencies"' + P('e.g. S&amp;P'),SUGGEST) + F(p+'b','rating','Rating',P('e.g. B+ or B1'),'As the agency writes it.') +
+      F(p+'c','outlook','Outlook','list="outlooks"' + P('e.g. Stable'),SUGGEST) + D(p+'d','as_of','As-of','Date of the rating, YYYY-MM-DD.') + '</div>' +
       `<fieldset><legend>Scope</legend>${cards('rs' + p, 'scope', OPTIONS.scope)}</fieldset>`);
   }},
   peer: {box:'rows-peer', title:'Peer', max:30, make() {
@@ -649,7 +650,7 @@ const ROWS = {
   }},
   q: {box:'rows-q', title:'Question', max:10, make() {
     const p = 'z' + (++uid);
-    return rowShell('Question', '<div class="grid">' + F(p+'a','text','Question',P('e.g. How much of 2025 adjusted EBITDA is run-rate cost savings?'),'One question, plain text.') + S(p+'b','focus_module','Focus module',MODULE_IDS) + '</div>');
+    return rowShell('Question', '<div class="grid">' + F(p+'a','text','Question',P('e.g. How much of 2025 adjusted EBITDA is run-rate cost savings?'),'One question, plain text.') + F(p+'b','focus_module','Focus module','list="modules"' + P('e.g. CP-2'),SUGGEST) + '</div>');
   }}
 };
 function addRow(kind) {
@@ -1315,7 +1316,6 @@ function fillRows(kind, list, path, warn) {
     const row = addRow(kind);
     for (const k of keysOf(row)) if (k in item) setV(row, k, txt(item[k]), `${path}[${i}].${k}`, warn);
   });
-  if (list.length > ROWS[kind].max) warn.push(`${path}: only the first ${ROWS[kind].max} rows were loaded`);
 }
 function fill(o) {
   const warn = [];
@@ -1324,7 +1324,7 @@ function fill(o) {
   const run = o.run, id = o.identity, v = o.valuation;
   setV(s1, 'run_type', txt(run.run_type), 'run.run_type', warn);
   setV(s1, 'pathway', txt(run.pathway), 'run.pathway', warn);
-  pathTouched = getV(s1, 'pathway') !== RUN_DEFAULT_PATH[getV(s1, 'run_type')];
+  pathTouched = getV(s1, 'pathway') !== '' && getV(s1, 'pathway') !== RUN_DEFAULT_PATH[getV(s1, 'run_type')];
   setV(s1, 'case_kind', txt(run.case_kind), 'run.case_kind', warn);
   for (const k of ['as_of','cutoff','current_period','prior_period','reporting_currency']) if (k === 'as_of' || txt(run[k]) !== '') setV(s3, k, txt(run[k]), 'run.' + k, warn);
   for (const k of ['issuer_name','issuer_id','borrower_name','parent_name','ticker','sector','country','sponsor']) setV(s2, k, txt(id[k]), 'identity.' + k, warn);
@@ -1334,7 +1334,6 @@ function fill(o) {
   setV(s2, 'guarantors', id.guarantors.map(txt).join('\n'), 'identity.guarantors', warn);
   setV(s2, 'aliases', id.aliases.map(txt).join('\n'), 'identity.aliases', warn);
   setV(s2, 'listed_equity', id.listed_equity === true ? 'yes' : 'no', 'identity.listed_equity', warn);
-  if (typeof id.listed_equity !== 'boolean') warn.push('identity.listed_equity: expected true or false, treated as No');
   idTouched = txt(id.issuer_id) !== '' && txt(id.issuer_id) !== slug(txt(id.issuer_name));
   fillRows('deal', o.deal_terms, 'deal_terms', warn);
   fillRows('quote', o.quotes, 'quotes', warn);
@@ -1343,8 +1342,6 @@ function fill(o) {
   vis();
   setV(s7, 'basis', txt(v.basis), 'valuation.basis', warn);
   basisTouched = getV(s7, 'basis') !== BASIS_DEFAULT[getV(s2, 'listed_equity')];
-  if (getV(s7, 'basis') === 'issuer_trading' && getV(s2, 'listed_equity') !== 'yes') warn.push('valuation.basis: issuer_trading needs identity.listed_equity true; reset to auto');
-  if (getV(s1, 'run_type') !== 'primary' && o.deal_terms.some(r => PRIMARY_ONLY.some(k => txt(r[k]) !== ''))) warn.push('deal_terms: tenor and price talk are shown for Primary only, so they will not be written');
   for (const k of keysOf($('im'))) if (k in v.issuer_market) setV($('im'), k, txt(v.issuer_market[k]), 'valuation.issuer_market.' + k, warn);
   for (const k of keysOf($('um'))) {
     const src = k === 'ebitda_basis' ? 'basis' : k;
@@ -1370,6 +1367,41 @@ function fillAssumptions(a, warn) {
     }
   }
 }
+/* Load invariant: after fill(), vis() and build(), the file and what build() writes must agree both ways.
+   Text compares trimmed at the ends; a blank string and a missing key are the same; everything else
+   (booleans, numbers vs strings, null) must be equal exactly, type included. Mirrors
+   live_check.entered_leaves, but two-way, null is a value, and text compares trimmed. */
+function lostValues(x, y, path, out) {
+  const kids = v => v !== null && typeof v === 'object';
+  const blank = v => v === undefined || (typeof v === 'string' && v.trim() === '');
+  const show = v => v === undefined ? 'nothing' : JSON.stringify(v);
+  if (kids(x) && kids(y) && Array.isArray(x) === Array.isArray(y)) {
+    for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) {
+      lostValues(Object.hasOwn(x, k) ? x[k] : undefined, Object.hasOwn(y, k) ? y[k] : undefined, Array.isArray(x) ? `${path}[${k}]` : path ? path + '.' + k : k, out);
+    }
+  } else if ((kids(x) || kids(y)) && Object.keys(kids(x) ? x : y).length && blank(kids(x) ? y : x)) {
+    const c = kids(x) ? x : y;
+    for (const k of Object.keys(c)) lostValues(kids(x) ? c[k] : undefined, kids(x) ? undefined : c[k], Array.isArray(c) ? `${path}[${k}]` : path ? path + '.' + k : k, out);
+  } else if (kids(x) || kids(y) || (!(blank(x) && blank(y)) && (typeof x === 'string' && typeof y === 'string' ? x.trim() !== y.trim() : x !== y))) {
+    out.push(`${path} ${x === undefined ? 'is missing' : 'has the value ' + JSON.stringify(x)}, but the form would write ${show(y)}`);
+  }
+  return out;
+}
+/* What fill() changes, so a refused load leaves the form exactly as it was. */
+function saveForm() {
+  return {rows: Object.values(ROWS).map(r => $(r.box).innerHTML),
+    ctl: [...$('f').querySelectorAll('[data-k]')].map(e => [e.value, e.checked, e.dataset.touched]),
+    state: [pathTouched, basisTouched, idTouched, cur, [...visited], tried]};
+}
+function restoreForm(s) {
+  Object.values(ROWS).forEach((r, i) => { $(r.box).innerHTML = s.rows[i]; });
+  [...$('f').querySelectorAll('[data-k]')].forEach((e, i) => {
+    [e.value, e.checked] = s.ctl[i];
+    if (s.ctl[i][2] === undefined) delete e.dataset.touched; else e.dataset.touched = s.ctl[i][2];
+  });
+  [pathTouched, basisTouched, idTouched, cur] = s.state;
+  visited.clear(); s.state[4].forEach(n => visited.add(n)); tried = s.state[5];
+}
 $('load').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -1381,7 +1413,20 @@ $('load').addEventListener('change', e => {
     catch (err) { loadMsg('Not loaded. ' + file.name + ' is not valid JSON: ' + err.message, true); return; }
     const p = shapeProblem(o);
     if (p) { loadMsg('Not loaded. ' + file.name + ': ' + p + ' Nothing was changed.', true); return; }
-    const warn = fill(o);
+    const before = saveForm();
+    let warn, lost;
+    try {
+      warn = fill(o);
+      vis();
+      lost = lostValues(o, build(), '', []);
+    } catch (err) {
+      lost = ['the form could not take the file (' + err.message + ')'];
+    }
+    if (lost.length) {
+      restoreForm(before); update();
+      loadMsg('Not loaded. ' + file.name + ': ' + lost.slice(0, 10).join('; ') + (lost.length > 10 ? `; and ${lost.length - 10} more` : '') + '. Nothing was changed.', true);
+      return;
+    }
     const loaded = update(), sq = seqFor(loaded.run.run_type), target = sq.find(stepBad) || 11;
     sq.slice(0, sq.indexOf(target)).forEach(n => visited.add(n));
     if (target !== 11) tried[target] = true;

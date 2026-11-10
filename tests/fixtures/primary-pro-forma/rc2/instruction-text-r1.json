@@ -1,0 +1,15 @@
+{
+  "frozen": "2026-11-10",
+  "authored_by": "key-writer subagent (rc2 key, r1)",
+  "scope": "PRO_FORMA_CP1A only; appears in the instruction of CP-1A in Primary runs only",
+  "where": "cpos_launch.py PRO_FORMA_CP1A, end of the sentence 'Write labels exactly as shown: `Total sources`, not `Total Sources`.' (the next text is ' A table outside `## Findings` ...' from FINDINGS_ONLY). The insertion is the new text after the old sentence and a space; the existing space before FINDINGS_ONLY stays.",
+  "old": "Write labels exactly as shown: `Total sources`, not `Total Sources`.",
+  "new": "Write labels exactly as shown: `Total sources`, not `Total Sources`. A row whose Item contains `total`, in any case or position (`Total Sources`, `Sources total`, `Subtotal sources`, `TOTAL`), is a total row: it must be exactly `Total sources` with Side `Source` or `Total uses` with Side `Use`, and no other row on any Side, `Memo` included, may have `total` in its Item, or the table is refused. An Item ending `(commitment)` belongs only on a `Memo` row; on a `Source` or `Use` row it is refused. When every row of a side holds a number, that side's total is a number too (from `calculate`, or the printed total with any difference logged in prose); a `Not supplied` total there is refused.",
+  "rules_stated": [
+    "total-row rule: Item containing `total` in any case or position is a total row; exact `Total sources`/Side Source or `Total uses`/Side Use; no other row on any Side, Memo included; else refused",
+    "`(commitment)` only on Memo rows",
+    "numeric total when every row of a side is a number; a `Not supplied` total there is refused"
+  ],
+  "composition_check": "Read cpos_launch.py: `pro_forma = PRO_FORMA.get(module, \"\") if run_type == \"primary\" else \"\"` in _instructions, and PRO_FORMA = {CP-1A: PRO_FORMA_CP1A, CP-1D, CP-2}. Run on origin/main 0c9c893a with the unchanged code for all 20 modules x secondary/primary: `old` occurs once in CP-1A Primary and in no other module or run type, and not in PRO_FORMA_CP1D/CP2. So substitutions.json (non-Primary, B1) is unchanged; only the CP-1A Primary additions grow by this one replacement.",
+  "interaction": "Independent of the R-C2-1 replacements in instruction-text.json (different substrings); the 'Take each total from `calculate`' sentence there says the same about printed totals. Wording 'Memo included' repeats the Memo rule: `Memo` rows' Item must still end `(commitment)` and may not contain `total`."
+}

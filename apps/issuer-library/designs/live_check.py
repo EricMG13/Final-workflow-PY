@@ -155,6 +155,17 @@ def literal_faults(shown: str, literals: list[dict[str, str]]) -> list[str]:
     ]
 
 
+def entered_leaves(value: Any, path: str = "") -> dict[str, Any]:
+    """Every non-blank leaf by path: the form may add blank keys, never change an entered value."""
+    if isinstance(value, dict):
+        pairs = ((f"{path}.{k}", v) for k, v in value.items())
+    elif isinstance(value, list):
+        pairs = ((f"{path}[{i}]", v) for i, v in enumerate(value))
+    else:
+        return {} if value in ("", None) else {path: value}
+    return {k: v for key, item in pairs for k, v in entered_leaves(item, key).items()}
+
+
 def stage2_faults(
     args: argparse.Namespace, ws: Path, run: Path, review: dict[str, Any]
 ) -> list[str]:
@@ -173,7 +184,9 @@ def stage2_faults(
         if context.read_bytes() != reviewed.read_bytes():
             found.append("run context.json is not byte-identical to the reviewed intake context")
         case_file = args.case_data["context_path"]
-        if json.loads(context.read_text()) != json.loads(case_file.read_text()):
+        if entered_leaves(json.loads(context.read_text())) != entered_leaves(
+            json.loads(case_file.read_text())
+        ):
             found.append("run context.json differs in content from the case context")
     elif context.read_bytes() != args.case_data["context_path"].read_bytes():
         found.append("run context.json is not byte-identical to the case context")
@@ -564,6 +577,13 @@ def fill_form(page: Any, args: argparse.Namespace) -> None:
     frame = page.frame_locator("#context-editor")
     frame.locator("#load").wait_for(state="attached", timeout=15000)
     frame.locator("#load").set_input_files(str(args.context))
+    note = frame.locator("#loadmsg")
+    expect(note).to_have_text(re.compile(r"\S"), timeout=15000)
+    shown = note.inner_text()
+    if shown.startswith("Not loaded"):
+        raise Refusal(f"the form rejected the context file: {shown[:500]}")
+    if "unknown value" in shown:
+        raise Refusal(f"the form dropped a context value (unknown value): {shown[:500]}")
     expect(page.locator("#context-readiness")).to_contain_text(
         "Required fields complete", timeout=15000
     )
@@ -589,23 +609,33 @@ def fill_form(page: Any, args: argparse.Namespace) -> None:
         raise RuntimeError("review refused: " + page.inner_text("#new-run-message")[:500])
 
 
-def accept_frozen_count(page: Any, args: argparse.Namespace, items: str) -> None:
-    """Tick the acceptance box only when the page's N is the case's frozen `counted_total`."""
+def shown_count(items: str) -> int:
+    """The N in the page's `I accept these N items` label; 0 when the page has no box."""
     found = re.search(r"\d+", items)
-    shown = int(found[0]) if found else 0
-    frozen = args.case_data["expected-outcomes"]["counted_total"] if args.case_data else None
-    if frozen is None:  # no --case: nothing frozen to compare; the N is still printed
-        print(f"accepting {shown} counted items (no case: no frozen count to compare)", flush=True)
-        if shown:
-            page.check("#run-accept")
+    return int(found[0]) if found else 0
+
+
+def check_frozen_count(args: argparse.Namespace, shown: int) -> None:
+    """With a case loaded `counted_total` must be a non-negative integer equal to the shown N."""
+    if args.case_data is None:  # no --case: nothing frozen to compare (rehearsal only)
         return
+    frozen = args.case_data["expected-outcomes"].get("counted_total")
+    if type(frozen) is not int or frozen < 0:
+        raise Refusal(f"the case's counted_total must be a non-negative integer, not {frozen!r}")
     if shown != frozen:
         raise Refusal(f"the review counts {shown} items but the case froze counted_total {frozen}")
-    if not shown:
+
+
+def accept_frozen_count(page: Any, args: argparse.Namespace, shown: int) -> None:
+    """Tick the acceptance box with the flag, printing the N accepted (the count is checked)."""
+    if args.case_data is None:
+        print(f"accepting {shown} counted items (no case: no frozen count to compare)", flush=True)
+    elif not shown:
         print("accepting nothing: no items were counted", flush=True)
-        return
-    print(f"accepting {shown} counted items (the case froze {frozen})", flush=True)
-    page.check("#run-accept")
+    else:
+        print(f"accepting {shown} counted items (the case froze {shown})", flush=True)
+    if shown:
+        page.check("#run-accept")
 
 
 def walk(
@@ -619,12 +649,14 @@ def walk(
         raise RuntimeError("review screen: " + "; ".join(wrong))
     boxed = bool(page.locator("#run-accept").count())  # counted items: only the flag accepts
     items = page.inner_text("label:has(#run-accept)").strip() if boxed else ""
+    shown = shown_count(items)
+    check_frozen_count(args, shown)
     if boxed and not args.accept_limitations:
         raise RuntimeError(
             f"review counts items ({items!r}); rerun with --accept-limitations to accept them"
         )
     if args.accept_limitations:
-        accept_frozen_count(page, args, items)
+        accept_frozen_count(page, args, shown)
     page.check("#run-confirm")
     if page.is_disabled("#start-run"):
         raise RuntimeError("Start stays disabled after review (provider not configured?); no spend")

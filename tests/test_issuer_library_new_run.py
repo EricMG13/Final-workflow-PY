@@ -581,7 +581,7 @@ MIXED = [
 MIXED_COUNTED = ["run:legal", "CP-0:z", "CP-1:check", "CP-1:warn"]
 INFORMATION_ONLY = [expectation("run:what-changed", "information", False)]
 OUTCOME_NAMES = {
-    "CP-0:z": "Will refuse", "run:legal": "Gap", "CP-1:warn": "Limited",
+    "CP-0:z": "Returns Blocked", "run:legal": "Gap", "CP-1:warn": "Limited",
     "CP-1:check": "Check", "CP-1:info": "Information", "CP-1:ok": "Ready",
 }  # fmt: skip
 EVIDENCE_LABELS = {"CP-1:check": "observed offline", "CP-1:warn": "observed live"}
@@ -688,6 +688,7 @@ def test_each_row_shows_outcome_name_reason_fix_and_the_why_disclosure(new_run: 
         label = EVIDENCE_LABELS.get(row_id, "per method")
         assert label in why["text"], f"{row_id}: evidence label {label!r}"
     assert "Source readiness" in run.page.evaluate(ROW_TEXT, "CP-0:z")["text"], "module title"
+    assert "Will refuse" not in run.text("expected-outcomes"), "R-ALIVE wording: Returns Blocked"
 
 
 def test_information_and_inherited_rows_say_not_counted_and_counted_rows_do_not(

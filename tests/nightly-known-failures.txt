@@ -208,3 +208,11 @@ tests/test_owner_workflow.py::test_verifier_is_read_only  # same
 tests/test_run_pathway_cpdr.py::test_a_resumed_run_records_the_bare_anchor_fault  # stub has no delivery_scope
 tests/test_run_pathway_cpdr.py::test_a_stop_whose_head_state_recurses_deeply_is_named_not_a_crash  # same
 tests/test_run_pathway_cpdr.py::test_anchor_fault_stops_the_run  # same
+
+# Failing upstream at dd3dfa18, class A (checkpoint classification 2026-11-10; evidence .superpowers/checkpoint/new-failures/NN.wt.out / NN.upstream.out)
+tests/test_earnings_workflow.py::test_owner_prefix_accepts_only_authentic_cp5_descendants_without_claiming_tool_acceptance[retained_pending_step]  # upstream e3d4eadd: validate_integrity no longer on the CP-5 submit path, the patch never fires
+tests/prompts/test_context_evidence.py::test_relative_value_old_digest_is_the_new_message_less_the_reword_and_the_block  # fails upstream dd3dfa18 since initial import 5755da51
+tests/prompts/test_rules.py::test_the_golden_file_pins_the_sha256_of_each_core_and_oracle  # upstream dd770594 changed cp2d.py, golden sha not refreshed
+tests/test_owner_cp2e.py::test_each_frozen_refusal_is_journaled_as_an_invalid_step[reporting_code_not_in_quote]  # upstream b1b8cf00 USD default basis issue
+tests/test_periods_currency_oracle.py::test_no_hardcoded_period_left  # upstream 67dce917 cp2e.py currency="USD" not in ALLOWED
+tests/test_readiness_linear.py::test_prefill_outputs_are_pinned  # upstream a4b91edb o2-synthetic fixture, digest not re-pinned
