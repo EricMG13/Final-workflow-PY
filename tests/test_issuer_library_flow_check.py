@@ -6,6 +6,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -550,8 +551,9 @@ def test_1f_k_no_other_scaling(tmp_path: Path) -> None:
     assert any("number 285.3" in f for f in faults)
 
 
-# --- Answer key: units (R-ALIVE flow_check H1/H2, R-C2-4). Lines are quoted from the retained A-live
-# (TDG 2024) and C2 (Mattress Firm 2014) runs; the fixtures carry only the source text the rule reads.
+# --- Answer key: units (R-ALIVE flow_check H1/H2, R-C2-4). Lines are quoted from the retained
+# A-live (TDG 2024) and C2 (Mattress Firm 2014) runs; the fixtures carry only the source text the
+# rule reads.
 
 
 def units_run(
@@ -560,10 +562,12 @@ def units_run(
     *,
     source: str,
     handoff: str,
-    calls: list[tuple[str, str, list[str], str]] = (),
-    instruction: str | None = None,
+    **extra: Any,
 ) -> set[str]:
-    """The numbers CP-1 is flagged for. `calls` are (id, operation, operands, printed result)."""
+    """The numbers CP-1 is flagged for. Optional `extra`: `calls`, a list of (id, operation,
+    operands, printed result), and `instruction`, text added to the request."""
+    calls, instruction = extra.pop("calls", ()), extra.pop("instruction", None)
+    assert not extra, extra
     monkeypatch.setattr(sys.modules[__name__], "SOURCE", SOURCE + source + "\n")
     run, _ = make_run(tmp_path)
     set_handoff(run, "CP-1", handoff)
@@ -631,7 +635,8 @@ def test_h1_percent_converts_only_for_bps(tmp_path, monkeypatch) -> None:
 def test_h2_unit_divisors_are_not_figures(tmp_path, monkeypatch, line: str) -> None:
     # CP-3C.md:159 "whole principal payable × step-up / 10000".
     handoff = f"# CP-1\n\n- Added annual cash interest = {line}.\n"
-    assert units_run(tmp_path, monkeypatch, source="", handoff=handoff) == set()
+    # The dividend 233.1 is sourced, so only the divisor is under test.
+    assert units_run(tmp_path, monkeypatch, source="LP 233.1", handoff=handoff) == set()
 
 
 @pytest.mark.parametrize(
