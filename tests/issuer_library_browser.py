@@ -367,7 +367,7 @@ class ContextForm:
         )
         serve(self.page, {})
         self.page.goto(f"{ORIGIN}/context-form.html")
-        self.page.wait_for_function("typeof update==='function'")
+        until(self.page, "typeof update==='function'", timeout=10)
 
     def set(self, element_id: str, value: str) -> None:
         self.page.evaluate(
@@ -400,8 +400,10 @@ class ContextForm:
         saved = folder / "context.json"
         saved.write_text(text, encoding="utf-8")
         self.page.set_input_files("#load", saved)
-        self.page.wait_for_function(
-            "document.getElementById('loadmsg').textContent.startsWith('Loaded')"
+        until(
+            self.page,
+            "document.getElementById('loadmsg').textContent.startsWith('Loaded')",
+            timeout=10,
         )
 
     def close(self) -> None:
