@@ -953,6 +953,26 @@ def test_a_failed_render_is_retried_when_the_first_list_reply_is_slow(
     failed_render_is_retried(run)
 
 
+def test_a_failed_first_render_is_retried_on_the_next_refresh(
+    new_run: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The first table creation throws before the page's first list render, so that render fails.
+    script = (
+        "(()=>{const real=document.createElement.bind(document);window.__thrown=false;"
+        "document.createElement=(tag,...rest)=>{if(tag==='table'&&!window.__thrown){"
+        "window.__thrown=true;throw new Error('render fault');}return real(tag,...rest);};})();"
+    )
+    monkeypatch.setattr(sys.modules[__name__], "CAPTURED_TIMERS", CAPTURED_TIMERS + script)
+    run = new_run(rows=[ROW_RUNNING])
+    jobs = "document.getElementById('recent-jobs')"
+    until(run.page, f"{jobs}.textContent.startsWith('Could not load')")
+    assert run.page.evaluate("window.__thrown") is True
+    assert run.text("recent-jobs").startswith("Could not load")
+    run.tick()
+    until(run.page, "document.querySelector('#recent-jobs table')!==null")
+    assert run.screen.exists("#recent-jobs table")
+
+
 def test_polling_stops_while_new_run_is_hidden_and_resumes_on_return(new_run: Any) -> None:
     # boot.js also keeps a workspace check; only New run's own poll is followed here.
     polls = "[...window.__timers.entries()].filter(([,f])=>f.name==='poll').map(([id])=>id)"
