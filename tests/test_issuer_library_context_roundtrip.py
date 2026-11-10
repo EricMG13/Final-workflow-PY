@@ -11,6 +11,7 @@ from __future__ import annotations
 import html
 import importlib.util
 import json
+import re
 import sys
 from collections.abc import Iterator
 from pathlib import Path
@@ -18,7 +19,7 @@ from types import SimpleNamespace
 from typing import Any
 
 import pytest
-from issuer_library_browser import ROOT, open_app
+from issuer_library_browser import ROOT, WEB, json_reply, open_app, serve
 
 pytestmark = pytest.mark.browser
 
@@ -141,7 +142,8 @@ def test_fill_form_refuses_while_the_form_shows_an_unknown_value_note(
     shell = (
         '<button id="library-new-run">New</button><div id="context-readiness">'
         'Required fields complete</div><button id="use-context">Use</button>'
-        '<div id="source-step" hidden>Sources</div><input id="run-sources" type="file" webkitdirectory>'
+        '<div id="source-step" hidden>Sources</div>'
+        '<input id="run-sources" type="file" webkitdirectory>'
         '<div id="upload-list"></div><select id="run-model"><option>cfg</option></select>'
         '<input id="run-budget"><details class="run-advanced"><summary>More</summary>'
         '<input id="run-modules"></details><button id="review-run">Review</button>'
@@ -177,3 +179,172 @@ def test_fill_form_refuses_while_the_form_shows_an_unknown_value_note(
             live_check.fill_form(page, args)
     finally:
         page.close()
+
+
+# No entered value may be silently blanked or defaulted. The server (context.py) types agency,
+# outlook and focus_module as plain str, so those must keep any text; it enumerates every other
+# field below (Literal/PathwayId/bool), so an out-of-list value must refuse the whole load.
+FULL = ROOT / "cases/context/primary-full.json"
+FREE_TEXT = [
+    ("ratings[0].agency", "Egan-Jones"),
+    ("ratings[0].outlook", "Negative watch"),
+    ("research_questions[0].focus_module", "CP-XYZ"),
+]
+CLOSED = [
+    ("run.run_type", "tertiary"),
+    ("run.pathway", "bogus_path"),
+    ("run.case_kind", "hypothetical"),
+    ("identity.issue_classification", "junk_grade"),
+    ("identity.listed_equity", "maybe"),
+    ("valuation.peer_source", "some_peers"),
+    ("valuation.basis", "vibes"),
+    ("valuation.issuer_market.ebitda_basis", "LTM+1"),
+    ("valuation.user_multiple.basis", "FWD"),
+    ("attachments.legal_documents", "sketch"),
+    ("attachments.management_bridge", "sometimes"),
+    ("quotes[0].kind", "rumoured"),
+    ("ratings[0].scope", "group"),
+]
+
+
+def with_values(changes: dict[str, Any], tmp_path: Path) -> Path:
+    """A copy of the full context with entered values replaced; every path must exist."""
+    saved = json.loads(FULL.read_text("utf-8"))
+    saved["identity"]["issue_classification"] = "high_yield"  # older file; the form would note it
+    for path, value in changes.items():
+        node: Any = saved
+        *parents, last = path.replace("]", "").replace("[", ".").split(".")
+        for step in parents:
+            node = node[int(step)] if step.isdigit() else node[step]
+        assert last in node, path
+        node[int(last) if last.isdigit() else last] = value
+    changed = tmp_path / "changed.json"
+    changed.write_text(json.dumps(saved), encoding="utf-8")
+    return changed
+
+
+def value_at(sent: dict[str, Any], path: str) -> Any:
+    return dict(leaves(sent))[path]
+
+
+@pytest.mark.parametrize(("path", "value"), FREE_TEXT, ids=[p for p, _ in FREE_TEXT])
+def test_a_free_text_field_keeps_any_entered_value(
+    browser: Any, tmp_path: Path, path: str, value: str
+) -> None:
+    sent, note = through_the_editor(browser, with_values({path: value}, tmp_path))
+    assert value_at(sent, path) == value, note
+
+
+def load_and_use(browser: Any, changed: Path) -> tuple[str, str, list[dict[str, Any]]]:
+    """Load a file into the real editor; return the load note, its class and what Use sent."""
+    screen = open_app(browser, "W-NewRun/run", init=CAPTURE)
+    try:
+        frame = screen.page.frame_locator("#context-editor")
+        frame.locator("#load").wait_for(state="attached", timeout=15000)
+        frame.locator("#load").set_input_files(str(changed))
+        message = frame.locator("#loadmsg")
+        message.filter(has_text=re.compile(r"\S")).wait_for(timeout=15000)
+        text, kind = message.inner_text(), message.get_attribute("class")
+        screen.page.click("#use-context", force=True)
+        screen.page.wait_for_timeout(500)
+        sent: list[dict[str, Any]] = screen.page.evaluate("window.__ctx")
+        assert screen.errors == []
+        return text, kind or "", sent
+    finally:
+        screen.close()
+
+
+def assert_refused(path: str, value: str, result: tuple[str, str, list[dict[str, Any]]]) -> None:
+    text, kind, sent = result
+    assert path in text and value in text, text
+    assert not text.startswith("Loaded") and kind == "bad", (kind, text)
+    # Nothing from the refused file may reach the posted context.
+    assert [m["context"]["identity"]["issuer_name"] for m in sent] in ([], [""])
+
+
+@pytest.mark.parametrize(("path", "value"), CLOSED, ids=[p for p, _ in CLOSED])
+def test_an_out_of_list_value_in_a_closed_field_refuses_the_load_visibly(
+    browser: Any, tmp_path: Path, path: str, value: str
+) -> None:
+    assert_refused(path, value, load_and_use(browser, with_values({path: value}, tmp_path)))
+
+
+# Server-valid contexts the form narrows. Server: tenor and talk are plain str on any run type
+# (context.py: only `primary` needs a deal row), so the value survives or the load is refused.
+# Skipped because the server's own model/validation rejects the same input: rows over a cap
+# (_MAX_* equal the form's), issuer_trading without a listed issuer, a non-object assumption;
+# "issue_classification: not stated" drops nothing (an empty value is valid).
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("tenor_years", "7"),
+        ("talk_spread_bps_low", "325"),
+        ("talk_spread_bps_high", "350"),
+        ("talk_oid_low", "99.0"),
+        ("talk_oid_high", "99.5"),
+    ],
+)
+def test_tenor_and_talk_on_a_non_primary_run_survive_or_the_load_is_refused(
+    browser: Any, tmp_path: Path, field: str, value: str
+) -> None:
+    changed = with_values({"run.run_type": "secondary"}, tmp_path)
+    saved = json.loads(changed.read_text("utf-8"))
+    assert saved["deal_terms"][0][field] == value  # the key: entered in the file
+    text, kind, sent = load_and_use(browser, changed)
+    if text.startswith("Loaded"):
+        assert sent[-1]["context"]["deal_terms"][0][field] == value, text
+    else:
+        assert_refused(f"deal_terms[0].{field}", value, (text, kind, sent))
+
+
+def real_fill_form(browser: Any, context: Path, tmp_path: Path) -> None:
+    """live_check.fill_form against the real index.html and context form."""
+    page = browser.new_context().new_page()
+    page.set_default_timeout(5000)
+    store = {k: {} for k in ("runs", "outputs", "inputs", "pins", "handoffs")}
+    serve(
+        page,
+        {
+            "/api/catalogue": json_reply(
+                {"workspace": "/r", "policy_locked": False, "issues": [], "real": []}
+            ),
+            "/api/workspace": json_reply(
+                store | {"reports": [], "models": [], "visuals": [], "issues": []}
+            ),
+            "/api/runs/list": json_reply([]),
+        },
+    )
+    page.route(  # registered after serve(), so it answers the root page first
+        "http://127.0.0.1:1/",
+        lambda route: route.fulfill(
+            body=(WEB / "index.html").read_bytes(), content_type="text/html"
+        ),
+    )
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    (sources / "a.txt").write_text("x", encoding="utf-8")
+    args = SimpleNamespace(
+        port=1, context=context, sources=sources, config="cfg", cap=1, modules="CP-1"
+    )
+    try:
+        live_check.fill_form(page, args)
+    finally:
+        page.context.close()
+
+
+def test_fill_form_refuses_an_out_of_list_value_through_the_real_form(
+    browser: Any, tmp_path: Path
+) -> None:
+    """Whatever wording the form's note has, a dropped or refused value must stop the walk."""
+    changed = with_values({"run.case_kind": "hypothetical"}, tmp_path)
+    with pytest.raises(live_check.Refusal):
+        real_fill_form(browser, changed, tmp_path)
+
+
+def test_fill_form_refuses_with_the_note_when_the_form_rejects_the_file(
+    browser: Any, tmp_path: Path
+) -> None:
+    rejected = tmp_path / "rejected.json"
+    rejected.write_text(json.dumps({"schema": "context/9"}), encoding="utf-8")
+    with pytest.raises(live_check.Refusal, match=r"Not loaded.*context/9"):
+        real_fill_form(browser, rejected, tmp_path)
