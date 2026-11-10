@@ -572,6 +572,56 @@ PEERS_SECOND = (
     "valuation.peers[1].name",
     "Sealy",
 )
+DEL = object()  # an edit that removes the key
+XSS = '"><img src=x onerror="window.top.__xss=1">'
+QUOTE = {
+    "facility_id": "abl-revolver",
+    "kind": "observed",
+    "bid": "",
+    "ask": "",
+    "price": "99",
+    "yield_pct": "",
+    "spread_bps": "",
+    "as_of": "2014-09-11",
+    "provider": "x",
+}
+RATING = {
+    "agency": "S&P",
+    "scope": "issuer",
+    "rating": "B",
+    "outlook": "Stable",
+    "as_of": "2014-09-01",
+}
+
+
+def edited(*edits: tuple[tuple[str | int, ...], Any]) -> list[tuple[tuple[str | int, ...], Any]]:
+    return list(edits)
+
+
+def tuple_variant(
+    edits: list[tuple[tuple[str | int, ...], Any]], tmp_path: Path
+) -> tuple[Path, bytes]:
+    """C2 with edits at tuple paths (ints index lists); DEL removes the key."""
+    saved = json.loads(C2.read_text("utf-8"))
+    for path, value in edits:
+        node = saved
+        for step in path[:-1]:
+            node = node[step]
+        if value is DEL:
+            del node[path[-1]]
+        else:
+            node[path[-1]] = value
+    changed = tmp_path / "changed.json"
+    changed.write_text(json.dumps(saved), encoding="utf-8")
+    return changed, changed.read_bytes()
+
+
+def variant_of(edits: Any, tmp_path: Path) -> tuple[Path, bytes]:
+    if isinstance(edits, list):
+        return tuple_variant(edits, tmp_path)
+    return c2_variant(edits, tmp_path)
+
+
 CANNOT_HOLD = {
     "peers-second-row-only": PEERS_SECOND,
     "precedents-second-row-only": (
@@ -610,7 +660,71 @@ CANNOT_HOLD = {
         "deal_terms[0].as_of",
         "2014/09/11",
     ),
+    # Rows from the lead's probe pr87_roundtrip_hunt.py (expected value None = refused).
+    # A missing key is shown with an empty value: only the note naming the path matters.
+    "runtype-xss": (
+        edited((("run", "run_type"), "<img src=x onerror=window.top.__xss=2>")),
+        "run.run_type",
+        "<img src=x onerror=window.top.__xss=2>",
+    ),
+    "runtype-mixedcase": (edited((("run", "run_type"), "Primary")), "run.run_type", "Primary"),
+    "secondary-talk-term2": (
+        edited(
+            (("run", "run_type"), "secondary"),
+            (("run", "pathway"), "relative_value"),
+            (("deal_terms", 0, "tenor_years"), ""),
+            (("deal_terms", 0, "talk_spread_bps_low"), ""),
+            (("deal_terms", 0, "talk_spread_bps_high"), ""),
+        ),
+        "deal_terms[1].tenor_years",
+        "7",
+    ),
+    "listed_equity-missing": (
+        edited((("identity", "listed_equity"), DEL)),
+        "identity.listed_equity",
+        "",
+    ),
+    "attachment-missing": (
+        edited((("attachments", "prior_case"), DEL)),
+        "attachments.prior_case",
+        "",
+    ),
+    "quote-kind-missing": (
+        edited((("quotes",), [{k: v for k, v in QUOTE.items() if k != "kind"}])),
+        "quotes[0].kind",
+        "",
+    ),
+    "quote-kind-empty": (edited((("quotes",), [QUOTE | {"kind": ""}])), "quotes[0].kind", ""),
+    "rating-scope-missing": (
+        edited((("ratings",), [{k: v for k, v in RATING.items() if k != "scope"}])),
+        "ratings[0].scope",
+        "",
+    ),
+    "basis-empty": (edited((("valuation", "basis"), "")), "valuation.basis", ""),
+    "im-ntm-auto": (
+        edited(
+            (("valuation", "basis"), "auto"),
+            (("valuation", "issuer_market", "ebitda_basis"), "NTM"),
+        ),
+        "valuation.issuer_market.ebitda_basis",
+        "NTM",
+    ),
+    "deal-extra-key": (
+        edited((("deal_terms", 0, "seniority"), "first lien")),
+        "deal_terms[0].seniority",
+        "first lien",
+    ),
+    # The lead's probe row instr_lf_interior (pr87_roundtrip_hunt.py:63) expected "ABL\nrevolver"
+    # preserved. A lead ruling of 2026-11-10 supersedes it: a character a single-line text input
+    # cannot hold refuses the load, naming the field. The server accepts this file (accepted limit).
+    "instr-lf-interior": (
+        edited((("deal_terms", 0, "instrument"), "ABL\nrevolver")),
+        "deal_terms[0].instrument",
+        "ABL",
+    ),
 }
+# The server accepts both: the form would blank tenor on a non-Primary run, or cannot hold a line feed.
+SERVER_ACCEPTS = {"instr-lf-interior", "secondary-talk-term2"}
 
 
 @pytest.mark.parametrize("case", CANNOT_HOLD)
@@ -618,9 +732,79 @@ def test_a_value_the_form_cannot_hold_refuses_the_load_visibly_anywhere(
     browser: Any, tmp_path: Path, case: str
 ) -> None:
     edits, path, value = CANNOT_HOLD[case]
-    changed, raw = c2_variant(edits, tmp_path)
-    assert server_refuses(raw)  # the key: the server refuses the file
+    changed, raw = variant_of(edits, tmp_path)
+    assert server_refuses(raw) is (case not in SERVER_ACCEPTS)  # the key: the server's verdict
     assert_refused(path, value, load_and_use(browser, changed))
+
+
+KEPT = {
+    "instr-tab-interior": (1, "instrument", "Term\tloan B"),
+    "instr-second-term-unicode": (1, "instrument", "Prêt à terme B — 債券 ✓"),
+    "instr-long": (1, "instrument", "x" * 5000),
+    "instr-xss": (0, "instrument", XSS),
+    "instr-known-exact": (0, "instrument", "Senior secured notes"),
+    "instr-case": (0, "instrument", "term loan b"),
+    "instr-trim": (0, "instrument", "  ABL revolver  "),
+    "size-zero": (1, "size_m", "0"),
+    "size-exact": (1, "size_m", "720.50"),
+    "margin-zero": (1, "margin_bps", "0"),
+}
+KEPT_WANT = {"instr-trim": "ABL revolver"}  # only the ends are trimmed
+
+
+@pytest.mark.parametrize("case", KEPT)
+def test_a_deal_value_the_form_can_hold_is_kept_exactly(
+    browser: Any, tmp_path: Path, case: str
+) -> None:
+    row, field, entered = KEPT[case]
+    changed, raw = tuple_variant(edited((("deal_terms", row, field), entered)), tmp_path)
+    assert not server_refuses(raw)  # the key: the server accepts the file
+    note, _, context = load_then_use(browser, changed)
+    assert note.startswith("Loaded") and context is not None, note
+    got = context["deal_terms"][row][field]
+    want = KEPT_WANT.get(case, entered)
+    assert type(got) is type(want) and got == want, note
+
+
+OTHER_KEPT = {
+    "agency-amp": (
+        edited((("ratings",), [RATING | {"outlook": "CreditWatch neg"}])),
+        lambda c: c["ratings"][0],
+        ("outlook", "CreditWatch neg"),
+    ),
+    "focus-free": (
+        edited((("research_questions",), [{"text": "Q?", "focus_module": "cp-99"}])),
+        lambda c: c["research_questions"][0],
+        ("focus_module", "cp-99"),
+    ),
+}
+
+
+@pytest.mark.parametrize("case", OTHER_KEPT)
+def test_a_free_text_value_in_a_list_row_is_kept_exactly(
+    browser: Any, tmp_path: Path, case: str
+) -> None:
+    edits, row_of, (field, want) = OTHER_KEPT[case]
+    changed, raw = tuple_variant(edits, tmp_path)
+    assert not server_refuses(raw)
+    note, _, context = load_then_use(browser, changed)
+    assert note.startswith("Loaded") and context is not None, note
+    got = row_of(context)[field]
+    assert type(got) is type(want) and got == want, note
+
+
+def test_no_context_file_has_a_line_feed_in_a_single_line_text_field() -> None:
+    """Scan of the K1 set: a line feed appears nowhere (only guarantors/aliases are multi-line
+    in the form, and they hold lists), so refusing an interior line feed refuses none of them."""
+    found = []
+    for param in context_files():
+        path = param.values[0]
+        if path is None:
+            continue
+        for leaf, value in leaves(json.loads(path.read_text("utf-8"))):
+            if isinstance(value, str) and ("\n" in value or "\r" in value):
+                found.append((path.name, leaf))
+    assert found == []
 
 
 def test_surrounding_spaces_are_trimmed_not_refused(browser: Any, tmp_path: Path) -> None:
