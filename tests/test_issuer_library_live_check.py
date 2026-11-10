@@ -296,9 +296,7 @@ def test_a_failure_before_the_signal_keeps_its_kind(monkeypatch, tmp_path) -> No
 A_LIVE = ROOT / "cases/live-tdg-fy2024/a-live"
 
 
-def test_accept_limitations_fails_fast_until_stage_2(tmp_path: Path) -> None:
-    done = refuse(tmp_path, "--case", str(A_LIVE), "--accept-limitations", "--rehearse")
-    assert done.returncode == 2 and "Stage 2" in done.stderr and len(done.stderr.splitlines()) == 1
+# R-SB2-7 ruling 5 retired the Stage 2 refusal of --accept-limitations; see the parse test below.
 
 
 def test_case_defaults_come_from_the_frozen_case_and_missing_files_refuse(tmp_path: Path) -> None:
