@@ -1175,7 +1175,8 @@ def attempt(walk: str, browser: SignedBrowser, action: Any) -> None:
     """Run one walk. A failure is recorded with the page it left open, and the next walk still runs.
 
     The broad catch is deliberate and not silent: any exception, including a walk's own bug, becomes
-    an "exception" fault with a screenshot and the page source, and the gate then exits 1."""
+    an "exception" fault with a screenshot and the page source, and the gate then exits 1. An
+    exception whose `ends_run` is truthy (a Refusal before spend) is re-raised, not recorded."""
     global WALK
     WALK = walk
     opened = len(browser.pages)

@@ -782,7 +782,7 @@ sha256 must equal the plan's `context` pin, else the stale error and the run fol
 removed). `launch` writes neither file. The receipt parser (`check_ruling`) reads only lifts/by/date/configs
 lines, each exactly once; the extra line is ignored.
 Checks (head after the lock-error follow-up): the four-file pytest (jobs, cpos_app, quit, app) is 333 passed, 2 skipped,
-1 failed (exit 1): the failure is `test_a_lock_error_other_than_contention_keeps_the_job_watched` (see below); pr_size
+1 failed (exit 1) at that head: `test_a_lock_error_other_than_contention_keeps_the_job_watched` (fixed by ae367db2, passes now; see below); pr_size
 exit 0 (501 of 800); quality_gate exit 0. The earlier 13 RED / 45 failures are resolved (key writer's follow-up commits).
 Context-pin key test (7006eeed): `t6a_key_reaches_pin_check` path, the pin check is reached.
 Lock-error follow-up (#73, lead 6a-extra): `dead_worker_proof` caught only BlockingIOError at its lock call, so ENOLCK
@@ -790,8 +790,8 @@ Lock-error follow-up (#73, lead 6a-extra): `dead_worker_proof` caught only Block
 OSError there now logs a warning (with the error text) and yields None ("cannot prove dead"), so the job stays watched;
 open-error and BlockingIOError handling unchanged. RED: `pr73_settle_flock_error_strands_job.py` exit 1 and the key test
 failed with `the watch thread died on a lock error: ["OSError(77, 'No locks available')"]`. GREEN: the probe exits 0
-("watcher alive ... died: [] | active: False | status: interrupted"); the key test now gets past that assertion but still
-fails: it never advances its FakeClock and `app.pause` is real sleep, so after the settle `finish_job` loops forever in
+("watcher alive ... died: [] | active: False | status: interrupted"); at that head the key test got past that assertion but still
+failed (later fixed by ae367db2): it never advances its FakeClock and `app.pause` is real sleep, so after the settle `finish_job` loops forever in
 `notify.tab_watching` (finished == now, no tab poll) and `watcher.join(5)` leaves the thread alive. The test needs a
 clock-advancing `app.pause` or `app.watched`; the implementer may not edit tests. Probes exit 0: i24rr_emfile_dead_worker,
 i24rr_emfile_live_descendant, i24rr_settle_live_holder_planted, i24rr_transient_open_error_finishes_held_lock,
@@ -802,7 +802,8 @@ Windows lock semantics are unverified, including a read-only lock file.
 PR2 live_check guard (lead review of #74): `--accept-limitations` prints the N it accepts and raises `Refusal` (exit 2, before tick and Start) when it differs from the case's frozen `counted_total`; `attempt` re-raises a `Refusal`; without `--case` the N is printed but nothing is compared.
 PR2 live_check, ruling: a paid `--accept-limitations` run without `--case` is refused in `live_check.parse` (exit 2, before any app start); with `--rehearse` the no-case path still prints and ticks.
 PR2 live_check, rehearsal ruling: `stage2_faults` compares `runs/<id>/context.json` bytes with `intake/<id>/context.json` (the reviewed bytes) and its parsed JSON with the case context; with no intake context file the old byte comparison with the case file stays.
-Not verified: the key test above; the browser UI sending `accept_limitations`; a real run's receipt.
+PR2 stacked (`claude/sb2-pr2-frozen-count`, key 3bb0fd37, R-SB2-6 M1+L1): with a case loaded `walk` refuses (`Refusal`, exit 2, before tick and Start) unless `counted_total` is `type(v) is int` and >= 0, and whenever the page's N (0 without a box) differs from it, with or without the flag; no case: unchanged. `attempt` docstring names the `ends_run` re-raise. Gates exit 0: live_check tests 3x (89 passed), probes pr2rr_null_frozen_count_ticks and pr2rr_flagless_zero_vs_frozen, live_check+jobs+cpos_app pytest (367 passed, 2 skipped), quality_gate --base e722502a (see commit).
+Not verified: the browser UI sending `accept_limitations`; a real run's receipt.
 
 ## 2026-11-10 Task 7: run-lock after a failed spawn, three test flakes
 
