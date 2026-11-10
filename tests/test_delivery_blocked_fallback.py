@@ -77,7 +77,9 @@ def test_blocked_module_without_a_reason_line_says_the_reason_is_not_stated(tmp_
             }
         ],
     }
-    note = blocks_of(tmp_path, "CP-4", NO_REASON, layout, "covenant_refinancing")["capacity"]["note"]
+    note = blocks_of(tmp_path, "CP-4", NO_REASON, layout, "covenant_refinancing")["capacity"][
+        "note"
+    ]
     assert "CP-4 Blocked: reason not stated in the handoff" in note
     assert "qa_status" not in note
 
