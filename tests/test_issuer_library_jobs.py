@@ -1475,9 +1475,11 @@ def settle_race_outcome(
             go.wait(20)
         real_settle(path)
 
+    stall_reached: list[bool] = []
+
     def remove_once_the_check_is_stalled(path: Path, job: str) -> None:
         if in_gap:
-            reached.wait(10)
+            stall_reached.append(reached.wait(10))
         real_remove(path, job)
 
     class SwitchEngine(Engine):
@@ -1498,7 +1500,8 @@ def settle_race_outcome(
     resumed_workers = 0
     try:
         first = start_job(client_a, job_id)
-        reached.wait(10)
+        stall_reached.append(reached.wait(10))
+        assert all(stall_reached), "the settle never reached its stall"
         retry = start_job(client_a, job_id)
         await_text(starts)
         go.set()
@@ -1536,6 +1539,232 @@ def test_another_instances_settle_never_marks_a_live_retry_interrupted(
             f"a live worker's job was settled {outcome.settled!r} by the other instance"
         )
     assert outcome.workers < 2, "two workers for the same inputs"
+
+
+def race_of() -> SimpleNamespace:
+    return SimpleNamespace(
+        reached=threading.Event(),
+        go=threading.Event(),
+        done=threading.Event(),
+        seen={},
+        attempts=[],
+    )
+
+
+def run_failed_start_race(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    race: SimpleNamespace,
+    install: Callable[[pytest.MonkeyPatch, SimpleNamespace], None],
+) -> SimpleNamespace:
+    """The first start's spawn fails; another instance's settle_job wins the lock on the inode
+    about to be unlinked (started between the failed start's release_lock and its unlink) and is
+    stalled by `install`'s hook; the retry then locks a fresh inode and spawns a live worker."""
+    app, root, client, job_id = reviewed(tmp_path)
+    folder = root / "intake" / job_id
+    held, missing = recording_engines(tmp_path, app.engine)
+    real_remove = jobs_module.remove_failed_run_lock
+
+    class SwitchEngine(Engine):
+        def start(self, folder: Path, lock: Any) -> Any:
+            race.attempts.append(1)
+            return Engine.start(missing if len(race.attempts) == 1 else held, folder, lock)
+
+    def settle() -> None:
+        try:
+            jobs_module.settle_job(folder)
+            race.seen["settle"] = "returned"
+        except jobs_module.WorkerMayStillRun:
+            race.seen["settle"] = "WorkerMayStillRun"
+        finally:
+            race.done.set()
+
+    settler = threading.Thread(target=settle, daemon=True)
+
+    def remove_with_a_settle_racing(path: Path, job: str) -> None:
+        if "started" not in race.seen:
+            race.seen["started"] = True
+            race.seen["failed_start_ino"] = os.lstat(path).st_ino
+            settler.start()
+            deadline = time.time() + 10
+            while time.time() < deadline and not (race.reached.is_set() or race.done.is_set()):
+                time.sleep(0.005)
+        real_remove(path, job)
+
+    app.engine = SwitchEngine(root=held.root, python=sys.executable)
+    install(monkeypatch, race)
+    monkeypatch.setattr(jobs_module, "remove_failed_run_lock", remove_with_a_settle_racing)
+    starts = root / "worker-starts.txt"
+    try:
+        first = start_job(client, job_id)
+        retry = start_job(client, job_id)
+        await_text(starts)
+        race.go.set()
+        settler.join(10)
+        settled = state_of(folder)["state"]
+        alive = jobs_module.worker_alive(folder / "worker.lock")
+        new_ino = os.lstat(folder / "worker.lock").st_ino
+    finally:
+        race.go.set()
+        (root / "release-all").write_bytes(b"")
+        drain_apps(app)
+    return SimpleNamespace(
+        first=first, retry=retry, settled=settled, alive=alive, new_ino=new_ino, race=race
+    )
+
+
+def stall_after_job_state_in_settle(monkeypatch: pytest.MonkeyPatch, race: SimpleNamespace) -> None:
+    real_job_state = jobs_module.job_state
+
+    def stalling_job_state(folder: Path) -> Any:
+        if not race.reached.is_set() and sys._getframe(1).f_code.co_name == "settle_job":
+            race.reached.set()
+            race.go.wait(20)
+        return real_job_state(folder)
+
+    monkeypatch.setattr(jobs_module, "job_state", stalling_job_state)
+
+
+def failed_write_and_stalled_settle_write(
+    monkeypatch: pytest.MonkeyPatch, race: SimpleNamespace
+) -> None:
+    real_save = jobs_module.save_json
+
+    def injected_save(path: Path, value: Any) -> Any:
+        caller = sys._getframe(1).f_code.co_name
+        state = value.get("state") if isinstance(value, dict) else None
+        if caller == "launch_worker" and state == "failed" and len(race.attempts) == 1:
+            raise OSError(28, "No space left on device (injected)")
+        if caller == "settle_job" and not race.reached.is_set():
+            race.reached.set()
+            race.go.wait(20)
+        return real_save(path, value)
+
+    monkeypatch.setattr(jobs_module, "save_json", injected_save)
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock semantics")
+def test_a_settle_holding_the_inode_about_to_be_unlinked_never_marks_a_live_retry_interrupted(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Answer key: sb2/probes/i24_held_stale_inode_settle.py (items 2/4 review, M2). The settle
+    # wins the flock on the failed start's inode and is descheduled after that, inside
+    # settle_job before it reads status.json; the failed start unlinks the held inode and the
+    # retry's live worker locks a fresh one. The settle must not take its held, unlinked inode
+    # as proof: the job stays "running".
+    race = race_of()
+    outcome = run_failed_start_race(tmp_path, monkeypatch, race, stall_after_job_state_in_settle)
+    assert race.reached.is_set(), "the settle never stalled holding the failed start's inode"
+    assert outcome.first.status_code == 503, outcome.first.text
+    assert outcome.retry.status_code == 202, outcome.retry.text
+    assert outcome.new_ino != race.seen["failed_start_ino"], "the retry did not lock a fresh inode"
+    assert outcome.alive, "the retry's worker was judged dead"
+    assert outcome.settled == "running", (
+        f"a live retry's job was settled {outcome.settled!r} from a held, unlinked inode"
+    )
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX flock semantics")
+def test_a_failed_start_whose_failed_write_fails_never_lets_a_stalled_settle_overwrite_the_retry(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Answer key: sb2/probes/i24_residual_write_window.py (items 2/4 review, L1). The failed
+    # start's "failed" write fails (full disk), so status.json still says "running" when its lock
+    # is released; another instance's settle wins the lock before the unlink, reads "running",
+    # and is descheduled between its check and its write. Whatever the retry answers, a live
+    # worker's job is never written "interrupted" (it would be resumable: a second paid worker).
+    race = race_of()
+    outcome = run_failed_start_race(
+        tmp_path, monkeypatch, race, failed_write_and_stalled_settle_write
+    )
+    if outcome.retry.status_code == 202 and outcome.alive:
+        assert outcome.settled == "running", (
+            f"a live retry's job was settled {outcome.settled!r} (residual write window)"
+        )
+    else:
+        assert outcome.retry.status_code != 202, "the retry's worker was judged dead"
+
+
+def await_left_active_jobs(app: Application, job_id: str) -> bool:
+    """Whether the instance stops watching the job within 5 s."""
+    deadline = time.time() + 5
+    while time.time() < deadline:
+        with app.lock:
+            if job_id not in app.active_jobs:
+                return True
+        time.sleep(0.02)
+    return False
+
+
+def start_recording_worker(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> tuple[Application, Path, TestClient, str, Engine]:
+    """A reviewed run whose started worker records itself and stays until release-all exists.
+    Returns the app (engine = the recording one), the workspace, client, job id, and the
+    application's original engine."""
+    monkeypatch.setattr(jobs_module, "WORKER_POLL", 0.01)
+    app, root, client, job_id = reviewed(tmp_path)
+    good = app.engine
+    app.engine, _ = recording_engines(tmp_path, good)
+    assert start_job(client, job_id).status_code == 202
+    await_text(root / "worker-starts.txt")
+    return app, root, client, job_id, good
+
+
+def test_a_run_folder_removed_while_its_worker_runs_leaves_the_active_jobs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Answer key: sb2/probes/i24_run_folder_gone_stuck_active.py and i24_folder_gone_job_stuck.py
+    # (items 2/4 review, M1; as at base 284b784c): with no run folder there is nothing to
+    # settle, so once the worker exits the job is finished: the next start is not refused (409)
+    # and a quit is not busy.
+    app, root, client, job_id, good = start_recording_worker(tmp_path, monkeypatch)
+    shutil.rmtree(root / "intake" / job_id)
+    (root / "release-all").write_bytes(b"")
+    try:
+        left = await_left_active_jobs(app, job_id)
+        other = review_request(client, '["annual.txt"]')
+        assert other.status_code == 200, other.text
+        app.engine = good
+        started = start_job(client, other.json()["id"])
+        with app.lock:
+            in_flight = len(app.active_jobs)
+    finally:
+        (root / "release-all").write_bytes(b"")
+        drain_apps(app)
+    assert left, "the run stayed in active_jobs after its worker exited"
+    assert started.status_code == 202, started.text
+    assert in_flight <= 1, "the removed run still counts as in flight"
+
+
+@pytest.mark.skipif(
+    sys.platform == "win32" or (hasattr(os, "geteuid") and os.geteuid() == 0),
+    reason="chmod 0400 has no effect on Windows or for root",
+)
+def test_a_read_only_run_lock_is_settled_not_stuck_and_not_logged_on_every_poll(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    # Answer key: sb2/probes/i24_lock_unwritable_stuck_active.py (items 2/4 review, M1,
+    # scenario B): worker.lock opens read-only but not read-write. The job is settled once the
+    # worker exits (as at base), not kept active; at WORKER_POLL 0.01 s a warning per poll would
+    # be hundreds of records, so at most a few are allowed.
+    app, root, _, job_id, _ = start_recording_worker(tmp_path, monkeypatch)
+    folder = root / "intake" / job_id
+    os.chmod(folder / "worker.lock", 0o400)
+    try:
+        with caplog.at_level(logging.WARNING, logger="issuer_library"):
+            (root / "release-all").write_bytes(b"")
+            left = await_left_active_jobs(app, job_id)
+            time.sleep(0.3)  # Thirty more polls if it is still being watched.
+        settled = state_of(folder)["state"]
+    finally:
+        os.chmod(folder / "worker.lock", 0o600)
+        (root / "release-all").write_bytes(b"")
+        drain_apps(app)
+    warnings = [r for r in caplog.records if r.levelno >= logging.WARNING]
+    assert left, "the run stayed in active_jobs after its worker exited"
+    assert settled != "running", f"the job was left {settled!r}"
+    assert len(warnings) <= 3, f"{len(warnings)} warnings logged over a few polls"
 
 
 @pytest.mark.parametrize(
