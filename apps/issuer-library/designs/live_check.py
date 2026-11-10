@@ -37,7 +37,6 @@ from faults import redact
 
 HERE = Path(__file__).resolve().parent
 R = HERE.parents[2]
-PORT = 53920
 KEYS = tuple(runpy.run_path(str(R / "src/deploy_workflow/model/redact.py"))["KEY_ENV_NAMES"])
 # The adapter's KEY_VARIABLES values (a test pins it); GitHub tokens are not provider keys.
 PROVIDER_KEYS = (
@@ -550,7 +549,7 @@ def check_review(page: Any, args: argparse.Namespace) -> list[str]:
 
 def fill_form(page: Any, args: argparse.Namespace) -> None:
     expect = importlib.import_module("playwright.sync_api").expect
-    page.goto(f"http://127.0.0.1:{PORT}/")
+    page.goto(f"http://127.0.0.1:{args.port}/")
     page.wait_for_selector("#library-new-run", timeout=30000)
     page.click("#library-new-run")
     frame = page.frame_locator("#context-editor")
@@ -685,13 +684,13 @@ def run_walk(
     engine = HERE / "fake_engine" if args.rehearse else R / "apps/issuer-library/engine"
     server = dog = None
     try:
-        server = bc.serve(
+        server, port = bc.serve_free(
             ws,
-            PORT,
             engine,
             key="not-a-real-key" if args.rehearse else None,
             extra=held,
         )
+        args.port = port  # the free port the server took; the form and the walks use it
         dog = arm_watchdog(server)
         with sync_playwright() as driver:
             browser = bc.SignedBrowser(driver.chromium.launch(**bc.engine_options()["chromium"]))
@@ -700,7 +699,7 @@ def run_walk(
             finally:
                 browser.close()
             if args.case_data:
-                single_run_walks(bc, driver, ws, summary)
+                single_run_walks(bc, driver, ws, summary, port)
     finally:
         ignore_signals()  # teardown must finish
         try:
@@ -714,18 +713,26 @@ def run_walk(
             report_spend(bc, ws, summary)
 
 
-def single_run_walks(bc: Any, driver: Any, ws: Path, summary: dict[str, Any]) -> None:
+def single_run_walks(bc: Any, driver: Any, ws: Path, summary: dict[str, Any], port: int) -> None:
     """The real-workspace walk over this workspace's one run, in both engines (browser_check)."""
     if not summary["run_id"]:  # the run never completed: nothing to read
         summary["real_workspace_walk"] = "not run: the run did not complete"
         return
     for name, options in bc.engine_options().items():
-        browser = bc.SignedBrowser(getattr(driver, name).launch(**options))
+        try:
+            browser = bc.SignedBrowser(getattr(driver, name).launch(**options))
+        except Exception as error:  # noqa: BLE001
+            # Recorded, not hidden: a FAIL line and an "exception" fault name the engine and the
+            # error; the other engine still walks.
+            detail = f"{type(error).__name__}: {str(error)[:600]}"
+            bc.note(False, f"{name}-single-run: launch failed: {detail}", fault=False)
+            bc.FAULTS.add(f"{name}-single-run", "exception", detail)
+            continue
         try:
             bc.attempt(
                 f"{name}-single-run",
                 browser,
-                lambda: bc.single_run_walk(browser, name, PORT, ws),  # noqa: B023
+                lambda: bc.single_run_walk(browser, name, port, ws),  # noqa: B023
             )
         finally:
             browser.close()
